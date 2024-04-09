@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace Cebv.core.network;
+namespace Cebv.core.domain;
 
 public class HttpClientHandler
 {

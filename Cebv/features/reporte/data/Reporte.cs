@@ -9,7 +9,12 @@ public class ReporteWrapped
     public List<Reporte> data { get; set; }
 }
 
-public class Reporte
+public class ReporteById
+{
+    public Reporte data { get; set; }
+}
+
+public sealed record Reporte
 {
     [property: JsonPropertyName("id")] public int? Id { get; set; }
 

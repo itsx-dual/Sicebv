@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Text.Json;
 using Cebv.features.dashboard.data;
-using HttpClientHandler = Cebv.core.network.HttpClientHandler;
+using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.features.dashboard.domain;
 

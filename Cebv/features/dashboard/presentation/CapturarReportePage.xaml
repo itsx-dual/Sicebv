@@ -7,6 +7,7 @@
       xmlns:data="clr-namespace:Cebv.features.dashboard.data"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -17,7 +18,8 @@
         <ui:NavigationView PaneDisplayMode="Top">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Content="Reporte"
-                                       Icon="{ui:SymbolIcon Document24}"/>
+                                       Icon="{ui:SymbolIcon Document24}"
+                                       TargetPageType="{x:Type presentation:ReporteFormularioPage}"/>
                 <ui:NavigationViewItem Content="Reportante"
                                        Icon="{ui:SymbolIcon PersonFeedback24}"/>
                 <ui:NavigationViewItem Content="Personas desaparecidas"

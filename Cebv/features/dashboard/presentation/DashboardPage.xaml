@@ -33,6 +33,7 @@
                     TargetPageType="{x:Type local:Inicio}"/>
                 
                 <ui:NavigationViewItemSeparator/>
+                
                 <ui:NavigationViewItem
                     Content="Reportes de desaparición"
                     Icon="{ui:SymbolIcon Library24}"

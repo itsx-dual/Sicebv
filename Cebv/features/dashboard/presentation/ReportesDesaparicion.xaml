@@ -51,7 +51,6 @@
                         </DataTemplate>
                     </ui:ListView.ItemTemplate>
                 </ui:ListView>
-                
             </Border>
         </StackPanel>
     </Grid>
