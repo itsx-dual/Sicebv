@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IzaBQuA6lV9QMVIj9Qda16GHT0Ovi0VxckkajZYa2nR9k35N9neij6dPy7Dt4FOFJyC8KFkTOmS6icdUnT0EXg==",
+  "dgSpecHash": "GflJFtM1MZShF4GjiP9jpU46tJY9XXl/Zp6y3oehZP7DdXApGmpab6y10ueav7BDUbLtbghXOQ5O8ejOw7ojeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rght_\\RiderProjects\\Cebv\\Cebv\\Cebv.csproj",
+  "projectFilePath": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rght_\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512",
     "C:\\Users\\rght_\\.nuget\\packages\\wpf-ui\\3.0.3\\wpf-ui.3.0.3.nupkg.sha512"

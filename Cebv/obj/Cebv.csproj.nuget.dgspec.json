@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rght_\\RiderProjects\\Cebv\\Cebv\\Cebv.csproj": {}
+    "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rght_\\RiderProjects\\Cebv\\Cebv\\Cebv.csproj": {
+    "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rght_\\RiderProjects\\Cebv\\Cebv\\Cebv.csproj",
+        "projectUniqueName": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
         "projectName": "Cebv",
-        "projectPath": "C:\\Users\\rght_\\RiderProjects\\Cebv\\Cebv\\Cebv.csproj",
+        "projectPath": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
         "packagesPath": "C:\\Users\\rght_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rght_\\RiderProjects\\Cebv\\Cebv\\obj\\",
+        "outputPath": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\rght_\\AppData\\Roaming\\NuGet\\NuGet.Config"
