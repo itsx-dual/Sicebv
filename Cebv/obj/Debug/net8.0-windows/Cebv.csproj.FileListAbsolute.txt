@@ -61,3 +61,5 @@ C:\Users\tanil\RiderProjects\Sicebv\Cebv\obj\Debug\net8.0-windows\features\dashb
 C:\Users\tanil\RiderProjects\Sicebv\Cebv\obj\Debug\net8.0-windows\features\dashboard\presentation\Inicio.baml
 C:\Users\tanil\RiderProjects\Sicebv\Cebv\obj\Debug\net8.0-windows\features\dashboard\presentation\ReportesDesaparicion.g.cs
 C:\Users\tanil\RiderProjects\Sicebv\Cebv\obj\Debug\net8.0-windows\features\dashboard\presentation\ReportesDesaparicion.baml
+C:\Users\tanil\RiderProjects\Sicebv\Cebv\obj\Debug\net8.0-windows\features\dashboard\presentation\CapturarReportePage.g.cs
+C:\Users\tanil\RiderProjects\Sicebv\Cebv\obj\Debug\net8.0-windows\features\dashboard\presentation\CapturarReportePage.baml

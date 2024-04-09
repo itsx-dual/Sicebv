@@ -31,10 +31,17 @@
                     Content="Dashboard"
                     Icon="{ui:SymbolIcon Home24}"
                     TargetPageType="{x:Type local:Inicio}"/>
+                
+                <ui:NavigationViewItemSeparator/>
                 <ui:NavigationViewItem
                     Content="Reportes de desaparición"
                     Icon="{ui:SymbolIcon Library24}"
                     TargetPageType="{x:Type local:ReportesDesaparicion}"/>
+                
+                <ui:NavigationViewItem
+                    Content="Capturar reporte de desaparición"
+                    Icon="{ui:SymbolIcon Pen24}"
+                    TargetPageType="{x:Type local:CapturarReportePage}"/>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cebv")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86fb4103996b18b27280865a128a5971e69ab921")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f152f69e75dc34607170b9bd1385066a16b26e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cebv")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cebv")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
