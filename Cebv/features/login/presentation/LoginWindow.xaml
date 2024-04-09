@@ -1,0 +1,49 @@
+<ui:FluentWindow x:Class="Cebv.features.login.presentation.LoginWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:presentation="clr-namespace:Cebv.features.login.presentation"
+                 mc:Ignorable="d"
+                 Height="600"
+                 Width="450"
+                 WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <presentation:LoginViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Title="Inicio de Sesión" />
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Usario" Margin="20 10 20 0" />
+            <ui:TextBox
+                Width="250"
+                Margin="10"
+                PlaceholderText="Usuario"
+                Text="{Binding Username}" />
+
+            <TextBlock Text="Contraseña" Margin="20 10 20 0" />
+            <ui:PasswordBox PasswordChanged="PassRawPassword"
+                            Icon="Password24"
+                            Width="250"
+                            Margin="10"
+                            PlaceholderText="Contraseña" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+            <ui:Button
+                Appearance="Primary"
+                Width="250"
+                Margin="10"
+                Content="Continuar"
+                Command="{Binding IniciarSesionCommand}" />
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>
