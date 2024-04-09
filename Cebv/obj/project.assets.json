@@ -103,24 +103,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rght_\\.nuget\\packages\\": {}
+    "C:\\Users\\tanil\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
+      "projectUniqueName": "C:\\Users\\tanil\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
       "projectName": "Cebv",
-      "projectPath": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
-      "packagesPath": "C:\\Users\\rght_\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\obj\\",
+      "projectPath": "C:\\Users\\tanil\\RiderProjects\\Sicebv\\Cebv\\Cebv.csproj",
+      "packagesPath": "C:\\Users\\tanil\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tanil\\RiderProjects\\Sicebv\\Cebv\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rght_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\tanil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -167,7 +169,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\rght_\\.dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

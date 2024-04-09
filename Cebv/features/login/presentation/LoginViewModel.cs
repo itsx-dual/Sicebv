@@ -1,4 +1,9 @@
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using Cebv.app.data;
+using Cebv.app.presentation;
+using Cebv.features.dashboard.presentation;
 using Cebv.features.login.data;
 using Cebv.features.login.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -16,6 +21,7 @@ public partial class LoginViewModel : ObservableObject
 
     [ObservableProperty] private string _errorMessage;
 
+
     [RelayCommand]
     private async void IniciarSesion()
     {
@@ -23,11 +29,7 @@ public partial class LoginViewModel : ObservableObject
 
         if (result is TokenWrapped)
         {
-            Console.WriteLine("Inicia de sesion exitoso");
-        }
-        else
-        {
-            Console.WriteLine("Error al iniciar sesión");
+            BroadCast.Message("inicio exitoso");
         }
     }
 }

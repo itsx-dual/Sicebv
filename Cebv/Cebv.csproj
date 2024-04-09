@@ -21,4 +21,9 @@
       <PackageReference Include="WPF-UI" Version="3.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="assets\images\logo_letras.png" />
+      <Resource Include="assets\images\logo_letras.png" />
+    </ItemGroup>
+
 </Project>
