@@ -14,6 +14,7 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Remove="obj\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,6 +25,15 @@
     <ItemGroup>
       <None Remove="assets\images\logo_letras.png" />
       <Resource Include="assets\images\logo_letras.png" />
+      <None Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="obj\**" />
     </ItemGroup>
 
 </Project>
