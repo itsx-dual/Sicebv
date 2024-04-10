@@ -7,6 +7,9 @@
 /Cebv/obj/*
 /Cebv/bin/*
 
+### Ignore .idea
+.idea
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml

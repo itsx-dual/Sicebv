@@ -13,11 +13,11 @@
       d:DesignHeight="768"
       Title="LoginPage">
     <Page.DataContext>
-        <local:LoginViewModel/>
+        <local:LoginViewModel />
     </Page.DataContext>
     <Grid>
-        <ui:TitleBar Title="Inicio de sesión"/>
-        
+        <ui:TitleBar Title="Inicio de sesión" />
+
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <ui:TextBlock HorizontalAlignment="Center"
@@ -32,11 +32,11 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                     <Grid>
-                        <ui:Image Source="/assets/images/logo_letras.png"
+                        <ui:Image Source="/assets/images/icon_cebv.png"
                                   Width="300"
-                                  Margin="5"/>
+                                  Margin="5" />
                     </Grid>
-                    
+
                     <Grid HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           Width="300">
@@ -45,24 +45,24 @@
                                         Text="{Binding Username}"
                                         PlaceholderText="Usuario"
                                         Icon="{ui:SymbolIcon Person32}"
-                                        Margin="5"/>
-                            
+                                        Margin="5" />
+
                             <ui:PasswordBox PlaceholderEnabled="True"
                                             PlaceholderText="Contraseña"
                                             Icon="{ui:SymbolIcon Password24}"
                                             IconPlacement="Left"
                                             PasswordChanged="PasswordBoxChanged"
-                                            Margin="5"/>
-                            
+                                            Margin="5" />
+
                             <ui:Button Appearance="Primary"
                                        Margin="5"
                                        Width="290"
                                        Command="{Binding IniciarSesionCommand}"
-                                       Content="Iniciar sesión"/>
+                                       Content="Iniciar sesión" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-                
+
             </Border>
         </StackPanel>
     </Grid>

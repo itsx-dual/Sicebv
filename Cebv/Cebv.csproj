@@ -26,6 +26,8 @@
       <None Remove="assets\images\logo_letras.png" />
       <Resource Include="assets\images\logo_letras.png" />
       <None Remove="obj\**" />
+      <None Remove="assets\images\icon_cebv.png" />
+      <Resource Include="assets\images\icon_cebv.png" />
     </ItemGroup>
 
     <ItemGroup>
