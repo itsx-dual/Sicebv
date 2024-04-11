@@ -30,6 +30,10 @@ public partial class LoginViewModel : ObservableObject
         if (result is TokenWrapped)
         {
             BroadCast.Message("inicio exitoso");
+            var dashboard = new DashboardWindow();
+            var currentWindow = Application.Current.MainWindow;
+            dashboard.Show();
+            currentWindow.Close();
         }
     }
 }

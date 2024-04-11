@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
       xmlns:data="clr-namespace:Cebv.features.dashboard.data"
       mc:Ignorable="d"
+      Loaded="CapturarReportePage_OnLoaded"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -15,7 +16,8 @@
       d:DesignHeight="768"
       Title="CapturarReportePage">
     <Grid>
-        <ui:NavigationView PaneDisplayMode="Top">
+        <ui:NavigationView x:Name="FormularioReportesNavigationView"
+                           PaneDisplayMode="Top">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Content="Reporte"
                                        Icon="{ui:SymbolIcon Document24}"
@@ -24,6 +26,9 @@
                                        Icon="{ui:SymbolIcon PersonFeedback24}"/>
                 <ui:NavigationViewItem Content="Personas desaparecidas"
                                        Icon="{ui:SymbolIcon PersonSearch24}"/>
+                <ui:NavigationViewItem Content="Señas particulares"
+                                       Icon="{ui:SymbolIcon Accessibility24}"
+                                       TargetPageType="{x:Type local:SenasParticualresPage}"/>
             </ui:NavigationView.MenuItems>
             
         </ui:NavigationView>

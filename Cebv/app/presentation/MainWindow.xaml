@@ -9,7 +9,6 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
-        WindowCornerPreference="Default"
         WindowStartupLocation="CenterScreen"
         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
         ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"

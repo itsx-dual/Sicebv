@@ -11,7 +11,6 @@ public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableObject _currentPage;
     private LoginViewModel _loginViewModel;
-    public event PropertyChangedEventHandler PropertyChanged;
 
     public MainWindowViewModel()
     {
