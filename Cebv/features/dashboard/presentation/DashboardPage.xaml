@@ -18,7 +18,11 @@
     </Page.DataContext>
     <Grid>
         <ui:TitleBar x:Name="Titulo" 
-            Title="{Binding Usuario.name}"/>
+                     Title="Comisión Estatal de Búsqueda de Personas">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
         
         <ui:NavigationView
             x:Name="MainNavigationView"    
