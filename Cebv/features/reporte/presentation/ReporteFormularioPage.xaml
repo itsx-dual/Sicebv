@@ -13,7 +13,7 @@
       d:DesignHeight="768"
       Title="ReporteFormularioPage">
     <Page.DataContext>
-        <local:ReporteViewModel/>
+        <local:ReporteViewModel />
     </Page.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10">

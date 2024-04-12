@@ -5,12 +5,30 @@ using System.Text.Json;
 using Cebv.core.data;
 using Cebv.features.reporte.data;
 using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
+using CommunityToolkit.Diagnostics;
 
 namespace Cebv.features.reportante.domain;
 
 public class ReportanteNetwork
 {
     private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+
+    public static async Task<Object> GetReporte(int reporteId)
+    {
+        Guard.IsGreaterThan(reporteId, 1);
+        var request = await Client.GetAsync($"api/reportes/{reporteId}");
+        var response = await request.Content.ReadAsStringAsync();
+
+        ReporteById? jsonResponse = JsonSerializer.Deserialize<ReporteById>(response);
+
+        Reporte reporte;
+
+        Guard.IsNotNull(jsonResponse);
+
+        reporte = jsonResponse.data;
+
+        return reporte;
+    }
 
     public static async Task<Object> GetParentescos()
     {
@@ -28,15 +46,15 @@ public class ReportanteNetwork
     }
 
     public static async Task PostReportante(
-        int? reporteId,
-        int? personaId = null,
-        int? parentescoId = null,
-        bool? denunciaAnonima = null,
-        bool? informacionConsentimiento = null,
-        bool? informacionExclusivaBusqueda = null,
-        bool? publicacionRegistroNacional = null,
-        bool? publicacionBoletin = null,
-        bool? pertenenciaColectivo = null,
+        int reporteId,
+        int personaId,
+        int parentescoId,
+        bool denunciaAnonima,
+        bool informacionConsentimiento,
+        bool informacionExclusivaBusqueda,
+        bool publicacionRegistroNacional,
+        bool publicacionBoletin,
+        bool pertenenciaColectivo,
         string? nombreColectivo = null,
         string? informacionRelevante = null)
     {
@@ -68,13 +86,21 @@ public class ReportanteNetwork
         Console.WriteLine($"{jsonResponse}\n");
     }
 
-    public static async Task<Object> GetOpcionesBooleanas()
+    public static async Task PostArea(string nombreArea)
     {
-        Dictionary<bool, string> opcionesBooleanas = new Dictionary<bool, string>();
+        using StringContent jsonContent = new(
+            JsonSerializer.Serialize(new
+            {
+                nombre = nombreArea,
+            }),
+            Encoding.UTF8,
+            "application/json");
 
-        opcionesBooleanas.Add(true, "Sí");
-        opcionesBooleanas.Add(false, "No");
+        using HttpResponseMessage response = await Client.PostAsync(
+            "api/areas",
+            jsonContent);
 
-        return opcionesBooleanas;
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"{jsonResponse}\n");
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using Cebv.features.desaparecido.data;
 using Cebv.features.reportante.data;
@@ -6,7 +7,8 @@ namespace Cebv.features.reporte.data;
 
 public class ReporteWrapped
 {
-    public List<Reporte> data { get; set; }
+    [property: JsonPropertyName("data")]
+    public List<Reporte> Data { get; set; } = null!;
 }
 
 public class ReporteById
@@ -16,7 +18,7 @@ public class ReporteById
 
 public sealed record Reporte
 {
-    [property: JsonPropertyName("id")] public int? Id { get; set; }
+    [property: JsonPropertyName("id")] public int Id { get; set; }
 
     [property: JsonPropertyName("tipo_reporte_id")]
     public int? TipoReporteId { get; set; }
@@ -46,7 +48,7 @@ public sealed record Reporte
     public string? ClasificacionPersona { get; set; }
 
     [property: JsonPropertyName("reportantes")]
-    public List<Reportante>? Reportantes { get; set; }
+    public ObservableCollection<Reportante> Reportantes { get; set; }
 
     [property: JsonPropertyName("desaparecidos")]
     public List<Desaparecido>? Desaparecidos { get; set; }
