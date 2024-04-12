@@ -1,0 +1,18 @@
+// @no-log
+GET 187.251.212.146:18080/api/desaparecidos
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "reporte_id": 5,
+  "persona_id": 5,
+  "parentesco_id": 4,
+  "denuncia_anonima": true,
+  "informacion_consentimiento": true,
+  "informacion_exclusiva_busqueda": true,
+  "publicacion_registro_nacional": true,
+  "publicacion_boletin": true,
+  "pertenencia_colectivo": true,
+  "nombre_colectivo": "Guadalajara",
+  "informacion_relevante": "hola"
+}

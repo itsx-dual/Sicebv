@@ -5,24 +5,27 @@
              xmlns:presentation="clr-namespace:Cebv.features.login.presentation"
              xmlns:presentation1="clr-namespace:Cebv.features.dashboard.presentation"
              StartupUri="app/presentation/MainWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Light" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <DataTemplate DataType="{x:Type presentation:LoginViewModel}">
-                <presentation:LoginPage/>
+                <presentation:LoginPage />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type presentation1:DashboardViewModel}">
-                <presentation1:DashboardPage/>
+                <presentation1:DashboardPage />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type presentation1:ReportesDesaparicionViewModel}">
-                <presentation1:ReportesDesaparicion/>
+                <presentation1:ReportesDesaparicion />
             </DataTemplate>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

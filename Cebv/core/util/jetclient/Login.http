@@ -1,0 +1,8 @@
+// @no-log
+POST 187.251.212.146:18080/api/token?email=test@example.com&password=password&token_name=desktop
+Content-Type: application/json
+
+
+> {%
+    client.global.set("auth_token", response.body.data.plain_text_token);
+%}

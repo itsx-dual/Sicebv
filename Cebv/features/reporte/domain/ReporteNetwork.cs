@@ -13,7 +13,7 @@ public class ReporteNetwork
 {
     private static HttpClient Client => HttpClientHandler.SharedClientHandler;
 
-    public static async Task<ReporteWrapped> GetReportes()
+    public static async Task<ReporteWrapped?> GetReportes()
     {
         var request = await Client.GetAsync("api/reportes");
 

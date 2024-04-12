@@ -9,6 +9,6 @@ public class CatalogoWrapped
 
 public class Catalogo
 {
-    [property: JsonPropertyName("id")] public int? Id { get; set; }
+    [property: JsonPropertyName("id")] public int Id { get; set; }
     [property: JsonPropertyName("nombre")] public string? Nombre { get; set; }
 }
