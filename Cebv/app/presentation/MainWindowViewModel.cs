@@ -13,8 +13,6 @@ public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableObject _currentPage;
     private LoginViewModel _loginViewModel;
-    private ReportanteFeedViewModel _reportanteFeedViewModel;
-    public event PropertyChangedEventHandler PropertyChanged;
 
     public MainWindowViewModel()
     {

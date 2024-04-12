@@ -1,14 +1,10 @@
-﻿using System.Windows;
-using Cebv.app.presentation;
-using Cebv.core.services;
-using Cebv.features.dashboard.presentation;
-using Cebv.features.login.presentation;
-using Cebv.features.reportante.presentation;
-using Cebv.features.reporte.domain;
-using Cebv.features.reporte.presentation;
+using System.Configuration;
+using System.Data;
+using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ReporteService = Cebv.core.services.ReporteService;
+
 
 namespace Cebv;
 
@@ -17,4 +13,5 @@ namespace Cebv;
 /// </summary>
 public partial class App : Application
 {
+    
 }

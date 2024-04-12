@@ -10,6 +10,7 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
+      Loaded="DashboardPage_OnLoaded"
       d:DesignHeight="768"
       Title="DashboardPage">
     <Page.DataContext>
@@ -20,29 +21,36 @@
             Title="{Binding Usuario.name}"/>
         
         <ui:NavigationView
-                IsBackButtonVisible="Auto"
+            x:Name="MainNavigationView"    
+            IsBackButtonVisible="Auto"
                 IsPaneToggleVisible="True"
                 TitleBar="{Binding ElementName=Titulo, Mode=OneWay}"
                 PaneDisplayMode="Left"
-                PaneTitle="Opciones">
+                PaneTitle="Dashboard">
         
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
-                    Content="Dashboard"
+                    Content="Inicio"
                     Icon="{ui:SymbolIcon Home24}"
                     TargetPageType="{x:Type local:Inicio}"/>
                 
                 <ui:NavigationViewItemSeparator/>
                 
-                <ui:NavigationViewItem
-                    Content="Reportes de desaparición"
-                    Icon="{ui:SymbolIcon Library24}"
-                    TargetPageType="{x:Type local:ReportesDesaparicion}"/>
+                <ui:NavigationViewItem Content="Reportes de desaparición"
+                                       Icon="{ui:SymbolIcon News24}">
+                    <ui:NavigationViewItem.MenuItems>
+                        <ui:NavigationViewItem
+                            Content="Consulta"
+                            Icon="{ui:SymbolIcon Library24}"
+                            TargetPageType="{x:Type local:ReportesDesaparicion}"/>
+                        
+                        <ui:NavigationViewItem
+                            Content="Capturar reporte de desaparición"
+                            Icon="{ui:SymbolIcon Pen24}"
+                            TargetPageType="{x:Type local:CapturarReportePage}"/>
+                    </ui:NavigationViewItem.MenuItems>
+                </ui:NavigationViewItem>
                 
-                <ui:NavigationViewItem
-                    Content="Capturar reporte de desaparición"
-                    Icon="{ui:SymbolIcon Pen24}"
-                    TargetPageType="{x:Type local:CapturarReportePage}"/>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem

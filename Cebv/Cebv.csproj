@@ -20,8 +20,9 @@
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.2" />
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.3.24172.9" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0-preview.3.24172.9" />
       <PackageReference Include="WPF-UI" Version="3.0.3" />
     </ItemGroup>
 
@@ -31,6 +32,20 @@
       <None Remove="obj\**" />
       <None Remove="assets\images\icon_cebv.png" />
       <Resource Include="assets\images\icon_cebv.png" />
+      <None Remove="assets\images\senas\azul.png" />
+      <Resource Include="assets\images\senas\azul.png" />
+      <None Remove="assets\images\senas\Cuerpo MapingSide.png" />
+      <Resource Include="assets\images\senas\Cuerpo MapingSide.png" />
+      <None Remove="assets\images\senas\CuerpoUNIXMejorado.png" />
+      <Resource Include="assets\images\senas\CuerpoUNIXMejorado.png" />
+      <None Remove="assets\images\senas\Minus CuerpoUNIXMejorado.png" />
+      <Resource Include="assets\images\senas\Minus CuerpoUNIXMejorado.png" />
+      <None Remove="assets\images\senas\Minus loadIcon.png" />
+      <Resource Include="assets\images\senas\Minus loadIcon.png" />
+      <None Remove="assets\images\senas\Minus RegionCuerpoColorMejorado.png" />
+      <Resource Include="assets\images\senas\Minus RegionCuerpoColorMejorado.png" />
+      <None Remove="assets\images\senas\RegionCuerpoColorMejorado.png" />
+      <Resource Include="assets\images\senas\RegionCuerpoColorMejorado.png" />
     </ItemGroup>
 
     <ItemGroup>

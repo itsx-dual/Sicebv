@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
+      Loaded="CapturarReportePage_OnLoaded"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.reportante.presentation"
@@ -15,7 +16,8 @@
       d:DesignHeight="768"
       Title="CapturarReportePage">
     <Grid>
-        <ui:NavigationView PaneDisplayMode="Top">
+        <ui:NavigationView x:Name="FormularioReportesNavigationView"
+                           PaneDisplayMode="Top">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Content="Reporte"
                                        Icon="{ui:SymbolIcon Document24}"
@@ -26,6 +28,10 @@
                 <ui:NavigationViewItem Content="Personas desaparecidas"
                                        Icon="{ui:SymbolIcon PersonBoard28}"
                                        TargetPageType="{x:Type presentation2:DesaparecidoPage}"/>
+
+                <ui:NavigationViewItem Content="Señas particulares"
+                                       Icon="{ui:SymbolIcon Accessibility24}"
+                                       TargetPageType="{x:Type local:SenasParticualresPage}"/>
             </ui:NavigationView.MenuItems>
             
         </ui:NavigationView>
