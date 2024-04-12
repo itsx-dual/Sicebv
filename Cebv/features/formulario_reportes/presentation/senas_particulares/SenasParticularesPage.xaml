@@ -1,0 +1,188 @@
+<Page x:Class="Cebv.features.formulario_reportes.presentation.senas_particulares.SenasParticularesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
+      mc:Ignorable="d"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_reportes.presentation"
+      xmlns:senasParticulares="clr-namespace:Cebv.features.formulario_reportes.presentation.senas_particulares"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1024"
+      d:DesignHeight="800"
+      Title="SenasParticualresPage">
+    <Page.DataContext>
+        <senasParticulares:SenasParticularesViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Grid.Column="0"
+              Margin="10"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Center">
+
+            <ui:Image Source="/assets/images/senas/Cuerpo MapingSide.png"
+                      x:Name="LadoImage"
+                      CornerRadius="8"
+                      Stretch="Uniform" />
+
+            <ui:Image Source="/assets/images/senas/RegionCuerpoColorMejorado.png"
+                      x:Name="RegionCuerpoImage"
+                      CornerRadius="8"
+                      Stretch="Uniform" />
+
+            <ui:Image Source="/assets/images/senas/CuerpoUNIXMejorado.png"
+                      MouseDown="Image_MouseDown"
+                      CornerRadius="8"
+                      BorderBrush="#000000"
+                      Stretch="Uniform"/>
+        </Grid>
+
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              Grid.ColumnSpan="2">
+            <StackPanel>
+                <ui:TextBlock Text="Persona desaparecida o no localizada:"
+                              Margin="10,10,0,0" />
+                <ComboBox Margin="5,0,5,0"/>
+                
+                <!-- Region cuerpo -->
+                <ui:TextBlock Text="Región del cuerpo:"
+                              Margin="10,10,0,0" />
+                <ComboBox Margin="5,0,5,0"
+                          SelectedValuePath="Key"
+                          DisplayMemberPath="Value.nombre"
+                          SelectedValue="{Binding ColorRegionCuerpo}"
+                          ItemsSource="{Binding RegionCuerpo}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <!-- Tipo de seña -->
+                        <ui:TextBlock Text="Tipo de seña:"
+                                      Margin="10,10,0,0"/>
+                        <ComboBox Margin="5,0,5,0"
+                                  DisplayMemberPath="nombre"
+                                  SelectedIndex="7"
+                                  SelectedValue="{Binding TipoSenasSelected}"
+                                  ItemsSource="{Binding TipoSenas}" />
+
+                        <!-- Vista -->
+                        <ui:TextBlock Text="Vista:"
+                                      Margin="10,10,0,0"/>
+                        <ComboBox Margin="5,0,5,0"
+                                  DisplayMemberPath="nombre"
+                                  SelectedIndex="2"
+                                  SelectedValue="{Binding VistaSenasSelected}"
+                                  ItemsSource="{Binding VistaSenas}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <ui:TextBlock Text="Lado:"
+                                   Margin="10,10,0,0"/>
+                        <ComboBox Margin="5,0,5,0"
+                                  SelectedValuePath="Key"
+                                  DisplayMemberPath="Value.nombre"
+                                  SelectedValue="{Binding ColorLado}"
+                                  ItemsSource="{Binding LadoSenas}" />
+
+                        <!-- Cantidad -->
+                        <ui:TextBlock Text="Cantidad:"
+                                   Margin="10,10,0,0"/>
+                        <TextBox Margin="5,0,5,0"
+                                 Text="{Binding Cantidad}"
+                                 PreviewTextInput="VerificarInt" />
+
+                    </StackPanel>
+                </Grid>
+                <!-- Descripcion -->
+                <ui:TextBlock Text="Descripción:"
+                           Margin="10,10,0,0" />
+                <TextBox Margin="10"
+                         VerticalAlignment="Stretch"
+                         Height="100"
+                         Text="{Binding Descripcion}"
+                         TextWrapping="Wrap" />
+                
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="10">
+                    <ui:Button Content="Eliminar"
+                               Margin="5,0,0,0"
+                               Icon="{ui:SymbolIcon Delete24}"
+                               Appearance="Danger"/>
+                    <ui:Button Content="Subir imagen"
+                               Margin="5,0,0,0"
+                               Icon="{ui:SymbolIcon ArrowUpload24}"/>
+                    <ui:Button Content="Agregar registro"
+                               Margin="5,0,0,0"
+                               Command="{Binding InsertarCommand}"
+                               Icon="{ui:SymbolIcon Add24}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        
+        <DataGrid x:Name="tablaDatos" Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  Margin="10"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding SenasParticularesTabla}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Region del cuerpo"
+                                    CanUserResize="False"
+                                    Width="*"
+                                    Binding="{Binding region_cuerpo}" />
+                <DataGridTextColumn Header="Vista"
+                                    CanUserResize="False"
+                                    Width="*"
+                                    Binding="{Binding vista}" />
+                <DataGridTextColumn Header="Lado"
+                                    CanUserResize="False"
+                                    Width="*"
+                                    Binding="{Binding lado}" />
+                <DataGridTextColumn Header="Tipo"
+                                    CanUserResize="False"
+                                    Width="*"
+                                    Binding="{Binding tipo}" />
+                <DataGridTextColumn Header="Cantidad"
+                                    CanUserResize="False"
+                                    Width="*"
+                                    Binding="{Binding cantidad}" />
+                <DataGridTemplateColumn Header="Descripción"
+                                        Width="3*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ui:TextBlock Text="{Binding descripcion}"
+                                          TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Fotografia"
+                                    CanUserResize="False"
+                                    Width="*"
+                                    Binding="{Binding foto}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Page>

@@ -16,7 +16,7 @@
         <local:LoginViewModel />
     </Page.DataContext>
     <Grid>
-        <ui:TitleBar Title="Inicio de sesión" />
+        <ui:TitleBar Title="Inicio de sesión"/>
 
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">

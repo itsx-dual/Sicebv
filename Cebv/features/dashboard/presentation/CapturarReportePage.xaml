@@ -9,6 +9,8 @@
       Loaded="CapturarReportePage_OnLoaded"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
+      xmlns:local1="clr-namespace:Cebv.features.formulario_reportes.presentation"
+      xmlns:senasParticulares="clr-namespace:Cebv.features.formulario_reportes.presentation.senas_particulares"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -28,7 +30,7 @@
                                        Icon="{ui:SymbolIcon PersonSearch24}"/>
                 <ui:NavigationViewItem Content="Señas particulares"
                                        Icon="{ui:SymbolIcon Accessibility24}"
-                                       TargetPageType="{x:Type local:SenasParticualresPage}"/>
+                                       TargetPageType="{x:Type senasParticulares:SenasParticularesPage}"/>
             </ui:NavigationView.MenuItems>
             
         </ui:NavigationView>
