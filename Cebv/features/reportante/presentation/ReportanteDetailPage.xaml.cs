@@ -1,11 +1,13 @@
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Cebv.features.reportante.presentation;
 
-public partial class ReportanteFormularioPage : Page
+public partial class ReportanteDetailPage : Page
 {
-    public ReportanteFormularioPage()
+    public ReportanteDetailPage()
     {
         InitializeComponent();
     }
+    
 }

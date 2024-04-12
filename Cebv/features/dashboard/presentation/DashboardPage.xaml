@@ -58,6 +58,5 @@
                     Icon="{ui:SymbolIcon ArrowExit20}"/>
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
-        
     </Grid>
 </Page>

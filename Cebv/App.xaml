@@ -1,28 +1,32 @@
-﻿<Application x:Class="Cebv.App"
+<Application x:Class="Cebv.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:presentation="clr-namespace:Cebv.features.login.presentation"
              xmlns:presentation1="clr-namespace:Cebv.features.dashboard.presentation"
+
              StartupUri="app/presentation/LoginWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <DataTemplate DataType="{x:Type presentation:LoginViewModel}">
-                <presentation:LoginPage/>
+                <presentation:LoginPage />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type presentation1:DashboardViewModel}">
-                <presentation1:DashboardPage/>
+                <presentation1:DashboardPage />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type presentation1:ReportesDesaparicionViewModel}">
-                <presentation1:ReportesDesaparicion/>
+                <presentation1:ReportesDesaparicion />
             </DataTemplate>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
