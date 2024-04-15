@@ -9,6 +9,8 @@
       xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
       xmlns:local1="clr-namespace:Cebv.features.formulario_reportes.presentation"
       xmlns:senasParticulares="clr-namespace:Cebv.features.formulario_reportes.presentation.senas_particulares"
+      xmlns:presentation1="clr-namespace:Cebv.features.reportante.presentation"
+      xmlns:presentation2="clr-namespace:Cebv.features.desaparecido.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"

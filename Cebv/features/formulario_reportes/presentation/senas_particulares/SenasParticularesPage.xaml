@@ -3,11 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
-      xmlns:presentation1="clr-namespace:Cebv.features.formulario_reportes.presentation"
       xmlns:senasParticulares="clr-namespace:Cebv.features.formulario_reportes.presentation.senas_particulares"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -36,17 +33,17 @@
               HorizontalAlignment="Left"
               VerticalAlignment="Center">
 
-            <ui:Image Source="/assets/images/senas/Cuerpo MapingSide.png"
+            <ui:Image Source="/core/assets/images/senas/Cuerpo MapingSide.png"
                       x:Name="LadoImage"
                       CornerRadius="8"
                       Stretch="Uniform" />
 
-            <ui:Image Source="/assets/images/senas/RegionCuerpoColorMejorado.png"
+            <ui:Image Source="/core/assets/images/senas/RegionCuerpoColorMejorado.png"
                       x:Name="RegionCuerpoImage"
                       CornerRadius="8"
                       Stretch="Uniform" />
 
-            <ui:Image Source="/assets/images/senas/CuerpoUNIXMejorado.png"
+            <ui:Image Source="/core/assets/images/senas/CuerpoUNIXMejorado.png"
                       MouseDown="Image_MouseDown"
                       CornerRadius="8"
                       BorderBrush="#000000"
