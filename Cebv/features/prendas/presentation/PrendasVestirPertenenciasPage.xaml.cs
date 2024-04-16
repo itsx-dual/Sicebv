@@ -2,10 +2,12 @@ using System.Windows.Controls;
 
 namespace Cebv.features.Prendas.presentation;
 
-public partial class PrendasVestirPertenencias : Page
+public partial class PrendasVestirPertenenciasPage : Page
 {
-    public PrendasVestirPertenencias()
+    public PrendasVestirPertenenciasPage()
     {
         InitializeComponent();
+        
     }
+    
 }

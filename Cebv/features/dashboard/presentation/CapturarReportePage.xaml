@@ -9,6 +9,7 @@
       xmlns:presentation="clr-namespace:Cebv.features.reporte.presentation"
       xmlns:local1="clr-namespace:Cebv.features.formulario_reportes.presentation"
       xmlns:senasParticulares="clr-namespace:Cebv.features.formulario_reportes.presentation.senas_particulares"
+      xmlns:Prendas="clr-namespace:Cebv.features.Prendas.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.reportante.presentation"
       xmlns:presentation2="clr-namespace:Cebv.features.desaparecido.presentation"
 
@@ -35,6 +36,12 @@
                 <ui:NavigationViewItem Content="Señas particulares"
                                        Icon="{ui:SymbolIcon Accessibility24}"
                                        TargetPageType="{x:Type senasParticulares:SenasParticularesPage}"/>
+                
+                <ui:NavigationViewItem Content="Prendas de vestir y pertenencias"
+                                       Icon="{ui:SymbolIcon PersonTag20}"
+                                       TargetPageType="{x:Type Prendas:PrendasVestirPertenenciasPage}"/>
+                
+
             </ui:NavigationView.MenuItems>
             
         </ui:NavigationView>
