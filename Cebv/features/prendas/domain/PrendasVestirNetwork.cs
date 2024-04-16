@@ -18,6 +18,4 @@ public class PrendasVestirNetwork
         Dictionary<string, PrendaColor> dic = new Dictionary<string, PrendaColor>();
         return dic;
     }
-    
-    
 }
