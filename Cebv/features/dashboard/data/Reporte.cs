@@ -2,12 +2,11 @@ namespace Cebv.features.dashboard.data;
 
 public class Reporte
 {
-    public string? tipo_reporte { get; set; }
-    public string? area_atiende { get; set; }
-    public string? tipo_de_medio { get; set; }
-    public string? medio_conocimiento { get; set; }
-    public string? zona_del_estado { get; set; }
-    public List<string>? reportantes { get; set; }
-    public List<string>? desaparecidos { get; set; }
+    public int? folio_id { get; set; }
+    public int? desaparecido_id { get; set; }
+    public int? persona_id { get; set; }
+    public string? folio_cebv { get; set; }
+    public string? nombre_desaparecido { get; set; }
+    public string? curp_desaparecido { get; set; }
     public DateTime? fecha_desaparicion { get; set; }
 }

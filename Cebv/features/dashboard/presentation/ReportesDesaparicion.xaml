@@ -25,32 +25,14 @@
             <Border Margin="10"
                     Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8">
-                <ui:ListView ItemsSource="{Binding Reportes}">
-                    <ui:ListView.ItemTemplate>
-                        <DataTemplate DataType="{x:Type data:Reporte}">
-                            <Grid Margin="5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TreeView Grid.Column="0"
-                                          AllowDrop="True">
-                                    <TreeViewItem Header="Reportantes"
-                                                  IsExpanded="True"
-                                                  ItemsSource="{Binding reportantes}"/>
-                                </TreeView>
-                                <TreeView Grid.Column="1"
-                                          AllowDrop="True">
-                                    <TreeViewItem Header="Personas desaparecidas"
-                                                  IsExpanded="True"
-                                                  ItemsSource="{Binding desaparecidos}"/>
-                                </TreeView>
-                                <TextBlock Grid.Column="2" Text="{Binding tipo_reporte}"></TextBlock>
-                            </Grid>
-                        </DataTemplate>
-                    </ui:ListView.ItemTemplate>
-                </ui:ListView>
+                <ui:DataGrid ItemsSource="{Binding Reportes}"
+                             AutoGenerateColumns="True">
+                    <ui:DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding folio_cebv}" Header="Folio CEBV"/>
+                        <DataGridTextColumn Binding="{Binding nombre_desaparecido}" Header="Persona desaparecida o no localizada"/>
+                    </ui:DataGrid.Columns>
+                    
+                </ui:DataGrid>
             </Border>
         </StackPanel>
     </Grid>

@@ -26,7 +26,7 @@ public class DashboardNetwork
 
     public static async Task<List<Reporte>> GetReportesRequest()
     {
-        using HttpResponseMessage response = await Client.GetAsync("api/vista/reportes");
+        using HttpResponseMessage response = await Client.GetAsync("api/desaparecidos_folio");
         var jsonResponse = await response.Content.ReadAsStringAsync();
         if ((int)response.StatusCode == 200)
         {

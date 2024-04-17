@@ -16,6 +16,5 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     private async void _cargarReportes()
     {
         Reportes = await DashboardNetwork.GetReportesRequest();
-        Console.WriteLine("siisisis");
     }
 }
