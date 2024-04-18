@@ -22,16 +22,54 @@
                           FontSize="30"
                           FontWeight="SemiBold"
                           Margin="10"/>
-            <Border Margin="10"
+            <Border Margin="0"
                     Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8">
                 <ui:DataGrid ItemsSource="{Binding Reportes}"
-                             AutoGenerateColumns="True">
+                             AutoGenerateColumns="False"
+                             Margin="10"
+                             VerticalAlignment="Center">
                     <ui:DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding folio_cebv}" Header="Folio CEBV"/>
-                        <DataGridTextColumn Binding="{Binding nombre_desaparecido}" Header="Persona desaparecida o no localizada"/>
+                        <DataGridTextColumn Binding="{Binding folio_cebv}" 
+                                            Header="Folio CEBV"
+                                            CanUserResize="True"/>
+                        
+                        <DataGridTextColumn Binding="{Binding nombre_desaparecido}" 
+                                            Header="Reportante"
+                                            Width="*"
+                                            CanUserResize="True"/>
+                        
+                        <DataGridTextColumn Binding="{Binding nombre_desaparecido}" 
+                                            Header="Reportado"
+                                            Width="*"
+                                            CanUserResize="True"/>
+                        
+                        <DataGridTextColumn Binding="{Binding curp_desaparecido}"
+                                            Header="CURP"
+                                            CanUserResize="True"/>
+                        
+                        <DataGridTextColumn Binding="{Binding fecha_desaparicion, StringFormat=d \\de MMMM \\de yyyy&#10;h:mm tt, ConverterCulture=es-MX, TargetNullValue=''}"
+                                            Header="Fecha de desapariciòn"
+                                            CanUserResize="True"/>
+                        
+                        <DataGridTemplateColumn Header="Acciones">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ui:DropDownButton Icon="{ui:SymbolIcon MoreVertical24}"
+                                                       Margin="5">
+                                        <ui:DropDownButton.Flyout>
+                                            <ContextMenu>
+                                                <MenuItem Icon="{ui:SymbolIcon NotepadEdit20}" Header="Editar reporte" />
+                                                <MenuItem Icon="{ui:SymbolIcon DocumentArrowDown20}" Header="Informe de inicio" />
+                                                <MenuItem Icon="{ui:SymbolIcon DocumentRibbon20}" Header="Formato de caratula" />
+                                                <MenuItem Icon="{ui:SymbolIcon Delete20}" Header="Eliminar reporte" />
+                                            </ContextMenu>
+                                        </ui:DropDownButton.Flyout>
+                                    </ui:DropDownButton>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </ui:DataGrid.Columns>
-                    
                 </ui:DataGrid>
             </Border>
         </StackPanel>
