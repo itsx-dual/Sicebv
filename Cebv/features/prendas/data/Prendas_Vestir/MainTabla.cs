@@ -2,28 +2,20 @@ namespace Cebv.features.Prendas.data.Prendas_Vestir;
 
 public class MainTabla
 {
-    public String grupoPertenencias { get; set; }
-    public String pertenencia { get; set; }
-    public String material { get; set; }
-    public String pertenenciaColor { get; set; }
-    public String marca { get; set; }
-    public String descripcion { get; set; }
+    public string GrupoPertenencias { get; set; }
+    public string Pertenencia { get; set; }
+    public string Material { get; set; }
+    public string PertenenciaColor { get; set; }
+    public string Marca { get; set; }
+    public string Descripcion { get; set; }
 
-    public MainTabla
-    (
-        String grupo,
-        String pertenencia,
-        String material,
-        String color,
-        String marca,
-        String descripcion
-    )
+    public MainTabla(string grupo, string pertenencia, string material, string color, string marca, string descripcion)
     {
-        this.grupoPertenencias = grupo;
-        this.pertenencia = pertenencia;
-        this.material = material;
-        this.pertenenciaColor = color;
-        this.marca = marca;
-        this.descripcion = descripcion;
+        this.GrupoPertenencias = grupo;
+        this.Pertenencia = pertenencia;
+        this.Material = material;
+        this.PertenenciaColor = color;
+        this.Marca = marca;
+        this.Descripcion = descripcion;
     }
 }

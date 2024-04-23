@@ -9,7 +9,8 @@ namespace Cebv.features.formulario_reportes.presentation.senas_particulares;
 
 public partial class SenasParticularesViewModel : ObservableObject
 {
-    [ObservableProperty] private TipoSenas _tipoSenasSelected;
+    [ObservableProperty] 
+    private TipoSenas _tipoSenasSelected;
 
     [ObservableProperty]
     private VistaSenas _vistaSenasSelected;
