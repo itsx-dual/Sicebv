@@ -6,12 +6,16 @@
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:prendasVestir="clr-namespace:Cebv.features.prendas.presentation.prendas_vestir"
+      xmlns:prendasVestir1="clr-namespace:Cebv.features.Prendas.presentation.prendas_vestir"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
       d:DesignHeight="800"
       Title="PrendasVestirPertenenciasPage">
+    <Page.DataContext>
+        <prendasVestir1:prendasViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
@@ -34,7 +38,7 @@
                               Margin="10,10,0,0"/>
                 <ComboBox Margin="5,0,5,0"
                           SelectedValue="key"
-                          ItemsSource="{Binding PrendaColor}"/>                     <!---->
+                          ItemsSource="{Binding PrendaColor}"/>
             </StackPanel>
             <StackPanel Margin="10">
                 <!-- Grupo pertenencias -->
@@ -132,7 +136,7 @@
                                         Width="3*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ui:TextBlock Text="{Binding descripcion}"
+                            <ui:TextBlock 
                                           TextWrapping="Wrap"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

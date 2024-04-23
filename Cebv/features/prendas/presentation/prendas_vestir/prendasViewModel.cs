@@ -31,14 +31,15 @@ public partial class prendasViewModel : ObservableObject
     
     public prendasViewModel()
     {
+        PrendaColor = new ObservableCollection<PrendaColor>();
         CargarCatalogos();
     }
 
     private async void CargarCatalogos()
     {
-        PrendaColor = new ObservableCollection<PrendaColor>(await PrendasVestirNetwork.GetCatalogoColor());
-        //var response = await PrendasVestirNetwork.GetCatalogoColor();
-        //PrendaColor = new ObservableCollection<PrendaColor>(response);
+        //PrendaColor = new ObservableCollection<PrendaColor>(await PrendasVestirNetwork.GetCatalogoColor());
+        var response = await PrendasVestirNetwork.GetCatalogoColor();
+        PrendaColor = new ObservableCollection<PrendaColor>(response);
     }
     
     public ObservableCollection<PrendasData> PrendasDatas { get; set; }
