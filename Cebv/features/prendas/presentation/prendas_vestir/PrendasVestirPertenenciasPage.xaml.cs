@@ -7,5 +7,6 @@ public partial class PrendasVestirPertenenciasPage : Page
     public PrendasVestirPertenenciasPage()
     {
         InitializeComponent();
+        DataContext = new PrendasVestirPertenenciasPage();
     }
 }

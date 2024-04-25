@@ -32,18 +32,21 @@ public partial class prendasViewModel : ObservableObject
     public prendasViewModel()
     {
         PrendaColor = new ObservableCollection<PrendaColor>();
+        //Material = new ObservableCollection<Material>();
+        GrupoItems = new Grupo_pertenencias();
         CargarCatalogos();
     }
 
     private async void CargarCatalogos()
     {
-        //PrendaColor = new ObservableCollection<PrendaColor>(await PrendasVestirNetwork.GetCatalogoColor());
         var response = await PrendasVestirNetwork.GetCatalogoColor();
+        //var response0 = await PrendasVestirNetwork.GetCatalogoMaterial();
+        
         PrendaColor = new ObservableCollection<PrendaColor>(response);
+        //Material = new ObservableCollection<Material>(response0);
     }
     
     public ObservableCollection<PrendasData> PrendasDatas { get; set; }
     public ObservableCollection<MainTabla> MainTablas { get; set; }
-    
-    
+    public Grupo_pertenencias GrupoItems { get; set; }
 }
