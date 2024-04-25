@@ -22,6 +22,7 @@
                           FontSize="30"
                           FontWeight="SemiBold"
                           Margin="10"/>
+            
             <Border Margin="0"
                     Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8">
@@ -29,18 +30,24 @@
                              AutoGenerateColumns="False"
                              Margin="10"
                              VerticalAlignment="Center">
+                    <ui:DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler"/>
+                        </Style>
+                    </ui:DataGrid.ItemContainerStyle>
+                    
                     <ui:DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding folio_cebv}" 
                                             Header="Folio CEBV"
                                             CanUserResize="True"/>
                         
                         <DataGridTextColumn Binding="{Binding nombre_desaparecido}" 
-                                            Header="Reportante"
+                                            Header="Reportado"
                                             Width="*"
                                             CanUserResize="True"/>
                         
-                        <DataGridTextColumn Binding="{Binding nombre_desaparecido}" 
-                                            Header="Reportado"
+                        <DataGridTextColumn Binding="{Binding reportante_nombre}" 
+                                            Header="Reportante"
                                             Width="*"
                                             CanUserResize="True"/>
                         
@@ -59,10 +66,13 @@
                                                        Margin="5">
                                         <ui:DropDownButton.Flyout>
                                             <ContextMenu>
-                                                <MenuItem Icon="{ui:SymbolIcon NotepadEdit20}" Header="Editar reporte" />
-                                                <MenuItem Icon="{ui:SymbolIcon DocumentArrowDown20}" Header="Informe de inicio" />
-                                                <MenuItem Icon="{ui:SymbolIcon DocumentRibbon20}" Header="Formato de caratula" />
-                                                <MenuItem Icon="{ui:SymbolIcon Delete20}" Header="Eliminar reporte" />
+                                                <MenuItem Command="{Binding}"
+                                                          CommandParameter="{Binding  reporte_id}"
+                                                          Icon="{ui:SymbolIcon NotepadEdit20}" 
+                                                          Header="Editar reporte"/>
+                                                <MenuItem Icon="{ui:SymbolIcon DocumentArrowDown20}" Header="Informe de inicio"/>
+                                                <MenuItem Icon="{ui:SymbolIcon DocumentRibbon20}" Header="Formato de caratula"/>
+                                                <MenuItem Icon="{ui:SymbolIcon Delete20}" Header="Eliminar reporte"/>
                                             </ContextMenu>
                                         </ui:DropDownButton.Flyout>
                                     </ui:DropDownButton>
