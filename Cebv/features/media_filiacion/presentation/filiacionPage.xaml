@@ -1,0 +1,226 @@
+<Page x:Class="Cebv.features.media_filiacion.presentation.filiacionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Cebv.features.media_filiacion.presentation"
+      mc:Ignorable="d"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1024"
+      d:DesignHeight="800"
+      Title="filiacionPage">
+
+    <Grid Margin="40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="600" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="1"
+                    Margin="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    ESTATURA:
+                </TextBlock>
+                <TextBox Margin="10,0,0,0" MinWidth="380" Width="270"></TextBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    PESO:
+                </TextBlock>
+                <TextBox Margin="10,0,0,0" MinWidth="380" Width="270"></TextBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    COMPLEXIÓN:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    COLOR DE PIEL:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    COLOR DE OJOS:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    FORMA DE OJOS:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    TAMAÑO DE OJOS:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    CUALQUIER ESPECIFICACIÓN DE LOS OJOS:
+                </TextBlock>
+                <TextBox Margin="10,0,0,0" MinWidth="380" Width="270"></TextBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    CALVICIE:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    COLOR DE CABELLO:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    TAMAÑO DE CABELLO:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    TIPO DE CABELLO:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    CUALQUIER ESPECIFICACIÓN DEL CABELLO:
+                </TextBlock>
+                <TextBox Margin="10,0,0,0" MinWidth="380" Width="270"></TextBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    FORMA DE NARIZ:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    BOCA:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    LABIOS:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    TAMAÑO DE OREJAS:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    FORMA DE OREJAS:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    CEJA:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    BIGOTE:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    BARBA:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Style="{DynamicResource TabItemContentTextStyle }"
+                           Margin="10,0,0,0">
+                    FORMA DE LA CARA:
+                </TextBlock>
+                <ComboBox Margin="10,0,0,0" MinWidth="380" Width="270"></ComboBox>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <ui:Button Content="Guardar"
+                       Margin="5,0,0,0"
+                       Height="50"
+                       Width="140"
+                       Appearance="Success" />
+        </StackPanel>
+    </Grid>
+</Page>
