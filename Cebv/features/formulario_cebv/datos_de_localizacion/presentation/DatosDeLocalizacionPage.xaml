@@ -1,0 +1,196 @@
+<Page x:Class="Cebv.features.formulario_cebv.datos_de_localizacion.presentation.DatosDeLocalizacionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1024"
+      d:DesignHeight="768"
+      mc:Ignorable="d"
+      Title="DatosDeLocalizacionPage">
+    <Grid>
+        <StackPanel>
+            <ui:TextBlock Text="Localización"
+                          FontTypography="Title"
+                          Margin="5"/>
+            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                    Margin="5"
+                    CornerRadius="8">
+                <WrapPanel>
+                    <StackPanel MinWidth="200"
+                                Margin="5">
+                        <ui:TextBlock Text="&#x0a;Nueva localización"
+                                      FontTypography="Caption"/>
+                        <DatePicker/>
+                        <ui:TextBlock Text="Dia/Mes/Año"
+                                      FontTypography="Caption"/>
+                    </StackPanel>
+                    
+                    <StackPanel Width="200"
+                                Margin="5">
+                        <ui:TextBlock Text="Estatus conocido de la persona&#x0a;desaparecida o no localizada"
+                                      FontTypography="Caption"/>
+                        <ComboBox/>
+                    </StackPanel>
+                    
+                    <StackPanel Width="200"
+                                Margin="5">
+                        <ui:TextBlock Text="Estatus de la persona&#x0a;desaparecida o no localizada"
+                                      FontTypography="Caption"/>
+                        <ComboBox/>
+                    </StackPanel>
+                    
+                    <StackPanel MinWidth="200"
+                                Margin="5">
+                        <ui:TextBlock Text="&#x0a;Fecha de localización"
+                                      FontTypography="Caption"/>
+                        <DatePicker/>
+                        <ui:TextBlock Text="Dia/Mes/Año"
+                                      FontTypography="Caption"/>
+                    </StackPanel>
+                    
+                    <StackPanel MinWidth="200"
+                                Margin="5">
+                        <ui:TextBlock Text="&#x0a;Fecha de actualizacion de estatus"
+                                      FontTypography="Caption"/>
+                        <DatePicker/>
+                        <ui:TextBlock Text="Dia/Mes/Año"
+                                      FontTypography="Caption"/>
+                    </StackPanel>
+                    
+                    <StackPanel MinWidth="200"
+                                Margin="5">
+                        <ui:TextBlock Text="&#x0a;Síntesis de localización"
+                                      FontTypography="Caption"/>
+                        <ui:TextBox/>
+                        <ui:TextBlock Text=""
+                                      Visibility="Hidden"
+                                      FontTypography="Caption"/>
+                    </StackPanel>
+                    
+                    <StackPanel MinWidth="200"
+                                Margin="5">
+                        <ui:TextBlock Text="&#x0a;Hipervinculo síntesis de localización"
+                                      FontTypography="Caption"/>
+                        <ui:TextBox/>
+                        <ui:TextBlock Text=""
+                                      Visibility="Hidden"
+                                      FontTypography="Caption"/>
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+            
+            <ui:TextBlock Text="Hipótesis de localización"
+                          FontTypography="Title"
+                          Margin="5"/>
+            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                    Margin="5"
+                    CornerRadius="8">
+                <StackPanel>
+                    
+                    <WrapPanel>
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Hipotesis de localizacion (OGPI) 1"
+                                          FontTypography="Caption"/>
+                            <ComboBox/>
+                            <ui:TextBlock Text=""
+                                          Visibility="Hidden"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                        <StackPanel Width="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Clasificación de persona localizada 1"
+                                          FontTypography="Caption"/>
+                            <ComboBox/>
+                        </StackPanel>
+                        
+                        <StackPanel Width="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Hipotesis de localización (OGPI) 2"
+                                          FontTypography="Caption"/>
+                            <ComboBox/>
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Clasificacion de persona localizada"
+                                          FontTypography="Caption"/>
+                            <ui:TextBox/>
+                            <ui:TextBlock Text="Dia/Mes/Año"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Sitio final"
+                                          FontTypography="Caption"/>
+                            <ComboBox/>
+                            <ui:TextBlock Text="Dia/Mes/Año"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Area que codifica inicial"
+                                          FontTypography="Caption"/>
+                            <ui:TextBox/>
+                            <ui:TextBlock Text=""
+                                          Visibility="Hidden"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Hipótesis DEB/FGE"
+                                          FontTypography="Caption"/>
+                            <ui:TextBox/>
+                            <ui:TextBlock Text=""
+                                          Visibility="Hidden"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Status RNPDNO"
+                                          FontTypography="Caption"/>
+                            <ui:TextBox/>
+                            <ui:TextBlock Text=""
+                                          Visibility="Hidden"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="&#x0a;Circunstancia RNPDNO"
+                                          FontTypography="Caption"/>
+                            <ui:TextBox/>
+                            <ui:TextBlock Text=""
+                                          Visibility="Hidden"
+                                          FontTypography="Caption"/>
+                        </StackPanel>
+                        
+                    </WrapPanel>
+                    <StackPanel Margin="5">
+                        <ui:TextBlock Text="&#x0a;Observaciones sobre la actualizacion de status"
+                                      FontTypography="Caption"/>
+                        <ui:TextBox/>
+                        <ui:TextBlock Text=""
+                                      Visibility="Hidden"
+                                      FontTypography="Caption"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <ui:Button Content="Guardar y siguente"
+                       Icon="{ui:SymbolIcon Save24}"
+                       HorizontalAlignment="Stretch"
+                       Appearance="Primary"
+                       Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -6,11 +6,13 @@
       xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
       Loaded="DashboardPage_OnLoaded"
+      SizeChanged="DashboardPage_OnSizeChanged"
       d:DesignHeight="768"
       Title="DashboardPage">
     <Page.DataContext>
@@ -24,13 +26,15 @@
             </ui:TitleBar.Icon>
         </ui:TitleBar>
         
-        <ui:NavigationView
-            x:Name="MainNavigationView"    
-            IsBackButtonVisible="Auto"
-                IsPaneToggleVisible="True"
-                TitleBar="{Binding ElementName=Titulo, Mode=OneWay}"
-                PaneDisplayMode="Left"
-                PaneTitle="Dashboard">
+        <ui:NavigationView x:Name="MainNavigationView"    
+                           IsBackButtonVisible="Auto"
+                           IsPaneToggleVisible="True"
+                           TitleBar="{Binding ElementName=Titulo, Mode=OneWay}"
+                           PaneDisplayMode="Left"
+                           PaneOpened="NavigationView_OnPaneOpened"
+                           PaneClosed="NavigationView_OnPaneClosed"
+                           SelectionChanged="MainNavigationView_OnSelectionChanged"
+                           PaneTitle="Dashboard">
         
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
@@ -39,6 +43,9 @@
                     TargetPageType="{x:Type local:Inicio}"/>
                 
                 <ui:NavigationViewItemSeparator/>
+                
+                <ui:NavigationViewItem Content="Prueba"
+                                       TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
                 
                 <ui:NavigationViewItem Content="Reportes de desaparición"
                                        Icon="{ui:SymbolIcon News24}">
