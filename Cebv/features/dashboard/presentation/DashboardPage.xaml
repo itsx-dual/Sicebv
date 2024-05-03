@@ -11,16 +11,17 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
+      d:DesignHeight="768"
       Loaded="DashboardPage_OnLoaded"
       SizeChanged="DashboardPage_OnSizeChanged"
-      d:DesignHeight="768"
       Title="DashboardPage">
     <Page.DataContext>
         <local:DashboardViewModel/>
     </Page.DataContext>
     <Grid>
         <ui:TitleBar x:Name="Titulo" 
-                     Title="Comisión Estatal de Búsqueda de Personas">
+                     Title="Comisión Estatal de Búsqueda de Personas"
+                     ApplicationTheme="Dark">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon />
             </ui:TitleBar.Icon>

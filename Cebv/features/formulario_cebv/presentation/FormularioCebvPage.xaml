@@ -6,64 +6,66 @@
       xmlns:local="clr-namespace:Cebv.features.formulario_cebv.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.datos_del_reporte.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1024"
-      d:DesignHeight="768"
+      d:DesignWidth="1000"
+      d:DesignHeight="1000"
       mc:Ignorable="d"
+      x:Name="FormularioPage"
+      Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-    <Grid>
-        <ui:NavigationView PaneDisplayMode="LeftMinimal"
-                           IsBackButtonVisible="Collapsed">
-            <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="Datos del reporte"
-                                       Icon="{ui:SymbolIcon Document24}"/>
-                <ui:NavigationViewItem Content="Reportante"
-                                       Icon="{ui:SymbolIcon PersonCall24}"/>
-                <ui:NavigationViewItem Content="Información de la persona desaparecida o no localizada"
-                                       Icon="{ui:SymbolIcon PersonBoard24}"/>
-                <ui:NavigationViewItem Content="Media filiación"
-                                       Icon="{ui:SymbolIcon PersonHeart24}"/>
-                <ui:NavigationViewItem Content="Prendas de vestir"
-                                       Icon="{ui:SymbolIcon PersonTag24}"/>
-                <ui:NavigationViewItem Content="Señas particulares"
-                                       Icon="{ui:SymbolIcon Accessibility24}"/>
-                <ui:NavigationViewItem Content="Condiciones de vulnerabilidad en su salud"
-                                       Icon="{ui:SymbolIcon PersonInfo20}"/>
-                <ui:NavigationViewItem Content="Modo, tiempo y lugar de la desaparicion"
-                                       Icon="{ui:SymbolIcon Search24}"/>
-                <ui:NavigationViewItem Content="Contexto"
-                                       Icon="{ui:SymbolIcon SearchVisual24}"/>
-                <ui:NavigationViewItem Content="Comunicación y difusión"
-                                       Icon="{ui:SymbolIcon Comment24}"/>
-                <ui:NavigationViewItem Content="Datos de localización"
-                                       Icon="{ui:SymbolIcon PointScan24}"
-                                       TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}"/>
-                <ui:NavigationViewItem Content="Generación de documentaición"
-                                       Icon="{ui:SymbolIcon DocumentAdd24}"/>
-                <ui:NavigationViewItem Content="Control OGPI"
-                                       Icon="{ui:SymbolIcon Document24}"/>
-            </ui:NavigationView.MenuItems>
-            
-            <ui:NavigationView.Header>
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <ui:TextBlock Text="Folio:"
-                                  FontTypography="Title"/>
-                    
-                    <ui:Button Content="Generar folio"
-                               Grid.Column="1"
-                               Icon="{ui:SymbolIcon Signature24}"
-                               HorizontalAlignment="Right"
-                               Appearance="Primary"
-                               ToolTip="Algo"/>
-                </Grid>
-                
-            </ui:NavigationView.Header>
-        </ui:NavigationView>
-    </Grid>
+    <ui:NavigationView PaneDisplayMode="LeftMinimal"
+                       Width="{Binding ElementName=FormularioPage, Path=ActualWidth}"
+                       Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
+                       x:Name="FormularioNavigationView"
+                       IsBackButtonVisible="Collapsed">
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItem Content="Datos del reporte"
+                                   Icon="{ui:SymbolIcon Document24}"
+                                   TargetPageType="{x:Type presentation1:DatosReportePage}" />
+            <ui:NavigationViewItem Content="Reportante"
+                                   Icon="{ui:SymbolIcon PersonCall24}" />
+            <ui:NavigationViewItem Content="Información de la persona desaparecida o no localizada"
+                                   Icon="{ui:SymbolIcon PersonBoard24}" />
+            <ui:NavigationViewItem Content="Media filiación"
+                                   Icon="{ui:SymbolIcon PersonInfo20}" />
+            <ui:NavigationViewItem Content="Prendas de vestir"
+                                   Icon="{ui:SymbolIcon PersonTag24}" />
+            <ui:NavigationViewItem Content="Señas particulares"
+                                   Icon="{ui:SymbolIcon Accessibility24}" />
+            <ui:NavigationViewItem Content="Condiciones de vulnerabilidad en su salud"
+                                   Icon="{ui:SymbolIcon PersonHeart24}" />
+            <ui:NavigationViewItem Content="Modo, tiempo y lugar de la desaparicion"
+                                   Icon="{ui:SymbolIcon Search24}" />
+            <ui:NavigationViewItem Content="Contexto"
+                                   Icon="{ui:SymbolIcon SearchVisual24}" />
+            <ui:NavigationViewItem Content="Comunicación y difusión"
+                                   Icon="{ui:SymbolIcon Comment24}" />
+            <ui:NavigationViewItem Content="Datos de localización"
+                                   Icon="{ui:SymbolIcon PointScan24}"
+                                   TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
+            <ui:NavigationViewItem Content="Generación de documentaición"
+                                   Icon="{ui:SymbolIcon DocumentAdd24}" />
+            <ui:NavigationViewItem Content="Control OGPI"
+                                   Icon="{ui:SymbolIcon Document24}" />
+        </ui:NavigationView.MenuItems>
+        <ui:NavigationView.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ui:TextBlock Text="Reporte sin folio asignado"
+                              FontTypography="Title" />
+                <ui:Button Content="Generar folio"
+                           Grid.Column="1"
+                           Icon="{ui:SymbolIcon Signature24}"
+                           HorizontalAlignment="Right"
+                           Appearance="Primary"
+                           ToolTip="Algo" />
+            </Grid>
+        </ui:NavigationView.Header>
+    </ui:NavigationView>
 </Page>

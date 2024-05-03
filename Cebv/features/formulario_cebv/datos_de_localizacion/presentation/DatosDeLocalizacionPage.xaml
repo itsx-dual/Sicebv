@@ -15,7 +15,7 @@
     <Grid>
         <StackPanel>
             <ui:TextBlock Text="Localización"
-                          FontTypography="Title"
+                          FontTypography="Subtitle"
                           Margin="5"/>
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     Margin="5"
@@ -85,7 +85,7 @@
             </Border>
             
             <ui:TextBlock Text="Hipótesis de localización"
-                          FontTypography="Title"
+                          FontTypography="Subtitle"
                           Margin="5"/>
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     Margin="5"
