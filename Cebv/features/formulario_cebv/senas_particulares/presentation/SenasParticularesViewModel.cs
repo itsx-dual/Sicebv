@@ -1,11 +1,10 @@
 using System.Collections.ObjectModel;
-using Cebv.features.formulario_reportes.data.senas_particulares;
-using Cebv.features.formulario_reportes.domain;
+using Cebv.features.formulario_cebv.senas_particulares.data;
+using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Wpf.Ui.Controls;
 
-namespace Cebv.features.formulario_reportes.presentation.senas_particulares;
+namespace Cebv.features.formulario_cebv.senas_particulares.presentation;
 
 public partial class SenasParticularesViewModel : ObservableObject
 {
@@ -52,6 +51,7 @@ public partial class SenasParticularesViewModel : ObservableObject
         ColorRegionCuerpo = "3F48CC";
         ColorLado = "6C7156";
         Descripcion = "";
+        Cantidad = 1;
     }
 
     [RelayCommand]

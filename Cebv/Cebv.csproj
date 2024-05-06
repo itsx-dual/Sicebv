@@ -15,7 +15,22 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Remove="obj\**" />
-      <Page Update="features\formulario_reportes\presentation\senas_particulares\SenasParticularesPage.xaml">
+      <Page Update="features\formulario_cebv\condiciones_vulnerabilidad\presentation\CondicionesVulnerabilidadPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="features\formulario_cebv\reportante\ReportantePage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="features\formulario_cebv\media_filiacion\presentation\MediaFiliacionPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="features\formulario_cebv\senas_particulares\presentation\SenasParticularesPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
@@ -64,6 +79,10 @@
       <Resource Include="core\assets\images\senas\Minus loadIcon.png" />
       <Resource Include="core\assets\images\senas\Minus RegionCuerpoColorMejorado.png" />
       <Resource Include="core\assets\images\senas\RegionCuerpoColorMejorado.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="features\media_filiacion\presentation\" />
     </ItemGroup>
 
 </Project>

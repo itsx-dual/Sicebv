@@ -2,6 +2,7 @@ using Wpf.Ui.Controls;
 using Cebv.features.dashboard.data;
 using Cebv.features.dashboard.domain;
 using System.Collections.ObjectModel;
+using Cebv.features.formulario_cebv.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.features.dashboard.presentation;
@@ -20,7 +21,7 @@ public partial class DashboardViewModel : ObservableObject
             MenuItemsSource = new object[]
             {
                 new NavigationViewItem("Consultar", SymbolRegular.Library24, typeof(ReportesDesaparicion)),
-                new NavigationViewItem("Capturar reporte", SymbolRegular.Pen24, typeof(CapturarReportePage)),
+                new NavigationViewItem("Capturar reporte", SymbolRegular.Pen24, typeof(FormularioCebvPage)),
             }
         },
     };

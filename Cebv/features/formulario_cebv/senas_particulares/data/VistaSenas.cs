@@ -1,4 +1,4 @@
-namespace Cebv.features.formulario_reportes.data.senas_particulares;
+namespace Cebv.features.formulario_cebv.senas_particulares.data;
 
 public class VistaSenas
 {

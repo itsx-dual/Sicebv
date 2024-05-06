@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Image = Wpf.Ui.Controls.Image;
 
-namespace Cebv.features.formulario_reportes.presentation.senas_particulares;
+namespace Cebv.features.formulario_cebv.senas_particulares.presentation;
 
 public partial class SenasParticularesPage : Page
 {

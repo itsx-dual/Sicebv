@@ -23,7 +23,7 @@
                      Title="Comisión Estatal de Búsqueda de Personas"
                      ApplicationTheme="Dark">
             <ui:TitleBar.Icon>
-                <ui:ImageIcon />
+                <ui:SymbolIcon Symbol="LocationLive24"/>
             </ui:TitleBar.Icon>
         </ui:TitleBar>
         
@@ -59,7 +59,7 @@
                         <ui:NavigationViewItem
                             Content="Capturar reporte de desaparición"
                             Icon="{ui:SymbolIcon Pen24}"
-                            TargetPageType="{x:Type local:CapturarReportePage}"/>
+                            TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
                 

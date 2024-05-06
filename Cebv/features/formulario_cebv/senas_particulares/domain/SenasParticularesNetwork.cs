@@ -1,10 +1,10 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using Cebv.features.formulario_reportes.data.senas_particulares;
+using Cebv.features.formulario_cebv.senas_particulares.data;
 using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
-namespace Cebv.features.formulario_reportes.domain;
+namespace Cebv.features.formulario_cebv.senas_particulares.domain;
 
 public class SenasParticularesNetwork
 {
