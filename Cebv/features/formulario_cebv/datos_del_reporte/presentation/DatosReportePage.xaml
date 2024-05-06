@@ -51,7 +51,6 @@
                 </WrapPanel>
             </Border>
 
-            <!-- Línea de separación horizontal -->
             <Separator Margin="10" />
 
             <ui:TextBlock Text="Información RNPDNO"
@@ -77,7 +76,7 @@
                     </StackPanel>
                 </WrapPanel>
             </Border>
-            <!-- Línea de separación horizontal -->
+
             <Separator Margin="10" />
 
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
@@ -113,12 +112,12 @@
                         </ComboBox>
                     </StackPanel>
                 </WrapPanel>
-
             </Border>
 
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="left" VerticalAlignment="Center">
-                <StackPanel Width="259" Margin="10,0,20,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="left"
+                        VerticalAlignment="Center">
+                <StackPanel Width="259">
                     <ui:TextBlock
                         HorizontalAlignment="left">
                         MEDIO DE CONOCIMIENTO GENÉRICO:
@@ -129,7 +128,7 @@
                         DisplayMemberPath="Value"
                         ItemsSource="{Binding TiposMedios}" />
                 </StackPanel>
-                <StackPanel Width="238" Margin="10,0,20,0">
+                <StackPanel Width="238">
                     <ui:TextBlock> MEDIO DE CONOCIMIENTO ESPECÍFICO:</ui:TextBlock>
                     <ComboBox
                         MinWidth="150"
@@ -150,141 +149,154 @@
                         ItemsSource="{Binding Estados}" />
                 </StackPanel>
             </StackPanel>
-            <!-- Línea de separación horizontal -->
-            <Separator Margin="0,10,0,35" />
-            <StackPanel>
-                <ui:TextBlock Text="CARPETA DE INVESTIGACIÓN:" Margin="10,0,0,10" FontTypography="Subtitle"
-                              HorizontalAlignment="Center" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="left">
-                <StackPanel Margin="10,0,25,0">
-                    <ui:TextBlock Margin="0,0,0,5"
-                                  Width="220">
-                        ESPECIFICA SI HAY O EXISTE CI:
-                    </ui:TextBlock>
-                    <ComboBox MinWidth="150">
-                        <!-- Agregar elementos al ComboBox -->
-                        <ComboBoxItem Content="SI" />
-                        <ComboBoxItem Content="NO" />
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,25,0">
-                    <ui:TextBlock Margin="0,0,0,5" Width="220">NÚMERO DE CI, IM O REPORTE DE FGE:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150" Width="218"></ui:TextBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,30,0">
-                    <ui:TextBlock Margin="0,0,0,5" Width="246">DÓNDE RADICA LA CI, IM O REPORTE DE FGE:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150" Width="248"></ui:TextBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,0,0">
-                    <ui:TextBlock Margin="0,0,0,5"
-                                  Width="220"
-                                  Text="NOMBRE DEL SERVIDOR (A) PÚBLICO:" />
-                    <ui:TextBox MinWidth="220" />
-                </StackPanel>
-            </StackPanel>
 
-            <StackPanel Margin="0,10,0,10" HorizontalAlignment="Center">
-                <ui:TextBlock Margin="0,0,0,5">FECHA DE RECEPCIÓN DE CI, IM O REPORTE DE FGE :</ui:TextBlock>
-                <ui:TextBox MinWidth="150" Width="265" />
-            </StackPanel>
-
-            <!-- Línea de separación horizontal -->
-            <Separator Margin="0,10,0,35" />
-            <StackPanel>
-                <ui:TextBlock Text="AMPARO BUSCADOR:" Margin="10,0,0,10" FontTypography="Subtitle"
-                              HorizontalAlignment="Center" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="left">
-                <StackPanel Margin="10,0,20,0">
-                    <ui:TextBlock Margin="0,0,0,5">ESPECIFICA SI HAY O EXISTE AMPARO BUSCADOR:</ui:TextBlock>
-                    <ComboBox MinWidth="150">
-                        <!-- Agregar elementos al ComboBox -->
-                        <ComboBoxItem Content="SI" />
-                        <ComboBoxItem Content="NO" />
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,20,0">
-                    <ui:TextBlock Margin="0,0,0,5">NÚMERO DE AMPARO BUSCADOR:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150"
-                                Width="184">
-                    </ui:TextBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,20,0">
-                    <ui:TextBlock Margin="0,0,0,5">DÓNDE RADICA EL AMPARO BUSCADOR:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150"
-                                Width="212">
-                    </ui:TextBox>
-                </StackPanel>
-                <StackPanel>
-                    <ui:TextBlock Margin="0,0,0,5" Width="266"> NOMBRE DEL JUEZ:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150" Width="250"></ui:TextBox>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Margin="0,10,0,10" HorizontalAlignment="Center">
-                <ui:TextBlock>DÓNDE RADICA EL AMPARO BUSCADOR:</ui:TextBlock>
-                <DatePicker />
-            </StackPanel>
-            <!-- Línea de separación horizontal -->
-            <Separator Margin="0,10,0,35" />
-            <StackPanel>
-                <ui:TextBlock Text="RECOMENDACIÓN DE DERECHOS HUMANOS:" Margin="10,0,0,10" FontTypography="Subtitle"
-                              HorizontalAlignment="Center" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="left">
-                <StackPanel Margin="10,0,10,0">
-                    <ui:TextBlock TextWrapping="Wrap"
-                                  Margin="0,0,0,5" Width="220">
-                        ESPECIFICA SI HAY O EXISTE RECOMENDACIÓN DH:
-                    </ui:TextBlock>
-                    <ComboBox MinWidth="150">
-                        <!-- Agregar elementos al ComboBox -->
-                        <ComboBoxItem Content="SI" />
-                        <ComboBoxItem Content="NO" />
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Margin="10,0,10,0">
-                    <ui:TextBlock TextWrapping="Wrap" Width="220" Margin="0,0,0,5"> NÚMERO DE RECOMENDACIÓN DERECHOS HUMANOS:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150" Width="222"></ui:TextBox>
-                </StackPanel>
-                <StackPanel Margin="10,0,10,0">
-                    <ui:TextBlock TextWrapping="Wrap"
-                                  Width="220" Margin="0,0,0,5">
-                        DÓNDE RADICA LA RECOMENDACIÓN DERECHOS HUMANOS:
-                    </ui:TextBlock>
-                    <ui:TextBox MinWidth="150"
-                                Width="224">
-                    </ui:TextBox>
-                </StackPanel>
-                <StackPanel Margin="10,0,0,0">
-                    <ui:TextBlock Margin="0,0,0,18" Width="266">NOMBRE DEL SERVIDOR (A) PÚBLICO:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150" Width="262"></ui:TextBox>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Margin="0,10,0,10" HorizontalAlignment="Center">
-                <ui:TextBlock Margin="0,0,0,5">FECHA DE RECEPCIÓN RECOMENDACIÓN DH:</ui:TextBlock>
-                <DatePicker MinWidth="150"></DatePicker>
-            </StackPanel>
-            <!-- Línea de separación horizontal -->
             <Separator Margin="10" />
-            <StackPanel HorizontalAlignment="Center">
-                <StackPanel>
-                    <RadioButton Content="DECLARACIÓN ESPECIAL DE AUSENCIA" GroupName="GrupoOpciones"
-                                 Margin="5" />
-                    <RadioButton Content="ACCIÓN URGENTE" GroupName="GrupoOpciones" Margin="5" />
-                    <RadioButton Content="DICTAMEN" GroupName="GrupoOpciones" Margin="5" />
-                    <RadioButton Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL"
-                                 GroupName="GrupoOpciones" Margin="5" />
-                    <RadioButton Content="OTRO, ESPECIFIQUE" GroupName="GrupoOpciones" Margin="5" />
-                    <ui:TextBox Margin="10,0,0,0" MinWidth="450" />
-                </StackPanel>
-            </StackPanel>
+
+            <ui:TextBlock Text="CARPETA DE INVESTIGACIÓN:"
+                          FontTypography="Subtitle" />
+
+            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                    CornerRadius="8"
+                    Margin="5">
+                <WrapPanel>
+                    <StackPanel>
+                        <ui:TextBlock Width="220">
+                            ESPECIFICA SI HAY O EXISTE CI:
+                        </ui:TextBlock>
+                        <ComboBox MinWidth="150">
+                            <!-- Agregar elementos al ComboBox -->
+                            <ComboBoxItem Content="SI" />
+                            <ComboBoxItem Content="NO" />
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <ui:TextBlock Width="220">NÚMERO DE CI, IM O REPORTE DE FGE:</ui:TextBlock>
+                        <ui:TextBox MinWidth="150" Width="218"></ui:TextBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <ui:TextBlock Width="246">DÓNDE RADICA LA CI, IM O REPORTE DE FGE:</ui:TextBlock>
+                        <ui:TextBox MinWidth="150" Width="248"></ui:TextBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <ui:TextBlock Width="220"
+                                      Text="NOMBRE DEL SERVIDOR (A) PÚBLICO:" />
+                        <ui:TextBox MinWidth="220" />
+                    </StackPanel>
+                    <StackPanel>
+                        <ui:TextBlock>FECHA DE RECEPCIÓN DE CI, IM O REPORTE DE FGE :</ui:TextBlock>
+                        <ui:TextBox MinWidth="150" Width="265" />
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+
+            <Separator Margin="0,10,0,35" />
+
+            <ui:TextBlock Text="AMPARO BUSCADOR:"
+                          Margin="10,0,0,10"
+                          FontTypography="Subtitle" />
+
+            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                    CornerRadius="8"
+                    Margin="5">
+                <WrapPanel>
+                    <StackPanel>
+                        <ui:TextBlock>ESPECIFICA SI HAY O EXISTE AMPARO BUSCADOR:</ui:TextBlock>
+                        <ComboBox MinWidth="150">
+                            <!-- Agregar elementos al ComboBox -->
+                            <ComboBoxItem Content="SI" />
+                            <ComboBoxItem Content="NO" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock>NÚMERO DE AMPARO BUSCADOR:</ui:TextBlock>
+                        <ui:TextBox MinWidth="150"
+                                    Width="184">
+                        </ui:TextBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock>DÓNDE RADICA EL AMPARO BUSCADOR:</ui:TextBlock>
+                        <ui:TextBox MinWidth="150"
+                                    Width="212">
+                        </ui:TextBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Width="266"> NOMBRE DEL JUEZ:</ui:TextBlock>
+                        <ui:TextBox MinWidth="150" Width="250"></ui:TextBox>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center">
+                        <ui:TextBlock>DÓNDE RADICA EL AMPARO BUSCADOR:</ui:TextBlock>
+                        <DatePicker />
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+
             <!-- Línea de separación horizontal -->
+            <Separator Margin="0,10,0,35" />
+
+            <ui:TextBlock Text="RECOMENDACIÓN DE DERECHOS HUMANOS:"
+                          FontTypography="Subtitle" />
+
+            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                    CornerRadius="8"
+                    Margin="5">
+                <WrapPanel>
+                    <StackPanel Width="400"
+                                Margin="10">
+                        <StackPanel>
+                            <ui:TextBlock>
+                                ESPECIFICA SI HAY O EXISTE RECOMENDACIÓN DH:
+                            </ui:TextBlock>
+                            <ComboBox>
+                                <!-- Agregar elementos al ComboBox -->
+                                <ComboBoxItem Content="SI" />
+                                <ComboBoxItem Content="NO" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <ui:TextBlock> NÚMERO DE RECOMENDACIÓN DERECHOS HUMANOS:</ui:TextBlock>
+                            <ui:TextBox/>
+                        </StackPanel>
+                        <StackPanel>
+                            <ui:TextBlock>
+                                DÓNDE RADICA LA RECOMENDACIÓN DERECHOS HUMANOS:
+                            </ui:TextBlock>
+                            <ui:TextBox/>
+                        </StackPanel>
+                        <StackPanel>
+                            <ui:TextBlock>NOMBRE DEL SERVIDOR (A) PÚBLICO:</ui:TextBlock>
+                            <ui:TextBox/>
+                        </StackPanel>
+                        <StackPanel>
+                            <ui:TextBlock>FECHA DE RECEPCIÓN RECOMENDACIÓN DH:</ui:TextBlock>
+                            <DatePicker/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="10">
+                        <StackPanel>
+                            <RadioButton Content="DECLARACIÓN ESPECIAL DE AUSENCIA" GroupName="GrupoOpciones"
+                                         Margin="5" />
+                            <RadioButton Content="ACCIÓN URGENTE" GroupName="GrupoOpciones" Margin="5" />
+                            <RadioButton Content="DICTAMEN" GroupName="GrupoOpciones" Margin="5" />
+                            <RadioButton Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL"
+                                         GroupName="GrupoOpciones" Margin="5" />
+                            <RadioButton Content="OTRO, ESPECIFIQUE" GroupName="GrupoOpciones" Margin="5" />
+                            <ui:TextBox Margin="10,0,0,0" MinWidth="450" />
+                        </StackPanel>
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+            
             <Separator Margin="10" />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <ui:Button Content="GUARDAR" Appearance="Primary" />
-            </StackPanel>
+            
+            <ui:Button Content="Guardar y siguiente"
+                       Icon="{ui:SymbolIcon Save24}"
+                       HorizontalAlignment="Stretch"
+                       Appearance="Primary"/>
         </StackPanel>
     </Grid>
 </Page>

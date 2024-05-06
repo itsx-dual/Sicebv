@@ -29,7 +29,7 @@
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
                        x:Name="FormularioNavigationView"
                        IsBackButtonVisible="Collapsed"
-                       PaneTitle="Toma de reporte de desaparicio">
+                       PaneTitle="Toma de reporte de desaparición">
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="Datos del reporte"
                                    Icon="{ui:SymbolIcon Document24}"
