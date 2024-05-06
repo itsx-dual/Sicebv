@@ -138,8 +138,7 @@
             </StackPanel>
         </Grid>
         
-        <DataGrid x:Name="tablaDatos" Grid.Row="1"
-                  Grid.Column="0"
+        <DataGrid x:Name="tablaDatos" Grid.Row="1" Grid.Column="0"
                   Grid.ColumnSpan="3"
                   Margin="10"
                   AutoGenerateColumns="False"

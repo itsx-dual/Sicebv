@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\aerf0\\source\\repos\\sicebv\\cebv\\features\\prendas\\presentation\\prendasvestirpertenenciaspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\prendas\\presentation\\prendasvestirpertenenciaspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|C:\\Users\\aerf0\\source\\repos\\Sicebv\\cebv\\features\\desaparecido\\presentation\\desaparecidopage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\desaparecido\\presentation\\desaparecidopage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|C:\\Users\\aerf0\\source\\repos\\Sicebv\\cebv\\features\\reporte\\presentation\\reporteformulariopage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\reporte\\presentation\\reporteformulariopage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|C:\\Users\\aerf0\\source\\repos\\Sicebv\\cebv\\features\\persona\\presentation\\personapage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\persona\\presentation\\personapage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,51 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PrendasVestirPertenenciasPage.xaml",
-              "DocumentMoniker": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\prendas\\presentation\\PrendasVestirPertenenciasPage.xaml",
-              "RelativeDocumentMoniker": "Cebv\\features\\prendas\\presentation\\PrendasVestirPertenenciasPage.xaml",
-              "ToolTip": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\prendas\\presentation\\PrendasVestirPertenenciasPage.xaml",
-              "RelativeToolTip": "Cebv\\features\\prendas\\presentation\\PrendasVestirPertenenciasPage.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-04-16T16:42:53.504Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DesaparecidoPage.xaml",
-              "DocumentMoniker": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\desaparecido\\presentation\\DesaparecidoPage.xaml",
-              "RelativeDocumentMoniker": "Cebv\\features\\desaparecido\\presentation\\DesaparecidoPage.xaml",
-              "ToolTip": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\desaparecido\\presentation\\DesaparecidoPage.xaml",
-              "RelativeToolTip": "Cebv\\features\\desaparecido\\presentation\\DesaparecidoPage.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-04-15T17:33:15.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ReporteFormularioPage.xaml",
-              "DocumentMoniker": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\reporte\\presentation\\ReporteFormularioPage.xaml",
-              "RelativeDocumentMoniker": "Cebv\\features\\reporte\\presentation\\ReporteFormularioPage.xaml",
-              "ToolTip": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\reporte\\presentation\\ReporteFormularioPage.xaml",
-              "RelativeToolTip": "Cebv\\features\\reporte\\presentation\\ReporteFormularioPage.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-04-15T17:32:45.858Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PersonaPage.xaml",
-              "DocumentMoniker": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\persona\\presentation\\PersonaPage.xaml",
-              "RelativeDocumentMoniker": "Cebv\\features\\persona\\presentation\\PersonaPage.xaml",
-              "ToolTip": "C:\\Users\\aerf0\\source\\repos\\Sicebv\\Cebv\\features\\persona\\presentation\\PersonaPage.xaml",
-              "RelativeToolTip": "Cebv\\features\\persona\\presentation\\PersonaPage.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-04-15T17:32:11.797Z"
             }
           ]
         }
