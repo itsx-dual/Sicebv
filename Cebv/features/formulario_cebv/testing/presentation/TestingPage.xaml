@@ -1,0 +1,25 @@
+<Page x:Class="Cebv.features.formulario_cebv.testing.presentation.TestingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1000"
+      d:DesignHeight="1000"
+      mc:Ignorable="d"
+      Title="TestingPage">
+    <Page.DataContext>
+        <local:TestingViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <StackPanel HorizontalAlignment="Left">
+            <ui:TimePicker ClockIdentifier="Clock12Hour"
+                           Time="{Binding Time}"
+                           SelectedTime="{Binding Time}"/>
+        </StackPanel>
+    </Grid>
+</Page>
