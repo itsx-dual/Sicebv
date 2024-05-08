@@ -8,8 +8,8 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
-      d:DesignHeight="1000"
+      d:DesignWidth="auto"
+      d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="ReportantePage">
      <Grid>
@@ -22,20 +22,31 @@
                <RowDefinition Height="*" />
                <RowDefinition />
                <RowDefinition />
+               <RowDefinition/>
            </Grid.RowDefinitions>
+         
+           <Grid ColumnSpan="3" Grid.Row="3">
+               <StackPanel>
+                   <ui:ToggleSwitch Content="¿Es anonimo?"/>
+               </StackPanel>
+               
+               <Border>
+                   <WrapPanel>
+                       
+                   </WrapPanel>
+               </Border>
+           </Grid>
+         
            <!-- Columna 1 -->
            <StackPanel Grid.Column="0" Grid.Row="0" 
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Margin="10">
                <StackPanel>
-                   <TextBlock  Style="{DynamicResource TabItemContentTextStyle }" Margin="10,0,0,0" >¿ES ANONIMO?:</TextBlock>
-                   <TextBox Margin="10,0,0,0" MinWidth="380" ></TextBox>
-               </StackPanel>
-               <StackPanel>
                    <TextBlock Style="{DynamicResource TabItemContentTextStyle }"  Margin="10,0,0,0" >PRIMER APELLIDO:</TextBlock>
                    <TextBox Margin="10,0,0,0" MinWidth="150" ></TextBox>
                </StackPanel>
+               
                <StackPanel>
                    <TextBlock Style="{DynamicResource TabItemContentTextStyle }" Margin="10,0,0,0" >GÉNERO:</TextBlock>
                    <TextBox Margin="10,0,0,0" MinWidth="150" ></TextBox>

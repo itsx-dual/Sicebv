@@ -4,13 +4,12 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:presentation="clr-namespace:Cebv.features.login.presentation"
              xmlns:presentation1="clr-namespace:Cebv.features.dashboard.presentation"
-
              StartupUri="app/presentation/LoginWindow.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemesDictionary Theme="Light" />
+                <ui:ThemesDictionary Theme="Dark"/>
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
 

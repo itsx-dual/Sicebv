@@ -24,6 +24,9 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
+    <Page.DataContext>
+        <local:FormularioCebvViewModel/>
+    </Page.DataContext>
     <ui:NavigationView PaneDisplayMode="LeftMinimal"
                        Width="{Binding ElementName=FormularioPage, Path=ActualWidth}"
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"

@@ -14,11 +14,6 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="PersonaDesaparecidaPage">
-    
-    <Page.DataContext>
-        <local:PersonaDesaparecidaViewModel/>
-    </Page.DataContext>
-    
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="Padding" Value="16" />
@@ -56,7 +51,7 @@
                     <WrapPanel Grid.Row="0">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NOMBRE(S):" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding Test}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -132,11 +127,12 @@
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
+                            <ui:ListView ItemsSource="{Binding ApodosList}"/>
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        <ui:Button Command="{Binding AgregarApodoCommand}"
+                        <ui:Button Command="{Binding AddApodoCommand}"
                                    MinWidth="150"
                                    MinHeight="38"
                                    Content="Añadir"
@@ -490,7 +486,7 @@
                         <ui:Button Content="Añadir Teléfono" Appearance="Secondary" />
                     </WrapPanel>
 
-                    <ui:ListView Grid.Row="1" />
+                    <ui:ListView Grid.Row="1"/>
 
                     <WrapPanel Grid.Row="2">
                         <StackPanel Margin="5" MinWidth="250">

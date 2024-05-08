@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Cebv.features.formulario_cebv.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.media_filiacion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -183,6 +184,29 @@
                         <ui:TextBlock Text="Forma de la cara"/>
                         <ComboBox/>
                     </StackPanel>
+                    
+                    <WrapPanel Grid.Row="2">
+                        <WrapPanel.DataContext>
+                            <presentation:MediaFiliacionViewModel/>
+                        </WrapPanel.DataContext>
+                        <StackPanel Orientation="Vertical" MinWidth="250">
+                            <ui:TextBlock Text="APODO:" FontTypography="Caption" />
+                            <ui:TextBox Text="{Binding Apodo}" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <ui:Button Command="{Binding AddApodoCommand}"
+                                   MinWidth="150"
+                                   MinHeight="38"
+                                   Content="Añadir"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   Appearance="Primary" />
+                    </WrapPanel>
+
                     
                 </WrapPanel>
             </Border>

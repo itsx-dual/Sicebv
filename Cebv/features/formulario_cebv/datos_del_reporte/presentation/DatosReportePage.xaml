@@ -54,7 +54,8 @@
             <Separator Margin="10" />
 
             <ui:TextBlock Text="Información RNPDNO"
-                          FontTypography="Subtitle" />
+                          FontTypography="Subtitle"
+                          Margin="10"/>
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8"
                     Margin="5">
@@ -83,18 +84,16 @@
                     CornerRadius="8"
                     Margin="5">
                 <WrapPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
+                    <StackPanel Margin="5">
                         <ui:TextBlock Text="Se cuenta con la información&#x0a;de consentimiento" />
-                        <ComboBox Margin="0,0,0,5" MinWidth="150">
+                        <ComboBox MinWidth="150">
                             <ComboBoxItem Content="SI" />
                             <ComboBoxItem Content="NO" />
                             <ComboBoxItem Content="NO ESPECIFICA" />
                         </ComboBox>
                     </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Stretch"
-                                Margin="5">
+                    <StackPanel Margin="5">
                         <ui:TextBlock
                             Text="MANIFIESTA QUE LA INFORMACIÓN QUE APORTE PARA EL RNO SEA&#x0a;UTILIZADA EXCLUSIVAMENTE PARA LA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA.:" />
                         <ComboBox>
@@ -103,6 +102,7 @@
                             <ComboBoxItem Content="NO ESPECIFICA" />
                         </ComboBox>
                     </StackPanel>
+                    
                     <StackPanel Margin="5">
                         <ui:TextBlock> ¿SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA&#x0a;DESAPARECIDA O NO LOCALIZADA?</ui:TextBlock>
                         <ComboBox>
@@ -111,55 +111,63 @@
                             <ComboBoxItem Content="NO ESPECIFICA" />
                         </ComboBox>
                     </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <ui:TextBlock HorizontalAlignment="left">
+                            <LineBreak/>
+                            MEDIO DE CONOCIMIENTO GENÉRICO:
+                        </ui:TextBlock>
+                        <ComboBox MinWidth="150"
+                                  SelectedValuePath="Key"
+                                  DisplayMemberPath="Value"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <ui:TextBlock>
+                            <LineBreak/> 
+                            MEDIO DE CONOCIMIENTO ESPECÍFICO:
+                        </ui:TextBlock>
+                        <ComboBox MinWidth="150"
+                                  SelectedValuePath="Key"
+                                  DisplayMemberPath="Value"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <ui:TextBlock>
+                            <LineBreak/>
+                            DEPENDENCIA DE ORIGEN:
+                        </ui:TextBlock>
+                        <ui:TextBox MinWidth="150"></ui:TextBox>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <ui:TextBlock>
+                            <LineBreak/>
+                            ESTADO DE DONDE PROVIENE EL REPORTE:
+                        </ui:TextBlock>
+                        <ComboBox MinWidth="170"
+                                  SelectedValuePath="Key"
+                                  DisplayMemberPath="Value"/>
+                    </StackPanel>
                 </WrapPanel>
             </Border>
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="left"
                         VerticalAlignment="Center">
-                <StackPanel Width="259">
-                    <ui:TextBlock
-                        HorizontalAlignment="left">
-                        MEDIO DE CONOCIMIENTO GENÉRICO:
-                    </ui:TextBlock>
-                    <ComboBox
-                        MinWidth="150"
-                        SelectedValuePath="Key"
-                        DisplayMemberPath="Value"
-                        ItemsSource="{Binding TiposMedios}" />
-                </StackPanel>
-                <StackPanel Width="238">
-                    <ui:TextBlock> MEDIO DE CONOCIMIENTO ESPECÍFICO:</ui:TextBlock>
-                    <ComboBox
-                        MinWidth="150"
-                        SelectedValuePath="Key"
-                        DisplayMemberPath="Value"
-                        ItemsSource="{Binding Medios}" />
-                </StackPanel>
-                <StackPanel Margin="10,0,26,0">
-                    <ui:TextBlock> DEPENDENCIA DE ORIGEN:</ui:TextBlock>
-                    <ui:TextBox MinWidth="150"></ui:TextBox>
-                </StackPanel>
-                <StackPanel Margin="10,0,0,0">
-                    <ui:TextBlock Width="248">ESTADO DE DONDE PROVIENE EL REPORTE:</ui:TextBlock>
-                    <ComboBox
-                        MinWidth="170"
-                        SelectedValuePath="Key"
-                        DisplayMemberPath="Value"
-                        ItemsSource="{Binding Estados}" />
-                </StackPanel>
             </StackPanel>
 
             <Separator Margin="10" />
 
-            <ui:TextBlock Text="CARPETA DE INVESTIGACIÓN:"
-                          FontTypography="Subtitle" />
+            <ui:TextBlock Text="Carpeta de investigación"
+                          FontTypography="Subtitle"
+                          Margin="10"/>
 
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8"
                     Margin="5">
                 <WrapPanel>
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock Width="220">
                             ESPECIFICA SI HAY O EXISTE CI:
                         </ui:TextBlock>
@@ -169,29 +177,28 @@
                             <ComboBoxItem Content="NO" />
                         </ComboBox>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock Width="220">NÚMERO DE CI, IM O REPORTE DE FGE:</ui:TextBlock>
                         <ui:TextBox MinWidth="150" Width="218"></ui:TextBox>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock Width="246">DÓNDE RADICA LA CI, IM O REPORTE DE FGE:</ui:TextBlock>
                         <ui:TextBox MinWidth="150" Width="248"></ui:TextBox>
                     </StackPanel>
-                    <StackPanel>
-                        <ui:TextBlock Width="220"
-                                      Text="NOMBRE DEL SERVIDOR (A) PÚBLICO:" />
+                    <StackPanel Margin="5">
+                        <ui:TextBlock Text="NOMBRE DEL SERVIDOR (A) PÚBLICO:" />
                         <ui:TextBox MinWidth="220" />
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock>FECHA DE RECEPCIÓN DE CI, IM O REPORTE DE FGE :</ui:TextBlock>
-                        <ui:TextBox MinWidth="150" Width="265" />
+                        <ui:TextBox/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
 
-            <Separator Margin="0,10,0,35" />
+            <Separator Margin="10" />
 
-            <ui:TextBlock Text="AMPARO BUSCADOR:"
+            <ui:TextBlock Text="Amparo buscador:"
                           Margin="10,0,0,10"
                           FontTypography="Subtitle" />
 
@@ -199,7 +206,7 @@
                     CornerRadius="8"
                     Margin="5">
                 <WrapPanel>
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock>ESPECIFICA SI HAY O EXISTE AMPARO BUSCADOR:</ui:TextBlock>
                         <ComboBox MinWidth="150">
                             <!-- Agregar elementos al ComboBox -->
@@ -208,26 +215,25 @@
                         </ComboBox>
                     </StackPanel>
 
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock>NÚMERO DE AMPARO BUSCADOR:</ui:TextBlock>
                         <ui:TextBox MinWidth="150"
                                     Width="184">
                         </ui:TextBox>
                     </StackPanel>
 
-                    <StackPanel>
+                    <StackPanel Margin="5">
                         <ui:TextBlock>DÓNDE RADICA EL AMPARO BUSCADOR:</ui:TextBlock>
-                        <ui:TextBox MinWidth="150"
-                                    Width="212">
+                        <ui:TextBox>
                         </ui:TextBox>
                     </StackPanel>
 
-                    <StackPanel>
-                        <ui:TextBlock Width="266"> NOMBRE DEL JUEZ:</ui:TextBlock>
+                    <StackPanel Margin="5">
+                        <ui:TextBlock> NOMBRE DEL JUEZ:</ui:TextBlock>
                         <ui:TextBox MinWidth="150" Width="250"></ui:TextBox>
                     </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Center">
+                    <StackPanel Margin="5">
                         <ui:TextBlock>DÓNDE RADICA EL AMPARO BUSCADOR:</ui:TextBlock>
                         <DatePicker />
                     </StackPanel>
@@ -235,18 +241,18 @@
             </Border>
 
             <!-- Línea de separación horizontal -->
-            <Separator Margin="0,10,0,35" />
+            <Separator/>
 
-            <ui:TextBlock Text="RECOMENDACIÓN DE DERECHOS HUMANOS:"
-                          FontTypography="Subtitle" />
+            <ui:TextBlock Text="Recomendación de Derechos Humanos"
+                          FontTypography="Subtitle"
+                          Margin="10"/>
 
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8"
                     Margin="5">
                 <WrapPanel>
-                    <StackPanel Width="400"
-                                Margin="10">
-                        <StackPanel>
+                    <StackPanel Width="400">
+                        <StackPanel Margin="5">
                             <ui:TextBlock>
                                 ESPECIFICA SI HAY O EXISTE RECOMENDACIÓN DH:
                             </ui:TextBlock>
@@ -256,45 +262,59 @@
                                 <ComboBoxItem Content="NO" />
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Margin="5">
                             <ui:TextBlock> NÚMERO DE RECOMENDACIÓN DERECHOS HUMANOS:</ui:TextBlock>
                             <ui:TextBox/>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Margin="5">
                             <ui:TextBlock>
                                 DÓNDE RADICA LA RECOMENDACIÓN DERECHOS HUMANOS:
                             </ui:TextBlock>
                             <ui:TextBox/>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Margin="5">
                             <ui:TextBlock>NOMBRE DEL SERVIDOR (A) PÚBLICO:</ui:TextBlock>
                             <ui:TextBox/>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Margin="5">
                             <ui:TextBlock>FECHA DE RECEPCIÓN RECOMENDACIÓN DH:</ui:TextBlock>
                             <DatePicker/>
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Margin="10">
+                    <StackPanel Margin="10"
+                                VerticalAlignment="Center">
                         <StackPanel>
-                            <RadioButton Content="DECLARACIÓN ESPECIAL DE AUSENCIA" GroupName="GrupoOpciones"
-                                         Margin="5" />
-                            <RadioButton Content="ACCIÓN URGENTE" GroupName="GrupoOpciones" Margin="5" />
-                            <RadioButton Content="DICTAMEN" GroupName="GrupoOpciones" Margin="5" />
+                            <RadioButton Content="DECLARACIÓN ESPECIAL DE AUSENCIA" 
+                                         GroupName="GrupoOpciones"
+                                         Margin="5"/>
+                            <RadioButton Content="ACCIÓN URGENTE"
+                                         GroupName="GrupoOpciones"
+                                         Margin="5"/>
+                            <RadioButton Content="DICTAMEN"
+                                         GroupName="GrupoOpciones"
+                                         Margin="5"/>
                             <RadioButton Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL"
-                                         GroupName="GrupoOpciones" Margin="5" />
-                            <RadioButton Content="OTRO, ESPECIFIQUE" GroupName="GrupoOpciones" Margin="5" />
-                            <ui:TextBox Margin="10,0,0,0" MinWidth="450" />
+                                         GroupName="GrupoOpciones"
+                                         Margin="5"/>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Content="OTRO, ESPECIFIQUE"
+                                             GroupName="GrupoOpciones"
+                                             Margin="5"
+                                             Name="OtroRadioButton"/>
+                                <ui:TextBox MinWidth="200"
+                                            IsEnabled="{Binding ElementName=OtroRadioButton, Path=IsChecked}"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </WrapPanel>
             </Border>
             
-            <Separator Margin="10" />
+            <Separator Margin="10"/>
             
             <ui:Button Content="Guardar y siguiente"
                        Icon="{ui:SymbolIcon Save24}"
+                       Margin="10"
                        HorizontalAlignment="Stretch"
                        Appearance="Primary"/>
         </StackPanel>

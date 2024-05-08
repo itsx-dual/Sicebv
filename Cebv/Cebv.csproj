@@ -81,8 +81,4 @@
       <Resource Include="core\assets\images\senas\RegionCuerpoColorMejorado.png" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="features\media_filiacion\presentation\" />
-    </ItemGroup>
-
 </Project>
