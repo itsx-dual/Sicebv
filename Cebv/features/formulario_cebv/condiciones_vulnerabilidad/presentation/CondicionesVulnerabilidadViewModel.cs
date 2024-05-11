@@ -19,9 +19,22 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     private ObservableCollection<string> _enfoquesDiferenciadosCatalogo;
     [ObservableProperty] 
     private ObservableCollection<string> _enfoquesDiferenciadosSeleccionados;
+    [ObservableProperty] 
+    private string _enfoqueDiferenciado;
 
-    [ObservableProperty] private string _enfoqueDiferenciado;
-    [ObservableProperty] private int _enfoqueDiferenciadoIndex;
+    [ObservableProperty]
+    private string _caracteristicaRiesgo;
+    [ObservableProperty]
+    private ObservableCollection<string> _caracteristicasRiesgo;
+    
+    [ObservableProperty]
+    private string _informacionRelevante;
+    [ObservableProperty]
+    private ObservableCollection<string> _informacionesRelevantes;
+    
+    [ObservableProperty]
+    private ObservableCollection<string> ;
+    
 
     public CondicionesVulnerabilidadViewModel()
     {
@@ -29,6 +42,8 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 
         EnfoquesDiferenciadosCatalogo = new ObservableCollection<string>();
         EnfoquesDiferenciadosSeleccionados = new ObservableCollection<string>();
+        CaracteristicasRiesgo = new ObservableCollection<string>();
+        InformacionesRelevantes = new ObservableCollection<string>();
         
         EnfoquesDiferenciadosCatalogo.Add("CONDUCTOR DE TRANSPORTE PUBLICO");
         EnfoquesDiferenciadosCatalogo.Add("DEFENSORA DE DERECHOS HUMANOS");
@@ -48,6 +63,8 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
         EnfoquesDiferenciadosCatalogo.Add("NO ESPECIFICA");
 
         EnfoqueDiferenciado = EnfoquesDiferenciadosCatalogo.Last();
+        CaracteristicaRiesgo = string.Empty;
+        InformacionRelevante = string.Empty;
     }
 
     [RelayCommand]
@@ -61,5 +78,35 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     {
         Console.WriteLine($"Item para borrar: {elemento}");
         EnfoquesDiferenciadosSeleccionados.Remove(elemento);
+    }
+
+    [RelayCommand]
+    public void AddCaracteristicaRiesgo()
+    {
+        CaracteristicaRiesgo = CaracteristicaRiesgo.Trim();
+        if (CaracteristicaRiesgo == string.Empty || CaracteristicaRiesgo.Length <= 0) return;
+        CaracteristicasRiesgo.Add(CaracteristicaRiesgo);
+        CaracteristicaRiesgo = string.Empty;
+    }
+
+    [RelayCommand]
+    public void RemoveCaracteristicaRiesgo(string elemento)
+    {
+        CaracteristicasRiesgo.Remove(elemento);
+    }
+    
+    [RelayCommand]
+    public void AddInformacionRelevante()
+    {
+        InformacionRelevante = InformacionRelevante.Trim();
+        if (InformacionRelevante == string.Empty || InformacionRelevante.Length <= 0) return;
+        InformacionesRelevantes.Add(InformacionRelevante);
+        InformacionRelevante = string.Empty;
+    }
+
+    [RelayCommand]
+    public void RemoveInformacionRelevante(string elemento)
+    {
+        InformacionesRelevantes.Remove(elemento);
     }
 }

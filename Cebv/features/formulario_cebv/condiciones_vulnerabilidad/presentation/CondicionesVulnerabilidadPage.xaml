@@ -16,10 +16,11 @@
     <Page.DataContext>
         <local:CondicionesVulnerabilidadViewModel />
     </Page.DataContext>
-    
+
     <StackPanel Margin="5">
         <StackPanel MinWidth="200"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Left"
+                    Margin="10">
             <ui:TextBlock Text="Tipo de sangre"
                           FontTypography="Caption" />
             <ComboBox />
@@ -30,7 +31,8 @@
 
         <ui:DataGrid MinHeight="300"
                      AutoGenerateColumns="False"
-                     ItemsSource="{Binding CondicionesSalud}">
+                     ItemsSource="{Binding CondicionesSalud}"
+                     Margin="10">
             <ui:DataGrid.Columns>
                 <DataGridTextColumn Header="Condición"
                                     Width="*"
@@ -38,12 +40,13 @@
                 <DataGridTextColumn Header="Tratamiento"
                                     Width="*"
                                     Binding="{Binding Path=tratamiento}" />
-                <DataGridTextColumn Header="Naturaleza"
-                                    Width="*"
-                                    Binding="{Binding Path=naturaleza}" />
+                <DataGridComboBoxColumn Header="Naturaleza"
+                                        Width="*">
+                </DataGridComboBoxColumn>
+                <DataGridCheckBoxColumn Header="Padece la condicion actualmente"/>
             </ui:DataGrid.Columns>
         </ui:DataGrid>
-        
+
         <ui:TextBlock Text="Enfoque diferenciado"
                       FontTypography="Subtitle" />
         <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
@@ -51,55 +54,74 @@
                 CornerRadius="8">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
+
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                
-                <StackPanel Grid.ColumnSpan="3" 
-                            MinWidth="200">
+
+                <StackPanel Grid.ColumnSpan="3"
+                            MinWidth="200"
+                            Margin="5">
                     <ui:TextBlock Text="Pertenencia grupal o étnica"
                                   FontTypography="Caption" />
                     <ComboBox />
                 </StackPanel>
-                
-                <StackPanel Grid.Column="0"
-                            Grid.Row="1"
-                            MinWidth="200"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom">
-                    <ui:TextBlock Text="Enfoque diferenciado"
-                                  FontTypography="Caption" />
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox MinWidth="200"
-                                  ItemsSource="{Binding EnfoquesDiferenciadosCatalogo}"
-                                  SelectedItem="{Binding EnfoqueDiferenciado}"/>
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   VerticalAlignment="Stretch"
-                                   Appearance="Primary"
-                                   Command="{Binding AddEnfoqueDiferenciadoCommand}"/>
-                        
-                    </StackPanel>
+
+                <!-- Enfoques diferenciados -->
+                <Grid Grid.Column="0"
+                      Grid.Row="1"
+                      Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ui:TextBlock Text="&#10;Enfoque diferenciado"
+                                  FontTypography="Caption"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Grid.ColumnSpan="2" />
+
+                    <ComboBox MinWidth="200"
+                              Grid.Column="0"
+                              Grid.Row="1"
+                              ItemsSource="{Binding EnfoquesDiferenciadosCatalogo}"
+                              SelectedItem="{Binding EnfoqueDiferenciado}" />
+
+                    <ui:Button Icon="{ui:SymbolIcon Add24}"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               VerticalAlignment="Stretch"
+                               Appearance="Primary"
+                               Command="{Binding AddEnfoqueDiferenciadoCommand}" />
+
                     <ui:ListView ItemsSource="{Binding Path=EnfoquesDiferenciadosSeleccionados}"
-                                 SelectedIndex="{Binding EnfoqueDiferenciadoIndex}"
-                                 Name="EnfoqueDirenciadoListView">
+                                 Grid.Row="2"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="2">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="3"
                                       VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <ui:TextBlock Grid.Column="0"
                                                   Text="{Binding Chars}"
-                                                  VerticalAlignment="Center"/>
-                                    
+                                                  VerticalAlignment="Center" />
+
                                     <StackPanel Grid.Column="1"
                                                 HorizontalAlignment="Right">
                                         <!-- Si no se realiza el binding al RelayCommand de esta manera,-->
@@ -107,63 +129,142 @@
                                         <ui:Button Appearance="Danger"
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
-                                                   CommandParameter="{Binding Chars}"/>
+                                                   CommandParameter="{Binding Chars}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                </StackPanel>
-                
-                <StackPanel Grid.Column="1"
-                            Grid.Row="1"
-                            MinWidth="200"
-                            HorizontalAlignment="Left">
-                    <ui:TextBlock Text="Caracteristicas que pueden poner a la persona en mayor vulnerabilidad"
-                                  FontTypography="Caption"  TextWrapping="Wrap"/>
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox MinWidth="200"
-                                  ItemsSource="{Binding EnfoquesDiferenciadosCatalogo}"
-                                  SelectedItem="{Binding EnfoqueDiferenciado}"/>
-                        
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   Appearance="Primary"
-                                   VerticalAlignment="Stretch"
-                                   Command="{Binding AddEnfoqueDiferenciadoCommand}"/>
-                        
-                    </StackPanel>
-                    <ui:ListView ItemsSource="{Binding Path=EnfoquesDiferenciadosSeleccionados}"
-                                 SelectedIndex="{Binding EnfoqueDiferenciadoIndex}"
-                                 Name="CaracteristicaPersonalListView">
+                </Grid>
+
+                <!-- Caracteristicas de riesgo -->
+                <Grid HorizontalAlignment="Stretch"
+                      Grid.Column="1"
+                      Grid.Row="1"
+                      Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ui:TextBlock Text="Caracteristicas que pueden poner&#10;a la persona en mayor vulnerabilidad"
+                                  FontTypography="Caption"
+                                  TextWrapping="Wrap"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Grid.ColumnSpan="2" />
+
+                    <ui:TextBox Grid.Row="1"
+                                Grid.Column="0"
+                                Text="{Binding CaracteristicaRiesgo}" />
+
+                    <ui:Button Icon="{ui:SymbolIcon Add24}"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Appearance="Primary"
+                               VerticalAlignment="Stretch"
+                               Command="{Binding AddCaracteristicaRiesgoCommand}" />
+
+
+                    <ui:ListView ItemsSource="{Binding Path=CaracteristicasRiesgo}"
+                                 Grid.Row="2"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="2">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="3"
                                       VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <ui:TextBlock Grid.Column="0"
                                                   Text="{Binding Chars}"
-                                                  VerticalAlignment="Center"/>
-                                    
+                                                  VerticalAlignment="Center" />
+
                                     <StackPanel Grid.Column="1"
                                                 HorizontalAlignment="Right">
-                                        <!-- Si no se realiza el binding al RelayCommand de esta manera,-->
-                                        <!-- se realiza otra instancia aparte del viewmodel donde el index siempre es 0 -->
                                         <ui:Button Appearance="Danger"
                                                    Icon="{ui:SymbolIcon Delete24}"
-                                                   Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
-                                                   CommandParameter="{Binding Chars}"/>
+                                                   Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
+                                                   CommandParameter="{Binding Chars}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                </StackPanel>
-                
+                </Grid>
+
+                <!-- Informacion relevante -->
+                <Grid HorizontalAlignment="Stretch"
+                      Grid.Column="2"
+                      Grid.Row="1"
+                      Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ui:TextBlock Text="Información personal que se&#10;considere relevante para la localización"
+                                  FontTypography="Caption"
+                                  TextWrapping="Wrap"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Grid.ColumnSpan="2" />
+
+                    <ui:TextBox Grid.Row="1"
+                                Grid.Column="0"
+                                Text="{Binding InformacionRelevante}" />
+
+                    <ui:Button Icon="{ui:SymbolIcon Add24}"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Appearance="Primary"
+                               VerticalAlignment="Stretch"
+                               Command="{Binding AddInformacionRelevanteCommand}" />
+
+
+                    <ui:ListView ItemsSource="{Binding Path=InformacionesRelevantes}"
+                                 Grid.Row="2"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="2">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="3"
+                                      VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock Grid.Column="0"
+                                                  Text="{Binding Chars}"
+                                                  VerticalAlignment="Center" />
+
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Right">
+                                        <ui:Button Appearance="Danger"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
+                                                   CommandParameter="{Binding Chars}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                </Grid>
             </Grid>
-            
         </Border>
 
         <ui:TextBlock Text="Embarazo"
@@ -172,24 +273,22 @@
         <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                 Margin="5"
                 CornerRadius="8">
-            <WrapPanel>
-                <ui:ToggleSwitch Content="¿Esta embarazada?"
-                                 Name="EmbarazoToggleSwitch" />
-                
-                <StackPanel MinWidth="200"
-                            HorizontalAlignment="Left">
-                    <ui:TextBlock Text="Meses de embarazo"
-                                  FontTypography="Caption" />
-                    <ui:NumberBox Maximum="9"
-                                  Minimum="0"
-                                  IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" />
-                </StackPanel>
+            <WrapPanel Margin="10">
+                <CheckBox Content="¿Esta embarazada?"
+                          Name="EmbarazoToggleSwitch" />
+
+                <ui:NumberBox Maximum="9"
+                              Minimum="0"
+                              PlaceholderText="Meses de embarazo"
+                              Margin="5,0,0,0"
+                              IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" />
             </WrapPanel>
         </Border>
 
         <ui:Button Content="Guardar y siguente"
                    Icon="{ui:SymbolIcon Save24}"
                    HorizontalAlignment="Stretch"
+                   Margin="10"
                    Appearance="Primary" />
     </StackPanel>
 </Page>
