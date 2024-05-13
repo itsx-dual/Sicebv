@@ -33,7 +33,7 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     private ObservableCollection<string> _informacionesRelevantes;
     
     [ObservableProperty]
-    private ObservableCollection<string> ;
+    private ObservableCollection<string> _noSeQueIbaAqui;
     
 
     public CondicionesVulnerabilidadViewModel()

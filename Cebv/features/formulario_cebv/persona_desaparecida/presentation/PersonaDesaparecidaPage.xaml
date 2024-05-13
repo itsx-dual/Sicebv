@@ -120,7 +120,7 @@
                     <!-- Apodos -->
                     <WrapPanel Grid.Row="2">
                         <StackPanel Orientation="Vertical" MinWidth="250">
-                            <ui:TextBlock Text="APODO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="ALIAS:" FontTypography="Caption" />
                             <ui:TextBox Text="{Binding Apodo}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -252,6 +252,7 @@
                                    Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary" />
                     </WrapPanel>
+                    <!-- Añadir lo que falta de nacionalidad -->
 
 
                     <!-- Identifcaciones oficiales -->
@@ -525,29 +526,115 @@
             <!-- Datos sociodemográficos -->
             <ui:TextBlock Text="Datos sociodemográficos" FontTypography="Subtitle" Margin="10" />
             <Border>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel>
-                    <CheckBox IsThreeState="True" IsChecked="{Binding HablaEspanol}">
-                        <ui:TextBlock>
-                            <Run Text="¿HABLA ESPAÑOL?" />
-                            <Run Text="{Binding HablaEspanolLabel}" FontWeight="Bold" />
-                        </ui:TextBlock>
-                    </CheckBox>
-                    <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                    <CheckBox IsThreeState="True" IsChecked="{Binding SabeLeer}">
-                        <ui:TextBlock>
-                            <Run Text="¿SABE LEER?" />
-                            <Run Text="{Binding SabeLeerLabel}" FontWeight="Bold" />
-                        </ui:TextBlock>
-                    </CheckBox>
-                    <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                    <CheckBox IsThreeState="True" IsChecked="{Binding SabeEscribir}">
-                        <ui:TextBlock>
-                            <Run Text="¿SABE ESCRIBIR?" />
-                            <Run Text="{Binding SabeEscribirLabel}" FontWeight="Bold" />
-                        </ui:TextBlock>
-                    </CheckBox>
-                </StackPanel>
+                    <StackPanel>
+                        <CheckBox IsThreeState="True" IsChecked="{Binding HablaEspanol}">
+                            <ui:TextBlock>
+                                <Run Text="¿HABLA ESPAÑOL?" />
+                                <Run Text="{Binding HablaEspanolLabel}" FontWeight="Bold" />
+                            </ui:TextBlock>
+                        </CheckBox>
+                        <Separator Height="15" Background="Transparent" BorderThickness="0" />
+                        <CheckBox IsThreeState="True" IsChecked="{Binding SabeLeer}">
+                            <ui:TextBlock>
+                                <Run Text="¿SABE LEER?" />
+                                <Run Text="{Binding SabeLeerLabel}" FontWeight="Bold" />
+                            </ui:TextBlock>
+                        </CheckBox>
+                        <Separator Height="15" Background="Transparent" BorderThickness="0" />
+                        <CheckBox IsThreeState="True" IsChecked="{Binding SabeEscribir}">
+                            <ui:TextBlock>
+                                <Run Text="¿SABE ESCRIBIR?" />
+                                <Run Text="{Binding SabeEscribirLabel}" FontWeight="Bold" />
+                            </ui:TextBlock>
+                        </CheckBox>
+                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    </StackPanel>
+
+                    <WrapPanel Grid.Row="1">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="ESCOLARIDAD:" FontTypography="Caption" />
+                            <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="ESTATUS ESCOLARIDAD:" FontTypography="Caption" />
+                            <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="2">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OCUPACIÓN PRINCIPAL:" FontTypography="Caption" />
+                            <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="DETALLES OCUPACIÓN:" FontTypography="Caption" />
+                            <ui:TextBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="3">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OCUPACIÓN SECUNDARIA:" FontTypography="Caption" />
+                            <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="DETALLES OCUPACIÓN:" FontTypography="Caption" />
+                            <ui:TextBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="4">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="ESTADO CONYUGAL:" FontTypography="Caption" />
+                            <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="NOMBRE DE LA PAREJA O CONYUGE:" FontTypography="Caption" />
+                            <ui:TextBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    </WrapPanel>
+                </Grid>
             </Border>
         </StackPanel>
     </Grid>
