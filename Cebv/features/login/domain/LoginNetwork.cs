@@ -21,9 +21,9 @@ public class LoginNetwork
         switch ((int)response.StatusCode)
         {
             case 200:
-                TokenWrapped token = JsonSerializer.Deserialize<TokenWrapped>(jsonResponse);
+                TokenWrapped token = JsonSerializer.Deserialize<TokenWrapped>(jsonResponse)!;
                 Client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token.data.TokenText);
+                    new AuthenticationHeaderValue("Bearer", token!.data.TokenText);
                 return
                     token; // Devuelto por utilidad, ya que el token queda en los headers de la instancia estatica del manejador.
 

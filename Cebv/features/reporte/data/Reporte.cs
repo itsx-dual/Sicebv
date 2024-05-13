@@ -1,55 +1,84 @@
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
+using Cebv.core.data;
 using Cebv.features.desaparecido.data;
 using Cebv.features.reportante.data;
 
 namespace Cebv.features.reporte.data;
 
-public class ReporteWrapped
+public class ReportesQueryResponse
 {
-    [property: JsonPropertyName("data")]
-    public List<Reporte> Data { get; set; } = null!;
+    [property: JsonPropertyName("data")] public List<ReporteResponse> Data { get; set; } = null!;
 }
 
-public class ReporteById
+public class ReporteQueryResponse
 {
-    public Reporte data { get; set; }
+    [property: JsonPropertyName("data")] public ReporteResponse Data { get; set; } = null!;
 }
 
-public sealed record Reporte
+public class ReporteResponse
 {
-    [property: JsonPropertyName("id")] public int Id { get; set; }
+    [JsonPropertyName("id")] public int Id { get; set; }
 
-    [property: JsonPropertyName("tipo_reporte_id")]
-    public int? TipoReporteId { get; set; }
+    [JsonPropertyName("tipo_reporte")] public Catalogo? TipoReporte { get; set; }
 
-    [property: JsonPropertyName("area_atiende_id")]
-    public int? AreaAtiendeId { get; set; }
+    [JsonPropertyName("area_atiende_id")] public int? AreaAtiendeId { get; set; }
 
-    [property: JsonPropertyName("medio_conocimiento_id")]
-    public int? MedioConocimientoId { get; set; }
+    [JsonPropertyName("medio_conocimiento")]
+    public Medio? MedioConocimiento { get; set; }
 
-    [property: JsonPropertyName("zona_estado_id")]
-    public int? ZonaEstadoId { get; set; }
+    [JsonPropertyName("estado")] public Estado? Estado { get; set; }
 
-    [property: JsonPropertyName("hipotesis_oficial_id")]
+    [JsonPropertyName("zona_estado_id")] public int? ZonaEstadoId { get; set; }
+
+    [JsonPropertyName("hipotesis_oficial_id")]
     public int? HipotesisOficialId { get; set; }
 
-    [property: JsonPropertyName("tipo_desaparicion")]
+    [JsonPropertyName("tipo_desaparicion")]
     public string? TipoDesaparicion { get; set; }
 
-    [property: JsonPropertyName("fecha_localizacion")]
+    [JsonPropertyName("fecha_localizacion")]
     public DateOnly? FechaLocalizacion { get; set; }
 
-    [property: JsonPropertyName("sintesis_localizacion")]
+    [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
 
-    [property: JsonPropertyName("clasificacion_persona")]
-    public string? ClasificacionPersona { get; set; }
+    [JsonPropertyName("reportantes")] public List<ReportanteResponse>? Reportantes { get; set; }
 
-    [property: JsonPropertyName("reportantes")]
-    public ObservableCollection<Reportante> Reportantes { get; set; }
+    [JsonPropertyName("desaparecidos")] public List<DesaparecidoResponse>? Desaparecidos { get; set; }
 
-    [property: JsonPropertyName("desaparecidos")]
-    public List<Desaparecido>? Desaparecidos { get; set; }
+    [JsonPropertyName("fecha_creacion")] public DateTime FechaCreacion { get; set; }
+
+    [JsonPropertyName("fecha_actualizacion")]
+    public string FechaActualizacion { get; set; } = null!;
+}
+
+public class ReporteRequest
+{
+    [JsonPropertyName("tipo_reporte")] public Catalogo? TipoReporte { get; set; }
+
+    [JsonPropertyName("area_atiende_id")] public int? AreaAtiendeId { get; set; }
+
+    [JsonPropertyName("medio_conocimiento")]
+    public Medio? MedioConocimiento { get; set; }
+
+    [JsonPropertyName("estado")] public Estado? Estado { get; set; }
+
+    [JsonPropertyName("zona_estado_id")] public int? ZonaEstadoId { get; set; }
+
+    [JsonPropertyName("hipotesis_oficial_id")]
+    public int? HipotesisOficialId { get; set; }
+
+    [JsonPropertyName("tipo_desaparicion")]
+    public string? TipoDesaparicion { get; set; }
+
+    [JsonPropertyName("fecha_localizacion")]
+    public DateOnly? FechaLocalizacion { get; set; }
+
+    [JsonPropertyName("sintesis_localizacion")]
+    public string? SintesisLocalizacion { get; set; }
+
+    [JsonPropertyName("reportantes")] public List<ReportanteResponse>? Reportantes { get; set; }
+
+    [JsonPropertyName("desaparecidos")] public List<DesaparecidoResponse>? Desaparecidos { get; set; }
 }

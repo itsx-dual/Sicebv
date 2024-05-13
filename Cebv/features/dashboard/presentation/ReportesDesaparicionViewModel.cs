@@ -1,20 +1,21 @@
-using Cebv.features.dashboard.data;
-using Cebv.features.dashboard.domain;
+using System.Collections.ObjectModel;
+using Cebv.features.reporte.data;
+using Cebv.features.reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.features.dashboard.presentation;
 
 public partial class ReportesDesaparicionViewModel : ObservableObject
 {
-    [ObservableProperty] private List<Reporte> _reportes;
+    [ObservableProperty] private ObservableCollection<ReporteResponse> _reportes = new();
 
     public ReportesDesaparicionViewModel()
     {
-        _cargarReportes();
+        CargarReportes();
     }
 
-    private async void _cargarReportes()
+    private async void CargarReportes()
     {
-        Reportes = await DashboardNetwork.GetReportesRequest();
+        Reportes = await ReporteNetwork.GetReportes();
     }
 }

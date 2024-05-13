@@ -24,9 +24,7 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-    <Page.DataContext>
-        <local:FormularioCebvViewModel/>
-    </Page.DataContext>
+   
     <ui:NavigationView PaneDisplayMode="LeftMinimal"
                        Width="{Binding ElementName=FormularioPage, Path=ActualWidth}"
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
@@ -40,9 +38,9 @@
             
             <ui:NavigationViewItem Content="Reportante"
                                    Icon="{ui:SymbolIcon PersonCall24}"
-                                   TargetPageType="{x:Type reportante:ReportantePage}"/>
+                                   TargetPageType="{x:Type reportante1:ReportantePage}"/>
             
-            <ui:NavigationViewItem Content="Información de la persona desaparecida o no localizada"
+            <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
                                    TargetPageType="{x:Type presentation3:PersonaDesaparecidaPage}"/>
             

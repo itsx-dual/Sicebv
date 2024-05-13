@@ -10,7 +10,7 @@ public partial class PersonaDesaparecidaPage : Page
     public PersonaDesaparecidaPage()
     {
         InitializeComponent();
-        ViewModel = App.Current.Services.GetService<PersonaDesaparecidaViewModel>();
+        ViewModel = App.Current.Services.GetService<PersonaDesaparecidaViewModel>()!;
         this.DataContext = ViewModel;
     }
 }

@@ -1,18 +1,18 @@
 using System.Text.Json.Serialization;
+using Cebv.core.data;
 
 namespace Cebv.features.reporte.data;
 
 public class MedioWrapped
 {
-    public List<Medio> data { get; set; }
+    [property: JsonPropertyName("data")] public List<Medio> Data { get; set; } = null!;
 }
 
 public class Medio
 {
-    [property: JsonPropertyName("id")] public int Id { get; set; }
+    [JsonPropertyName("id")] public int Id { get; set; }
 
-    [property: JsonPropertyName("tipo_medio_id")]
-    public int TipoMedioId { get; set; }
+    [JsonPropertyName("tipo_medio")] public Catalogo TipoMedio { get; set; } = null!;
 
-    [property: JsonPropertyName("nombre")] public string Nombre { get; set; }
+    [JsonPropertyName("nombre")] public string Nombre { get; set; } = null!;
 }

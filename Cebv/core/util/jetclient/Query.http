@@ -1,5 +1,5 @@
 // @no-log
-GET 187.251.212.146:18080/api/desaparecidos
+GET http://api_cebv.test/api/reportes
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 

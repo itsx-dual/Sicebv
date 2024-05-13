@@ -3,10 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
-      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -127,7 +125,7 @@
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
-                            <ui:ListView ItemsSource="{Binding ApodosList}"/>
+                            <ui:ListView ItemsSource="{Binding ApodosList}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
@@ -214,8 +212,6 @@
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
                         </StackPanel>
-
-
                     </WrapPanel>
 
 
@@ -486,7 +482,7 @@
                         <ui:Button Content="Añadir Teléfono" Appearance="Secondary" />
                     </WrapPanel>
 
-                    <ui:ListView Grid.Row="1"/>
+                    <ui:ListView Grid.Row="1" />
 
                     <WrapPanel Grid.Row="2">
                         <StackPanel Margin="5" MinWidth="250">
@@ -529,45 +525,29 @@
             <!-- Datos sociodemográficos -->
             <ui:TextBlock Text="Datos sociodemográficos" FontTypography="Subtitle" Margin="10" />
             <Border>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
 
-                    <WrapPanel Grid.Row="0">
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="HABLA ESPAÑOL:" FontTypography="Caption" />
-                            <ComboBox />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-                        
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-                        
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="SABE LEER:" FontTypography="Caption" />
-                            <ComboBox />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-                        
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-                        
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="SABE ESCRIBIR:" FontTypography="Caption" />
-                            <ComboBox />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-                        
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                    </WrapPanel>
-                </Grid>
+                <StackPanel>
+                    <CheckBox IsThreeState="True" IsChecked="{Binding HablaEspanol}">
+                        <ui:TextBlock>
+                            <Run Text="¿HABLA ESPAÑOL?" />
+                            <Run Text="{Binding HablaEspanolLabel}" FontWeight="Bold" />
+                        </ui:TextBlock>
+                    </CheckBox>
+                    <Separator Height="15" Background="Transparent" BorderThickness="0" />
+                    <CheckBox IsThreeState="True" IsChecked="{Binding SabeLeer}">
+                        <ui:TextBlock>
+                            <Run Text="¿SABE LEER?" />
+                            <Run Text="{Binding SabeLeerLabel}" FontWeight="Bold" />
+                        </ui:TextBlock>
+                    </CheckBox>
+                    <Separator Height="15" Background="Transparent" BorderThickness="0" />
+                    <CheckBox IsThreeState="True" IsChecked="{Binding SabeEscribir}">
+                        <ui:TextBlock>
+                            <Run Text="¿SABE ESCRIBIR?" />
+                            <Run Text="{Binding SabeEscribirLabel}" FontWeight="Bold" />
+                        </ui:TextBlock>
+                    </CheckBox>
+                </StackPanel>
             </Border>
         </StackPanel>
     </Grid>

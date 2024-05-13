@@ -6,82 +6,117 @@
       xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:data="clr-namespace:Cebv.features.dashboard.data"
+      xmlns:data="clr-namespace:Cebv.features.reporte.data"
+      xmlns:data1="clr-namespace:Cebv.features.desaparecido.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1024"
-      d:DesignHeight="768"
+      d:DesignWidth="Auto"
+      d:DesignHeight="Auto"
       Title="ReportesDesaparicion">
     <Page.DataContext>
-        <local:ReportesDesaparicionViewModel/>
+        <local:ReportesDesaparicionViewModel />
     </Page.DataContext>
     <Grid Margin="10">
         <StackPanel>
-            <ui:TextBlock Text="Reportes de desaparición"
-                          FontSize="30"
-                          FontWeight="SemiBold"
-                          Margin="10"/>
-            
-            <Border Margin="0"
-                    Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    CornerRadius="8">
-                <ui:DataGrid ItemsSource="{Binding Reportes}"
-                             AutoGenerateColumns="False"
-                             Margin="10"
-                             VerticalAlignment="Center">
-                    <ui:DataGrid.ItemContainerStyle>
-                        <Style TargetType="DataGridRow">
-                            <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler"/>
-                        </Style>
-                    </ui:DataGrid.ItemContainerStyle>
-                    
-                    <ui:DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding folio_cebv}" 
-                                            Header="Folio CEBV"
-                                            CanUserResize="True"/>
-                        
-                        <DataGridTextColumn Binding="{Binding nombre_desaparecido}" 
-                                            Header="Reportado"
-                                            Width="*"
-                                            CanUserResize="True"/>
-                        
-                        <DataGridTextColumn Binding="{Binding reportante_nombre}" 
-                                            Header="Reportante"
-                                            Width="*"
-                                            CanUserResize="True"/>
-                        
-                        <DataGridTextColumn Binding="{Binding curp_desaparecido}"
-                                            Header="CURP"
-                                            CanUserResize="True"/>
-                        
-                        <DataGridTextColumn Binding="{Binding fecha_desaparicion, StringFormat=d \\de MMMM \\de yyyy&#10;h:mm tt, ConverterCulture=es-MX, TargetNullValue=''}"
-                                            Header="Fecha de desapariciòn"
-                                            CanUserResize="True"/>
-                        
-                        <DataGridTemplateColumn Header="Acciones">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ui:DropDownButton Icon="{ui:SymbolIcon MoreVertical24}"
-                                                       Margin="5">
-                                        <ui:DropDownButton.Flyout>
-                                            <ContextMenu>
-                                                <MenuItem Command="{Binding}"
-                                                          CommandParameter="{Binding  reporte_id}"
-                                                          Icon="{ui:SymbolIcon NotepadEdit20}" 
-                                                          Header="Editar reporte"/>
-                                                <MenuItem Icon="{ui:SymbolIcon DocumentArrowDown20}" Header="Informe de inicio"/>
-                                                <MenuItem Icon="{ui:SymbolIcon DocumentRibbon20}" Header="Formato de caratula"/>
-                                                <MenuItem Icon="{ui:SymbolIcon Delete20}" Header="Eliminar reporte"/>
-                                            </ContextMenu>
-                                        </ui:DropDownButton.Flyout>
-                                    </ui:DropDownButton>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </ui:DataGrid.Columns>
-                </ui:DataGrid>
-            </Border>
+            <ui:TextBlock Text="Reportes de desaparición" FontTypography="TitleLarge" />
+
+            <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+            <ui:ListView ItemsSource="{Binding Reportes}">
+
+                <ui:ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type data:ReporteResponse}">
+                        <Border Padding="16"
+                                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" FontSize="12" HorizontalAlignment="Left">
+                                    <Run Text="{Binding MedioConocimiento.TipoMedio.Nombre}" />
+                                    <Run Text=" - " />
+                                    <Run Text="{Binding MedioConocimiento.Nombre}" />
+                                </ui:TextBlock>
+
+                                <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                                        <ui:TextBlock Text="{Binding TipoReporte.Nombre}" FontWeight="Bold"
+                                                      FontSize="24" />
+                                        <ui:TextBlock Text="{Binding FechaCreacion}" FontSize="12" />
+                                    </StackPanel>
+
+                                    <ui:TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Right"
+                                                  Margin="0 5 0 0">
+                                        <Run Text="{Binding Estado.Nombre}" />
+                                        <Run Text=", " />
+                                        <Run Text="{Binding Estado.AbreviaturaCebv}" />
+                                    </ui:TextBlock>
+                                </Grid>
+
+                                <Separator Grid.Row="2" Height="25" Background="Transparent" BorderThickness="0" />
+
+                                <ui:ListView Grid.Row="3" ItemsSource="{Binding Desaparecidos}" IsSelected="False">
+                                    <ui:ListView.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type data1:DesaparecidoResponse}">
+                                            <Grid Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Ellipse
+                                                    x:Name="Ellipse"
+                                                    Grid.RowSpan="3"
+                                                    Width="48"
+                                                    Height="48"
+                                                    Margin="6"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Fill="{ui:ThemeResource ControlStrongStrokeColorDefaultBrush}" />
+
+                                                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20">
+                                                    <Run Text="{Binding Persona.Nombre}" FontWeight="Bold" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{Binding Persona.ApellidoPaterno}" FontWeight="Bold" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{Binding Persona.ApellidoMaterno}" FontWeight="Bold" />
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
+                                                    <Run Text="{Binding EstatusCebv.Nombre}" />
+                                                    <Run Text=" - " />
+                                                    <Run Text="{Binding EstatusRpdno.Nombre}" FontStyle="Oblique" />
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FolioCebv}"
+                                                           FontSize="16" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ui:ListView.ItemTemplate>
+                                </ui:ListView>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
+
         </StackPanel>
     </Grid>
 </Page>
