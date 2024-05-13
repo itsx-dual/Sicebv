@@ -1,14 +1,22 @@
-using Cebv.features.formulario_cebv.persona_desaparecida.data;
-using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
+using Cebv.features.formulario_cebv.datos_del_reporte.domain;
+using Cebv.features.formulario_cebv.presentation.data;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Cebv.features.formulario_cebv.presentation;
 
-public partial class FormularioCebvViewModel : ObservableObject
+public class FormularioCebvViewModel : IRecipient<AddReporteMessage>
 {
-    public FormularioCebvViewModel()
+    private readonly IFormularioService _formularioService;
+
+    public FormularioCebvViewModel(IFormularioService formularioService)
     {
-        
+        _formularioService = formularioService;
+        WeakReferenceMessenger.Default.RegisterAll(this);
+    }
+
+    public void Receive(AddReporteMessage message)
+    {
+        _formularioService.Reporte = message.Value;
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Cebv.core.data;
@@ -13,30 +12,26 @@ public class ReporteNetwork
 {
     private static HttpClient Client => HttpClientHandler.SharedClientHandler;
 
-    public static async Task<ReporteWrapped?> GetReportes()
+    public static async Task<ObservableCollection<ReporteResponse>> GetReportes()
     {
         var request = await Client.GetAsync("api/reportes");
 
         var response = await request.Content.ReadAsStringAsync();
 
-        ReporteWrapped? reportes = JsonSerializer.Deserialize<ReporteWrapped>(response);
+        ReportesQueryResponse reportes = JsonSerializer.Deserialize<ReportesQueryResponse>(response)!;
 
-        return reportes;
+        return new ObservableCollection<ReporteResponse>(reportes.Data);
     }
 
-    public static async Task<Object> GetTiposReportes()
+    public static async Task<ObservableCollection<Catalogo>> GetTiposReportes()
     {
         var request = await Client.GetAsync("api/tipos-reportes");
 
         var response = await request.Content.ReadAsStringAsync();
 
-        CatalogoWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogoWrapped>(response);
+        CatalogoWrapped jsonResponse = JsonSerializer.Deserialize<CatalogoWrapped>(response)!;
 
-        ObservableCollection<Catalogo> tiposReportes = new ObservableCollection<Catalogo>();
-
-        foreach (var tipoReporte in jsonResponse?.data!) tiposReportes.Add(tipoReporte);
-
-        return tiposReportes;
+        return new ObservableCollection<Catalogo>(jsonResponse.data);
     }
 
     public static async Task<Object> GetAreas()
@@ -79,7 +74,7 @@ public class ReporteNetwork
 
         ObservableCollection<Medio> medios = new ObservableCollection<Medio>();
 
-        foreach (var medio in jsonResponse?.data!) medios.Add(medio);
+        foreach (var medio in jsonResponse?.Data!) medios.Add(medio);
 
         return medios;
     }
@@ -129,7 +124,7 @@ public class ReporteNetwork
         return tiposHipotesis;
     }
 
-    public static async Task<Object> GetTiposDesapariciones()
+    public static async Task<object> GetTiposDesapariciones()
     {
         Dictionary<string, string> tiposDesapariciones = new Dictionary<string, string>();
 
@@ -139,7 +134,8 @@ public class ReporteNetwork
         return tiposDesapariciones;
     }
 
-    public static async Task<Object> PostReporte(int? tipoReporteId, string? tipoDesaparicion, int? areaId = null,
+    public static async Task<ReporteResponse> PostReporte(int? tipoReporteId, string? tipoDesaparicion,
+        int? areaId = null,
         int? medioId = null,
         int? zonaEstado = null, int? hipotesisId = null, string? fechaLocalizacion = null,
         string? sintesisLocalizacion = null,
@@ -170,12 +166,8 @@ public class ReporteNetwork
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Console.WriteLine($"{jsonResponse}\n");
 
-        ReporteById? reporteWrapped = JsonSerializer.Deserialize<ReporteById>(jsonResponse);
+        ReporteQueryResponse? reporteWrapped = JsonSerializer.Deserialize<ReporteQueryResponse>(jsonResponse);
 
-        Reporte reporte = new Reporte();
-
-        reporte = reporteWrapped?.data!;
-
-        return reporte;
+        return reporteWrapped?.Data!;
     }
 }

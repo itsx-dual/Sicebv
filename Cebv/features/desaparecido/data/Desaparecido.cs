@@ -3,27 +3,59 @@ using Cebv.features.persona.data;
 
 namespace Cebv.features.desaparecido.data;
 
-public sealed record Desaparecido
+public sealed record DesaparecidoResponse
 {
-    [property: JsonPropertyName("id")] public int? Id { get; set; }
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
 
-    [property: JsonPropertyName("reporte_id")]
-    public int? ReporteId { get; set; }
+    [JsonPropertyName("reporte_id")]
+    public int ReporteId { get; set; }
 
-    [property: JsonPropertyName("persona")]
-    public Persona? Persona { get; set; }
+    [JsonPropertyName("persona")]
+    public Persona Persona { get; set; } = null!;
 
-    [property: JsonPropertyName("habla_espanhol")]
-    public bool? HablaEspanhol { get; set; }
+    [JsonPropertyName("estatus_rpdno")]
+    public EstatusPersona? EstatusRpdno { get; set; }
 
-    [property: JsonPropertyName("sabe_leer")]
-    public bool? SabeLeer { get; set; }
+    [JsonPropertyName("estatus_cebv")]
+    public EstatusPersona? EstatusCebv { get; set; }
 
-    [property: JsonPropertyName("sabe_escribir")]
-    public bool? SabeEscribir { get; set; }
+    [JsonPropertyName("clasificacion_persona")]
+    public string? ClasificacionPersona { get; set; }
 
-    [property: JsonPropertyName("url_boletin")]
+    [JsonPropertyName("habla_espanhol")]
+    public bool HablaEspanhol { get; set; }
+
+    [JsonPropertyName("sabe_leer")]
+    public bool SabeLeer { get; set; }
+
+    [JsonPropertyName("sabe_escribir")]
+    public bool SabeEscribir { get; set; }
+
+    [JsonPropertyName("url_boletin")]
     public string? UrlBoletin { get; set; }
 
-    [property: JsonPropertyName("folio")] public string? Folio { get; set; }
+    [JsonPropertyName("amparo_buscador")]
+    public string? AmparoBuscador { get; set; }
+
+    [JsonPropertyName("ubicacion_amparo_buscador")]
+    public string? UbicacionAmparoBuscador { get; set; }
+
+    [JsonPropertyName("nombre_juez")]
+    public string? NombreJuez { get; set; }
+
+    [JsonPropertyName("fecha_amparo")]
+    public string? FechaAmparo { get; set; }
+
+    [JsonPropertyName("derechos_humanos")]
+    public string? DerechosHumanos { get; set; }
+
+    [JsonPropertyName("folio_cebv")]
+    public string? FolioCebv { get; set; }
+
+    [JsonPropertyName("created_at")]
+    public string CreatedAt { get; set; } = null!;
+
+    [JsonPropertyName("updated_at")]
+    public string UpdatedAt { get; set; } = null!;
 }

@@ -19,15 +19,15 @@ public class ReportanteNetwork
         var request = await Client.GetAsync($"api/reportes/{reporteId}");
         var response = await request.Content.ReadAsStringAsync();
 
-        ReporteById? jsonResponse = JsonSerializer.Deserialize<ReporteById>(response);
+        ReporteQueryResponse? jsonResponse = JsonSerializer.Deserialize<ReporteQueryResponse>(response);
 
-        Reporte reporte;
+        ReporteResponse reporteResponse;
 
         Guard.IsNotNull(jsonResponse);
 
-        reporte = jsonResponse.data;
+        reporteResponse = jsonResponse.Data;
 
-        return reporte;
+        return reporteResponse;
     }
 
     public static async Task<Object> GetParentescos()

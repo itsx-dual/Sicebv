@@ -9,12 +9,10 @@
       xmlns:presentation21="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       xmlns:presentation3="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:formularioCebv="clr-namespace:Cebv.features.formulario_cebv"
-      xmlns:reportante="clr-namespace:Cebv.features.formulario_cebv.reportante"
       xmlns:presentation2="clr-namespace:Cebv.features.formulario_cebv.media_filiacion.presentation"
-      xmlns:senasParticulares="clr-namespace:Cebv.features.formulario_cebv.senas_particulares"
       xmlns:senasParticulares1="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
+      xmlns:reportante1="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -24,9 +22,7 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-    <Page.DataContext>
-        <local:FormularioCebvViewModel/>
-    </Page.DataContext>
+   
     <ui:NavigationView PaneDisplayMode="LeftMinimal"
                        Width="{Binding ElementName=FormularioPage, Path=ActualWidth}"
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
@@ -40,9 +36,9 @@
             
             <ui:NavigationViewItem Content="Reportante"
                                    Icon="{ui:SymbolIcon PersonCall24}"
-                                   TargetPageType="{x:Type reportante:ReportantePage}"/>
+                                   TargetPageType="{x:Type reportante1:ReportantePage}"/>
             
-            <ui:NavigationViewItem Content="Información de la persona desaparecida o no localizada"
+            <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
                                    TargetPageType="{x:Type presentation3:PersonaDesaparecidaPage}"/>
             

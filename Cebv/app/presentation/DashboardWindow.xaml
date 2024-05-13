@@ -16,8 +16,6 @@
         ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
         d:DesignWidth="1024"
         d:DesignHeight="768"
-        MinWidth="1024"
-        MinHeight="768"
         Title="DashboardWindow">
     <dashboard:DashboardPage/>
 </ui:FluentWindow>
