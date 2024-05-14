@@ -3,13 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.presentation"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.datos_del_reporte.presentation"
       xmlns:presentation21="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       xmlns:presentation3="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:reportante="clr-namespace:Cebv.features.formulario_cebv.reportante"
       xmlns:presentation2="clr-namespace:Cebv.features.formulario_cebv.media_filiacion.presentation"
       xmlns:senasParticulares1="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
@@ -26,7 +24,7 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-   
+
     <ui:NavigationView PaneDisplayMode="LeftMinimal"
                        Width="{Binding ElementName=FormularioPage, Path=ActualWidth}"
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
@@ -36,58 +34,54 @@
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="Datos del reporte"
                                    Icon="{ui:SymbolIcon Document24}"
-                                   TargetPageType="{x:Type presentation1:DatosReportePage}"/>
-            
+                                   TargetPageType="{x:Type presentation1:DatosReportePage}" />
+
             <ui:NavigationViewItem Content="Reportante"
                                    Icon="{ui:SymbolIcon PersonCall24}"
                                    TargetPageType="{x:Type presentation7:ReportantePage}"/>
             
+
             <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
-                                   TargetPageType="{x:Type presentation3:PersonaDesaparecidaPage}"/>
-            
+                                   TargetPageType="{x:Type presentation3:PersonaDesaparecidaPage}" />
+
             <ui:NavigationViewItem Content="Media filiación"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
-                                   TargetPageType="{x:Type presentation2:MediaFiliacionPage}"/>
-            
+                                   TargetPageType="{x:Type presentation2:MediaFiliacionPage}" />
+
             <ui:NavigationViewItem Content="Prendas de vestir"
                                    Icon="{ui:SymbolIcon PersonTag24}"
-                                   TargetPageType="{x:Type presentation4:PrendasPage}"/>
-            
+                                   TargetPageType="{x:Type presentation4:PrendasPage}" />
+
             <ui:NavigationViewItem Content="Señas particulares"
                                    Icon="{ui:SymbolIcon Accessibility24}"
-                                   TargetPageType="{x:Type senasParticulares1:SenasParticularesPage}"/>
-            
+                                   TargetPageType="{x:Type senasParticulares1:SenasParticularesPage}" />
+
             <ui:NavigationViewItem Content="Condiciones de vulnerabilidad en su salud"
                                    Icon="{ui:SymbolIcon PersonHeart24}"
-                                   TargetPageType="{x:Type presentation21:CondicionesVulnerabilidadPage}"/>
-            
+                                   TargetPageType="{x:Type presentation21:CondicionesVulnerabilidadPage}" />
+
             <ui:NavigationViewItem Content="Modo, tiempo y lugar de la desaparicion"
                                    Icon="{ui:SymbolIcon Search24}"
-                                   TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}"/>
-            
+                                   TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
+
             <ui:NavigationViewItem Content="Contexto"
                                    Icon="{ui:SymbolIcon SearchVisual24}"
                                    TargetPageType="{x:Type presentation8:ContextoPage}"/>
-            
+
             <ui:NavigationViewItem Content="Comunicación y difusión"
-                                   Icon="{ui:SymbolIcon Comment24}"/>
-            
+                                   Icon="{ui:SymbolIcon Comment24}" />
+
             <ui:NavigationViewItem Content="Datos de localización"
                                    Icon="{ui:SymbolIcon LocationLive24}"
-                                   TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}"/>
-            
-            <ui:NavigationViewItem Content="Generación de documentaición"
-                                   Icon="{ui:SymbolIcon DocumentAdd24}"/>
-            
+                                   TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
+
+            <ui:NavigationViewItem Content="Generación de documentación"
+                                   Icon="{ui:SymbolIcon DocumentAdd24}" />
+
             <ui:NavigationViewItem Content="Control OGPI"
-                                   Icon="{ui:SymbolIcon Document24}"/>
-            
-            <!-- Pestaña para testing, colapsar para exponer -->
-            <ui:NavigationViewItem Content="Playground"
-                                   Visibility="Visible"
-                                   Icon="{ui:SymbolIcon Games24}"
-                                   TargetPageType="{x:Type presentation6:TestingPage}"/>
+                                   Icon="{ui:SymbolIcon Document24}" />
+
         </ui:NavigationView.MenuItems>
         <ui:NavigationView.Header>
             <Grid Margin="5">
@@ -97,7 +91,7 @@
                 </Grid.ColumnDefinitions>
                 <ui:TextBlock Text="Reporte sin folio asignado"
                               FontTypography="Title"
-                              TextWrapping="Wrap"/>
+                              TextWrapping="Wrap" />
                 <ui:Button Content="Generar folio"
                            Grid.Column="1"
                            Icon="{ui:SymbolIcon Signature24}"

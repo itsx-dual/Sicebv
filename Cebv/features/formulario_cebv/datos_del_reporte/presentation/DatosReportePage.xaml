@@ -127,22 +127,29 @@
             <ui:TextBlock Text="Información de consentimiento" FontTypography="Subtitle" Margin="10" />
             <Border>
                 <StackPanel Orientation="Vertical" Margin="10">
-                    <CheckBox IsThreeState="True" IsChecked="{Binding InformacionConsentimiento }">
-                        <ui:TextBlock>
-                            <Run Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO. " />
-                            <Run Text="{Binding InformacionConsentimientoLabel}" FontWeight="Bold" />
-                        </ui:TextBlock>
-                    </CheckBox>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox />
+                        <CheckBox />
+                        <CheckBox IsThreeState="True" IsChecked="{Binding InformacionConsentimiento }">
+                            <ui:TextBlock>
+                                <Run Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO. " />
+                                <Run Text="{Binding InformacionConsentimientoLabel}" FontWeight="Bold" />
+                            </ui:TextBlock>
+                        </CheckBox>
+                    </StackPanel>
+
 
                     <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
-                    <CheckBox IsThreeState="True" IsChecked="{Binding InformacionExclusivaBusqueda}">
-                        <ui:TextBlock>
-                            <Run
-                                Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA. " />
-                            <Run Text="{Binding InformacionExclusivaBusquedaLabel }" FontWeight="Bold" />
-                        </ui:TextBlock>
-                    </CheckBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA. " />
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                        <CheckBox />
+                        <CheckBox />
+                        <CheckBox />
+
+                    </StackPanel>
 
                     <Separator Height="25" Background="Transparent" BorderThickness="0" />
 

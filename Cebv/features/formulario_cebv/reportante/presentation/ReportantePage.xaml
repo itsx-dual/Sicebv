@@ -32,7 +32,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10">
-            <ui:TextBlock HorizontalAlignment="Left" Text="Persona Desaparecida" FontTypography="TitleLarge" />
+            <ui:TextBlock HorizontalAlignment="Left" Text="Persona Reportante" FontTypography="TitleLarge" />
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
             <!-- Datos de identificación de la persona -->
@@ -149,38 +149,6 @@
                                               FontTypography="Caption"
                                               Visibility="Hidden" />
                             </StackPanel>
-
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel Orientation="Vertical" MinWidth="200">
-                                <ui:TextBlock Text="EDAD(MESES):" FontTypography="Caption" />
-                                <ui:NumberBox
-                                    Icon="{ui:SymbolIcon NumberSymbolSquare24}"
-                                    MaxDecimalPlaces="0"
-                                    Maximum="12"
-                                    Minimum="0"
-                                    PlaceholderText="Meses"
-                                    SmallChange="1" />
-                                <ui:TextBlock Text="Error"
-                                              FontTypography="Caption"
-                                              Visibility="Hidden" />
-                            </StackPanel>
-
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel Orientation="Vertical" MinWidth="200">
-                                <ui:TextBlock Text="EDAD(DÍAS):" FontTypography="Caption" />
-                                <ui:NumberBox
-                                    Icon="{ui:SymbolIcon NumberSymbolSquare24}"
-                                    MaxDecimalPlaces="0"
-                                    Maximum="31"
-                                    Minimum="0"
-                                    PlaceholderText="Días"
-                                    SmallChange="1" />
-                                <ui:TextBlock Text="Error"
-                                              FontTypography="Caption"
-                                              Visibility="Hidden" />
-                            </StackPanel>
                         </WrapPanel>
 
                         <!-- Nacionalidad -->
@@ -242,6 +210,113 @@
                         </WrapPanel>
                     </Grid>
                 </StackPanel>
+            </Border>
+            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+            
+            <!-- Datos de contacto -->
+            <ui:TextBlock Text="Datos de contacto" FontTypography="Subtitle" Margin="10"
+                          Visibility="{Binding EsAnonimo,
+                          Converter={StaticResource VisibilityConverter}}" />
+            <Border
+                Visibility="{Binding EsAnonimo,
+                Converter={StaticResource VisibilityConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <WrapPanel Grid.Row="0">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="TELÉFONO MÓVIL:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="COMPAÑÍA:" FontTypography="Caption" />
+                            <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <ui:Button Content="Añadir otro  teléfono móvil" Appearance="Secondary" />
+                    </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="1">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="TELÉFONO FIJO:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                       
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <ui:Button Content="Añadir otro  teléfono fijo" Appearance="Secondary" />
+                    </WrapPanel>
+                    
+
+                    <WrapPanel Grid.Row="2">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="CORREO ELECTRÓNICO:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                        
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <ui:Button Content="Añadir otro correo electrónico" Appearance="Secondary" />
+                    </WrapPanel>
+                </Grid>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
@@ -383,97 +458,7 @@
                 </Grid>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
-
-            <!-- Datos de contacto -->
-            <ui:TextBlock Text="Datos de contacto" FontTypography="Subtitle" Margin="10"
-                          Visibility="{Binding EsAnonimo,
-                          Converter={StaticResource VisibilityConverter}}" />
-            <Border
-                Visibility="{Binding EsAnonimo,
-                Converter={StaticResource VisibilityConverter}}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <WrapPanel Grid.Row="0">
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="TELÉFONO:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="COMPAÑÍA:" FontTypography="Caption" />
-                            <ComboBox />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <ui:Button Content="Añadir Teléfono" Appearance="Secondary" />
-                    </WrapPanel>
-
-                    <ui:ListView Grid.Row="1" />
-
-                    <WrapPanel Grid.Row="2">
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="CONTACTO ELECTRÓNICO:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="TIPO DE CONTACTO:" FontTypography="Caption" />
-                            <ComboBox />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <ui:Button Content="Añadir Contacto" Appearance="Secondary" />
-                    </WrapPanel>
-
-                </Grid>
-            </Border>
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+            
 
         </StackPanel>
     </Grid>
