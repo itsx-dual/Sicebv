@@ -13,8 +13,9 @@
       xmlns:presentation4="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       xmlns:presentation5="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
       xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
-      xmlns:reportante1="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
-      xmlns:presentation61="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
+      xmlns:presentation7="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
+      xmlns:presentation8="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
+
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -38,7 +39,8 @@
 
             <ui:NavigationViewItem Content="Reportante"
                                    Icon="{ui:SymbolIcon PersonCall24}"
-                                   TargetPageType="{x:Type reportante1:ReportantePage}" />
+                                   TargetPageType="{x:Type presentation7:ReportantePage}"/>
+            
 
             <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
@@ -65,7 +67,9 @@
                                    TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
 
             <ui:NavigationViewItem Content="Contexto"
-                                   Icon="{ui:SymbolIcon SearchVisual24}" />
+                                   Icon="{ui:SymbolIcon SearchVisual24}"
+                                   TargetPageType="{x:Type presentation8:ContextoPage}"/>
+
             
             <ui:NavigationViewItem Content="Vehiculos involucrados"
                                    Icon="{ui:SymbolIcon VehicleCar28}" 
