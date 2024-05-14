@@ -12,9 +12,9 @@
       xmlns:senasParticulares1="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       xmlns:presentation5="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
-      xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
       xmlns:presentation7="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       xmlns:presentation8="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
+      xmlns:presentation61="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
