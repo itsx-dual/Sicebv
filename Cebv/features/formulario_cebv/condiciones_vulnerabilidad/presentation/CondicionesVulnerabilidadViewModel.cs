@@ -32,9 +32,6 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<string> _informacionesRelevantes;
     
-    [ObservableProperty]
-    private ObservableCollection<string> ;
-    
 
     public CondicionesVulnerabilidadViewModel()
     {
