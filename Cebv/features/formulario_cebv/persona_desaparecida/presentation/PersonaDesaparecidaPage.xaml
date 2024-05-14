@@ -46,6 +46,8 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <!-- Nombres y apellidos -->
@@ -310,10 +312,48 @@
                                    Appearance="Primary" />
                     </WrapPanel>
                     <!-- Añadir lo que falta de nacionalidad -->
+                    
+                    <WrapPanel Grid.Row="7">
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" FontTypography="Caption" />
+                            <ComboBox IsEditable="True"
+                                      DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding EstadoSeleccionado}"
+                                      ItemsSource="{Binding Estados}"/>
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Orientation="Vertical" MinWidth="250">
+                            <ui:TextBlock Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" FontTypography="Caption" />
+                            <ComboBox 
+                                      IsEditable="True"
+                                      DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding NacionalidadSeleccionada}"
+                                      ItemsSource="{Binding Nacionalidades}" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="8">
+                        <StackPanel Orientation="Vertical" MinWidth="400">
+                            <ui:TextBlock Text="ESPECIFIQUE EN QUE OTRO PROCESO DE REGULARIZACION MIGRATORIA SE ENCUENTRA:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+                    </WrapPanel>
 
 
                     <!-- Identifcaciones oficiales -->
-                    <WrapPanel Grid.Row="7">
+                    <WrapPanel Grid.Row="9">
                         <StackPanel Orientation="Vertical" MinWidth="250">
                             <ui:TextBlock Text="RFC:" FontTypography="Caption" />
                             <ui:TextBox />
@@ -334,7 +374,7 @@
                     </WrapPanel>
 
                     <!-- Observaciones del curp -->
-                    <WrapPanel Grid.Row="8">
+                    <WrapPanel Grid.Row="10">
                         <StackPanel Orientation="Vertical" MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DEL CURP:" FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" />
