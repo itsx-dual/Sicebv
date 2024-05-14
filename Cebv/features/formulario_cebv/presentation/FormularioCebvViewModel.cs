@@ -12,12 +12,6 @@ public partial class FormularioCebvViewModel : ObservableObject, IRecipient<AddR
     private readonly IFormularioService _formularioService;
     [ObservableProperty] private string _nombreCompleto = string.Empty;
     [ObservableProperty] private bool _puedeGuardar;
-    
-    /**
-     * _puedeGuardar;
-     */
-    
-    
 
     public FormularioCebvViewModel(IFormularioService formularioService)
     {

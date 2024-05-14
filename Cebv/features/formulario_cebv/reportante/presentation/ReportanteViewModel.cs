@@ -7,6 +7,5 @@ public partial class ReportanteViewModel : ObservableObject
 {
     [ObservableProperty] private bool _esAnonimo;
     [ObservableProperty] private bool _fechaAproximada;
-
-   
+    
 }

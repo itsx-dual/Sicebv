@@ -18,7 +18,6 @@
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       xmlns:presentation9="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
-
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -37,8 +36,7 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
         </Style>
-
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
+        
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
     </Page.Resources>
 
@@ -114,7 +112,6 @@
                 <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
                               TextWrapping="Wrap"/>
-                
                 
                 <ui:Button Visibility="{Binding PuedeGuardar,
                             Converter={StaticResource VisibilityConverter2}}"
