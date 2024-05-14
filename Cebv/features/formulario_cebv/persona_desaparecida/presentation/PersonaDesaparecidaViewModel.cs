@@ -8,6 +8,8 @@ namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class PersonaDesaparecidaViewModel : ObservableObject
 {
+    [ObservableProperty] private bool _puedeGuardar;
+
     /**
      * Información de la persona desaparecida.
      */
@@ -26,7 +28,7 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(SendFullNameCommand))]
     private string? _apellidoMaterno;
 
-    [ObservableProperty] private string _nombreCompleto = string.Empty;
+    public string NombreCompleto => $"{Nombre} {ApellidoPaterno} {ApellidoMaterno}";
 
     [ObservableProperty] private bool _fechaAproximada;
 
@@ -62,8 +64,35 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
 
     partial void OnNombreChanged(string? value)
     {
-        NombreCompleto = $"{value} {ApellidoPaterno} {ApellidoMaterno}";
+        Emcabezado();
+        GuardarBorrador();
     }
+    
+    
+    partial void OnApellidoPaternoChanged(string? value)
+    {
+        Emcabezado();
+        GuardarBorrador();
+    }
+    
+    partial void OnApellidoMaternoChanged(string? value)
+    {
+        Emcabezado();
+        GuardarBorrador();
+    }
+    public void Emcabezado()
+    {
+        WeakReferenceMessenger.Default.Send(new NombreCompletoMessage(NombreCompleto));
+    }
+
+    public void GuardarBorrador()
+    {
+        if (Nombre != null && ApellidoPaterno != null && ApellidoMaterno != null) PuedeGuardar = true;
+        else PuedeGuardar = false;
+        
+        WeakReferenceMessenger.Default.Send(new GuardarBorradorMessage(PuedeGuardar));
+    }
+    
 
     /**
      * Message for full name

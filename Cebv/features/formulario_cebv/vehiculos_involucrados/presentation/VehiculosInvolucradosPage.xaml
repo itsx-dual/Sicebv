@@ -46,8 +46,8 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-
-                    <!-- Nombres y apellidos -->
+                    
+                    
                     <WrapPanel Grid.Row="0">
                         <StackPanel MinWidth="200"  >
                             <ui:TextBlock Text="RELACION CON LA PERSONA &#x0a;DESAPARECIDA O NO LOCALIZADA:" FontTypography="Caption" 

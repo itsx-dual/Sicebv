@@ -15,6 +15,7 @@
       xmlns:presentation7="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       xmlns:presentation8="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
       xmlns:presentation61="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
+      xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       xmlns:presentation9="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
 
@@ -27,6 +28,19 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
+    
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+        <util:VisibilityConverter x:Key="VisibilityConverter" />
+        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+    </Page.Resources>
 
     <ui:NavigationView PaneDisplayMode="LeftMinimal"
                        Width="{Binding ElementName=FormularioPage, Path=ActualWidth}"
@@ -94,20 +108,23 @@
         <ui:NavigationView.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ui:TextBlock Text="Reporte sin folio asignado"
+                <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
-                              TextWrapping="Wrap" />
-                <ui:Button Content="Generar folio"
-                           Grid.Column="1"
-                           Icon="{ui:SymbolIcon Signature24}"
+                              TextWrapping="Wrap"/>
+                
+                
+                <ui:Button Visibility="{Binding PuedeGuardar,
+                            Converter={StaticResource VisibilityConverter2}}"
+                           Content="Guardar Borrador"
+                           Icon="{ui:SymbolIcon Save16}"
                            HorizontalAlignment="Right"
+                           Grid.Column="1"
                            Appearance="Primary"
                            ToolTip="Algo" />
             </Grid>
         </ui:NavigationView.Header>
-       
     </ui:NavigationView>
 </Page>
