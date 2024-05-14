@@ -14,6 +14,9 @@
       Title="DatosDeLocalizacionPage">
     <Grid>
         <StackPanel>
+            <ui:TextBlock HorizontalAlignment="Left" Text="Datos de Localización" FontTypography="TitleLarge" />
+            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+            
             <ui:TextBlock Text="Localización"
                           FontTypography="Subtitle"
                           Margin="5"/>

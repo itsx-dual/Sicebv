@@ -14,6 +14,9 @@
       Title="ContextoPage">
     <Grid>
         <StackPanel>
+            <ui:TextBlock HorizontalAlignment="Left" Text="Contexto" FontTypography="TitleLarge" />
+            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+            
             <ui:TextBlock Text="Contexto familiar"
                           FontTypography="Subtitle" />
 

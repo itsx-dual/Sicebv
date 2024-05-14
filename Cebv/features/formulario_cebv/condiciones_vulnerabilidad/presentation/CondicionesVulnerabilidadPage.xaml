@@ -18,6 +18,9 @@
     </Page.DataContext>
 
     <StackPanel Margin="5">
+        <ui:TextBlock HorizontalAlignment="Left" Text="Condiciones de Vulnerabilidad en su Salud" FontTypography="TitleLarge" />
+        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+        
         <StackPanel MinWidth="200"
                     HorizontalAlignment="Left"
                     Margin="10">

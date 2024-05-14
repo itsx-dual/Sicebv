@@ -1,0 +1,71 @@
+<Page x:Class="Cebv.features.formulario_cebv.control_ogpi.presentation.ControlOgpiPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:util="clr-namespace:Cebv.core.util"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="auto"
+      d:DesignHeight="auto"
+      mc:Ignorable="d"
+      Title="ControlOgpiPage">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+        <util:VisibilityConverter x:Key="VisibilityConverter" />
+        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="10">
+            <ui:TextBlock HorizontalAlignment="Left" Text="Control OGPI" FontTypography="TitleLarge" />
+            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+
+            <!-- Datos de identificación de la persona -->
+            <ui:TextBlock Text="Información general" FontTypography="Subtitle" Margin="10" />
+            <Border>
+                <StackPanel Margin="5">
+
+                    <WrapPanel>
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="FECHA DE CAPTURA:" FontTypography="Caption" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="NOMBRE DEL CAPTURISTA:" FontTypography="Caption" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel MinWidth="250">
+                        <ui:TextBlock Text="OBSERVACIONES GENERALES:" FontTypography="Caption" />
+                        <ui:TextBox />
+                    </StackPanel>
+
+                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel MinWidth="250">
+                        <ui:TextBlock Text="N° DE TARJETA:" FontTypography="Caption" />
+                        <ui:TextBox />
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

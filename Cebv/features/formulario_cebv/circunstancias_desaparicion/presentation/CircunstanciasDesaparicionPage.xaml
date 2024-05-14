@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -13,6 +12,9 @@
       mc:Ignorable="d"
       Title="CircunstanciasDesaparicionPage">
     <StackPanel Margin="10" HorizontalAlignment="Stretch">
+        <ui:TextBlock HorizontalAlignment="Left" Text="Modo, Tiempo y Lugar de la Desaparicion" FontTypography="TitleLarge" />
+        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+        
         <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                 Margin="5"
                 CornerRadius="8">

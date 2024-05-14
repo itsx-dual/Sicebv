@@ -15,6 +15,9 @@
       Title="MediaFiliacionPage">
     <Grid Margin="5">
         <StackPanel>
+            <ui:TextBlock HorizontalAlignment="Left" Text="Media Filación" FontTypography="TitleLarge" />
+            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+            
             <ui:TextBlock Text="Caracteristicas fisicas"
                           FontTypography="Subtitle"
                           Margin="5"/>

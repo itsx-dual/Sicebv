@@ -15,6 +15,8 @@
       xmlns:presentation7="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       xmlns:presentation8="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
       xmlns:presentation61="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
+      xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
+      xmlns:presentation9="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -63,7 +65,7 @@
                                    TargetPageType="{x:Type presentation21:CondicionesVulnerabilidadPage}" />
 
             <ui:NavigationViewItem Content="Modo, tiempo y lugar de la desaparicion"
-                                   Icon="{ui:SymbolIcon Search24}"
+                                   Icon="{ui:SymbolIcon Map24}"
                                    TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
 
             <ui:NavigationViewItem Content="Contexto"
@@ -73,20 +75,20 @@
             
             <ui:NavigationViewItem Content="Vehiculos involucrados"
                                    Icon="{ui:SymbolIcon VehicleCar28}" 
-                                      TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
+                                   TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
 
             <ui:NavigationViewItem Content="Comunicación y difusión"
-                                   Icon="{ui:SymbolIcon Comment24}" />
+                                   Icon="{ui:SymbolIcon Comment24}"
+                                   TargetPageType="{x:Type presentation6:DifusionPage}"/>
 
             <ui:NavigationViewItem Content="Datos de localización"
-                                   Icon="{ui:SymbolIcon LocationLive24}"
+                                   Icon="{ui:SymbolIcon Location24}"
                                    TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
-
-            <ui:NavigationViewItem Content="Generación de documentación"
-                                   Icon="{ui:SymbolIcon DocumentAdd24}" />
+            
 
             <ui:NavigationViewItem Content="Control OGPI"
-                                   Icon="{ui:SymbolIcon Document24}" />
+                                   Icon="{ui:SymbolIcon BookInformation24}"
+                                   TargetPageType="{x:Type presentation9:ControlOgpiPage}"/>
 
         </ui:NavigationView.MenuItems>
         <ui:NavigationView.Header>
@@ -106,5 +108,6 @@
                            ToolTip="Algo" />
             </Grid>
         </ui:NavigationView.Header>
+       
     </ui:NavigationView>
 </Page>
