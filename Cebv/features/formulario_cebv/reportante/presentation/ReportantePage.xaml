@@ -127,13 +127,6 @@
                                     Visibility="{Binding EsAnonimo,
                                    Converter={StaticResource VisibilityConverter}}">
 
-                            <StackPanel>
-                                <ui:ToggleSwitch OnContent="¿USAR FECHA APROXIMADA? Sí"
-                                                 OffContent="¿USAR FECHA APROXIMADA? No"
-                                                 IsChecked="{Binding FechaAproximada }" />
-                                <Separator Height="25" Background="Transparent" BorderThickness="0" />
-                            </StackPanel>
-
                             <WrapPanel>
                                 <StackPanel MinWidth="250"
                                             Visibility="{Binding FechaAproximada,
@@ -145,28 +138,10 @@
                                                   Visibility="Hidden" />
                                 </StackPanel>
 
-                                <Separator Width="25" Background="Transparent" BorderThickness="0"
-                                           Visibility="{Binding FechaAproximada,
-                                           Converter={StaticResource VisibilityConverter}}" />
+                                <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                                <StackPanel MinWidth="250"
-                                            Visibility="{Binding FechaAproximada,
-                                            Converter={StaticResource VisibilityConverter2}}">
-                                    <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA DE NACIMIENTO"
-                                                  FontTypography="Caption" />
-                                    <ui:TextBox />
-                                    <ui:TextBlock Text="Error"
-                                                  FontTypography="Caption"
-                                                  Visibility="Hidden" />
-                                </StackPanel>
 
-                                <Separator Width="25" Background="Transparent" BorderThickness="0"
-                                           Visibility="{Binding FechaAproximada,
-                                           Converter={StaticResource VisibilityConverter2}}" />
-
-                                <StackPanel Orientation="Vertical" MinWidth="200"
-                                            Visibility="{Binding FechaAproximada,
-                                            Converter={StaticResource VisibilityConverter2}}">
+                                <StackPanel Orientation="Vertical" MinWidth="200">
                                     <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
                                     <ui:NumberBox
                                         Icon="{ui:SymbolIcon NumberSymbolSquare24}"
@@ -175,18 +150,6 @@
                                         Minimum="0"
                                         PlaceholderText="Años"
                                         SmallChange="1" />
-                                    <ui:TextBlock Text="Error"
-                                                  FontTypography="Caption"
-                                                  Visibility="Hidden" />
-                                </StackPanel>
-
-                                <Separator Width="25" Background="Transparent" BorderThickness="0"
-                                           Visibility="{Binding FechaAproximada,
-                                           Converter={StaticResource VisibilityConverter2}}" />
-
-                                <StackPanel Orientation="Vertical" MinWidth="200">
-                                    <ui:TextBlock Text="EDAD ACTUAL:" FontTypography="Caption" />
-                                    <ui:TextBox IsEnabled="False" />
                                     <ui:TextBlock Text="Error"
                                                   FontTypography="Caption"
                                                   Visibility="Hidden" />

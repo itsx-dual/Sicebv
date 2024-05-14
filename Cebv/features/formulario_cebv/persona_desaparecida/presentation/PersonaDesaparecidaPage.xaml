@@ -47,6 +47,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <!-- Nombres y apellidos -->
@@ -159,8 +160,8 @@
 
                     <StackPanel Grid.Row="4">
                         <StackPanel>
-                            <ui:ToggleSwitch OnContent="¿USAR FECHA APROXIMADA? Sí"
-                                             OffContent="¿USAR FECHA APROXIMADA? No"
+                            <ui:ToggleSwitch OnContent="¿SE DESCONOCE FECHA EXACTA? Sí"
+                                             OffContent="¿SE DESCONOCE FECHA EXACTA? No"
                                              IsChecked="{Binding FechaAproximada  }" />
                             <Separator Height="25" Background="Transparent" BorderThickness="0" />
                         </StackPanel>
@@ -183,7 +184,7 @@
                             <StackPanel MinWidth="250"
                                         Visibility="{Binding FechaAproximada,
                                         Converter={StaticResource VisibilityConverter2}}">
-                                <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA DE NACIMIENTO"
+                                <ui:TextBlock Text="FECHA DE NACIMIENTO APROCIMADA:"
                                               FontTypography="Caption" />
                                 <ui:TextBox />
                                 <ui:TextBlock Text="Error"
@@ -200,6 +201,7 @@
                                         Converter={StaticResource VisibilityConverter2}}">
                                 <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
                                 <ui:NumberBox
+                                    ToolTip="Edad al momento de Desaparición"
                                     Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                     MaxDecimalPlaces="0"
                                     Maximum="120"
@@ -250,30 +252,31 @@
                                               FontTypography="Caption"
                                               Visibility="Hidden" />
                             </StackPanel>
-                        </WrapPanel>
-
-                        <WrapPanel>
-                            <StackPanel>
-                                <ui:TextBlock
-                                    Text="¿SE ENCUENTRA EN TRÁNSITO A ESTADOS UNIDOS DE NORTEAMERICA?."
-                                    FontTypography="Caption" />
-                                <ComboBox SelectedItem="{Binding TransitoEstadosUnidosSelected}"
-                                          ItemsSource="{Binding TransitoEstadosUnidosList}" />
-                            </StackPanel>
 
                             <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                            <StackPanel
-                                Visibility="{Binding SegundaPregunta,
-                                        Converter={StaticResource VisibilityConverter2}}">
-                                <ui:TextBlock
-                                    Text="SI NO VA EN TRÁNSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES: "
-                                    FontTypography="Caption" />
-                                <ComboBox SelectedItem="{Binding TransitoEstadosUnidosSelected}"
-                                          ItemsSource="{Binding TransitoEstadosUnidosList}" />
+                            <StackPanel Orientation="Vertical" MinWidth="200"
+                                        Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter}}">
+                                <ui:TextBlock Text="EDAD AL MOMENTO DE LA DESAPARICIÓN:" FontTypography="Caption" />
+                                <ui:TextBox IsEnabled="False" />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+
+                            <Separator Width="25" Background="Transparent" BorderThickness="0"
+                                       Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter}}" />
+
+                            <StackPanel Orientation="Vertical" MinWidth="200">
+                                <ui:TextBlock Text="EDAD ACTUAL:" FontTypography="Caption" />
+                                <ui:TextBox IsEnabled="False" />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
                             </StackPanel>
                         </WrapPanel>
-
                         <Separator Height="25" Background="Transparent" BorderThickness="0" />
                     </StackPanel>
 
@@ -310,16 +313,20 @@
                                    Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary" />
                     </WrapPanel>
-                    <!-- Añadir lo que falta de nacionalidad -->
                     
-                    <WrapPanel Grid.Row="7">
+                   
+
+                    <!-- Añadir lo que falta de nacionalidad -->
+
+                    <WrapPanel Grid.Row="8">
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" FontTypography="Caption" />
+                            <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:"
+                                          FontTypography="Caption" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding EstadoSeleccionado}"
-                                      ItemsSource="{Binding Estados}"/>
+                                      SelectedItem="{Binding EstadosLista}"
+                                      ItemsSource="{Binding Estados}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -328,21 +335,24 @@
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel Orientation="Vertical" MinWidth="250">
-                            <ui:TextBlock Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" FontTypography="Caption" />
-                            <ComboBox 
-                                      IsEditable="True"
-                                      DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding NacionalidadSeleccionada}"
-                                      ItemsSource="{Binding Nacionalidades}" />
+                            <ui:TextBlock Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:"
+                                          FontTypography="Caption" />
+                            <ComboBox
+                                IsEditable="True"
+                                DisplayMemberPath="Nombre"
+                                SelectedItem="{Binding NacionalidadSeleccionada}"
+                                ItemsSource="{Binding Nacionalidades}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
                         </StackPanel>
                     </WrapPanel>
-                    
-                    <WrapPanel Grid.Row="8">
+
+                    <WrapPanel Grid.Row="9">
                         <StackPanel Orientation="Vertical" MinWidth="400">
-                            <ui:TextBlock Text="ESPECIFIQUE EN QUE OTRO PROCESO DE REGULARIZACION MIGRATORIA SE ENCUENTRA:" FontTypography="Caption" />
+                            <ui:TextBlock
+                                Text="ESPECIFIQUE EN QUE OTRO PROCESO DE REGULARIZACION MIGRATORIA SE ENCUENTRA:"
+                                FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -352,7 +362,7 @@
 
 
                     <!-- Identifcaciones oficiales -->
-                    <WrapPanel Grid.Row="9">
+                    <WrapPanel Grid.Row="10">
                         <StackPanel Orientation="Vertical" MinWidth="250">
                             <ui:TextBlock Text="RFC:" FontTypography="Caption" />
                             <ui:TextBox />
@@ -373,7 +383,7 @@
                     </WrapPanel>
 
                     <!-- Observaciones del curp -->
-                    <WrapPanel Grid.Row="10">
+                    <WrapPanel Grid.Row="11">
                         <StackPanel Orientation="Vertical" MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DEL CURP:" FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" />
