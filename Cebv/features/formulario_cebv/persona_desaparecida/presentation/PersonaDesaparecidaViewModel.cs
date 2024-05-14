@@ -13,16 +13,13 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
     /**
      * Información de la persona desaparecida.
      */
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _nombre;
 
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoPaterno;
 
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoMaterno;
 
     public string NombreCompleto => $"{Nombre} {ApellidoPaterno} {ApellidoMaterno}";
@@ -61,22 +58,23 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
 
     partial void OnNombreChanged(string? value)
     {
-        //Emcabezado();
-        //GuardarBorrador();
+        Emcabezado();
+        GuardarBorrador();
     }
-    
-    
+
+
     partial void OnApellidoPaternoChanged(string? value)
     {
-       // Emcabezado();
-        //GuardarBorrador();
+        Emcabezado();
+        GuardarBorrador();
     }
-    
+
     partial void OnApellidoMaternoChanged(string? value)
     {
-        //Emcabezado();
-        //GuardarBorrador();
+        Emcabezado();
+        GuardarBorrador();
     }
+
     public void Emcabezado()
     {
         WeakReferenceMessenger.Default.Send(new NombreCompletoMessage(NombreCompleto));
@@ -86,7 +84,7 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
     {
         if (Nombre != null && ApellidoPaterno != null && ApellidoMaterno != null) PuedeGuardar = true;
         else PuedeGuardar = false;
-        
+
         WeakReferenceMessenger.Default.Send(new GuardarBorradorMessage(PuedeGuardar));
     }
 }
