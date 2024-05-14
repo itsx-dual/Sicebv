@@ -15,6 +15,7 @@
       xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
       xmlns:presentation7="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       xmlns:presentation8="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
+
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -68,6 +69,11 @@
             <ui:NavigationViewItem Content="Contexto"
                                    Icon="{ui:SymbolIcon SearchVisual24}"
                                    TargetPageType="{x:Type presentation8:ContextoPage}"/>
+
+            
+            <ui:NavigationViewItem Content="Vehiculos involucrados"
+                                   Icon="{ui:SymbolIcon VehicleCar28}" 
+                                      TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
 
             <ui:NavigationViewItem Content="Comunicación y difusión"
                                    Icon="{ui:SymbolIcon Comment24}" />
