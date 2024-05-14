@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
-using Cebv.core.util;
 using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using Cebv.features.reporte.data;
 using Cebv.features.reporte.domain;
@@ -19,59 +18,66 @@ public partial class DatosReporteViewModel : ObservableObject
     // Información del RNPDNO.
 
     // Información de consentimiento.
-    [ObservableProperty] private bool? _informacionConsentimiento = false;
-    [ObservableProperty] private string _informacionConsentimientoLabel = OpcionesCebv.No;
+    [ObservableProperty] private List<string> _informacionConsentimientoList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _informacionConsentimientoSelected = OpcionesCebv.No;
+    [ObservableProperty] private bool? _informacionConsentimiento;
+
+    [ObservableProperty] private List<string> _informacionExclusivaBusquedaList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _informacionExclusivaBusquedaSelected = OpcionesCebv.No;
     [ObservableProperty] private bool? _informacionExclusivaBusqueda = false;
-    [ObservableProperty] private string _informacionExclusivaBusquedaLabel = OpcionesCebv.No;
+
+    [ObservableProperty] private List<string> _publicacionInformacionList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _publicacionInformacionSelected = OpcionesCebv.No;
     [ObservableProperty] private bool? _publicacionInformacion = false;
-    [ObservableProperty] private string _publicacionInformacionLabel = OpcionesCebv.No;
 
     // Información de carpeta de investigación.
+    [ObservableProperty] private List<string> _carpetaInvestigacionList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _carpetaInvestigacionSelected = OpcionesCebv.No;
     [ObservableProperty] private bool? _carpetaInvestigacion = false;
-    [ObservableProperty] private string _carpetaInvestigacionLabel = OpcionesCebv.No;
 
     // Información de amparo de buscador.
+    [ObservableProperty] private List<string> _amparoBuscadorList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _amparoBuscadorSelected = OpcionesCebv.No;
     [ObservableProperty] private bool? _amparoBuscador = false;
-    [ObservableProperty] private string _amparoBuscadorLabel = OpcionesCebv.No;
 
     // Información de recomendación de derechos humanos.
+    [ObservableProperty] private List<string> _derechosHumanosList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _derechosHumanosSelected = OpcionesCebv.No;
     [ObservableProperty] private bool? _derechosHumanos = false;
-    [ObservableProperty] private string _derechosHumanosLabel = OpcionesCebv.No;
     [ObservableProperty] private bool? _otroDerechoHumano = false;
 
-    /// <summary>
-    /// Manejador de etiquetas según los valores tertiarios del checkbox (True, False, Null).
-    /// Esto es un elemento de la UI que hace explícita la selección del usuario.
-    /// </summary>
-    partial void OnInformacionConsentimientoChanged(bool? value) =>
-        InformacionConsentimientoLabel = OpcionesCebv.GetLabel(value);
-
-    partial void OnInformacionExclusivaBusquedaChanged(bool? value) =>
-        InformacionExclusivaBusquedaLabel = OpcionesCebv.GetLabel(value);
-
-    partial void OnPublicacionInformacionChanged(bool? value) =>
-        PublicacionInformacionLabel = OpcionesCebv.GetLabel(value);
-
-    partial void OnCarpetaInvestigacionChanged(bool? value) =>
-        CarpetaInvestigacionLabel = OpcionesCebv.GetLabel(value);
-
-    partial void OnAmparoBuscadorChanged(bool? value) =>
-        AmparoBuscadorLabel = OpcionesCebv.GetLabel(value);
-
-    partial void OnDerechosHumanosChanged(bool? value) =>
-        DerechosHumanosLabel = OpcionesCebv.GetLabel(value);
-
-    ///
-    /// Constructor
-    ///
+    /**
+     * Constructor de la clase.
+     */
     public DatosReporteViewModel()
     {
         CargarCatalogos();
     }
 
-    ///
-    /// Comandos
-    ///
+    /**
+     *  Mapeo de los valores string a boolean.
+     */
+    partial void OnInformacionConsentimientoSelectedChanged(string value) =>
+        InformacionConsentimiento = OpcionesCebv.MappingToBool(value);
+
+    partial void OnInformacionExclusivaBusquedaSelectedChanged(string value) =>
+        InformacionExclusivaBusqueda = OpcionesCebv.MappingToBool(value);
+
+    partial void OnPublicacionInformacionSelectedChanged(string value) =>
+        PublicacionInformacion = OpcionesCebv.MappingToBool(value);
+
+    partial void OnCarpetaInvestigacionSelectedChanged(string value) =>
+        CarpetaInvestigacion = OpcionesCebv.MappingToBool(value);
+
+    partial void OnAmparoBuscadorSelectedChanged(string value) =>
+        AmparoBuscador = OpcionesCebv.MappingToBool(value);
+
+    partial void OnDerechosHumanosSelectedChanged(string value) =>
+        DerechosHumanos = OpcionesCebv.MappingToBool(value);
+    
+    /**
+     * Comandos de la vista.
+     */
     [RelayCommand]
     public void GuardarReporte()
     {
@@ -83,16 +89,11 @@ public partial class DatosReporteViewModel : ObservableObject
         WeakReferenceMessenger.Default.Send(new AddReporteMessage(reporte));
     }
 
-    ///
-    /// Peticiones a la Api
-    ///
+    /**
+     * Peticiones a la API.
+     */
     private async void CargarCatalogos()
     {
         TiposReportes = await ReporteNetwork.GetTiposReportes();
-    }
-
-    partial void OnTipoReporteChanged(Catalogo value)
-    {
-        Console.WriteLine(value.Nombre);
     }
 }

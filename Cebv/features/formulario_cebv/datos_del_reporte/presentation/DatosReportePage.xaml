@@ -41,16 +41,6 @@
                 <Grid Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="FECHA DE INICIO:" FontTypography="Caption" />
-                            <DatePicker IsTodayHighlighted="True" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="250">
                             <ui:TextBlock Text="TIPO DE FOLIO:" FontTypography="Caption" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding TipoReporte}"
@@ -126,40 +116,33 @@
             <!-- Información de consentimiento -->
             <ui:TextBlock Text="Información de consentimiento" FontTypography="Subtitle" Margin="10" />
             <Border>
-                <StackPanel Orientation="Vertical" Margin="10">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox />
-                        <CheckBox />
-                        <CheckBox IsThreeState="True" IsChecked="{Binding InformacionConsentimiento }">
-                            <ui:TextBlock>
-                                <Run Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO. " />
-                                <Run Text="{Binding InformacionConsentimientoLabel}" FontWeight="Bold" />
-                            </ui:TextBlock>
-                        </CheckBox>
-                    </StackPanel>
-
-
-                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA. " />
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-                        <CheckBox />
-                        <CheckBox />
-                        <CheckBox />
-
+                <StackPanel Margin="5">
+                    <StackPanel>
+                        <ui:TextBlock Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO."
+                                      FontTypography="Caption" />
+                        <ComboBox SelectedItem="{Binding InformacionConsentimientoSelected}"
+                                  ItemsSource="{Binding InformacionConsentimientoList}" />
                     </StackPanel>
 
                     <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
-                    <CheckBox IsThreeState="True" IsChecked="{Binding PublicacionInformacion}">
-                        <ui:TextBlock>
-                            <Run
-                                Text="¿SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?. " />
-                            <Run Text="{Binding PublicacionInformacionLabel }" FontWeight="Bold" />
-                        </ui:TextBlock>
-                    </CheckBox>
+                    <StackPanel>
+                        <ui:TextBlock
+                            Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA."
+                            FontTypography="Caption" />
+                        <ComboBox SelectedItem="{Binding InformacionExclusivaBusquedaSelected}"
+                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}" />
+                    </StackPanel>
+
+                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel>
+                        <ui:TextBlock
+                            Text="SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA."
+                            FontTypography="Caption" />
+                        <ComboBox SelectedItem="{Binding PublicacionInformacionSelected}"
+                                  ItemsSource="{Binding PublicacionInformacionList}" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
@@ -167,25 +150,17 @@
             <!-- Información de la carpeta de investigación -->
             <ui:TextBlock Text="Carpeta de investigación" FontTypography="Subtitle" Margin="10" />
             <Border>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0">
-                        <CheckBox IsThreeState="True" IsChecked="{Binding CarpetaInvestigacion}">
-                            <ui:TextBlock>
-                                <Run Text="ESPECÍFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
-                                <Run Text="{Binding CarpetaInvestigacionLabel}" FontWeight="Bold" />
-                            </ui:TextBlock>
-                        </CheckBox>
+                <StackPanel Margin="5">
+                    <StackPanel>
+                        <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
+                        <ComboBox SelectedItem="{Binding CarpetaInvestigacionSelected}"
+                                  ItemsSource="{Binding CarpetaInvestigacionList}" />
                         <Separator Height="25" Background="Transparent" BorderThickness="0"
                                    Visibility="{Binding CarpetaInvestigacion, Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
 
-                    <WrapPanel Grid.Row="1"
-                               Visibility="{Binding CarpetaInvestigacion, Converter={StaticResource VisibilityConverter}}">
+                    <WrapPanel
+                        Visibility="{Binding CarpetaInvestigacion, Converter={StaticResource VisibilityConverter}}">
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NÚMERO DE CI, IM O REPORTE DE FGE:" FontTypography="Caption" />
                             <ui:TextBox />
@@ -213,7 +188,7 @@
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
-                </Grid>
+                </StackPanel>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
@@ -227,17 +202,9 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsThreeState="True" IsChecked="{Binding AmparoBuscador}">
-                                <ui:TextBlock>
-                                    <Run Text="ESPECÍFICA SI HAY O EXISTE AMPARO BUSCADOR. " />
-                                    <Run Text="{Binding AmparoBuscadorLabel}" FontWeight="Bold" />
-                                </ui:TextBlock>
-                            </CheckBox>
-
-
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-                        </StackPanel>
+                        <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE AMPARO BUSCADOR" />
+                        <ComboBox SelectedItem="{Binding AmparoBuscadorSelected}"
+                                  ItemsSource="{Binding AmparoBuscadorList}" />
                         <Separator Height="25" Background="Transparent" BorderThickness="0"
                                    Visibility="{Binding AmparoBuscador, Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
@@ -286,13 +253,12 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
-                        <CheckBox IsThreeState="True" IsChecked="{Binding DerechosHumanos}">
-                            <ui:TextBlock>
-                                <Run Text="ESPECÍFICA SI HAY O EXISTE RECOMENDACIÓN DE DERECHOS HUMANOS (DH) " />
-                                <Run Text="{Binding DerechosHumanosLabel}" FontWeight="Bold" />
-                            </ui:TextBlock>
-                        </CheckBox>
-                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                        <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE RECOMENDACIÓN DE DERECHOS HUMANOS (DH)" />
+                        <ComboBox SelectedItem="{Binding DerechosHumanosSelected}"
+                                  ItemsSource="{Binding DerechosHumanosList}" />
+                        <Separator Height="15" Background="Transparent" BorderThickness="0" />
+                        <Separator Height="25" Background="Transparent" BorderThickness="0"
+                                   Visibility="{Binding DerechosHumanos, Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
 
                     <WrapPanel Grid.Row="1"

@@ -12,7 +12,6 @@
       xmlns:senasParticulares1="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       xmlns:presentation5="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
-      xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
       xmlns:reportante1="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -86,15 +85,15 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <ui:TextBlock Text="Reporte sin folio asignado"
-                              FontTypography="Title"
+                <ui:TextBlock Text="{Binding NombreCompleto}"
+                              FontTypography="Subtitle"
                               TextWrapping="Wrap" />
-                <ui:Button Content="Generar folio"
+                <ui:Button Content="Guardar borrador"
                            Grid.Column="1"
-                           Icon="{ui:SymbolIcon Signature24}"
+                           Icon="{ui:SymbolIcon DocumentSave24}"
                            HorizontalAlignment="Right"
                            Appearance="Primary"
-                           ToolTip="Algo" />
+                           ToolTip="Guardar reporte como borrador." />
             </Grid>
         </ui:NavigationView.Header>
     </ui:NavigationView>

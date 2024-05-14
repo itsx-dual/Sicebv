@@ -1,30 +1,76 @@
-using Cebv.core.util;
+using Cebv.core.data;
+using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class PersonaDesaparecidaViewModel : ObservableObject
 {
-    [ObservableProperty] private bool _mostrarDireccion;
+    /**
+     * Información de la persona desaparecida.
+     */
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyCanExecuteChangedFor(nameof(SendFullNameCommand))]
+    private string? _nombre;
 
-    // Datos sociodemográficos.
-    [ObservableProperty] private bool? _hablaEspanol = false;
-    [ObservableProperty] private string _hablaEspanolLabel = OpcionesCebv.No;
-    [ObservableProperty] private bool? _sabeLeer = false;
-    [ObservableProperty] private string _sabeLeerLabel = OpcionesCebv.No;
-    [ObservableProperty] private bool? _sabeEscribir = false;
-    [ObservableProperty] private string _sabeEscribirLabel = OpcionesCebv.No;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyCanExecuteChangedFor(nameof(SendFullNameCommand))]
+    private string? _apellidoPaterno;
 
-    /// <summary>
-    /// Manejador de etiquetas según los valores tertiarios del checkbox (True, False, Null).
-    /// Esto es un elemento de la UI que hace explícita la selección del usuario.
-    /// </summary>
-    partial void OnHablaEspanolChanged(bool? value) =>
-        HablaEspanolLabel = OpcionesCebv.GetLabel(value);
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyCanExecuteChangedFor(nameof(SendFullNameCommand))]
+    private string? _apellidoMaterno;
 
-    partial void OnSabeLeerChanged(bool? value) =>
-        SabeLeerLabel = OpcionesCebv.GetLabel(value);
+    [ObservableProperty] private string _nombreCompleto = string.Empty;
 
-    partial void OnSabeEscribirChanged(bool? value) =>
-        SabeEscribirLabel = OpcionesCebv.GetLabel(value);
+    [ObservableProperty] private bool _fechaAproximada;
+
+    [ObservableProperty] private List<string> _transitoEstadosUnidosList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _transitoEstadosUnidosSelected = OpcionesCebv.No;
+    [ObservableProperty] private bool? _transitoEstadosUnidos;
+    [ObservableProperty] private bool? _segundaPregunta;
+
+    /**
+     * Datos sociemográficos de la persona desaparecida.
+     */
+    [ObservableProperty] private List<string> _hablaEspanolList = OpcionesCebv.Opciones;
+
+    [ObservableProperty] private string _hablaEspanolSelected = OpcionesCebv.No;
+    [ObservableProperty] private bool? _hablaEspanol;
+
+    [ObservableProperty] private List<string> _sabeLeerList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _sabeLeerSelected = OpcionesCebv.No;
+    [ObservableProperty] private bool? _sabeLeer;
+
+    [ObservableProperty] private List<string> _sabeEscribirList = OpcionesCebv.Opciones;
+    [ObservableProperty] private string _sabeEscribirSelected = OpcionesCebv.No;
+    [ObservableProperty] private bool? _sabeEscribir;
+
+    /**
+     * Mapeo de los valores string a boolean.
+     */
+    partial void OnTransitoEstadosUnidosSelectedChanged(string value)
+    {
+        TransitoEstadosUnidos = OpcionesCebv.MappingToBool(value);
+        SegundaPregunta = TransitoEstadosUnidos == true;
+    }
+
+    partial void OnNombreChanged(string? value)
+    {
+        NombreCompleto = $"{value} {ApellidoPaterno} {ApellidoMaterno}";
+    }
+
+    /**
+     * Message for full name
+     */
+    [RelayCommand]
+    public void SendFullName()
+    {
+        WeakReferenceMessenger.Default.Send(new NombreCompletoMessage(NombreCompleto));
+    }
 }

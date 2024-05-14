@@ -38,6 +38,7 @@ public partial class App : Application
         // Viewmodel principal del formulario.
         services.AddSingleton<FormularioCebvViewModel>();
         services.AddSingleton<FormularioCebvPage>();
+        services.AddSingleton<PersonaDesaparecidaViewModel>();
 
         services.AddSingleton<IFormularioService, FormularioService>();
 

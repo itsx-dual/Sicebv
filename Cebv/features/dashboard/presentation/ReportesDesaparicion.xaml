@@ -99,14 +99,14 @@
                                                     <Run Text="{Binding Persona.ApellidoMaterno}" FontWeight="Bold" />
                                                 </TextBlock>
 
-                                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
+                                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14">
                                                     <Run Text="{Binding EstatusCebv.Nombre}" />
                                                     <Run Text=" - " />
                                                     <Run Text="{Binding EstatusRpdno.Nombre}" FontStyle="Oblique" />
                                                 </TextBlock>
 
                                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FolioCebv}"
-                                                           FontSize="16" />
+                                                           FontSize="18" />
                                             </Grid>
                                         </DataTemplate>
                                     </ui:ListView.ItemTemplate>

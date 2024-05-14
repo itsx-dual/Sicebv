@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,6 +13,7 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="PersonaDesaparecidaPage">
+
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="Padding" Value="16" />
@@ -22,6 +24,7 @@
         </Style>
 
         <util:VisibilityConverter x:Key="VisibilityConverter" />
+        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
     </Page.Resources>
 
     <Grid>
@@ -49,7 +52,7 @@
                     <WrapPanel Grid.Row="0">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NOMBRE(S):" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Test}" />
+                            <ui:TextBox Text="{Binding Nombre}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -59,7 +62,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="PRIMER APELLIDO:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding ApellidoPaterno}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -69,7 +72,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="SEGUNDO APELLIDO: " FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding ApellidoMaterno}" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -121,19 +124,16 @@
                     <WrapPanel Grid.Row="2">
                         <StackPanel Orientation="Vertical" MinWidth="250">
                             <ui:TextBlock Text="ALIAS:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Apodo}" />
+                            <ui:TextBox />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
-                            <ui:ListView ItemsSource="{Binding ApodosList}" />
+                            <ui:ListView />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        <ui:Button Command="{Binding AddApodoCommand}"
-                                   MinWidth="150"
-                                   MinHeight="38"
-                                   Content="Añadir"
+                        <ui:Button Content="Añadir"
                                    Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary" />
                     </WrapPanel>
@@ -156,63 +156,125 @@
                         </StackPanel>
                     </WrapPanel>
 
-                    <WrapPanel Grid.Row="4">
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="FECHA DE NACIMIENTO:" FontTypography="Caption" />
-                            <DatePicker IsTodayHighlighted="True" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
+                    <StackPanel Grid.Row="4">
+                        <StackPanel>
+                            <ui:ToggleSwitch OnContent="¿USAR FECHA APROXIMADA? Sí"
+                                             OffContent="¿USAR FECHA APROXIMADA? No"
+                                             IsChecked="{Binding FechaAproximada  }" />
+                            <Separator Height="25" Background="Transparent" BorderThickness="0" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                        <WrapPanel>
+                            <StackPanel MinWidth="250"
+                                        Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter}}">
+                                <ui:TextBlock Text="FECHA DE NACIMIENTO:" FontTypography="Caption" />
+                                <DatePicker IsTodayHighlighted="True" />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
 
-                        <StackPanel Orientation="Vertical" MinWidth="200">
-                            <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
-                            <ui:NumberBox
-                                Icon="{ui:SymbolIcon NumberSymbolSquare24}"
-                                MaxDecimalPlaces="0"
-                                Maximum="120"
-                                Minimum="0"
-                                PlaceholderText="Años"
-                                SmallChange="1" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
+                            <Separator Width="25" Background="Transparent" BorderThickness="0"
+                                       Visibility="{Binding FechaAproximada,
+                                       Converter={StaticResource VisibilityConverter}}" />
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                            <StackPanel MinWidth="250"
+                                        Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter2}}">
+                                <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA DE NACIMIENTO"
+                                              FontTypography="Caption" />
+                                <ui:TextBox />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
 
-                        <StackPanel Orientation="Vertical" MinWidth="200">
-                            <ui:TextBlock Text="EDAD(MESES):" FontTypography="Caption" />
-                            <ui:NumberBox
-                                Icon="{ui:SymbolIcon NumberSymbolSquare24}"
-                                MaxDecimalPlaces="0"
-                                Maximum="12"
-                                Minimum="0"
-                                PlaceholderText="Meses"
-                                SmallChange="1" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
+                            <Separator Width="25" Background="Transparent" BorderThickness="0"
+                                       Visibility="{Binding FechaAproximada,
+                                       Converter={StaticResource VisibilityConverter2}}" />
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+                            <StackPanel Orientation="Vertical" MinWidth="200"
+                                        Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter2}}">
+                                <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
+                                <ui:NumberBox
+                                    Icon="{ui:SymbolIcon NumberSymbolSquare24}"
+                                    MaxDecimalPlaces="0"
+                                    Maximum="120"
+                                    Minimum="0"
+                                    PlaceholderText="Años"
+                                    SmallChange="1" />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
 
-                        <StackPanel Orientation="Vertical" MinWidth="200">
-                            <ui:TextBlock Text="EDAD(DÍAS):" FontTypography="Caption" />
-                            <ui:NumberBox
-                                Icon="{ui:SymbolIcon NumberSymbolSquare24}"
-                                MaxDecimalPlaces="0"
-                                Maximum="31"
-                                Minimum="0"
-                                PlaceholderText="Días"
-                                SmallChange="1" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
-                        </StackPanel>
-                    </WrapPanel>
+                            <Separator Width="25" Background="Transparent" BorderThickness="0"
+                                       Visibility="{Binding FechaAproximada,
+                                       Converter={StaticResource VisibilityConverter2}}" />
+
+                            <StackPanel Orientation="Vertical" MinWidth="200"
+                                        Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter2}}">
+                                <ui:TextBlock Text="EDAD(MESES):" FontTypography="Caption" />
+                                <ui:NumberBox
+                                    Icon="{ui:SymbolIcon NumberSymbolSquare24}"
+                                    MaxDecimalPlaces="0"
+                                    Maximum="12"
+                                    Minimum="0"
+                                    PlaceholderText="Meses"
+                                    SmallChange="1" />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+
+                            <Separator Width="25" Background="Transparent" BorderThickness="0"
+                                       Visibility="{Binding FechaAproximada,
+                                       Converter={StaticResource VisibilityConverter2}}" />
+
+                            <StackPanel Orientation="Vertical" MinWidth="200"
+                                        Visibility="{Binding FechaAproximada,
+                                        Converter={StaticResource VisibilityConverter2}}">
+                                <ui:TextBlock Text="EDAD(DÍAS):" FontTypography="Caption" />
+                                <ui:NumberBox
+                                    Icon="{ui:SymbolIcon NumberSymbolSquare24}"
+                                    MaxDecimalPlaces="0"
+                                    Maximum="31"
+                                    Minimum="0"
+                                    PlaceholderText="Días"
+                                    SmallChange="1" />
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <StackPanel>
+                                <ui:TextBlock
+                                    Text="¿SE ENCUENTRA EN TRÁNSITO A ESTADOS UNIDOS DE NORTEAMERICA?."
+                                    FontTypography="Caption" />
+                                <ComboBox SelectedItem="{Binding TransitoEstadosUnidosSelected}"
+                                          ItemsSource="{Binding TransitoEstadosUnidosList}" />
+                            </StackPanel>
+
+                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                            <StackPanel
+                                Visibility="{Binding SegundaPregunta,
+                                        Converter={StaticResource VisibilityConverter2}}">
+                                <ui:TextBlock
+                                    Text="SI NO VA EN TRÁNSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES: "
+                                    FontTypography="Caption" />
+                                <ComboBox SelectedItem="{Binding TransitoEstadosUnidosSelected}"
+                                          ItemsSource="{Binding TransitoEstadosUnidosList}" />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    </StackPanel>
 
 
                     <!-- Nacionalidad -->
@@ -221,9 +283,7 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="LUGAR DE NACIMIENTO:" FontTypography="Caption" />
                             <ComboBox IsEditable="True"
-                                      DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding EstadoSeleccionado}"
-                                      ItemsSource="{Binding Estados}" />
+                                      DisplayMemberPath="Nombre" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -235,9 +295,7 @@
                             <ui:TextBlock Text="NACIONALIDAD:" FontTypography="Caption" />
                             <ComboBox Width="250"
                                       IsEditable="True"
-                                      DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding NacionalidadSeleccionada}"
-                                      ItemsSource="{Binding Nacionalidades}" />
+                                      DisplayMemberPath="Nombre" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -245,8 +303,7 @@
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        <ui:Button Command="{Binding AgregarNacionalidadCommand}"
-                                   MinWidth="150"
+                        <ui:Button MinWidth="150"
                                    MinHeight="38"
                                    Content="Añadir"
                                    Icon="{ui:SymbolIcon Add24}"
@@ -286,7 +343,6 @@
                                           Visibility="Hidden" />
                         </StackPanel>
                     </WrapPanel>
-
                 </Grid>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
@@ -297,13 +353,12 @@
                 <StackPanel Margin="5">
                     <WrapPanel>
                         <StackPanel>
-                            <ui:ToggleSwitch Content="Mismo domicilio que la persona reportante"
-                                             IsChecked="{Binding MostrarDireccion}" />
+                            <ui:ToggleSwitch Content="Mismo domicilio que la persona reportante" />
                             <Separator Height="25" Background="Transparent" BorderThickness="0" />
                         </StackPanel>
                     </WrapPanel>
 
-                    <Grid Visibility="{Binding MostrarDireccion, Converter={StaticResource VisibilityConverter}}">
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
@@ -445,13 +500,11 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <WrapPanel Grid.Row="0">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="TELÉFONO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="TELÉFONO MÓVIL:" FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -480,14 +533,23 @@
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        <ui:Button Content="Añadir Teléfono" Appearance="Secondary" />
+                        <ui:Button Content="Añadir otro  teléfono móvil" Appearance="Secondary" />
                     </WrapPanel>
 
-                    <ui:ListView Grid.Row="1" />
-
-                    <WrapPanel Grid.Row="2">
+                    <WrapPanel Grid.Row="1">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="CONTACTO ELECTRÓNICO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="TELÉFONO FIJO:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -496,9 +558,49 @@
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
+                        <ui:Button Content="Añadir otro  teléfono fijo" Appearance="Secondary" />
+                    </WrapPanel>
+
+
+                    <WrapPanel Grid.Row="2">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="TIPO DE CONTACTO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="CORREO ELECTRÓNICO:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <ui:Button Content="Añadir otro correo electrónico" Appearance="Secondary" />
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Row="3">
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="TIPO DE RED SOCIAL:" FontTypography="Caption" />
                             <ComboBox />
+                            <ui:TextBlock Text="Error"
+                                          FontTypography="Caption"
+                                          Visibility="Hidden" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel Margin="5" MinWidth="250">
+                            <ui:TextBlock Text="USUARIO:" FontTypography="Caption" />
+                            <ui:TextBox ClearButtonEnabled="True" />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -516,9 +618,8 @@
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        <ui:Button Content="Añadir Contacto" Appearance="Secondary" />
+                        <ui:Button Content="Añadir atra red social" Appearance="Secondary" />
                     </WrapPanel>
-
                 </Grid>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
@@ -528,35 +629,38 @@
             <Border>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <StackPanel>
-                        <CheckBox IsThreeState="True" IsChecked="{Binding HablaEspanol}">
-                            <ui:TextBlock>
-                                <Run Text="¿HABLA ESPAÑOL?" />
-                                <Run Text="{Binding HablaEspanolLabel}" FontWeight="Bold" />
-                            </ui:TextBlock>
-                        </CheckBox>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Text="¿HABLA ESPAÑOL?."
+                                FontTypography="Caption" />
+                            <ComboBox SelectedItem="{Binding HablaEspanolSelected}"
+                                      ItemsSource="{Binding HablaEspanolList}" />
+                        </StackPanel>
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                        <CheckBox IsThreeState="True" IsChecked="{Binding SabeLeer}">
-                            <ui:TextBlock>
-                                <Run Text="¿SABE LEER?" />
-                                <Run Text="{Binding SabeLeerLabel}" FontWeight="Bold" />
-                            </ui:TextBlock>
-                        </CheckBox>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Text="¿SABE LEER?."
+                                FontTypography="Caption" />
+                            <ComboBox SelectedItem="{Binding SabeLeerSelected}"
+                                      ItemsSource="{Binding SabeLeerList}" />
+                        </StackPanel>
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                        <CheckBox IsThreeState="True" IsChecked="{Binding SabeEscribir}">
-                            <ui:TextBlock>
-                                <Run Text="¿SABE ESCRIBIR?" />
-                                <Run Text="{Binding SabeEscribirLabel}" FontWeight="Bold" />
-                            </ui:TextBlock>
-                        </CheckBox>
-                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                        <StackPanel>
+                            <ui:TextBlock
+                                Text="¿SABE ESCRIBIR?."
+                                FontTypography="Caption" />
+                            <ComboBox SelectedItem="{Binding SabeEscribirSelected}"
+                                      ItemsSource="{Binding SabeEscribirList}" />
+                        </StackPanel>
+                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
                     </StackPanel>
 
                     <WrapPanel Grid.Row="1">
@@ -577,7 +681,7 @@
                         </StackPanel>
                         <Separator Height="25" Background="Transparent" BorderThickness="0" />
                     </WrapPanel>
-                    
+
                     <WrapPanel Grid.Row="2">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="OCUPACIÓN PRINCIPAL:" FontTypography="Caption" />
@@ -596,7 +700,7 @@
                         </StackPanel>
                         <Separator Height="25" Background="Transparent" BorderThickness="0" />
                     </WrapPanel>
-                    
+
                     <WrapPanel Grid.Row="3">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="OCUPACIÓN SECUNDARIA:" FontTypography="Caption" />
@@ -615,7 +719,7 @@
                         </StackPanel>
                         <Separator Height="25" Background="Transparent" BorderThickness="0" />
                     </WrapPanel>
-                    
+
                     <WrapPanel Grid.Row="4">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="ESTADO CONYUGAL:" FontTypography="Caption" />

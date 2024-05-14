@@ -83,7 +83,6 @@
 
     <ItemGroup>
       <Folder Include="core\services\" />
-      <Folder Include="features\formulario_cebv\persona_desaparecida\domain\" />
       <Folder Include="features\formulario_cebv\presentation\domain\" />
     </ItemGroup>
 
