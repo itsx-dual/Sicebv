@@ -41,7 +41,7 @@
                 <Grid Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="TIPO DE FOLIO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="TIPO DE FOLIO: *" FontTypography="Caption" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding TipoReporte}"
                                       ItemsSource="{Binding TiposReportes }" />
@@ -87,7 +87,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="DEPENDENCIA DE ORIGEN:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="DependenciaOrigenTb" />
                         </StackPanel>
                     </WrapPanel>
                 </Grid>

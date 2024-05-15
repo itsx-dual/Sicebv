@@ -1,5 +1,5 @@
 ﻿<Page x:Class="Cebv.features.formulario_cebv.vehiculos_involucrados.presentation.VehiculosInvolucradosPage"
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -46,27 +46,27 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    
-                    
+
+
                     <WrapPanel Grid.Row="0">
-                        <StackPanel MinWidth="200"  >
-                            <ui:TextBlock Text="RELACION CON LA PERSONA &#x0a;DESAPARECIDA O NO LOCALIZADA:" FontTypography="Caption" 
-                                          />
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="RELACION CON LA PERSONA &#x0a;DESAPARECIDA O NO LOCALIZADA:"
+                                          FontTypography="Caption" />
                             <ComboBox></ComboBox>
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        <StackPanel MinWidth="200"  Margin="0,14,0,0">
+                        <StackPanel MinWidth="200" Margin="0,14,0,0">
                             <ui:TextBlock Text="MARCA:" FontTypography="Caption" />
-                            <ComboBox/>
+                            <ComboBox />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="200" Margin="0,14,0,0">
                             <ui:TextBlock Text="SUBMARCA: " FontTypography="Caption" />
-                            <ComboBox />
+                            <ui:TextBox />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
@@ -76,8 +76,8 @@
                             <ComboBox />
                         </StackPanel>
                     </WrapPanel>
-                    
-                    
+
+
                     <WrapPanel Grid.Row="1" Margin="0,14,0,0">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="PLACA:" FontTypography="Caption" />
@@ -106,10 +106,10 @@
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
                         </StackPanel>
-                        
+
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                        
+
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NUMERO DE MOTOR: " FontTypography="Caption" />
                             <ui:TextBox />
@@ -118,8 +118,8 @@
                                           Visibility="Hidden" />
                         </StackPanel>
                     </WrapPanel>
-                    
-                    
+
+
                     <WrapPanel Grid.Row="2">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text=" NUMERO DE PERMISO:" FontTypography="Caption" />
@@ -142,42 +142,42 @@
                             <ui:TextBlock Text="USO VEHICULO: " FontTypography="Caption" />
                             <ComboBox></ComboBox>
                         </StackPanel>
-                        
+
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
-                        
+
                     </WrapPanel>
-                    
+
                     <WrapPanel Grid.Row="3">
-                        
+
                         <StackPanel MinWidth="500">
                             <ui:TextBlock Text="SEÑAS PARTICULARES"></ui:TextBlock>
                             <ui:TextBox></ui:TextBox>
-                            
+
                         </StackPanel>
-                        
+
                     </WrapPanel>
-                    
+
                     <WrapPanel Grid.Row="4" Margin="0,14,0,0">
-                       <StackPanel MinWidth="200">
-                           <ui:TextBlock Text="ESTATUS DEL VEHICULO"></ui:TextBlock>
-                           
-                           <StackPanel Orientation="Horizontal">
-                               <RadioButton Content="Localizado"></RadioButton>
-                               <RadioButton Content=" No localizado"></RadioButton>
-                           </StackPanel>
-                       </StackPanel>
-                        
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="ESTATUS DEL VEHICULO"></ui:TextBlock>
+
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Content="Localizado"></RadioButton>
+                                <RadioButton Content=" No localizado"></RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+
                     </WrapPanel>
-                    
+
                 </Grid>
             </Border>
             <ui:Button Content="Guardar y siguiente"
                        Icon="{ui:SymbolIcon Save24}"
                        HorizontalAlignment="Stretch"
                        Margin="0,5,0,0"
-                       Appearance="Primary"/>
-            
-            
+                       Appearance="Primary" />
+
+
         </StackPanel>
     </Grid>
 </Page>

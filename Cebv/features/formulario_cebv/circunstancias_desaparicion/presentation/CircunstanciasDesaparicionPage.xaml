@@ -324,7 +324,7 @@
 
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="10" />
 
-        <ui:TextBlock Text="HIPOTESIS DE DESAPARICIÓN:"
+        <ui:TextBlock Text="DESAPARICIÓN ASOCIADA:"
                       FontTypography="Subtitle" />
         <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                 Margin="5"

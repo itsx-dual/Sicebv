@@ -111,7 +111,7 @@
                 
                 <ui:Button Visibility="{Binding PuedeGuardar,
                             Converter={StaticResource VisibilityConverter2}}"
-                           Content="Guardar Borrador"
+                           Content="Registro Pendiente"
                            Icon="{ui:SymbolIcon Save16}"
                            HorizontalAlignment="Right"
                            Grid.Column="1"
