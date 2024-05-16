@@ -1,10 +1,12 @@
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
+using System.Windows.Documents;
 
 namespace Cebv.core.data;
 
-public class CatalogoWrapped
+public class CatalogosWrapped
 {
-    public List<Catalogo> data { get; set; }
+    [property: JsonPropertyName("data")] public ObservableCollection<Catalogo> Data { get; set; }
 }
 
 public class Catalogo

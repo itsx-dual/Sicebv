@@ -3,7 +3,7 @@ using Cebv.core.data;
 
 namespace Cebv.features.reporte.data;
 
-public class MedioWrapped
+public class MediosWrapped
 {
     [property: JsonPropertyName("data")] public List<Medio> Data { get; set; } = null!;
 }

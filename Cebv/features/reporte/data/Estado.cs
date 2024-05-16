@@ -2,9 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace Cebv.features.reporte.data;
 
-public class EstadoWrapped
+public class EstadosWrapped
 {
-    public List<Estado> data { get; set; }
+    [JsonPropertyName("data")]
+    public List<Estado> Data { get; set; }
 }
 
 public class Estado

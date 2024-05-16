@@ -29,9 +29,9 @@ public class ReporteNetwork
 
         var response = await request.Content.ReadAsStringAsync();
 
-        CatalogoWrapped jsonResponse = JsonSerializer.Deserialize<CatalogoWrapped>(response)!;
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
 
-        return new ObservableCollection<Catalogo>(jsonResponse.data);
+        return new ObservableCollection<Catalogo>(jsonResponse.Data);
     }
 
     public static async Task<Object> GetAreas()
@@ -40,73 +40,35 @@ public class ReporteNetwork
 
         var response = await request.Content.ReadAsStringAsync();
 
-        CatalogoWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogoWrapped>(response);
+        CatalogosWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response);
 
         ObservableCollection<Catalogo> areas = new ObservableCollection<Catalogo>();
 
-        foreach (var area in jsonResponse?.data!) areas.Add(area);
+        foreach (var area in jsonResponse?.Data!) areas.Add(area);
 
         return areas;
     }
 
-    public static async Task<Object> GetTiposMedios()
+    public static async Task<ObservableCollection<Catalogo>> GetTiposMedios()
     {
         var request = await Client.GetAsync("api/tipos-medios");
 
         var response = await request.Content.ReadAsStringAsync();
 
-        CatalogoWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogoWrapped>(response);
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
 
-        ObservableCollection<Catalogo> tiposMedios = new ObservableCollection<Catalogo>();
-
-        foreach (var tipoMedio in jsonResponse?.data!) tiposMedios.Add(tipoMedio);
-
-        return tiposMedios;
+        return new ObservableCollection<Catalogo>(jsonResponse.Data);
     }
 
-    public static async Task<Object> GetMedios()
+    public static async Task<ObservableCollection<Medio>> GetMedios(int id)
     {
-        var request = await Client.GetAsync("api/medios");
+        var request = await Client.GetAsync($"api/medios?search={id}");
 
         var response = await request.Content.ReadAsStringAsync();
 
-        MedioWrapped? jsonResponse = JsonSerializer.Deserialize<MedioWrapped>(response);
+        MediosWrapped jsonResponse = JsonSerializer.Deserialize<MediosWrapped>(response)!;
 
-        ObservableCollection<Medio> medios = new ObservableCollection<Medio>();
-
-        foreach (var medio in jsonResponse?.Data!) medios.Add(medio);
-
-        return medios;
-    }
-
-    public static async Task<Object> GetEstados()
-    {
-        var request = await Client.GetAsync("api/estados");
-
-        var response = await request.Content.ReadAsStringAsync();
-
-        EstadoWrapped? jsonResponse = JsonSerializer.Deserialize<EstadoWrapped>(response);
-
-        ObservableCollection<Estado> estados = new ObservableCollection<Estado>();
-
-        foreach (var estado in jsonResponse?.data!) estados.Add(estado);
-
-        return estados;
-    }
-
-    public static async Task<Object> GetZonasEstados()
-    {
-        var request = await Client.GetAsync("api/zonas-estados");
-
-        var response = await request.Content.ReadAsStringAsync();
-
-        ZonaEstadoWrapped? jsonResponse = JsonSerializer.Deserialize<ZonaEstadoWrapped>(response);
-
-        ObservableCollection<ZonaEstado> estados = new ObservableCollection<ZonaEstado>();
-
-        foreach (var estado in jsonResponse?.data!) estados.Add(estado);
-
-        return estados;
+        return new ObservableCollection<Medio>(jsonResponse.Data);
     }
 
     public static async Task<Object> GetTiposHipotesis()
@@ -122,16 +84,6 @@ public class ReporteNetwork
         foreach (var tipoHipotesis in jsonResponse?.data!) tiposHipotesis.Add(tipoHipotesis);
 
         return tiposHipotesis;
-    }
-
-    public static async Task<object> GetTiposDesapariciones()
-    {
-        Dictionary<string, string> tiposDesapariciones = new Dictionary<string, string>();
-
-        tiposDesapariciones.Add("U", "Única");
-        tiposDesapariciones.Add("M", "Múltiple");
-
-        return tiposDesapariciones;
     }
 
     public static async Task<ReporteResponse> PostReporte(int? tipoReporteId, string? tipoDesaparicion,

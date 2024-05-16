@@ -12,9 +12,6 @@
       d:DesignWidth="1024"
       d:DesignHeight="768"
       Title="ReporteFormularioPage">
-    <Page.DataContext>
-        <local:ReporteViewModel />
-    </Page.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10">
             <ui:TextBlock Text="TIPO DE FOLIO" />

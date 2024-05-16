@@ -47,3 +47,36 @@ public class ReportanteResponse
     [JsonPropertyName("updated_at")]
     public string UpdatedAt { get; set; } = null!;
 }
+
+public class ReportanteRequest
+{
+    [JsonPropertyName("persona")]
+    public PersonaRequest? Persona { get; set; }
+
+    [JsonPropertyName("parentesco_id")]
+    public int ParentescoId { get; set; }
+
+    [JsonPropertyName("denuncia_anonima")]
+    public bool DenunciaAnonima { get; set; }
+
+    [JsonPropertyName("informacion_consentimiento")]
+    public bool? InformacionConsentimiento { get; set; }
+
+    [JsonPropertyName("informacion_exclusiva_busqueda")]
+    public bool? InformacionExclusivaBusqueda { get; set; }
+
+    [JsonPropertyName("publicacion_registro_nacional")]
+    public bool? PublicacionRegistroNacional { get; set; }
+
+    [JsonPropertyName("publicacion_boletin")]
+    public bool? PublicacionBoletin { get; set; }
+
+    [JsonPropertyName("pertenencia_colectivo")]
+    public bool? PertenenciaColectivo { get; set; }
+
+    [JsonPropertyName("nombre_colectivo")]
+    public string? NombreColectivo { get; set; }
+
+    [JsonPropertyName("informacion_relevante")]
+    public string? InformacionRelevante { get; set; }
+}

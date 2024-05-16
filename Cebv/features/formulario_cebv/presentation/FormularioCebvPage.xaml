@@ -28,7 +28,7 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-    
+
     <Page.Resources>
         <!-- Era el style que tenias aqui. -->
         <util:VisibilityConverter x:Key="VisibilityConverter" />
@@ -48,8 +48,8 @@
 
             <ui:NavigationViewItem Content="Reportante"
                                    Icon="{ui:SymbolIcon PersonCall24}"
-                                   TargetPageType="{x:Type presentation7:ReportantePage}"/>
-            
+                                   TargetPageType="{x:Type presentation7:ReportantePage}" />
+
 
             <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
@@ -77,46 +77,47 @@
 
             <ui:NavigationViewItem Content="Contexto"
                                    Icon="{ui:SymbolIcon SearchVisual24}"
-                                   TargetPageType="{x:Type presentation8:ContextoPage}"/>
+                                   TargetPageType="{x:Type presentation8:ContextoPage}" />
 
-            
+
             <ui:NavigationViewItem Content="Vehiculos involucrados"
-                                   Icon="{ui:SymbolIcon VehicleCar28}" 
+                                   Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
 
             <ui:NavigationViewItem Content="Comunicación y difusión"
                                    Icon="{ui:SymbolIcon Comment24}"
-                                   TargetPageType="{x:Type presentation6:DifusionPage}"/>
+                                   TargetPageType="{x:Type presentation6:DifusionPage}" />
 
             <ui:NavigationViewItem Content="Datos de localización"
                                    Icon="{ui:SymbolIcon Location24}"
                                    TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
-            
+
 
             <ui:NavigationViewItem Content="Control OGPI"
                                    Icon="{ui:SymbolIcon BookInformation24}"
-                                   TargetPageType="{x:Type presentation9:ControlOgpiPage}"/>
+                                   TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
 
         </ui:NavigationView.MenuItems>
         <ui:NavigationView.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
-                              TextWrapping="Wrap"/>
-                
-                
-                <ui:Button Visibility="{Binding PuedeGuardar,
-                            Converter={StaticResource VisibilityConverter2}}"
-                           Content="Registro Pendiente"
-                           Icon="{ui:SymbolIcon Save16}"
-                           HorizontalAlignment="Right"
-                           Grid.Column="1"
-                           Appearance="Primary"
-                           ToolTip="Algo" />
+                              TextWrapping="Wrap" />
+
+
+                <ui:Button
+                    Visibility="{Binding PuedeGuardar,
+                    Converter={StaticResource VisibilityConverter2}}"
+                    Content="Registro Pendiente"
+                    Icon="{ui:SymbolIcon Save16}"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    Appearance="Primary"
+                    ToolTip="Guardar Registro Como pendiente." />
             </Grid>
         </ui:NavigationView.Header>
     </ui:NavigationView>

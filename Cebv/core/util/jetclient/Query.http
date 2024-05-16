@@ -1,18 +1,10 @@
 // @no-log
-GET http://api_cebv.test/api/reportes
+GET http://api_cebv.test/api/nacionalidades
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "reporte_id": 5,
-  "persona_id": 5,
-  "parentesco_id": 4,
-  "denuncia_anonima": true,
-  "informacion_consentimiento": true,
-  "informacion_exclusiva_busqueda": true,
-  "publicacion_registro_nacional": true,
-  "publicacion_boletin": true,
-  "pertenencia_colectivo": true,
-  "nombre_colectivo": "Guadalajara",
-  "informacion_relevante": "hola"
+  "desaparecido_id": 1,
+  "tipo_documento": "CI",
+  "fecha_recepcion": "2024-05-15T23:36:40.000000Z"
 }

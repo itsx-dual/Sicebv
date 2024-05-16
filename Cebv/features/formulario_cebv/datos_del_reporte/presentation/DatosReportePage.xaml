@@ -73,21 +73,35 @@
                     <WrapPanel>
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO:" FontTypography="Caption" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TipoMedio}"
+                                      ItemsSource="{Binding TiposMedios}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO:" FontTypography="Caption" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Medio}"
+                                      ItemsSource="{Binding Medios}" />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE:" FontTypography="Caption" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Estado}"
+                                      ItemsSource="{Binding Estados}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="DEPENDENCIA DE ORIGEN:" FontTypography="Caption" />
-                            <ui:TextBox x:Name="DependenciaOrigenTb" />
+                            <ui:TextBox x:Name="DependenciaOrigenTb"
+                                        Text="{Binding DependenciaOrigen}" />
                         </StackPanel>
                     </WrapPanel>
                 </Grid>
@@ -100,14 +114,14 @@
                 <WrapPanel>
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="FOLIO FUB:" FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox Text="{Binding FolioFub}" />
                     </StackPanel>
 
                     <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="AUTORIDAD QUE INGRESÓ FUB:" FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox Text="{Binding AutoridadIngresafolioFub}" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -155,29 +169,31 @@
                         <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
                         <ComboBox SelectedItem="{Binding CarpetaInvestigacionSelected}"
                                   ItemsSource="{Binding CarpetaInvestigacionList}" />
+
                         <Separator Height="25" Background="Transparent" BorderThickness="0"
                                    Visibility="{Binding CarpetaInvestigacion, Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
 
                     <WrapPanel
-                        Visibility="{Binding CarpetaInvestigacion, Converter={StaticResource VisibilityConverter}}">
+                        Visibility="{Binding CarpetaInvestigacion,
+                        Converter={StaticResource VisibilityConverter}}">
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NÚMERO DE CI, IM O REPORTE DE FGE:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NumeroCi}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="DÓNDE RADICA LA CI, IM O REPORTE DE FGE:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding DondeRadicaCi}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NOMBRE DEL SERVIDOR(A) PÚBLICO:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NombreServidorPublicoCi}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
@@ -185,7 +201,8 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="FECHA DE RECEPCIÓN DE CI, IM O REPORTE DE FGE:"
                                           FontTypography="Caption" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <DatePicker IsTodayHighlighted="True"
+                                        SelectedDate="{Binding FechaRecepcionCi}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -206,36 +223,39 @@
                         <ComboBox SelectedItem="{Binding AmparoBuscadorSelected}"
                                   ItemsSource="{Binding AmparoBuscadorList}" />
                         <Separator Height="25" Background="Transparent" BorderThickness="0"
-                                   Visibility="{Binding AmparoBuscador, Converter={StaticResource VisibilityConverter}}" />
+                                   Visibility="{Binding AmparoBuscador,
+                                   Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
 
                     <WrapPanel Grid.Row="1"
-                               Visibility="{Binding AmparoBuscador, Converter={StaticResource VisibilityConverter}}">
+                               Visibility="{Binding AmparoBuscador,
+                               Converter={StaticResource VisibilityConverter}}">
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NÚMERO DE AMPARO BUSCADOR:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NumeroAmparo}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="DÓNDE RADICA EL AMPARO BUSCADOR:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding DondeRadicaAmparo}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NOMBRE DEL JUEZ:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NombreJuez}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="FECHA DE RECEPCIÓN:" FontTypography="Caption" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <DatePicker IsTodayHighlighted="True"
+                                        SelectedDate="{Binding FechaRecepcionAb}" />
                         </StackPanel>
                     </WrapPanel>
                 </Grid>
@@ -258,15 +278,17 @@
                                   ItemsSource="{Binding DerechosHumanosList}" />
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
                         <Separator Height="25" Background="Transparent" BorderThickness="0"
-                                   Visibility="{Binding DerechosHumanos, Converter={StaticResource VisibilityConverter}}" />
+                                   Visibility="{Binding DerechosHumanos,
+                                   Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
 
                     <WrapPanel Grid.Row="1"
-                               Visibility="{Binding DerechosHumanos, Converter={StaticResource VisibilityConverter}}">
+                               Visibility="{Binding DerechosHumanos,
+                               Converter={StaticResource VisibilityConverter}}">
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NÚMERO DE RECOMENDACIÓN DERECHOS HUMANOS:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NumeroDerechosHumanos}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
@@ -274,21 +296,22 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="DÓNDE RADICA LA RECOMENDACIÓN DERECHOS HUMANOS:"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding DondeRadicaDh}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NOMBRE DEL SERVIDOR(A) PÚBLICO:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NombreServidorPublicoDh}" />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="FECHA DE RECEPCIÓN RECOMENDACIÓN DH:" FontTypography="Caption" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <DatePicker IsTodayHighlighted="True"
+                                        SelectedDate="{Binding FechaRecepcionDh}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -296,18 +319,35 @@
                         <Separator Height="25" Background="Transparent" BorderThickness="0"
                                    Visibility="{Binding DerechosHumanos, Converter={StaticResource VisibilityConverter}}" />
 
-                        <CheckBox Content="DECLARACIÓN ESPECIAL DE AUSENCIA." />
+                        <CheckBox Content="DECLARACIÓN ESPECIAL DE AUSENCIA."
+                                  IsChecked="{Binding DeclaracionEspecialAusencia}" />
+
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                        <CheckBox Content="ACCIÓN URGENTE." />
+
+                        <CheckBox Content="ACCIÓN URGENTE."
+                                  IsChecked="{Binding AccionUrgente}" />
+
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                        <CheckBox Content="DICTAMEN" />
+
+                        <CheckBox Content="DICTAMEN"
+                                  IsChecked="{Binding Dictamen}" />
+
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
-                        <CheckBox Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL." />
+
+                        <CheckBox Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL."
+                                  IsChecked="{Binding CarpetaInvestigacionNivelFederal}" />
+
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
+
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Content="OTRO, ESPECÍFIQUE:" IsChecked="{Binding OtroDerechoHumano}" />
+                            <CheckBox Content="OTRO, ESPECÍFIQUE:"
+                                      IsChecked="{Binding OtroDerechoHumano}" />
+
                             <Separator Width="25" Background="Transparent" BorderThickness="0" />
-                            <ui:TextBox MinWidth="250" IsEnabled="{Binding OtroDerechoHumano}" />
+
+                            <ui:TextBox MinWidth="250"
+                                        IsEnabled="{Binding OtroDerechoHumano}"
+                                        Text="{Binding OtroDerechoHumanoEspecificado}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>

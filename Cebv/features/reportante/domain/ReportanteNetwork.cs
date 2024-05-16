@@ -30,19 +30,15 @@ public class ReportanteNetwork
         return reporteResponse;
     }
 
-    public static async Task<Object> GetParentescos()
+    public static async Task<ObservableCollection<Catalogo>> GetParentescos()
     {
         var request = await Client.GetAsync("api/parentescos");
 
         var response = await request.Content.ReadAsStringAsync();
 
-        CatalogoWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogoWrapped>(response);
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
 
-        ObservableCollection<Catalogo> parentescos = new ObservableCollection<Catalogo>();
-
-        foreach (var parentesco in jsonResponse?.data!) parentescos.Add(parentesco);
-
-        return parentescos;
+        return jsonResponse.Data;
     }
 
     public static async Task PostReportante(
