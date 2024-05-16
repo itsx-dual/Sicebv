@@ -30,7 +30,7 @@
             <ComboBox />
         </StackPanel>
 
-        <ui:TextBlock Text="Condiciones de salud"
+        <ui:TextBlock Text="Condiciones de salud*"
                       FontTypography="Subtitle" />
 
         <ui:DataGrid MinHeight="300"
@@ -51,7 +51,7 @@
             </ui:DataGrid.Columns>
         </ui:DataGrid>
 
-        <ui:TextBlock Text="Enfoque diferenciado"
+        <ui:TextBlock Text="Enfoque diferenciado*"
                       FontTypography="Subtitle" />
         <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                 Margin="5"
@@ -278,7 +278,7 @@
                 Margin="5"
                 CornerRadius="8">
             <WrapPanel Margin="10">
-                <CheckBox Content="¿Esta embarazada?"
+                <CheckBox Content="¿Esta embarazada?*"
                           Name="EmbarazoToggleSwitch" />
 
                 <ui:NumberBox Maximum="9"

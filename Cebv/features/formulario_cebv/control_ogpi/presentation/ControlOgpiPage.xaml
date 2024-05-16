@@ -38,7 +38,7 @@
 
                     <WrapPanel>
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="FECHA DE CAPTURA:" FontTypography="Caption" />
+                            <ui:TextBlock Text="FECHA DE CAPTURA:*" FontTypography="Caption" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 

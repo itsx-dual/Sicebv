@@ -8,8 +8,8 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
-      d:DesignHeight="1000"
+      d:DesignWidth="Auto"
+      d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="HechosDesaparicionPage" Height="450" Width="800">
     <Grid>
@@ -19,7 +19,7 @@
             <Grid VerticalAlignment="Center">
                 <WrapPanel>
                     <StackPanel Width="225" Margin="0,0,10,0">
-                        <Label Content="Fecha de desaparición:" />
+                        <Label Content="Fecha de desaparición:*" />
                         <DatePicker />
                         <ui:TextBlock Visibility="Hidden" />
                     </StackPanel>
@@ -35,7 +35,7 @@
                         <ui:TextBlock Visibility="Hidden" />
                     </StackPanel>
                     <StackPanel Width="225" Margin="0,0,0,0">
-                        <Label Content="Fecha de percato:" />
+                        <Label Content="Fecha de percato:*" />
                         <DatePicker />
                         <ui:TextBlock Visibility="Hidden" />
                     </StackPanel>
@@ -54,7 +54,7 @@
                                 <Label Content="Descripción de la situacion de amenaza:" />
                                 <ui:TextBox
                                     Text="{Binding DescripcionAmenaza}" x:Name="DescripcionAmenazaTb"/>
-                                <Label Content="¿Cuantas veces antes la persona ha desapareico o se ha ausentado?" />
+                                <Label Content="¿Cuantas veces antes la persona ha desapareico o se ha ausentado?*" />
                                 <ui:TextBox
                                     Text="{Binding ContadorDesapariciones}" x:Name="ContadorDesaparicionesTb"/>
                                 <Label
@@ -68,12 +68,12 @@
                     <Grid VerticalAlignment="Center">
                         <WrapPanel HorizontalAlignment="Center">
                             <StackPanel Width="Auto" Margin="0,0,30,0">
-                                <Label Content="Descripcion de los hechos de la desaparición:" />
+                                <Label Content="Descripcion de los hechos de la desaparición:*" />
                                 <ui:TextBox
                                     Text="{Binding HechosDesaparicion}" x:Name="HechosDesaparicionTb"/>
                             </StackPanel>
                             <StackPanel Width="Auto" Margin="0,0,30,0">
-                                <Label Content="Sintesis de los hechos de de la desaparición:" />
+                                <Label Content="Sintesis de los hechos de de la desaparición:*" />
                                 <ui:TextBox
                                     Text="{Binding SintesisDesaparicion}" x:Name="SintesisDesaparicionTb"/>
                             </StackPanel>
@@ -87,7 +87,7 @@
                     <Grid VerticalAlignment="Center">
                         <WrapPanel>
                             <StackPanel Width="Auto" Margin="0,0,30,0">
-                                <Label Content="Posible hipotesis de desaparición 1:" />
+                                <Label Content="Posible hipotesis de desaparición 1:*" />
                                 <ComboBox />
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,0,30,0">
@@ -108,19 +108,19 @@
                     <Grid VerticalAlignment="Center">
                         <WrapPanel>
                             <StackPanel Width="218" Margin="0,0,30,0">
-                                <Label Content="Sitio inicial:" />
+                                <Label Content="Sitio inicial:*" />
                                 <ComboBox />
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,0,30,0">
-                                <Label Content="Area que codifica inicial:" />
+                                <Label Content="Area que codifica inicial:*" />
                                 <ui:TextBox x:Name="AreaCodificaInicialTb"/>
                             </StackPanel>
                             <StackPanel Width="218" Margin="0,0,30,0">
-                                <Label Content="¿Desaparecio con alguien más?:" />
+                                <Label Content="¿Desaparecio con alguien más?:*" />
                                 <ComboBox />
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,0,30,0">
-                                <Label Content="Núm. personas en el mismo evento:" />
+                                <Label Content="Núm. personas en el mismo evento:*" />
                                 <ui:NumberBox x:Name="NumPersonasMismoEventoTb"/>
                             </StackPanel>
                         </WrapPanel>
@@ -155,7 +155,7 @@
                                 <ui:TextBox x:Name="ExpedientesIndirectosTb"/>
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,55,10,0">
-                                <Label Content="¿Autoriza que publique el boletin?:" />
+                                <Label Content="¿Autoriza que publique el boletin?:*" />
                                 <ComboBox />
                             </StackPanel>
                             <StackPanel Width="221" Margin="0,55,10,0">

@@ -14,7 +14,7 @@
         <ScrollViewer>
             <StackPanel Orientation="Vertical">
                 <Separator Height="20" />
-                <TextBlock Text="PARENTESCO CON LA PERSONA DESAPARECIDA" />
+                <TextBlock Text="PARENTESCO CON LA PERSONA DESAPARECIDA:*" />
                 <ComboBox IsEditable="True"
                           HorizontalAlignment="Left"
                           Width="400"
@@ -23,28 +23,28 @@
                           ItemsSource="{Binding Parentescos}" />
                 <Separator Height="20"></Separator>
 
-                <CheckBox Content="DENUNCIA ANÓNIMA" IsChecked="{Binding DenunciaAnonima}" />
+                <CheckBox Content="DENUNCIA ANÓNIMA*" IsChecked="{Binding DenunciaAnonima}" />
                 <Separator Height="10"></Separator>
 
-                <CheckBox Content="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO"
+                <CheckBox Content="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO*"
                           IsChecked="{Binding InformacionConsentimiento}">
                 </CheckBox>
                 <Separator Height="10"></Separator>
 
-                <CheckBox Content="INFORMACIÓN EXCLUSIVA DE BÚSQUEDA"
+                <CheckBox Content="INFORMACIÓN EXCLUSIVA DE BÚSQUEDA*"
                           IsChecked="{Binding InformacionExclusivaBusqueda}">
                 </CheckBox>
                 <Separator Height="10"></Separator>
 
-                <CheckBox Content="PUBLICACIÓN DE LA INFORMACIÓN EN EL REGISTRO NACIONAL"
+                <CheckBox Content="PUBLICACIÓN DE LA INFORMACIÓN EN EL REGISTRO NACIONAL*"
                           IsChecked="{Binding PublicacionRegistroNacional}">
                 </CheckBox>
                 <Separator Height="10"></Separator>
 
-                <CheckBox Content="PUBLICACION DEL BOLETÍN" IsChecked="{Binding PublicacionBoletin}"></CheckBox>
+                <CheckBox Content="PUBLICACION DEL BOLETÍN:*" IsChecked="{Binding PublicacionBoletin}"></CheckBox>
                 <Separator Height="10"></Separator>
 
-                <CheckBox Content="TIENE PERTENENCIA A ALGÚN COLECTIVO" IsChecked="{Binding PertenenciaColectivo}"></CheckBox>
+                <CheckBox Content="TIENE PERTENENCIA A ALGÚN COLECTIVO:*" IsChecked="{Binding PertenenciaColectivo}"></CheckBox>
                 <Separator Height="10"></Separator>
 
 

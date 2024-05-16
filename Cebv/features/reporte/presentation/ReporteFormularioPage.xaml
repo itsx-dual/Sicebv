@@ -17,37 +17,37 @@
     </Page.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10">
-            <ui:TextBlock Text="TIPO DE FOLIO" />
+            <ui:TextBlock Text="TIPO DE FOLIO*"/>
             <ComboBox IsEditable="True"
                       DisplayMemberPath="Nombre"
                       SelectedItem="{Binding TipoReporteSeleccionado}"
                       ItemsSource="{Binding TiposReportes}" />
 
-            <ui:TextBlock Text="AREA QUE ATIENDE" />
+            <ui:TextBlock Text="AREA QUE ATIENDE:*" />
             <ComboBox IsEditable="True"
                       DisplayMemberPath="Nombre"
                       SelectedItem="{Binding AreaSeleccionada}"
                       ItemsSource="{Binding Areas}" />
 
-            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENERICO" />
+            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENERICO*" />
             <ComboBox IsEditable="True"
                       DisplayMemberPath="Nombre"
                       SelectedItem="{Binding TipoMedioSeleccionado}"
                       ItemsSource="{Binding TiposMedios}" />
 
-            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECIFICO" />
+            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECIFICO*" />
             <ComboBox IsEditable="True"
                       DisplayMemberPath="Nombre"
                       SelectedItem="{Binding MedioSeleccionado}"
                       ItemsSource="{Binding Medios}" />
 
-            <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE" />
+            <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE:*" />
             <ComboBox IsEditable="True"
                       DisplayMemberPath="Nombre"
                       SelectedItem="{Binding EstadoSeleccionado}"
                       ItemsSource="{Binding Estados}" />
 
-            <ui:TextBlock Text="ZONA DEL ESTADO DEL REPORTE" />
+            <ui:TextBlock Text="ZONA DEL ESTADO DEL REPORTE:*" />
             <ComboBox IsEditable="True"
                       DisplayMemberPath="Nombre"
                       SelectedItem="{Binding ZonaEstadoSeleccionada}"
@@ -59,7 +59,7 @@
                       SelectedItem="{Binding TipoHipotesisSeleccionada}"
                       ItemsSource="{Binding TiposHipotesis}" />
 
-            <ui:TextBlock Text="FECHA DE DESAPARICION" />
+            <ui:TextBlock Text="FECHA DE DESAPARICION:*"/>
             <TextBox Text="{Binding FechaDesaparicion}" x:Name="FechsDesaparicionTb"/>
             <ui:TextBlock Text="SINTESIS DE LOCALIZACION" />
             <TextBox Text="{Binding SintesisLocalizacion}" x:Name="SintesisLocalizacionTb"/>

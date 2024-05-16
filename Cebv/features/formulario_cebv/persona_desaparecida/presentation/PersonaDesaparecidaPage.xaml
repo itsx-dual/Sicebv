@@ -53,7 +53,7 @@
                     <!-- Nombres y apellidos -->
                     <WrapPanel Grid.Row="0">
                         <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="NOMBRE(S):" FontTypography="Caption" />
+                            <ui:TextBlock Text="NOMBRE(S):*" FontTypography="Caption" />
                             <ui:TextBox Text="{Binding Nombre}" x:Name="NombreTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -63,7 +63,7 @@
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="PRIMER APELLIDO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="PRIMER APELLIDO:*" FontTypography="Caption" />
                             <ui:TextBox Text="{Binding ApellidoPaterno}" x:Name="ApellidoPaternoTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -143,7 +143,7 @@
                     <!-- Sexo y género -->
                     <WrapPanel Grid.Row="3">
                         <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="SEXO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="SEXO:*" FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock />
                         </StackPanel>
@@ -151,7 +151,7 @@
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="GENERO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="GENERO:*" FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock />
 
@@ -170,7 +170,7 @@
                             <StackPanel MinWidth="250"
                                         Visibility="{Binding FechaAproximada,
                                         Converter={StaticResource VisibilityConverter}}">
-                                <ui:TextBlock Text="FECHA DE NACIMIENTO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="FECHA DE NACIMIENTO:*" FontTypography="Caption" />
                                 <DatePicker IsTodayHighlighted="True" />
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
@@ -199,7 +199,7 @@
                             <StackPanel Orientation="Vertical" MinWidth="200"
                                         Visibility="{Binding FechaAproximada,
                                         Converter={StaticResource VisibilityConverter2}}">
-                                <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
+                                <ui:TextBlock Text="EDAD(AÑOS):*" FontTypography="Caption" />
                                 <ui:NumberBox
                                     ToolTip="Edad al momento de Desaparición"
                                     Icon="{ui:SymbolIcon NumberSymbolSquare24}"
@@ -258,7 +258,7 @@
                             <StackPanel Orientation="Vertical" MinWidth="200"
                                         Visibility="{Binding FechaAproximada,
                                         Converter={StaticResource VisibilityConverter}}">
-                                <ui:TextBlock Text="EDAD AL MOMENTO DE LA DESAPARICIÓN:" FontTypography="Caption" />
+                                <ui:TextBlock Text="EDAD AL MOMENTO DE LA DESAPARICIÓN:*" FontTypography="Caption" />
                                 <ui:TextBox IsEnabled="False" x:Name="EdadDesaparicionTb"/>
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
@@ -285,7 +285,7 @@
                     <WrapPanel Grid.Row="6">
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="LUGAR DE NACIMIENTO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="LUGAR DE NACIMIENTO:*" FontTypography="Caption" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre" />
                             <ui:TextBlock Text="Error"
@@ -296,7 +296,7 @@
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel Orientation="Vertical" MinWidth="250">
-                            <ui:TextBlock Text="NACIONALIDAD:" FontTypography="Caption" />
+                            <ui:TextBlock Text="NACIONALIDAD:*" FontTypography="Caption" />
                             <ComboBox Width="250"
                                       IsEditable="True"
                                       DisplayMemberPath="Nombre" />
@@ -467,7 +467,7 @@
 
                         <WrapPanel Grid.Row="1">
                             <StackPanel Margin="5" MinWidth="250">
-                                <ui:TextBlock Text="ESTADO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="ESTADO:*" FontTypography="Caption" />
                                 <ComboBox />
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
@@ -477,7 +477,7 @@
                             <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                             <StackPanel Margin="5" MinWidth="250">
-                                <ui:TextBlock Text="MUNICIPIO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="MUNICIPIO:*" FontTypography="Caption" />
                                 <ComboBox />
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
@@ -553,7 +553,7 @@
 
                     <WrapPanel Grid.Row="0">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="TELÉFONO MÓVIL:" FontTypography="Caption" />
+                            <ui:TextBlock Text="TELÉFONO MÓVIL:*" FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" x:Name="TelefonoMovilTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -687,7 +687,7 @@
                     <StackPanel>
                         <StackPanel>
                             <ui:TextBlock
-                                Text="¿HABLA ESPAÑOL?."
+                                Text="¿HABLA ESPAÑOL?.*"
                                 FontTypography="Caption" />
                             <ComboBox SelectedItem="{Binding HablaEspanolSelected}"
                                       ItemsSource="{Binding HablaEspanolList}" />
@@ -695,7 +695,7 @@
                         <Separator Height="15" Background="Transparent" BorderThickness="0" />
                         <StackPanel>
                             <ui:TextBlock
-                                Text="¿SABE LEER?."
+                                Text="¿SABE LEER?.*"
                                 FontTypography="Caption" />
                             <ComboBox SelectedItem="{Binding SabeLeerSelected}"
                                       ItemsSource="{Binding SabeLeerList}" />
@@ -713,7 +713,7 @@
 
                     <WrapPanel Grid.Row="1">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="ESCOLARIDAD:" FontTypography="Caption" />
+                            <ui:TextBlock Text="ESCOLARIDAD:*" FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -770,7 +770,7 @@
 
                     <WrapPanel Grid.Row="4">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="ESTADO CONYUGAL:" FontTypography="Caption" />
+                            <ui:TextBlock Text="ESTADO CONYUGAL:*" FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"

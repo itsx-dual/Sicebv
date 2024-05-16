@@ -72,21 +72,21 @@
                 <Grid Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO:*" FontTypography="Caption" />
                             <ComboBox />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO:*" FontTypography="Caption" />
                             <ComboBox />
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="DEPENDENCIA DE ORIGEN:" FontTypography="Caption" />
+                            <ui:TextBlock Text="DEPENDENCIA DE ORIGEN:*" FontTypography="Caption" />
                             <ui:TextBox x:Name="DependenciaOrigenTb" />
                         </StackPanel>
                     </WrapPanel>
@@ -118,7 +118,7 @@
             <Border>
                 <StackPanel Margin="5">
                     <StackPanel>
-                        <ui:TextBlock Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO."
+                        <ui:TextBlock Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO.*"
                                       FontTypography="Caption" />
                         <ComboBox SelectedItem="{Binding InformacionConsentimientoSelected}"
                                   ItemsSource="{Binding InformacionConsentimientoList}" />
@@ -128,7 +128,7 @@
 
                     <StackPanel>
                         <ui:TextBlock
-                            Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA."
+                            Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA.*"
                             FontTypography="Caption" />
                         <ComboBox SelectedItem="{Binding InformacionExclusivaBusquedaSelected}"
                                   ItemsSource="{Binding InformacionExclusivaBusquedaList}" />
@@ -138,7 +138,7 @@
 
                     <StackPanel>
                         <ui:TextBlock
-                            Text="SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA."
+                            Text="SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA.*"
                             FontTypography="Caption" />
                         <ComboBox SelectedItem="{Binding PublicacionInformacionSelected}"
                                   ItemsSource="{Binding PublicacionInformacionList}" />
@@ -152,7 +152,7 @@
             <Border>
                 <StackPanel Margin="5">
                     <StackPanel>
-                        <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
+                        <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI).*" />
                         <ComboBox SelectedItem="{Binding CarpetaInvestigacionSelected}"
                                   ItemsSource="{Binding CarpetaInvestigacionList}" />
                         <Separator Height="25" Background="Transparent" BorderThickness="0"

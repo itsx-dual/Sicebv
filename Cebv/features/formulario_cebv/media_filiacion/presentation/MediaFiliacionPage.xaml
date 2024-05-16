@@ -40,14 +40,14 @@
                     
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Complexión:"
+                        <ui:TextBlock Text="Complexión:*"
                                       FontTypography="Caption"/>
                         <ComboBox/>
                     </StackPanel>
                     
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Color de piel:"
+                        <ui:TextBlock Text="Color de piel:*"
                                       FontTypography="Caption"/>
                         <ComboBox/>
                     </StackPanel>
@@ -62,21 +62,21 @@
                 <WrapPanel>
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Color de ojos:"
+                        <ui:TextBlock Text="Color de ojos:*"
                                       FontTypography="Caption"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Forma de ojos:"
+                        <ui:TextBlock Text="Forma de ojos:*"
                                       FontTypography="Caption"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Tamaño de ojos"
+                        <ui:TextBlock Text="Tamaño de ojos:*"
                                       FontTypography="Caption"/>
                         <ComboBox/>
                     </StackPanel>
@@ -98,25 +98,25 @@
                 <WrapPanel>
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Calvicie"/>
+                        <ui:TextBlock Text="Calvicie:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Colo de cabello:"/>
+                        <ui:TextBlock Text="Colo de cabello:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Tamaño de cabello:"/>
+                        <ui:TextBlock Text="Tamaño de cabello:*"/>
                         <ComboBox/>
                     </StackPanel>
                     
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Tipo de cabello:"/>
+                        <ui:TextBlock Text="Tipo de cabello:*"/>
                         <ComboBox/>
                     </StackPanel>
 
@@ -136,25 +136,25 @@
                 <WrapPanel>
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Forma de la nariz:"/>
+                        <ui:TextBlock Text="Forma de la nariz:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Boca:"/>
+                        <ui:TextBlock Text="Boca:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Labios:"/>
+                        <ui:TextBlock Text="Labios:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Tamaño de orejas"/>
+                        <ui:TextBlock Text="Tamaño de orejas:*"/>
                         <ComboBox/>
                     </StackPanel>
 
@@ -166,19 +166,19 @@
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Ceja:"/>
+                        <ui:TextBlock Text="Ceja:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Bigote"/>
+                        <ui:TextBlock Text="Bigote:*"/>
                         <ComboBox/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Barba"/>
+                        <ui:TextBlock Text="Barba:*"/>
                         <ComboBox/>
                     </StackPanel>
 

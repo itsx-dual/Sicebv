@@ -63,7 +63,7 @@
                             <StackPanel MinWidth="200"
                                         Visibility="{Binding EsAnonimo,
                                         Converter={StaticResource VisibilityConverter}}">
-                                <ui:TextBlock Text="NOMBRE(S):" FontTypography="Caption" />
+                                <ui:TextBlock Text="NOMBRE(S):*" FontTypography="Caption" />
                                 <ui:TextBox x:Name="NombreTb"/>
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
@@ -75,7 +75,7 @@
                                 Visibility="{Binding EsAnonimo,
                                    Converter={StaticResource VisibilityConverter}}">
                                 <StackPanel MinWidth="200">
-                                    <ui:TextBlock Text="PRIMER APELLIDO:" FontTypography="Caption" />
+                                    <ui:TextBlock Text="PRIMER APELLIDO:*" FontTypography="Caption" />
                                     <ui:TextBox x:Name="PrimerApellidoTb"/>
                                     <ui:TextBlock Text="Error"
                                                   FontTypography="Caption"
@@ -107,7 +107,7 @@
                                    Visibility="{Binding EsAnonimo,
                                    Converter={StaticResource VisibilityConverter}}">
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="SEXO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="SEXO:*" FontTypography="Caption" />
                                 <ComboBox />
                                 <ui:TextBlock />
                             </StackPanel>
@@ -115,7 +115,7 @@
                             <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="GENERO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="GENERO:*" FontTypography="Caption" />
                                 <ComboBox />
                                 <ui:TextBlock />
 
@@ -131,7 +131,7 @@
                                 <StackPanel MinWidth="250"
                                             Visibility="{Binding FechaAproximada,
                                             Converter={StaticResource VisibilityConverter}}">
-                                    <ui:TextBlock Text="FECHA DE NACIMIENTO:" FontTypography="Caption" />
+                                    <ui:TextBlock Text="FECHA DE NACIMIENTO:*" FontTypography="Caption" />
                                     <DatePicker IsTodayHighlighted="True" />
                                     <ui:TextBlock Text="Error"
                                                   FontTypography="Caption"
@@ -142,7 +142,7 @@
 
 
                                 <StackPanel Orientation="Vertical" MinWidth="200">
-                                    <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
+                                    <ui:TextBlock Text="EDAD(AÑOS):*" FontTypography="Caption" />
                                     <ui:NumberBox
                                         Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                         MaxDecimalPlaces="0"
@@ -163,7 +163,7 @@
                                    Visibility="{Binding EsAnonimo,
                                    Converter={StaticResource VisibilityConverter}}">
                             <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="LUGAR DE NACIMIENTO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="LUGAR DE NACIMIENTO:*" FontTypography="Caption" />
                                 <ComboBox IsEditable="True"
                                           DisplayMemberPath="Nombre" />
                                 <ui:TextBlock Text="Error"
@@ -174,7 +174,7 @@
                             <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                             <StackPanel Orientation="Vertical" MinWidth="250">
-                                <ui:TextBlock Text="NACIONALIDAD:" FontTypography="Caption" />
+                                <ui:TextBlock Text="NACIONALIDAD:*" FontTypography="Caption" />
                                 <ComboBox Width="250"
                                           IsEditable="True"
                                           DisplayMemberPath="Nombre" />
@@ -233,7 +233,7 @@
 
                     <WrapPanel Grid.Row="0">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="TELÉFONO MÓVIL:" FontTypography="Caption" />
+                            <ui:TextBlock Text="TELÉFONO MÓVIL:*" FontTypography="Caption" />
                             <ui:TextBox ClearButtonEnabled="True" x:Name="TelefonoMovilTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -386,7 +386,7 @@
 
                     <WrapPanel Grid.Row="1">
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="ESTADO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="ESTADO:*" FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
@@ -396,7 +396,7 @@
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
                         <StackPanel Margin="5" MinWidth="250">
-                            <ui:TextBlock Text="MUNICIPIO:" FontTypography="Caption" />
+                            <ui:TextBlock Text="MUNICIPIO:*" FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
