@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Image = Wpf.Ui.Controls.Image;
+using Cebv.core.util;
 
 namespace Cebv.features.formulario_cebv.senas_particulares.presentation;
 
@@ -12,6 +13,9 @@ public partial class SenasParticularesPage : Page
     public SenasParticularesPage()
     {
         InitializeComponent();
+
+        DescripcionTb.TextChanged += TextBoxHelper.UpperCaseText;
+        DescripcionTb.LostFocus += TextBoxHelper.TrimmedText;
     }
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)

@@ -70,7 +70,7 @@
                                 Margin="5">
                         <ui:TextBlock Text="&#x0a;Síntesis de localización"
                                       FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox x:Name="SintesisLocalizacionTb"/>
                         <ui:TextBlock Text=""
                                       Visibility="Hidden"
                                       FontTypography="Caption" />
@@ -80,7 +80,7 @@
                                 Margin="5">
                         <ui:TextBlock Text="&#x0a;Hipervinculo síntesis de localización"
                                       FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox x:Name="HipervinculoSintesisLocalizacionTb"/>
                         <ui:TextBlock Text=""
                                       Visibility="Hidden"
                                       FontTypography="Caption" />
@@ -125,7 +125,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="&#x0a;Clasificacion de persona localizada"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="ClasificacionPersonaLocalizadaTb"/>
                             <ui:TextBlock Text="Dia/Mes/Año"
                                           FontTypography="Caption" />
                         </StackPanel>
@@ -143,7 +143,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="&#x0a;Area que codifica inicial"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="AreaCodificaInicialTb"/>
                             <ui:TextBlock Text=""
                                           Visibility="Hidden"
                                           FontTypography="Caption" />
@@ -153,7 +153,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="&#x0a;Hipótesis DEB/FGE"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="HipotesisTb"/>
                             <ui:TextBlock Text=""
                                           Visibility="Hidden"
                                           FontTypography="Caption" />
@@ -163,7 +163,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="&#x0a;Status RNPDNO"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="StatusTb"/>
                             <ui:TextBlock Text=""
                                           Visibility="Hidden"
                                           FontTypography="Caption" />
@@ -173,7 +173,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="&#x0a;Circunstancia RNPDNO"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="CircunstanciaTb"/>
                             <ui:TextBlock Text=""
                                           Visibility="Hidden"
                                           FontTypography="Caption" />
@@ -183,7 +183,7 @@
                     <StackPanel Margin="5">
                         <ui:TextBlock Text="&#x0a;Observaciones sobre la actualizacion de status"
                                       FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox x:Name="ObservacionesActualizacionStatusTb"/>
                         <ui:TextBlock Text=""
                                       Visibility="Hidden"
                                       FontTypography="Caption" />

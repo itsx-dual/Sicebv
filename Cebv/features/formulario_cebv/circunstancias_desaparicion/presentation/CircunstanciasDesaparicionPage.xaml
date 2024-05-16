@@ -38,13 +38,13 @@
                     <DatePicker Grid.Column="0" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="HORA DESAPARICIÓN:"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5" x:Name="HoraDesaparicionTb"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" Margin="5" Text="FECHA DE-PERCATO:"
                                VerticalAlignment="Center" />
                     <DatePicker Grid.Column="2" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="3" Grid.Row="0" Margin="5" Text="HORA DE PERCATO:"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="3" Margin="5" />
+                    <TextBox Grid.Row="1" Grid.Column="3" Margin="5" x:Name="HoraPercatoTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -57,7 +57,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="ACLARACIÓN SOBRE LA FECHA Y HORA DE LOS HECHOS:"
                                VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" x:Name="AclaracionFechaHoraHechosTb"/>
                 </Grid>
             </StackPanel>
         </Border>
@@ -102,13 +102,13 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="CALLE:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" x:Name="CalleTb"/>
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="NO EXTERIOR:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="NoExteriorTb"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" Text="NO INTERIOR:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5" x:Name="NoInteriorTb"/>
                     <TextBlock Grid.Column="3" Grid.Row="0" Text="COLONIA:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" x:Name="ColoniaTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -124,13 +124,13 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="CODIGO POSTAL:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" x:Name="CodigoPostalTb"/>
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="ESTADO:" VerticalAlignment="Center" Margin="5" />
                     <ComboBox Grid.Column="1" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="2" Grid.Row="0" Text="MUNICIPIO:" VerticalAlignment="Center" Margin="5" />
                     <ComboBox Grid.Column="2" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="3" Grid.Row="0" Text="LOCALIDAD:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" x:Name="LocalidadTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -146,14 +146,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="ENTRE CALLE:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" x:Name="EntreCalleTb"/>
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="Y CALLE:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="YCalleTb"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" Text="TRAMO CARRETERO:" VerticalAlignment="Center"
                                Margin="5" />
-                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5" x:Name="TramoCarreteroTb"/>
                     <TextBlock Grid.Column="3" Grid.Row="0" Text="LONGITUD:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" x:Name="LongitudTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -169,9 +169,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="LATITUD:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" x:Name="LatitudTb"/>
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="REFERENCIA:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="ReferenciaTb"/>
                 </Grid>
             </StackPanel>
         </Border>
@@ -214,7 +214,7 @@
                     <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="DESCRIPCIÓN DE LA SITUACIÓN DE AMENAZAS:"
                                VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="DescripcionSituacionAmenazasTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -232,7 +232,7 @@
                     <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
                                Text="DESCRIPCIÓN DE LA SITUACIÓN PREVIA O ANOTE LOS FOLIOS EN EL CAMPO SIGUIENTE SI YA HA ESTADO REGISTRADA:"
                                VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="DescripcionSituacionPreviaTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -290,13 +290,13 @@
                     <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="CIRCUNSTANCIA INICIAL 1:" VerticalAlignment="Center"
                                Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="CircunstanciaInicial1Tb"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 2:"
                                VerticalAlignment="Center" Margin="5" />
                     <ComboBox Grid.Column="2" Grid.Row="1" Margin="5" />
                     <TextBlock Grid.Column="3" Grid.Row="0" Text="CIRCUNSTANCIA INICIAL 2:" VerticalAlignment="Center"
                                Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" x:Name="CircunstanciaInicial2Tb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -316,9 +316,8 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="AREA QUE CODIFICA INICIAL:"
                                VerticalAlignment="Center"
                                Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="AreaCodificaInicialTb"/>
                 </Grid>
-
             </StackPanel>
         </Border>
 
@@ -350,7 +349,7 @@
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="NÚM. PERS. EN MISMO EVENTO:"
                                VerticalAlignment="Center"
                                Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5" />
+                    <ui:NumberBox Grid.Column="1" Grid.Row="2" Margin="5" x:Name="NumPersMismoEventoTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -382,7 +381,7 @@
                     <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
                                Text="EXPEDIENTES INDIRECTOS: FOLIOS DE OTRAS PERSONAS DESAPARECIDAS RELACIONADAS CON LA PERSONA QUE SE ESTÁ REGISTRANDO (FAMILIARES, AMISTADES, CONOCIDOS, ETC):"
                                VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" x:Name="ExpedientesIndirectosTb"/>
                 </Grid>
             </StackPanel>
         </Border>
@@ -415,7 +414,7 @@
                     <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Text="¿CUÁLES?"
                                VerticalAlignment="Center"
                                Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5" x:Name="CualesTb"/>
                 </Grid>
                 <TextBlock FontWeight="Bold" FontFamily="Arial" FontStyle="Normal"
                            Text="DÍAS U HORAS DE QUE OCURRIERA LA DESAPARICIÓN DE LA PERSONA:" Margin="5" />
@@ -446,7 +445,7 @@
                     <TextBlock TextWrapping="Wrap" Grid.Column="3" Grid.Row="0"
                                Text="OTRA INFORMACIÓN QUE DESEE APORTAR ADICIONALMENTE A LA ENTERVISTA:"
                                VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
+                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" x:Name="OtraInformacionTb"/>
                 </Grid>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>

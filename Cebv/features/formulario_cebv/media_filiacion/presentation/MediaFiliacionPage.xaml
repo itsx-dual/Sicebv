@@ -28,14 +28,14 @@
                                 Margin="5">
                         <ui:TextBlock Text="Estatura:"
                                       FontTypography="Caption"/>
-                        <TextBox/>
+                        <TextBox x:Name="EstaturaTb"/>
                     </StackPanel>
                     
                     <StackPanel MinWidth="200"
                                 Margin="5">
                         <ui:TextBlock Text="Peso:"
                                       FontTypography="Caption"/>
-                        <TextBox/>
+                        <TextBox x:Name="PesoTb"/>
                     </StackPanel>
                     
                     <StackPanel MinWidth="200"
@@ -85,7 +85,7 @@
                                 Margin="5">
                         <ui:TextBlock Text="Cualquier especificacion de los ojos:"
                                       FontTypography="Caption"/>
-                        <TextBox/>
+                        <TextBox x:Name="EspecificacionOjosTb"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -123,7 +123,7 @@
                     <StackPanel MinWidth="200"
                                 Margin="5">
                         <ui:TextBlock Text="Cualquier especificación del cabello:"/>
-                        <TextBox/>
+                        <TextBox x:Name="EspecificacionCabelloTb"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -187,9 +187,6 @@
                         <ui:TextBlock Text="Forma de la cara"/>
                         <ComboBox/>
                     </StackPanel>
-                    
-
-                    
                 </WrapPanel>
             </Border>
             <ui:Button Content="Guardar y siguiente"

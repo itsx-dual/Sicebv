@@ -26,12 +26,12 @@
                     <StackPanel Width="225" Margin="0,0,10,0">
                         <Label Content="reporte:" />
                         <ui:TextBox
-                            Text="{Binding ReporteId}" />
+                            Text="{Binding ReporteId}" x:Name="ReporteTb"/>
                         <ui:TextBlock Visibility="Hidden" />
                     </StackPanel>
                     <StackPanel Width="auto" Margin="0,0,20,0">
                         <Label Content="Aclaración sobre la fecha y hora de desaparición:" />
-                        <ui:TextBox></ui:TextBox>
+                        <ui:TextBox x:Name="AclaracionFechaHoraDesaparicionTb"/>
                         <ui:TextBlock Visibility="Hidden" />
                     </StackPanel>
                     <StackPanel Width="225" Margin="0,0,0,0">
@@ -49,19 +49,19 @@
                             <StackPanel Width="Auto" Margin="0,0,30,0">
                                 <Label
                                     Content="¿La persona desaparecida había recibido amenazas o había cambiado su &#x0a;comportamiento o rutina recientemente?, si anota &quot;SI&quot; describa la situación en &#x0a;el siguiente campo." />
-                                <TextBox
-                                    Text="{Binding CambioComportamiento}" />
+                                <ui:TextBox
+                                    Text="{Binding CambioComportamiento}" x:Name="CambioComportamientoTb"/>
                                 <Label Content="Descripción de la situacion de amenaza:" />
                                 <ui:TextBox
-                                    Text="{Binding DescripcionAmenaza}" />
+                                    Text="{Binding DescripcionAmenaza}" x:Name="DescripcionAmenazaTb"/>
                                 <Label Content="¿Cuantas veces antes la persona ha desapareico o se ha ausentado?" />
-                                <TextBox
-                                    Text="{Binding ContadorDesapariciones}" />
+                                <ui:TextBox
+                                    Text="{Binding ContadorDesapariciones}" x:Name="ContadorDesaparicionesTb"/>
                                 <Label
                                     Content="Descripción de la situacion previa o anote los folios en el campo &#x0a;
                                siguiente ya ha estado registrada" />
                                 <ui:TextBox
-                                    Text="{Binding SituacionPrevia}" />
+                                    Text="{Binding SituacionPrevia}" x:Name="SituacionPreviaTb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -70,12 +70,12 @@
                             <StackPanel Width="Auto" Margin="0,0,30,0">
                                 <Label Content="Descripcion de los hechos de la desaparición:" />
                                 <ui:TextBox
-                                    Text="{Binding HechosDesaparicion}" />
+                                    Text="{Binding HechosDesaparicion}" x:Name="HechosDesaparicionTb"/>
                             </StackPanel>
                             <StackPanel Width="Auto" Margin="0,0,30,0">
                                 <Label Content="Sintesis de los hechos de de la desaparición:" />
                                 <ui:TextBox
-                                    Text="{Binding SintesisDesaparicion}" />
+                                    Text="{Binding SintesisDesaparicion}" x:Name="SintesisDesaparicionTb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -93,7 +93,7 @@
                             <StackPanel Width="225" Margin="0,0,30,0">
                                 <Label Content="informacion relevante:" />
                                 <ui:TextBox
-                                    Text="{Binding InformacionRelevante}" />
+                                    Text="{Binding InformacionRelevante}" x:Name="InformacionRelevanteTb"/>
                             </StackPanel>
                             <StackPanel Width="Auto" Margin="0,0,30,0">
                                 <Label Content="Posible hipotesis de desaparición 2:" />
@@ -101,7 +101,7 @@
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,0,30,0">
                                 <Label Content="Circunstancia inicial 2:" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="CircunstanciaInicial2Tb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -113,7 +113,7 @@
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,0,30,0">
                                 <Label Content="Area que codifica inicial:" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="AreaCodificaInicialTb"/>
                             </StackPanel>
                             <StackPanel Width="218" Margin="0,0,30,0">
                                 <Label Content="¿Desaparecio con alguien más?:" />
@@ -121,7 +121,7 @@
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,0,30,0">
                                 <Label Content="Núm. personas en el mismo evento:" />
-                                <ui:TextBox />
+                                <ui:NumberBox x:Name="NumPersonasMismoEventoTb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -130,11 +130,11 @@
                             <StackPanel Width="Auto" Margin="0,18,10,0">
                                 <Label
                                     Content="Circunstancia de desaparición&#x0a;(Anote temporalmente por especificar):" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="CircunstanciaDesaparicionTb"/>
                             </StackPanel>
                             <StackPanel Width="Auto" Margin="0,36.5,10,0">
                                 <Label Content="Referencia de la o la(s) otra(s) persona(s):" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="ReferenciaPersonasTb"/>
                             </StackPanel>
                             <StackPanel Width="218" Margin="0,36.5,10,0">
                                 <Label Content="¿Desaparecio con alguien más?:" />
@@ -143,7 +143,7 @@
                             <StackPanel Width="Auto" Margin="0,0,30,0">
                                 <Label
                                     Content="Expedientes directos: folios de las otras&#x0a;personas con las que desapareció o que&#x0a;tienen relacion con la desaparición:" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="ExpedientesDirectosTb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -152,7 +152,7 @@
                             <StackPanel Width="Auto" Margin="0,0,10,0">
                                 <Label
                                     Content="Expedientes indirectos: folios de otras&#x0a;personas desaparecidas relacionadas con la&#x0a;persona que se está registrando (familiares,&#x0a;amistades, conocidos, etc):" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="ExpedientesIndirectosTb"/>
                             </StackPanel>
                             <StackPanel Width="225" Margin="0,55,10,0">
                                 <Label Content="¿Autoriza que publique el boletin?:" />
@@ -160,11 +160,11 @@
                             </StackPanel>
                             <StackPanel Width="221" Margin="0,55,10,0">
                                 <Label Content="Hipervinculo en facebook al boletin:" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="HipervinculoFacebookBoletinTb"/>
                             </StackPanel>
                             <StackPanel Width="Auto" Margin="0,55,0,0">
                                 <Label Content="Hipervinculo a carpeta de expediente Drive:" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="HipervinvuloCarpetaExpedienteDriveTb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -213,7 +213,7 @@
                             </StackPanel>
                             <StackPanel Width="450" Margin="0,20,0,0">
                                 <Label Content="¿Cuáles?" />
-                                <TextBox />
+                                <TextBox x:Name="CualesTb"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>

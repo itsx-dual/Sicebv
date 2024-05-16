@@ -64,7 +64,7 @@
                                         Visibility="{Binding EsAnonimo,
                                         Converter={StaticResource VisibilityConverter}}">
                                 <ui:TextBlock Text="NOMBRE(S):" FontTypography="Caption" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="NombreTb"/>
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
                                               Visibility="Hidden" />
@@ -76,7 +76,7 @@
                                    Converter={StaticResource VisibilityConverter}}">
                                 <StackPanel MinWidth="200">
                                     <ui:TextBlock Text="PRIMER APELLIDO:" FontTypography="Caption" />
-                                    <ui:TextBox />
+                                    <ui:TextBox x:Name="PrimerApellidoTb"/>
                                     <ui:TextBlock Text="Error"
                                                   FontTypography="Caption"
                                                   Visibility="Hidden" />
@@ -86,7 +86,7 @@
 
                                 <StackPanel MinWidth="200">
                                     <ui:TextBlock Text="SEGUNDO APELLIDO: " FontTypography="Caption" />
-                                    <ui:TextBox />
+                                    <ui:TextBox x:Name="SegundoApellidoTb"/>
                                     <ui:TextBlock Text="Error"
                                                   FontTypography="Caption"
                                                   Visibility="Hidden" />
@@ -196,7 +196,7 @@
                                    Converter={StaticResource VisibilityConverter}}">
                             <StackPanel Orientation="Vertical" MinWidth="250">
                                 <ui:TextBlock Text="RFC:" FontTypography="Caption" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="RFCTb"/>
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
                                               Visibility="Hidden" />
@@ -206,7 +206,7 @@
 
                             <StackPanel Orientation="Vertical" MinWidth="250">
                                 <ui:TextBlock Text="CURP:" FontTypography="Caption" />
-                                <ui:TextBox />
+                                <ui:TextBox x:Name="CURPTb"/>
                                 <ui:TextBlock Text="Error"
                                               FontTypography="Caption"
                                               Visibility="Hidden" />
@@ -234,7 +234,7 @@
                     <WrapPanel Grid.Row="0">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="TELÉFONO MÓVIL:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="TelefonoMovilTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -254,7 +254,7 @@
 
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="ObservacionesTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -268,7 +268,7 @@
                     <WrapPanel Grid.Row="1">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="TELÉFONO FIJO:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="TelefonoFijoTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -279,7 +279,7 @@
 
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="ObserVaciones1Tb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -305,7 +305,7 @@
 
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="Observaciones2Tb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -337,7 +337,7 @@
                     <WrapPanel Grid.Row="0">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="CALLE:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="CalleTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -347,7 +347,7 @@
 
                         <StackPanel Margin="5" MinWidth="200">
                             <ui:TextBlock Text="N° EXTERIOR:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="NoExteriorTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -357,7 +357,7 @@
 
                         <StackPanel Margin="5" MinWidth="200">
                             <ui:TextBlock Text="N° INTERIOR:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="NoInteriorTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -367,7 +367,7 @@
 
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="COLONIA:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="ColoniaTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -377,7 +377,7 @@
 
                         <StackPanel Margin="5" MinWidth="200">
                             <ui:TextBlock Text="CÓDIGO POSTAL:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="CodigpPostalTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -417,7 +417,7 @@
                     <WrapPanel Grid.Row="2">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="ENTRE CALLE 1:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="EntreCalle1Tb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -427,7 +427,7 @@
 
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="ENTRE CALLE 2:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"  x:Name="EntreCalle2Tb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -437,7 +437,7 @@
 
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="TRAMO CARRETERO:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="TramoCarreteroTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -447,7 +447,7 @@
                     <WrapPanel Grid.Row="3">
                         <StackPanel Margin="5" MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" FontTypography="Caption" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True" x:Name="ReferenciaTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -457,8 +457,7 @@
                 </Grid>
             </Border>
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
-
-
+            
         </StackPanel>
     </Grid>
 </Page>

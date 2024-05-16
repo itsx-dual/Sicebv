@@ -60,7 +60,7 @@
                                 Margin="5">
                         <ui:TextBlock Text="¿Donde trabaja?"
                                       FontTypography="Caption" />
-                        <TextBox />
+                        <TextBox x:Name="DondeTrabajaTb"/>
                     </StackPanel>
                     <StackPanel MinWidth="200"
                                 Margin="5">
@@ -77,7 +77,7 @@
                                 Margin="5">
                         <ui:TextBlock Text="¿A donde desea irse?"
                                       FontTypography="Caption" />
-                        <TextBox />
+                        <TextBox x:Name="DondeDeseaIrseTb"/>
                     </StackPanel>
                     <CheckBox Content="¿Ha sufrido violencia por parte de algun compañero de trabajo?"
                               Margin="5" />
@@ -94,7 +94,7 @@
                                 Margin="5">
                         <ui:TextBlock Text="¿A quien le debe?"
                                       FontTypography="Caption" />
-                        <TextBox />
+                        <TextBox x:Name="QuienDebeTb"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -150,7 +150,7 @@
                                       Grid.ColumnSpan="2" />
 
                         <ui:TextBox Grid.Row="1"
-                                    Grid.Column="0" />
+                                    Grid.Column="0" x:Name="PasatiemposTb"/>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Row="1"
@@ -205,7 +205,7 @@
                                       Grid.ColumnSpan="2" />
 
                         <ui:TextBox Grid.Row="1"
-                                    Grid.Column="0" />
+                                    Grid.Column="0" x:Name="ClubesOrganizacionesPerteneceTb"/>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Row="1"

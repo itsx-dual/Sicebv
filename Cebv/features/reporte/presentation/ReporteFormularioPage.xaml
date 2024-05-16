@@ -60,11 +60,11 @@
                       ItemsSource="{Binding TiposHipotesis}" />
 
             <ui:TextBlock Text="FECHA DE DESAPARICION" />
-            <TextBox Text="{Binding FechaDesaparicion}"></TextBox>
+            <TextBox Text="{Binding FechaDesaparicion}" x:Name="FechsDesaparicionTb"/>
             <ui:TextBlock Text="SINTESIS DE LOCALIZACION" />
-            <TextBox Text="{Binding SintesisLocalizacion}"></TextBox>
+            <TextBox Text="{Binding SintesisLocalizacion}" x:Name="SintesisLocalizacionTb"/>
             <ui:TextBlock Text="CLASIFICACION DE LA PERSONA" />
-            <TextBox Text="{Binding ClasificacionPersona}"></TextBox>
+            <TextBox Text="{Binding ClasificacionPersona}" x:Name="ClasificacionPersonaTb"/>
 
             <ui:TextBlock Text="TIPO DE DESAPARICION" />
             <ComboBox IsEditable="True"

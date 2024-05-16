@@ -66,7 +66,7 @@
 
                         <StackPanel MinWidth="200" Margin="0,14,0,0">
                             <ui:TextBlock Text="SUBMARCA: " FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="SubMarcaTb"/>
                         </StackPanel>
 
                         <Separator Width="25" Background="Transparent" BorderThickness="0" />
@@ -81,7 +81,7 @@
                     <WrapPanel Grid.Row="1" Margin="0,14,0,0">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="PLACA:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="PlacaTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -91,7 +91,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="MODELO (AÑO):" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="ModeloTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -101,7 +101,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NUMERO DE SERIE: " FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="NumeroSerieTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -112,7 +112,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NUMERO DE MOTOR: " FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="NumeroMotorTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -123,7 +123,7 @@
                     <WrapPanel Grid.Row="2">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text=" NUMERO DE PERMISO:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="NumeroPermisoTb"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -151,7 +151,7 @@
 
                         <StackPanel MinWidth="500">
                             <ui:TextBlock Text="SEÑAS PARTICULARES"></ui:TextBlock>
-                            <ui:TextBox></ui:TextBox>
+                            <ui:TextBox x:Name="SeñasParticularesTb"/>
 
                         </StackPanel>
 

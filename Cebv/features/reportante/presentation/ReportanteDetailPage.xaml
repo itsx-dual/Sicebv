@@ -50,10 +50,10 @@
 
                 <ui:TextBox PlaceholderText="Nombre del Colectivo"
                             Visibility="{Binding PertenenciaColectivo}"
-                            Text="{Binding NombreColectivo}" />
+                            Text="{Binding NombreColectivo}" x:Name="NombreColectivoTb"/>
                 <Separator Height="20"></Separator>
                 <ui:TextBox PlaceholderText="Información Relevante"
-                            Text="{Binding InformacionRelevante}" />
+                            Text="{Binding InformacionRelevante}" x:Name="InformacionRelevanteTb"/>
                 <Separator Height="20"></Separator>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

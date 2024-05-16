@@ -166,7 +166,7 @@
 
                     <ui:TextBox Grid.Row="1"
                                 Grid.Column="0"
-                                Text="{Binding CaracteristicaRiesgo}" />
+                                Text="{Binding CaracteristicaRiesgo}" x:Name="CaracteristicasVilnerabilidadTb"/>
 
                     <ui:Button Icon="{ui:SymbolIcon Add24}"
                                Grid.Row="1"
@@ -230,7 +230,7 @@
 
                     <ui:TextBox Grid.Row="1"
                                 Grid.Column="0"
-                                Text="{Binding InformacionRelevante}" />
+                                Text="{Binding InformacionRelevante}" x:Name="InformacionPersonalTb"/>
 
                     <ui:Button Icon="{ui:SymbolIcon Add24}"
                                Grid.Row="1"
@@ -285,7 +285,7 @@
                               Minimum="0"
                               PlaceholderText="Meses de embarazo"
                               Margin="5,0,0,0"
-                              IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" />
+                              IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" x:Name="MesesEmbarazoTb"/>
             </WrapPanel>
         </Border>
 

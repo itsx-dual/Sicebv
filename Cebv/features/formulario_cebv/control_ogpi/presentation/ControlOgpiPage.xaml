@@ -46,7 +46,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="NOMBRE DEL CAPTURISTA:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox x:Name="NombreCapturistaTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -54,16 +54,15 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="OBSERVACIONES GENERALES:" FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox x:Name="ObservacionesGeneralesTb"/>
                     </StackPanel>
 
                     <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="N° DE TARJETA:" FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox x:Name="NoTarjetaTb"/>
                     </StackPanel>
-
                 </StackPanel>
             </Border>
         </StackPanel>

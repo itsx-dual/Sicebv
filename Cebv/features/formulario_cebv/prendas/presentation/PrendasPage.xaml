@@ -84,7 +84,7 @@
                                  VerticalAlignment="Stretch"
                                  Height="150"
 
-                                 TextWrapping="Wrap" MaxLength="400" />
+                                 TextWrapping="Wrap" MaxLength="400" x:Name="DescripcionTb"/>
 
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"

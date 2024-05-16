@@ -121,7 +121,7 @@
                                  VerticalAlignment="Stretch"
                                  Height="100"
                                  Text="{Binding Descripcion}"
-                                 TextWrapping="Wrap" />
+                                 TextWrapping="Wrap" x:Name="DescripcionTb"/>
 
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
