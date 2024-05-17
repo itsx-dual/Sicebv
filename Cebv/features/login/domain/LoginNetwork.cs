@@ -12,7 +12,6 @@ public class LoginNetwork
 
     public static async Task<Object> GetTokenRequest(string username, string password)
     {
-        Client.DefaultRequestHeaders.Add("Accept", "application/json");
         using HttpResponseMessage response = await Client.GetAsync(
             $"api/token?email={username}&password={password}&token_name=escritorio.{System.Environment.MachineName}");
 
