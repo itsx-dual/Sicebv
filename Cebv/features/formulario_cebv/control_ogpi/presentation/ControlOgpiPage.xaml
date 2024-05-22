@@ -63,7 +63,6 @@
                         <ui:TextBlock Text="N° DE TARJETA:" FontTypography="Caption" />
                         <ui:TextBox />
                     </StackPanel>
-
                 </StackPanel>
             </Border>
         </StackPanel>
