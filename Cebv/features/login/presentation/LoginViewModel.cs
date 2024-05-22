@@ -20,20 +20,37 @@ public partial class LoginViewModel : ObservableObject
     //[ObservableProperty] private Visibility _visibilityErrorMessage;
 
     [ObservableProperty] private string _errorMessage;
+    [ObservableProperty] private Visibility _errorVisibility;
+    [ObservableProperty] private bool _iniciandoSesion;
 
-
+    public LoginViewModel()
+    {
+        ErrorMessage = string.Empty;
+        ErrorVisibility = Visibility.Collapsed;
+        IniciandoSesion = false;
+    }
+    
     [RelayCommand]
     private async void IniciarSesion()
     {
-        var result = await LoginNetwork.GetTokenRequest(Username, Password);
-
+        if (IniciandoSesion) return;
+        
+        IniciandoSesion = true;
+        ErrorVisibility = Visibility.Collapsed;
+        var result = await LoginNetwork.POST(Username, Password);
+        
         if (result is TokenWrapped)
         {
-            BroadCast.Message("inicio exitoso");
             var dashboard = new DashboardWindow();
             var currentWindow = Application.Current.MainWindow;
             dashboard.Show();
-            currentWindow.Close();
+            currentWindow?.Close();
+        }
+        else if (result is Error)
+        {
+            ErrorVisibility = Visibility.Visible;
+            ErrorMessage = result.error;
+            IniciandoSesion = false;
         }
     }
 }
