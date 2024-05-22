@@ -15,6 +15,7 @@
     <Page.DataContext>
         <local:LoginViewModel />
     </Page.DataContext>
+    
     <Grid>
         <ui:TitleBar Title="Inicio de sesión"/>
 
@@ -59,10 +60,14 @@
                                        Width="290"
                                        Command="{Binding IniciarSesionCommand}"
                                        Content="Iniciar sesión" />
+                            
+                            <ui:TextBlock Text="{Binding  ErrorMessage}" 
+                                          Foreground="Maroon"
+                                          Visibility="{Binding ErrorVisibility}"
+                                          Margin="5"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-
             </Border>
         </StackPanel>
     </Grid>
