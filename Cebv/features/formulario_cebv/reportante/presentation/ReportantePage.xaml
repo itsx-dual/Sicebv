@@ -30,49 +30,52 @@
         <presentation:ReportanteViewModel />
     </Page.DataContext>
 
-    <Grid>
-        <StackPanel Margin="10">
-            <ui:TextBlock Margin="0 0 0 25" Text="Persona Reportante" FontTypography="TitleLarge" />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
 
-            <StackPanel Margin="10">
-                <ui:ToggleSwitch OnContent="¿ES ANÓNIMO? Sí" OffContent="¿ES ANÓNIMO? No"
-                                 IsChecked="{Binding EsAnonimo }" />
-                <Separator Height="25" Background="Transparent" BorderThickness="0" />
-            </StackPanel>
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource ReportanteTitle}" FontTypography="TitleLarge" />
 
-            <StackPanel Margin="5"
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
+
+            <ui:ToggleSwitch Margin="0 0 0 25"
+                             OnContent="¿ES ANÓNIMO? Sí"
+                             OffContent="¿ES ANÓNIMO? No"
+                             IsChecked="{Binding EsAnonimo }" />
+
+            <StackPanel Margin="10"
                         Visibility="{Binding EsAnonimo,
                         Converter={StaticResource VisibilityConverter}}">
 
                 <!-- Datos de identificación de la persona -->
-                <ui:TextBlock Text="Datos de identificación de la persona" FontTypography="Subtitle" Margin="10" />
+                <ui:TextBlock Text="Datos de identificación de la persona" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                    <StackPanel>
                         <!-- Nombre Completo -->
-                        <WrapPanel Margin="0 0 0 25">
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="NOMBRE(S):" FontTypography="Caption" />
-                                <ui:TextBox Text="{Binding Nombre}" HorizontalAlignment="Stretch" />
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="NOMBRE(S):" />
+                                <ui:TextBox Text="{Binding Nombre}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="PRIMER APELLIDO:" FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="PRIMER APELLIDO:" />
                                 <ui:TextBox Text="{Binding ApellidoPaterno}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="SEGUNDO APELLIDO: " FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="SEGUNDO APELLIDO: " />
                                 <ui:TextBox Text="{Binding ApellidoMaterno}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
                             <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="PARENTESCO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="PARENTESCO:" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Parentesco}"
                                           ItemsSource="{Binding Parentescos}" />
@@ -80,50 +83,42 @@
                         </WrapPanel>
 
                         <!-- Sexo y género -->
-                        <WrapPanel Margin=" 0 0 0 25">
-                            <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="SEXO:" FontTypography="Caption" />
+                        <WrapPanel Margin=" 0 0 0 15">
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="SEXO:" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Sexo}"
                                           ItemsSource="{Binding Sexos}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="GENERO:" FontTypography="Caption" />
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="GENERO:" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Genero}"
                                           ItemsSource="{Binding Generos}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="RELIGIÓN:" FontTypography="Caption" />
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="RELIGIÓN:" />
                                 <ComboBox />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="LENGUA:" FontTypography="Caption" />
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="LENGUA:" />
                                 <ComboBox />
                             </StackPanel>
                         </WrapPanel>
 
                         <!-- Información de nacimiento -->
-                        <WrapPanel Margin="0 0 0 25">
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="FECHA DE NACIMIENTO:" FontTypography="Caption" />
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="FECHA DE NACIMIENTO:" />
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDate="{Binding FechaNacimiento}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
                             <StackPanel Orientation="Vertical" MinWidth="200">
-                                <ui:TextBlock Text="EDAD(AÑOS):" FontTypography="Caption" />
+                                <ui:TextBlock Text="EDAD(AÑOS):" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                               MaxDecimalPlaces="0"
                                               Maximum="120"
@@ -134,43 +129,34 @@
                         </WrapPanel>
 
                         <!-- Nacionalidad -->
-                        <WrapPanel Margin="0 0 0 25">
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="LUGAR DE NACIMIENTO:" FontTypography="Caption" />
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="LUGAR DE NACIMIENTO:" />
                                 <ComboBox IsEditable="True"
                                           DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding LugarNacimiento}"
                                           ItemsSource="{Binding LugaresNacimientos}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel MinWidth="250" Margin="0 0 15 0">
-                                <ui:TextBlock Text="NACIONALIDAD:" FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="NACIONALIDAD:" />
                                 <ComboBox Width="250"
                                           IsEditable="True"
                                           DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Nacionaliad}"
                                           ItemsSource="{Binding Nacionalidades}" />
                             </StackPanel>
-
-                            <ui:Button Margin="0 15 0 0"
-                                       Icon="{ui:SymbolIcon Add24}"
-                                       VerticalAlignment="Stretch"
-                                       Appearance="Primary" />
                         </WrapPanel>
 
                         <!-- Identifcaciones oficiales -->
                         <WrapPanel>
-                            <StackPanel Orientation="Vertical" MinWidth="250">
-                                <ui:TextBlock Text="RFC:" FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="RFC:" />
                                 <ui:TextBox Text="{Binding Rfc}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel Orientation="Vertical" MinWidth="250">
-                                <ui:TextBlock Text="CURP:" FontTypography="Caption" />
+                            <StackPanel MinWidth="250">
+                                <ui:TextBlock Text="CURP:" />
                                 <ui:TextBox Text="{Binding Curp}" />
                             </StackPanel>
                         </WrapPanel>
@@ -178,22 +164,22 @@
                 </Border>
 
                 <!-- Datos de contacto -->
-                <ui:TextBlock Text="Datos de contacto" FontTypography="Subtitle" Margin="10" />
+                <ui:TextBlock Text="Datos de contacto" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
                     <StackPanel Margin="5">
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="TELÉFONO MÓVIL:" FontTypography="Caption" />
+                                <ui:TextBlock Text="TELÉFONO MÓVIL:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
-                            
+
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="COMPAÑÍA:" FontTypography="Caption" />
+                                <ui:TextBlock Text="COMPAÑÍA:" />
                                 <ComboBox />
                             </StackPanel>
-                            
+
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                                <ui:TextBlock Text="OBSERVACIONES:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
 
@@ -202,82 +188,82 @@
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="TELÉFONO FIJO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="TELÉFONO FIJO:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
-                            
+
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                                <ui:TextBlock Text="OBSERVACIONES:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
-                            
+
                             <ui:Button Content="Añadir otro  teléfono fijo" Appearance="Secondary" />
                         </WrapPanel>
 
 
                         <WrapPanel>
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="CORREO ELECTRÓNICO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="CORREO ELECTRÓNICO:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
-                            
+
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="OBSERVACIONES:" FontTypography="Caption" />
+                                <ui:TextBlock Text="OBSERVACIONES:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
-                            
+
                             <ui:Button Content="Añadir otro correo electrónico" Appearance="Secondary" />
                         </WrapPanel>
                     </StackPanel>
                 </Border>
 
                 <!-- Domicilio de la persona -->
-                <ui:TextBlock Text="Domicilio de la persona" FontTypography="Subtitle" Margin="10" />
+                <ui:TextBlock Text="Domicilio de la persona" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
                     <StackPanel Margin="5">
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="CALLE:" FontTypography="Caption" />
+                                <ui:TextBlock Text="CALLE:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="N° EXTERIOR:" FontTypography="Caption" />
+                                <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="N° INTERIOR:" FontTypography="Caption" />
+                                <ui:TextBlock Text="N° INTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="COLONIA:" FontTypography="Caption" />
+                                <ui:TextBlock Text="COLONIA:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="CÓDIGO POSTAL:" FontTypography="Caption" />
+                                <ui:TextBlock Text="CÓDIGO POSTAL:" />
                                 <ui:TextBox ClearButtonEnabled="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ESTADO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="ESTADO:" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Estado}"
                                           ItemsSource="{Binding Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="MUNICIPIO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="MUNICIPIO:" />
                                 <ComboBox SelectedItem="{Binding Municipio}"
                                           ItemsSource="{Binding Municipios}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="LOCALIDAD:" FontTypography="Caption" />
+                                <ui:TextBlock Text="LOCALIDAD:" />
                                 <ComboBox IsEditable="True"
                                           DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Asentamiento}"
@@ -285,73 +271,68 @@
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
-                                <ui:TextBlock Text="LONGITUD:" FontTypography="Caption" />
+                                <ui:TextBlock Text="LONGITUD:" />
                                 <ui:TextBox Text="{Binding Asentamiento.Longitud}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False">
-                                <ui:TextBlock Text="LATITUD:" FontTypography="Caption" />
+                                <ui:TextBlock Text="LATITUD:" />
                                 <ui:TextBox Text="{Binding Asentamiento.Latitud}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ENTRE CALLE 1:" FontTypography="Caption" />
+                                <ui:TextBlock Text="ENTRE CALLE 1:" />
                                 <ui:TextBox Text="{Binding EntreCalle1}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ENTRE CALLE 2:" FontTypography="Caption" />
+                                <ui:TextBlock Text="ENTRE CALLE 2:" />
                                 <ui:TextBox Text="{Binding EntreCalle2}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="TRAMO CARRETERO:" FontTypography="Caption" />
+                                <ui:TextBlock Text="TRAMO CARRETERO:" />
                                 <ui:TextBox Text="{Binding TramoCarretero}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="REFERENCIA:" FontTypography="Caption" />
+                            <ui:TextBlock Text="REFERENCIA:" />
                             <ui:TextBox Text="{Binding Referencia}" />
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <ui:TextBlock Text="Información relevante" FontTypography="Subtitle" Margin="10" />
+                <ui:TextBlock Text="Información relevante" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
                     <StackPanel Margin="5">
                         <WrapPanel Margin="0 0 0 15">
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="ESCOLARIDAD: " FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESCOLARIDAD: " />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Escolaridad}"
                                           ItemsSource="{Binding Escolaridades}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="ESTATUS DE LA ESCOLARIDAD: " FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESTATUS DE LA ESCOLARIDAD: " />
                                 <ComboBox SelectedItem="{Binding EstatusEscolaridad}"
                                           ItemsSource="{Binding EstatusEscolaridades}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="ESTADO CONYUGAL: " FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESTADO CONYUGAL: " />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding EstadoConyugal}"
                                           ItemsSource="{Binding EstadosConyugales}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                            <StackPanel Margin="0 0 10 0" MinWidth="300">
-                                <ui:TextBlock Text="PERTENCIA A GRUPO DE POBLACIÓN VULNERABLE:"
-                                              FontTypography="Caption" />
+                            <StackPanel MinWidth="300" Margin="0 0 15 0">
+                                <ui:TextBlock Text="PERTENCIA A GRUPO DE POBLACIÓN VULNERABLE:" />
                                 <ComboBox />
                             </StackPanel>
 
@@ -361,83 +342,79 @@
                                        Appearance="Primary" />
                         </WrapPanel>
 
-                        <DockPanel>
-                            <StackPanel>
-                                <ui:TextBlock Text="INFORMACIÓN RELEVANTE QUE QUIERA AÑADIR: " FontTypography="Caption" />
-                                <ui:TextBox Text="{Binding InformacionRelevante}" />
-                            </StackPanel>
-                        </DockPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="INFORMACIÓN RELEVANTE QUE QUIERA AÑADIR: " />
+                            <ui:TextBox Text="{Binding InformacionRelevante}" />
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <ui:TextBlock Text="Participación en búsquedas" FontTypography="Subtitle" Margin="10" />
+                <ui:TextBlock Text="Participación en búsquedas" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
                     <StackPanel Margin="5">
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="¿HA REALIZADO BÚSQUEDAS CON ANTERIORIDAD?" FontTypography="Caption" />
+                                <ui:TextBlock Text="¿HA REALIZADO BÚSQUEDAS CON ANTERIORIDAD?" />
                                 <ComboBox />
                             </StackPanel>
                         </WrapPanel>
 
                         <DockPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="¿EN DÓNDE?" FontTypography="Caption" />
+                                <ui:TextBlock Text="¿EN DÓNDE?" />
                                 <ui:TextBox />
                             </StackPanel>
                         </DockPanel>
                         <WrapPanel>
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="PERTENECE A ALGÚN COLECTIVO: " FontTypography="Caption" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="PERTENECE A ALGÚN COLECTIVO: " />
                                 <ComboBox SelectedItem="{Binding PertenciaColectivo}"
                                           ItemsSource="{Binding PertenenciasColectivos}" />
                             </StackPanel>
 
-                            <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
                             <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="NOMBRE DEL COLECTIVO: " FontTypography="Caption" />
+                                <ui:TextBlock Text="NOMBRE DEL COLECTIVO: " />
                                 <ui:TextBox Text="{Binding NombreColectivo }" />
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>
                 </Border>
 
-                <ui:TextBlock Text="Datos de posible extorsión o amenaza" FontTypography="Subtitle" Margin="10" />
+                <ui:TextBlock Text="Datos de posible extorsión o amenaza" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
                     <StackPanel Margin="5">
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="¿HA SIDO VICTIMA DE EXTORSIÓN O FRAUDE?" FontTypography="Caption" />
+                            <ui:TextBlock Text="¿HA SIDO VICTIMA DE EXTORSIÓN O FRAUDE?" />
                             <ComboBox />
                         </StackPanel>
 
-                        <DockPanel Margin="0 0 0 15">
-                            <StackPanel>
-                                <ui:TextBlock Text="DESCRIPCIÓN DE LA SITUACIÓN:" FontTypography="Caption" />
-                                <ui:TextBox />
-                            </StackPanel>
-                        </DockPanel>
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="DESCRIPCIÓN DE LA SITUACIÓN:" />
+                            <ui:TextBox />
+                        </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 0 15">
-                            <ui:TextBlock Text="¿HA RECIBIDO AMENAZAS?" FontTypography="Caption" />
+                            <ui:TextBlock Text="¿HA RECIBIDO AMENAZAS?" />
                             <ComboBox />
                         </StackPanel>
-                        <DockPanel>
-                            <StackPanel MinWidth="400">
-                                <ui:TextBlock Text="¿SABE DE DONDE PROVIENE?" FontTypography="Caption" />
-                                <ui:TextBox />
-                            </StackPanel>
-                        </DockPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="¿SABE DE DONDE PROVIENE?" />
+                            <ui:TextBox />
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </StackPanel>
-
-            <ui:Button Command="{Binding GuardarReportanteCommand}"
-                       Content="Guardar y siguiente"
-                       Icon="{ui:SymbolIcon Save24}"
-                       Margin="10"
-                       HorizontalAlignment="Stretch"
-                       Appearance="Primary" />
         </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
     </Grid>
 </Page>
