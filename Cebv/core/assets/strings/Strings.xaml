@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Contenido de los botones comunes en la UI -->
+    <system:String x:Key="GuardarContinuar">Guardar y continuar</system:String>
+    <system:String x:Key="RegistroPendiente">Registro pendiente</system:String>
+    
+    <!-- Contenido de los botones de la barra de navegación -->
+    <system:String x:Key="CapturaReporteTitle">Captura de reporte de desaparición</system:String>
+    
+    <!-- Titulos de las pestañas del formulario -->
+    <system:String x:Key="DatosReporteTitle" >Datos del reporte</system:String>
+    <system:String x:Key="ReportanteTitle">Reportante</system:String>
+    <system:String x:Key="DesaparecidoTitle">Persona desaparecida o no localizada</system:String>
+    <system:String x:Key="MediaFiliacionTitle">Media filiación</system:String>
+    <system:String x:Key="PrendasVestirTitle">Prendas de vestir</system:String>
+    <system:String x:Key="SenasParticularesTitle">Señas particulares</system:String>
+    <system:String x:Key="VulnerabilidadSaludTitle">Condiciones de vulnerabilidad en salud</system:String>
+    <system:String x:Key="ModoTiempoLugarTitle">Modo, tiempo y lugar de la desaparición</system:String>
+    <system:String x:Key="ContextoTitle">Contexto</system:String>
+    <system:String x:Key="VehiculosTitle">Vehículos involucrados</system:String>
+    <system:String x:Key="ComunicacionTitle">Comunicación y difusión</system:String>
+    <system:String x:Key="LocalizacionTitle">Datos de localización</system:String>
+    <system:String x:Key="ControlOgpiTitle">Control OGPI</system:String>
+    
+    <!-- Contenido de los tooltips -->
+    <system:String x:Key="RegistroPendienteToolTip">Guardar el registro actual como pendiente</system:String>
+</ResourceDictionary>

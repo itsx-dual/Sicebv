@@ -30,8 +30,6 @@
       Title="FormularioCebvPage">
 
     <Page.Resources>
-        <!-- Era el style que tenias aqui. -->
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
     </Page.Resources>
 
@@ -40,63 +38,59 @@
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
                        x:Name="FormularioNavigationView"
                        IsBackButtonVisible="Collapsed"
-                       PaneTitle="Toma de reporte de desaparición">
+                       PaneTitle="{StaticResource CapturaReporteTitle}">
         <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem Content="Datos del reporte"
+            <ui:NavigationViewItem Content="{StaticResource DatosReporteTitle}"
                                    Icon="{ui:SymbolIcon Document24}"
                                    TargetPageType="{x:Type presentation1:DatosReportePage}" />
 
-            <ui:NavigationViewItem Content="Reportante"
+            <ui:NavigationViewItem Content="{StaticResource ReportanteTitle}"
                                    Icon="{ui:SymbolIcon PersonCall24}"
                                    TargetPageType="{x:Type presentation7:ReportantePage}" />
 
-
-            <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
+            <ui:NavigationViewItem Content="{StaticResource DesaparecidoTitle}"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
                                    TargetPageType="{x:Type presentation3:PersonaDesaparecidaPage}" />
 
-            <ui:NavigationViewItem Content="Media filiación"
+            <ui:NavigationViewItem Content="{StaticResource MediaFiliacionTitle}"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
                                    TargetPageType="{x:Type presentation2:MediaFiliacionPage}" />
 
-            <ui:NavigationViewItem Content="Prendas de vestir"
+            <ui:NavigationViewItem Content="{StaticResource PrendasVestirTitle}"
                                    Icon="{ui:SymbolIcon PersonTag24}"
                                    TargetPageType="{x:Type presentation4:PrendasPage}" />
 
-            <ui:NavigationViewItem Content="Señas particulares"
+            <ui:NavigationViewItem Content="{StaticResource SenasParticularesTitle}"
                                    Icon="{ui:SymbolIcon Accessibility24}"
                                    TargetPageType="{x:Type senasParticulares1:SenasParticularesPage}" />
 
-            <ui:NavigationViewItem Content="Condiciones de vulnerabilidad en su salud"
+            <ui:NavigationViewItem Content="{StaticResource VulnerabilidadSaludTitle}"
                                    Icon="{ui:SymbolIcon PersonHeart24}"
                                    TargetPageType="{x:Type presentation21:CondicionesVulnerabilidadPage}" />
 
-            <ui:NavigationViewItem Content="Modo, tiempo y lugar de la desaparicion"
+            <ui:NavigationViewItem Content="{StaticResource ModoTiempoLugarTitle}"
                                    Icon="{ui:SymbolIcon Map24}"
                                    TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
 
-            <ui:NavigationViewItem Content="Contexto"
+            <ui:NavigationViewItem Content="{StaticResource ContextoTitle}"
                                    Icon="{ui:SymbolIcon SearchVisual24}"
                                    TargetPageType="{x:Type presentation8:ContextoPage}" />
 
-
-            <ui:NavigationViewItem Content="Vehiculos involucrados"
+            <ui:NavigationViewItem Content="{StaticResource VehiculosTitle}"
                                    Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
 
-            <ui:NavigationViewItem Content="Comunicación y difusión"
+            <ui:NavigationViewItem Content="{StaticResource ComunicacionTitle}"
                                    Icon="{ui:SymbolIcon Comment24}"
                                    TargetPageType="{x:Type presentation6:DifusionPage}" />
 
-            <ui:NavigationViewItem Content="Datos de localización"
+            <ui:NavigationViewItem Content="{StaticResource LocalizacionTitle}"
                                    Icon="{ui:SymbolIcon Location24}"
                                    TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
 
-
-            <ui:NavigationViewItem Content="Control OGPI"
+            <ui:NavigationViewItem Content="{StaticResource ControlOgpiTitle}"
                                    Icon="{ui:SymbolIcon BookInformation24}"
                                    TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
-
         </ui:NavigationView.MenuItems>
         <ui:NavigationView.Header>
             <Grid Margin="5">
@@ -107,17 +101,16 @@
                 <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
                               TextWrapping="Wrap" />
-
-
+                
                 <ui:Button
                     Visibility="{Binding PuedeGuardar,
                     Converter={StaticResource VisibilityConverter2}}"
-                    Content="Registro Pendiente"
+                    Content="{StaticResource RegistroPendiente}"
                     Icon="{ui:SymbolIcon Save16}"
                     HorizontalAlignment="Right"
                     Grid.Column="1"
                     Appearance="Primary"
-                    ToolTip="Guardar Registro Como pendiente." />
+                    ToolTip="{StaticResource RegistroPendienteToolTip}" />
             </Grid>
         </ui:NavigationView.Header>
     </ui:NavigationView>

@@ -3,200 +3,336 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.media_filiacion.presentation"
+      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
-      d:DesignHeight="1000"
+      d:DesignWidth="Auto"
+      d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="MediaFiliacionPage">
-    <Grid Margin="5">
-        <StackPanel>
-            <ui:TextBlock HorizontalAlignment="Left" Text="Media Filación" FontTypography="TitleLarge" />
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
-            
-            <ui:TextBlock Text="Caracteristicas fisicas"
-                          FontTypography="Subtitle"
-                          Margin="5"/>
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    CornerRadius="8">
-                <WrapPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Estatura:"
-                                      FontTypography="Caption"/>
-                        <TextBox/>
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel Margin="10">
+            <ui:TextBlock Margin="0 00 0 25" Text="Media Filación" FontTypography="TitleLarge" />
+
+            <ui:TextBlock Text="Perfil corporal" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel Margin="5">
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="ESTATURA:" FontTypography="Caption" />
+                        <ui:NumberBox Icon="{ui:SymbolIcon Ruler24}"
+                                      MaxDecimalPlaces="0"
+                                      Maximum="250"
+                                      Minimum="30"
+                                      PlaceholderText="Centímetros"
+                                      SmallChange="1" />
                     </StackPanel>
-                    
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Peso:"
-                                      FontTypography="Caption"/>
-                        <TextBox/>
+
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="PESO:"
+                                      FontTypography="Caption" />
+                        <ui:NumberBox Icon="{ui:SymbolIcon Scales24}"
+                                      MaxDecimalPlaces="2"
+                                      Maximum="200"
+                                      Minimum="1"
+                                      PlaceholderText="Kilogramos"
+                                      SmallChange=".1" />
                     </StackPanel>
-                    
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Complexión:"
-                                      FontTypography="Caption"/>
-                        <ComboBox/>
+
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="COMPLEXIÓN:"
+                                      FontTypography="Caption" />
+                        <ComboBox />
                     </StackPanel>
-                    
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Color de piel:"
-                                      FontTypography="Caption"/>
-                        <ComboBox/>
+
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="COLOR DE PIEL:"
+                                      FontTypography="Caption" />
+                        <ComboBox />
+                    </StackPanel>
+
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="FORMA DE LA CARA:" />
+                        <ComboBox />
                     </StackPanel>
                 </WrapPanel>
             </Border>
-            
-            <ui:TextBlock Text="Ojos"
-                          FontTypography="Subtitle"
-                          Margin="5"/>
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    CornerRadius="8">
-                <WrapPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Color de ojos:"
-                                      FontTypography="Caption"/>
-                        <ComboBox/>
+
+            <ui:TextBlock Text="Ojos" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+
+                    <WrapPanel Margin="0 0 0 25">
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="COLOR DE OJOS:" FontTypography="Caption" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="FORMA DE OJOS:" FontTypography="Caption" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="TAMAÑO DE OJOS:" FontTypography="Caption" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="PARTICULARIDAD DE OJOS:" FontTypography="Caption" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <DockPanel>
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="OTRA ESPECIFICACIÓN DE OJOS:" FontTypography="Caption" />
+                            <TextBox />
+                        </StackPanel>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Cabello" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 25">
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CALVICIE:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="COLOR DE CABELLO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="TAMAÑO DE CABELLO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="TIPO DE CABELLO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CEJAS:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 25">
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="BIGOTE:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="BARBA:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="REGIÓN VELLO FACIAL:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CORTE DE VELLO FACIAL" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="COLOR DE VELLO FACIAL:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <DockPanel>
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL CABELLO:" />
+                            <TextBox />
+                        </StackPanel>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Nariz" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel Margin="5">
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="FORMA DE LA NARIZ:" />
+                        <ComboBox />
                     </StackPanel>
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Forma de ojos:"
-                                      FontTypography="Caption"/>
-                        <ComboBox/>
-                    </StackPanel>
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Tamaño de ojos"
-                                      FontTypography="Caption"/>
-                        <ComboBox/>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Cualquier especificacion de los ojos:"
-                                      FontTypography="Caption"/>
-                        <TextBox/>
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="PARTICULARIDADES DE LA NARIZ:" />
+                        <ComboBox />
                     </StackPanel>
                 </WrapPanel>
             </Border>
-            
-            <ui:TextBlock Text="Cabello"
-                          FontTypography="Subtitle"
-                          Margin="5"/>
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    CornerRadius="8">
-                <WrapPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Calvicie"/>
-                        <ComboBox/>
+
+            <ui:TextBlock Text="Boca" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel Margin="5">
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="BOCA:" />
+                        <ComboBox />
                     </StackPanel>
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Colo de cabello:"/>
-                        <ComboBox/>
-                    </StackPanel>
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Tamaño de cabello:"/>
-                        <ComboBox/>
-                    </StackPanel>
-                    
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Tipo de cabello:"/>
-                        <ComboBox/>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Cualquier especificación del cabello:"/>
-                        <TextBox/>
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="LABIOS:" />
+                        <ComboBox />
                     </StackPanel>
                 </WrapPanel>
             </Border>
-            
-            <ui:TextBlock Text="Rasgos faciales"
-                          FontTypography="Subtitle"
-                          Margin="5"/>
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    CornerRadius="8">
-                <WrapPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Forma de la nariz:"/>
-                        <ComboBox/>
+
+            <ui:TextBlock Text="Orejas" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel Margin="5">
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="TAMAÑO DE OREJAS" />
+                        <ComboBox />
                     </StackPanel>
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Boca:"/>
-                        <ComboBox/>
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="FORMA DE OREJAS:" />
+                        <ComboBox />
                     </StackPanel>
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Labios:"/>
-                        <ComboBox/>
-                    </StackPanel>
+                    <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Tamaño de orejas"/>
-                        <ComboBox/>
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="PABELLÓN AURICULAR" />
+                        <ComboBox />
                     </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Forma de orejas:"/>
-                        <ComboBox/>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Ceja:"/>
-                        <ComboBox/>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Bigote"/>
-                        <ComboBox/>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Barba"/>
-                        <ComboBox/>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Forma de la cara"/>
-                        <ComboBox/>
-                    </StackPanel>
-                    
-
-                    
                 </WrapPanel>
             </Border>
+
+            <ui:TextBlock Text="Modificaciones físicas" FontTypography="Subtitle" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 25">
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="MODIFICACIONES DE VELLO FACIAL:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="MODIFICACIONES CEJAS:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="MODIFICACIONES DE LABIOS:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CIRUGÍAS DE LABIOS:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 25">
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="MODIFICACIONES DE MENTÓN:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CIRUGÍAS DE MENTÓN:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="MODIFICACIONES DE PABELLÓN AURICULAR:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="CIRUGÍAS DE PABELLÓN AURICULAR:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="DEFORMACIONES:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
             <ui:Button Content="Guardar y siguiente"
                        Icon="{ui:SymbolIcon Save24}"
                        HorizontalAlignment="Stretch"
-                       Margin="0,5,0,0"
-                       Appearance="Primary"/>
+                       Margin="10"
+                       Appearance="Primary" />
         </StackPanel>
     </Grid>
 </Page>

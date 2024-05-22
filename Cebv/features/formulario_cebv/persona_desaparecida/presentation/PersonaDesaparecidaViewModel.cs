@@ -53,6 +53,25 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
     [ObservableProperty] private string _transitoEstadosUnidosSelected = OpcionesCebv.No;
     [ObservableProperty] private bool? _transitoEstadosUnidos;
     [ObservableProperty] private bool _sinoSeEncuentraEnTransito;
+    
+    // Datos de domicilio
+    [ObservableProperty] private string _calle = String.Empty;
+    [ObservableProperty] private string _numeroExterior = String.Empty;
+    [ObservableProperty] private string _numeroInterior = String.Empty;
+    [ObservableProperty] private string _colonia = String.Empty;
+    [ObservableProperty] private string _codigoPostal = String.Empty;
+
+    [ObservableProperty] private ObservableCollection<Estado> _estados = new();
+    [ObservableProperty] private Estado _estado = new();
+    [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
+    [ObservableProperty] private Municipio _municipio = new();
+    [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
+    [ObservableProperty] private Asentamiento _asentamiento = new();
+
+    [ObservableProperty] private string _entreCalle1 = String.Empty;
+    [ObservableProperty] private string _entreCalle2 = String.Empty;
+    [ObservableProperty] private string _tramoCarretero = String.Empty;
+    [ObservableProperty] private string _referencia = String.Empty;
 
     /**
      * Datos sociemográficos de la persona desaparecida.

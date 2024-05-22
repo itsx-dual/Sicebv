@@ -11,147 +11,110 @@
       d:DesignHeight="1000"
       mc:Ignorable="d"
       Title="PrendasPage">
+    
     <Grid>
         <StackPanel>
             <ui:TextBlock HorizontalAlignment="Left" Text="Prendas de Vestir" FontTypography="TitleLarge" />
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
-            <Grid>
+
+            <Grid Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.5*" />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackPanel>
-                    <StackPanel>
-                        <CheckBox Content="Se desconoce" Margin="20" />
+                <StackPanel Grid.Column="0" Margin="5">
 
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="GRUPO PERTENENCIA:" />
+                        <ComboBox />
                     </StackPanel>
 
-                    <StackPanel Margin="10">
-                        <!-- Color -->
-                        <ui:TextBlock Text="Color:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0" />
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="PERTENENCIA:" />
+                        <ComboBox />
+                    </StackPanel>
 
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="COLOR:" />
+                        <ComboBox />
                     </StackPanel>
-                    <StackPanel Margin="10">
-                        <!-- Grupo pertenencias -->
-                        <ui:TextBlock Text="Grupo pertenencias:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0" />
-                    </StackPanel>
-                    <StackPanel Margin="10">
-                        <!-- Pertenencias -->
-                        <ui:TextBlock Text="Pertenencias:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0" />
 
-                    </StackPanel>
-                    <StackPanel Margin="10">
-                        <!-- Material -->
-                        <ui:TextBlock Text="Material:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0" />
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="MATERIAL:" />
+                        <ComboBox />
                     </StackPanel>
                 </StackPanel>
 
-                <Grid Grid.Row="0"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2">
-                    <StackPanel Margin="10,82,10,10 ">
-
-                        <!-- Prendas de vestir y pertenencias -->
-                        <ui:TextBlock Text="Prendas de vestir y pertenencias:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                        </Grid>
-                        <!-- Descripcion -->
-                        <ui:TextBlock Text="Descripción:"
-                                      Margin="10,10,0,0" />
-                        <TextBox Margin="10"
-                                 VerticalAlignment="Stretch"
-                                 Height="150"
-
-                                 TextWrapping="Wrap" MaxLength="400" />
-
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Right"
-                                    Margin="10,10,10,10">
-                            <!-- Botones -->
-                            <ui:Button Content="Limpiar"
-                                       Margin="5,0,0,0"
-                                       Icon="{ui:SymbolIcon Delete24}"
-                                       Appearance="Danger" />
-
-                            <ui:Button Content="Guardar"
-                                       Margin="5,0,0,0"
-                                       Command="{Binding InsertarCommand}"
-                                       Icon="{ui:SymbolIcon Add24}"
-                                       Appearance="Success" />
-                        </StackPanel>
+                <StackPanel Grid.Column="1" Margin="5">
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="MARCA:" />
+                        <ui:TextBox />
                     </StackPanel>
-                </Grid>
 
-                <DataGrid x:Name="tablaDatos"
-                          Grid.Row="1"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="3"
-                          Margin="10"
-                          AutoGenerateColumns="False"
-                          ItemsSource="{Binding SenasParticularesTabla}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Prendas de vestir"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding region_cuerpo}" />
-                        <DataGridTextColumn Header="Grupo pertenencias"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding vista}" />
-                        <DataGridTextColumn Header="Pertenencias"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding lado}" />
-                        <DataGridTextColumn Header="Color"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding tipo}" />
-                        <DataGridTextColumn Header="Material"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding cantidad}" />
-                        <DataGridTemplateColumn Header="Descripción"
-                                                Width="3*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ui:TextBlock Text="{Binding descripcion}"
-                                                  TextWrapping="Wrap" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <StackPanel>
+                        <ui:TextBlock Text="DESCIPCIÓN:" />
+                        <TextBox VerticalAlignment="Stretch"
+                                 Height="170"
+                                 TextWrapping="Wrap" MaxLength="400" />
+                    </StackPanel>
 
-                <ui:Button Grid.Row="2"
-                           Grid.Column="0" Grid.ColumnSpan="3"
-                           Content="Guardar y siguiente"
-                           Icon="{ui:SymbolIcon Save24}"
-                           HorizontalAlignment="Stretch"
-                           Appearance="Primary"
-                           Margin="10,0,10,10" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="10">
+                        <!-- Botones -->
+                        <ui:Button Content="Limpiar"
+                                   Margin="5"
+                                   Icon="{ui:SymbolIcon Delete24}"
+                                   Appearance="Danger" />
+
+                        <ui:Button Content="Guardar"
+                                   Margin="5"
+                                   Command="{Binding InsertarCommand}"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   Appearance="Success" />
+                    </StackPanel>
+                </StackPanel>
             </Grid>
+
+            <DataGrid x:Name="tablaDatos"
+                      Margin="10"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding SenasParticularesTabla}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="GRUPO PERTENENCIA"
+                                        CanUserResize="False"
+                                        Width="*" />
+                    <DataGridTextColumn Header="PERTENENCIA"
+                                        CanUserResize="False"
+                                        Width="*" />
+                    <DataGridTextColumn Header="COLOR"
+                                        CanUserResize="False"
+                                        Width="*" />
+                    <DataGridTextColumn Header="MATERIAL"
+                                        CanUserResize="False"
+                                        Width="*" />
+                    <DataGridTextColumn Header="MARCA"
+                                        CanUserResize="False"
+                                        Width="*" />
+                    <DataGridTemplateColumn Header="DESCRIPCIÓN"
+                                            Width="3*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:TextBlock Text="{Binding Descripcion}"
+                                              TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <ui:Button Content="Guardar y siguiente"
+                       Icon="{ui:SymbolIcon Save24}"
+                       HorizontalAlignment="Stretch"
+                       Appearance="Primary"
+                       Margin="10" />
         </StackPanel>
     </Grid>
 </Page>
