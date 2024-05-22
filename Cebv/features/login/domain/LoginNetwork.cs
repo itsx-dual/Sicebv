@@ -1,7 +1,5 @@
-using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Cebv.features.login.data;
 using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
@@ -20,7 +18,7 @@ public class LoginNetwork
         return token;
     }
 
-    public static async Task<dynamic?> POST(string username, string password)
+    public static async Task<dynamic?> Post(string username, string password)
     {
         HttpRequestMessage request = new()
         {
@@ -42,6 +40,7 @@ public class LoginNetwork
             200 => Token(jsonResponse),
             401 => JsonSerializer.Deserialize<Error>(jsonResponse)!,
             422 => JsonSerializer.Deserialize<Error>(jsonResponse)!,
+            _ => throw new InvalidOperationException($"Status code desconocido: {(int)response.StatusCode}")
         };
     }
 }

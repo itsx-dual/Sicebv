@@ -1,5 +1,4 @@
 using System.Windows;
-using Cebv.app.data;
 using Cebv.app.presentation;
 using Cebv.features.login.data;
 using Cebv.features.login.domain;
@@ -10,14 +9,14 @@ namespace Cebv.features.login.presentation;
 
 public partial class LoginViewModel : ObservableObject
 {
-    [ObservableProperty] private string _username;
+    [ObservableProperty] private string _username = String.Empty;
 
-    [ObservableProperty] private string _password;
+    [ObservableProperty] private string _password = String.Empty;
 
     //[ObservableProperty] private Visibility _visibilityErrorMessage;
 
-    [ObservableProperty] private string _errorMessage;
-    [ObservableProperty] private Visibility _errorVisibility;
+    [ObservableProperty] private string _errorMessage = String.Empty;
+    [ObservableProperty] private Visibility _errorVisibility = Visibility.Collapsed;
     [ObservableProperty] private bool _iniciandoSesion;
 
     public LoginViewModel()
@@ -28,13 +27,13 @@ public partial class LoginViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private async void IniciarSesion()
+    private async Task IniciarSesion()
     {
         if (IniciandoSesion) return;
         
         IniciandoSesion = true;
         ErrorVisibility = Visibility.Collapsed;
-        var result = await LoginNetwork.POST(Username, Password);
+        var result = await LoginNetwork.Post(Username, Password);
         
         if (result is TokenWrapped)
         {
