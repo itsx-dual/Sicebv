@@ -8,22 +8,25 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1000"
-      d:DesignHeight="1000"
+      d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="PrendasPage">
-    
-    <Grid>
-        <StackPanel>
-            <ui:TextBlock HorizontalAlignment="Left" Text="Prendas de Vestir" FontTypography="TitleLarge" />
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+    <Grid Margin="10">
 
-                <StackPanel Grid.Column="0" Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource PrendasVestirTitle}" FontTypography="TitleLarge" />
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <UniformGrid Columns="2">
+                <StackPanel Margin="5">
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="GRUPO PERTENENCIA:" />
@@ -46,7 +49,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Margin="5">
+                <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="MARCA:" />
                         <ui:TextBox />
@@ -75,7 +78,7 @@
                                    Appearance="Success" />
                     </StackPanel>
                 </StackPanel>
-            </Grid>
+            </UniformGrid>
 
             <DataGrid x:Name="tablaDatos"
                       Margin="10"
@@ -106,15 +109,18 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    
+
                 </DataGrid.Columns>
             </DataGrid>
-
-            <ui:Button Content="Guardar y siguiente"
-                       Icon="{ui:SymbolIcon Save24}"
-                       HorizontalAlignment="Stretch"
-                       Appearance="Primary"
-                       Margin="10" />
         </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
     </Grid>
 </Page>
