@@ -10,16 +10,24 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
-      d:DesignHeight="800"
+      d:DesignHeight="auto"
       Title="SenasParticualresPage">
+
     <Page.DataContext>
         <presentation:SenasParticularesViewModel />
     </Page.DataContext>
-    <Grid>
-        <StackPanel>
-            <ui:TextBlock HorizontalAlignment="Left" Text="Señas Particulares" FontTypography="TitleLarge" />
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
-            
+
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
+
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource SenasParticularesTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.2*" />
@@ -182,15 +190,16 @@
                                             Binding="{Binding foto}" />
                     </DataGrid.Columns>
                 </DataGrid>
-
-                <ui:Button Grid.Row="2"
-                           Grid.Column="0" Grid.ColumnSpan="3"
-                           Content="Guardar y siguiente"
-                           Icon="{ui:SymbolIcon Save24}"
-                           HorizontalAlignment="Stretch"
-                           Appearance="Primary"
-                           Margin="10,0,10,10" />
             </Grid>
         </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
     </Grid>
 </Page>
