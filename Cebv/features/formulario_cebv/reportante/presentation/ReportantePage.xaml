@@ -166,7 +166,7 @@
                 <!-- Datos de contacto -->
                 <ui:TextBlock Text="Datos de contacto" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                    <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TELÉFONO MÓVIL:" />
@@ -220,7 +220,7 @@
                 <!-- Domicilio de la persona -->
                 <ui:TextBlock Text="Domicilio de la persona" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                    <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
@@ -307,7 +307,7 @@
 
                 <ui:TextBlock Text="Información relevante" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                    <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ESCOLARIDAD: " />
@@ -352,7 +352,7 @@
 
                 <ui:TextBlock Text="Participación en búsquedas" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                    <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="¿HA REALIZADO BÚSQUEDAS CON ANTERIORIDAD?" />
@@ -383,7 +383,7 @@
 
                 <ui:TextBlock Text="Datos de posible extorsión o amenaza" FontTypography="Title" Margin="10" />
                 <Border Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                    <StackPanel>
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="¿HA SIDO VICTIMA DE EXTORSIÓN O FRAUDE?" />
                             <ComboBox />
