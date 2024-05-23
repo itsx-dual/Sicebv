@@ -70,13 +70,6 @@
                       Grid.ColumnSpan="2">
                     <StackPanel>
                         <!-- Tipo de seña -->
-                        <ui:TextBlock Text="Tipo de seña:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0"
-                                  DisplayMemberPath="nombre"
-                                  SelectedIndex="7"
-                                  SelectedValue="{Binding TipoSenasSelected}"
-                                  ItemsSource="{Binding TipoSenas}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -117,11 +110,20 @@
                                 <ui:TextBlock Text="Cantidad:"
                                               Margin="10,10,0,0" />
                                 <ui:NumberBox Margin="5,0,5,0"
-                                              Text="{Binding Cantidad}"
-                                              PreviewTextInput="VerificarInt" />
+                                              Value="1"/>
 
                             </StackPanel>
                         </Grid>
+                        
+                        <ui:TextBlock Text="Tipo de seña:"
+                                      Margin="10,10,0,0" />
+                        <ComboBox Margin="5,0,5,0"
+                                  DisplayMemberPath="nombre"
+                                  SelectedIndex="7"
+                                  SelectedValue="{Binding TipoSenasSelected}"
+                                  ItemsSource="{Binding TipoSenas}" />
+
+                        
                         <!-- Descripcion -->
                         <ui:TextBlock Text="Descripción:"
                                       Margin="10,10,0,0" />

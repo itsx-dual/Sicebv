@@ -38,15 +38,11 @@
                         <ComboBox />
                     </StackPanel>
 
-                    <StackPanel Margin="0 0 0 15">
+                    <StackPanel>
                         <ui:TextBlock Text="COLOR:" />
                         <ComboBox />
                     </StackPanel>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="MATERIAL:" />
-                        <ComboBox />
-                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel Margin="5">
@@ -58,7 +54,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="DESCIPCIÓN:" />
                         <TextBox VerticalAlignment="Stretch"
-                                 Height="170"
+                                 Height="100"
                                  TextWrapping="Wrap" MaxLength="400" />
                     </StackPanel>
 

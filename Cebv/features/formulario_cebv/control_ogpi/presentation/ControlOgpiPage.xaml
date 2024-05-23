@@ -11,7 +11,7 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="ControlOgpiPage">
- 
+
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="Padding" Value="16" />
@@ -37,9 +37,8 @@
         <StackPanel Grid.Row="1" Margin="10">
             <!-- Datos de identificación de la persona -->
             <ui:TextBlock Text="Información general" FontTypography="Title" Margin="10" />
-            <Border>
+            <Border Margin="0 0 0 25">
                 <StackPanel Margin="5">
-
                     <WrapPanel>
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="FECHA DE CAPTURA:" FontTypography="Caption" />
@@ -68,6 +67,27 @@
                         <ui:TextBox />
                     </StackPanel>
                 </StackPanel>
+            </Border>
+
+            <!-- Información de RNPDNO -->
+            <ui:TextBlock Text="Información RNPDNO" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel>
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="FOLIO FUB:" />
+                        <ui:TextBox Text="{Binding FolioFub}" />
+                    </StackPanel>
+
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="AUTORIDAD QUE INGRESÓ FUB:" />
+                        <ui:TextBox Text="{Binding AutoridadIngresafolioFub}" />
+                    </StackPanel>
+
+                    <StackPanel MinWidth="250">
+                        <ui:TextBlock Text="ESTATUS EN RNPDNO:" />
+                        <ui:TextBox />
+                    </StackPanel>
+                </WrapPanel>
             </Border>
         </StackPanel>
 

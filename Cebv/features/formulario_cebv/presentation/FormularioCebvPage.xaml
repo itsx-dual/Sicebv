@@ -18,6 +18,10 @@
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       xmlns:presentation9="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
+      xmlns:presentation10="clr-namespace:Cebv.features.formulario_cebv.folio_expediente.presentation"
+      xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
+      xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
+      xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -43,6 +47,10 @@
             <ui:NavigationViewItem Content="{StaticResource DatosReporteTitle}"
                                    Icon="{ui:SymbolIcon Document24}"
                                    TargetPageType="{x:Type presentation1:DatosReportePage}" />
+            
+            <ui:NavigationViewItem Content="{StaticResource InstrumentoJuridicoTitle}"
+                                   Icon="{ui:SymbolIcon TableEdit24}"
+                                   TargetPageType="{x:Type presentation11:InstrumentoJuridicoPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource ReportanteTitle}"
                                    Icon="{ui:SymbolIcon PersonCall24}"
@@ -55,6 +63,10 @@
             <ui:NavigationViewItem Content="{StaticResource MediaFiliacionTitle}"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
                                    TargetPageType="{x:Type presentation2:MediaFiliacionPage}" />
+            
+            <ui:NavigationViewItem Content="{StaticResource MediaFiliacionComplementariaTitle}"
+                                   Icon="{ui:SymbolIcon PersonBoard24}"
+                                   TargetPageType="{x:Type presentation12:MediaFiliacionComplementariaPage }" />
 
             <ui:NavigationViewItem Content="{StaticResource PrendasVestirTitle}"
                                    Icon="{ui:SymbolIcon PersonTag24}"
@@ -71,6 +83,10 @@
             <ui:NavigationViewItem Content="{StaticResource ModoTiempoLugarTitle}"
                                    Icon="{ui:SymbolIcon Map24}"
                                    TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
+            
+            <ui:NavigationViewItem Content="{StaticResource DesaparicionForzadaTitle}"
+                                   Icon="{ui:SymbolIcon Group24}"
+                                   TargetPageType="{x:Type presentation13:DesaparicionForzadaPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource ContextoTitle}"
                                    Icon="{ui:SymbolIcon SearchVisual24}"
@@ -83,6 +99,10 @@
             <ui:NavigationViewItem Content="{StaticResource ComunicacionTitle}"
                                    Icon="{ui:SymbolIcon Comment24}"
                                    TargetPageType="{x:Type presentation6:DifusionPage}" />
+            
+            <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
+                                   Icon="{ui:SymbolIcon Document24}"
+                                   TargetPageType="{x:Type presentation10:FolioExpedientePage}" />
 
             <ui:NavigationViewItem Content="{StaticResource LocalizacionTitle}"
                                    Icon="{ui:SymbolIcon Location24}"

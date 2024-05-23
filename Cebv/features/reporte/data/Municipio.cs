@@ -23,6 +23,6 @@ public class Municipio
     
     public override string ToString()
     {
-        return Id + " - " + Nombre;
+        return  Nombre + " - " + Id ;
     }
 }

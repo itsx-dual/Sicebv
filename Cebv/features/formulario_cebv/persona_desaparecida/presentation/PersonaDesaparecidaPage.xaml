@@ -421,12 +421,12 @@
                                       ItemsSource="{Binding Asentamientos}" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
+                        <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Collapsed">
                             <ui:TextBlock Text="LONGITUD:" />
                             <ui:TextBox Text="{Binding Asentamiento.Longitud}" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="200" IsEnabled="False">
+                        <StackPanel MinWidth="200" IsEnabled="False" Visibility="Collapsed">
                             <ui:TextBlock Text="LATITUD:" />
                             <ui:TextBox Text="{Binding Asentamiento.Latitud}" />
                         </StackPanel>
@@ -558,12 +558,17 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ESCOLARIDAD:" />
+                            <ui:TextBlock Text="NIVEL DE ESCOLARIDAD:" />
                             <ComboBox />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="ESTATUS ESCOLARIDAD:" />
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="AVANCE DE ESCOLARIDAD: " />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="RELIGIÓN:" />
                             <ComboBox />
                         </StackPanel>
                     </WrapPanel>
@@ -573,25 +578,27 @@
                             <ui:TextBlock Text="OCUPACIÓN PRINCIPAL:" />
                             <ComboBox />
                         </StackPanel>
-                    </WrapPanel>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="DETALLES SOBRE LA OCUPACIÓN PRINCIPAL:" />
-                        <ui:TextBox />
-                    </StackPanel>
-
-
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="OCUPACIÓN SECUNDARIA:" />
-                            <ComboBox />
+                        <StackPanel MinWidth="400" Margin="0 0 0 15">
+                            <ui:TextBlock Text="DETALLES SOBRE LA OCUPACIÓN PRINCIPAL:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True"/>
                         </StackPanel>
                     </WrapPanel>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="DETALLES SOBRE LA OCUPACIÓN SECUNDARIA:" />
-                        <ui:TextBox />
-                    </StackPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="OCUPACIÓN SECUNDARIA:" />
+                            <ComboBox />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="400" Margin="0 0 0 15">
+                            <ui:TextBlock Text="DETALLES SOBRE LA OCUPACIÓN SECUNDARIA:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    
 
                     <WrapPanel>
                         <StackPanel Margin="0 0 25 0" MinWidth="250">

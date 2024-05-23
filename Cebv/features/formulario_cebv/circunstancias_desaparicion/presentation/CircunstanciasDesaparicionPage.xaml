@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
+      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -11,6 +13,10 @@
       d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="CircunstanciasDesaparicionPage">
+
+    <Page.DataContext>
+        <presentation:CircunstanciaDesaparicionViewModel />
+    </Page.DataContext>
 
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
@@ -20,6 +26,9 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
         </Style>
+
+        <util:VisibilityConverter x:Key="VisibilityConverter" />
+        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -36,7 +45,14 @@
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Hora y fecha de los hechos" FontTypography="Title" Margin="10" />
-            <Border>
+
+            <ui:ToggleSwitch Margin="25 15 0 15"
+                             OnContent="¿SE DESCONOCE FECHA EXACTA? Sí"
+                             OffContent="¿SE DESCONOCE FECHA EXACTA? No"
+                             IsChecked="{Binding FechaAproximada  }" />
+            <Border
+                Visibility="{Binding FechaAproximada,
+                Converter={StaticResource VisibilityConverter}}">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -44,11 +60,13 @@
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <StackPanel MinWidth="250">
                             <ui:TextBlock Text="HORA DESAPARICIÓN:" />
                             <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
                         </StackPanel>
+                    </WrapPanel>
 
+                    <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="FECHA DE PERCATO:" />
                             <DatePicker IsTodayHighlighted="True" />
@@ -61,7 +79,52 @@
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE PERCATO:" />
+                        <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border
+                Visibility="{Binding FechaAproximada,
+                Converter={StaticResource VisibilityConverter2}}">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DESAPARICIÓN APROXIMADA:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DESAPARICIÓN CEBV:" />
+                            <ui:TextBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="HORA DESAPARICIÓN:" />
+                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE PERCATO APROXIMADA:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE PERCATO CEBV:" />
+                            <ui:TextBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="HORA DE PERCATO:" />
+                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>
@@ -126,12 +189,12 @@
                                           ItemsSource="{Binding Asentamientos}" />
                             </StackPanel>
 
-                            <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
+                            <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Collapsed">
                                 <ui:TextBlock Text="LONGITUD:" />
                                 <ui:TextBox Text="{Binding Asentamiento.Longitud}" />
                             </StackPanel>
 
-                            <StackPanel MinWidth="200" IsEnabled="False">
+                            <StackPanel MinWidth="200" IsEnabled="False" Visibility="Collapsed">
                                 <ui:TextBlock Text="LATITUD:" />
                                 <ui:TextBox Text="{Binding Asentamiento.Latitud}" />
                             </StackPanel>
@@ -190,13 +253,18 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="¿CÚANTAS VECES ANTES LA PERSONA HA DESAPARECIDO O SE HA AUSENTADO?:" />
-                        <ui:NumberBox />
+                        <ui:NumberBox Value="0" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="DESCRIPCIÓN DE LA SITUACIÓN PREVIA O ANOTE LOS FOLIOS EN EL CAMPO SIGUIENTE SI YA HA ESTADO REGISTRADA:" />
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="FOLIOS PREVIOS" />
+                        <ui:TextBox />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -207,12 +275,12 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="DESCRIPCIÓN DE LOS HECHOS DE LA DESAPARICIÓN:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="SÍNTESIS DE LOS HECHOS DE DESAPARICIÓN:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
 
                 </StackPanel>
@@ -231,7 +299,9 @@
                             <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 1:" />
                             <TextBox />
                         </StackPanel>
+                    </WrapPanel>
 
+                    <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 2:" />
                             <ComboBox />
@@ -269,7 +339,7 @@
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                            <ui:NumberBox />
+                            <ui:NumberBox Value="1" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -306,7 +376,7 @@
             </Border>
 
             <ui:TextBlock Text="Folios Indirectos" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border>
                 <ui:ListView ItemsSource="{Binding Reportes}">
                     <ui:ListView.ItemTemplate>
                         <DataTemplate>
@@ -328,78 +398,6 @@
                         </DataTemplate>
                     </ui:ListView.ItemTemplate>
                 </ui:ListView>
-            </Border>
-
-            <ui:TextBlock Text="Antecentes a la desaparición" FontTypography="Title" Margin="10" />
-            <Border>
-                <StackPanel>
-                    <UniformGrid Columns="2" Margin="0 0 0 15">
-                        <StackPanel Margin="0 0 10 0">
-                            <ui:TextBlock
-                                Text="¿SE SUSCITARON OTROS DELITOS EN LOS QUE SE VIERA INVOLUCRADA O AFECTADA LA PERSONA DESAPARECIDA, DIRECTA O INDIRECTAMENTE O YA SEA COMO VÍCTIMA O COMO TESTIGO(A)?"
-                                TextWrapping="Wrap" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel Margin=" 10 0 0 0">
-                            <ui:TextBlock Text="¿CUÁLES?" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True"/>
-                        </StackPanel>
-                    </UniformGrid>
-
-                    <ui:TextBlock FontTypography="BodyStrong" Margin="0 0 0 15"
-                                  Text="DÍAS U HORAS DE QUE OCURRIERA LA DESAPARICIÓN DE LA PERSONA:" />
-                    
-                    <Grid Margin="0 0 0 25">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                                   Text="¿HABÍA SIDO DETENIDA LEGALMENTE?" 
-                                   VerticalAlignment="Center"  />
-                        <ComboBox Grid.Column="0" Grid.Row="1" Margin="0 0 10 0" />
-                        
-                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
-                                   Text="¿HABÍA SIDO VÍCTIMA DE EXTORSIÓN?"
-                                   VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="0 0 10 0" />
-                        
-                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="2" Grid.Row="0" 
-                                      Text="¿HABÍA SUFRIDO AMENAZAS?"
-                                   VerticalAlignment="Center" />
-                        <ComboBox Grid.Column="2" Grid.Row="1" Margin="0 0 10 0" />
-                        
-                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="3" Grid.Row="0"
-                                   Text="OTRA INFORMACIÓN QUE DESEE APORTAR ADICIONALMENTE A LA ENTERVISTA:"
-                                   VerticalAlignment="Center"  />
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Column="3" Grid.Row="1"  />
-                    </Grid>
-                    
-                    <Grid >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                                   Text="DESPUÉS DE QUE LA DESAPARICIÓN O PRIVACIÓN DE LA LIBERTAD DE LA PERSONA. ¿HA SIDO AVISTADA EN ALGUNA PARTE?" />
-                        <ComboBox Grid.Column="0" Grid.Row="1"   />
-                    </Grid>
-                </StackPanel>
             </Border>
         </StackPanel>
 

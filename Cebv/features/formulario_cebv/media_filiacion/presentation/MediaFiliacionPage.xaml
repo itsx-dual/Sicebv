@@ -95,11 +95,6 @@
                             <ui:TextBlock Text="TAMAÑO DE OJOS:" />
                             <ComboBox />
                         </StackPanel>
-
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="PARTICULARIDAD DE OJOS:" />
-                            <ComboBox />
-                        </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
@@ -134,7 +129,20 @@
                             <ComboBox />
                         </StackPanel>
 
-                        <StackPanel MinWidth="200">
+                    </WrapPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL CABELLO:" />
+                        <TextBox />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Vello facial" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="CEJAS:" />
                             <ComboBox />
                         </StackPanel>
@@ -146,31 +154,23 @@
                             <ComboBox />
                         </StackPanel>
 
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL BIGOTE:" />
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="BARBA:" />
                             <ComboBox />
                         </StackPanel>
 
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="REGIÓN VELLO FACIAL:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="CORTE DE VELLO FACIAL" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="COLOR DE VELLO FACIAL:" />
-                            <ComboBox />
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA BARBA:" />
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
-
-                    <StackPanel>
-                        <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL CABELLO:" />
-                        <TextBox />
-                    </StackPanel>
                 </StackPanel>
             </Border>
 
@@ -182,9 +182,9 @@
                         <ComboBox />
                     </StackPanel>
 
-                    <StackPanel MinWidth="200">
-                        <ui:TextBlock Text="PARTICULARIDADES DE LA NARIZ:" />
-                        <ComboBox />
+                    <StackPanel MinWidth="400">
+                        <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA NARIZ:" />
+                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -193,12 +193,12 @@
             <Border Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
-                        <ui:TextBlock Text="BOCA:" />
+                        <ui:TextBlock Text="TAMAÑO DE BOCA:" />
                         <ComboBox />
                     </StackPanel>
 
                     <StackPanel MinWidth="200">
-                        <ui:TextBlock Text="LABIOS:" />
+                        <ui:TextBlock Text="TAMAÑO DE LABIOS:" />
                         <ComboBox />
                     </StackPanel>
                 </WrapPanel>
@@ -217,70 +217,14 @@
                         <ComboBox />
                     </StackPanel>
 
-                    <StackPanel MinWidth="200">
-                        <ui:TextBlock Text="PABELLÓN AURICULAR" />
-                        <ComboBox />
+                    <StackPanel MinWidth="400">
+                        <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA OREJA:" />
+                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
-
-            <ui:TextBlock Text="Modificaciones físicas" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <StackPanel Margin="5">
-                    <WrapPanel Margin="0 0 0 25">
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MODIFICACIONES DE VELLO FACIAL:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MODIFICACIONES CEJAS:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MODIFICACIONES DE LABIOS:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="CIRUGÍAS DE LABIOS:" />
-                            <ComboBox />
-                        </StackPanel>
-                    </WrapPanel>
-
-                    <WrapPanel Margin="0 0 0 25">
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MODIFICACIONES DE MENTÓN:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="CIRUGÍAS DE MENTÓN:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MODIFICACIONES DE PABELLÓN AURICULAR:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="CIRUGÍAS DE PABELLÓN AURICULAR:" />
-                            <ComboBox />
-                        </StackPanel>
-                    </WrapPanel>
-
-                    <WrapPanel>
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="DEFORMACIONES:" />
-                            <ComboBox />
-                        </StackPanel>
-                    </WrapPanel>
-                </StackPanel>
-            </Border>
         </StackPanel>
-        
+
         <!-- Footer -->
         <ui:Button Grid.Row="2"
                    Command="{Binding GuardarReporteCommand}"
