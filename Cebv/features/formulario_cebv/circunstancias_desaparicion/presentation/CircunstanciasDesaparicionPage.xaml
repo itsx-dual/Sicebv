@@ -7,468 +7,409 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
-      d:DesignHeight="auto"
+      d:DesignWidth="Auto"
+      d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="CircunstanciasDesaparicionPage">
-    <StackPanel Margin="10" HorizontalAlignment="Stretch">
-        <ui:TextBlock HorizontalAlignment="Left" Text="Modo, Tiempo y Lugar de la Desaparicion" FontTypography="TitleLarge" />
-        <Separator Height="25" Background="Transparent" BorderThickness="0" />
-        
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <StackPanel>
-                <Grid Margin="5">
-                    <!-- Elementos que no tienen texto largo -->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="5" Text="FECHA DESAPARICIÓN:"
-                               VerticalAlignment="Center" />
-                    <DatePicker Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="HORA DESAPARICIÓN:"
-                               VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="5" Text="FECHA DE-PERCATO:"
-                               VerticalAlignment="Center" />
-                    <DatePicker Grid.Column="2" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="3" Grid.Row="0" Margin="5" Text="HORA DE PERCATO:"
-                               VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="3" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="ACLARACIÓN SOBRE LA FECHA Y HORA DE LOS HECHOS:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                </Grid>
-            </StackPanel>
-        </Border>
 
-        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="10" />
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
 
-        <ui:TextBlock Text="LUGAR DE LOS HECHOS:"
-                      Margin="5"
-                      FontTypography="Subtitle" />
+    <Grid Margin="10">
 
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <StackPanel>
-                <Grid Margin="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="5">
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource ModoTiempoLugarTitle}" FontTypography="TitleLarge" />
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="Hora y fecha de los hechos" FontTypography="Title" Margin="10" />
+            <Border>
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DESAPARICIÓN:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="HORA DESAPARICIÓN:" />
+                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE PERCATO:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="HORA DE PERCATO:" />
+                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE PERCATO:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Lugar de los hechos" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <StackPanel Margin="0 0 0 25">
                         <RadioButton Content="MISMO DOMICILIO QUE LA PERSONA REPORTANTE" Margin="5" />
                         <RadioButton Content="MISMO DOMICILIO QUE LA PERSONA DESAPARECIDA" Margin="5" />
                         <RadioButton Content="OTRO DOMICILIO" Margin="5" />
                     </StackPanel>
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="CALLE:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="NO EXTERIOR:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="NO INTERIOR:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="3" Grid.Row="0" Text="COLONIA:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="CODIGO POSTAL:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="ESTADO:" VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="MUNICIPIO:" VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="2" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="3" Grid.Row="0" Text="LOCALIDAD:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="ENTRE CALLE:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Y CALLE:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="TRAMO CARRETERO:" VerticalAlignment="Center"
-                               Margin="5" />
-                    <TextBox Grid.Column="2" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="3" Grid.Row="0" Text="LONGITUD:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="LATITUD:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="REFERENCIA:" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                </Grid>
-            </StackPanel>
-        </Border>
 
+                    <StackPanel>
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="CALLE:" />
+                                <ui:TextBox ClearButtonEnabled="True" />
+                            </StackPanel>
 
-        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="10" />
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="N° EXTERIOR:" />
+                                <ui:TextBox ClearButtonEnabled="True" />
+                            </StackPanel>
 
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <StackPanel>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="ZONA DEL ESTADO:" VerticalAlignment="Center"
-                               Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="AREA QUE ATENDERA:" VerticalAlignment="Center"
-                               Margin="5" />
-                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="¿LA PERSONA DESAPARECIDA HABÍA RECIBIDO AMENAZAS O HABÍA CAMBIADO SU COMPORTAMIENTO O RUTINA RECIENTEMENTE?"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="DESCRIPCIÓN DE LA SITUACIÓN DE AMENAZAS:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="¿CÚANTAS VECES ANTES LA PERSONA HA DESAPARECIDO O SE HA AUSENTADO?:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
-                               Text="DESCRIPCIÓN DE LA SITUACIÓN PREVIA O ANOTE LOS FOLIOS EN EL CAMPO SIGUIENTE SI YA HA ESTADO REGISTRADA:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="DATO DE PERSONA(S) QUE PUDIERON ESTAR RELACIONADAS O BRINDAR INFORMACIÓN SOBRE LA DESAPARICIÓN:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="DESCRIPCIÓN DE LOS HECHOS DE LA DESAPARICIÓN:" VerticalAlignment="Center"
-                               Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="SÍNTESIS DE LOS HECHOS DE LA DESAPARICIÓN:" VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 1:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="CIRCUNSTANCIA INICIAL 1:" VerticalAlignment="Center"
-                               Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="2" Grid.Row="0" Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 2:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="2" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="3" Grid.Row="0" Text="CIRCUNSTANCIA INICIAL 2:" VerticalAlignment="Center"
-                               Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="SITIO INICIAL:" VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="AREA QUE CODIFICA INICIAL:"
-                               VerticalAlignment="Center"
-                               Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                </Grid>
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="N° INTERIOR:" />
+                                <ui:TextBox ClearButtonEnabled="True" />
+                            </StackPanel>
 
-            </StackPanel>
-        </Border>
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="COLONIA:" />
+                                <ui:TextBox ClearButtonEnabled="True" />
+                            </StackPanel>
 
-        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="10" />
+                            <StackPanel MinWidth="200">
+                                <ui:TextBlock Text="CÓDIGO POSTAL:" />
+                                <ui:TextBox ClearButtonEnabled="True" />
+                            </StackPanel>
+                        </WrapPanel>
 
-        <ui:TextBlock Text="DESAPARICIÓN ASOCIADA:"
-                      FontTypography="Subtitle" />
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <StackPanel>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESTADO:" />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Estado}"
+                                          ItemsSource="{Binding Estados}" />
+                            </StackPanel>
 
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="¿DESAPARECIÓ CON ALGUIEN MÁS?:"
-                               VerticalAlignment="Center"
-                               Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="2" Margin="5" />
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="NÚM. PERS. EN MISMO EVENTO:"
-                               VerticalAlignment="Center"
-                               Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONA(S):" VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="EXPEDIENTES DIRECTOS: FOLIOS DE LAS OTRAS PERSONAS CON LAS QUE DESAPARECIÓ O QUE TIENEN RELACIÓN CON LA DESAPARICIÓN:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
-                               Text="EXPEDIENTES INDIRECTOS: FOLIOS DE OTRAS PERSONAS DESAPARECIDAS RELACIONADAS CON LA PERSONA QUE SE ESTÁ REGISTRANDO (FAMILIARES, AMISTADES, CONOCIDOS, ETC):"
-                               VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                </Grid>
-            </StackPanel>
-        </Border>
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="MUNICIPIO:" />
+                                <ComboBox SelectedItem="{Binding Municipio}"
+                                          ItemsSource="{Binding Municipios}" />
+                            </StackPanel>
 
-        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="10" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="LOCALIDAD:" />
+                                <ComboBox IsEditable="True"
+                                          DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Asentamiento}"
+                                          ItemsSource="{Binding Asentamientos}" />
+                            </StackPanel>
 
-        <ui:TextBlock Grid.Column="0" Grid.Row="0"
-                      Text="ANTECEDENTES A LA DESAPARICIÓN:"
-                      FontTypography="Subtitle" />
+                            <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
+                                <ui:TextBlock Text="LONGITUD:" />
+                                <ui:TextBox Text="{Binding Asentamiento.Longitud}" />
+                            </StackPanel>
 
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <StackPanel>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="1"
-                               Text="¿SE SUSCITARON OTROS DELITOS EN LOS QUE SE VIERA INVOLUCRADA O AFECTADA LA PERSONA DESAPARECIDA, DIRECTA O INDIRECTAMENTE O YA SEA COMO VÍCTIMA O COMO TESTIGO(A)?"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="2" Margin="5" />
-                    <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Text="¿CUÁLES?"
-                               VerticalAlignment="Center"
-                               Margin="5" />
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5" />
-                </Grid>
-                <TextBlock FontWeight="Bold" FontFamily="Arial" FontStyle="Normal"
-                           Text="DÍAS U HORAS DE QUE OCURRIERA LA DESAPARICIÓN DE LA PERSONA:" Margin="5" />
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                            <StackPanel MinWidth="200" IsEnabled="False">
+                                <ui:TextBlock Text="LATITUD:" />
+                                <ui:TextBox Text="{Binding Asentamiento.Latitud}" />
+                            </StackPanel>
+                        </WrapPanel>
 
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Text="¿HABÍA SIDO DETENIDA LEGALMENTE?"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                    <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
-                               Text="¿HABÍA SIDO VÍCTIMA DE EXTORSIÓN?"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="5" />
-                    <TextBlock TextWrapping="Wrap" Grid.Column="2" Grid.Row="0" Text="¿HABÍA SUFRIDO AMENAZAS?"
-                               VerticalAlignment="Center" Margin="5" />
-                    <ComboBox Grid.Column="2" Grid.Row="1" Margin="5" />
-                    <TextBlock TextWrapping="Wrap" Grid.Column="3" Grid.Row="0"
-                               Text="OTRA INFORMACIÓN QUE DESEE APORTAR ADICIONALMENTE A LA ENTERVISTA:"
-                               VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Column="3" Grid.Row="1" Margin="5" />
-                </Grid>
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ENTRE CALLE 1:" />
+                                <ui:TextBox Text="{Binding EntreCalle1}" />
+                            </StackPanel>
 
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ENTRE CALLE 2:" />
+                                <ui:TextBox Text="{Binding EntreCalle2}" />
+                            </StackPanel>
 
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="TRAMO CARRETERO:" />
+                                <ui:TextBox Text="{Binding TramoCarretero}" />
+                            </StackPanel>
+                        </WrapPanel>
 
-                    </Grid.ColumnDefinitions>
-                    <TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
-                               Text="DESPUÉS DE QUE LA DESAPARICIÓN O PRIVACIÓN DE LA LIBERTAD DE LA PERSONA. ¿HA SIDO AVISTADA EN ALGUNA PARTE?" />
-                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="5" />
-                </Grid>
-            </StackPanel>
-        </Border>
-        <ui:Button Content="Guardar y siguente"
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="REFERENCIA:" />
+                            <ui:TextBox Text="{Binding Referencia}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Circunstancias de los hechos" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ZONA DEL ESTADO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock
+                            Text="¿LA PERSONA DESAPARECIDA HABÍA RECIBIDO AMENAZAS O HABÍA CAMBIADO SU COMPORTAMIENTO O RUTINA RECIENTEMENTE?" />
+                        <ComboBox />
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="DESCRIPCIÓN DE LA SITUACIÓN DE AMENAZAS:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="¿CÚANTAS VECES ANTES LA PERSONA HA DESAPARECIDO O SE HA AUSENTADO?:" />
+                        <ui:NumberBox />
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock
+                            Text="DESCRIPCIÓN DE LA SITUACIÓN PREVIA O ANOTE LOS FOLIOS EN EL CAMPO SIGUIENTE SI YA HA ESTADO REGISTRADA:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock
+                            Text="DATO DE PERSONA(S) QUE PUDIERON ESTAR RELACIONADAS O BRINDAR INFORMACIÓN SOBRE LA DESAPARICIÓN:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="DESCRIPCIÓN DE LOS HECHOS DE LA DESAPARICIÓN:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Text="SÍNTESIS DE LOS HECHOS DE DESAPARICIÓN:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Hipótesis" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 25">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 1:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
+                            <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 1:" />
+                            <TextBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 2:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" IsEnabled="False">
+                            <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 2:" />
+                            <TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SITIO INICIAL:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="ÁREA QUE CODIFICA SITIO INICIAL:" />
+                            <TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Desaparición asociada" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿DESAPARECIÓ CON ALGUIEN MÁS?:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
+                            <ui:NumberBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <StackPanel MinWidth="300" Margin="0 0 0 15">
+                        <ui:TextBlock Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONA(S):" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Folios Directos" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <ui:ListView ItemsSource="{Binding Reportes}">
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="16"
+                                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <!-- Query de desaparecidos con folio TODO -->
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </Border>
+
+            <ui:TextBlock Text="Folios Indirectos" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <ui:ListView ItemsSource="{Binding Reportes}">
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="16"
+                                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <!-- Query de desaparecidos con folio TODO -->
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </Border>
+
+            <ui:TextBlock Text="Antecentes a la desaparición" FontTypography="Title" Margin="10" />
+            <Border>
+                <StackPanel>
+                    <UniformGrid Columns="2" Margin="0 0 0 15">
+                        <StackPanel Margin="0 0 10 0">
+                            <ui:TextBlock
+                                Text="¿SE SUSCITARON OTROS DELITOS EN LOS QUE SE VIERA INVOLUCRADA O AFECTADA LA PERSONA DESAPARECIDA, DIRECTA O INDIRECTAMENTE O YA SEA COMO VÍCTIMA O COMO TESTIGO(A)?"
+                                TextWrapping="Wrap" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel Margin=" 10 0 0 0">
+                            <ui:TextBlock Text="¿CUÁLES?" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True"/>
+                        </StackPanel>
+                    </UniformGrid>
+
+                    <ui:TextBlock FontTypography="BodyStrong" Margin="0 0 0 15"
+                                  Text="DÍAS U HORAS DE QUE OCURRIERA LA DESAPARICIÓN DE LA PERSONA:" />
+                    
+                    <Grid Margin="0 0 0 25">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
+                                   Text="¿HABÍA SIDO DETENIDA LEGALMENTE?" 
+                                   VerticalAlignment="Center"  />
+                        <ComboBox Grid.Column="0" Grid.Row="1" Margin="0 0 10 0" />
+                        
+                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"
+                                   Text="¿HABÍA SIDO VÍCTIMA DE EXTORSIÓN?"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="0 0 10 0" />
+                        
+                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="2" Grid.Row="0" 
+                                      Text="¿HABÍA SUFRIDO AMENAZAS?"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="2" Grid.Row="1" Margin="0 0 10 0" />
+                        
+                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="3" Grid.Row="0"
+                                   Text="OTRA INFORMACIÓN QUE DESEE APORTAR ADICIONALMENTE A LA ENTERVISTA:"
+                                   VerticalAlignment="Center"  />
+                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Column="3" Grid.Row="1"  />
+                    </Grid>
+                    
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <ui:TextBlock TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"
+                                   Text="DESPUÉS DE QUE LA DESAPARICIÓN O PRIVACIÓN DE LA LIBERTAD DE LA PERSONA. ¿HA SIDO AVISTADA EN ALGUNA PARTE?" />
+                        <ComboBox Grid.Column="0" Grid.Row="1"   />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary"
-                   Margin="10" />
-    </StackPanel>
+                   Appearance="Primary" />
+    </Grid>
 </Page>

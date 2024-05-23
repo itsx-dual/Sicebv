@@ -3,26 +3,38 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
-      d:DesignHeight="768"
+      d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DatosDeLocalizacionPage">
-    <Grid>
-        <StackPanel>
-            <ui:TextBlock HorizontalAlignment="Left" Text="Datos de Localización" FontTypography="TitleLarge" />
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+    
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
+    
+    <Grid Margin="10">
 
-            <ui:TextBlock Text="Localización"
-                          FontTypography="Subtitle"
-                          Margin="5" />
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    Margin="5"
-                    CornerRadius="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
+
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource LocalizacionTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="Localización" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
                 <WrapPanel>
                     <StackPanel MinWidth="200"
                                 Margin="5">
@@ -32,7 +44,7 @@
                         <ui:TextBlock Text="Dia/Mes/Año"
                                       FontTypography="Caption" />
                     </StackPanel>
-                    
+
 
                     <StackPanel Width="200"
                                 Margin="5">
@@ -40,11 +52,12 @@
                                       FontTypography="Caption" />
                         <ComboBox />
                     </StackPanel>
-                    
+
                     <StackPanel MinWidth="200"
                                 Margin="5">
-                        <ui:TextBlock Text="Fecha de actualización de estatus&#x0a;de la persona desaparecida o no localizada"
-                                      FontTypography="Caption" />
+                        <ui:TextBlock
+                            Text="Fecha de actualización de estatus&#x0a;de la persona desaparecida o no localizada"
+                            FontTypography="Caption" />
                         <DatePicker IsEnabled="False" />
                         <ui:TextBlock Text="Dia/Mes/Año"
                                       FontTypography="Caption" />
@@ -88,12 +101,8 @@
                 </WrapPanel>
             </Border>
 
-            <ui:TextBlock Text="Hipótesis de localización"
-                          FontTypography="Subtitle"
-                          Margin="5" />
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    Margin="5"
-                    CornerRadius="8">
+            <ui:TextBlock Text="Hipótesis de localización" FontTypography="Title" Margin="10" />
+            <Border>
                 <StackPanel>
 
                     <WrapPanel>
@@ -190,11 +199,15 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <ui:Button Content="Guardar y siguente"
-                       Icon="{ui:SymbolIcon Save24}"
-                       HorizontalAlignment="Stretch"
-                       Appearance="Primary"
-                       Margin="10" />
         </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
     </Grid>
 </Page>

@@ -11,10 +11,25 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DifusionPage">
-    <Grid>
-        <StackPanel>
-            <ui:TextBlock HorizontalAlignment="Left" Text="Comunicación y Difusión" FontTypography="TitleLarge" />
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource ComunicacionTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="TO DO" FontTypography="Subtitle" />
         </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
     </Grid>
 </Page>
