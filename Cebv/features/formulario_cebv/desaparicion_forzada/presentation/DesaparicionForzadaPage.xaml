@@ -8,7 +8,7 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
+      d:DesignWidth="1200"
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DesaparicionForzadaPage">
@@ -33,9 +33,129 @@
 
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
-            <ui:TextBlock Text="Hipótesis" FontTypography="Title" Margin="10" />
+            <ui:TextBlock Text="Condiciones de desaparición" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
                 <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SUFRIÓ DESAPARICIÓN FORZADA?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="AUTORIDAD:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="DESCRIBA LA SITUACIÓN:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SUFRIÓ DESAPARICIÓN POR PARTICULARES?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="PARTICULAR:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="DESCRIBA LA SITUACIÓN:" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="MÉTODO DE CAPTURA:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="OBSERVACIONES DEL MÉTODO DE CAPTURA:" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿EXISTIÓ DETENCIÓN LEGAL PREVIA O EXTORSIÓN?" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <ui:TextBlock Text="Después de la desaparición o privación de la libertad de la persona..."
+                                  FontTypography="BodyStrong"
+                                  FontWeight="Bold"
+                                  Margin="0 0 0 15" />
+
+                    <WrapPanel>
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿HA SIDO AVISTADO EN ALGUNA PARTE?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="¿DÓNDE?" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Información sobre el perpetrador" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NOMBRE(S) / APODO(S)" />
+                            <ui:TextBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SEXO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 10 0">
+                            <ui:TextBlock Text="DESCRIPCIÓN:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+
+                        <ui:Button Margin="0 15 0 0"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   VerticalAlignment="Stretch"
+                                   Appearance="Primary" />
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ÚLTIMO ESTATUS DEL PERPETRADOR:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="DESCIPCIÓN DEL GRUPO PERPETRADOR" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <WrapPanel>
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SE SUCITARON OTROS DELITOS ANTES O DESPUÉS DE LA DESAPARICIÓN?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="ESPECIFIQUE CUÁLES:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
         </StackPanel>

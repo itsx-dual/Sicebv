@@ -53,7 +53,7 @@
                 <ui:DataGrid.Columns>
                     <DataGridTextColumn Header="Nombre del pariente"
                                         Width="2*" />
-                    <DataGridComboBoxColumn Header="Parentezco"
+                    <DataGridComboBoxColumn Header="Parentesco"
                                             Width="*" />
                     <DataGridCheckBoxColumn Header="Ha ejercido violencia" />
                     <DataGridCheckBoxColumn Header="Es un familiar cercano" />
@@ -62,50 +62,75 @@
                 </ui:DataGrid.Columns>
             </ui:DataGrid>
 
+
             <ui:TextBlock Text="Contexto economico-laboral" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
-                <WrapPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="¿Donde trabaja?"
-                                      FontTypography="Caption" />
-                        <TextBox />
-                    </StackPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="¿Cuantos años lleva laborando?"
-                                      FontTypography="Caption" />
-                        <ui:NumberBox Minimum="0"
-                                      Value="0" />
-                    </StackPanel>
-                    <CheckBox Content="¿Le gusta su trabajo?"
-                              Margin="5" />
-                    <CheckBox Content="¿Ha manifestado intencion de irse a trabajar fuera de la ciudad?"
-                              Margin="5" />
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="¿A donde desea irse?"
-                                      FontTypography="Caption" />
-                        <TextBox />
-                    </StackPanel>
-                    <CheckBox Content="¿Ha sufrido violencia por parte de algun compañero de trabajo?"
-                              Margin="5" />
-                    <CheckBox Content="¿Tiene deudas?"
-                              Margin="5" />
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="Monto aproximado de la deuda"
-                                      FontTypography="Caption" />
-                        <ui:NumberBox Minimum="0"
-                                      Value="0" />
-                    </StackPanel>
-                    <StackPanel MinWidth="200"
-                                Margin="5">
-                        <ui:TextBlock Text="¿A quien le debe?"
-                                      FontTypography="Caption" />
-                        <TextBox />
-                    </StackPanel>
-                </WrapPanel>
+                <StackPanel>
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="¿Donde trabaja?"
+                                          FontTypography="Caption" />
+                            <TextBox />
+                        </StackPanel>
+                        <StackPanel MinWidth="200"
+                                    Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿Cuantos años lleva laborando?"
+                                          FontTypography="Caption" />
+                            <ui:NumberBox Minimum="0"
+                                          Value="0" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="¿Le gusta su trabajo?" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel Margin="0 0 25 0">
+                            <TextBlock Text="¿Ha manifestado intencion de irse a trabajar fuera de la ciudad?" />
+                            <ComboBox />
+                        </StackPanel>
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="¿A donde desea irse?"
+                                          FontTypography="Caption" />
+                            <TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿Ha sufrido violencia por parte de algun compañero de trabajo?" />
+                            <ComboBox />
+                        </StackPanel>
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="¿Por parte de quién?" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿Tiene deudas?" />
+                            <ComboBox />
+                        </StackPanel>
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="Monto aproximado de la deuda"
+                                          FontTypography="Caption" />
+                            <ui:NumberBox Minimum="0"
+                                          Value="0" />
+                        </StackPanel>
+                        <StackPanel MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock Text="¿A quien le debe?"
+                                          FontTypography="Caption" />
+                            <TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Contexto social" FontTypography="Title" Margin="10" />
@@ -251,7 +276,7 @@
                     <ui:DataGrid Grid.Row="2"
                                  Grid.Column="0"
                                  Grid.ColumnSpan="3"
-                                 MinHeight="300"
+                                 MinHeight="150"
                                  AutoGenerateColumns="False"
                                  ItemsSource="{Binding CondicionesSalud}"
                                  Margin="10">
@@ -275,7 +300,7 @@
                     <ui:DataGrid Grid.Row="4"
                                  Grid.Column="0"
                                  Grid.ColumnSpan="3"
-                                 MinHeight="300"
+                                 MinHeight="150"
                                  AutoGenerateColumns="False"
                                  ItemsSource="{Binding CondicionesSalud}"
                                  Margin="10">
@@ -285,6 +310,8 @@
                             <DataGridTextColumn Header="Apodo"
                                                 Width="*" />
                             <DataGridTextColumn Header="Telefono"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Dirección"
                                                 Width="*" />
                             <DataGridTextColumn Header="Redes sociales"
                                                 Width="*" />

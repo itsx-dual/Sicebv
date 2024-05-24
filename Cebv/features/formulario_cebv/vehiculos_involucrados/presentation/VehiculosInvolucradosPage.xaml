@@ -159,7 +159,10 @@
                         <StackPanel MinWidth="500">
                             <ui:TextBlock Text="SEÑAS PARTICULARES"></ui:TextBlock>
                             <ui:TextBox></ui:TextBox>
-
+                            
+                            <ui:TextBlock Text="Fotografias"></ui:TextBlock>
+                            <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                       Content="Añadir imagenes"/>
                         </StackPanel>
 
                     </WrapPanel>
