@@ -43,6 +43,11 @@
                        x:Name="FormularioNavigationView"
                        IsBackButtonVisible="Collapsed"
                        PaneTitle="{StaticResource CapturaReporteTitle}">
+        
+        <ui:NavigationView.AutoSuggestBox>
+            <ui:AutoSuggestBox Margin="8,0,8,8" PlaceholderText="Buscar" />
+        </ui:NavigationView.AutoSuggestBox>
+        
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="{StaticResource DatosReporteTitle}"
                                    Icon="{ui:SymbolIcon Document24}"
@@ -96,8 +101,8 @@
                                    Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
 
-            <ui:NavigationViewItem Content="{StaticResource ComunicacionTitle}"
-                                   Icon="{ui:SymbolIcon Comment24}"
+            <ui:NavigationViewItem Content="{StaticResource GeneracionBoletineTitle}"
+                                   Icon="{ui:SymbolIcon DocumentData24}"
                                    TargetPageType="{x:Type presentation6:DifusionPage}" />
             
             <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"

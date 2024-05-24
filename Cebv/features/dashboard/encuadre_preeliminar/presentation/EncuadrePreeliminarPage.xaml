@@ -1,0 +1,139 @@
+<Page x:Class="Cebv.features.dashboard.encuadre_preeliminar.presentation.EncuadrePreeliminarPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="auto"
+      d:DesignHeight="auto"
+      mc:Ignorable="d"
+      Title="EncuadrePreeliminarPage">
+
+    <Page.DataContext>
+        <presentation:EncuadrePreeliminarViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource EncuadreTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="Inicio" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel Margin="5">
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO: *" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TipoMedio}"
+                                  ItemsSource="{Binding TiposMedios}" />
+                    </StackPanel>
+
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO: *" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Medio}"
+                                  ItemsSource="{Binding Medios}" />
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+
+            <ui:TextBlock Text="Reportante" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <!-- Nombre Completo -->
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NOMBRE(S):  *" />
+                            <ui:TextBox Text="{Binding Nombre}" />
+                        </StackPanel>
+
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="PRIMER APELLIDO: *" />
+                            <ui:TextBox Text="{Binding ApellidoPaterno}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SEGUNDO APELLIDO: *" />
+                            <ui:TextBox Text="{Binding ApellidoMaterno}" />
+                        </StackPanel>
+                        
+                    </WrapPanel>
+                    
+                    <WrapPanel Margin=" 0 0 0 15">
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SEXO:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Sexo}"
+                                      ItemsSource="{Binding Sexos}" />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock  Text="¿USTED QUE ES DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Parentesco}"
+                                      ItemsSource="{Binding Parentescos}" />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="COMPAÑÍA:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="OBSERVACIONES:" />
+                            <ui:TextBox ClearButtonEnabled="True" />
+                        </StackPanel>
+
+                        <ui:Button Content="Añadir otro  teléfono móvil"
+                                   Appearance="Primary"
+                                   Margin="0 15 0 0"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+            
+            <ui:TextBlock Text="Desaparecido" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel Margin="5">
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO: *" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TipoMedio}"
+                                  ItemsSource="{Binding TiposMedios}" />
+                    </StackPanel>
+
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO: *" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Medio}"
+                                  ItemsSource="{Binding Medios}" />
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

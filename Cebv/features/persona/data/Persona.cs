@@ -25,7 +25,7 @@ public class Persona
     [JsonPropertyName("pseudonimo_apellido_materno")]
     public string? PseudonimoApellidoMaterno { get; set; }
 
-    [JsonPropertyName("fecha_nacimiento")] public DateOnly? FechaNacimiento { get; set; }
+    [JsonPropertyName("fecha_nacimiento")] public DateTime? FechaNacimiento { get; set; }
 
     [JsonPropertyName("curp")] public string? Curp { get; set; }
 
@@ -36,9 +36,9 @@ public class Persona
 
     [JsonPropertyName("ocupacion")] public string? Ocupacion { get; set; }
 
-    [JsonPropertyName("sexo")] public string? Sexo { get; set; }
+    [JsonPropertyName("sexo")] public Catalogo? Sexo { get; set; }
 
-    [JsonPropertyName("genero")] public string? Genero { get; set; }
+    [JsonPropertyName("genero")] public Catalogo? Genero { get; set; }
 
     [JsonPropertyName("apodos")] public List<ApodoResponse>? Apodos { get; set; }
 

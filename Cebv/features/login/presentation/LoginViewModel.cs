@@ -9,9 +9,9 @@ namespace Cebv.features.login.presentation;
 
 public partial class LoginViewModel : ObservableObject
 {
-    [ObservableProperty] private string _username = String.Empty;
+    [ObservableProperty] private string _username = "test@example.com";
 
-    [ObservableProperty] private string _password = String.Empty;
+    [ObservableProperty] private string _password = "password";
 
     //[ObservableProperty] private Visibility _visibilityErrorMessage;
 
@@ -25,16 +25,16 @@ public partial class LoginViewModel : ObservableObject
         ErrorVisibility = Visibility.Collapsed;
         IniciandoSesion = false;
     }
-    
+
     [RelayCommand]
     private async Task IniciarSesion()
     {
         if (IniciandoSesion) return;
-        
+
         IniciandoSesion = true;
         ErrorVisibility = Visibility.Collapsed;
         var result = await LoginNetwork.Post(Username, Password);
-        
+
         if (result is TokenWrapped)
         {
             var dashboard = new DashboardWindow();

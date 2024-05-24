@@ -85,7 +85,7 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="ESTATUS EN RNPDNO:" />
-                        <ui:TextBox />
+                        <ComboBox />
                     </StackPanel>
                 </WrapPanel>
             </Border>

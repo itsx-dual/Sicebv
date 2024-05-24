@@ -2,12 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="TestTitle">Testing</system:String>
+
     <!-- Contenido de los botones comunes en la UI -->
     <system:String x:Key="GuardarContinuar">Guardar y continuar</system:String>
+    <system:String x:Key="Continuar">Continuar</system:String>
     <system:String x:Key="RegistroPendiente">Registro pendiente</system:String>
 
-    <!-- Contenido de los botones de la barra de navegación -->
+    <!-- Títulos del dashborad -->
+    <system:String x:Key="InicioTitle">Inicio</system:String>
+    <system:String x:Key="ReportesDesaparicionTitle">Reportes de desaparición</system:String>
+    <system:String x:Key="ConsultaTitle">Consulta</system:String>
     <system:String x:Key="CapturaReporteTitle">Captura de reporte de desaparición</system:String>
+    <system:String x:Key="ComunicacionTitle">Comunicación y difusion</system:String>
+    <system:String x:Key="EncuadreTitle">Encuadre preeliminar</system:String>
+    <system:String x:Key="BusquedaFamiliaTitle">Reportes de busqueda de familia</system:String>
 
     <!-- Titulos de las pestañas del formulario -->
     <system:String x:Key="DatosReporteTitle">Inicio</system:String>
@@ -17,11 +26,11 @@
     <system:String x:Key="MediaFiliacionComplementariaTitle">Media filiación complementaria</system:String>
     <system:String x:Key="PrendasVestirTitle">Prendas de vestir</system:String>
     <system:String x:Key="SenasParticularesTitle">Señas particulares</system:String>
-    <system:String x:Key="VulnerabilidadSaludTitle">Condiciones de vulnerabilidad en salud</system:String>
+    <system:String x:Key="VulnerabilidadSaludTitle">Condiciones de vulnerabilidad</system:String>
     <system:String x:Key="ModoTiempoLugarTitle">Modo, tiempo y lugar de la desaparición</system:String>
     <system:String x:Key="ContextoTitle">Contextos</system:String>
     <system:String x:Key="VehiculosTitle">Vehículos involucrados</system:String>
-    <system:String x:Key="ComunicacionTitle">Comunicación y difusión</system:String>
+    <system:String x:Key="GeneracionBoletineTitle">Generación de boletines</system:String>
     <system:String x:Key="LocalizacionTitle">Datos de localización</system:String>
     <system:String x:Key="ControlOgpiTitle">Control OGPI</system:String>
     <system:String x:Key="FolioExpedienteTitle">Folio y expediente</system:String>

@@ -11,23 +11,120 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DifusionPage">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height=".5*" />
         </Grid.RowDefinitions>
-        <ui:TextBlock Grid.Row="0" Text="{StaticResource ComunicacionTitle}" FontTypography="TitleLarge" />
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource GeneracionBoletineTitle}" FontTypography="TitleLarge" />
 
         <StackPanel Grid.Row="1" Margin="10">
-            <ui:TextBlock Text="TO DO" FontTypography="Subtitle" />
+
+            <ui:TextBlock Text="Fotografías de la persona desaparecida" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                               Content="Añadir imagenes"
+                               Margin="0 0 0 25" />
+
+                    <WrapPanel>
+                        <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                   MinHeight="100"
+                                   MinWidth="200"
+                                   Margin="10" />
+
+                        <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                   MinHeight="100"
+                                   MinWidth="200"
+                                   Margin="10" />
+
+                        <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                   MinHeight="100"
+                                   MinWidth="200"
+                                   Margin="10" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Información exacta" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5" IsEnabled="False">
+                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Información tratada" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel>
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="SEÑAS PARTICULARES PARA EL BOLETÍN:" />
+
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                    </StackPanel>
+
+                    <ui:ToggleSwitch Name="MenorToggleSwitch"
+                                     OnContent="¿Es menor de Edad? Sí"
+                                     OffContent="¿Es menor de Edad? No"
+                                     Margin="0 0 0 25" />
+
+                    <StackPanel Margin="0 0 0 15" IsEnabled="{Binding ElementName=MenorToggleSwitch, Path=IsChecked}">
+                        <ui:TextBlock Text="INFORMACIÓN ADICIONAL:" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Generación de boletín" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <WrapPanel>
+                    <StackPanel MinWidth="300" Margin="0 0 25 0">
+                        <ui:TextBlock Text="TIPO DE BOLETÍN:" />
+                        <ComboBox>
+                            <ComboBoxItem Content="Búsqueda inmediata" />
+                            <ComboBoxItem Content="Larga data" />
+                            <ComboBoxItem Content="Uso interno" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel MinWidth="300" Margin="0 0 25 0">
+                        <ui:TextBlock Text="ESTATUS DE LA PERSONA DESAPARECIDA:" />
+                        <ComboBox>
+                            <ComboBoxItem Content="Desaparecida" />
+                            <ComboBoxItem Content="Localizada" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <ui:Button Margin="0 15 0 0"
+                               Content="Generar"
+                               Icon="{ui:SymbolIcon Save24}"
+                               VerticalAlignment="Stretch"
+                               Appearance="Primary" />
+
+                </WrapPanel>
+            </Border>
         </StackPanel>
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
                    Command="{Binding GuardarReporteCommand}"
-                   Content="{StaticResource GuardarContinuar}"
-                   Icon="{ui:SymbolIcon Save24}"
+                   Content="{StaticResource Continuar}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
                    Appearance="Primary" />
