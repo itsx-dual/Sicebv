@@ -1,4 +1,6 @@
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Configuration;
 
 namespace Cebv.core.domain;
 
@@ -6,8 +8,11 @@ public class HttpClientHandler
 {
     public static HttpClient SharedClientHandler = new()
     {
-        //BaseAddress = new Uri("http://187.251.212.146:18080/"),
-        //BaseAddress = new Uri("http://localhost:8000/"),
-        BaseAddress = new Uri("http://api_cebv.test/"),
+        // La uri se obtiene de App.config.               Podemos poner un fallback uri      ↓
+        BaseAddress = new Uri( ConfigurationManager.AppSettings.Get("api_uri") ?? string.Empty ),
+        DefaultRequestHeaders =
+        {
+            Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
+        }
     };
 }
