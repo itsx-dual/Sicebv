@@ -1,4 +1,4 @@
-<Page x:Class="Cebv.features.formulario_cebv.comunicacion_difusion.presentation.DifusionPage"
+<Page x:Class="Cebv.features.formulario_cebv.comunicacion_difusion.presentation.GeneracionBoletinPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,7 +10,7 @@
       d:DesignWidth="1000"
       d:DesignHeight="auto"
       mc:Ignorable="d"
-      Title="DifusionPage">
+      Title="GeneracionBoletinPage">
 
     <Page.Resources>
         <Style TargetType="{x:Type Border}">

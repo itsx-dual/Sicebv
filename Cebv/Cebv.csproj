@@ -69,20 +69,19 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="core\assets\images\icon_cebv.png" />
-      <Resource Include="core\assets\images\logo.png" />
-      <Resource Include="core\assets\images\logo_letras.png" />
-      <Resource Include="core\assets\images\senas\azul.png" />
-      <Resource Include="core\assets\images\senas\Cuerpo MapingSide.png" />
-      <Resource Include="core\assets\images\senas\CuerpoUNIXMejorado.png" />
-      <Resource Include="core\assets\images\senas\Minus CuerpoUNIXMejorado.png" />
-      <Resource Include="core\assets\images\senas\Minus loadIcon.png" />
-      <Resource Include="core\assets\images\senas\Minus RegionCuerpoColorMejorado.png" />
-      <Resource Include="core\assets\images\senas\RegionCuerpoColorMejorado.png" />
+      <Resource Include="core\resources\images\icon_cebv.png" />
+      <Resource Include="core\resources\images\logo.png" />
+      <Resource Include="core\resources\images\logo_letras.png" />
+      <Resource Include="core\resources\images\senas\azul.png" />
+      <Resource Include="core\resources\images\senas\Cuerpo MapingSide.png" />
+      <Resource Include="core\resources\images\senas\CuerpoUNIXMejorado.png" />
+      <Resource Include="core\resources\images\senas\Minus CuerpoUNIXMejorado.png" />
+      <Resource Include="core\resources\images\senas\Minus loadIcon.png" />
+      <Resource Include="core\resources\images\senas\Minus RegionCuerpoColorMejorado.png" />
+      <Resource Include="core\resources\images\senas\RegionCuerpoColorMejorado.png" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="core\services\" />
       <Folder Include="features\formulario_cebv\presentation\domain\" />
     </ItemGroup>
 

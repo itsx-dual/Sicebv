@@ -33,7 +33,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                     <Grid>
-                        <ui:Image Source="/core/assets/images/icon_cebv.png"
+                        <ui:Image Source="/core/resources/images/icon_cebv.png"
                                   Width="300"
                                   Margin="5" />
                     </Grid>

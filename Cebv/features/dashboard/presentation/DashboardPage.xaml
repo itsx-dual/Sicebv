@@ -75,7 +75,7 @@
                                        Icon="{ui:SymbolIcon GroupList24}"
                                        TargetPageType="{x:Type presentation3:BusquedaFamiliaPage}"/>
                 
-                <ui:NavigationViewItem Content="{StaticResource ComunicacionTitle}"
+                <ui:NavigationViewItem Content="{StaticResource ComunicacionDifusionTitle}"
                                        Icon="{ui:SymbolIcon Mail24}"
                                        TargetPageType="{x:Type presentation1:ComunicacionDifusionPage}"/>
                 

@@ -49,7 +49,7 @@
         </ui:NavigationView.AutoSuggestBox>
         
         <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem Content="{StaticResource DatosReporteTitle}"
+            <ui:NavigationViewItem Content="{StaticResource InicioTitle}"
                                    Icon="{ui:SymbolIcon Document24}"
                                    TargetPageType="{x:Type presentation1:DatosReportePage}" />
             
@@ -81,7 +81,7 @@
                                    Icon="{ui:SymbolIcon Accessibility24}"
                                    TargetPageType="{x:Type senasParticulares1:SenasParticularesPage}" />
 
-            <ui:NavigationViewItem Content="{StaticResource VulnerabilidadSaludTitle}"
+            <ui:NavigationViewItem Content="{StaticResource CondicionVulnerabilidadTitle}"
                                    Icon="{ui:SymbolIcon PersonHeart24}"
                                    TargetPageType="{x:Type presentation21:CondicionesVulnerabilidadPage}" />
 
@@ -103,7 +103,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource GeneracionBoletineTitle}"
                                    Icon="{ui:SymbolIcon DocumentData24}"
-                                   TargetPageType="{x:Type presentation6:DifusionPage}" />
+                                   TargetPageType="{x:Type presentation6:GeneracionBoletinPage}" />
             
             <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
                                    Icon="{ui:SymbolIcon Document24}"

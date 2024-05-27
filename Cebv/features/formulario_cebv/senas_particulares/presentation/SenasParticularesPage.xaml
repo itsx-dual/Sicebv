@@ -48,17 +48,17 @@
                       VerticalAlignment="Center"
                       MaxWidth="500">
 
-                    <ui:Image Source="/core/assets/images/senas/Cuerpo MapingSide.png"
+                    <ui:Image Source="/core/resources/images/senas/Cuerpo MapingSide.png"
                               x:Name="LadoImage"
                               CornerRadius="8"
                               Stretch="Uniform" />
 
-                    <ui:Image Source="/core/assets/images/senas/RegionCuerpoColorMejorado.png"
+                    <ui:Image Source="/core/resources/images/senas/RegionCuerpoColorMejorado.png"
                               x:Name="RegionCuerpoImage"
                               CornerRadius="8"
                               Stretch="Uniform" />
 
-                    <ui:Image Source="/core/assets/images/senas/CuerpoUNIXMejorado.png"
+                    <ui:Image Source="/core/resources/images/senas/CuerpoUNIXMejorado.png"
                               MouseDown="Image_MouseDown"
                               CornerRadius="8"
                               BorderBrush="#000000"

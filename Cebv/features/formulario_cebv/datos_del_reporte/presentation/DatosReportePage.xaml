@@ -6,7 +6,6 @@
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_del_reporte.presentation"
-      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -26,8 +25,6 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
         </Style>
-
-        <util:VisibilityConverter2 x:Key="VisibilityConverter" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -40,7 +37,7 @@
 
         <!-- Header -->
         <StackPanel Orientation="Horizontal">
-            <ui:TextBlock Grid.Row="0" Text="{StaticResource DatosReporteTitle}" FontTypography="TitleLarge" />
+            <ui:TextBlock Grid.Row="0" Text="{StaticResource InicioTitle}" FontTypography="TitleLarge" />
             
             <StackPanel MinWidth="250" Margin="50 0 25 0" IsEnabled="False">
                 <ui:TextBlock Text="FECHA DE INICIO:" />

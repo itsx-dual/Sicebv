@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -20,7 +22,15 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
         </Style>
+
+        <util:VisibilityConverter x:Key="VisibilityConverter" />
+        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+
     </Page.Resources>
+
+    <Page.DataContext>
+        <presentation:DatosLocalizacionViewModel />
+    </Page.DataContext>
 
     <Grid Margin="10">
 
@@ -30,89 +40,136 @@
             <RowDefinition Height=".5*" />
         </Grid.RowDefinitions>
 
-        <StackPanel>
-            <ui:TextBlock Grid.Row="0" Text="{StaticResource LocalizacionTitle}" FontTypography="TitleLarge" />
-            <ui:ToggleSwitch OnContent="¿La persona desaparecida fue localizada con vida? Sí"
-                             OffContent="¿La persona desaparecida fue localizada con vida? No"
-                             Margin="10 25 10 25" />
-        </StackPanel>
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource LocalizacionTitle}" FontTypography="TitleLarge" />
 
+        <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
-
 
             <ui:TextBlock Text="Localización" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
-                <StackPanel>
-                    <WrapPanel>
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="Fecha de actualización&#x0a;de estatus conocido"
-                                          FontTypography="Caption" />
-                            <DatePicker IsEnabled="False" />
-                            <ui:TextBlock Text="Dia/Mes/Año"
-                                          FontTypography="Caption" />
-                        </StackPanel>
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <ui:ToggleSwitch OnContent="¿La persona desaparecida fue localizada con vida? No"
+                                         OffContent="¿La persona desaparecida fue localizada con vida? Sí"
+                                         IsChecked="{Binding LocalizadaConVida}" />
+                    </WrapPanel>
 
-
-                        <StackPanel Width="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="Estatus conocido de la persona&#x0a;desaparecida o no localizada"
-                                          FontTypography="Caption" />
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ESTATUS PRELIMINAR: *" />
                             <ComboBox />
                         </StackPanel>
 
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock
-                                Text="Fecha de actualización de estatus&#x0a;de la persona desaparecida o no localizada"
-                                FontTypography="Caption" />
-                            <DatePicker IsEnabled="False" />
-                            <ui:TextBlock Text="Dia/Mes/Año"
-                                          FontTypography="Caption" />
-                        </StackPanel>
-
-                        <StackPanel Width="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="Estatus de la persona&#x0a;desaparecida o no localizada"
-                                          FontTypography="Caption" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="&#x0a;Fecha de localización"
-                                          FontTypography="Caption" />
+                        <StackPanel MinWidth="250" IsEnabled="False">
+                            <ui:TextBlock Text="FECHA DE ESTATUS PRELIMINAR:" />
                             <DatePicker />
-                            <ui:TextBlock Text="Dia/Mes/Año"
-                                          FontTypography="Caption" />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="&#x0a;Síntesis de localización"
-                                          FontTypography="Caption" />
-                            <ui:TextBox />
-                            <ui:TextBlock Text=""
-                                          Visibility="Hidden"
-                                          FontTypography="Caption" />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="&#x0a;Hipervinculo síntesis de localización"
-                                          FontTypography="Caption" />
-                            <ui:TextBox />
-                            <ui:TextBlock Text=""
-                                          Visibility="Hidden"
-                                          FontTypography="Caption" />
                         </StackPanel>
                     </WrapPanel>
-                </StackPanel>
 
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="FECHA DE LOCALIZACIÓN: *" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <!-- Localizado con vida -->
+                    <StackPanel Margin="0 0 0 15"
+                                Visibility="{Binding LocalizadaConVida,
+                                Converter={StaticResource VisibilityConverter}}">
+                        <ui:TextBlock Text="Localizada con vida" FontTypography="Subtitle" Margin="0 25 0 25" />
+
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESTATUS FORMALIZADO:" />
+                                <ComboBox />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250" IsEnabled="False">
+                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN DEL ESTATUS FORMALIZADO:" />
+                                <DatePicker IsTodayHighlighted="True" />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="SÍNTESIS DE LOCALIZACIÓN: *" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock
+                                Text="DESCRIBA BREVEMENTE LA CONDICIÓN PSICOFÍSICA EN QUE FUE LOCALIZADA LA PERSONA" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Localizado sin vida -->
+                    <StackPanel Margin="0 0 0 15"
+                                Visibility="{Binding LocalizadaConVida,
+                                Converter={StaticResource VisibilityConverter2}}">
+                        <ui:TextBlock Text="Localizada sin vida" FontTypography="Subtitle" Margin="0 25 0 25" />
+
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESTATUS FORMALIZADO:" />
+                                <ComboBox />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250">
+                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN DEL ESTATUS FORMALIZADO:" />
+                                <DatePicker IsTodayHighlighted="True" />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 0 0 15">
+                            <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                <ui:TextBlock Text="FECHA DEL HALLAZGO:" />
+                                <DatePicker IsTodayHighlighted="True" />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="300">
+                                <ui:TextBlock Text="FECHA DE IDENTIFICACIÓN POR PARTE DEL FAMILIAR:" />
+                                <DatePicker IsTodayHighlighted="True" />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="SÍNTESIS DE LOCALIZACIÓN:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock
+                                Text="DESCRIBA LAS CAUSAS DE FALLECIMIENTO:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Text="Ubicación de la localización" FontTypography="Subtitle" Margin="0 25 0 25" />
+
+                        <WrapPanel>
+
+                            <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ESTADO: *" />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Estado}"
+                                          ItemsSource="{Binding Estados}" />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                <ui:TextBlock Text="MUNICIPIO: *" />
+                                <ComboBox SelectedItem="{Binding Municipio}"
+                                          ItemsSource="{Binding Municipios}" />
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Hipótesis de localización" FontTypography="Title" Margin="10" />
-            <Border>
+            <Border Margin="0 0 0 25">
                 <StackPanel>
 
                     <WrapPanel>
@@ -177,6 +234,76 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+
+            <ui:TextBlock Text="Documentación" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel>
+                    <StackPanel Margin="0 0 0 25">
+                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                   Content="Añadir informe de localizción"
+                                   Margin="0 0 0 15" />
+
+                        <ui:Button Icon="{ui:SymbolIcon Document24}"
+                                   MinHeight="50"
+                                   MinWidth="100"
+                                   Content="nombre_documento.pdf"
+                                   Margin="10" />
+
+                    </StackPanel>
+
+                    <StackPanel Margin="0 0 0 25">
+                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                   Content="Añadir prueba de vida"
+                                   Margin="0 0 0 15" />
+
+                        <WrapPanel>
+                            <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                       MinHeight="100"
+                                       MinWidth="200"
+                                       Margin="10" />
+
+                            <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                       MinHeight="100"
+                                       MinWidth="200"
+                                       Margin="10" />
+
+                            <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                       MinHeight="100"
+                                       MinWidth="200"
+                                       Margin="10" />
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                   Content="Añadir identificación oficial"
+                                   Margin="0 0 0 15" />
+
+                        <WrapPanel>
+                            <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                       MinHeight="100"
+                                       MinWidth="200"
+                                       Margin="10" />
+
+                            <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                       MinHeight="100"
+                                       MinWidth="200"
+                                       Margin="10" />
+
+                            <ui:Button Icon="{ui:SymbolIcon Image24}"
+                                       MinHeight="100"
+                                       MinWidth="200"
+                                       Margin="10" />
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:Button Content="Gerar informe de localización"
+                       Icon="{ui:SymbolIcon Document24}"
+                       Margin="10"
+                       HorizontalAlignment="Stretch"
+                       Appearance="Secondary" />
         </StackPanel>
 
         <!-- Footer -->

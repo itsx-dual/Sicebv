@@ -37,7 +37,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <ui:TextBlock Grid.Row="0" Text="{StaticResource VulnerabilidadSaludTitle}" FontTypography="TitleLarge" />
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource CondicionVulnerabilidadTitle}" FontTypography="TitleLarge" />
 
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
