@@ -12,27 +12,17 @@
       mc:Ignorable="d"
       Title="FolioExpedientePage">
 
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
-
-
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <!-- Header -->
         <ui:TextBlock Grid.Row="0" Text="{StaticResource FolioExpedienteTitle}" FontTypography="TitleLarge" />
 
-        <!-- TODO: Poner campos bloqueados de Estado, municipio, numero de personas en el mismo evento y la fecha de desaparicion -->
-
+        <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
 
             <StackPanel IsEnabled="False"
@@ -79,40 +69,98 @@
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>
-            
+
             <!-- Información del reporte -->
             <ui:TextBlock Text="Información del reporte" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <WrapPanel Margin="5">
-                    <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="TIPO DE FOLIO: *" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TipoReporte}"
-                                  ItemsSource="{Binding TiposReportes }" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15" IsEnabled="False">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ZONA DEL ESTADO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200">
+                            <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="5">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="TIPO DE FOLIO: *" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TipoReporte}"
+                                      ItemsSource="{Binding TiposReportes }" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="TIPO DE DESAPARICIÓN:" />
+                            <ComboBox>
+                                <ComboBoxItem Content="Único" />
+                                <ComboBoxItem Content="Múltiple" />
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
+                            <ui:TextBox Text="Nombre Apellido1 Apellido2" IsEnabled="False" />
+                        </StackPanel>
+
+
+                        <ui:Button Margin="0 15 0 0"
+                                   Content="Generar Folio"
+                                   HorizontalAlignment="Right"
+                                   Icon="{ui:SymbolIcon Pen24}"
+                                   VerticalAlignment="Stretch"
+                                   Appearance="Primary" />
+
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Situación del expediente" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel>
+                        <StackPanel MinWidth="250" Margin="0 0 25  0">
+                            <ui:TextBlock Text="ÁREA A LA QUE CAMBIÓ EL EXPEDIENTE:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="FECHA DE CAMBIO DE ÁREA:" />
+                            <DatePicker />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Préstamo de expedientes físicos por parte de DVIAJ" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25  0">
+                            <ui:TextBlock Text="¿QUIÉN SOLICITA EL PRÉSTAMO?" />
+                            <ComboBox />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE PRÉSTAMO:" />
+                            <DatePicker />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="FECHA DE DEVOLUCIÓN:" />
+                            <DatePicker />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <StackPanel>
+                        <ui:TextBlock Text="OBSERVACIONES:" />
+                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
-
-                    <StackPanel MinWidth="200" Margin="0 0 25 0">
-                        <ui:TextBlock Text="TIPO DE DESAPARICIÓN:" />
-                        <ComboBox>
-                            <ComboBoxItem Content="Único" />
-                            <ComboBoxItem Content="Múltiple" />
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                        <ui:TextBox Text="Nombre Apellido1 Apellido2" IsEnabled="False" />
-                    </StackPanel>
-
-
-                    <ui:Button Margin="0 15 0 0"
-                               Content="Generar Folio"
-                               HorizontalAlignment="Right"
-                               Icon="{ui:SymbolIcon Pen24}"
-                               VerticalAlignment="Stretch"
-                               Appearance="Primary" />
-
-                </WrapPanel>
+                </StackPanel>
             </Border>
         </StackPanel>
 

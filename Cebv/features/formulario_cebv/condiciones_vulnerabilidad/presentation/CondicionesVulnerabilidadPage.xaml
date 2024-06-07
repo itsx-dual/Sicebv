@@ -42,7 +42,7 @@
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Tipo de sangre" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="200">
                     <ui:TextBlock Text="Tipo de sangre" />
                     <ComboBox />
@@ -68,6 +68,31 @@
                     <DataGridCheckBoxColumn Header="Padece la condicion actualmente" />
                 </ui:DataGrid.Columns>
             </ui:DataGrid>
+
+            <ui:TextBlock Text="Información adicional sobre su situación migratoria" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25" Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" />
+                            <ComboBox />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock
+                                Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <StackPanel>
+                        <ui:TextBlock
+                            Text="ESPECIFIQUE EL PROCESO DE REGULARIZACION MIGRATORIA QUE SE ENCUENTRA:" />
+                        <ui:TextBox />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
 
             <ui:TextBlock Text="Enfoque diferenciado" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
@@ -286,19 +311,21 @@
                             </ui:ListView.ItemTemplate>
                         </ui:ListView>
                     </Grid>
-                    
+
                     <StackPanel Grid.Row="4" Grid.ColumnSpan="3">
                         <StackPanel Grid.ColumnSpan="3"
                                     MinWidth="200"
                                     Margin="5">
-                            <ui:TextBlock Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
+                            <ui:TextBlock
+                                Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
                             <ui:TextBox />
                         </StackPanel>
-                        
+
                         <StackPanel Grid.ColumnSpan="3"
                                     MinWidth="200"
                                     Margin="5">
-                            <ui:TextBlock Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
+                            <ui:TextBlock
+                                Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
                             <ui:TextBox />
                         </StackPanel>
                     </StackPanel>

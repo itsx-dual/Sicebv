@@ -12,7 +12,7 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="InstrumentoJuridicoPage">
-    
+
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="Padding" Value="16" />
@@ -24,22 +24,25 @@
 
         <util:VisibilityConverter2 x:Key="VisibilityConverter" />
     </Page.Resources>
-    
-    <Grid>
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
+        <!-- Header -->
         <ui:TextBlock Grid.Row="0" Text="{StaticResource InstrumentoJuridicoTitle}" FontTypography="TitleLarge" />
 
+        <!-- Body -->
         <StackPanel Grid.Row="1" Margin="10">
             <!-- Información de la carpeta de investigación -->
             <ui:TextBlock Text="Carpeta de investigación" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel>
-                        <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
+                        <ui:TextBlock Text="ESPECIFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
                         <ComboBox SelectedItem="{Binding CarpetaInvestigacionSelected}"
                                   ItemsSource="{Binding CarpetaInvestigacionList}" />
                     </StackPanel>
@@ -73,7 +76,7 @@
 
             <!-- Información de amparo de buscador -->
             <ui:TextBlock Text="Amparo de buscador" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE AMPARO BUSCADOR" />
@@ -111,7 +114,7 @@
 
             <!-- Recomendacion de derechos humanos -->
             <ui:TextBlock Text="Recomendación de Derechos Humanos" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE RECOMENDACIÓN DE DERECHOS HUMANOS (DH)" />
@@ -145,28 +148,31 @@
                                         SelectedDate="{Binding FechaRecepcionDh}" />
                         </StackPanel>
                     </WrapPanel>
+                </StackPanel>
+            </Border>
 
-                    <StackPanel Margin="0 15 0 0">
-                        <CheckBox Content="DECLARACIÓN ESPECIAL DE AUSENCIA." Margin="0 0 0 15"
-                                  IsChecked="{Binding DeclaracionEspecialAusencia}" />
+            <ui:TextBlock Text="Otros" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
+                    <CheckBox Content="DECLARACIÓN ESPECIAL DE AUSENCIA." Margin="0 0 0 15"
+                              IsChecked="{Binding DeclaracionEspecialAusencia}" />
 
-                        <CheckBox Content="ACCIÓN URGENTE." Margin="0 0 0 15"
-                                  IsChecked="{Binding AccionUrgente}" />
+                    <CheckBox Content="ACCIÓN URGENTE." Margin="0 0 0 15"
+                              IsChecked="{Binding AccionUrgente}" />
 
-                        <CheckBox Content="DICTAMEN" Margin="0 0 0 15"
-                                  IsChecked="{Binding Dictamen}" />
+                    <CheckBox Content="DICTAMEN" Margin="0 0 0 15"
+                              IsChecked="{Binding Dictamen}" />
 
-                        <CheckBox Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL." Margin="0 0 0 15"
-                                  IsChecked="{Binding CarpetaInvestigacionNivelFederal}" />
+                    <CheckBox Content="CARPETA DE INVESTIGACIÓN A NIVEL FEDERAL." Margin="0 0 0 15"
+                              IsChecked="{Binding CarpetaInvestigacionNivelFederal}" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox Content="OTRO, ESPECÍFIQUE:" Margin="0 0 15 0"
-                                      IsChecked="{Binding OtroDerechoHumano}" />
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="OTRO, ESPECÍFIQUE:" Margin="0 0 15 0"
+                                  IsChecked="{Binding OtroDerechoHumano}" />
 
-                            <ui:TextBox MinWidth="250"
-                                        IsEnabled="{Binding OtroDerechoHumano}"
-                                        Text="{Binding OtroDerechoHumanoEspecificado}" />
-                        </StackPanel>
+                        <ui:TextBox MinWidth="250"
+                                    IsEnabled="{Binding OtroDerechoHumano}"
+                                    Text="{Binding OtroDerechoHumanoEspecificado}" />
                     </StackPanel>
                 </StackPanel>
             </Border>

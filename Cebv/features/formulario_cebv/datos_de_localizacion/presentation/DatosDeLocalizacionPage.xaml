@@ -15,14 +15,6 @@
       Title="DatosDeLocalizacionPage">
 
     <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
 
@@ -47,7 +39,7 @@
         <StackPanel Grid.Row="1" Margin="10">
 
             <ui:TextBlock Text="Localización" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <ui:ToggleSwitch OnContent="¿La persona desaparecida fue localizada con vida? No"
@@ -85,9 +77,14 @@
                                 <ui:TextBlock Text="ESTATUS FORMALIZADO:" />
                                 <ComboBox />
                             </StackPanel>
+                            
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="FECHA DE FORMALIZACIÓN DEL ESTATUS:" />
+                                <DatePicker IsTodayHighlighted="True" />
+                            </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
-                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN DEL ESTATUS FORMALIZADO:" />
+                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN EN SISTEMA:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
@@ -116,8 +113,13 @@
                                 <ComboBox />
                             </StackPanel>
 
-                            <StackPanel MinWidth="250">
-                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN DEL ESTATUS FORMALIZADO:" />
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="FECHA DE FORMALIZACIÓN DEL ESTATUS:" />
+                                <DatePicker IsTodayHighlighted="True" />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250" IsEnabled="False">
+                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN EN SISTEMA:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
@@ -169,12 +171,11 @@
             </Border>
 
             <ui:TextBlock Text="Hipótesis de localización" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
-
                     <WrapPanel>
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Hipotesis de localizacion (OGPI) 1"
+                            <ui:TextBlock Text="Hipotesis de localización (OGPI) 1"
                                           FontTypography="Caption" />
                             <ComboBox />
                             <ui:TextBlock Text=""
@@ -202,7 +203,7 @@
 
                         <StackPanel MinWidth="200"
                                     Margin="5">
-                            <ui:TextBlock Text="&#x0a;Sitio final"
+                            <ui:TextBlock Text="&#x0a;Sitio localización"
                                           FontTypography="Caption" />
                             <ComboBox />
                         </StackPanel>
@@ -225,7 +226,7 @@
                         </StackPanel>
                     </WrapPanel>
                     <StackPanel Margin="5">
-                        <ui:TextBlock Text="&#x0a;Observaciones sobre la actualizacion de status"
+                        <ui:TextBlock Text="&#x0a;Observaciones sobre la actualización de status"
                                       FontTypography="Caption" />
                         <ui:TextBox />
                         <ui:TextBlock Text=""
@@ -299,7 +300,7 @@
                 </StackPanel>
             </Border>
 
-            <ui:Button Content="Gerar informe de localización"
+            <ui:Button Content="Generar informe de localización"
                        Icon="{ui:SymbolIcon Document24}"
                        Margin="10"
                        HorizontalAlignment="Stretch"

@@ -17,28 +17,18 @@
         <presentation:DatosReporteViewModel />
     </Page.DataContext>
 
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
-
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
         <StackPanel Orientation="Horizontal">
             <ui:TextBlock Grid.Row="0" Text="{StaticResource InicioTitle}" FontTypography="TitleLarge" />
-            
+
             <StackPanel MinWidth="250" Margin="50 0 25 0" IsEnabled="False">
                 <ui:TextBlock Text="FECHA DE INICIO:" />
                 <ui:TextBox Text="EJEMPLO FECHA" />

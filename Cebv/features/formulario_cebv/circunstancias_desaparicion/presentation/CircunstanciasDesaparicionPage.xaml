@@ -50,9 +50,9 @@
                              OnContent="¿SE DESCONOCE FECHA EXACTA? Sí"
                              OffContent="¿SE DESCONOCE FECHA EXACTA? No"
                              IsChecked="{Binding FechaAproximada  }" />
-            <Border
-                Visibility="{Binding FechaAproximada,
-                Converter={StaticResource VisibilityConverter}}">
+            <Border Style="{StaticResource CebvBorder}"
+                    Visibility="{Binding FechaAproximada,
+                    Converter={StaticResource VisibilityConverter}}">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -80,27 +80,28 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <Border
-                Visibility="{Binding FechaAproximada,
+            <Border Style="{StaticResource CebvBorder}"
+                    Visibility="{Binding FechaAproximada,
                 Converter={StaticResource VisibilityConverter2}}">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
+
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DESAPARICIÓN APROXIMADA:" />
+                            <ui:TextBlock Text="FECHA DESAPARICIÓN APROXIMADA" />
+                            <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DESAPARICIÓN PARA CNB:" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DESAPARICIÓN CEBV:" />
-                            <ui:TextBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <StackPanel MinWidth="250">
                             <ui:TextBlock Text="HORA DESAPARICIÓN:" />
                             <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
                         </StackPanel>
@@ -109,12 +110,12 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="FECHA DE PERCATO APROXIMADA:" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE PERCATO CEBV:" />
-                            <ui:TextBox />
+                            <ui:TextBlock Text="FECHA DE PERCATO PARA CBV:" />
+                            <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -125,13 +126,13 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Lugar de los hechos" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 25">
                         <RadioButton Content="MISMO DOMICILIO QUE LA PERSONA REPORTANTE" Margin="5" />
@@ -226,20 +227,8 @@
             </Border>
 
             <ui:TextBlock Text="Circunstancias de los hechos" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ZONA DEL ESTADO:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
-                            <ComboBox />
-                        </StackPanel>
-                    </WrapPanel>
-
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="¿LA PERSONA DESAPARECIDA HABÍA RECIBIDO AMENAZAS O HABÍA CAMBIADO SU COMPORTAMIENTO O RUTINA RECIENTEMENTE?" />
@@ -287,7 +276,7 @@
             </Border>
 
             <ui:TextBlock Text="Hipótesis" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -328,9 +317,8 @@
             </Border>
 
             <ui:TextBlock Text="Desaparición asociada" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
-
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿DESAPARECIÓ CON ALGUIEN MÁS?:" />
@@ -345,59 +333,41 @@
 
                     <StackPanel MinWidth="300" Margin="0 0 0 15">
                         <ui:TextBlock Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONA(S):" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
+
+                    <ui:DataGrid MinHeight="200"
+                                 AutoGenerateColumns="False"
+                                 Margin="10">
+                        <ui:DataGrid.Columns>
+                            <DataGridTextColumn Header="Nombre de la persona" Width="*" />
+                            <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
+                            <DataGridTextColumn Header="Folio CEBV" Width="*" />
+                        </ui:DataGrid.Columns>
+                    </ui:DataGrid>
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Folios Directos" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <ui:ListView ItemsSource="{Binding Reportes}">
-                    <ui:ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Padding="16"
-                                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="10">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <!-- Query de desaparecidos con folio TODO -->
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ui:ListView.ItemTemplate>
-                </ui:ListView>
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+                    <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
+                                FontSize="16"
+                                Severity="Informational"
+                                IsOpen="True"
+                                IsClosable="False" />
+                </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Folios Indirectos" FontTypography="Title" Margin="10" />
-            <Border>
-                <ui:ListView ItemsSource="{Binding Reportes}">
-                    <ui:ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Padding="16"
-                                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="10">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <!-- Query de desaparecidos con folio TODO -->
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ui:ListView.ItemTemplate>
-                </ui:ListView>
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel>
+                    <ui:InfoBar Message="{StaticResource LeyendaFolioIndirecto}"
+                                FontSize="16"
+                                Severity="Informational"
+                                IsOpen="True"
+                                IsClosable="False" />
+                </StackPanel>
             </Border>
         </StackPanel>
 

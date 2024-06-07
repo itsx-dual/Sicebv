@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
+using Cebv.features.persona.presentation;
 using Cebv.features.reporte.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
@@ -10,10 +11,10 @@ namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class PersonaDesaparecidaViewModel : ObservableObject
 {
+    [ObservableProperty] private PersonaViewModel _desaparecido = new();
     /**
      * Información de la persona desaparecida.
      */
-    // Nombres y pseudónimos
     public string NombreCompleto => $"{Nombre} {ApellidoPaterno} {ApellidoMaterno}";
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
@@ -24,17 +25,8 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoMaterno;
-
-    [ObservableProperty] private string _pseudonimoNombre = String.Empty;
-    [ObservableProperty] private string _pseudonimoApellidoPaterno = String.Empty;
-    [ObservableProperty] private string _pseudonimoApellidoMaterno = String.Empty;
+    
     [ObservableProperty] private string _apodo = String.Empty;
-
-    // Información sexual
-    [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();
-    [ObservableProperty] private Catalogo _sexo = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _generos = new();
-    [ObservableProperty] private Catalogo _genero = new();
 
     // Informacion de nacimiento
     [ObservableProperty] private bool _fechaAproximada;
