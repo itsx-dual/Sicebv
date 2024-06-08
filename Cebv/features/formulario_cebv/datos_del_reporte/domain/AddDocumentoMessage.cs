@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Cebv.features.desaparecido.data;
+using Cebv.core.modules.desaparecido.data;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.domain;

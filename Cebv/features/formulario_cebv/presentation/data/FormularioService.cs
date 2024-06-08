@@ -1,4 +1,4 @@
-using Cebv.features.reporte.data;
+using Cebv.core.modules.reporte.data;
 
 namespace Cebv.features.formulario_cebv.presentation.data;
 

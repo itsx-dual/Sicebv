@@ -1,10 +1,9 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
-using Cebv.core.domain;
+using Cebv.core.modules.persona.domain;
+using Cebv.core.modules.persona.presentation;
+using Cebv.core.modules.reportante.domain;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
-using Cebv.features.persona.presentation;
-using Cebv.features.reportante.domain;
-using Cebv.features.reporte.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -37,25 +36,6 @@ public partial class ReportanteViewModel : ObservableObject
 
     [ObservableProperty] private string _correoElectronico = String.Empty;
     [ObservableProperty] private string _observacionesCorreoElectronico = String.Empty;
-
-    // Datos de domicilio
-    [ObservableProperty] private string _calle = String.Empty;
-    [ObservableProperty] private string _numeroExterior = String.Empty;
-    [ObservableProperty] private string _numeroInterior = String.Empty;
-    [ObservableProperty] private string _colonia = String.Empty;
-    [ObservableProperty] private string _codigoPostal = String.Empty;
-
-    [ObservableProperty] private ObservableCollection<Estado> _estados = new();
-    [ObservableProperty] private Estado _estado = new();
-    [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
-    [ObservableProperty] private Municipio _municipio = new();
-    [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
-    [ObservableProperty] private Asentamiento _asentamiento = new();
-
-    [ObservableProperty] private string _entreCalle1 = String.Empty;
-    [ObservableProperty] private string _entreCalle2 = String.Empty;
-    [ObservableProperty] private string _tramoCarretero = String.Empty;
-    [ObservableProperty] private string _referencia = String.Empty;
 
     // Información relevante
     [ObservableProperty] private string _informacionRelevante = String.Empty;
@@ -91,16 +71,9 @@ public partial class ReportanteViewModel : ObservableObject
     private async void CargarCatalogos()
     {
         Parentescos = await ReportanteNetwork.GetParentescos();
-        Estados = await UbicacionNetwork.GetEstados();
         Escolaridades = await PersonaNetwork.GetEscolaridades();
         EstadosConyugales = await PersonaNetwork.GetEstadosConyugales();
     }
-
-    async partial void OnEstadoChanged(Estado value) =>
-        Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
-
-    async partial void OnMunicipioChanged(Municipio value) =>
-        Asentamientos = await UbicacionNetwork.GetAsentamientos(value.Id);
 
     partial void OnPertenciaColectivoChanging(string value) =>
         PertenenciaC = OpcionesCebv.MappingToBool(value);

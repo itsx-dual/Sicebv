@@ -43,16 +43,17 @@
                        x:Name="FormularioNavigationView"
                        IsBackButtonVisible="Collapsed"
                        PaneTitle="{StaticResource CapturaReporteTitle}">
-        
+
         <ui:NavigationView.AutoSuggestBox>
-            <ui:AutoSuggestBox Margin="8,0,8,8" PlaceholderText="Buscar" />
+            <ui:AutoSuggestBox Margin="8"
+                               PlaceholderText="Buscar" />
         </ui:NavigationView.AutoSuggestBox>
-        
+
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="{StaticResource InicioTitle}"
-                                   Icon="{ui:SymbolIcon Document24}"
+                                   Icon="{ui:SymbolIcon Home24}"
                                    TargetPageType="{x:Type presentation1:DatosReportePage}" />
-            
+
             <ui:NavigationViewItem Content="{StaticResource InstrumentoJuridicoTitle}"
                                    Icon="{ui:SymbolIcon TableEdit24}"
                                    TargetPageType="{x:Type presentation11:InstrumentoJuridicoPage}" />
@@ -68,7 +69,7 @@
             <ui:NavigationViewItem Content="{StaticResource MediaFiliacionTitle}"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
                                    TargetPageType="{x:Type presentation2:MediaFiliacionPage}" />
-            
+
             <ui:NavigationViewItem Content="{StaticResource MediaFiliacionComplementariaTitle}"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
                                    TargetPageType="{x:Type presentation12:MediaFiliacionComplementariaPage }" />
@@ -88,7 +89,7 @@
             <ui:NavigationViewItem Content="{StaticResource ModoTiempoLugarTitle}"
                                    Icon="{ui:SymbolIcon Map24}"
                                    TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
-            
+
             <ui:NavigationViewItem Content="{StaticResource DesaparicionForzadaTitle}"
                                    Icon="{ui:SymbolIcon Group24}"
                                    TargetPageType="{x:Type presentation13:DesaparicionForzadaPage}" />
@@ -104,7 +105,7 @@
             <ui:NavigationViewItem Content="{StaticResource GeneracionBoletineTitle}"
                                    Icon="{ui:SymbolIcon DocumentData24}"
                                    TargetPageType="{x:Type presentation6:GeneracionBoletinPage}" />
-            
+
             <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
                                    Icon="{ui:SymbolIcon Document24}"
                                    TargetPageType="{x:Type presentation10:FolioExpedientePage}" />
@@ -126,7 +127,7 @@
                 <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
                               TextWrapping="Wrap" />
-                
+
                 <ui:Button
                     Visibility="{Binding PuedeGuardar,
                     Converter={StaticResource VisibilityConverter2}}"

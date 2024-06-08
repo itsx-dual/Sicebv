@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
-using Cebv.features.reporte.data;
-using Cebv.features.reporte.domain;
+using Cebv.core.modules.reporte.data;
+using Cebv.core.modules.reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.features.dashboard.presentation;

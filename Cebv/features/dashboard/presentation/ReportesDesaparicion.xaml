@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:data="clr-namespace:Cebv.features.reporte.data"
-      xmlns:data1="clr-namespace:Cebv.features.desaparecido.data"
+      xmlns:data1="clr-namespace:Cebv.core.modules.desaparecido.data"
+      xmlns:data2="clr-namespace:Cebv.core.modules.reporte.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -26,7 +26,7 @@
             <ui:ListView ItemsSource="{Binding Reportes}">
 
                 <ui:ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type data:ReporteResponse}">
+                    <DataTemplate DataType="{x:Type data2:ReporteResponse}">
                         <Border Padding="16"
                                 Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                                 BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"

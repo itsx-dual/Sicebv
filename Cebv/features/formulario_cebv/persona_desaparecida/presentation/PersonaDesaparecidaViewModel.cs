@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
-using Cebv.core.domain;
+using Cebv.core.modules.persona.presentation;
+using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.ubicacion.domain;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
-using Cebv.features.persona.presentation;
-using Cebv.features.reporte.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -28,14 +28,14 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
     
     [ObservableProperty] private string _apodo = String.Empty;
 
-    // Informacion de nacimiento
+    // Información de nacimiento
     [ObservableProperty] private bool _fechaAproximada;
 
     [ObservableProperty] private DateTime? _fechaNacimiento;
     [ObservableProperty] private ObservableCollection<Estado> _lugaresNacimientos = new();
     [ObservableProperty] private Estado _lugarNacimiento = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
-    [ObservableProperty] private Catalogo _nacionaliad = new();
+    [ObservableProperty] private Catalogo _nacionalidad = new();
 
     [ObservableProperty] private string _rfc = String.Empty;
     [ObservableProperty] private string _curp = String.Empty;
@@ -92,28 +92,10 @@ public partial class PersonaDesaparecidaViewModel : ObservableObject
     /**
      * Peticiones a la API
      */
-    public async void CargarCatalogos()
+    private async void CargarCatalogos()
     {
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
     }
-
-    /**
-     * Mapeo de los valores string a boolean.
-     */
-    partial void OnTransitoEstadosUnidosSelectedChanged(string value)
-    {
-        if (value is OpcionesCebv.No && Nacionaliad.Id is not 109)
-            SinoSeEncuentraEnTransito = true;
-        else SinoSeEncuentraEnTransito = false;
-    }
-
-    partial void OnNacionaliadChanged(Catalogo value)
-    {
-        if (TransitoEstadosUnidosSelected is OpcionesCebv.No && value.Id is not 109)
-            SinoSeEncuentraEnTransito = true;
-        else SinoSeEncuentraEnTransito = false;
-    }
-
 
     /**
      * Encabezado del formulario con el nombre completo de la persona desaparecida.

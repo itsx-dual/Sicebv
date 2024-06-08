@@ -1,9 +1,9 @@
 using System.Windows;
-using Cebv.features.formulario_cebv.persona_desaparecida.data;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Cebv.features.formulario_cebv.presentation.data;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
 
 namespace Cebv;
 
@@ -39,7 +39,6 @@ public partial class App : Application
         services.AddSingleton<FormularioCebvViewModel>();
         services.AddSingleton<FormularioCebvPage>();
         services.AddSingleton<PersonaDesaparecidaViewModel>();
-
         services.AddSingleton<IFormularioService, FormularioService>();
 
         return services.BuildServiceProvider();

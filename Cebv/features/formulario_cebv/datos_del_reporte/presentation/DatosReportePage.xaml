@@ -26,26 +26,27 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <StackPanel Orientation="Horizontal">
-            <ui:TextBlock Grid.Row="0" Text="{StaticResource InicioTitle}" FontTypography="TitleLarge" />
-
-            <StackPanel MinWidth="250" Margin="50 0 25 0" IsEnabled="False">
-                <ui:TextBlock Text="FECHA DE INICIO:" />
-                <ui:TextBox Text="EJEMPLO FECHA" />
-            </StackPanel>
-
-            <StackPanel MinWidth="250" Margin="0 0 25 0" IsEnabled="False">
-                <ui:TextBlock Text="HORA DE INICIO:" />
-                <ui:TextBox Text="EJEMPLO HORA" />
-            </StackPanel>
-        </StackPanel>
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource InicioTitle}" FontTypography="TitleLarge" />
 
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
+
+            <WrapPanel IsEnabled="False" Margin="10 10 10 25">
+                <StackPanel MinWidth="250" Margin="0 0 25 0">
+                    <ui:TextBlock Text="FECHA DE INICIO:" />
+                    <ui:TextBox Text="EJEMPLO FECHA" />
+                </StackPanel>
+
+                <StackPanel MinWidth="250">
+                    <ui:TextBlock Text="HORA DE INICIO:" />
+                    <ui:TextBox Text="EJEMPLO HORA" />
+                </StackPanel>
+            </WrapPanel>
+
             <!-- Información sobre la fuente de información -->
             <ui:TextBlock Text="Fuente de información" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <WrapPanel>
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO:" />
                         <ComboBox DisplayMemberPath="Nombre"
@@ -63,28 +64,21 @@
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding Estado}"
-                                  ItemsSource="{Binding Estados}" />
+                                  SelectedItem="{Binding Ubicacion.Estado}"
+                                  ItemsSource="{Binding Ubicacion.Estados}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="INSTITUCIÓN DE ORIGEN:" />
-                        <ui:TextBox x:Name="DependenciaOrigenTb"
-                                    Text="{Binding DependenciaOrigen}" />
+                        <ui:TextBox Text="{Binding DependenciaOrigen}" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
 
             <!-- Información de consentimiento -->
             <ui:TextBlock Text="Información de consentimiento" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <StackPanel>
-                    <StackPanel Margin="0 0 0 15" Visibility="Collapsed">
-                        <ui:TextBlock Text="SE CUENTA CON LA INFORMACIÓN DE CONSENTIMIENTO." />
-                        <ComboBox SelectedItem="{Binding InformacionConsentimientoSelected}"
-                                  ItemsSource="{Binding InformacionConsentimientoList}" />
-                    </StackPanel>
-
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
@@ -104,7 +98,6 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"

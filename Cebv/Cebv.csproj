@@ -82,6 +82,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="core\modules\" />
       <Folder Include="features\formulario_cebv\presentation\domain\" />
     </ItemGroup>
 

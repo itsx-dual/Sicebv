@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using Cebv.core.domain;
-using Cebv.features.reporte.data;
+using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.ubicacion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;

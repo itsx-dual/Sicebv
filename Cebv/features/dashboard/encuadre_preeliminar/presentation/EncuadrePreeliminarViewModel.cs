@@ -1,9 +1,12 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.domain;
-using Cebv.features.reportante.domain;
-using Cebv.features.reporte.data;
-using Cebv.features.reporte.domain;
+using Cebv.core.modules.persona.domain;
+using Cebv.core.modules.reportante.domain;
+using Cebv.core.modules.reporte.data;
+using Cebv.core.modules.reporte.domain;
+using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.ubicacion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
