@@ -6,9 +6,9 @@ using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.core.modules.persona.domain;
 
-public class PersonaNetwork
+public static class PersonaNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<Catalogo>> GetSexos()
     {
@@ -23,7 +23,29 @@ public class PersonaNetwork
 
     public static async Task<ObservableCollection<Catalogo>> GetGeneros()
     {
-        var request = await Client.GetAsync("api/generos");
+        using var request = await Client.GetAsync("api/generos");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
+
+    public static async Task<ObservableCollection<Catalogo>> GetReligiones()
+    {
+        using var request = await Client.GetAsync("api/religiones");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
+
+    public static async Task<ObservableCollection<Catalogo>> GetLenguas()
+    {
+        using var request = await Client.GetAsync("api/lenguas");
 
         var response = await request.Content.ReadAsStringAsync();
 
@@ -34,7 +56,7 @@ public class PersonaNetwork
 
     public static async Task<ObservableCollection<Catalogo>> GetEscolaridades()
     {
-        var request = await Client.GetAsync("api/escolaridades");
+        using var request = await Client.GetAsync("api/escolaridades");
 
         var response = await request.Content.ReadAsStringAsync();
 
@@ -42,10 +64,10 @@ public class PersonaNetwork
 
         return jsonResponse.Data;
     }
-    
+
     public static async Task<ObservableCollection<Catalogo>> GetEstadosConyugales()
     {
-        var request = await Client.GetAsync("api/estados-conyugales");
+        using var request = await Client.GetAsync("api/estados-conyugales");
 
         var response = await request.Content.ReadAsStringAsync();
 

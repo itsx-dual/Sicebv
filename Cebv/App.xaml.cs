@@ -35,12 +35,6 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        // Viewmodel principal del formulario.
-        services.AddSingleton<FormularioCebvViewModel>();
-        services.AddSingleton<FormularioCebvPage>();
-        services.AddSingleton<PersonaDesaparecidaViewModel>();
-        services.AddSingleton<IFormularioService, FormularioService>();
-
         return services.BuildServiceProvider();
     }
 }

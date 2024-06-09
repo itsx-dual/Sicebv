@@ -11,7 +11,7 @@ namespace Cebv.core.modules.reportante.domain;
 
 public class ReportanteNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     public static async Task<Object> GetReporte(int reporteId)
     {

@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.modules.contacto.presentation;
 using Cebv.core.modules.persona.domain;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.modules.reportante.domain;
+using Cebv.core.modules.ubicacion.presentation;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,6 +21,9 @@ public partial class ReportanteViewModel : ObservableObject
 
     [ObservableProperty] private bool _puedeGuardar;
 
+    /**
+     * Información básica del reportante.
+     */
     [ObservableProperty] private PersonaViewModel _reportante = new();
 
     // Datos de identificación de la persona
@@ -26,16 +31,10 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private Catalogo _parentesco = new();
     
     // Datos de contacto
-    [ObservableProperty] private string _telefonoMovil = String.Empty;
-    [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
-    [ObservableProperty] private Catalogo _companiaTelefonica = new();
-    [ObservableProperty] private string _observacionesMovil = String.Empty;
-
-    [ObservableProperty] private string _telefonoFijo = String.Empty;
-    [ObservableProperty] private string _observacionesFijo = String.Empty;
-
-    [ObservableProperty] private string _correoElectronico = String.Empty;
-    [ObservableProperty] private string _observacionesCorreoElectronico = String.Empty;
+    [ObservableProperty] private ContactoViewModel _contacto = new();
+    
+    // Domicilio
+    [ObservableProperty] private UbicacionViewModel _ubicacion = new();
 
     // Información relevante
     [ObservableProperty] private string _informacionRelevante = String.Empty;

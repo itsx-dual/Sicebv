@@ -1,10 +1,4 @@
 // @no-log
-GET http://api_cebv.test/api/reportantes
+GET http://api_cebv.test/api/religiones
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
-
-{
-  "desaparecido_id": 1,
-  "tipo_documento": "CI",
-  "fecha_recepcion": "2024-05-15T23:36:40.000000Z"
-}

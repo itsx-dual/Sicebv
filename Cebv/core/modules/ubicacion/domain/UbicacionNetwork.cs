@@ -9,7 +9,7 @@ namespace Cebv.core.modules.ubicacion.domain;
 
 public class UbicacionNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<Estado>> GetEstados()
     {

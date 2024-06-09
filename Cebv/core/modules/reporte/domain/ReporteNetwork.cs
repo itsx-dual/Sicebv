@@ -10,7 +10,7 @@ namespace Cebv.core.modules.reporte.domain;
 
 public class ReporteNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<ReporteResponse>> GetReportes()
     {

@@ -4,6 +4,7 @@ using Cebv.core.modules.persona.domain;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Cebv.core.modules.persona.presentation;
 
@@ -22,6 +23,10 @@ public partial class PersonaViewModel : ObservableObject
      */
     // Nombre de la persona
     [ObservableProperty] private string _nombre = String.Empty;
+
+    [ObservableProperty] private string _apodo = String.Empty;
+    [ObservableProperty] private string _apodoSelected = String.Empty;
+    [ObservableProperty] private ObservableCollection<string> _apodos = new();
 
     [ObservableProperty] private string _apellidoPaterno = String.Empty;
     [ObservableProperty] private string _apellidoMaterno = String.Empty;
@@ -44,11 +49,37 @@ public partial class PersonaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _generos = new();
     [ObservableProperty] private Catalogo _genero = new();
 
+    // Religión y lengua de la persona
+    [ObservableProperty] private ObservableCollection<Catalogo> _religiones = new();
+    [ObservableProperty] private Catalogo _religion = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _lenguas = new();
+    [ObservableProperty] private Catalogo _lengua = new();
+
     // Identificaciones oficiales de la persona
     [ObservableProperty] private string _rfc = String.Empty;
 
     [ObservableProperty] private string _curp = String.Empty;
     [ObservableProperty] private string _observacionesCurp = String.Empty;
+
+    /**
+     * Lógica de la clase
+     */
+    [RelayCommand]
+    private void AddApodo()
+    {
+        if (Apodo != String.Empty)
+        {
+            Apodos.Add(Apodo);
+            Apodo = String.Empty;
+        }
+    }
+
+    [RelayCommand]
+    private void RemoveApodo()
+    {
+        if (ApodoSelected != String.Empty)
+            Apodos.Remove(ApodoSelected);
+    }
 
 
     /**
@@ -58,6 +89,8 @@ public partial class PersonaViewModel : ObservableObject
     {
         Sexos = await PersonaNetwork.GetSexos();
         Generos = await PersonaNetwork.GetGeneros();
+        Religiones = await PersonaNetwork.GetReligiones();
+        Lenguas = await PersonaNetwork.GetLenguas();
         LugaresNacimientos = await UbicacionNetwork.GetEstados();
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
     }

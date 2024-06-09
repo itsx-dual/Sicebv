@@ -12,6 +12,7 @@
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      Name="DesaparecidoPage"
       Title="PersonaDesaparecidaPage">
 
     <Page.DataContext>
@@ -88,14 +89,36 @@
                         </StackPanel>
                     </WrapPanel>
 
+                    <StackPanel Margin="0 0 0 15">
+                        <WrapPanel>
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="ALIAS:" />
+                                <ui:TextBox Text="{Binding Desaparecido.Apodo}" />
+                            </StackPanel>
+
+                            <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                       VerticalAlignment="Stretch"
+                                       Appearance="Primary"
+                                       Margin="0 15 25 0"
+                                       Command="{Binding Desaparecido.AddApodoCommand}" />
+
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="LISTA DE ALIAS:" />
+                                <ComboBox SelectedItem="{Binding Desaparecido.ApodoSelected}"
+                                          ItemsSource="{Binding Desaparecido.Apodos}" />
+                            </StackPanel>
+
+                            <ui:Button Icon="{ui:SymbolIcon Delete24}"
+                                       VerticalAlignment="Stretch"
+                                       Appearance="Danger"
+                                       Margin="0 15 0 0"
+                                       Command="{Binding  Desaparecido.RemoveApodoCommand}" />
+
+                        </WrapPanel>
+                    </StackPanel>
+
                     <!-- Apodos -->
                     <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ALIAS:" />
-                            <ui:TextBox Text="{Binding Apodo}" />
-                            <ui:ListView />
-                        </StackPanel>
-
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEXO:" />
                             <ComboBox DisplayMemberPath="Nombre"
@@ -306,7 +329,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NACIONALIDAD:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Nacionaliad}"
+                                      SelectedItem="{Binding Nacionalidad}"
                                       ItemsSource="{Binding Nacionalidades}" />
                         </StackPanel>
 

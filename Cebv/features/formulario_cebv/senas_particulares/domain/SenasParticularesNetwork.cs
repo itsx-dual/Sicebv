@@ -8,7 +8,7 @@ namespace Cebv.features.formulario_cebv.senas_particulares.domain;
 
 public class SenasParticularesNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     public static async Task<List<SenasParticularesData>> GetSenasParticulares()
     {

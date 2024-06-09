@@ -8,13 +8,13 @@ namespace Cebv.features.login.domain;
 
 public class LoginNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     private static TokenWrapped Token(string json)
     {
         var token = JsonSerializer.Deserialize<TokenWrapped>(json)!;
         Client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", token!.data.TokenText);
+            new AuthenticationHeaderValue("Bearer", token.data.TokenText);
         return token;
     }
 

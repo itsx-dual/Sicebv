@@ -7,7 +7,7 @@ namespace Cebv.features.dashboard.domain;
 
 public class DashboardNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => HttpClientHandler.SharedClient;
 
     public static async Task<Usuario> GetUsuarioActualRequest()
     {

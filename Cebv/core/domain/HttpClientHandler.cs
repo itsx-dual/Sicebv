@@ -6,7 +6,7 @@ namespace Cebv.core.domain;
 
 public class HttpClientHandler
 {
-    public static HttpClient SharedClientHandler = new()
+    public static HttpClient SharedClient = new()
     {
         // La uri se obtiene de App.config.               Podemos poner un fallback uri      ↓
         BaseAddress = new Uri( ConfigurationManager.AppSettings.Get("api_uri") ?? string.Empty ),
