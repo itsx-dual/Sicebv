@@ -2,14 +2,14 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text.Json;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.modules.ubicacion.data;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.core.modules.ubicacion.domain;
 
 public class UbicacionNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<Estado>> GetEstados()
     {

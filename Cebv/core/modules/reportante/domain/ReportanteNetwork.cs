@@ -3,15 +3,15 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
 using CommunityToolkit.Diagnostics;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.core.modules.reportante.domain;
 
 public class ReportanteNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<Object> GetReporte(int reporteId)
     {

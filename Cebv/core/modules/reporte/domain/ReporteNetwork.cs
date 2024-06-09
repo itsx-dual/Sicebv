@@ -3,14 +3,14 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.core.modules.reporte.domain;
 
 public class ReporteNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<ReporteResponse>> GetReportes()
     {

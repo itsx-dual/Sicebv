@@ -2,13 +2,13 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text.Json;
 using Cebv.core.data;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
+using Cebv.core.domain;
 
 namespace Cebv.core.modules.persona.domain;
 
 public static class PersonaNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<Catalogo>> GetSexos()
     {

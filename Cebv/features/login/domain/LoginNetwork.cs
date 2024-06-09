@@ -1,14 +1,14 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Cebv.core.domain;
 using Cebv.features.login.data;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.features.login.domain;
 
 public class LoginNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     private static TokenWrapped Token(string json)
     {

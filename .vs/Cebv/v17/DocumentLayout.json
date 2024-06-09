@@ -3,22 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\features\\formulario_cebv\\persona_desaparecida\\presentation\\personadesaparecidapage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\formulario_cebv\\persona_desaparecida\\presentation\\personadesaparecidapage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\features\\formulario_cebv\\presentation\\formulariocebvpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\formulario_cebv\\presentation\\formulariocebvpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\features\\formulario_cebv\\reportante\\presentation\\reportantepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\formulario_cebv\\reportante\\presentation\\reportantepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\core\\modules\\reportante\\domain\\reportantenetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\core\\modules\\reportante\\domain\\reportantenetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\core\\domain\\httpclienthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\core\\domain\\httpclienthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,8 +15,24 @@
       "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\core\\modules\\persona\\presentation\\personaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\core\\modules\\reportante\\domain\\reportantenetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\core\\modules\\reportante\\domain\\reportantenetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\core\\modules\\persona\\domain\\personanetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\core\\modules\\persona\\domain\\personanetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\features\\formulario_cebv\\persona_desaparecida\\presentation\\personadesaparecidapage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\formulario_cebv\\persona_desaparecida\\presentation\\personadesaparecidapage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\features\\formulario_cebv\\presentation\\formulariocebvpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\formulario_cebv\\presentation\\formulariocebvpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|c:\\users\\rght_\\riderprojects\\sicebv\\cebv\\features\\formulario_cebv\\reportante\\presentation\\reportantepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C9CD9386-2027-4D28-A8D0-130CAC768223}|Cebv\\Cebv.csproj|solutionrelative:cebv\\features\\formulario_cebv\\reportante\\presentation\\reportantepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,11 +42,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "PersonaDesaparecidaPage.xaml",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\features\\formulario_cebv\\persona_desaparecida\\presentation\\PersonaDesaparecidaPage.xaml",
               "RelativeDocumentMoniker": "Cebv\\features\\formulario_cebv\\persona_desaparecida\\presentation\\PersonaDesaparecidaPage.xaml",
@@ -58,32 +58,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "FormularioCebvPage.xaml",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\features\\formulario_cebv\\presentation\\FormularioCebvPage.xaml",
               "RelativeDocumentMoniker": "Cebv\\features\\formulario_cebv\\presentation\\FormularioCebvPage.xaml",
               "ToolTip": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\features\\formulario_cebv\\presentation\\FormularioCebvPage.xaml",
               "RelativeToolTip": "Cebv\\features\\formulario_cebv\\presentation\\FormularioCebvPage.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-09T03:14:17.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-09T03:14:17.593Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "HttpClientHandler.cs",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\domain\\HttpClientHandler.cs",
               "RelativeDocumentMoniker": "Cebv\\core\\domain\\HttpClientHandler.cs",
               "ToolTip": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\domain\\HttpClientHandler.cs",
               "RelativeToolTip": "Cebv\\core\\domain\\HttpClientHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-09T02:57:34.905Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "ReportanteViewModel.cs",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportanteViewModel.cs",
               "RelativeDocumentMoniker": "Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportanteViewModel.cs",
@@ -91,19 +90,21 @@
               "RelativeToolTip": "Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportanteViewModel.cs",
               "ViewState": "AQIAADIAAAAAAAAAAAAAwCsAAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-09T02:55:16.207Z"
+              "WhenOpened": "2024-06-09T02:55:16.207Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "PersonaViewModel.cs",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\modules\\persona\\presentation\\PersonaViewModel.cs",
               "RelativeDocumentMoniker": "Cebv\\core\\modules\\persona\\presentation\\PersonaViewModel.cs",
               "ToolTip": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\modules\\persona\\presentation\\PersonaViewModel.cs",
               "RelativeToolTip": "Cebv\\core\\modules\\persona\\presentation\\PersonaViewModel.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAQwBMAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-09T02:54:57.566Z"
+              "WhenOpened": "2024-06-09T02:54:57.566Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -113,22 +114,21 @@
               "RelativeDocumentMoniker": "Cebv\\core\\modules\\reportante\\domain\\ReportanteNetwork.cs",
               "ToolTip": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\modules\\reportante\\domain\\ReportanteNetwork.cs",
               "RelativeToolTip": "Cebv\\core\\modules\\reportante\\domain\\ReportanteNetwork.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABCAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-09T02:52:54.405Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "ReportantePage.xaml",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportantePage.xaml",
               "RelativeDocumentMoniker": "Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportantePage.xaml",
               "ToolTip": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportantePage.xaml",
               "RelativeToolTip": "Cebv\\features\\formulario_cebv\\reportante\\presentation\\ReportantePage.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-09T02:47:17.339Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-09T02:47:17.339Z"
             }
           ]
         }
@@ -153,13 +153,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "PersonaNetwork.cs",
               "DocumentMoniker": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\modules\\persona\\domain\\PersonaNetwork.cs",
               "RelativeDocumentMoniker": "Cebv\\core\\modules\\persona\\domain\\PersonaNetwork.cs",
               "ToolTip": "C:\\Users\\rght_\\RiderProjects\\Sicebv\\Cebv\\core\\modules\\persona\\domain\\PersonaNetwork.cs",
               "RelativeToolTip": "Cebv\\core\\modules\\persona\\domain\\PersonaNetwork.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAA+AAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAE4AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-09T02:48:27.9Z",
               "EditorCaption": ""

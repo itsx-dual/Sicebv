@@ -1,13 +1,13 @@
 using System.Net.Http;
 using System.Text.Json;
+using Cebv.core.domain;
 using Cebv.features.dashboard.data;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.features.dashboard.domain;
 
 public class DashboardNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<Usuario> GetUsuarioActualRequest()
     {
