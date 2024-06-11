@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 using Cebv.core.util;
 
@@ -8,14 +9,15 @@ public partial class CondicionesVulnerabilidadPage : Page
     public CondicionesVulnerabilidadPage()
     {
         InitializeComponent();
-        
-        CaracteristicasVilnerabilidadTb.TextChanged += TextBoxHelper.UpperCaseText;
-        CaracteristicasVilnerabilidadTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        InformacionPersonalTb.TextChanged += TextBoxHelper.UpperCaseText;
-        InformacionPersonalTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        MesesEmbarazoTb.TextChanged += TextBoxHelper.UpperCaseText;
-        MesesEmbarazoTb.LostFocus += TextBoxHelper.TrimmedText;
+        SubscribeTexBoxesEvents(this);
+    }
+
+    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    {
+        foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
+        {
+            textBox.TextChanged += TextBoxHelper.UpperCaseText;
+            textBox.LostFocus += TextBoxHelper.TrimmedText;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 using Cebv.core.util;
 
@@ -8,29 +9,15 @@ public partial class DatosDeLocalizacionPage : Page
     public DatosDeLocalizacionPage()
     {
         InitializeComponent();
+        SubscribeTexBoxesEvents(this);
+    }
 
-        SintesisLocalizacionTb.TextChanged += TextBoxHelper.UpperCaseText;
-        SintesisLocalizacionTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        HipervinculoSintesisLocalizacionTb.TextChanged += TextBoxHelper.UpperCaseText;
-        HipervinculoSintesisLocalizacionTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        ClasificacionPersonaLocalizadaTb.TextChanged += TextBoxHelper.UpperCaseText;
-        ClasificacionPersonaLocalizadaTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        AreaCodificaInicialTb.TextChanged += TextBoxHelper.UpperCaseText;
-        AreaCodificaInicialTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        HipotesisTb.TextChanged += TextBoxHelper.UpperCaseText;
-        HipotesisTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        StatusTb.TextChanged += TextBoxHelper.UpperCaseText;
-        StatusTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        CircunstanciaTb.TextChanged += TextBoxHelper.UpperCaseText;
-        CircunstanciaTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        ObservacionesActualizacionStatusTb.TextChanged += TextBoxHelper.UpperCaseText;
-        ObservacionesActualizacionStatusTb.LostFocus += TextBoxHelper.TrimmedText;
+    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    {
+        foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
+        {
+            textBox.TextChanged += TextBoxHelper.UpperCaseText;
+            textBox.LostFocus += TextBoxHelper.TrimmedText;
+        }
     }
 }

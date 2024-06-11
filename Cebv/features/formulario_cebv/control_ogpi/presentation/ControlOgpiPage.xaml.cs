@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 using Cebv.core.util;
 
@@ -8,14 +9,15 @@ public partial class ControlOgpiPage : Page
     public ControlOgpiPage()
     {
         InitializeComponent();
-        
-        NombreCapturistaTb.TextChanged += TextBoxHelper.UpperCaseText;
-        NombreCapturistaTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        ObservacionesGeneralesTb.TextChanged += TextBoxHelper.UpperCaseText;
-        ObservacionesGeneralesTb.LostFocus += TextBoxHelper.TrimmedText;
-        
-        NoTarjetaTb.TextChanged += TextBoxHelper.UpperCaseText;
-        NoTarjetaTb.LostFocus += TextBoxHelper.TrimmedText;
+        SubscribeTexBoxesEvents(this);
+    }
+
+    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    {
+        foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
+        {
+            textBox.TextChanged += TextBoxHelper.UpperCaseText;
+            textBox.LostFocus += TextBoxHelper.TrimmedText;
+        }
     }
 }

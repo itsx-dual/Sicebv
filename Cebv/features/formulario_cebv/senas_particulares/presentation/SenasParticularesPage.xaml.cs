@@ -13,9 +13,7 @@ public partial class SenasParticularesPage : Page
     public SenasParticularesPage()
     {
         InitializeComponent();
-
-        DescripcionTb.TextChanged += TextBoxHelper.UpperCaseText;
-        DescripcionTb.LostFocus += TextBoxHelper.TrimmedText;
+        SubscribeTexBoxesEvents(this);
     }
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -53,5 +51,14 @@ public partial class SenasParticularesPage : Page
     private void VerificarInt(object sender, TextCompositionEventArgs e)
     {
         //throw new NotImplementedException();
+    }
+    
+    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    {
+        foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
+        {
+            textBox.TextChanged += TextBoxHelper.UpperCaseText;
+            textBox.LostFocus += TextBoxHelper.TrimmedText;
+        }
     }
 }
