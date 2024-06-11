@@ -11,6 +11,7 @@
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      x:Name="Page"
       Title="VehiculosInvolucradosPage">
     
     <Page.DataContext>
@@ -114,7 +115,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NUMERO DE SERIE: " FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NoSerie}"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -171,10 +172,14 @@
                                        Command="{Binding OpenFileCommand}"
                                        Content="Añadir imagenes"/>
                         </StackPanel>
-
                     </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="4"
+                               x:Name="Imagenes"
+                               DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
+                               DataContextChanged="Imagenes_OnDataContextChanged"/>
 
-                    <WrapPanel Grid.Row="4" Margin="0,14,0,0">
+                    <WrapPanel Grid.Row="5" Margin="0,14,0,0">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="ESTATUS DEL VEHICULO"></ui:TextBlock>
 
@@ -189,6 +194,7 @@
                 </Grid>
             </Border>
         </StackPanel>
+        
         
         <!-- Footer -->
         <ui:Button Grid.Row="2"
