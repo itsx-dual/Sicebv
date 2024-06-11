@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -11,6 +12,11 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="VehiculosInvolucradosPage">
+    
+    <Page.DataContext>
+        <presentation:VehiculosInvolucradosViewModel/>
+    </Page.DataContext>
+    
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="Padding" Value="16" />
@@ -24,9 +30,9 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <!-- Header -->
@@ -162,6 +168,7 @@
                             
                             <ui:TextBlock Text="Fotografias"></ui:TextBlock>
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                       Command="{Binding OpenFileCommand}"
                                        Content="Añadir imagenes"/>
                         </StackPanel>
 
