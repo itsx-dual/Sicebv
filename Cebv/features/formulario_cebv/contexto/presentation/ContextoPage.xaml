@@ -63,7 +63,7 @@
             </ui:DataGrid>
 
 
-            <ui:TextBlock Text="Contexto economico-laboral" FontTypography="Title" Margin="10" />
+            <ui:TextBlock Text="Contexto económico-laboral" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
@@ -89,7 +89,7 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel Margin="0 0 25 0">
-                            <TextBlock Text="¿Ha manifestado intencion de irse a trabajar fuera de la ciudad?" />
+                            <TextBlock Text="¿Ha manifestado intención de irse a trabajar fuera de la ciudad?" />
                             <ComboBox />
                         </StackPanel>
                         <StackPanel MinWidth="200"
@@ -102,7 +102,7 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Ha sufrido violencia por parte de algun compañero de trabajo?" />
+                            <ui:TextBlock Text="¿Ha sufrido violencia por parte de algún compañero de trabajo?" />
                             <ComboBox />
                         </StackPanel>
                         <StackPanel MinWidth="250">
@@ -283,11 +283,11 @@
                         <ui:DataGrid.Columns>
                             <DataGridTextColumn Header="Nivel"
                                                 Width="*" />
-                            <DataGridTextColumn Header="Institucion"
+                            <DataGridTextColumn Header="Institución"
                                                 Width="*" />
                             <DataGridTextColumn Header="Horario"
                                                 Width="*" />
-                            <DataGridTextColumn Header="Direccion"
+                            <DataGridTextColumn Header="Dirección"
                                                 Width="*" />
                         </ui:DataGrid.Columns>
                     </ui:DataGrid>
@@ -309,7 +309,7 @@
                                                 Width="*" />
                             <DataGridTextColumn Header="Apodo"
                                                 Width="*" />
-                            <DataGridTextColumn Header="Telefono"
+                            <DataGridTextColumn Header="Teléfono"
                                                 Width="*" />
                             <DataGridTextColumn Header="Dirección"
                                                 Width="*" />

@@ -55,6 +55,26 @@ public partial class PersonaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _lenguas = new();
     [ObservableProperty] private Catalogo _lengua = new();
 
+    // Escolaridad de la persona
+    [ObservableProperty] private ObservableCollection<Catalogo> _escolaridades = new();
+    [ObservableProperty] private Catalogo _escolaridad = new();
+    
+    // Grupos vulnerables
+    [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
+    [ObservableProperty] private Catalogo _grupoVulnerable = new();
+
+    //  Ocupaciones de la persona
+    [ObservableProperty] private ObservableCollection<Catalogo> _ocupaciones = new();
+    [ObservableProperty] private Catalogo _ocupacionUno = new();
+    [ObservableProperty] private string _ocupacionUnoObservaciones = String.Empty;
+    [ObservableProperty] private Catalogo _ocupacionDos = new();
+    [ObservableProperty] private string _ocupacionDosObservaciones = String.Empty;
+
+    // Estado Conyugal
+    [ObservableProperty] private ObservableCollection<Catalogo> _estadosConyugales = new();
+    [ObservableProperty] private Catalogo _estadoConyugal = new();
+    [ObservableProperty] private string _nombrePareja = String.Empty;
+
     // Identificaciones oficiales de la persona
     [ObservableProperty] private string _rfc = String.Empty;
 
@@ -67,18 +87,16 @@ public partial class PersonaViewModel : ObservableObject
     [RelayCommand]
     private void AddApodo()
     {
-        if (Apodo != String.Empty)
-        {
-            Apodos.Add(Apodo);
-            Apodo = String.Empty;
-        }
+        if (Apodo == String.Empty) return;
+        Apodos.Add(Apodo);
+        Apodo = String.Empty;
     }
 
     [RelayCommand]
     private void RemoveApodo()
     {
-        if (ApodoSelected != String.Empty)
-            Apodos.Remove(ApodoSelected);
+        if (ApodoSelected == String.Empty) return;
+        Apodos.Remove(ApodoSelected);
     }
 
 
@@ -93,5 +111,9 @@ public partial class PersonaViewModel : ObservableObject
         Lenguas = await PersonaNetwork.GetLenguas();
         LugaresNacimientos = await UbicacionNetwork.GetEstados();
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
+        Escolaridades = await PersonaNetwork.GetEscolaridades();
+        Ocupaciones = await PersonaNetwork.GetOcupaciones();
+        EstadosConyugales = await PersonaNetwork.GetEstadosConyugales();
+        GruposVulnerables = await PersonaNetwork.GetGruposVulnerables();
     }
 }

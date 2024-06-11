@@ -1,9 +1,8 @@
 using System.Windows;
+using Cebv.core.modules.persona.presentation;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 using Cebv.features.formulario_cebv.presentation;
-using Cebv.features.formulario_cebv.presentation.data;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 
 namespace Cebv;
 
@@ -35,6 +34,10 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
+        services.AddScoped<FormularioCebvViewModel>();
+        services.AddScoped<PersonaViewModel>();
+        services.AddScoped<DesaparecidoViewModel>();
+            
         return services.BuildServiceProvider();
     }
 }

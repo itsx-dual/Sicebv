@@ -59,8 +59,8 @@
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="ZONA DE DESAPARICION:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBlock Text="ZONA DEL ESTADO:" />
+                        <ui:TextBox />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
@@ -74,32 +74,27 @@
             <ui:TextBlock Text="Información del reporte" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
-                    <WrapPanel Margin="0 0 0 15" IsEnabled="False">
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ZONA DEL ESTADO:" />
-                            <ComboBox />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
-                            <ComboBox />
-                        </StackPanel>
-                    </WrapPanel>
-
-                    <WrapPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TIPO DE FOLIO: *" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding TipoReporte}"
                                       ItemsSource="{Binding TiposReportes }" />
                         </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                        
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TIPO DE DESAPARICIÓN:" />
                             <ComboBox>
                                 <ComboBoxItem Content="Único" />
                                 <ComboBoxItem Content="Múltiple" />
                             </ComboBox>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 25 0">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
+                            <ComboBox />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">

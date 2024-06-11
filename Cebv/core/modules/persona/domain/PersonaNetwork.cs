@@ -64,6 +64,29 @@ public static class PersonaNetwork
 
         return jsonResponse.Data;
     }
+    
+    public static async Task<ObservableCollection<Catalogo>> GetOcupaciones()
+    {
+        using var request = await Client.GetAsync("api/ocupaciones");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
+    
+    
+    public static async Task<ObservableCollection<Catalogo>> GetGruposVulnerables()
+    {
+        using var request = await Client.GetAsync("api/grupos-vulnerables");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
 
     public static async Task<ObservableCollection<Catalogo>> GetEstadosConyugales()
     {

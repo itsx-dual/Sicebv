@@ -9,8 +9,8 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
-      d:DesignHeight="1000"
+      d:DesignWidth="Auto"
+      d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="ReportantePage">
 
@@ -161,7 +161,7 @@
 
             <!-- Datos de contacto -->
             <ui:TextBlock Text="Datos de contacto" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -210,7 +210,7 @@
 
             <!-- Domicilio de la persona -->
             <ui:TextBlock Text="Domicilio de la persona" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -287,14 +287,14 @@
             </Border>
 
             <ui:TextBlock Text="Información relevante" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NIVEL DE ESCOLARIDAD: " />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Escolaridad}"
-                                      ItemsSource="{Binding Escolaridades}" />
+                                      SelectedItem="{Binding Reportante.Escolaridad}"
+                                      ItemsSource="{Binding Reportante.Escolaridades}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -308,13 +308,15 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="ESTADO CONYUGAL: " />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding EstadoConyugal}"
-                                      ItemsSource="{Binding EstadosConyugales}" />
+                                      SelectedItem="{Binding Reportante.EstadoConyugal}"
+                                      ItemsSource="{Binding Reportante.EstadosConyugales}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 15 0">
                             <ui:TextBlock Text="PERTENENCIA A ALGÚN GRUPO DE POBLACIÓN VULNERABLE:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Reportante.GrupoVulnerable}"
+                                      ItemsSource="{Binding Reportante.GruposVulnerables}"/>
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -332,12 +334,13 @@
             </Border>
 
             <ui:TextBlock Text="Participación en búsquedas" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿HA REALIZADO BÚSQUEDAS CON ANTERIORIDAD?" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding ParticipoBusquedaOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -351,23 +354,24 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PERTENECE A ALGÚN COLECTIVO: " />
                             <ComboBox SelectedItem="{Binding PertenciaColectivo}"
-                                      ItemsSource="{Binding PertenenciasColectivos}" />
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="NOMBRE DEL COLECTIVO: " />
-                            <ui:TextBox Text="{Binding NombreColectivo }" />
+                            <ui:TextBlock Text="COLECTIVO: " />
+                            <ComboBox />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Datos de posible extorsión o amenaza" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}">
                 <StackPanel>
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="¿HA SIDO VICTIMA DE EXTORSIÓN O FRAUDE?" />
-                        <ComboBox />
+                        <ComboBox SelectedItem="{Binding VictimaExtorsionOpcion}"
+                                  ItemsSource="{Binding  Opciones}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -377,7 +381,8 @@
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
                         <ui:TextBlock Text="¿HA RECIBIDO AMENAZAS?" />
-                        <ComboBox />
+                        <ComboBox SelectedItem="{Binding RecibioAmenazaOpcion}"
+                                  ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <StackPanel>

@@ -114,7 +114,7 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE PERCATO PARA CBV:" />
+                            <ui:TextBlock Text="FECHA DE PERCATO PARA CNB:" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -317,7 +317,7 @@
             </Border>
 
             <ui:TextBlock Text="Desaparición asociada" FontTypography="Title" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -331,44 +331,56 @@
                         </StackPanel>
                     </WrapPanel>
 
-                    <StackPanel MinWidth="300" Margin="0 0 0 15">
-                        <ui:TextBlock Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONA(S):" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                    <StackPanel Margin="10">
+                        <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
+                                    FontSize="14"
+                                    Title="Expedientes directos:"
+                                    Severity="Informational"
+                                    IsOpen="True"
+                                    IsClosable="False" />
                     </StackPanel>
 
-                    <ui:DataGrid MinHeight="200"
-                                 AutoGenerateColumns="False"
-                                 Margin="10">
-                        <ui:DataGrid.Columns>
-                            <DataGridTextColumn Header="Nombre de la persona" Width="*" />
-                            <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
-                            <DataGridTextColumn Header="Folio CEBV" Width="*" />
-                        </ui:DataGrid.Columns>
-                    </ui:DataGrid>
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONAS(S)" />
+                        <ui:DataGrid MinHeight="200"
+                                     AutoGenerateColumns="False"
+                                     Margin="10">
+                            <ui:DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre de la persona" Width="*" />
+                                <!-- Añadir el nombre de la persona en el campo de abajo de la cuál es el registro -->
+                                <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
+                                <DataGridTextColumn Header="Folio CEBV" Width="*" />
+                            </ui:DataGrid.Columns>
+                        </ui:DataGrid>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ui:InfoBar Message="{StaticResource LeyendaFolioIndirecto}"
+                                    FontSize="14"
+                                    Severity="Informational"
+                                    IsOpen="True"
+                                    Margin="10"
+                                    Title="Expediente indirectos"
+                                    IsClosable="False" />
+
+
+                        <StackPanel>
+                            <ui:TextBlock Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONAS(S)" />
+                            <ui:DataGrid MinHeight="200"
+                                         AutoGenerateColumns="False"
+                                         Margin="10">
+                                <ui:DataGrid.Columns>
+                                    <DataGridTextColumn Header="Nombre de la persona" Width="*" />
+                                    <!-- Añadir el nombre de la persona en el campo de abajo de la cuál es el registro -->
+                                    <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
+                                    <DataGridTextColumn Header="Folio CEBV" Width="*" />
+                                </ui:DataGrid.Columns>
+                            </ui:DataGrid>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
-            <ui:TextBlock Text="Folios Directos" FontTypography="Title" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <StackPanel>
-                    <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
-                                FontSize="16"
-                                Severity="Informational"
-                                IsOpen="True"
-                                IsClosable="False" />
-                </StackPanel>
-            </Border>
-
-            <ui:TextBlock Text="Folios Indirectos" FontTypography="Title" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}">
-                <StackPanel>
-                    <ui:InfoBar Message="{StaticResource LeyendaFolioIndirecto}"
-                                FontSize="16"
-                                Severity="Informational"
-                                IsOpen="True"
-                                IsClosable="False" />
-                </StackPanel>
-            </Border>
         </StackPanel>
 
         <!-- Footer -->

@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -87,6 +86,11 @@
                             <ui:TextBlock Text="¿EXISTIÓ DETENCIÓN LEGAL PREVIA O EXTORSIÓN?" />
                             <ComboBox />
                         </StackPanel>
+                        
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="OBSERVACIONES DE LA DETENCIÓN LEGAL O EXTORSIÓN:" />
+                            <ui:TextBox />
+                        </StackPanel>
                     </WrapPanel>
 
                     <ui:TextBlock Text="Después de la desaparición o privación de la libertad de la persona..."
@@ -140,14 +144,14 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="DESCIPCIÓN DEL GRUPO PERPETRADOR" />
+                            <ui:TextBlock Text="DESCRIPCIÓN DEL GRUPO PERPETRADOR" />
                             <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
                     
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿SE SUCITARON OTROS DELITOS ANTES O DESPUÉS DE LA DESAPARICIÓN?" />
+                            <ui:TextBlock Text="¿SE SUSCITARON OTROS DELITOS ANTES O DESPUÉS DE LA DESAPARICIÓN?" />
                             <ComboBox />
                         </StackPanel>
 

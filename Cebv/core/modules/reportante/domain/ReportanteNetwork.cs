@@ -9,7 +9,7 @@ using CommunityToolkit.Diagnostics;
 
 namespace Cebv.core.modules.reportante.domain;
 
-public class ReportanteNetwork
+public static class ReportanteNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 

@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -26,9 +25,9 @@
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -145,6 +144,11 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="CEJAS:" />
                             <ComboBox />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LAS CEJAS:" />
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
