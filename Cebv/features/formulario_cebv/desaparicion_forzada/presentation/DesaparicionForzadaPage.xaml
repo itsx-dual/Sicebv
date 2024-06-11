@@ -1,0 +1,176 @@
+<Page x:Class="Cebv.features.formulario_cebv.desaparicion_forzada.presentation.DesaparicionForzadaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1200"
+      d:DesignHeight="auto"
+      mc:Ignorable="d"
+      Title="DesaparicionForzadaPage">
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource DesaparicionForzadaTitle}" FontTypography="TitleLarge" />
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="Condiciones de desaparición" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SUFRIÓ DESAPARICIÓN FORZADA?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="AUTORIDAD:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="DESCRIBA LA SITUACIÓN:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SUFRIÓ DESAPARICIÓN POR PARTICULARES?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="PARTICULAR:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="DESCRIBA LA SITUACIÓN:" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="MÉTODO DE CAPTURA:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="OBSERVACIONES DEL MÉTODO DE CAPTURA:" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿EXISTIÓ DETENCIÓN LEGAL PREVIA O EXTORSIÓN?" />
+                            <ComboBox />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="OBSERVACIONES DE LA DETENCIÓN LEGAL O EXTORSIÓN:" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <ui:TextBlock Text="Después de la desaparición o privación de la libertad de la persona..."
+                                  FontTypography="BodyStrong"
+                                  FontWeight="Bold"
+                                  Margin="0 0 0 15" />
+
+                    <WrapPanel>
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿HA SIDO AVISTADO EN ALGUNA PARTE?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="¿DÓNDE?" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Información sobre el perpetrador" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NOMBRE(S) / APODO(S)" />
+                            <ui:TextBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SEXO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 10 0">
+                            <ui:TextBlock Text="DESCRIPCIÓN:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+
+                        <ui:Button Margin="0 15 0 0"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   VerticalAlignment="Stretch"
+                                   Appearance="Primary" />
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ÚLTIMO ESTATUS DEL PERPETRADOR:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="DESCRIPCIÓN DEL GRUPO PERPETRADOR" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <WrapPanel>
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SE SUSCITARON OTROS DELITOS ANTES O DESPUÉS DE LA DESAPARICIÓN?" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="ESPECIFIQUE CUÁLES:" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
+    </Grid>
+</Page>

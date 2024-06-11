@@ -1,0 +1,125 @@
+<Page x:Class="Cebv.features.dashboard.comunicacion_difusion.difusion.presentation.DifusionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1200"
+      d:DesignHeight="auto"
+      mc:Ignorable="d"
+      Title="DifusionPage">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
+
+
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource DifusionTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="Persona desaparecida relacionada" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <ui:AutoSuggestBox PlaceholderText="Buscar..." Margin="0 0 0 15" />
+
+                    <ui:CardExpander>
+                        <ui:CardExpander.Header>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:TextBlock Text="Nombre" Margin="0 0 5 0" FontTypography="Subtitle" />
+                                    <ui:TextBlock Text="Apellido1" Margin="0 0 5 0" FontTypography="Subtitle" />
+                                    <ui:TextBlock Text="Apellido2 " FontTypography="Subtitle" />
+                                </StackPanel>
+
+                                <ui:TextBlock Text="EJEMPLO-FOLIO-123" />
+                            </StackPanel>
+                        </ui:CardExpander.Header>
+
+                        <StackPanel>
+                            <WrapPanel>
+                                <StackPanel MinWidth="250" IsEnabled="False">
+                                    <ui:TextBlock Text="NOMBRE COLECTIVO:" />
+                                    <ui:TextBox Text="ITSX COLECTIVO NOMBRE" />
+                                </StackPanel>
+                            </WrapPanel>
+                        </StackPanel>
+                    </ui:CardExpander>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Información de la difusión" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
+                            <ui:TextBlock Text="IDENTIFICADOR DE DIFUSIÓN:" />
+                            <ui:TextBox HorizontalContentAlignment="Center" Text="4" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="400">
+                            <ui:TextBlock Text="PERSONA QUE SOLICITA:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE SOLICITUD:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="FECHA DE ENTREGA:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE INICIO DE DIFUSIÓN:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE TÉRMINO DE DIFUSIÓN:" />
+                            <DatePicker IsTodayHighlighted="True" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="TIPO DE MATERIAL PROPORCIONADO:" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NÚMERO DE PERSONAS PARTICIPANTES" />
+                            <ui:NumberBox Value="1" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <StackPanel>
+                        <ui:TextBlock Text="OBSERVACIONES:" />
+                        <ui:TextBox MinHeight="150" TextWrapping="Wrap" AcceptsReturn="True" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
+    </Grid>
+</Page>

@@ -15,6 +15,7 @@
     <Page.DataContext>
         <local:LoginViewModel />
     </Page.DataContext>
+    
     <Grid>
         <ui:TitleBar Title="Inicio de sesión"/>
 
@@ -32,7 +33,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                     <Grid>
-                        <ui:Image Source="/core/assets/images/icon_cebv.png"
+                        <ui:Image Source="/core/resources/images/icon_cebv.png"
                                   Width="300"
                                   Margin="5" />
                     </Grid>
@@ -59,10 +60,14 @@
                                        Width="290"
                                        Command="{Binding IniciarSesionCommand}"
                                        Content="Iniciar sesión" />
+                            
+                            <ui:TextBlock Text="{Binding  ErrorMessage}" 
+                                          Foreground="Maroon"
+                                          Visibility="{Binding ErrorVisibility}"
+                                          Margin="5"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-
             </Border>
         </StackPanel>
     </Grid>

@@ -9,8 +9,16 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemesDictionary Theme="Dark"/>
+                <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
+
+                <ResourceDictionary Source="core/resources/designsystem/Styles.xaml" />
+
+                <ResourceDictionary Source="core/resources/strings/BusquedaFamiliaString.xaml" />
+                <ResourceDictionary Source="core/resources/strings/ComunicacionDifusionPage.xaml" />
+                <ResourceDictionary Source="core/resources/strings/EncuadrePreeliminarString.xaml" />
+                <ResourceDictionary Source="core/resources/strings/ReporteDesaparicionString.xaml" />
+                <ResourceDictionary Source="core/resources/strings/UtilString.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type presentation:LoginViewModel}">

@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -13,58 +12,94 @@
       mc:Ignorable="d"
       Title="ControlOgpiPage">
 
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
+    <Grid Margin="10">
 
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
-        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
-    </Page.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
 
-    <Grid>
-        <StackPanel Orientation="Vertical" Margin="10">
-            <ui:TextBlock HorizontalAlignment="Left" Text="Control OGPI" FontTypography="TitleLarge" />
-            <Separator Height="25" Background="Transparent" BorderThickness="0" />
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource ControlOgpiTitle}" FontTypography="TitleLarge" />
 
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
             <!-- Datos de identificación de la persona -->
-            <ui:TextBlock Text="Información general" FontTypography="Subtitle" Margin="10" />
-            <Border>
+            <ui:TextBlock Text="Información general" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
-
-                    <WrapPanel>
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="FECHA DE CAPTURA:*" FontTypography="Caption" />
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FECHA DE CODIFICACIÓN:" FontTypography="Caption" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="NOMBRE DEL CAPTURISTA:" FontTypography="Caption" />
-                            <ui:TextBox x:Name="NombreCapturistaTb"/>
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="NOMBRE DE QUIEN CODIFICÓ:" FontTypography="Caption" />
+                            <ui:TextBox />
                         </StackPanel>
                     </WrapPanel>
 
-                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
-
-                    <StackPanel MinWidth="250">
+                    <StackPanel MinWidth="250" Margin="0 0 0 15">
                         <ui:TextBlock Text="OBSERVACIONES GENERALES:" FontTypography="Caption" />
-                        <ui:TextBox x:Name="ObservacionesGeneralesTb"/>
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
-                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="N° DE TARJETA OGPI:" FontTypography="Caption" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </WrapPanel>
 
-                    <StackPanel MinWidth="250">
-                        <ui:TextBlock Text="N° DE TARJETA:" FontTypography="Caption" />
-                        <ui:TextBox x:Name="NoTarjetaTb"/>
-                    </StackPanel>
+                    <Grid>
+                        <ui:Button Appearance="Primary"
+                                   HorizontalAlignment="Left"
+                                   Margin="10"
+                                   Content="Generar tarjeta" />
+
+                        <ui:Button Appearance="Primary"
+                                   HorizontalAlignment="Right"
+                                   Margin="10"
+                                   Content="Generar carátula" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Información de RNPDNO -->
+            <ui:TextBlock Text="Información RNPDNO" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel>
+                    <WrapPanel Margin="0 0  0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="FOLIO FUB:" />
+                            <ui:TextBox Text="{Binding FolioFub}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="AUTORIDAD QUE INGRESÓ FUB:" />
+                            <ui:TextBox Text="{Binding AutoridadIngresafolioFub}" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="ESTATUS DE PERSONA EN RNPDNO:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
         </StackPanel>
+
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary" />
     </Grid>
 </Page>

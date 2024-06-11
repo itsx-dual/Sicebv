@@ -1,20 +1,20 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using Cebv.core.domain;
 using Cebv.features.formulario_cebv.senas_particulares.data;
-using HttpClientHandler = Cebv.core.domain.HttpClientHandler;
 
 namespace Cebv.features.formulario_cebv.senas_particulares.domain;
 
 public class SenasParticularesNetwork
 {
-    private static HttpClient Client => HttpClientHandler.SharedClientHandler;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<List<SenasParticularesData>> GetSenasParticulares()
     {
         using HttpResponseMessage response = await Client.GetAsync("api/catalogos/region_cuerpo");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        SenasParticulares senasParticulares = JsonSerializer.Deserialize<SenasParticulares>(jsonResponse);
+        SenasParticulares senasParticulares = JsonSerializer.Deserialize<SenasParticulares>(jsonResponse)!;
         if (response.IsSuccessStatusCode)
         {
             return senasParticulares.data;
@@ -27,7 +27,7 @@ public class SenasParticularesNetwork
     {
         using HttpResponseMessage response = await Client.GetAsync("api/catalogos/region_cuerpo");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        List<RegionCuerpo> regiones_cuerpo = JsonSerializer.Deserialize<List<RegionCuerpo>>(jsonResponse);
+        List<RegionCuerpo> regiones_cuerpo = JsonSerializer.Deserialize<List<RegionCuerpo>>(jsonResponse)!;
         Dictionary<string, RegionCuerpo> dic = new Dictionary<string, RegionCuerpo>();
 
         foreach (var region in regiones_cuerpo)
@@ -42,7 +42,7 @@ public class SenasParticularesNetwork
     {
         using HttpResponseMessage response = await Client.GetAsync($"api/catalogos/tipo");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        List<TipoSenas> tipo = JsonSerializer.Deserialize<List<TipoSenas>>(jsonResponse);
+        List<TipoSenas> tipo = JsonSerializer.Deserialize<List<TipoSenas>>(jsonResponse)!;
         return tipo;
     }
     
@@ -50,7 +50,7 @@ public class SenasParticularesNetwork
     {
         using HttpResponseMessage response = await Client.GetAsync($"api/catalogos/lado");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        List<LadoSenas> lado = JsonSerializer.Deserialize<List<LadoSenas>>(jsonResponse);
+        List<LadoSenas> lado = JsonSerializer.Deserialize<List<LadoSenas>>(jsonResponse)!;
         Dictionary<string, LadoSenas> dic_lado = new Dictionary<string, LadoSenas>();
 
         foreach (LadoSenas lad in lado)
@@ -65,7 +65,7 @@ public class SenasParticularesNetwork
     {
         using HttpResponseMessage response = await Client.GetAsync($"api/catalogos/vista");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        List<VistaSenas> vista = JsonSerializer.Deserialize<List<VistaSenas>>(jsonResponse);
+        List<VistaSenas> vista = JsonSerializer.Deserialize<List<VistaSenas>>(jsonResponse)!;
         return vista;
     }
     

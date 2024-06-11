@@ -1,0 +1,27 @@
+<Page x:Class="Cebv.features.dashboard.busqueda_familia.presentation.BusquedaFamiliaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="1000"
+      d:DesignHeight="auto"
+      mc:Ignorable="d"
+      Title="BusquedaFamiliaPage">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource BusquedaFamiliaTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="TO DO" FontTypography="Subtitle" />
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Títulos -->
+    <system:String x:Key="ComunicacionDifusionTitle">Comunicación y difusion</system:String>
+    <system:String x:Key="ComunicacionTitle">Comunicación</system:String>
+    <system:String x:Key="DifusionTitle">Difusión</system:String>
+
+</ResourceDictionary>

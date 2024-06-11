@@ -7,6 +7,9 @@
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.dashboard.comunicacion_difusion.presentation"
+      xmlns:presentation2="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
+      xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -45,7 +48,8 @@
                 
                 <ui:NavigationViewItemSeparator/>
                 
-                <ui:NavigationViewItem Content="Prueba"
+                <ui:NavigationViewItem Content="{StaticResource TestTitle}"
+                                       Icon="{ui:SymbolIcon Grid24}"
                                        TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
                 
                 <ui:NavigationViewItem Content="Reportes de desaparición"
@@ -62,6 +66,18 @@
                             TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
+                
+                <ui:NavigationViewItem Content="{StaticResource EncuadreTitle}"
+                                       Icon="{ui:SymbolIcon Square24}"
+                                       TargetPageType="{x:Type presentation2:EncuadrePreeliminarPage}"/>
+                
+                <ui:NavigationViewItem Content="{StaticResource BusquedaFamiliaTitle}"
+                                       Icon="{ui:SymbolIcon GroupList24}"
+                                       TargetPageType="{x:Type presentation3:BusquedaFamiliaPage}"/>
+                
+                <ui:NavigationViewItem Content="{StaticResource ComunicacionDifusionTitle}"
+                                       Icon="{ui:SymbolIcon Mail24}"
+                                       TargetPageType="{x:Type presentation1:ComunicacionDifusionPage}"/>
                 
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>

@@ -9,290 +9,351 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1000"
-      d:DesignHeight="1000"
+      d:DesignHeight="Auto"
       mc:Ignorable="d"
       Name="PageCondiciones"
       Title="CondicionesVulnerabilidadPage">
-    
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
+
     <Page.DataContext>
         <local:CondicionesVulnerabilidadViewModel />
     </Page.DataContext>
 
-    <StackPanel Margin="5">
-        <ui:TextBlock HorizontalAlignment="Left" Text="Condiciones de Vulnerabilidad en su Salud" FontTypography="TitleLarge" />
-        <Separator Height="25" Background="Transparent" BorderThickness="0" />
-        
-        <StackPanel MinWidth="200"
-                    HorizontalAlignment="Left"
-                    Margin="10">
-            <ui:TextBlock Text="Tipo de sangre"
-                          FontTypography="Caption" />
-            <ComboBox />
-        </StackPanel>
+    <Grid Margin="10">
 
-        <ui:TextBlock Text="Condiciones de salud*"
-                      FontTypography="Subtitle" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height=".5*" />
+        </Grid.RowDefinitions>
 
-        <ui:DataGrid MinHeight="300"
-                     AutoGenerateColumns="False"
-                     ItemsSource="{Binding CondicionesSalud}"
-                     Margin="10">
-            <ui:DataGrid.Columns>
-                <DataGridTextColumn Header="Condición"
-                                    Width="*"
-                                    Binding="{Binding Path=condicion }" />
-                <DataGridTextColumn Header="Tratamiento"
-                                    Width="*"
-                                    Binding="{Binding Path=tratamiento}" />
-                <DataGridComboBoxColumn Header="Naturaleza"
-                                        Width="*">
-                </DataGridComboBoxColumn>
-                <DataGridCheckBoxColumn Header="Padece la condicion actualmente"/>
-            </ui:DataGrid.Columns>
-        </ui:DataGrid>
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource CondicionVulnerabilidadTitle}" FontTypography="TitleLarge" />
 
-        <ui:TextBlock Text="Enfoque diferenciado*"
-                      FontTypography="Subtitle" />
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.ColumnSpan="3"
-                            MinWidth="200"
-                            Margin="5">
-                    <ui:TextBlock Text="Pertenencia grupal o étnica"
-                                  FontTypography="Caption" />
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:TextBlock Text="Tipo de sangre" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel MinWidth="200">
+                    <ui:TextBlock Text="Tipo de sangre" />
                     <ComboBox />
                 </StackPanel>
+            </Border>
 
-                <!-- Enfoques diferenciados -->
-                <Grid Grid.Column="0"
-                      Grid.Row="1"
-                      Margin="5">
+            <!-- TODO: Separar los campos en listas separadas, agregar medicamento actual -->
+            <ui:TextBlock Text="Condiciones de salud" FontTypography="Title" Margin="10" />
+            <ui:DataGrid MinHeight="300"
+                         AutoGenerateColumns="False"
+                         ItemsSource="{Binding CondicionesSalud}"
+                         Margin="10">
+                <ui:DataGrid.Columns>
+                    <DataGridTextColumn Header="Condición"
+                                        Width="*"
+                                        Binding="{Binding Path=condicion }" />
+                    <DataGridTextColumn Header="Tratamiento"
+                                        Width="*"
+                                        Binding="{Binding Path=tratamiento}" />
+                    <DataGridComboBoxColumn Header="Naturaleza"
+                                            Width="*">
+                    </DataGridComboBoxColumn>
+                    <DataGridCheckBoxColumn Header="Padece la condicion actualmente" />
+                </ui:DataGrid.Columns>
+            </ui:DataGrid>
+
+            <ui:TextBlock Text="Información adicional sobre su situación migratoria" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25" Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" />
+                            <ComboBox />
+                        </StackPanel>
+                        
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock
+                                Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" />
+                            <ComboBox />
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <StackPanel>
+                        <ui:TextBlock
+                            Text="ESPECIFIQUE EL PROCESO DE REGULARIZACION MIGRATORIA QUE SE ENCUENTRA:" />
+                        <ui:TextBox />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+
+            <ui:TextBlock Text="Enfoque diferenciado" FontTypography="Title" Margin="10" />
+            <Border Margin="0 0 0 25">
+                <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <ui:TextBlock Text="&#10;Enfoque diferenciado"
-                                  FontTypography="Caption"
+                    <StackPanel Grid.ColumnSpan="3"
+                                MinWidth="200"
+                                Margin="5">
+                        <ui:TextBlock Text="Pertenencia grupal o étnica" />
+                        <ComboBox />
+                    </StackPanel>
+
+                    <!-- Enfoques diferenciados -->
+                    <Grid Grid.Column="0"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="3"
+                          Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ui:TextBlock Text="&#10;Enfoque diferenciado"
+
+                                      Grid.Column="0"
+                                      Grid.Row="0"
+                                      Grid.ColumnSpan="2" />
+
+                        <ComboBox MinWidth="200"
                                   Grid.Column="0"
-                                  Grid.Row="0"
-                                  Grid.ColumnSpan="2" />
+                                  Grid.Row="1"
+                                  ItemsSource="{Binding EnfoquesDiferenciadosCatalogo}"
+                                  SelectedItem="{Binding EnfoqueDiferenciado}" />
 
-                    <ComboBox MinWidth="200"
-                              Grid.Column="0"
-                              Grid.Row="1"
-                              ItemsSource="{Binding EnfoquesDiferenciadosCatalogo}"
-                              SelectedItem="{Binding EnfoqueDiferenciado}" />
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   VerticalAlignment="Stretch"
+                                   Appearance="Primary"
+                                   Command="{Binding AddEnfoqueDiferenciadoCommand}" />
 
-                    <ui:Button Icon="{ui:SymbolIcon Add24}"
-                               Grid.Column="1"
-                               Grid.Row="1"
-                               VerticalAlignment="Stretch"
-                               Appearance="Primary"
-                               Command="{Binding AddEnfoqueDiferenciadoCommand}" />
+                        <ui:ListView ItemsSource="{Binding Path=EnfoquesDiferenciadosSeleccionados}"
+                                     Grid.Row="2"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="3"
+                                          VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <ui:TextBlock Grid.Column="0"
+                                                      Text="{Binding Chars}"
+                                                      VerticalAlignment="Center" />
 
-                    <ui:ListView ItemsSource="{Binding Path=EnfoquesDiferenciadosSeleccionados}"
-                                 Grid.Row="2"
-                                 Grid.Column="0"
-                                 Grid.ColumnSpan="2">
-                        <ui:ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="3"
-                                      VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <ui:TextBlock Grid.Column="0"
-                                                  Text="{Binding Chars}"
-                                                  VerticalAlignment="Center" />
+                                        <StackPanel Grid.Column="1"
+                                                    HorizontalAlignment="Right">
+                                            <!-- Si no se realiza el binding al RelayCommand de esta manera,-->
+                                            <!-- se realiza otra instancia aparte del viewmodel donde el index siempre es 0 -->
+                                            <ui:Button Appearance="Danger"
+                                                       Icon="{ui:SymbolIcon Delete24}"
+                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
+                                                       CommandParameter="{Binding Chars}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </Grid>
 
-                                    <StackPanel Grid.Column="1"
-                                                HorizontalAlignment="Right">
-                                        <!-- Si no se realiza el binding al RelayCommand de esta manera,-->
-                                        <!-- se realiza otra instancia aparte del viewmodel donde el index siempre es 0 -->
-                                        <ui:Button Appearance="Danger"
-                                                   Icon="{ui:SymbolIcon Delete24}"
-                                                   Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
-                                                   CommandParameter="{Binding Chars}" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ui:ListView.ItemTemplate>
-                    </ui:ListView>
+                    <!-- Caracteristicas de riesgo -->
+                    <Grid HorizontalAlignment="Stretch"
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          Visibility="Collapsed"
+                          Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ui:TextBlock Text="Caracteristicas que pueden poner&#10;a la persona en mayor vulnerabilidad"
+
+                                      TextWrapping="Wrap"
+                                      Grid.Column="0"
+                                      Grid.Row="0"
+                                      Grid.ColumnSpan="2" />
+
+                        <ui:TextBox Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="{Binding CaracteristicaRiesgo}" />
+
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding AddCaracteristicaRiesgoCommand}" />
+
+
+                        <ui:ListView ItemsSource="{Binding Path=CaracteristicasRiesgo}"
+                                     Grid.Row="2"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="3"
+                                          VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <ui:TextBlock Grid.Column="0"
+                                                      Text="{Binding Chars}"
+                                                      VerticalAlignment="Center" />
+
+                                        <StackPanel Grid.Column="1"
+                                                    HorizontalAlignment="Right">
+                                            <ui:Button Appearance="Danger"
+                                                       Icon="{ui:SymbolIcon Delete24}"
+                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
+                                                       CommandParameter="{Binding Chars}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </Grid>
+
+                    <!-- Informacion relevante -->
+                    <Grid HorizontalAlignment="Stretch"
+                          Grid.Column="2"
+                          Grid.Row="1"
+                          Visibility="Collapsed"
+                          Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ui:TextBlock Text="Información personal que se&#10;considere relevante para la localización"
+
+                                      TextWrapping="Wrap"
+                                      Grid.Column="0"
+                                      Grid.Row="0"
+                                      Grid.ColumnSpan="2" />
+
+                        <ui:TextBox Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="{Binding InformacionRelevante}" />
+
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding AddInformacionRelevanteCommand}" />
+
+
+                        <ui:ListView ItemsSource="{Binding Path=InformacionesRelevantes}"
+                                     Grid.Row="2"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="3"
+                                          VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <ui:TextBlock Grid.Column="0"
+                                                      Text="{Binding Chars}"
+                                                      VerticalAlignment="Center" />
+
+                                        <StackPanel Grid.Column="1"
+                                                    HorizontalAlignment="Right">
+                                            <ui:Button Appearance="Danger"
+                                                       Icon="{ui:SymbolIcon Delete24}"
+                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
+                                                       CommandParameter="{Binding Chars}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </Grid>
+
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="3">
+                        <StackPanel Grid.ColumnSpan="3"
+                                    MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock
+                                Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
+                            <ui:TextBox />
+                        </StackPanel>
+
+                        <StackPanel Grid.ColumnSpan="3"
+                                    MinWidth="200"
+                                    Margin="5">
+                            <ui:TextBlock
+                                Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
+                            <ui:TextBox />
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
+            </Border>
 
-                <!-- Caracteristicas de riesgo -->
-                <Grid HorizontalAlignment="Stretch"
-                      Grid.Column="1"
-                      Grid.Row="1"
-                      Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+            <ui:TextBlock Text="Embarazo" FontTypography="Title" Margin="10" />
+            <Border>
+                <WrapPanel Margin="10">
+                    <CheckBox Content="¿Esta embarazada?"
+                              Name="EmbarazoToggleSwitch" />
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                    <ui:NumberBox Maximum="9"
+                                  Minimum="0"
+                                  PlaceholderText="Meses de embarazo"
+                                  Margin="5,0,0,0"
+                                  IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" />
+                </WrapPanel>
+            </Border>
+        </StackPanel>
 
-                    <ui:TextBlock Text="Caracteristicas que pueden poner&#10;a la persona en mayor vulnerabilidad"
-                                  FontTypography="Caption"
-                                  TextWrapping="Wrap"
-                                  Grid.Column="0"
-                                  Grid.Row="0"
-                                  Grid.ColumnSpan="2" />
-
-                    <ui:TextBox Grid.Row="1"
-                                Grid.Column="0"
-                                Text="{Binding CaracteristicaRiesgo}" x:Name="CaracteristicasVilnerabilidadTb"/>
-
-                    <ui:Button Icon="{ui:SymbolIcon Add24}"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               Appearance="Primary"
-                               VerticalAlignment="Stretch"
-                               Command="{Binding AddCaracteristicaRiesgoCommand}" />
-
-
-                    <ui:ListView ItemsSource="{Binding Path=CaracteristicasRiesgo}"
-                                 Grid.Row="2"
-                                 Grid.Column="0"
-                                 Grid.ColumnSpan="2">
-                        <ui:ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="3"
-                                      VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <ui:TextBlock Grid.Column="0"
-                                                  Text="{Binding Chars}"
-                                                  VerticalAlignment="Center" />
-
-                                    <StackPanel Grid.Column="1"
-                                                HorizontalAlignment="Right">
-                                        <ui:Button Appearance="Danger"
-                                                   Icon="{ui:SymbolIcon Delete24}"
-                                                   Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
-                                                   CommandParameter="{Binding Chars}" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ui:ListView.ItemTemplate>
-                    </ui:ListView>
-                </Grid>
-
-                <!-- Informacion relevante -->
-                <Grid HorizontalAlignment="Stretch"
-                      Grid.Column="2"
-                      Grid.Row="1"
-                      Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <ui:TextBlock Text="Información personal que se&#10;considere relevante para la localización"
-                                  FontTypography="Caption"
-                                  TextWrapping="Wrap"
-                                  Grid.Column="0"
-                                  Grid.Row="0"
-                                  Grid.ColumnSpan="2" />
-
-                    <ui:TextBox Grid.Row="1"
-                                Grid.Column="0"
-                                Text="{Binding InformacionRelevante}" x:Name="InformacionPersonalTb"/>
-
-                    <ui:Button Icon="{ui:SymbolIcon Add24}"
-                               Grid.Row="1"
-                               Grid.Column="1"
-                               Appearance="Primary"
-                               VerticalAlignment="Stretch"
-                               Command="{Binding AddInformacionRelevanteCommand}" />
-
-
-                    <ui:ListView ItemsSource="{Binding Path=InformacionesRelevantes}"
-                                 Grid.Row="2"
-                                 Grid.Column="0"
-                                 Grid.ColumnSpan="2">
-                        <ui:ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="3"
-                                      VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <ui:TextBlock Grid.Column="0"
-                                                  Text="{Binding Chars}"
-                                                  VerticalAlignment="Center" />
-
-                                    <StackPanel Grid.Column="1"
-                                                HorizontalAlignment="Right">
-                                        <ui:Button Appearance="Danger"
-                                                   Icon="{ui:SymbolIcon Delete24}"
-                                                   Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
-                                                   CommandParameter="{Binding Chars}" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ui:ListView.ItemTemplate>
-                    </ui:ListView>
-                </Grid>
-            </Grid>
-        </Border>
-
-        <ui:TextBlock Text="Embarazo"
-                      FontTypography="Subtitle" />
-
-        <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                Margin="5"
-                CornerRadius="8">
-            <WrapPanel Margin="10">
-                <CheckBox Content="¿Esta embarazada?*"
-                          Name="EmbarazoToggleSwitch" />
-
-                <ui:NumberBox Maximum="9"
-                              Minimum="0"
-                              PlaceholderText="Meses de embarazo"
-                              Margin="5,0,0,0"
-                              IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" x:Name="MesesEmbarazoTb"/>
-            </WrapPanel>
-        </Border>
-
-        <ui:Button Content="Guardar y siguente"
+        <!-- Footer -->
+        <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarReporteCommand}"
+                   Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
-                   HorizontalAlignment="Stretch"
                    Margin="10"
+                   HorizontalAlignment="Stretch"
                    Appearance="Primary" />
-    </StackPanel>
+    </Grid>
 </Page>

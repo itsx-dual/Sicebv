@@ -1,4 +1,4 @@
-using Cebv.features.reporte.data;
+using Cebv.core.modules.reporte.data;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.domain;

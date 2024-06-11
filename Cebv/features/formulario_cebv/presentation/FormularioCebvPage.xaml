@@ -18,6 +18,10 @@
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       xmlns:presentation9="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
+      xmlns:presentation10="clr-namespace:Cebv.features.formulario_cebv.folio_expediente.presentation"
+      xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
+      xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
+      xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -28,10 +32,8 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-    
+
     <Page.Resources>
-        <!-- Era el style que tenias aqui. -->
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
     </Page.Resources>
 
@@ -40,83 +42,101 @@
                        Height="{Binding ElementName=FormularioPage, Path=ActualHeight}"
                        x:Name="FormularioNavigationView"
                        IsBackButtonVisible="Collapsed"
-                       PaneTitle="Toma de reporte de desaparición">
+                       PaneTitle="{StaticResource CapturaReporteTitle}">
+
+        <ui:NavigationView.AutoSuggestBox>
+            <ui:AutoSuggestBox Margin="8"
+                               PlaceholderText="Buscar" />
+        </ui:NavigationView.AutoSuggestBox>
+
         <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem Content="Datos del reporte"
-                                   Icon="{ui:SymbolIcon Document24}"
+            <ui:NavigationViewItem Content="{StaticResource InicioTitle}"
+                                   Icon="{ui:SymbolIcon Home24}"
                                    TargetPageType="{x:Type presentation1:DatosReportePage}" />
 
-            <ui:NavigationViewItem Content="Reportante"
+            <ui:NavigationViewItem Content="{StaticResource InstrumentoJuridicoTitle}"
+                                   Icon="{ui:SymbolIcon TableEdit24}"
+                                   TargetPageType="{x:Type presentation11:InstrumentoJuridicoPage}" />
+
+            <ui:NavigationViewItem Content="{StaticResource ReportanteTitle}"
                                    Icon="{ui:SymbolIcon PersonCall24}"
-                                   TargetPageType="{x:Type presentation7:ReportantePage}"/>
-            
+                                   TargetPageType="{x:Type presentation7:ReportantePage}" />
 
-            <ui:NavigationViewItem Content="Persona desaparecida o no localizada"
+            <ui:NavigationViewItem Content="{StaticResource DesaparecidoTitle}"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
-                                   TargetPageType="{x:Type presentation3:PersonaDesaparecidaPage}" />
+                                   TargetPageType="{x:Type presentation3:Desaparecido}" />
 
-            <ui:NavigationViewItem Content="Media filiación"
+            <ui:NavigationViewItem Content="{StaticResource MediaFiliacionTitle}"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
                                    TargetPageType="{x:Type presentation2:MediaFiliacionPage}" />
 
-            <ui:NavigationViewItem Content="Prendas de vestir"
+            <ui:NavigationViewItem Content="{StaticResource MediaFiliacionComplementariaTitle}"
+                                   Icon="{ui:SymbolIcon PersonBoard24}"
+                                   TargetPageType="{x:Type presentation12:MediaFiliacionComplementariaPage }" />
+
+            <ui:NavigationViewItem Content="{StaticResource PrendasVestirTitle}"
                                    Icon="{ui:SymbolIcon PersonTag24}"
                                    TargetPageType="{x:Type presentation4:PrendasPage}" />
 
-            <ui:NavigationViewItem Content="Señas particulares"
+            <ui:NavigationViewItem Content="{StaticResource SenasParticularesTitle}"
                                    Icon="{ui:SymbolIcon Accessibility24}"
                                    TargetPageType="{x:Type senasParticulares1:SenasParticularesPage}" />
 
-            <ui:NavigationViewItem Content="Condiciones de vulnerabilidad en su salud"
+            <ui:NavigationViewItem Content="{StaticResource CondicionVulnerabilidadTitle}"
                                    Icon="{ui:SymbolIcon PersonHeart24}"
                                    TargetPageType="{x:Type presentation21:CondicionesVulnerabilidadPage}" />
 
-            <ui:NavigationViewItem Content="Modo, tiempo y lugar de la desaparicion"
+            <ui:NavigationViewItem Content="{StaticResource ModoTiempoLugarTitle}"
                                    Icon="{ui:SymbolIcon Map24}"
                                    TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
 
-            <ui:NavigationViewItem Content="Contexto"
-                                   Icon="{ui:SymbolIcon SearchVisual24}"
-                                   TargetPageType="{x:Type presentation8:ContextoPage}"/>
+            <ui:NavigationViewItem Content="{StaticResource DesaparicionForzadaTitle}"
+                                   Icon="{ui:SymbolIcon Group24}"
+                                   TargetPageType="{x:Type presentation13:DesaparicionForzadaPage}" />
 
-            
-            <ui:NavigationViewItem Content="Vehiculos involucrados"
-                                   Icon="{ui:SymbolIcon VehicleCar28}" 
+            <ui:NavigationViewItem Content="{StaticResource ContextoTitle}"
+                                   Icon="{ui:SymbolIcon SearchVisual24}"
+                                   TargetPageType="{x:Type presentation8:ContextoPage}" />
+
+            <ui:NavigationViewItem Content="{StaticResource VehiculosTitle}"
+                                   Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
 
-            <ui:NavigationViewItem Content="Comunicación y difusión"
-                                   Icon="{ui:SymbolIcon Comment24}"
-                                   TargetPageType="{x:Type presentation6:DifusionPage}"/>
+            <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
+                                   Icon="{ui:SymbolIcon BookNumber24}"
+                                   TargetPageType="{x:Type presentation10:FolioExpedientePage}" />
 
-            <ui:NavigationViewItem Content="Datos de localización"
+            <ui:NavigationViewItem Content="{StaticResource GeneracionBoletineTitle}"
+                                   Icon="{ui:SymbolIcon DocumentData24}"
+                                   TargetPageType="{x:Type presentation6:GeneracionBoletinPage}" />
+
+            <ui:NavigationViewItem Content="{StaticResource LocalizacionTitle}"
                                    Icon="{ui:SymbolIcon Location24}"
                                    TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
-            
 
-            <ui:NavigationViewItem Content="Control OGPI"
+            <ui:NavigationViewItem Content="{StaticResource ControlOgpiTitle}"
                                    Icon="{ui:SymbolIcon BookInformation24}"
-                                   TargetPageType="{x:Type presentation9:ControlOgpiPage}"/>
-
+                                   TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
         </ui:NavigationView.MenuItems>
         <ui:NavigationView.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
-                              TextWrapping="Wrap"/>
-                
-                
-                <ui:Button Visibility="{Binding PuedeGuardar,
-                            Converter={StaticResource VisibilityConverter2}}"
-                           Content="Registro Pendiente"
-                           Icon="{ui:SymbolIcon Save16}"
-                           HorizontalAlignment="Right"
-                           Grid.Column="1"
-                           Appearance="Primary"
-                           ToolTip="Algo" />
+                              TextWrapping="Wrap" />
+
+                <ui:Button
+                    Visibility="{Binding PuedeGuardar,
+                    Converter={StaticResource VisibilityConverter2}}"
+                    Content="{StaticResource RegistroPendiente}"
+                    Icon="{ui:SymbolIcon Save16}"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    Appearance="Primary"
+                    ToolTip="{StaticResource RegistroPendienteToolTip}" />
             </Grid>
         </ui:NavigationView.Header>
     </ui:NavigationView>

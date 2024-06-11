@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Titulos de las ventanas -->
+    <system:String x:Key="ReportesDesaparicionTitle">Reportes de desaparición</system:String>
+    <system:String x:Key="ConsultaTitle">Consulta reporte de desaparición</system:String>
+    <system:String x:Key="CapturaReporteTitle">Captura de reporte de desaparición</system:String>
+
+    <!-- Titulos de las pestañas del formulario -->
+    <system:String x:Key="InicioTitle">Inicio</system:String>
+    <system:String x:Key="ReportanteTitle">Persona reportante</system:String>
+    <system:String x:Key="DesaparecidoTitle">Persona reportada</system:String>
+    <system:String x:Key="MediaFiliacionTitle">Media filiación</system:String>
+    <system:String x:Key="MediaFiliacionComplementariaTitle">Media filiación complementaria</system:String>
+    <system:String x:Key="PrendasVestirTitle">Prendas de vestir</system:String>
+    <system:String x:Key="SenasParticularesTitle">Señas particulares</system:String>
+    <system:String x:Key="CondicionVulnerabilidadTitle">Condiciones de vulnerabilidad</system:String>
+    <system:String x:Key="ModoTiempoLugarTitle">Modo, tiempo y lugar de la desaparición</system:String>
+    <system:String x:Key="ContextoTitle">Contextos</system:String>
+    <system:String x:Key="VehiculosTitle">Vehículos involucrados</system:String>
+    <system:String x:Key="GeneracionBoletineTitle">Generación de boletines</system:String>
+    <system:String x:Key="LocalizacionTitle">Datos de localización</system:String>
+    <system:String x:Key="ControlOgpiTitle">Control OGPI</system:String>
+    <system:String x:Key="FolioExpedienteTitle">Folio y expediente</system:String>
+    <system:String x:Key="InstrumentoJuridicoTitle">Instrumentos jurídicos asociados</system:String>
+    <system:String x:Key="DesaparicionForzadaTitle">Desaparición forzada o por particulares</system:String>
+
+    <!-- Textos largos -->
+    <system:String x:Key="LeyendaFolioDirecto">Expedientes de las personas con las que desapareció o que tienen relación con la desaparición.</system:String>
+    <system:String x:Key="LeyendaFolioIndirecto">Expediente de otras personas personas desaparecidas relacionadas con la persona que se está registrando (Familiares, amistades, conocidos, etc).</system:String>
+
+</ResourceDictionary>

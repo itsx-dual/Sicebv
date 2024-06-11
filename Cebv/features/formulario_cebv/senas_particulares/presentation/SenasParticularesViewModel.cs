@@ -14,7 +14,7 @@ public partial class SenasParticularesViewModel : ObservableObject
     private VistaSenas _vistaSenasSelected;
 
     [ObservableProperty]
-    private int _cantidad;
+    private int _cantidad = 1;
 
     [ObservableProperty]
     private string _descripcion;
