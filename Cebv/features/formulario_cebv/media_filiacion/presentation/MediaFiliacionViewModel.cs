@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using Cebv.core.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -5,18 +7,27 @@ namespace Cebv.features.formulario_cebv.media_filiacion.presentation;
 
 public partial class MediaFiliacionViewModel: ObservableObject
 {
-    [ObservableProperty]
-    private string _apodo = String.Empty;
-
-    partial void OnApodoChanged(string value)
+    /**
+     * Constructor de la clase
+     */
+    public MediaFiliacionViewModel()
     {
-        Console.WriteLine(Apodo);
+        
     }
+    
+    /**
+     * Variables de la clase
+     */
+    [ObservableProperty] private ObservableCollection<Catalogo> _complexiones = new();
+    [ObservableProperty] private Catalogo _complexion = new();
 
-    [RelayCommand]
-    public void AddApodo()
+
+    /**
+     * Peticiones a la API para obtener los catalogos
+     */
+    private async void CargarCatalogos()
     {
-        Console.WriteLine(Apodo);
+     
     }
     
 }
