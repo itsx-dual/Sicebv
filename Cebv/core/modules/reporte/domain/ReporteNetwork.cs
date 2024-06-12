@@ -22,6 +22,19 @@ public class ReporteNetwork
 
         return new ObservableCollection<ReporteResponse>(reportes.Data);
     }
+    
+    public static async Task<ReporteResponse?> GetReporte(string id)
+    {
+        HttpRequestMessage request = new()
+        {
+            RequestUri = new Uri($"api/reportes/{id}", UriKind.Relative),
+            Method = HttpMethod.Get
+        };
+        using var response = await Client.SendAsync(request);
+        var json = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<ReporteQueryResponse>(json)?.Data;
+    }
 
     public static async Task<ObservableCollection<Catalogo>> GetTiposReportes()
     {

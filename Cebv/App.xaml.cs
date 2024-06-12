@@ -38,6 +38,8 @@ public partial class App : Application
         services.AddScoped<FormularioCebvViewModel>();
         services.AddScoped<PersonaViewModel>();
         services.AddScoped<DesaparecidoViewModel>();
+
+        services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
             
         return services.BuildServiceProvider();

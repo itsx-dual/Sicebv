@@ -5,8 +5,9 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace Cebv.features.formulario_cebv.presentation;
 
-public partial class FormularioCebvViewModel : ObservableObject,
-    IRecipient<NombreCompletoMessage>, IRecipient<GuardarBorradorMessage>
+public partial class FormularioCebvViewModel : ObservableObject, 
+    IRecipient<NombreCompletoMessage>,
+    IRecipient<GuardarBorradorMessage>
 {
     [ObservableProperty] private string _nombreCompleto = string.Empty;
     [ObservableProperty] private bool _puedeGuardar;

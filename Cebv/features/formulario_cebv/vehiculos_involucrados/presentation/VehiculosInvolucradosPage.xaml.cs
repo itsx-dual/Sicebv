@@ -21,8 +21,6 @@ public partial class VehiculosInvolucradosPage : Page
         
         Imagenes.Children.Clear();
         
-        Console.WriteLine("DataContext Changed");
-        
         var archivos = ((VehiculosInvolucradosViewModel)DataContext).OpenedFilePath;
         if (archivos == null) return;
 
@@ -31,8 +29,8 @@ public partial class VehiculosInvolucradosPage : Page
             Image wpfui_image = new()
             {
                 Source = new BitmapImage(new Uri(imagen)),
-                CornerRadius = new CornerRadius(8),
-                Padding = new Thickness(5),
+                CornerRadius = new CornerRadius(10),
+                Margin = new Thickness(5),
                 Width = 300,
                 Height = 300,
                 Stretch = Stretch.UniformToFill
