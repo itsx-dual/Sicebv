@@ -3,7 +3,11 @@ using Cebv.core.data;
 using Cebv.core.modules.reporte.data;
 using Cebv.core.modules.reporte.domain;
 using Cebv.core.modules.ubicacion.presentation;
+using Cebv.core.util.navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 
@@ -57,4 +61,11 @@ public partial class DatosReporteViewModel : ObservableObject
 
     async partial void OnTipoMedioChanged(Catalogo value) =>
         Medios = await ReporteNetwork.GetMedios(value.Id);
+
+    [RelayCommand]
+    public void OnGuardarYSiguente(Type pageType)
+    {
+        var navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>();
+        navigationService?.Navigate(pageType);
+    }
 }

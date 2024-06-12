@@ -6,6 +6,7 @@
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_del_reporte.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -102,6 +103,8 @@
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:InstrumentoJuridicoPage}"/>
     </Grid>
 </Page>

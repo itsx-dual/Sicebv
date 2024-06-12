@@ -4,13 +4,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      x:Name="Page"
       Title="VehiculosInvolucradosPage">
+    
+    <Page.DataContext>
+        <presentation:VehiculosInvolucradosViewModel/>
+    </Page.DataContext>
+    
     <Page.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="Padding" Value="16" />
@@ -24,9 +31,9 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <!-- Header -->
@@ -108,7 +115,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="NUMERO DE SERIE: " FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NoSerie}"/>
                             <ui:TextBlock Text="Error"
                                           FontTypography="Caption"
                                           Visibility="Hidden" />
@@ -162,12 +169,17 @@
                             
                             <ui:TextBlock Text="Fotografias"></ui:TextBlock>
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                       Command="{Binding OpenFileCommand}"
                                        Content="Añadir imagenes"/>
                         </StackPanel>
-
                     </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="4"
+                               x:Name="Imagenes"
+                               DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
+                               DataContextChanged="Imagenes_OnDataContextChanged"/>
 
-                    <WrapPanel Grid.Row="4" Margin="0,14,0,0">
+                    <WrapPanel Grid.Row="5" Margin="0,14,0,0">
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="ESTATUS DEL VEHICULO"></ui:TextBlock>
 
@@ -182,6 +194,7 @@
                 </Grid>
             </Border>
         </StackPanel>
+        
         
         <!-- Footer -->
         <ui:Button Grid.Row="2"
