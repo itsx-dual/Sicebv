@@ -4,6 +4,7 @@ using Cebv.core.util.navigation;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
 
 namespace Cebv;
 
@@ -39,6 +40,7 @@ public partial class App : Application
         services.AddScoped<PersonaViewModel>();
         services.AddScoped<DesaparecidoViewModel>();
 
+        services.AddSingleton<ISnackbarService, SnackbarService>();
         services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
             

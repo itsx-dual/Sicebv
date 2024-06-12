@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Cebv.core.util.navigation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.presentation;
@@ -14,8 +15,12 @@ public partial class DashboardPage : Page
     public DashboardPage()
     {
         InitializeComponent();
+        
         var navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
+        var snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
+        
         navigationService.SetNavigationControl(MainNavigationView);
+        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
     }
 
     private void DashboardPage_OnLoaded(object sender, RoutedEventArgs e)

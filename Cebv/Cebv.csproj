@@ -43,7 +43,7 @@
 
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.3.24172.9" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0-preview.3.24172.9" />
-      <PackageReference Include="WPF-UI" Version="3.0.3" />
+      <PackageReference Include="WPF-UI" Version="3.0.4" />
     </ItemGroup>
 
     <ItemGroup>
