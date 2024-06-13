@@ -1,6 +1,7 @@
 using System.Windows;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,10 +37,11 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        services.AddScoped<FormularioCebvViewModel>();
         services.AddScoped<PersonaViewModel>();
         services.AddScoped<DesaparecidoViewModel>();
 
+        //services.AddSingleton<FormularioCebvViewModel>();
+        services.AddSingleton<IReporteService, ReporteService>();
         services.AddSingleton<ISnackbarService, SnackbarService>();
         services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();

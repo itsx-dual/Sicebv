@@ -22,6 +22,7 @@
       xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
+      xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -32,6 +33,10 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
+    
+    <Page.DataContext>
+        <presentation14:FormularioCebvViewModel/>
+    </Page.DataContext>
 
     <Page.Resources>
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -56,6 +61,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource InstrumentoJuridicoTitle}"
                                    Icon="{ui:SymbolIcon TableEdit24}"
+                                   Click="ButtonBase_OnClick"
                                    TargetPageType="{x:Type presentation11:InstrumentoJuridicoPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource ReportanteTitle}"
