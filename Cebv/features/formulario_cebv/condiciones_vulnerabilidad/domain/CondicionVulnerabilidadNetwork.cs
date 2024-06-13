@@ -9,10 +9,32 @@ namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.domain;
 public class CondicionVulnerabilidadNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
-    
+
     public static async Task<ObservableCollection<Catalogo>> GetTiposSangre()
     {
         var request = await Client.GetAsync("api/tipos-sangre");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
+
+    public static async Task<ObservableCollection<Catalogo>> GetEnfoquesDiferenciados()
+    {
+        var request = await Client.GetAsync("api/enfoques-diferenciados");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
+
+    public static async Task<ObservableCollection<Catalogo>> GetSituacionesMigratorias()
+    {
+        var request = await Client.GetAsync("api/situaciones-migratorias");
 
         var response = await request.Content.ReadAsStringAsync();
 
