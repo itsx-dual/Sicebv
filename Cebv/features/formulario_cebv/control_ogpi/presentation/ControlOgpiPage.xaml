@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,12 +13,16 @@
       mc:Ignorable="d"
       Title="ControlOgpiPage">
 
+    <Page.DataContext>
+        <presentation:ControlOgpiViewModel />
+    </Page.DataContext>
+
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -32,24 +37,25 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="FECHA DE CODIFICACIÓN:" FontTypography="Caption" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding FechaCodificacion}" IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="NOMBRE DE QUIEN CODIFICÓ:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NombreCodificador}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
                         <ui:TextBlock Text="OBSERVACIONES GENERALES:" FontTypography="Caption" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True"
+                                    MinHeight="100" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="N° DE TARJETA OGPI:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding NumeroTarjeta}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -79,14 +85,16 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="AUTORIDAD QUE INGRESÓ FUB:" />
-                            <ui:TextBox Text="{Binding AutoridadIngresafolioFub}" />
+                            <ui:TextBox Text="{Binding OrigenFolioFub}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="ESTATUS DE PERSONA EN RNPDNO:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding EstatusPersona}"
+                                      ItemsSource="{Binding EstatusPersonas}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
