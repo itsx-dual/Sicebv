@@ -118,6 +118,7 @@
                                    Icon="{ui:SymbolIcon BookInformation24}"
                                    TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
         </ui:NavigationView.MenuItems>
+        
         <ui:NavigationView.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
@@ -139,5 +140,6 @@
                     ToolTip="{StaticResource RegistroPendienteToolTip}" />
             </Grid>
         </ui:NavigationView.Header>
+        
     </ui:NavigationView>
 </Page>

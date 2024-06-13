@@ -28,17 +28,17 @@ public partial class VehiculosInvolucradosPage : Page
 
         foreach (var imagen in archivos)
         {
-            Image wpfui_image = new()
+            Image wpfuiImage = new()
             {
                 Source = new BitmapImage(new Uri(imagen)),
                 CornerRadius = new CornerRadius(8),
-                Padding = new Thickness(5),
+                Margin = new Thickness(5),
                 Width = 300,
                 Height = 300,
                 Stretch = Stretch.UniformToFill
             };
 
-            Imagenes.Children.Add(wpfui_image);
+            Imagenes.Children.Add(wpfuiImage);
         }
     }
 }
