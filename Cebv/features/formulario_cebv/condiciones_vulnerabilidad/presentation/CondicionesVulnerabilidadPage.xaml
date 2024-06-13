@@ -14,16 +14,6 @@
       Name="PageCondiciones"
       Title="CondicionesVulnerabilidadPage">
 
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
-
     <Page.DataContext>
         <local:CondicionesVulnerabilidadViewModel />
     </Page.DataContext>
@@ -31,9 +21,9 @@
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -44,7 +34,7 @@
             <ui:TextBlock Text="Tipo de sangre" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="200">
-                    <ui:TextBlock Text="Tipo de sangre" />
+                    <ui:TextBlock Text="TIPO DE SANGRE:" />
                     <ComboBox />
                 </StackPanel>
             </Border>
@@ -58,10 +48,10 @@
                 <ui:DataGrid.Columns>
                     <DataGridTextColumn Header="Condición"
                                         Width="*"
-                                        Binding="{Binding Path=condicion }" />
+                                        Binding="{Binding Path=Condicion }" />
                     <DataGridTextColumn Header="Tratamiento"
                                         Width="*"
-                                        Binding="{Binding Path=tratamiento}" />
+                                        Binding="{Binding Path=Tratamiento}" />
                     <DataGridComboBoxColumn Header="Naturaleza"
                                             Width="*">
                     </DataGridComboBoxColumn>
@@ -95,7 +85,7 @@
 
 
             <ui:TextBlock Text="Enfoque diferenciado" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -333,7 +323,7 @@
             </Border>
 
             <ui:TextBlock Text="Embarazo" FontTypography="Title" Margin="10" />
-            <Border>
+            <Border Style="{StaticResource CebvBorder}">
                 <WrapPanel Margin="10">
                     <CheckBox Content="¿Esta embarazada?"
                               Name="EmbarazoToggleSwitch" />
