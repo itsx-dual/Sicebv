@@ -7,7 +7,6 @@ using Cebv.core.util.navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 
@@ -63,7 +62,7 @@ public partial class DatosReporteViewModel : ObservableObject
         Medios = await ReporteNetwork.GetMedios(value.Id);
 
     [RelayCommand]
-    public void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguente(Type pageType)
     {
         var navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>();
         navigationService?.Navigate(pageType);

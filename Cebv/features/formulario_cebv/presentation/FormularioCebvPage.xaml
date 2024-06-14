@@ -88,7 +88,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource ModoTiempoLugarTitle}"
                                    Icon="{ui:SymbolIcon Map24}"
-                                   TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
+                                   TargetPageType="{x:Type presentation5:CircunstanciaDesaparicionPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource DesaparicionForzadaTitle}"
                                    Icon="{ui:SymbolIcon Group24}"
