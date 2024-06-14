@@ -91,13 +91,15 @@
 
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="SÍNTESIS DE LOCALIZACIÓN: *" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" 
+                                        x:Name="SintesisLocalizacion"/>
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
                                 Text="DESCRIBA BREVEMENTE LA CONDICIÓN PSICOFÍSICA EN QUE FUE LOCALIZADA LA PERSONA" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" 
+                                        x:Name="DescribaCondicionPsicofisica"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -138,13 +140,15 @@
 
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="SÍNTESIS DE LOCALIZACIÓN:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" 
+                                        x:Name="SintesisLocalizacionTb"/>
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
                                 Text="DESCRIBA LAS CAUSAS DE FALLECIMIENTO:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" 
+                                        x:Name="DescribaCausasFallecimientoTb"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -186,7 +190,7 @@
                         <StackPanel Width="200" IsEnabled="False" Margin="0 0 25 0">
                             <ui:TextBlock Text="CIRCUNSTANCIA FINAL 1:"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="CircunstanciaFinal1Tb"/>
                         </StackPanel>
 
                         <StackPanel Width="200" Margin="0 0 25 0">
@@ -198,7 +202,7 @@
                         <StackPanel MinWidth="200" IsEnabled="False">
                             <ui:TextBlock Text="Circunstancia Final 2:"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="CircunstanciaFinal2Tb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200"
@@ -212,7 +216,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="&#x0a;Area que codifica inicial"
                                           FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="AreaCodificaInicialTb"/>
                             <ui:TextBlock Text=""
                                           Visibility="Hidden"
                                           FontTypography="Caption" />
@@ -228,7 +232,7 @@
                     <StackPanel Margin="5">
                         <ui:TextBlock Text="&#x0a;Observaciones sobre la actualización de status"
                                       FontTypography="Caption" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="ObservaionesActualizacionStatusTb"/>
                         <ui:TextBlock Text=""
                                       Visibility="Hidden"
                                       FontTypography="Caption" />

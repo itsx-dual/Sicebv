@@ -9,15 +9,30 @@ public partial class CondicionesVulnerabilidadPage : Page
     public CondicionesVulnerabilidadPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
     }
 
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    private void TextBoxHelperMethod()
+    {
+        EspecifiqueProcesoRegularizacionMigratoriaTb.TextChanged += TextBoxHelper.UpperCaseText;
+        EspecifiqueProcesoRegularizacionMigratoriaTb.LostFocus += TextBoxHelper.TrimmedText;
+        CaracteristicaPersonalTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CaracteristicaPersonalTb.LostFocus += TextBoxHelper.TrimmedText;
+        InformacionPersonalAdicionalTb.TextChanged += TextBoxHelper.UpperCaseText;
+        InformacionPersonalAdicionalTb.LostFocus += TextBoxHelper.TrimmedText;
+        CaracteristiRiesgoTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CaracteristiRiesgoTb.LostFocus += TextBoxHelper.TrimmedText;
+        InformacionRelevanteTb.TextChanged += TextBoxHelper.UpperCaseText;
+        InformacionRelevanteTb.LostFocus += TextBoxHelper.TrimmedText;
+    }
+
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

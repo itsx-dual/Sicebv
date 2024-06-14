@@ -9,15 +9,24 @@ public partial class PrendasPage : Page
     public PrendasPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
     }
-    
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+
+    private void TextBoxHelperMethod()
+    {
+        MarcaTb.TextChanged += TextBoxHelper.UpperCaseText;
+        MarcaTb.LostFocus += TextBoxHelper.TrimmedText;
+        DescripcionTb.TextChanged += TextBoxHelper.UpperCaseText;
+        DescripcionTb.LostFocus += TextBoxHelper.TrimmedText;
+    }
+
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

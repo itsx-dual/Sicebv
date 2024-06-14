@@ -48,7 +48,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="DESCRIBA LA SITUACIÓN:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="DescribaSituacionTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -65,7 +65,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="DESCRIBA LA SITUACIÓN:" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="DescribaSituacion1Tb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -77,7 +77,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DEL MÉTODO DE CAPTURA:" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="ObservacionesMetodoCapturaTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -89,7 +89,7 @@
                         
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DE LA DETENCIÓN LEGAL O EXTORSIÓN:" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="ObservacionesDetecionLegalOExorsionTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -106,7 +106,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="¿DÓNDE?" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="DondeTb"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -118,7 +118,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S) / APODO(S)" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="NombresApodosTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -128,7 +128,7 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 10 0">
                             <ui:TextBlock Text="DESCRIPCIÓN:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="DescripcionTb"/>
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -145,7 +145,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="DESCRIPCIÓN DEL GRUPO PERPETRADOR" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="DescripcionGrupoPerpetradorTb"/>
                         </StackPanel>
                     </WrapPanel>
                     
@@ -157,7 +157,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="ESPECIFIQUE CUÁLES:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="EspecifiqueCualesTb"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

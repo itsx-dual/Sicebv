@@ -9,15 +9,34 @@ public partial class MediaFiliacionPage : Page
     public MediaFiliacionPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
     }
 
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    private void TextBoxHelperMethod()
+    {
+        OtraExpecificacionOjosTb.TextChanged += TextBoxHelper.UpperCaseText;
+        OtraExpecificacionOjosTb.LostFocus += TextBoxHelper.TrimmedText;
+        CualquierOtraEspecificacionCabelloTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CualquierOtraEspecificacionCabelloTb.LostFocus += TextBoxHelper.TrimmedText;
+        CualquierOtraEspecificacionCejasTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CualquierOtraEspecificacionCejasTb.LostFocus += TextBoxHelper.TrimmedText;
+        CualquierOtraEspecificacionBigoteTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CualquierOtraEspecificacionBigoteTb.LostFocus += TextBoxHelper.TrimmedText;
+        CualquierOtraEspecificacionBarbaTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CualquierOtraEspecificacionBarbaTb.LostFocus += TextBoxHelper.TrimmedText;
+        CualquierOtraEspecificacionNarizTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CualquierOtraEspecificacionNarizTb.LostFocus += TextBoxHelper.TrimmedText;
+        CualquierOtraEspecificacionOrejaTb.TextChanged += TextBoxHelper.UpperCaseText;
+        CualquierOtraEspecificacionOrejaTb.LostFocus += TextBoxHelper.TrimmedText;
+    }
+
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

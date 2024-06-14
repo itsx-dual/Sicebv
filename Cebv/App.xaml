@@ -32,8 +32,6 @@
             <DataTemplate DataType="{x:Type presentation1:ReportesDesaparicionViewModel}">
                 <presentation1:ReportesDesaparicion />
             </DataTemplate>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

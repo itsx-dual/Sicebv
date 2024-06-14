@@ -98,7 +98,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="OTRA ESPECIFICACIÓN DE OJOS:" />
-                        <TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="OtraExpecificacionOjosTb"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -132,7 +132,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL CABELLO:" />
-                        <TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="CualquierOtraEspecificacionCabelloTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -148,7 +148,7 @@
                         
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LAS CEJAS:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="CualquierOtraEspecificacionCejasTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -160,7 +160,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL BIGOTE:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="CualquierOtraEspecificacionBigoteTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -172,7 +172,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA BARBA:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="CualquierOtraEspecificacionBarbaTb"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -188,7 +188,7 @@
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA NARIZ:" />
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="CualquierOtraEspecificacionNarizTb"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -223,7 +223,7 @@
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA OREJA:" />
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="CualquierOtraEspecificacionOrejaTb"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>

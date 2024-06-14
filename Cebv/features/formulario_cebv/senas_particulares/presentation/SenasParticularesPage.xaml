@@ -127,7 +127,7 @@
                         <!-- Descripcion -->
                         <ui:TextBlock Text="Descripción:"
                                       Margin="10,10,0,0" />
-                        <TextBox Margin="10"
+                        <ui:TextBox Margin="10" CharacterCasing="Upper"
                                  VerticalAlignment="Stretch"
                                  Height="100"
                                  Text="{Binding Descripcion}"

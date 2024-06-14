@@ -52,18 +52,18 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):" />
-                            <ui:TextBox Name="NombreTb" Text="{Binding Reportante.Nombre}" />
+                            <ui:TextBox CharacterCasing="Upper" Name="NombreTb" Text="{Binding Reportante.Nombre}" />
                         </StackPanel>
 
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO:" />
-                            <ui:TextBox Name="ApellidoPaternoTb" Text="{Binding Reportante.ApellidoPaterno}" />
+                            <ui:TextBox CharacterCasing="Upper" Name="ApellidoPaternoTb" Text="{Binding Reportante.ApellidoPaterno}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO: " />
-                            <ui:TextBox Name="ApellidoMaternoTb" Text="{Binding Reportante.ApellidoMaterno}" />
+                            <ui:TextBox CharacterCasing="Upper" Name="ApellidoMaternoTb" Text="{Binding Reportante.ApellidoMaterno}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -148,12 +148,12 @@
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="RFC:" />
-                            <ui:TextBox Text="{Binding Reportante.Rfc}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Reportante.Rfc}" x:Name="RFCTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="CURP:" />
-                            <ui:TextBox Text="{Binding Reportante.Curp}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Reportante.Curp}" x:Name="CurpTb"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -166,12 +166,12 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TELÉFONO MÓVIL:" />
-                            <ui:TextBox Text="{Binding Contacto.TelefonoMovil}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Contacto.TelefonoMovil}" x:Name="TelefonoMovilTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesMovil}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Contacto.ObservacionesMovil}" x:Name="ObservacionesTb"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil" Appearance="Secondary" />
@@ -180,12 +180,12 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TELÉFONO FIJO:" />
-                            <ui:TextBox Text="{Binding Contacto.TelefonoFijo}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Contacto.TelefonoFijo}" x:Name="TelefonoFijoTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesFijo}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Contacto.ObservacionesFijo}" x:Name="Observaciones1Tb"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono fijo" Appearance="Secondary" />
@@ -195,12 +195,13 @@
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="CORREO ELECTRÓNICO:" />
-                            <ui:TextBox Text="{Binding Contacto.CorreoElectronico}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Contacto.CorreoElectronico}" x:Name="CorreoElectronicoTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesCorreoElectronico}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Contacto.ObservacionesCorreoElectronico}" 
+                                        x:Name="Observaciones2Tb"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro correo electrónico" Appearance="Secondary" />
@@ -215,27 +216,27 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="CALLE:" />
-                            <ui:TextBox Text="{Binding Ubicacion.Calle}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.Calle}" x:Name="CalleTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° EXTERIOR:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.NumeroExterior}" x:Name="NoExteriorTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° INTERIOR:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.NumeroInterior}" x:Name="NoInteriorTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLONIA:" />
-                            <ui:TextBox Text="{Binding Ubicacion.Colonia}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.Colonia}" x:Name="ColoniaTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="CÓDIGO POSTAL:" />
-                            <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.CodigoPostal}" x:Name="CodigoPostalTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -265,23 +266,23 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="ENTRE CALLE 1:" />
-                            <ui:TextBox Text="{Binding Ubicacion.EntreCalle1}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.EntreCalle1}" x:Name="EntreCalle1Tb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="ENTRE CALLE 2:" />
-                            <ui:TextBox Text="{Binding Ubicacion.EntreCalle2}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.EntreCalle2}" x:Name="EntreCalle2Tb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TRAMO CARRETERO:" />
-                            <ui:TextBox Text="{Binding Ubicacion.TramoCarretero}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.TramoCarretero}" x:Name="TramoCarreteroTb"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="REFERENCIA:" />
-                        <ui:TextBox Text="{Binding Ubicacion.Referencia}" />
+                        <ui:TextBox CharacterCasing="Upper" Text="{Binding Ubicacion.Referencia}" x:Name="ReferenciaTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -328,7 +329,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="INFORMACIÓN RELEVANTE QUE QUIERA AÑADIR: " />
-                        <ui:TextBox Text="{Binding InformacionRelevante}" />
+                        <ui:TextBox CharacterCasing="Upper" Text="{Binding InformacionRelevante}" x:Name="InformacionRelevamteTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -347,7 +348,7 @@
                     <DockPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿EN DÓNDE?" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="DondeTb"/>
                         </StackPanel>
                     </DockPanel>
                     <WrapPanel>
@@ -376,7 +377,7 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="DESCRIPCIÓN DE LA SITUACIÓN:" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="DescripcionSituacionTb"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
@@ -387,7 +388,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="¿SABE DE DÓNDE PROVIENE?" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="DeDondeProvieneTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

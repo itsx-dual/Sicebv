@@ -37,19 +37,19 @@
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="NOMBRE DE QUIEN CODIFICÓ:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="NombreQuienCodificoTb"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
                         <ui:TextBlock Text="OBSERVACIONES GENERALES:" FontTypography="Caption" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" x:Name="ObservacionesGeneralesTb" CharacterCasing="Upper"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="N° DE TARJETA OGPI:" FontTypography="Caption" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="NoTarjetaOGPITb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -74,12 +74,12 @@
                     <WrapPanel Margin="0 0  0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="FOLIO FUB:" />
-                            <ui:TextBox Text="{Binding FolioFub}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding FolioFub}" x:Name="FolioFubTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="AUTORIDAD QUE INGRESÓ FUB:" />
-                            <ui:TextBox Text="{Binding AutoridadIngresafolioFub}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding AutoridadIngresafolioFub}" x:Name="AutoridadIngresoFubTb"/>
                         </StackPanel>
                     </WrapPanel>
 

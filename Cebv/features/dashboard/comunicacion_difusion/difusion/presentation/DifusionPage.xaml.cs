@@ -9,15 +9,26 @@ public partial class DifusionPage : Page
     public DifusionPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
+    }
+
+    private void TextBoxHelperMethod()
+    {
+        NombreColectivoTb.TextChanged += TextBoxHelper.UpperCaseText;
+        NombreColectivoTb.LostFocus += TextBoxHelper.TrimmedText;
+        IdentificadorDifusionTb.TextChanged += TextBoxHelper.UpperCaseText;
+        IdentificadorDifusionTb.LostFocus += TextBoxHelper.TrimmedText;
+        ObservacionesTb.TextChanged += TextBoxHelper.UpperCaseText;
+        ObservacionesTb.LostFocus += TextBoxHelper.TrimmedText;
     }
     
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

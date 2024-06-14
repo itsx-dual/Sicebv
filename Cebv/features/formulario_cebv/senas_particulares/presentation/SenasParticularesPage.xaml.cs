@@ -13,7 +13,8 @@ public partial class SenasParticularesPage : Page
     public SenasParticularesPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
     }
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -53,12 +54,18 @@ public partial class SenasParticularesPage : Page
         //throw new NotImplementedException();
     }
     
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+    private void TextBoxHelperMethod()
+    {
+        DescripcionTb.TextChanged += TextBoxHelper.UpperCaseText;
+        DescripcionTb.LostFocus += TextBoxHelper.TrimmedText;
+    }
+    
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

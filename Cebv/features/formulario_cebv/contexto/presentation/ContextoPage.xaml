@@ -71,7 +71,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="¿Donde trabaja?"
                                           FontTypography="Caption" />
-                            <TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="DondeTrabajaTb"/>
                         </StackPanel>
                         <StackPanel MinWidth="200"
                                     Margin="0 0 25 0">
@@ -96,7 +96,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="¿A donde desea irse?"
                                           FontTypography="Caption" />
-                            <TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="DondeDesseaIrseTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -107,7 +107,7 @@
                         </StackPanel>
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿Por parte de quién?" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="PorParteDeQuienTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -127,7 +127,7 @@
                                     Margin="5">
                             <ui:TextBlock Text="¿A quien le debe?"
                                           FontTypography="Caption" />
-                            <TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="QuienDebeTb"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -179,8 +179,8 @@
                                       Grid.Row="0"
                                       Grid.ColumnSpan="2" />
 
-                        <ui:TextBox Grid.Row="1"
-                                    Grid.Column="0" />
+                        <ui:TextBox CharacterCasing="Upper" Grid.Row="1"
+                                    Grid.Column="0" x:Name="PasatiemposTb"/>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Row="1"
@@ -234,8 +234,8 @@
                                       Grid.Row="0"
                                       Grid.ColumnSpan="2" />
 
-                        <ui:TextBox Grid.Row="1"
-                                    Grid.Column="0" />
+                        <ui:TextBox CharacterCasing="Upper" Grid.Row="1"
+                                    Grid.Column="0" x:Name="ClubesOrganizacionesQuePerteneceTb"/>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Row="1"

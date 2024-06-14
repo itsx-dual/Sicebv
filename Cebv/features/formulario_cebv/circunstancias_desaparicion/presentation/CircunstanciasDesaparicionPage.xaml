@@ -62,7 +62,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBox CharacterCasing="Upper" Icon="{ui:SymbolIcon Clock24}" x:Name="HoraDesaparicionTb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -74,13 +74,14 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="HORA DE PERCATO:" />
-                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBox CharacterCasing="Upper" Icon="{ui:SymbolIcon Clock24}" x:Name="HoraPercatoTb"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" 
+                                    x:Name="AclaracionFechaHoraHechosTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -93,7 +94,7 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="FECHA DESAPARICIÓN APROXIMADA" />
-                            <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" />
+                            <ui:TextBox CharacterCasing="Upper" Icon="{ui:SymbolIcon CalendarMonth24}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -103,14 +104,14 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBox CharacterCasing="Upper" Icon="{ui:SymbolIcon Clock24}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="FECHA DE PERCATO APROXIMADA:" />
-                            <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" />
+                            <ui:TextBox CharacterCasing="Upper" Icon="{ui:SymbolIcon CalendarMonth24}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -120,13 +121,13 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="HORA DE PERCATO:" />
-                            <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBox CharacterCasing="Upper" Icon="{ui:SymbolIcon Clock24}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -144,27 +145,27 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox CharacterCasing="Upper" ClearButtonEnabled="True" x:Name="CalleTb"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox CharacterCasing="Upper" ClearButtonEnabled="True" x:Name="NoExteriorTb"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox CharacterCasing="Upper" ClearButtonEnabled="True" x:Name="NoInteriorTb"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox CharacterCasing="Upper" ClearButtonEnabled="True" x:Name="ColoniaTb"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="CÓDIGO POSTAL:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox CharacterCasing="Upper" ClearButtonEnabled="True" x:Name="CodigoPostalTb"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -192,35 +193,35 @@
 
                             <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Collapsed">
                                 <ui:TextBlock Text="LONGITUD:" />
-                                <ui:TextBox Text="{Binding Asentamiento.Longitud}" />
+                                <ui:TextBox CharacterCasing="Upper" Text="{Binding Asentamiento.Longitud}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Visibility="Collapsed">
                                 <ui:TextBlock Text="LATITUD:" />
-                                <ui:TextBox Text="{Binding Asentamiento.Latitud}" />
+                                <ui:TextBox CharacterCasing="Upper" Text="{Binding Asentamiento.Latitud}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
-                                <ui:TextBox Text="{Binding EntreCalle1}" />
+                                <ui:TextBox CharacterCasing="Upper" Text="{Binding EntreCalle1}" x:Name="EntreCalle1Tb"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
-                                <ui:TextBox Text="{Binding EntreCalle2}" />
+                                <ui:TextBox CharacterCasing="Upper" Text="{Binding EntreCalle2}" x:Name="EntreCalle2Tb"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
-                                <ui:TextBox Text="{Binding TramoCarretero}" />
+                                <ui:TextBox CharacterCasing="Upper" Text="{Binding TramoCarretero}" x:Name="TramoCarreteroTb"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
-                            <ui:TextBox Text="{Binding Referencia}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding Referencia}" x:Name="ReferenciaTb"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -237,7 +238,8 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="DESCRIPCIÓN DE LA SITUACIÓN DE AMENAZAS:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" 
+                                    x:Name="DescripcionSituacionAmenazaTb"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -248,28 +250,29 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="DESCRIPCIÓN DE LA SITUACIÓN PREVIA O ANOTE LOS FOLIOS EN EL CAMPO SIGUIENTE SI YA HA ESTADO REGISTRADA:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="DescripcionSituacionPreviaTb"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="FOLIOS PREVIOS" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="FoliosPreviosTb"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="DATO DE PERSONA(S) QUE PUDIERON ESTAR RELACIONADAS O BRINDAR INFORMACIÓN SOBRE LA DESAPARICIÓN:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="DatoPersonaRelacionadaTb"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="DESCRIPCIÓN DE LOS HECHOS DE LA DESAPARICIÓN:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" 
+                                    x:Name="DescripcionHechosDesaparicionTb"/>
                     </StackPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="SÍNTESIS DE LOS HECHOS DE DESAPARICIÓN:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" x:Name="SintesisHechosDesaparicionTb"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -286,7 +289,7 @@
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
                             <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 1:" />
-                            <TextBox />
+                            <TextBox x:Name="CircunstanciaInicial1Tb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -298,7 +301,7 @@
 
                         <StackPanel MinWidth="200" IsEnabled="False">
                             <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 2:" />
-                            <TextBox />
+                            <TextBox x:Name="CircunstanciaInicial2Tb"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -310,7 +313,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="ÁREA QUE CODIFICA SITIO INICIAL:" />
-                            <TextBox />
+                            <TextBox x:Name="AreaCodificaSitioInicialTb"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

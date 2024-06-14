@@ -45,7 +45,7 @@
                             <WrapPanel>
                                 <StackPanel MinWidth="250" IsEnabled="False">
                                     <ui:TextBlock Text="NOMBRE COLECTIVO:" />
-                                    <ui:TextBox Text="ITSX COLECTIVO NOMBRE" />
+                                    <ui:TextBox CharacterCasing="Upper" Text="ITSX COLECTIVO NOMBRE" x:Name="NombreColectivoTb"/>
                                 </StackPanel>
                             </WrapPanel>
                         </StackPanel>
@@ -59,7 +59,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
                             <ui:TextBlock Text="IDENTIFICADOR DE DIFUSIÓN:" />
-                            <ui:TextBox HorizontalContentAlignment="Center" Text="4" />
+                            <ui:TextBox CharacterCasing="Upper" HorizontalContentAlignment="Center" Text="4" x:Name="IdentificadorDifusionTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
@@ -106,7 +106,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="OBSERVACIONES:" />
-                        <ui:TextBox MinHeight="150" TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" MinHeight="150" TextWrapping="Wrap" AcceptsReturn="True" x:Name="ObservacionesTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

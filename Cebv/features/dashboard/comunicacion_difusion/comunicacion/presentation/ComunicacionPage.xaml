@@ -184,7 +184,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="OBSERVACIONES:" />
-                        <ui:TextBox MinHeight="150" TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox CharacterCasing="Upper" MinHeight="150" TextWrapping="Wrap" AcceptsReturn="True" x:Name="ObservacionesTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

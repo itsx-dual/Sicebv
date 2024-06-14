@@ -48,7 +48,7 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
                                 <ui:TextBlock Text="ESPECIFIQUE LA ASUSENCIA DENTAL:" />
-                                <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="EspecifiqueAsusenciaDentalTb"/>
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
@@ -62,7 +62,7 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
                                 <ui:TextBlock Text="ESPECIFIQUE EL TRATAMIENTO DENTAL:" />
-                                <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="EspecifiqueTratamientoDentalTb"/>
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
@@ -80,7 +80,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL MENTÓN:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="CualquierOtraEspecificacionMentonTb"/>
                         </StackPanel>
                     </StackPanel>
                 </WrapPanel>
@@ -97,7 +97,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="ESPECIFICACIÓN DE LA DEFORMACIÓN:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="EspecificacionDeformacionTb"/>
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -119,7 +119,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="ESPECIFICACIÓN DE LA INTERVENCIÓN QUIRÚRGICA:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="EspecificacionIntervencionQuirurgicaTb"/>
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -141,7 +141,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="ESPECIFICACIÓN DE LA ENFERMEDAD EN LA PIEL:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="EspecificacionEnfermedadPielTb"/>
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -155,7 +155,7 @@
             <ui:TextBlock Text="Observaciones generales" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
                 <StackPanel MinWidth="400" Margin="5">
-                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" x:Name="ObservacionesGeneralesTb"/>
                 </StackPanel>
             </Border>
         </StackPanel>

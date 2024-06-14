@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Globalization;
 
 namespace Cebv.core.util;
 
@@ -23,24 +24,50 @@ public class TextBoxHelper
         // Filtrar caracteres acentuados
         textBox.Text = RemoveAccents(textBox.Text);
 
-        // Convertir el texto a mayúsculas
-        textBox.Text = textBox.Text.ToUpper();
-
         // Restaurar la posición del cursor
         textBox.SelectionStart = cursorPosition;
         textBox.SelectionLength = 0;
     }
 
     /// <summary>
-    /// Elimina los acentos de un texto.
+    /// Elimina los acentos de un texto   OJO: EXCLUYENDO LA Ñ.
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
     private static string RemoveAccents(string text)
     {
-        string normalized = text.Normalize(NormalizationForm.FormD);
-        Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
-        return regex.Replace(normalized, string.Empty);
+        // Patrón de reemplazo para caracteres acentuados
+        string pattern = "[áéíóúÁÉÍÓÚäëïöüÄËÏÖÜ]";
+        
+        string result = Regex.Replace(text, pattern, m => 
+        {
+            switch (m.Value)
+            {
+                case "á": return "a";
+                case "é": return "e";
+                case "í": return "i";
+                case "ó": return "o";
+                case "ú": return "u";
+                case "Á": return "A";
+                case "É": return "E";
+                case "Í": return "I";
+                case "Ó": return "O";
+                case "Ú": return "U";
+                case "ä": return "a";
+                case "ë": return "e";
+                case "ï": return "i";
+                case "ö": return "o";
+                case "ü": return "u";
+                case "Ä": return "A";
+                case "Ë": return "E";
+                case "Ï": return "I";
+                case "Ö": return "O";
+                case "Ü": return "U";
+                default: return m.Value;
+            }
+        });
+
+        return result;
     }
 
     /// <summary>

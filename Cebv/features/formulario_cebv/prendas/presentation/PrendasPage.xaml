@@ -48,14 +48,14 @@
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="MARCA:" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="MarcaTb"/>
                     </StackPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="DESCIPCIÓN:" />
-                        <TextBox VerticalAlignment="Stretch"
+                        <ui:TextBox CharacterCasing="Upper" VerticalAlignment="Stretch"
                                  Height="100"
-                                 TextWrapping="Wrap" MaxLength="400" />
+                                 TextWrapping="Wrap" MaxLength="400" x:Name="DescripcionTb"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

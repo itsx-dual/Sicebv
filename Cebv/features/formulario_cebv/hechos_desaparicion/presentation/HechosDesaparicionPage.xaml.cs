@@ -9,15 +9,21 @@ public partial class HechosDesaparicionPage : Page
     public HechosDesaparicionPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
     }
-    
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+
+    private void TextBoxHelperMethod()
+    {
+        
+    }
+
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

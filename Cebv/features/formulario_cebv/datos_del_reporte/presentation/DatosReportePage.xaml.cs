@@ -9,15 +9,27 @@ public partial class DatosReportePage : Page
     public DatosReportePage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
     }
-    
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+
+    private void TextBoxHelperMethod()
+    {
+        FechaInicioTb.TextChanged += TextBoxHelper.UpperCaseText;
+        FechaInicioTb.LostFocus += TextBoxHelper.TrimmedText;
+        HoraInicioTb.TextChanged += TextBoxHelper.UpperCaseText;
+        HoraInicioTb.LostFocus += TextBoxHelper.TrimmedText;
+        InstitucionOrigenTb.TextChanged += TextBoxHelper.UpperCaseText;
+        InstitucionOrigenTb.LostFocus += TextBoxHelper.TrimmedText;
+        
+    }
+
+    /*private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

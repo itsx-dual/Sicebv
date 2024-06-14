@@ -30,7 +30,7 @@
                         MaxWidth="400"
                         Margin="10 10 10 25">
                 <ui:TextBlock Text="FOLIO CEBV:" />
-                <ui:TextBox Text="EJEMPLO-FOLIO-CEBV-123" />
+                <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO-FOLIO-CEBV-123" x:Name="FolioCEBVTb"/>
             </StackPanel>
 
 
@@ -38,34 +38,34 @@
                 <WrapPanel Margin="0 0 0 15">
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="ESTADO:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBox CharacterCasing="Upper" Text="" IsEnabled="False" x:Name="EstadoTb"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="MUNICIPIO:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBox CharacterCasing="Upper" Text="" IsEnabled="False" x:Name="MunicipioTb"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="NUMERO DE PERSONAS EN EL MISMO EVENTO:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBox CharacterCasing="Upper" Text="" IsEnabled="False" x:Name="NumeroPersonasMismoEventoTb"/>
                     </StackPanel>
                 </WrapPanel>
 
                 <WrapPanel>
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="FECHA DE DESAPARICION:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBox CharacterCasing="Upper" Text="" IsEnabled="False" x:Name="FechaDesaparicionTb"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="ZONA DEL ESTADO:" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="ZonaEstadoTb"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="TERMINACIÓN DE LA ENTIDAD:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBox CharacterCasing="Upper" Text="" IsEnabled="False" x:Name="TerminacionEntidadTb"/>
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>
@@ -99,7 +99,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                            <ui:TextBox Text="Nombre Apellido1 Apellido2" IsEnabled="False" />
+                            <ui:TextBox CharacterCasing="Upper" Text="Nombre Apellido1 Apellido2" IsEnabled="False" x:Name="NombreAsignoFolioTb"/>
                         </StackPanel>
 
 
@@ -153,7 +153,7 @@
                     
                     <StackPanel>
                         <ui:TextBlock Text="OBSERVACIONES:" />
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" x:Name="ObservacionesTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

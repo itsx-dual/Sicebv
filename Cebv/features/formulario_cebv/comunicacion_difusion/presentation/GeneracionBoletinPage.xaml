@@ -61,12 +61,12 @@
             <ui:TextBlock Text="Información exacta" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
                 <StackPanel Margin="5" IsEnabled="False">
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" x:Name="EjemploSeñaParticular1Tb"/>
+                    <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" x:Name="EjemploSeñaParticular2Tb"/>
+                    <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" x:Name="EjemploSeñaParticular3Tb"/>
+                    <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" x:Name="EjemploSeñaParticular4Tb"/>
+                    <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" x:Name="EjemploSeñaParticular5Tb"/>
+                    <ui:TextBox CharacterCasing="Upper" Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" x:Name="EjemploSeñaParticular6Tb"/>
                 </StackPanel>
             </Border>
 
@@ -76,7 +76,7 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="SEÑAS PARTICULARES PARA EL BOLETÍN:" />
 
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" x:Name="SeñasparticularesBoletinTb"/>
                     </StackPanel>
 
                     <ui:ToggleSwitch Name="MenorToggleSwitch"
@@ -86,7 +86,7 @@
 
                     <StackPanel Margin="0 0 0 15" IsEnabled="{Binding ElementName=MenorToggleSwitch, Path=IsChecked}">
                         <ui:TextBlock Text="INFORMACIÓN ADICIONAL:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox CharacterCasing="Upper" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" x:Name="InformacionAdicionalTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

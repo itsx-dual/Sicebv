@@ -88,7 +88,7 @@
                     <StackPanel>
                         <ui:TextBlock
                             Text="ESPECIFIQUE EL PROCESO DE REGULARIZACION MIGRATORIA QUE SE ENCUENTRA:" />
-                        <ui:TextBox />
+                        <ui:TextBox CharacterCasing="Upper" x:Name="EspecifiqueProcesoRegularizacionMigratoriaTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -206,9 +206,9 @@
                                       Grid.Row="0"
                                       Grid.ColumnSpan="2" />
 
-                        <ui:TextBox Grid.Row="1"
+                        <ui:TextBox CharacterCasing="Upper" Grid.Row="1"
                                     Grid.Column="0"
-                                    Text="{Binding CaracteristicaRiesgo}" />
+                                    Text="{Binding CaracteristicaRiesgo}" x:Name="CaracteristiRiesgoTb"/>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Row="1"
@@ -271,9 +271,9 @@
                                       Grid.Row="0"
                                       Grid.ColumnSpan="2" />
 
-                        <ui:TextBox Grid.Row="1"
+                        <ui:TextBox CharacterCasing="Upper" Grid.Row="1"
                                     Grid.Column="0"
-                                    Text="{Binding InformacionRelevante}" />
+                                    Text="{Binding InformacionRelevante}" x:Name="InformacionRelevanteTb"/>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Row="1"
@@ -318,7 +318,7 @@
                                     Margin="5">
                             <ui:TextBlock
                                 Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="CaracteristicaPersonalTb"/>
                         </StackPanel>
 
                         <StackPanel Grid.ColumnSpan="3"
@@ -326,7 +326,7 @@
                                     Margin="5">
                             <ui:TextBlock
                                 Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
-                            <ui:TextBox />
+                            <ui:TextBox CharacterCasing="Upper" x:Name="InformacionPersonalAdicionalTb"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

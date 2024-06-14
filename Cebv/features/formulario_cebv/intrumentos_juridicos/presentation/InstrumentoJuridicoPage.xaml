@@ -49,17 +49,17 @@
                                Converter={StaticResource VisibilityConverter}}">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NÚMERO DE CI, IM O REPORTE DE FGE:" />
-                            <ui:TextBox Text="{Binding NumeroCarpeta}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding NumeroCarpeta}" x:Name="NumeroCarpetaTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="DÓNDE RADICA LA CI, IM O REPORTE DE FGE:" />
-                            <ui:TextBox Text="{Binding DondeRadicaCarpeta}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding DondeRadicaCarpeta}" x:Name="DondeRadicaCarpetaTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DEL SERVIDOR(A) PÚBLICO:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoCarpeta}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding NombreServidorPublicoCarpeta}" x:Name="NombreServidorPublicoTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -87,17 +87,18 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NÚMERO DE AMPARO BUSCADOR:" />
-                            <ui:TextBox Text="{Binding NumeroAmparo}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding NumeroAmparo}" x:Name="NumeroAmparoBuscadorTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="DÓNDE RADICA EL AMPARO BUSCADOR:" />
-                            <ui:TextBox Text="{Binding DondeRadicaAmparo}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding DondeRadicaAmparo}" x:Name="DondeRadicaAmparoTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DEL JUEZ:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoAmparo}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding NombreServidorPublicoAmparo}" 
+                                        x:Name="NombreServidorPublicoAmparoTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -125,18 +126,21 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NÚMERO DE RECOMENDACIÓN DERECHOS HUMANOS:" />
-                            <ui:TextBox Text="{Binding NumeroRecomendacion}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding NumeroRecomendacion}" 
+                                        x:Name="NumeroRecomendacionTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="DÓNDE RADICA LA RECOMENDACIÓN DERECHOS HUMANOS:"
                                           FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding DondeRadicaRecomendacion}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding DondeRadicaRecomendacion}" 
+                                        x:Name="DondeRadicaRecomendacionTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DEL SERVIDOR(A) PÚBLICO:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoRecomendacion}" />
+                            <ui:TextBox CharacterCasing="Upper" Text="{Binding NombreServidorPublicoRecomendacion}" 
+                                        x:Name="NombreServidorPublicoRecomendacionTb"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -168,9 +172,9 @@
                                   Name="OtroDerechoCheckBox"
                                   Margin="0 0 15 0" />
 
-                        <ui:TextBox MinWidth="250"
+                        <ui:TextBox CharacterCasing="Upper" MinWidth="250"
                                     IsEnabled="{Binding ElementName=OtroDerechoCheckBox, Path=IsChecked}"
-                                    Text="{Binding OtroDerecho}" />
+                                    Text="{Binding OtroDerecho}" x:Name="OtroTb"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

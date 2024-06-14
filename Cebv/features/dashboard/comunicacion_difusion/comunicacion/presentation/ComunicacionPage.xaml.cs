@@ -9,15 +9,22 @@ public partial class ComunicacionPage : Page
     public ComunicacionPage()
     {
         InitializeComponent();
-        SubscribeTexBoxesEvents(this);
+        TextBoxHelperMethod();
+        //SubscribeTexBoxesEvents(this);
+    }
+
+    private void TextBoxHelperMethod()
+    {
+        ObservacionesTb.TextChanged += TextBoxHelper.UpperCaseText;
+        ObservacionesTb.LostFocus += TextBoxHelper.TrimmedText;
     }
     
-    private void SubscribeTexBoxesEvents(DependencyObject depObj)
+   /* private void SubscribeTexBoxesEvents(DependencyObject depObj)
     {
         foreach (TextBox textBox in HelperMethods.FindVisualChildren<TextBox>(depObj))
         {
             textBox.TextChanged += TextBoxHelper.UpperCaseText;
             textBox.LostFocus += TextBoxHelper.TrimmedText;
         }
-    }
+    }*/
 }

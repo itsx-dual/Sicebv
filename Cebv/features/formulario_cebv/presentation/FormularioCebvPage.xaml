@@ -22,6 +22,7 @@
       xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
+      xmlns:presentation91="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
