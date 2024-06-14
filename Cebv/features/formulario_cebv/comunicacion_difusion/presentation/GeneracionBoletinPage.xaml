@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -11,6 +12,10 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="GeneracionBoletinPage">
+    
+    <Page.DataContext>
+        <presentation:GeneracionBoletinViewModel />
+    </Page.DataContext>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -23,27 +28,18 @@
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Fotografías de la persona desaparecida" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <StackPanel Margin="5">
-                    <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                               Content="Añadir imagenes"
-                               Margin="0 0 0 25" />
-
-                    <WrapPanel>
-                        <ui:Button Icon="{ui:SymbolIcon Image24}"
-                                   MinHeight="100"
-                                   MinWidth="200"
-                                   Margin="10" />
-
-                        <ui:Button Icon="{ui:SymbolIcon Image24}"
-                                   MinHeight="100"
-                                   MinWidth="200"
-                                   Margin="10" />
-
-                        <ui:Button Icon="{ui:SymbolIcon Image24}"
-                                   MinHeight="100"
-                                   MinWidth="200"
-                                   Margin="10" />
-                    </WrapPanel>
+                <StackPanel>
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="FOTOGRAFÍAS:" />
+                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                   Command="{Binding OpenFileCommand}"
+                                   Content="Añadir imágenes"
+                                   Margin="5" />
+                    </StackPanel>
+                    
+                    <WrapPanel x:Name="Imagenes"
+                               DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
+                               DataContextChanged="Imagenes_OnDataContextChanged" />
                 </StackPanel>
             </Border>
 

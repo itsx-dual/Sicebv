@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Wpf.Ui;
 using Image = Wpf.Ui.Controls.Image;
 
 namespace Cebv.features.formulario_cebv.vehiculos_involucrados.presentation;
