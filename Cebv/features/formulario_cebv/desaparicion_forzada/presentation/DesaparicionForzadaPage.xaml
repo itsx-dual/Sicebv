@@ -29,20 +29,20 @@
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Condiciones de desaparición" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿SUFRIÓ DESAPARICIÓN FORZADA?" />
                             <ComboBox SelectedItem="{Binding SufrioDesaparicionForzadaOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="AUTORIDAD:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Autoridad}"
-                                      ItemsSource="{Binding Autoridades}"/>
+                                      ItemsSource="{Binding Autoridades}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
@@ -55,14 +55,14 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿SUFRIÓ DESAPARICIÓN POR PARTICULARES?" />
                             <ComboBox SelectedItem="{Binding SufrioDesaparicionParticularOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PARTICULAR:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Particular}"
-                                      ItemsSource="{Binding Particulares}"/>
+                                      ItemsSource="{Binding Particulares}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
@@ -76,12 +76,13 @@
                             <ui:TextBlock Text="MÉTODO DE CAPTURA:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding MetodoCaptura}"
-                                      ItemsSource="{Binding MetodosCaptura}"/>
+                                      ItemsSource="{Binding MetodosCaptura}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DEL MÉTODO DE CAPTURA:" />
-                            <ui:TextBox Text="{Binding MetodoCapturaDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding MetodoCapturaDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -90,12 +91,13 @@
                             <ui:TextBlock Text="MEDIO DE CAPTURA:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding MedioCaptura}"
-                                      ItemsSource="{Binding MediosCaptura}"/>
+                                      ItemsSource="{Binding MediosCaptura}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DEL MEDIO DE CAPTURA:" />
-                            <ui:TextBox Text="{Binding MedioCapturaDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding MedioCapturaDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -103,12 +105,13 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿EXISTIÓ DETENCIÓN LEGAL PREVIA O EXTORSIÓN?" />
                             <ComboBox SelectedItem="{Binding DetencionLegalExtorsionOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="OBSERVACIONES DE LA DETENCIÓN LEGAL O EXTORSIÓN:" />
-                            <ui:TextBox Text="{Binding DetencionLegalExtorsionDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding DetencionLegalExtorsionDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -121,19 +124,20 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿HA SIDO AVISTADO EN ALGUNA PARTE?" />
                             <ComboBox SelectedItem="{Binding HaSidoAvistadoOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="¿DÓNDE?" />
-                            <ui:TextBox Text="{Binding HaSidoAvistadoDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding HaSidoAvistadoDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Información sobre el perpetrador" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -145,12 +149,13 @@
                             <ui:TextBlock Text="SEXO:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Sexo}"
-                                      ItemsSource="{Binding Sexos}"/>
+                                      ItemsSource="{Binding Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 10 0">
                             <ui:TextBlock Text="DESCRIPCIÓN:" />
-                            <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -164,12 +169,13 @@
                             <ui:TextBlock Text="ÚLTIMO ESTATUS DEL PERPETRADOR:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding EstatusPerpetrador}"
-                                      ItemsSource="{Binding EstatusPerpetradores}"/>
+                                      ItemsSource="{Binding EstatusPerpetradores}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="DESCRIPCIÓN DEL GRUPO PERPETRADOR" />
-                            <ui:TextBox Text="{Binding GrupoPerpetradorDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding GrupoPerpetradorDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -177,12 +183,13 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿SE SUSCITARON OTROS DELITOS ANTES O DESPUÉS DE LA DESAPARICIÓN?" />
                             <ComboBox SelectedItem="{Binding DelitoDesaparicionOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="ESPECIFIQUE CUÁLES:" />
-                            <ui:TextBox Text="{Binding DelitoDesaparicionDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding DelitoDesaparicionDescripcion}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

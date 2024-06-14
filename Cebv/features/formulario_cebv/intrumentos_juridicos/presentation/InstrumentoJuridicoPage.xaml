@@ -14,9 +14,9 @@
       mc:Ignorable="d"
       Title="InstrumentoJuridicoPage">
 
-    <Page.DataContext>
-        <presentation:InstrumentoJuridicoViewModel />
-    </Page.DataContext>
+    <Page.Resources>
+        <util:VisibilityConverter2 x:Key="VisibilityConverter" />
+    </Page.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>

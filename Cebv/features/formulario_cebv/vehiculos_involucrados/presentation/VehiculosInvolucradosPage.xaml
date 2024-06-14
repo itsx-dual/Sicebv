@@ -35,7 +35,7 @@
 
             <!-- Datos de identificación de la persona -->
             <ui:TextBlock Text="Datos del vehículo involucrado" FontTypography="Subtitle" Margin="10" />
-            <Border>
+            <Border Style="{StaticResource CebvBorder}">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition />

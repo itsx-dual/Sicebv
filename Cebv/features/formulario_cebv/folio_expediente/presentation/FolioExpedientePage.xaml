@@ -69,7 +69,7 @@
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="TERMINACIÓN DE LA ENTIDAD:" />
+                        <ui:TextBlock Text="TERMINACIÓN DE LA ENTIDAD(SC, SDF):" />
                         <ui:TextBox Text="" IsEnabled="False" />
                     </StackPanel>
                 </WrapPanel>

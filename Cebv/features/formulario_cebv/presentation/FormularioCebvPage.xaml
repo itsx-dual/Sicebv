@@ -26,7 +26,7 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
+      d:DesignWidth="AUTO"
       d:DesignHeight="1000"
       mc:Ignorable="d"
       x:Name="FormularioPage"
@@ -118,7 +118,7 @@
                                    Icon="{ui:SymbolIcon BookInformation24}"
                                    TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
         </ui:NavigationView.MenuItems>
-        
+
         <ui:NavigationView.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
@@ -129,17 +129,25 @@
                               FontTypography="Title"
                               TextWrapping="Wrap" />
 
-                <ui:Button
-                    Visibility="{Binding PuedeGuardar,
+                <WrapPanel Grid.Column="1">
+                    <ui:Button Content="Relacionar información"
+                               Margin="0 0 25 0"
+                        Icon="{ui:SymbolIcon PersonCircle24}"
+                        HorizontalAlignment="Right"
+                        Appearance="Success"
+                        ToolTip="{StaticResource RegistroPendienteToolTip}" />
+                    
+                    <ui:Button
+                        Visibility="{Binding PuedeGuardar,
                     Converter={StaticResource VisibilityConverter2}}"
-                    Content="{StaticResource RegistroPendiente}"
-                    Icon="{ui:SymbolIcon Save16}"
-                    HorizontalAlignment="Right"
-                    Grid.Column="1"
-                    Appearance="Primary"
-                    ToolTip="{StaticResource RegistroPendienteToolTip}" />
+                        Content="{StaticResource RegistroPendiente}"
+                        Icon="{ui:SymbolIcon Save16}"
+                        HorizontalAlignment="Right"
+                        Appearance="Primary"
+                        ToolTip="{StaticResource RegistroPendienteToolTip}" />
+                </WrapPanel>
             </Grid>
         </ui:NavigationView.Header>
-        
+
     </ui:NavigationView>
 </Page>

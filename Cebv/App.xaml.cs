@@ -6,6 +6,7 @@ using Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 using Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation;
 using Cebv.features.formulario_cebv.media_filiacion.presentation;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
+using Cebv.features.formulario_cebv.prendas.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Cebv.features.formulario_cebv.reportante.presentation;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,7 @@ public partial class App : Application
         services.AddSingleton<DesaparecidoViewModel>();
         services.AddSingleton<MediaFiliacionViewModel>();
         services.AddSingleton<MediaFiliacionComplementariaViewModel>();
+        services.AddSingleton<PrendasViewModel>();
         return services.BuildServiceProvider();
     }
 }
