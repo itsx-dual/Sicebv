@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.folio_expediente.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -11,6 +12,10 @@
       d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="FolioExpedientePage">
+    
+    <Page.DataContext>
+        <presentation:FolioExpedienteViewModel />
+    </Page.DataContext>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -94,7 +99,9 @@
                     <WrapPanel Margin="0 0 25 0">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Area}"
+                                      ItemsSource="{Binding Areas }" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -120,7 +127,13 @@
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25  0">
                             <ui:TextBlock Text="ÁREA A LA QUE CAMBIÓ EL EXPEDIENTE:" />
-                            <ComboBox />
+                            <ComboBox>
+                                <ComboBoxItem Content="CELULA NORTE"/>
+                                <ComboBoxItem Content="CELULA CENTRO"/>
+                                <ComboBoxItem Content="CELULA SUR"/>
+                                <ComboBoxItem Content="LARGA DATA"/>
+                                <ComboBoxItem Content="DVIAJ"/>
+                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
