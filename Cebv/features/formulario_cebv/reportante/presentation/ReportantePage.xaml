@@ -316,7 +316,7 @@
                             <ui:TextBlock Text="PERTENENCIA A ALGÚN GRUPO DE POBLACIÓN VULNERABLE:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.GrupoVulnerable}"
-                                      ItemsSource="{Binding Reportante.GruposVulnerables}"/>
+                                      ItemsSource="{Binding Reportante.GruposVulnerables}" />
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -340,7 +340,7 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿HA REALIZADO BÚSQUEDAS CON ANTERIORIDAD?" />
                             <ComboBox SelectedItem="{Binding ParticipoBusquedaOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -359,7 +359,9 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="COLECTIVO: " />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Colectivo}"
+                                      ItemsSource="{Binding Colectivos}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

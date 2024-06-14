@@ -135,7 +135,7 @@
             </Border>
 
             <ui:TextBlock Text="Observaciones generales" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="400" Margin="5">
                     <ui:TextBlock Text="OBSERVACIONES:"/>
                     <ui:TextBox Text="{Binding ObservacionesGenerales}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />

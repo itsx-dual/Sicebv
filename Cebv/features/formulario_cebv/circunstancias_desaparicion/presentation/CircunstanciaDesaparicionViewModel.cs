@@ -19,11 +19,11 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
      */
     [ObservableProperty] private bool _fechaAproximada;
 
-    [ObservableProperty] private DateTime _fechaDesaparicion;
+    [ObservableProperty] private DateTime? _fechaDesaparicion;
     [ObservableProperty] private string _fechaDesaparicionCebv = String.Empty;
     [ObservableProperty] private string _horaDesaparicion = String.Empty;
 
-    [ObservableProperty] private DateTime _fechaPercato;
+    [ObservableProperty] private DateTime? _fechaPercato;
     [ObservableProperty] private string _fechaPercatoCebv = String.Empty;
     [ObservableProperty] private string _horaPercato = String.Empty;
 
