@@ -17,7 +17,6 @@
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
-
     </Page.Resources>
 
     <Page.DataContext>

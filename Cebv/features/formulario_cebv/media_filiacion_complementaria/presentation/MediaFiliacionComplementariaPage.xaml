@@ -14,11 +14,6 @@
     mc:Ignorable="d"
     Title="MediaFiliacionComplementariaPage">
     
-    <Page.DataContext>
-        <presentation:MediaFiliacionComplementariaViewModel/>
-    </Page.DataContext>
-    
-
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

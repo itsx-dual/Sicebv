@@ -14,10 +14,6 @@
       mc:Ignorable="d"
       Title="InstrumentoJuridicoPage">
 
-    <Page.Resources>
-        <util:VisibilityConverter2 x:Key="VisibilityConverter" />
-    </Page.Resources>
-
     <Page.DataContext>
         <presentation:InstrumentoJuridicoViewModel />
     </Page.DataContext>
