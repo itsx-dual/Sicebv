@@ -1,4 +1,4 @@
-<Page x:Class="Cebv.features.formulario_cebv.datos_de_localizacion.presentation.DatosDeLocalizacionPage"
+<Page x:Class="Cebv.features.formulario_cebv.datos_de_localizacion.presentation.DatosLocalizacionPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,12 +6,14 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
+      xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      Name="Page"
       Title="DatosDeLocalizacionPage">
 
     <Page.Resources>
@@ -242,42 +244,39 @@
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="DOCUMENTOS:" />
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                                       Command="{Binding OpenedFilePathTres}"
+                                       Command="{Binding OpenInformeLocalizacionFileCommand}"
                                        Content="Añadir informe de localización"
                                        Margin="5" />
                         </StackPanel>
-
-                        <WrapPanel x:Name="Informes"
-                                   DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
-                                   DataContextChanged="Informes_OnDataContextChanged" />
+                        
                     </StackPanel>
 
                     <StackPanel>
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="FOTOGRAFÍAS:" />
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                                       Command="{Binding OpenFileUnoCommand}"
+                                       Command="{Binding OpenPruebaVidaFileCommand}"
                                        Content="Añadir prueba de vida"
                                        Margin="5" />
                         </StackPanel>
 
-                        <WrapPanel x:Name="ImagenesUno"
-                                   DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
-                                   DataContextChanged="ImagenesUno_OnDataContextChanged" />
+                        <WrapPanel x:Name="PruebasVida"
+                                   DataContext="{Binding ElementName=Page, Path=DataContext.OpenedPruebaVidaPath}"
+                                   DataContextChanged="PruebasVidaFiles" />
                     </StackPanel>
 
                     <StackPanel>
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="FOTOGRAFÍAS:" />
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                                       Command="{Binding OpenFileDosCommand}"
+                                       Command="{Binding OpenIdentificacionOficialFileCommand}"
                                        Content="Añadir identificacion oficial"
                                        Margin="5" />
                         </StackPanel>
 
-                        <WrapPanel x:Name="ImagenesDos"
-                                   DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
-                                   DataContextChanged="ImagenesDos_OnDataContextChanged" />
+                        <WrapPanel x:Name="IdentificacionesOficiales"
+                                   DataContext="{Binding ElementName=Page, Path=DataContext.OpenedIdentificacionOficialPath}"
+                                   DataContextChanged="IdentificacionesOficialesFiles" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -291,7 +290,6 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"

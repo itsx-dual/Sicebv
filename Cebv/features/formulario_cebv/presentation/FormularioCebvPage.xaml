@@ -117,7 +117,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource LocalizacionTitle}"
                                    Icon="{ui:SymbolIcon Location24}"
-                                   TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
+                                   TargetPageType="{x:Type presentation:DatosLocalizacionPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource ControlOgpiTitle}"
                                    Icon="{ui:SymbolIcon BookInformation24}"

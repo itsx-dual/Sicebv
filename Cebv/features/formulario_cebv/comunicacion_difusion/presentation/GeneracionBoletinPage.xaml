@@ -11,6 +11,7 @@
       d:DesignWidth="1000"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      Name="GeneracionBoletin"
       Title="GeneracionBoletinPage">
     
     <Page.DataContext>
@@ -38,7 +39,7 @@
                     </StackPanel>
                     
                     <WrapPanel x:Name="Imagenes"
-                               DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
+                               DataContext="{Binding ElementName=GeneracionBoletin, Path=DataContext.OpenedFilePath}"
                                DataContextChanged="Imagenes_OnDataContextChanged" />
                 </StackPanel>
             </Border>
