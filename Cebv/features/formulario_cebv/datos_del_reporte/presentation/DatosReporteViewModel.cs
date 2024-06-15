@@ -7,7 +7,6 @@ using Cebv.core.util.navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 
@@ -20,7 +19,10 @@ public partial class DatosReporteViewModel : ObservableObject
     {
         CargarCatalogos();
     }
-    
+
+    [ObservableProperty] private DateOnly _fechaInicio = DateOnly.FromDateTime(DateTime.Now);
+    [ObservableProperty] private TimeOnly _horaInicio = TimeOnly.FromDateTime(DateTime.Now);
+
     /**
      * Fuente de información.
      */
@@ -52,7 +54,7 @@ public partial class DatosReporteViewModel : ObservableObject
 
     partial void OnPublicacionInformacionSelectedChanged(string value) =>
         PublicacionInformacion = OpcionesCebv.MappingToBool(value);
-    
+
     /**
      * Peticiones a la API.
      */
@@ -63,7 +65,7 @@ public partial class DatosReporteViewModel : ObservableObject
         Medios = await ReporteNetwork.GetMedios(value.Id);
 
     [RelayCommand]
-    public void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguente(Type pageType)
     {
         var navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>();
         navigationService?.Navigate(pageType);

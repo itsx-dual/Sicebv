@@ -64,10 +64,10 @@ public static class PersonaNetwork
 
         return jsonResponse.Data;
     }
-    
-    public static async Task<ObservableCollection<Catalogo>> GetOcupaciones()
+
+    public static async Task<ObservableCollection<Catalogo>> GetTiposOcupaciones()
     {
-        using var request = await Client.GetAsync("api/ocupaciones");
+        using var request = await Client.GetAsync("api/tipos-ocupaciones");
 
         var response = await request.Content.ReadAsStringAsync();
 
@@ -75,8 +75,21 @@ public static class PersonaNetwork
 
         return jsonResponse.Data;
     }
-    
-    
+
+    public static async Task<ObservableCollection<Catalogo>> GetOcupaciones(int id)
+    {
+        if (id < 0 || id > 8) return new ObservableCollection<Catalogo>();
+
+        using var request = await Client.GetAsync($"api/ocupaciones?search={id}");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
+
+
     public static async Task<ObservableCollection<Catalogo>> GetGruposVulnerables()
     {
         using var request = await Client.GetAsync("api/grupos-vulnerables");

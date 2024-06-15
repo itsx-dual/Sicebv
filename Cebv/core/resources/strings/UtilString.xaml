@@ -12,4 +12,5 @@
 
     <!-- Contenido de los tooltips -->
     <system:String x:Key="RegistroPendienteToolTip">Guardar el registro actual como pendiente</system:String>
+    <system:String x:Key="DashboardTitle">Comisión Estatal de Búsqueda de Veracruz</system:String>
 </ResourceDictionary>

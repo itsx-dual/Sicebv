@@ -69,6 +69,9 @@ public partial class ReportanteViewModel : ObservableObject
     // Busquedas pasadas
     [ObservableProperty] private string _participoBusquedaOpcion= OpcionesCebv.No;
     [ObservableProperty] private bool? _participoBusqueda;
+    
+    [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
+    [ObservableProperty] private Catalogo _colectivo = new();
 
     /**
      * Peticiones a la Api
@@ -76,6 +79,7 @@ public partial class ReportanteViewModel : ObservableObject
     private async void CargarCatalogos()
     {
         Parentescos = await ReportanteNetwork.GetParentescos();
+        Colectivos = await ReportanteNetwork.GetColectivos();
     }
 
     partial void OnPertenciaColectivoChanging(string value) =>

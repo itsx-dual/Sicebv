@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -11,13 +12,17 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="PrendasPage">
+    
+    <Page.DataContext>
+        <presentation:PrendasViewModel/>
+    </Page.DataContext>
 
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -30,17 +35,23 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="GRUPO PERTENENCIA:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding GrupoPertenencia }"
+                                  ItemsSource="{Binding GruposPertenencias}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="PERTENENCIA:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Pertenencia }"
+                                  ItemsSource="{Binding Pertenencias}" />
                     </StackPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="COLOR:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Color }"
+                                  ItemsSource="{Binding Colores}" />
                     </StackPanel>
 
                 </StackPanel>
@@ -48,14 +59,15 @@
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="MARCA:" />
-                        <ui:TextBox />
+                        <ui:TextBox Text="{Binding Marca}" />
                     </StackPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="DESCIPCIÓN:" />
-                        <TextBox VerticalAlignment="Stretch"
-                                 Height="100"
-                                 TextWrapping="Wrap" MaxLength="400" />
+                        <ui:TextBox Text="{Binding Descripcion}"
+                                    TextWrapping="Wrap"
+                                    MinHeight="100"
+                                    AcceptsReturn="True" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

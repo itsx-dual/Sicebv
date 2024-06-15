@@ -22,11 +22,12 @@
       xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
+      xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1000"
+      d:DesignWidth="AUTO"
       d:DesignHeight="1000"
       mc:Ignorable="d"
       x:Name="FormularioPage"
@@ -64,7 +65,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource DesaparecidoTitle}"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
-                                   TargetPageType="{x:Type presentation3:Desaparecido}" />
+                                   TargetPageType="{x:Type presentation3:DesaparecidoPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource MediaFiliacionTitle}"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
@@ -88,7 +89,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource ModoTiempoLugarTitle}"
                                    Icon="{ui:SymbolIcon Map24}"
-                                   TargetPageType="{x:Type presentation5:CircunstanciasDesaparicionPage}" />
+                                   TargetPageType="{x:Type presentation5:CircunstanciaDesaparicionPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource DesaparicionForzadaTitle}"
                                    Icon="{ui:SymbolIcon Group24}"
@@ -101,6 +102,10 @@
             <ui:NavigationViewItem Content="{StaticResource VehiculosTitle}"
                                    Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
+            
+            <ui:NavigationViewItem Content="{StaticResource DatosComplementariosTitle}"
+                                   Icon="{ui:SymbolIcon Info24}"
+                                   TargetPageType="{x:Type presentation14:DatosComplementariosPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
                                    Icon="{ui:SymbolIcon BookNumber24}"
@@ -112,12 +117,13 @@
 
             <ui:NavigationViewItem Content="{StaticResource LocalizacionTitle}"
                                    Icon="{ui:SymbolIcon Location24}"
-                                   TargetPageType="{x:Type presentation:DatosDeLocalizacionPage}" />
+                                   TargetPageType="{x:Type presentation:DatosLocalizacionPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource ControlOgpiTitle}"
                                    Icon="{ui:SymbolIcon BookInformation24}"
                                    TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
         </ui:NavigationView.MenuItems>
+
         <ui:NavigationView.Header>
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
@@ -128,16 +134,25 @@
                               FontTypography="Title"
                               TextWrapping="Wrap" />
 
-                <ui:Button
-                    Visibility="{Binding PuedeGuardar,
+                <WrapPanel Grid.Column="1">
+                    <ui:Button Content="Relacionar información"
+                               Margin="0 0 25 0"
+                        Icon="{ui:SymbolIcon PersonCircle24}"
+                        HorizontalAlignment="Right"
+                        Appearance="Success"
+                        ToolTip="{StaticResource RegistroPendienteToolTip}" />
+                    
+                    <ui:Button
+                        Visibility="{Binding PuedeGuardar,
                     Converter={StaticResource VisibilityConverter2}}"
-                    Content="{StaticResource RegistroPendiente}"
-                    Icon="{ui:SymbolIcon Save16}"
-                    HorizontalAlignment="Right"
-                    Grid.Column="1"
-                    Appearance="Primary"
-                    ToolTip="{StaticResource RegistroPendienteToolTip}" />
+                        Content="{StaticResource RegistroPendiente}"
+                        Icon="{ui:SymbolIcon Save16}"
+                        HorizontalAlignment="Right"
+                        Appearance="Primary"
+                        ToolTip="{StaticResource RegistroPendienteToolTip}" />
+                </WrapPanel>
             </Grid>
         </ui:NavigationView.Header>
+
     </ui:NavigationView>
 </Page>

@@ -23,7 +23,7 @@
     </Page.DataContext>
     <Grid>
         <ui:TitleBar x:Name="Titulo" 
-                     Title="Comisión Estatal de Búsqueda de Personas"
+                     Title="{StaticResource DashboardTitle}"
                      ApplicationTheme="Dark">
             <ui:TitleBar.Icon>
                 <ui:SymbolIcon Symbol="LocationLive24"/>

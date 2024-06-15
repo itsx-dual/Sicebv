@@ -14,16 +14,6 @@
       Name="PageCondiciones"
       Title="CondicionesVulnerabilidadPage">
 
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
-
     <Page.DataContext>
         <local:CondicionesVulnerabilidadViewModel />
     </Page.DataContext>
@@ -31,9 +21,9 @@
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -44,8 +34,10 @@
             <ui:TextBlock Text="Tipo de sangre" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="200">
-                    <ui:TextBlock Text="Tipo de sangre" />
-                    <ComboBox />
+                    <ui:TextBlock Text="TIPO DE SANGRE:" />
+                    <ComboBox DisplayMemberPath="Nombre"
+                              SelectedItem="{Binding TipoSangre}"
+                              ItemsSource="{Binding TiposSangre}"/>
                 </StackPanel>
             </Border>
 
@@ -58,14 +50,16 @@
                 <ui:DataGrid.Columns>
                     <DataGridTextColumn Header="Condición"
                                         Width="*"
-                                        Binding="{Binding Path=condicion }" />
+                                        Binding="{Binding Path=Condicion }" />
                     <DataGridTextColumn Header="Tratamiento"
                                         Width="*"
-                                        Binding="{Binding Path=tratamiento}" />
+                                        Binding="{Binding Path=Tratamiento}" />
                     <DataGridComboBoxColumn Header="Naturaleza"
+                                            ItemsSource="{Binding NaturalezaOpciones, Mode=TwoWay}"
+                                            SelectedValueBinding="{Binding Naturaleza}"
                                             Width="*">
                     </DataGridComboBoxColumn>
-                    <DataGridCheckBoxColumn Header="Padece la condicion actualmente" />
+                    <DataGridCheckBoxColumn Header="Padece la condicion actualmente" Binding="{Binding PadeceCondicion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </ui:DataGrid.Columns>
             </ui:DataGrid>
 
@@ -75,27 +69,30 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding TransitoEstadosUnidosOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
                         
                         <StackPanel MinWidth="250">
                             <ui:TextBlock
                                 Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding SituacionMigratoria}"
+                                      ItemsSource="{Binding SituacionesMigratorias}"/>
                         </StackPanel>
                     </WrapPanel>
                     
                     <StackPanel>
                         <ui:TextBlock
                             Text="ESPECIFIQUE EL PROCESO DE REGULARIZACION MIGRATORIA QUE SE ENCUENTRA:" />
-                        <ui:TextBox />
+                        <ui:TextBox Text="{Binding ProcesoMigratorioDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
 
             <ui:TextBlock Text="Enfoque diferenciado" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -113,7 +110,8 @@
                                 MinWidth="200"
                                 Margin="5">
                         <ui:TextBlock Text="Pertenencia grupal o étnica" />
-                        <ComboBox />
+                        <ComboBox SelectedItem="{Binding PertenenciaGrupalOpcion}"
+                                  ItemsSource="{Binding Opciones}"/>
                     </StackPanel>
 
                     <!-- Enfoques diferenciados -->
@@ -141,17 +139,17 @@
                         <ComboBox MinWidth="200"
                                   Grid.Column="0"
                                   Grid.Row="1"
-                                  ItemsSource="{Binding EnfoquesDiferenciadosCatalogo}"
+                                  DisplayMemberPath="Nombre"
+                                  ItemsSource="{Binding EnfoquesDiferenciados}"
                                   SelectedItem="{Binding EnfoqueDiferenciado}" />
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Grid.Column="1"
                                    Grid.Row="1"
                                    VerticalAlignment="Stretch"
-                                   Appearance="Primary"
-                                   Command="{Binding AddEnfoqueDiferenciadoCommand}" />
+                                   Appearance="Primary" />
 
-                        <ui:ListView ItemsSource="{Binding Path=EnfoquesDiferenciadosSeleccionados}"
+                        <ui:ListView
                                      Grid.Row="2"
                                      Grid.Column="0"
                                      Grid.ColumnSpan="2">
@@ -318,7 +316,7 @@
                                     Margin="5">
                             <ui:TextBlock
                                 Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding CaracteristicaPersonal}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                         </StackPanel>
 
                         <StackPanel Grid.ColumnSpan="3"
@@ -326,23 +324,26 @@
                                     Margin="5">
                             <ui:TextBlock
                                 Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
-                            <ui:TextBox />
+                            <ui:TextBox Text="{Binding InformacionPersonal}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <ui:TextBlock Text="Embarazo" FontTypography="Title" Margin="10" />
-            <Border>
+            <Border Style="{StaticResource CebvBorder}">
                 <WrapPanel Margin="10">
                     <CheckBox Content="¿Esta embarazada?"
-                              Name="EmbarazoToggleSwitch" />
+                              Margin="10"
+                              IsChecked="{Binding EstaEmbarazada}"/>
 
                     <ui:NumberBox Maximum="9"
                                   Minimum="0"
+                                  Width="300"
                                   PlaceholderText="Meses de embarazo"
-                                  Margin="5,0,0,0"
-                                  IsEnabled="{Binding ElementName=EmbarazoToggleSwitch, Path=IsChecked}" />
+                                  Value="{Binding MesesEmbarazo}"
+                                  Margin="5"
+                                  IsEnabled="{Binding EstaEmbarazada}" />
                 </WrapPanel>
             </Border>
         </StackPanel>

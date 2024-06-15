@@ -1,109 +1,68 @@
 using System.Collections.ObjectModel;
+using Cebv.core.data;
+using Cebv.features.formulario_cebv.condiciones_vulnerabilidad.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation;
 
 public class CondicionesSalud
 {
-    public string condicion { get; set; }
-    public string tratamiento { get; set; }
-    public string naturaleza { get; set; }
+    public string Condicion { get; set; }
+    public string Tratamiento { get; set; }
+    public string Naturaleza { get; set; }
+
+    public bool PadeceCondicion { get; set; }
 }
+
 public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 {
-    [ObservableProperty] 
-    private ObservableCollection<CondicionesSalud> _condicionesSalud;
-    
-    [ObservableProperty] 
-    private ObservableCollection<string> _enfoquesDiferenciadosCatalogo;
-    [ObservableProperty] 
-    private ObservableCollection<string> _enfoquesDiferenciadosSeleccionados;
-    [ObservableProperty] 
-    private string _enfoqueDiferenciado;
-
-    [ObservableProperty]
-    private string _caracteristicaRiesgo;
-    [ObservableProperty]
-    private ObservableCollection<string> _caracteristicasRiesgo;
-    
-    [ObservableProperty]
-    private string _informacionRelevante;
-    [ObservableProperty]
-    private ObservableCollection<string> _informacionesRelevantes;
-   
-
     public CondicionesVulnerabilidadViewModel()
     {
-        CondicionesSalud = new ObservableCollection<CondicionesSalud>();
-
-        EnfoquesDiferenciadosCatalogo = new ObservableCollection<string>();
-        EnfoquesDiferenciadosSeleccionados = new ObservableCollection<string>();
-        CaracteristicasRiesgo = new ObservableCollection<string>();
-        InformacionesRelevantes = new ObservableCollection<string>();
-        
-        EnfoquesDiferenciadosCatalogo.Add("CONDUCTOR DE TRANSPORTE PUBLICO");
-        EnfoquesDiferenciadosCatalogo.Add("DEFENSORA DE DERECHOS HUMANOS");
-        EnfoquesDiferenciadosCatalogo.Add("DISCAPACIDAD FISICA");
-        EnfoquesDiferenciadosCatalogo.Add("DISCAPACIDAD INTELECTUAL");
-        EnfoquesDiferenciadosCatalogo.Add("DISCAPACIDAD MENTAL");
-        EnfoquesDiferenciadosCatalogo.Add("DISCAPACIDAD SENSORIAL");
-        EnfoquesDiferenciadosCatalogo.Add("ES PERSONAL DE SEGURIDAD PUBLICA O PRIVADA"); 
-        EnfoquesDiferenciadosCatalogo.Add("HABLA IDIOMA O LENGUA INDIGENA");
-        EnfoquesDiferenciadosCatalogo.Add("PERIODISTA");
-        EnfoquesDiferenciadosCatalogo.Add("PERSONA EXTRANJERA EN MEXICO");
-        EnfoquesDiferenciadosCatalogo.Add("PERTENECE A ALGUN SINDICATO");
-        EnfoquesDiferenciadosCatalogo.Add("PERTENECE A ALGUNA ONG");
-        EnfoquesDiferenciadosCatalogo.Add("PERTENECE A LA COMUNIDAD LGBTTTIQ");
-        EnfoquesDiferenciadosCatalogo.Add("PERTENECE PUEBLO O COMUNIDAD INDIGENA");
-        EnfoquesDiferenciadosCatalogo.Add("SERVIDOR PUBLICO");
-        EnfoquesDiferenciadosCatalogo.Add("NO ESPECIFICA");
-
-        EnfoqueDiferenciado = EnfoquesDiferenciadosCatalogo.Last();
-        CaracteristicaRiesgo = string.Empty;
-        InformacionRelevante = string.Empty;
+        CargarCatalogos();
     }
 
-    [RelayCommand]
-    public void AddEnfoqueDiferenciado()
+    [ObservableProperty] private ObservableCollection<CondicionesSalud> _condicionesSalud = new();
+
+    [ObservableProperty] private List<string> _naturalezaOpciones = new()
     {
-        EnfoquesDiferenciadosSeleccionados.Add(EnfoqueDiferenciado);
-    }
-    
-    [RelayCommand]
-    public void RemoveEnfoqueDiferenciado(string elemento)
+        "CONDICION",
+        "TRATAMIENTO",
+        "NATURALEZA",
+        "Nose"
+    };
+
+    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+
+    [ObservableProperty] private string _transitoEstadosUnidosOpcion = OpcionesCebv.No;
+    [ObservableProperty] private bool? _transitoEstadosUnidos = false;
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _situacionesMigratorias = new();
+    [ObservableProperty] private Catalogo _situacionMigratoria = new();
+
+    [ObservableProperty] private string _procesoMigratorioDescripcion = String.Empty;
+
+    [ObservableProperty] private string _pertenenciaGrupalOpcion = OpcionesCebv.No;
+    [ObservableProperty] private bool? _pertenenciaGrupal = false;
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _enfoquesDiferenciados = new();
+    [ObservableProperty] private Catalogo _enfoqueDiferenciado = new();
+
+    [ObservableProperty] private string _caracteristicaPersonal = String.Empty;
+
+    [ObservableProperty] private string _informacionPersonal = String.Empty;
+
+    [ObservableProperty] private bool _estaEmbarazada;
+
+    [ObservableProperty] private int _mesesEmbarazo;
+
+    private async void CargarCatalogos()
     {
-        Console.WriteLine($"Item para borrar: {elemento}");
-        EnfoquesDiferenciadosSeleccionados.Remove(elemento);
+        TiposSangre = await CondicionVulnerabilidadNetwork.GetTiposSangre();
+        EnfoquesDiferenciados = await CondicionVulnerabilidadNetwork.GetEnfoquesDiferenciados();
+        SituacionesMigratorias = await CondicionVulnerabilidadNetwork.GetSituacionesMigratorias();
     }
 
-    [RelayCommand]
-    public void AddCaracteristicaRiesgo()
-    {
-        CaracteristicaRiesgo = CaracteristicaRiesgo.Trim();
-        if (CaracteristicaRiesgo == string.Empty || CaracteristicaRiesgo.Length <= 0) return;
-        CaracteristicasRiesgo.Add(CaracteristicaRiesgo);
-        CaracteristicaRiesgo = string.Empty;
-    }
 
-    [RelayCommand]
-    public void RemoveCaracteristicaRiesgo(string elemento)
-    {
-        CaracteristicasRiesgo.Remove(elemento);
-    }
-    
-    [RelayCommand]
-    public void AddInformacionRelevante()
-    {
-        InformacionRelevante = InformacionRelevante.Trim();
-        if (InformacionRelevante == string.Empty || InformacionRelevante.Length <= 0) return;
-        InformacionesRelevantes.Add(InformacionRelevante);
-        InformacionRelevante = string.Empty;
-    }
-
-    [RelayCommand]
-    public void RemoveInformacionRelevante(string elemento)
-    {
-        InformacionesRelevantes.Remove(elemento);
-    }
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = new();
+    [ObservableProperty] private Catalogo _tipoSangre = new();
 }
