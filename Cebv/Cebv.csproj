@@ -43,7 +43,6 @@
 
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.3.24172.9" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0-preview.3.24172.9" />
-      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2535.41" />
       <PackageReference Include="WPF-UI" Version="3.0.3" />
     </ItemGroup>
 
