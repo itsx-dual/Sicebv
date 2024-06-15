@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
       xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -13,10 +12,6 @@
       d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="CircunstanciaDesaparicionPage">
-
-    <Page.DataContext>
-        <presentation:CircunstanciaDesaparicionViewModel />
-    </Page.DataContext>
 
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
@@ -183,6 +178,20 @@
                                           SelectedItem="{Binding Ubicacion.Asentamiento}"
                                           ItemsSource="{Binding Ubicacion.Asentamientos}" />
                             </StackPanel>
+
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <ui:TextBlock Text="COORDENADA LATITUD:" />
+                                <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
+                                              Minimum="-90"
+                                              Maximum="90"/>
+                            </StackPanel>
+
+                            <StackPanel MinWidth="200">
+                                <ui:TextBlock Text="COORDENADA LONGITUD" />
+                                <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
+                                              Minimum="-180"
+                                              Maximum="180"/>
+                            </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
@@ -220,7 +229,7 @@
                         <ui:TextBlock
                             Text="¿LA PERSONA DESAPARECIDA HABÍA RECIBIDO AMENAZAS O HABÍA CAMBIADO SU COMPORTAMIENTO O RUTINA RECIENTEMENTE?" />
                         <ComboBox SelectedItem="{Binding AmenazaCambioComportamientoOpcion}"
-                                  ItemsSource="{Binding Opciones}"/>
+                                  ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -280,7 +289,8 @@
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
                             <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 1:" />
-                            <ui:TextBox Text="{Binding TipoHipotesisUno.CircunstanciaId}" HorizontalContentAlignment="Center" />
+                            <ui:TextBox Text="{Binding TipoHipotesisUno.CircunstanciaId}"
+                                        HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -293,7 +303,8 @@
 
                         <StackPanel MinWidth="200" IsEnabled="False">
                             <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 2:" />
-                            <ui:TextBox Text="{Binding TipoHipotesisDos.CircunstanciaId}" HorizontalContentAlignment="Center" />
+                            <ui:TextBox Text="{Binding TipoHipotesisDos.CircunstanciaId}"
+                                        HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -320,7 +331,7 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿DESAPARECIÓ CON ALGUIEN MÁS?:" />
                             <ComboBox SelectedItem="{Binding DesaparecioAcompanadoOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">

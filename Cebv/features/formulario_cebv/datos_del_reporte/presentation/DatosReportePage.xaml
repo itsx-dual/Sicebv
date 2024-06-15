@@ -29,12 +29,12 @@
             <WrapPanel IsEnabled="False" Margin="10 10 10 25">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="FECHA DE INICIO:" />
-                    <ui:TextBox Text="EJEMPLO FECHA" />
+                    <ui:TextBox Text="{Binding FechaInicio}" />
                 </StackPanel>
 
                 <StackPanel MinWidth="250">
                     <ui:TextBlock Text="HORA DE INICIO:" />
-                    <ui:TextBox Text="EJEMPLO HORA" />
+                    <ui:TextBox Text="{Binding HoraInicio}" />
                 </StackPanel>
             </WrapPanel>
 

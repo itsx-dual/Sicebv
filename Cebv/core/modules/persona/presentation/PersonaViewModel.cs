@@ -58,17 +58,24 @@ public partial class PersonaViewModel : ObservableObject
     // Escolaridad de la persona
     [ObservableProperty] private ObservableCollection<Catalogo> _escolaridades = new();
     [ObservableProperty] private Catalogo _escolaridad = new();
-    
+
     // Grupos vulnerables
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
     [ObservableProperty] private Catalogo _grupoVulnerable = new();
 
     //  Ocupaciones de la persona
-    [ObservableProperty] private ObservableCollection<Catalogo> _ocupaciones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposOcupaciones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _ocupacionesUno = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _ocupacionesDos = new();
+
+    [ObservableProperty] private Catalogo _tipoOcupacionUno = new();
     [ObservableProperty] private Catalogo _ocupacionUno = new();
     [ObservableProperty] private string _ocupacionUnoObservaciones = String.Empty;
+
+    [ObservableProperty] private Catalogo _tipoOcupacionDos = new();
     [ObservableProperty] private Catalogo _ocupacionDos = new();
     [ObservableProperty] private string _ocupacionDosObservaciones = String.Empty;
+    [ObservableProperty] private string _ocupacionesObservaciones = String.Empty;
 
     // Estado Conyugal
     [ObservableProperty] private ObservableCollection<Catalogo> _estadosConyugales = new();
@@ -112,8 +119,14 @@ public partial class PersonaViewModel : ObservableObject
         LugaresNacimientos = await UbicacionNetwork.GetEstados();
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
         Escolaridades = await PersonaNetwork.GetEscolaridades();
-        Ocupaciones = await PersonaNetwork.GetOcupaciones();
+        TiposOcupaciones = await PersonaNetwork.GetTiposOcupaciones();
         EstadosConyugales = await PersonaNetwork.GetEstadosConyugales();
         GruposVulnerables = await PersonaNetwork.GetGruposVulnerables();
     }
+
+    async partial void OnTipoOcupacionUnoChanged(Catalogo value) =>
+        OcupacionesUno = await PersonaNetwork.GetOcupaciones(value.Id);
+    
+    async partial void OnTipoOcupacionDosChanged(Catalogo value) =>
+        OcupacionesDos = await PersonaNetwork.GetOcupaciones(value.Id);
 }

@@ -22,6 +22,7 @@
       xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
+      xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -64,7 +65,7 @@
 
             <ui:NavigationViewItem Content="{StaticResource DesaparecidoTitle}"
                                    Icon="{ui:SymbolIcon PersonBoard24}"
-                                   TargetPageType="{x:Type presentation3:Desaparecido}" />
+                                   TargetPageType="{x:Type presentation3:DesaparecidoPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource MediaFiliacionTitle}"
                                    Icon="{ui:SymbolIcon PersonInfo20}"
@@ -101,6 +102,10 @@
             <ui:NavigationViewItem Content="{StaticResource VehiculosTitle}"
                                    Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
+            
+            <ui:NavigationViewItem Content="{StaticResource DatosComplementariosTitle}"
+                                   Icon="{ui:SymbolIcon Info24}"
+                                   TargetPageType="{x:Type presentation14:DatosComplementariosPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
                                    Icon="{ui:SymbolIcon BookNumber24}"

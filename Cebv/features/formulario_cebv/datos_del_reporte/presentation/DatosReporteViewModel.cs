@@ -19,7 +19,10 @@ public partial class DatosReporteViewModel : ObservableObject
     {
         CargarCatalogos();
     }
-    
+
+    [ObservableProperty] private DateOnly _fechaInicio = DateOnly.FromDateTime(DateTime.Now);
+    [ObservableProperty] private TimeOnly _horaInicio = TimeOnly.FromDateTime(DateTime.Now);
+
     /**
      * Fuente de información.
      */
@@ -51,7 +54,7 @@ public partial class DatosReporteViewModel : ObservableObject
 
     partial void OnPublicacionInformacionSelectedChanged(string value) =>
         PublicacionInformacion = OpcionesCebv.MappingToBool(value);
-    
+
     /**
      * Peticiones a la API.
      */

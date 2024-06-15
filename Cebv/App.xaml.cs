@@ -1,6 +1,7 @@
 using System.Windows;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
+using Cebv.features.formulario_cebv.datos_complementarios.presentation;
 using Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 using Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 using Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation;
@@ -52,6 +53,7 @@ public partial class App : Application
         services.AddSingleton<MediaFiliacionViewModel>();
         services.AddSingleton<MediaFiliacionComplementariaViewModel>();
         services.AddSingleton<PrendasViewModel>();
+        services.AddSingleton<DatosComplemenatiosViewModel>();
         return services.BuildServiceProvider();
     }
 }
