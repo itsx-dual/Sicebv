@@ -1,5 +1,4 @@
 ﻿using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
@@ -15,6 +14,16 @@ public class ReporteServiceNetwork
     private static HttpClient Client = CebvClientHandler.SharedClient;
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
     private static ISnackbarService _snackbar = App.Current.Services.GetService<ISnackbarService>();
+
+    private static int? NullableBoolToInt(bool? boolean)
+    {
+        return boolean switch
+        {
+            true => 1,
+            false => 0,
+            _ => null
+        };
+    }
 
     public static async void PostInicioReporte(InicioPostObject content)
     {
@@ -33,11 +42,28 @@ public class ReporteServiceNetwork
         var reporteResponse = await Client.SendAsync(reporteRequest);
         var json = await reporteResponse.Content.ReadAsStringAsync();
         var reporte = JsonSerializer.Deserialize<ReporteQueryResponse>(json);
+        
+        _reporteService.SetReporteActual(reporte?.Data);
+        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
 
-        if (reporteResponse.IsSuccessStatusCode)
+        var reportanteRequest = new HttpRequestMessage
         {
-            _reporteService.SetReporteActual(reporte?.Data);
-            _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+            RequestUri = new Uri("/api/reportantes", UriKind.Relative),
+            Method = HttpMethod.Post,
+            Content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "reporte_id", _reporteService.GetReporteId().ToString() },
+                { "informacion_exclusiva_busqueda", $"{NullableBoolToInt(content.InformacionExclusivaBusqueda)}" },
+                { "publicacion_boletin", $"{NullableBoolToInt(content.PublicacionInformacion)}" }
+            })
+        };
+        
+        var reportanteResponse = await Client.SendAsync(reportanteRequest);
+        json = await reportanteResponse.Content.ReadAsStringAsync();
+        
+        if (reporteResponse.IsSuccessStatusCode && reportanteResponse.IsSuccessStatusCode)
+        {
+            _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         }
         else
         {
@@ -48,21 +74,6 @@ public class ReporteServiceNetwork
                 new SymbolIcon(SymbolRegular.Warning24),
                 new TimeSpan( 0,0, 5));
         }
-
-        var reportanteRequest = new HttpRequestMessage
-        {
-            RequestUri = new Uri("/api/reportante", UriKind.Relative),
-            Method = HttpMethod.Post,
-            Content = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                { "repote_id", _reporteService.GetReporteId().ToString() },
-                { "informacion_exclusiva_busqueda", content.InformacionExclusivaBusqueda.ToString() },
-                { "publicacion_boletin", content.PublicacionInformacion.ToString() }
-            })
-        };
-        
-        await Client.SendAsync(reportanteRequest);
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
     }
     
     public static async void PutInicioReporte(int id, InicioPostObject content)
@@ -97,6 +108,21 @@ public class ReporteServiceNetwork
                 new SymbolIcon(SymbolRegular.Warning24),
                 new TimeSpan( 0,0, 5));
         }
+        
+        var reportanteRequest = new HttpRequestMessage
+        {
+            RequestUri = new Uri($"/api/reportantes/{_reporteService.GetReportanteId()}", UriKind.Relative),
+            Method = HttpMethod.Put,
+            Content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "reporte_id", _reporteService.GetReporteId().ToString() },
+                { "informacion_exclusiva_busqueda", $"{NullableBoolToInt(content.InformacionExclusivaBusqueda)}" },
+                { "publicacion_boletin", $"{NullableBoolToInt(content.PublicacionInformacion)}" }
+            })
+        };
+        
+        await Client.SendAsync(reportanteRequest);
+        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
     }
 
 

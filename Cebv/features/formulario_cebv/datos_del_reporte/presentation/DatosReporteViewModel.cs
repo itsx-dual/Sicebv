@@ -41,21 +41,12 @@ public partial class DatosReporteViewModel : ObservableObject
     /**
      * Información de consentimiento.
      */
-    [ObservableProperty] private List<string> _informacionExclusivaBusquedaList = OpcionesCebv.Opciones;
-    [ObservableProperty] private string _informacionExclusivaBusquedaSelected = OpcionesCebv.No;
+    [ObservableProperty] private Dictionary<string, bool?> _informacionExclusivaBusquedaList = OpcionesCebv.Ops;
+    [ObservableProperty] private string _informacionExclusivaBusquedaSelectedKey = "No";
     [ObservableProperty] private bool? _informacionExclusivaBusqueda = false;
-    [ObservableProperty] private List<string> _publicacionInformacionList = OpcionesCebv.Opciones;
-    [ObservableProperty] private string _publicacionInformacionSelected = OpcionesCebv.No;
+    [ObservableProperty] private Dictionary<string, bool?> _publicacionInformacionList = OpcionesCebv.Ops;
+    [ObservableProperty] private string _publicacionInformacionSelectedKey = "No";
     [ObservableProperty] private bool? _publicacionInformacion = false;
-
-    /**
-     *  Mapeo de los valores string a boolean.
-     */
-    partial void OnInformacionExclusivaBusquedaSelectedChanged(string value) =>
-        InformacionExclusivaBusqueda = OpcionesCebv.MappingToBool(value);
-
-    partial void OnPublicacionInformacionSelectedChanged(string value) =>
-        PublicacionInformacion = OpcionesCebv.MappingToBool(value);
     
     /**
      * Peticiones a la API.
@@ -68,11 +59,16 @@ public partial class DatosReporteViewModel : ObservableObject
             Console.WriteLine("Hay reporte");
             
             var reporte = _reporteService.GetReporteActual();
+            var reportante = reporte.Reportantes.First();
+            
             Fecha = reporte.FechaCreacion;
             TipoMedio = TiposMedios.Where(catalogo => catalogo.Id == reporte.MedioConocimiento.TipoMedio.Id).First();
             Medios = await ReporteNetwork.GetMedios(reporte.MedioConocimiento.TipoMedio.Id);
             Medio = Medios.Where(medio => medio.Id == reporte.MedioConocimiento.Id).First();
             Ubicacion.Estado = Ubicacion.Estados.Where(estado => estado.Id == reporte.Estado.Id).First();
+
+            InformacionExclusivaBusqueda = reportante.InformacionExclusivaBusqueda;
+            PublicacionInformacion = reportante.PublicacionBoletin;
         }
     }
 

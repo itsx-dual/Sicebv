@@ -1,9 +1,10 @@
 namespace Cebv.core.data;
 
-public class OpcionCebv
+public enum OpcionesCebvs
 {
-    public string Opcion { get; set; } = "";
-    public bool? Valor { get; set; }
+    Si = 1,
+    No = 0,
+    NoEspecifica = -1
 }
 
 public class OpcionesCebv
@@ -13,6 +14,13 @@ public class OpcionesCebv
     public const string NoEspecifica = "No especifica";
 
     public static readonly List<string> Opciones = new() { Si, No, NoEspecifica };
+
+    public static readonly Dictionary<string, bool?> Ops = new()
+    {
+        { "Si", true },
+        { "No", false },
+        { "No especifica", null }
+    };
 
     public static bool? MappingToBool(string value)
     {

@@ -85,15 +85,21 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
-                        <ComboBox SelectedItem="{Binding InformacionExclusivaBusquedaSelected}"
-                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}" />
+                        <ComboBox SelectedValue="{Binding InformacionExclusivaBusqueda}"
+                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}"
+                                  SelectedItem="{Binding InformacionExclusivaBusquedaSelectedKey}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
-                        <ComboBox SelectedItem="{Binding PublicacionInformacionSelected}"
-                                  ItemsSource="{Binding PublicacionInformacionList}" />
+                        <ComboBox SelectedValue="{Binding PublicacionInformacion}"
+                                  ItemsSource="{Binding PublicacionInformacionList}"
+                                  SelectedItem="{Binding PublicacionInformacionSelectedKey}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
