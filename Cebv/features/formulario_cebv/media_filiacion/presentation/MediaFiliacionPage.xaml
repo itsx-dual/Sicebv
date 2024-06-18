@@ -100,7 +100,8 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="OTRA ESPECIFICACIÓN DE OJOS:" />
-                        <ui:TextBox Text="{Binding DescripcionOjos}" />
+                        <ui:TextBox Text="{Binding DescripcionOjos}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
 
                 </StackPanel>
@@ -142,7 +143,8 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL CABELLO:" />
-                        <ui:TextBox Text="{Binding DescripcionCabello}" />
+                        <ui:TextBox Text="{Binding DescripcionCabello}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>
             </Border>

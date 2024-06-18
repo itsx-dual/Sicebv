@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:data="clr-namespace:Cebv.core.modules.contacto.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,7 +13,8 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DesaparecidoPage">
-    
+
+
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -346,7 +348,8 @@
                     <!-- Observaciones del curp -->
                     <StackPanel>
                         <ui:TextBlock Text="OBSERVACIONES DEL CURP:" />
-                        <ui:TextBox Text="{Binding Desaparecido.ObservacionesCurp}" ClearButtonEnabled="True" />
+                        <ui:TextBox Text="{Binding Desaparecido.ObservacionesCurp}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -430,7 +433,8 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="REFERENCIA:" />
-                        <ui:TextBox Text="{Binding Ubicacion.Referencia}" />
+                        <ui:TextBox Text="{Binding Ubicacion.Referencia}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -457,8 +461,65 @@
                             <ui:TextBox Text="{Binding Contacto.ObservacionesMovil}" />
                         </StackPanel>
 
-                        <ui:Button Content="Añadir otro  teléfono móvil" Appearance="Secondary" />
+                        <ui:Button Content="Añadir otro  teléfono móvil"
+                                   Appearance="Secondary"
+                                   Command="{Binding Contacto.AddTelefonoMovilCommand}" />
                     </WrapPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Teléfonos móviles" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Contacto.TelefonosMoviles, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:TelefonoMovil}">
+                                    <Grid>
+
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Phone24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Telefono}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        Text="{Binding CompaniaTelefonica.Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Observaciones}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.Contacto.RemoveTelefonoMovilCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}"/>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -519,23 +580,23 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
-                                Text="¿HABLA ESPAÑOL?." />
+                                Text="¿HABLA ESPAÑOL?" />
                             <ComboBox SelectedItem="{Binding HablaEspanolOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
-                                Text="¿SABE LEER?." />
+                                Text="¿SABE LEER Y ESCRIBIR?" />
                             <ComboBox SelectedItem="{Binding SabeLeerOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock
-                                Text="¿SABE ESCRIBIR?." />
-                            <ComboBox SelectedItem="{Binding SabeEscribirOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ui:TextBlock Text="RELIGIÓN:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Desaparecido.Religion}"
+                                      ItemsSource="{Binding Desaparecido.Religiones}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -550,17 +611,10 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="AVANCE DE ESCOLARIDAD: " />
                             <ComboBox>
-                                <ComboBoxItem Content="EN CURSO"/>
-                                <ComboBoxItem Content="TERMINADA"/>
-                                <ComboBoxItem Content="NO ESPECIFICA"/>
+                                <ComboBoxItem Content="EN CURSO" />
+                                <ComboBoxItem Content="TERMINADA" />
+                                <ComboBoxItem Content="NO ESPECIFICA" />
                             </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="RELIGIÓN:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Religion}"
-                                      ItemsSource="{Binding Desaparecido.Religiones}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -570,9 +624,9 @@
                             <ui:TextBox Text="{Binding Desaparecido.OcupacionUnoObservaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100"/>
+                                        MinHeight="100" />
                         </StackPanel>
-                        
+
                         <StackPanel>
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO GENERAL PRINCIPAL:" />
@@ -580,7 +634,7 @@
                                           SelectedItem="{Binding Desaparecido.TipoOcupacionUno}"
                                           ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
                             </StackPanel>
-                            
+
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO ESPECÍFICO PRINCIPAL:" />
                                 <ComboBox DisplayMemberPath="Nombre"
@@ -589,16 +643,16 @@
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="525" Margin="0 0 25 0">
                             <ui:TextBlock Text="DESCRIPCIÓN DE LA OCUPACIÓN SECUNDARIA:" />
                             <ui:TextBox Text="{Binding Desaparecido.OcupacionDosObservaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100"/>
+                                        MinHeight="100" />
                         </StackPanel>
-                        
+
                         <StackPanel>
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO GENERAL SECUNDARIA:" />
@@ -606,7 +660,7 @@
                                           SelectedItem="{Binding Desaparecido.TipoOcupacionDos}"
                                           ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
                             </StackPanel>
-                            
+
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO ESPECÍFICO SECUNDARIA:" />
                                 <ComboBox DisplayMemberPath="Nombre"
@@ -615,9 +669,9 @@
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="OTRAS ESPECIFICACIONES DE LA OCUPACIÓN:"/>
+                        <ui:TextBlock Text="OTRAS ESPECIFICACIONES DE LA OCUPACIÓN:" />
                         <ui:TextBox Text="{Binding Desaparecido.OcupacionesObservaciones}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
@@ -633,7 +687,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="NOMBRE DE LA PAREJA O CÓNYUGE:" />
-                            <ui:TextBox Text="{Binding Desaparecido.NombrePareja}"/>
+                            <ui:TextBox Text="{Binding Desaparecido.NombrePareja}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

@@ -23,9 +23,10 @@ public partial class ContactoViewModel : ObservableObject
     [ObservableProperty] private string _telefonoMovil = String.Empty;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
-    [ObservableProperty] private Catalogo _companiaTelefonica = new();
+    [ObservableProperty] private Catalogo? _companiaTelefonica;
     [ObservableProperty] private string _observacionesMovil = String.Empty;
     [ObservableProperty] private ObservableCollection<TelefonoMovil> _telefonosMoviles = new();
+    [ObservableProperty] private TelefonoMovil? _telefonoMovilSeleccionado;
 
     [ObservableProperty] private string _telefonoFijo = String.Empty;
     [ObservableProperty] private string _observacionesFijo = String.Empty;
@@ -39,8 +40,10 @@ public partial class ContactoViewModel : ObservableObject
     [ObservableProperty] private string _observacionesRedSocial = String.Empty;
 
     [RelayCommand]
-    private void AddTelefonoFijo()
+    private void AddTelefonoMovil()
     {
+        if (String.IsNullOrEmpty(TelefonoMovil)) return;
+
         TelefonoMovil telefono = new TelefonoMovil()
         {
             Telefono = TelefonoMovil,
@@ -48,11 +51,18 @@ public partial class ContactoViewModel : ObservableObject
             Observaciones = ObservacionesMovil
         };
 
-        TelefonoMovil = string.Empty;
-        CompaniaTelefonica = new();
-        ObservacionesMovil = string.Empty;
-
         TelefonosMoviles.Add(telefono);
+
+        TelefonoMovil = String.Empty;
+        CompaniaTelefonica = null;
+        ObservacionesMovil = String.Empty;
+    }
+
+    [RelayCommand]
+    private void RemoveTelefonoMovil(TelefonoMovil telefono)
+    {
+        if (TelefonosMoviles.Contains(telefono))
+            TelefonosMoviles.Remove(telefono);
     }
 
     /**

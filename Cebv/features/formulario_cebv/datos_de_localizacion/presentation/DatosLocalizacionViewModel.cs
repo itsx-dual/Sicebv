@@ -1,8 +1,13 @@
+
+
 using System.Collections.ObjectModel;
 using System.IO;
-using Cebv.core.domain;
+using Cebv.core.data;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.domain;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
+using Cebv.features.formulario_cebv.control_ogpi.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
@@ -26,9 +31,28 @@ public partial class DatosLocalizacionViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private Municipio _municipio = new();
 
+    // Hipotesis
+    [ObservableProperty] private ObservableCollection<TipoHipotesis> _tiposHipotesis = new();
+    [ObservableProperty] private TipoHipotesis _tipoHipotesisUno = new();
+    [ObservableProperty] private TipoHipotesis _tipoHipotesisDos = new();
 
-    private async void CargarCatalogos() =>
+    [ObservableProperty] private ObservableCollection<Catalogo> _sitios = new();
+    [ObservableProperty] private Catalogo _sitio = new();
+
+    [ObservableProperty] private string _areaCodifica = String.Empty;
+    
+    [ObservableProperty] private ObservableCollection<Catalogo> _estatusPersonas = new();
+    [ObservableProperty] private Catalogo _estatusPersona = new();
+
+
+    private async void CargarCatalogos()
+    {
         Estados = await UbicacionNetwork.GetEstados();
+        TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
+        Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
+        EstatusPersonas = await ControlOgpiNetwork.GetEstatusPersonas();
+
+    }
 
     async partial void OnEstadoChanged(Estado value) =>
         Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
@@ -88,10 +112,9 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
         OpenedPruebaVidaPath = openFileDialog.FileNames;
     }
-    
-    [ObservableProperty]
-    private string[]? _openedIdentificacionOficialPath = [];
-    
+
+    [ObservableProperty] private string[]? _openedIdentificacionOficialPath = [];
+
     [RelayCommand]
     private void OnOpenIdentificacionOficialFile()
     {

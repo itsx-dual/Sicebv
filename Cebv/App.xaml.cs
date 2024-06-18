@@ -1,6 +1,7 @@
 using System.Windows;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.datos_complementarios.presentation;
 using Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 using Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
@@ -54,6 +55,7 @@ public partial class App : Application
         services.AddSingleton<MediaFiliacionComplementariaViewModel>();
         services.AddSingleton<PrendasViewModel>();
         services.AddSingleton<DatosComplemenatiosViewModel>();
+        services.AddSingleton<CircunstanciaDesaparicionViewModel>();
         return services.BuildServiceProvider();
     }
 }
