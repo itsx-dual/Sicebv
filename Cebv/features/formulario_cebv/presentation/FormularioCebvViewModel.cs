@@ -1,15 +1,20 @@
+using System.Runtime.CompilerServices;
 using Cebv.core.modules.reportante.data;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.presentation;
 
-public partial class FormularioCebvViewModel : ObservableObject,
-    IRecipient<NombreCompletoMessage>, IRecipient<GuardarBorradorMessage>
+public partial class FormularioCebvViewModel : ObservableObject, 
+    IRecipient<NombreCompletoMessage>,
+    IRecipient<GuardarBorradorMessage>
 {
     [ObservableProperty] private string _nombreCompleto = string.Empty;
     [ObservableProperty] private bool _puedeGuardar;
+    public Type callerType = null;
     
     /**
      * Reportante

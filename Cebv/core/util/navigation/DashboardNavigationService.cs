@@ -1,9 +1,15 @@
+using System.CodeDom;
+using System.Runtime.CompilerServices;
+using Cebv.core.util.reporte;
+using Cebv.features.dashboard.presentation;
+using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace Cebv.core.util.navigation;
 // TODO: Este codigo esta copiado de lepoco/wpfui, aun debe ser adaptado a nuestro proyecto.
-public partial class FormularioCebvNavigationService : IFormularioCebvNavigationService
+
+public partial class DashboardNavigationService : IDashboardNavigationService
 {
         /// <summary>
     /// Locally attached service provider.
@@ -15,6 +21,9 @@ public partial class FormularioCebvNavigationService : IFormularioCebvNavigation
     /// </summary>
     private IPageService? _pageService;
 
+    private IReporteService? _reporteService = App.Current.Services.GetService<IReporteService>();
+    private IDashboardNavigationService _dashboardNavigationServiceImplementation;
+
     /// <summary>
     /// Gets or sets the control representing navigation.
     /// </summary>
@@ -24,7 +33,7 @@ public partial class FormularioCebvNavigationService : IFormularioCebvNavigation
     /// Initializes a new instance of the <see cref="NavigationService"/> class.
     /// </summary>
     /// <param name="serviceProvider">Service provider providing page instances.</param>
-    public FormularioCebvNavigationService(IServiceProvider serviceProvider)
+    public DashboardNavigationService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
@@ -66,11 +75,16 @@ public partial class FormularioCebvNavigationService : IFormularioCebvNavigation
         return NavigationControl!.Navigate(pageType);
     }
 
-    /// <inheritdoc />
     public bool Navigate(Type pageType, object? dataContext)
     {
-        ThrowIfNavigationControlIsNull();
+        throw new NotImplementedException();
+    }
 
+    /// <inheritdoc />
+    public bool Navigate(Type pageType, object? dataContext, Type caller = null)
+    {
+        ThrowIfNavigationControlIsNull();
+        
         return NavigationControl!.Navigate(pageType, dataContext);
     }
 

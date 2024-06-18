@@ -13,6 +13,7 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="Auto"
       d:DesignHeight="Auto"
+      x:Name="Page"
       Title="ReportesDesaparicion">
     <Page.DataContext>
         <local:ReportesDesaparicionViewModel />
@@ -23,7 +24,8 @@
 
             <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
-            <ui:ListView ItemsSource="{Binding Reportes}">
+            <ui:ListView ItemsSource="{Binding Reportes}"
+                         SelectedItem="{Binding ReporteSelected}">
 
                 <ui:ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type data2:ReporteResponse}">
@@ -55,6 +57,9 @@
                                         <ui:TextBlock Text="{Binding TipoReporte.Nombre}" FontWeight="Bold"
                                                       FontSize="24" />
                                         <ui:TextBlock Text="{Binding FechaCreacion}" FontSize="12" />
+                                        
+                                        <ui:Button DataContext="{Binding ElementName=Page, Path=DataContext}"
+                                                   Command="{Binding ReporteClickCommand}"/>
                                     </StackPanel>
 
                                     <ui:TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Right"
@@ -116,7 +121,6 @@
                     </DataTemplate>
                 </ui:ListView.ItemTemplate>
             </ui:ListView>
-
         </StackPanel>
     </Grid>
 </Page>

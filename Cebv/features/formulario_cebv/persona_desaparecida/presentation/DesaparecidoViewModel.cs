@@ -2,11 +2,17 @@ using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.modules.contacto.presentation;
 using Cebv.core.modules.persona.presentation;
+using Cebv.core.modules.reporte.data;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.presentation;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
+using Cebv.features.formulario_cebv.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
@@ -53,6 +59,7 @@ public partial class DesaparecidoViewModel : ObservableObject
      * Datos sociemográficos de la persona desaparecida.
      */
     [ObservableProperty] private string _hablaEspanolOpcion = OpcionesCebv.No;
+
     [ObservableProperty] private bool? _hablaEspanol;
 
     [ObservableProperty] private string _sabeLeerOpcion = OpcionesCebv.No;
@@ -60,6 +67,19 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     [ObservableProperty] private string _sabeEscribirOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _sabeEscribir;
+
+    public DesaparecidoViewModel()
+    {
+        var reporteService = App.Current.Services.GetService<IReporteService>();
+
+        if (reporteService?.GetStatusReporteActual() == EstadoReporte.Cargado)
+        {
+            var reportado = reporteService.GetReporteActual().Desaparecidos.First();
+            Nombre = reportado.Persona.Nombre;
+            ApellidoPaterno = reportado.Persona.ApellidoPaterno;
+            ApellidoMaterno = reportado.Persona.ApellidoMaterno;
+        }
+    }
 
     /**
      * Encabezado del formulario con el nombre completo de la persona desaparecida.

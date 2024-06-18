@@ -50,6 +50,7 @@
                 
                 <ui:NavigationViewItem Content="{StaticResource TestTitle}"
                                        Icon="{ui:SymbolIcon Grid24}"
+                                       Click="NuevoReporte_OnClick"
                                        TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
                 
                 <ui:NavigationViewItem Content="Reportes de desaparición"
@@ -80,6 +81,13 @@
                                        TargetPageType="{x:Type presentation1:ComunicacionDifusionPage}"/>
                 
             </ui:NavigationView.MenuItems>
+            
+            <ui:NavigationView.ContentOverlay>
+                <Grid>
+                    <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
+                </Grid>
+            </ui:NavigationView.ContentOverlay>
+            
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem
                     Content="Cerrar sesión"
