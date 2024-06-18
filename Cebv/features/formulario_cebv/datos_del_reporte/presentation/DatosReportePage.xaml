@@ -15,7 +15,7 @@
       Title="PestanaReporteView">
 
     <Page.DataContext>
-        <presentation:DatosReporteViewModel />
+        <presentation:DatosReporteViewModel/>
     </Page.DataContext>
 
     <Grid Margin="10">

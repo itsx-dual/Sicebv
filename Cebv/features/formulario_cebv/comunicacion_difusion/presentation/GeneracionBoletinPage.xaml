@@ -4,62 +4,48 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1000"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      Name="GeneracionBoletin"
       Title="GeneracionBoletinPage">
-
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
+    
+    <Page.DataContext>
+        <presentation:GeneracionBoletinViewModel />
+    </Page.DataContext>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ui:TextBlock Grid.Row="0" Text="{StaticResource GeneracionBoletineTitle}" FontTypography="TitleLarge" />
 
         <StackPanel Grid.Row="1" Margin="10">
-
             <ui:TextBlock Text="Fotografías de la persona desaparecida" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <StackPanel Margin="5">
-                    <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                               Content="Añadir imagenes"
-                               Margin="0 0 0 25" />
-
-                    <WrapPanel>
-                        <ui:Button Icon="{ui:SymbolIcon Image24}"
-                                   MinHeight="100"
-                                   MinWidth="200"
-                                   Margin="10" />
-
-                        <ui:Button Icon="{ui:SymbolIcon Image24}"
-                                   MinHeight="100"
-                                   MinWidth="200"
-                                   Margin="10" />
-
-                        <ui:Button Icon="{ui:SymbolIcon Image24}"
-                                   MinHeight="100"
-                                   MinWidth="200"
-                                   Margin="10" />
-                    </WrapPanel>
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="FOTOGRAFÍAS:" />
+                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                   Command="{Binding OpenFileCommand}"
+                                   Content="Añadir imágenes"
+                                   Margin="5" />
+                    </StackPanel>
+                    
+                    <WrapPanel x:Name="Imagenes"
+                               DataContext="{Binding ElementName=GeneracionBoletin, Path=DataContext.OpenedFilePath}"
+                               DataContextChanged="Imagenes_OnDataContextChanged" />
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Información exacta" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5" IsEnabled="False">
                     <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
                     <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
@@ -71,7 +57,7 @@
             </Border>
 
             <ui:TextBlock Text="Información tratada" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="SEÑAS PARTICULARES PARA EL BOLETÍN:" />
@@ -92,7 +78,7 @@
             </Border>
 
             <ui:TextBlock Text="Generación de boletín" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}">
                 <WrapPanel>
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
                         <ui:TextBlock Text="TIPO DE BOLETÍN:" />

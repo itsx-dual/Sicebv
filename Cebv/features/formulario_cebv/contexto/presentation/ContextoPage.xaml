@@ -12,23 +12,17 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="ContextoPage">
-
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
+    
+    <Page.DataContext>
+        <local:ContextoViewModel/>
+    </Page.DataContext>
 
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!-- Header -->
         <ui:TextBlock Grid.Row="0" Text="{StaticResource ContextoTitle}" FontTypography="TitleLarge" />
@@ -36,97 +30,96 @@
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Contexto familiar" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+                    <WrapPanel>
+                        <StackPanel MinWidth="200" Margin="10">
+                            <ui:TextBlock Text="N° DE PERSONAS CON LAS QUE VIVE:" />
+                            <ui:NumberBox Minimum="0"
+                                          Value="0" />
+                        </StackPanel>
+                    </WrapPanel>
 
-            <Border>
-                <WrapPanel>
-                    <StackPanel MinWidth="200">
-                        <ui:TextBlock Text="N° DE PERSONAS CON LAS QUE VIVE:" />
-                        <ui:NumberBox Minimum="0"
-                                      Value="0" />
-                    </StackPanel>
-                </WrapPanel>
+                    <ui:DataGrid MinHeight="300"
+                                 AutoGenerateColumns="False"
+                                 Margin="10 10 10 25">
+                        <ui:DataGrid.Columns>
+                            <DataGridTextColumn Header="Nombre del pariente"
+                                                Width="2*" />
+                            <DataGridComboBoxColumn Header="Parentesco"
+                                                    Width="*" />
+                            <DataGridCheckBoxColumn Header="Ha ejercido violencia" />
+                            <DataGridCheckBoxColumn Header="Es un familiar cercano" />
+                            <DataGridTextColumn Header="Observaciones"
+                                                Width="*" />
+                        </ui:DataGrid.Columns>
+                    </ui:DataGrid>
+                </StackPanel>
             </Border>
 
-            <ui:DataGrid MinHeight="300"
-                         AutoGenerateColumns="False"
-                         Margin="10 10 10 25">
-                <ui:DataGrid.Columns>
-                    <DataGridTextColumn Header="Nombre del pariente"
-                                        Width="2*" />
-                    <DataGridComboBoxColumn Header="Parentesco"
-                                            Width="*" />
-                    <DataGridCheckBoxColumn Header="Ha ejercido violencia" />
-                    <DataGridCheckBoxColumn Header="Es un familiar cercano" />
-                    <DataGridTextColumn Header="Observaciones"
-                                        Width="*" />
-                </ui:DataGrid.Columns>
-            </ui:DataGrid>
-
-
             <ui:TextBlock Text="Contexto económico-laboral" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="¿Donde trabaja?"
-                                          FontTypography="Caption" />
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿DÓNDE TRABAJA?" />
                             <TextBox />
                         </StackPanel>
-                        <StackPanel MinWidth="200"
-                                    Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Cuantos años lleva laborando?"
-                                          FontTypography="Caption" />
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿CUANTOS AÑOS LLEVA LAVORANDO?" />
                             <ui:NumberBox Minimum="0"
                                           Value="0" />
                         </StackPanel>
 
-                        <StackPanel>
-                            <ui:TextBlock Text="¿Le gusta su trabajo?" />
-                            <ComboBox />
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="¿LE GUSTA SU TRABAJO?" />
+                            <ComboBox SelectedItem="{Binding GustaTrabajoOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel Margin="0 0 25 0">
-                            <TextBlock Text="¿Ha manifestado intención de irse a trabajar fuera de la ciudad?" />
-                            <ComboBox />
+                            <ui:TextBlock Text="¿HA MANIFESTADO INTENCIÓN DE IRSE A TRABAJAR FUERA DE LA CUIDAD?" />
+                            <ComboBox SelectedItem="{Binding TrabajarFueraOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="¿A donde desea irse?"
-                                          FontTypography="Caption" />
+
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="¿A DÓNDE DESEA IRSE?" />
                             <TextBox />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Ha sufrido violencia por parte de algún compañero de trabajo?" />
-                            <ComboBox />
+                            <ui:TextBlock Text="¿HA SUFRIDO VIOLENCIA POR PARTE DE ALGÚN COMPAÑERO DE TRABAJO?" />
+                            <ComboBox SelectedItem="{Binding ViolenciaTrabajoOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="¿Por parte de quién?" />
+
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="¿POR PARTE DE QUIÉN?" />
                             <ui:TextBox />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Tiene deudas?" />
-                            <ComboBox />
+                            <ui:TextBlock Text="¿TIENE DEUDAS?" />
+                            <ComboBox SelectedItem="{Binding TieneDeudasOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="Monto aproximado de la deuda"
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="MONTO APROXIMADO DE LAS DEUDAS:"
                                           FontTypography="Caption" />
-                            <ui:NumberBox Minimum="0"
-                                          Value="0" />
+                            <ui:NumberBox Minimum="0" Value="0" />
                         </StackPanel>
-                        <StackPanel MinWidth="200"
-                                    Margin="5">
-                            <ui:TextBlock Text="¿A quien le debe?"
-                                          FontTypography="Caption" />
+
+                        <StackPanel MinWidth="350">
+                            <ui:TextBlock Text="¿A QUIÉN LE DEBE?" />
                             <TextBox />
                         </StackPanel>
                     </WrapPanel>
@@ -134,190 +127,72 @@
             </Border>
 
             <ui:TextBlock Text="Contexto social" FontTypography="Title" Margin="10" />
-            <Border>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel>
+                    <WrapPanel Margin="10">
+                        <StackPanel MinWidth="300" Margin="0 0 15 0">
+                            <ui:TextBlock Text="PASATIEMPOS:" />
+                            <ui:TextBox />
+                        </StackPanel>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Margin="0 15 25 0"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch" />
 
-                    <StackPanel Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.RowSpan="3">
-                        <WrapPanel>
+                        <StackPanel MinWidth="300" Margin="0 0 15 0">
+                            <ui:TextBlock Text="CLUBES U ORGANIZACIONES A LAS QUE PERTENECE" />
+                            <ui:TextBox />
+                        </StackPanel>
 
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Margin="0 15 0 0"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch" />
+                    </WrapPanel>
+                    
+                    <StackPanel>
+                        <ui:TextBlock Text="¿Estudia?" FontTypography="Subtitle" Margin="10" />
+
+                        <WrapPanel Margin="10">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="NIVEL:"/>
+                                <ui:TextBox/>
+                            </StackPanel>
+                            
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="INSTITUCIÓN:"/>
+                                <ui:TextBox/>
+                            </StackPanel>
+                            
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="DIRECCIÓN:"/>
+                                <ui:TextBox/>
+                            </StackPanel>
                         </WrapPanel>
                     </StackPanel>
 
-                    <Grid Grid.Column="0"
-                          Grid.Row="0"
-                          Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                   <StackPanel>
+                       <ui:TextBlock Text="Amistades" FontTypography="Subtitle" Margin="10" />
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <ui:TextBlock Text="Pasatiempos"
-                                      FontTypography="Caption"
-                                      TextWrapping="Wrap"
-                                      Grid.Column="0"
-                                      Grid.Row="0"
-                                      Grid.ColumnSpan="2" />
-
-                        <ui:TextBox Grid.Row="1"
-                                    Grid.Column="0" />
-
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   Grid.Row="1"
-                                   Grid.Column="1"
-                                   Appearance="Primary"
-                                   VerticalAlignment="Stretch" />
-
-                        <ui:ListView Grid.Row="2"
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="2">
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="3"
-                                          VerticalAlignment="Center">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <ui:TextBlock Grid.Column="0"
-                                                      VerticalAlignment="Center" />
-
-                                        <StackPanel Grid.Column="1"
-                                                    HorizontalAlignment="Right">
-                                            <ui:Button Appearance="Danger"
-                                                       Icon="{ui:SymbolIcon Delete24}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                    </Grid>
-
-                    <Grid Grid.Column="1"
-                          Grid.Row="0"
-                          Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <ui:TextBlock Text="Clubes u organizaciones a los que pertenece"
-                                      FontTypography="Caption"
-                                      TextWrapping="Wrap"
-                                      Grid.Column="0"
-                                      Grid.Row="0"
-                                      Grid.ColumnSpan="2" />
-
-                        <ui:TextBox Grid.Row="1"
-                                    Grid.Column="0" />
-
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   Grid.Row="1"
-                                   Grid.Column="1"
-                                   Appearance="Primary"
-                                   VerticalAlignment="Stretch" />
-
-                        <ui:ListView Grid.Row="2"
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="2">
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="3"
-                                          VerticalAlignment="Center">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <ui:TextBlock Grid.Column="0"
-                                                      VerticalAlignment="Center" />
-
-                                        <StackPanel Grid.Column="1"
-                                                    HorizontalAlignment="Right">
-                                            <ui:Button Appearance="Danger"
-                                                       Icon="{ui:SymbolIcon Delete24}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                    </Grid>
-
-                    <ui:TextBlock Grid.Row="1"
-                                  Grid.Column="0"
-                                  Text="¿Estudia?"
-                                  FontTypography="Subtitle" />
-
-                    <ui:DataGrid Grid.Row="2"
-                                 Grid.Column="0"
-                                 Grid.ColumnSpan="3"
-                                 MinHeight="150"
-                                 AutoGenerateColumns="False"
-                                 ItemsSource="{Binding CondicionesSalud}"
-                                 Margin="10">
-                        <ui:DataGrid.Columns>
-                            <DataGridTextColumn Header="Nivel"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Institución"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Horario"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Dirección"
-                                                Width="*" />
-                        </ui:DataGrid.Columns>
-                    </ui:DataGrid>
-
-                    <ui:TextBlock Grid.Row="3"
-                                  Grid.Column="0"
-                                  Text="Amistades"
-                                  FontTypography="Subtitle" />
-
-                    <ui:DataGrid Grid.Row="4"
-                                 Grid.Column="0"
-                                 Grid.ColumnSpan="3"
-                                 MinHeight="150"
-                                 AutoGenerateColumns="False"
-                                 ItemsSource="{Binding CondicionesSalud}"
-                                 Margin="10">
-                        <ui:DataGrid.Columns>
-                            <DataGridTextColumn Header="Nombre"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Apodo"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Teléfono"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Dirección"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Redes sociales"
-                                                Width="*" />
-                        </ui:DataGrid.Columns>
-                    </ui:DataGrid>
-                </Grid>
+                       <ui:DataGrid MinHeight="150"
+                                    AutoGenerateColumns="False"
+                                    Margin="10">
+                           <ui:DataGrid.Columns>
+                               <DataGridTextColumn Header="Nombre"
+                                                   Width="*" />
+                               <DataGridTextColumn Header="Apodo"
+                                                   Width="*" />
+                               <DataGridTextColumn Header="Teléfono"
+                                                   Width="*" />
+                               <DataGridTextColumn Header="Dirección"
+                                                   Width="*" />
+                               <DataGridTextColumn Header="Redes sociales"
+                                                   Width="*" />
+                           </ui:DataGrid.Columns>
+                       </ui:DataGrid>
+                   </StackPanel>
+                </StackPanel>
             </Border>
         </StackPanel>
 

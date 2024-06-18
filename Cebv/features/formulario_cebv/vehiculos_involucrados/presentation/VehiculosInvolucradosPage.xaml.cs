@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Wpf.Ui;
 using Image = Wpf.Ui.Controls.Image;
 
 namespace Cebv.features.formulario_cebv.vehiculos_involucrados.presentation;
@@ -21,22 +20,24 @@ public partial class VehiculosInvolucradosPage : Page
         
         Imagenes.Children.Clear();
         
+        Console.WriteLine("DataContext Changed");
+        
         var archivos = ((VehiculosInvolucradosViewModel)DataContext).OpenedFilePath;
         if (archivos == null) return;
 
         foreach (var imagen in archivos)
         {
-            Image wpfui_image = new()
+            Image wpfuiImage = new()
             {
                 Source = new BitmapImage(new Uri(imagen)),
-                CornerRadius = new CornerRadius(10),
+                CornerRadius = new CornerRadius(8),
                 Margin = new Thickness(5),
                 Width = 300,
                 Height = 300,
                 Stretch = Stretch.UniformToFill
             };
 
-            Imagenes.Children.Add(wpfui_image);
+            Imagenes.Children.Add(wpfuiImage);
         }
     }
 }

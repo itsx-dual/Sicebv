@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
-public partial class Desaparecido : Page
+public partial class DesaparecidoPage : Page
 {
-    public Desaparecido()
+    public DesaparecidoPage()
     {
         InitializeComponent();
         //DataContext = new DesaparecidoViewModel();

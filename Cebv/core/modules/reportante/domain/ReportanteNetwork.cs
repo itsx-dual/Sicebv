@@ -99,4 +99,15 @@ public static class ReportanteNetwork
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Console.WriteLine($"{jsonResponse}\n");
     }
+    
+    public static async Task<ObservableCollection<Catalogo>> GetColectivos()
+    {
+        var request = await Client.GetAsync("api/colectivos");
+
+        var response = await request.Content.ReadAsStringAsync();
+
+        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+
+        return jsonResponse.Data;
+    }
 }

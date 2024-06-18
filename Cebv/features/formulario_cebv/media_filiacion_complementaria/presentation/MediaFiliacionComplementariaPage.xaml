@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,22 +13,12 @@
     d:DesignHeight="auto"
     mc:Ignorable="d"
     Title="MediaFiliacionComplementariaPage">
-
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
-
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -37,18 +28,19 @@
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Dientes" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿PRESENTA AUNSENCIA DE DIENTES?" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding DienteOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
                                 <ui:TextBlock Text="ESPECIFIQUE LA ASUSENCIA DENTAL:" />
-                                <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox Text="{Binding DienteDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
@@ -56,13 +48,14 @@
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿TIENE ALGÚN TRATAMIENTO DENTAL?" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding TratamientoDentalOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
                                 <ui:TextBlock Text="ESPECIFIQUE EL TRATAMIENTO DENTAL:" />
-                                <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox Text="{Binding TratamientoDentalDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
@@ -70,56 +63,38 @@
             </Border>
 
             <ui:TextBlock Text="Proyección del mentón" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="TIPO DE MENTÓN:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TipoMenton}"
+                                  ItemsSource="{Binding TiposMentones}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL MENTÓN:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding TipoMentonDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
-                    </StackPanel>
-                </WrapPanel>
-            </Border>
-
-            <ui:TextBlock Text="Deformaciones" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
-                <WrapPanel Margin="5">
-                    <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="REGIÓN DE LA DEFORMACIÓN:" />
-                        <ComboBox />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel MinWidth="400" Margin="0 0 15 0">
-                            <ui:TextBlock Text="ESPECIFICACIÓN DE LA DEFORMACIÓN:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
-                        </StackPanel>
-
-                        <ui:Button Margin="0 15 0 0"
-                                   Icon="{ui:SymbolIcon Add24}"
-                                   VerticalAlignment="Stretch"
-                                   Appearance="Primary" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
 
             <ui:TextBlock Text="Intervenciones quirúrgicas" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="INTERVENCIÓN QUIRÚGICA:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TipoIntervencion}"
+                                  ItemsSource="{Binding TiposIntervenciones}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="ESPECIFICACIÓN DE LA INTERVENCIÓN QUIRÚRGICA:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding TipoIntervencionDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -131,17 +106,19 @@
             </Border>
 
             <ui:TextBlock Text="Enfermedades de la piel" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="TIPO DE ENFERMEDAD:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding EnfermedadPiel}"
+                                  ItemsSource="{Binding EnfermedadesPieles}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="400" Margin="0 0 15 0">
                             <ui:TextBlock Text="ESPECIFICACIÓN DE LA ENFERMEDAD EN LA PIEL:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding EnfermedadPielDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
 
                         <ui:Button Margin="0 15 0 0"
@@ -153,9 +130,10 @@
             </Border>
 
             <ui:TextBlock Text="Observaciones generales" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="400" Margin="5">
-                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                    <ui:TextBlock Text="OBSERVACIONES:"/>
+                    <ui:TextBox Text="{Binding ObservacionesGenerales}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                 </StackPanel>
             </Border>
         </StackPanel>

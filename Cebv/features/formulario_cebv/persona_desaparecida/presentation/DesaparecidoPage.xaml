@@ -1,23 +1,18 @@
-<Page x:Class="Cebv.features.formulario_cebv.persona_desaparecida.presentation.Desaparecido"
+<Page x:Class="Cebv.features.formulario_cebv.persona_desaparecida.presentation.DesaparecidoPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
-      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
-      Title="Desaparecido">
-
-    <Page.DataContext>
-        <presentation:DesaparecidoViewModel />
-    </Page.DataContext>
-
+      Title="DesaparecidoPage">
+    
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -554,10 +549,14 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="AVANCE DE ESCOLARIDAD: " />
-                            <ComboBox />
+                            <ComboBox>
+                                <ComboBoxItem Content="EN CURSO"/>
+                                <ComboBoxItem Content="TERMINADA"/>
+                                <ComboBoxItem Content="NO ESPECIFICA"/>
+                            </ComboBox>
                         </StackPanel>
 
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="RELIGIÓN:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Desaparecido.Religion}"
@@ -566,34 +565,63 @@
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
-                        <StackPanel Margin="0 0 25 0" MinWidth="250">
-                            <ui:TextBlock Text="OCUPACIÓN PRINCIPAL:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.OcupacionUno}"
-                                      ItemsSource="{Binding Desaparecido.Ocupaciones}" />
+                        <StackPanel MinWidth="525" Margin="0 0 25 0">
+                            <ui:TextBlock Text="DESCRIPCIÓN DE LA OCUPACIÓN PRINCIPAL:" />
+                            <ui:TextBox Text="{Binding Desaparecido.OcupacionUnoObservaciones}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True"
+                                        MinHeight="100"/>
                         </StackPanel>
-
-                        <StackPanel MinWidth="400" Margin="0 0 0 15">
-                            <ui:TextBlock Text="DETALLES SOBRE LA OCUPACIÓN PRINCIPAL:" />
-                            <ui:TextBox Text="{Binding Desaparecido.OcupacionUnoObservaciones}" TextWrapping="Wrap" AcceptsReturn="True" />
+                        
+                        <StackPanel>
+                            <StackPanel Margin="0 0 25 15" MinWidth="250">
+                                <ui:TextBlock Text="CÓDIGO GENERAL PRINCIPAL:" />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Desaparecido.TipoOcupacionUno}"
+                                          ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 0 25 0" MinWidth="250">
+                                <ui:TextBlock Text="CÓDIGO ESPECÍFICO PRINCIPAL:" />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Desaparecido.OcupacionUno}"
+                                          ItemsSource="{Binding Desaparecido.OcupacionesUno}" />
+                            </StackPanel>
                         </StackPanel>
                     </WrapPanel>
-
-
+                    
                     <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="OCUPACIÓN SECUNDARIA:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.OcupacionDos}"
-                                      ItemsSource="{Binding Desaparecido.Ocupaciones}" />
+                        <StackPanel MinWidth="525" Margin="0 0 25 0">
+                            <ui:TextBlock Text="DESCRIPCIÓN DE LA OCUPACIÓN SECUNDARIA:" />
+                            <ui:TextBox Text="{Binding Desaparecido.OcupacionDosObservaciones}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True"
+                                        MinHeight="100"/>
                         </StackPanel>
-
-                        <StackPanel MinWidth="400" Margin="0 0 0 15">
-                            <ui:TextBlock Text="DETALLES SOBRE LA OCUPACIÓN SECUNDARIA:" />
-                            <ui:TextBox Text="{Binding Desaparecido.OcupacionDosObservaciones}" TextWrapping="Wrap" AcceptsReturn="True" />
+                        
+                        <StackPanel>
+                            <StackPanel Margin="0 0 25 15" MinWidth="250">
+                                <ui:TextBlock Text="CÓDIGO GENERAL SECUNDARIA:" />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Desaparecido.TipoOcupacionDos}"
+                                          ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 0 25 0" MinWidth="250">
+                                <ui:TextBlock Text="CÓDIGO ESPECÍFICO SECUNDARIA:" />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Desaparecido.OcupacionDos}"
+                                          ItemsSource="{Binding Desaparecido.OcupacionesDos}" />
+                            </StackPanel>
                         </StackPanel>
                     </WrapPanel>
-
+                    
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="OTRAS ESPECIFICACIONES DE LA OCUPACIÓN:"/>
+                        <ui:TextBox Text="{Binding Desaparecido.OcupacionesObservaciones}" TextWrapping="Wrap"
+                                    AcceptsReturn="True"
+                                    MinHeight="100" />
+                    </StackPanel>
 
                     <WrapPanel>
                         <StackPanel Margin="0 0 25 0" MinWidth="250">

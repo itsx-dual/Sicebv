@@ -12,16 +12,6 @@
       mc:Ignorable="d"
       Title="MediaFiliacionPage">
 
-    <Page.Resources>
-        <Style TargetType="{x:Type Border}">
-            <Setter Property="Padding" Value="16" />
-            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-    </Page.Resources>
-
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -37,7 +27,7 @@
         <StackPanel Grid.Row="1" Margin="10">
 
             <ui:TextBlock Text="Perfil corporal" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="ESTATURA:" />
@@ -61,169 +51,208 @@
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="COMPLEXIÓN:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Complexion}"
+                                  ItemsSource="{Binding Complexiones}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="COLOR DE PIEL:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding ColorPiel}"
+                                  ItemsSource="{Binding ColoresPieles}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200">
                         <ui:TextBlock Text="FORMA DE LA CARA:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding FormaCara}"
+                                  ItemsSource="{Binding FormasCaras}"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
 
             <ui:TextBlock Text="Ojos" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE OJOS:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding ColorOjo}"
+                                      ItemsSource="{Binding ColoresOjos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="FORMA DE OJOS:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding FormaOjo}"
+                                      ItemsSource="{Binding FormasOjos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TAMAÑO DE OJOS:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TamanoOjo}"
+                                      ItemsSource="{Binding TamanosOjos}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="OTRA ESPECIFICACIÓN DE OJOS:" />
-                        <TextBox />
+                        <ui:TextBox Text="{Binding DescripcionOjos}" />
                     </StackPanel>
 
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Cabello" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="CALVICIE:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Calvicie}"
+                                      ItemsSource="{Binding Calvicies}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE CABELLO:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding ColorCabello}"
+                                      ItemsSource="{Binding ColoresCabellos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TAMAÑO DE CABELLO:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TamanoCabello}"
+                                      ItemsSource="{Binding TamanosCabellos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TIPO DE CABELLO:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TipoCabello}"
+                                      ItemsSource="{Binding TiposCabellos}"/>
                         </StackPanel>
 
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL CABELLO:" />
-                        <TextBox />
+                        <ui:TextBox Text="{Binding DescripcionCabello}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Vello facial" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="CEJAS:" />
-                            <ComboBox />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TipoCeja}"
+                                      ItemsSource="{Binding TiposCejas}"/>
                         </StackPanel>
                         
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LAS CEJAS:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding DescripcionCejas}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="BIGOTE:" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding BigoteOpcion}"
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DEL BIGOTE:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding BigoteDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="BARBA:" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding BarbaOpcion}"
+                                      ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA BARBA:" />
-                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding BarbateDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Nariz" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="FORMA DE LA NARIZ:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TipoNariz}"
+                                  ItemsSource="{Binding TiposNarices}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA NARIZ:" />
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding DescripcionNariz}" TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
 
             <ui:TextBlock Text="Boca" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="TAMAÑO DE BOCA:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TamanoBoca}"
+                                  ItemsSource="{Binding TamanosBocas}"/>
                     </StackPanel>
 
-                    <StackPanel MinWidth="200">
+                    <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="TAMAÑO DE LABIOS:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TamanoLabio}"
+                                  ItemsSource="{Binding TamanosLabios}"/>
+                    </StackPanel>
+                    
+                    <StackPanel MinWidth="400">
+                        <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA BOCA:" />
+                        <ui:TextBox Text="{Binding DescripcionBoca}" TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
 
             <ui:TextBlock Text="Orejas" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="TAMAÑO DE OREJAS" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TamanoOreja}"
+                                  ItemsSource="{Binding TamanosOrejas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="FORMA DE OREJAS:" />
-                        <ComboBox />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding FormaOreja}"
+                                  ItemsSource="{Binding FormasOrejas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="CUALQUIER OTRA ESPECIFICACIÓN DE LA OREJA:" />
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding DescripcionOreja}" TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
