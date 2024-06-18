@@ -13,7 +13,6 @@ public partial class FormularioCebvPage
     public FormularioCebvPage()
     {
         InitializeComponent();
-        DataContext = App.Current.Services.GetService<FormularioCebvViewModel>();
         var navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>();
         navigationService.SetNavigationControl(FormularioNavigationView);
     }

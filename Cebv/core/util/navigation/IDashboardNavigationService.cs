@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -17,6 +18,7 @@ public interface IDashboardNavigationService
     /// </summary>
     /// <param name="pageType"><see langword="Type"/> of the page.</param>
     /// <param name="dataContext">DataContext <see cref="object"/></param>
+    /// <param name="caller"></param>
     /// <returns><see langword="true"/> if the operation succeeds. <see langword="false"/> otherwise.</returns>
     bool Navigate(Type pageType, object? dataContext);
 
@@ -30,10 +32,11 @@ public interface IDashboardNavigationService
     /// <summary>
     /// Lets you navigate to the selected page based on it's tag. Should be used with <see cref="IPageService"/>.
     /// </summary>
-    /// <param name="pageIdOrTargetTag">Id or tag of the page.</param>
-    /// <param name="dataContext">DataContext <see cref="object"/></param>
+    /// <param name="pageType"> Tipo de pagina a la que se desea navegar. </param>
+    /// <param name="dataContext"> DataContext que se le asignara a la Page despues de ser creada e instanciada, esto puede llevar a dos instancias de dicho viewmodel. <see cref="object"/></param>
+    /// <param name="callerName"> Se sugiere agregar en navegacion de Page a Page. Se necesita para controlar correctamente el estado del reporte. </param>
     /// <returns><see langword="true"/> if the operation succeeds. <see langword="false"/> otherwise.</returns>
-    bool Navigate(string pageIdOrTargetTag, object? dataContext);
+    bool Navigate(Type pageType, object? dataContext, Type? caller = null);
 
     /// <summary>
     /// Synchronously adds an element to the navigation stack and navigates current navigation Frame to the

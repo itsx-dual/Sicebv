@@ -50,6 +50,7 @@
                 
                 <ui:NavigationViewItem Content="{StaticResource TestTitle}"
                                        Icon="{ui:SymbolIcon Grid24}"
+                                       Click="NuevoReporte_OnClick"
                                        TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
                 
                 <ui:NavigationViewItem Content="Reportes de desaparición"

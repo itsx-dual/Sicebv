@@ -61,7 +61,6 @@
 
             <ui:NavigationViewItem Content="{StaticResource InstrumentoJuridicoTitle}"
                                    Icon="{ui:SymbolIcon TableEdit24}"
-                                   Click="ButtonBase_OnClick"
                                    TargetPageType="{x:Type presentation11:InstrumentoJuridicoPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource ReportanteTitle}"

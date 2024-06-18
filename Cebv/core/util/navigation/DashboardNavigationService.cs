@@ -1,3 +1,8 @@
+using System.CodeDom;
+using System.Runtime.CompilerServices;
+using Cebv.core.util.reporte;
+using Cebv.features.dashboard.presentation;
+using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -15,6 +20,9 @@ public partial class DashboardNavigationService : IDashboardNavigationService
     /// Locally attached page service.
     /// </summary>
     private IPageService? _pageService;
+
+    private IReporteService? _reporteService = App.Current.Services.GetService<IReporteService>();
+    private IDashboardNavigationService _dashboardNavigationServiceImplementation;
 
     /// <summary>
     /// Gets or sets the control representing navigation.
@@ -39,13 +47,9 @@ public partial class DashboardNavigationService : IDashboardNavigationService
     /// <inheritdoc />
     public void SetNavigationControl(INavigationView navigation)
     {
-        Console.WriteLine(navigation);
         NavigationControl = navigation;
-
         if (_pageService == null) return;
         NavigationControl.SetPageService(_pageService);
-
-        //NavigationControl.SetServiceProvider(_serviceProvider);
     }
 
     /// <inheritdoc />
@@ -71,11 +75,16 @@ public partial class DashboardNavigationService : IDashboardNavigationService
         return NavigationControl!.Navigate(pageType);
     }
 
-    /// <inheritdoc />
     public bool Navigate(Type pageType, object? dataContext)
     {
-        ThrowIfNavigationControlIsNull();
+        throw new NotImplementedException();
+    }
 
+    /// <inheritdoc />
+    public bool Navigate(Type pageType, object? dataContext, Type caller = null)
+    {
+        ThrowIfNavigationControlIsNull();
+        
         return NavigationControl!.Navigate(pageType, dataContext);
     }
 

@@ -1,4 +1,5 @@
 using Cebv.core.modules.reporte.data;
+using Cebv.core.util.reporte.data;
 
 namespace Cebv.core.util.reporte;
 
@@ -16,7 +17,17 @@ public interface IReporteService
     
     int GetReporteActualId();
 
-    int GetStatusReporteActual();
+    EstadoReporte GetStatusReporteActual();
+
+    bool HayReporte();
     
-    void SetStatusReporteActual(int estado);
+    void SetStatusReporteActual(EstadoReporte estado);
+
+    void SetReporteId(int id);
+    int GetReporteId();
+    
+    void SetReportanteId(int id);
+    int GetReportanteId();
+
+    bool SendInformacionInicio(InicioPostObject informacion);
 }

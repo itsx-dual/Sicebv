@@ -47,7 +47,7 @@ public class ReporteResponse
 
     [JsonPropertyName("desaparecidos")] public List<DesaparecidoResponse>? Desaparecidos { get; set; }
 
-    [JsonPropertyName("fecha_creacion")] public DateTime FechaCreacion { get; set; }
+    [JsonPropertyName("fecha_creacion")] public DateTime? FechaCreacion { get; set; }
 
     [JsonPropertyName("fecha_actualizacion")]
     public string FechaActualizacion { get; set; } = null!;

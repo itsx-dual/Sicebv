@@ -38,13 +38,9 @@ public partial class FormularioCebvNavigationService : IFormularioCebvNavigation
     /// <inheritdoc />
     public void SetNavigationControl(INavigationView navigation)
     {
-        Console.WriteLine(navigation);
         NavigationControl = navigation;
-
         if (_pageService == null) return;
         NavigationControl.SetPageService(_pageService);
-
-        //NavigationControl.SetServiceProvider(_serviceProvider);
     }
 
     /// <inheritdoc />

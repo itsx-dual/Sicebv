@@ -8,6 +8,6 @@ public partial class Desaparecido : Page
     public Desaparecido()
     {
         InitializeComponent();
-        DataContext = App.Current.Services.GetService<DesaparecidoViewModel>();
+        //DataContext = new DesaparecidoViewModel();
     }
 }

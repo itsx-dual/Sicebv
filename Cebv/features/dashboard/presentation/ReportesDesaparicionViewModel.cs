@@ -32,14 +32,22 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     [RelayCommand]
     public void OnReporteClick()
     {
-        var dashboardNavigarion = App.Current.Services.GetService<IDashboardNavigationService>();
-        if (dashboardNavigarion == null) return;
+        var dashboardNavigation = App.Current.Services.GetService<IDashboardNavigationService>();
+        if (dashboardNavigation == null) return;
 
         var reporteService = App.Current.Services.GetService<IReporteService>();
-        reporteService.ClearReporteActual();
-        reporteService.SetStatusReporteActual(3);
-        reporteService.SetReporteActual(ReporteSelected);
+        reporteService?.ClearReporteActual();
+        reporteService?.SetStatusReporteActual(EstadoReporte.Cargado);
+        reporteService?.SetReporteActual(ReporteSelected);
+
+        var reportado = ReporteSelected.Desaparecidos.First();
+
+        FormularioCebvViewModel dataContext = new()
+        {
+            NombreCompleto = $"{reportado.Persona.Nombre} {reportado.Persona.ApellidoPaterno} {reportado.Persona.ApellidoMaterno}",
+            callerType = GetType()
+        };
         
-        dashboardNavigarion.Navigate(typeof(FormularioCebvPage));
+        dashboardNavigation.Navigate(typeof(FormularioCebvPage), dataContext, GetType());
     }
 }
