@@ -87,6 +87,8 @@
                                 <ui:TextBox Text="{Binding Desaparecido.Apodo}" />
                             </StackPanel>
 
+                            <StackPanel Visibility="Collapsed">
+                                
                             <ui:Button Icon="{ui:SymbolIcon Add24}"
                                        VerticalAlignment="Stretch"
                                        Appearance="Primary"
@@ -104,6 +106,8 @@
                                        Appearance="Danger"
                                        Margin="0 15 0 0"
                                        Command="{Binding  Desaparecido.RemoveApodoCommand}" />
+                            </StackPanel>
+
 
                         </WrapPanel>
                     </StackPanel>
