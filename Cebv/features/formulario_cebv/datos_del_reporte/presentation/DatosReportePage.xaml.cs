@@ -8,6 +8,5 @@ public partial class DatosReportePage : Page
     public DatosReportePage()
     {
         InitializeComponent();
-        DataContext = App.Current.Services.GetService<DatosReporteViewModel>();
     }
 }

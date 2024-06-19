@@ -13,8 +13,6 @@ public partial class LoginViewModel : ObservableObject
 
     [ObservableProperty] private string _password = "password";
 
-    //[ObservableProperty] private Visibility _visibilityErrorMessage;
-
     [ObservableProperty] private string _errorMessage = String.Empty;
     [ObservableProperty] private Visibility _errorVisibility = Visibility.Collapsed;
     [ObservableProperty] private bool _iniciandoSesion;

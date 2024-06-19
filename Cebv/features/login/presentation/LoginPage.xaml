@@ -22,10 +22,9 @@
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <ui:TextBlock HorizontalAlignment="Center"
-                          Text="{Binding Username}"
-                          FontSize="30">
-                Inicio de sesión
-            </ui:TextBlock>
+                          Text="Inicio de sesión"
+                          FontSize="30"/>
+            
             <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
                     CornerRadius="8">
                 <StackPanel Orientation="Horizontal"

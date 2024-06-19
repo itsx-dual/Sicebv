@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_del_reporte.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -12,8 +13,13 @@
       d:DesignWidth="Auto"
       d:DesignHeight="Auto"
       Title="PestanaReporteView">
-    
+
+    <Page.DataContext>
+        <presentation:DatosReporteViewModel/>
+    </Page.DataContext>
+
     <Grid Margin="10">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -29,12 +35,14 @@
             <WrapPanel IsEnabled="False" Margin="10 10 10 25">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="FECHA DE INICIO:" />
-                    <ui:TextBox Text="{Binding FechaInicio}" />
+                    <ui:TextBox Text="{Binding Fecha, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
+                                IsEnabled="False"/>
                 </StackPanel>
 
                 <StackPanel MinWidth="250">
                     <ui:TextBlock Text="HORA DE INICIO:" />
-                    <ui:TextBox Text="{Binding HoraInicio}" />
+                    <ui:TextBox Text="{Binding Fecha, StringFormat='{}{0:hh\\:mm tt}', ConverterCulture=es_MX}"
+                                IsEnabled="False"/>
                 </StackPanel>
             </WrapPanel>
 
@@ -77,15 +85,21 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
-                        <ComboBox SelectedItem="{Binding InformacionExclusivaBusquedaSelected}"
-                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}" />
+                        <ComboBox SelectedValue="{Binding InformacionExclusivaBusqueda}"
+                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}"
+                                  SelectedItem="{Binding InformacionExclusivaBusquedaSelectedKey}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
-                        <ComboBox SelectedItem="{Binding PublicacionInformacionSelected}"
-                                  ItemsSource="{Binding PublicacionInformacionList}" />
+                        <ComboBox SelectedValue="{Binding PublicacionInformacion}"
+                                  ItemsSource="{Binding PublicacionInformacionList}"
+                                  SelectedItem="{Binding PublicacionInformacionSelectedKey}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

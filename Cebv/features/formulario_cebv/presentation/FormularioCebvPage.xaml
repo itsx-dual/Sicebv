@@ -22,7 +22,8 @@
       xmlns:presentation11="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation12="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
-      xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
+      xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.presentation"
+      xmlns:presentation141="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -33,6 +34,10 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
+    
+    <Page.DataContext>
+        <presentation14:FormularioCebvViewModel/>
+    </Page.DataContext>
 
     <Page.Resources>
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -105,7 +110,7 @@
             
             <ui:NavigationViewItem Content="{StaticResource DatosComplementariosTitle}"
                                    Icon="{ui:SymbolIcon Info24}"
-                                   TargetPageType="{x:Type presentation14:DatosComplementariosPage}" />
+                                   TargetPageType="{x:Type presentation141:DatosComplementariosPage}" />
 
             <ui:NavigationViewItem Content="{StaticResource FolioExpedienteTitle}"
                                    Icon="{ui:SymbolIcon BookNumber24}"
