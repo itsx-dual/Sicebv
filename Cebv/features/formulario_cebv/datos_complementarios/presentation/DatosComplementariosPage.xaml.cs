@@ -8,6 +8,5 @@ public partial class DatosComplementariosPage : Page
     public DatosComplementariosPage()
     {
         InitializeComponent();
-        DataContext = App.Current.Services.GetService<DatosComplemenatiosViewModel>();
     }
 }

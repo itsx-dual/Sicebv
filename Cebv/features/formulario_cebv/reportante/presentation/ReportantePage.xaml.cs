@@ -9,9 +9,6 @@ public partial class ReportantePage : Page
     public ReportantePage()
     {
         InitializeComponent();
-        
-        DataContext = App.Current.Services.GetService<ReportanteViewModel>();
-
 
         NombreTb.LostFocus += (sender, e) =>
         {

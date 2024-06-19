@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
+      xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -34,6 +35,17 @@
             <Separator Height="25" Background="Transparent" BorderThickness="0" />
 
             <!-- Datos de identificación de la persona -->
+            <ui:TextBlock Text="Consulta de datos" FontTypography="Subtitle" Margin="10" />
+            <ui:CardExpander Icon="{ui:SymbolIcon Globe24}">
+                <ui:CardExpander.Header>
+                    <ui:TextBlock Text="Consultar placa en repuve" FontTypography="Subtitle" />
+                </ui:CardExpander.Header>
+
+                <wpf:WebView2 MinHeight="500"
+                              Source="https://www2.repuve.gob.mx:8443/ciudadania/"
+                              Margin="10" />
+            </ui:CardExpander>
+
             <ui:TextBlock Text="Datos del vehículo involucrado" FontTypography="Subtitle" Margin="10" />
             <Border Style="{StaticResource CebvBorder}">
                 <Grid Margin="5">

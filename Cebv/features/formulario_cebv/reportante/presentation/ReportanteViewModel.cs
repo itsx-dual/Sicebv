@@ -32,7 +32,7 @@ public partial class ReportanteViewModel : ObservableObject
 
     [ObservableProperty] private bool _puedeGuardar;
 
-    [ObservableProperty] private PersonaViewModel _reportante = App.Current.Services.GetService<PersonaViewModel>()!;
+    [ObservableProperty] private PersonaViewModel _reportante = new();
 
 
     // Datos de identificación de la persona

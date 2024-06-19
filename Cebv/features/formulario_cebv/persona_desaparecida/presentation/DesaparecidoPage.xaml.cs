@@ -8,6 +8,5 @@ public partial class DesaparecidoPage : Page
     public DesaparecidoPage()
     {
         InitializeComponent();
-        //DataContext = new DesaparecidoViewModel();
     }
 }

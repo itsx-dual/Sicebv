@@ -8,6 +8,5 @@ public partial class CircunstanciaDesaparicionPage : Page
     public CircunstanciaDesaparicionPage()
     {
         InitializeComponent();
-        DataContext = App.Current.Services.GetService<CircunstanciaDesaparicionViewModel>();
     }
 }
