@@ -12,7 +12,7 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
 
-                <ResourceDictionary Source="core/resources/designsystem/Styles.xaml" />
+                <ResourceDictionary Source="core/designsystem/Styles.xaml" />
 
                 <ResourceDictionary Source="core/resources/strings/BusquedaFamiliaString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/ComunicacionDifusionPage.xaml" />

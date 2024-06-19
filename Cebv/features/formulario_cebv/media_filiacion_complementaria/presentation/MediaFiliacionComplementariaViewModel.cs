@@ -33,7 +33,7 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMentones = new();
     [ObservableProperty] private Catalogo _tipoMenton = new();
     [ObservableProperty] private string _tipoMentonDescripcion = string.Empty;
-    
+
     // Intervenciones quirúrgicas
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposIntervenciones = new();
     [ObservableProperty] private Catalogo _tipoIntervencion = new();
@@ -56,4 +56,11 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
         TiposIntervenciones = await MediaFiliacionComplementariaNetwork.GetIntervencionesQuirurgicas();
         EnfermedadesPieles = await MediaFiliacionComplementariaNetwork.GetEnfermedadesPiel();
     }
+
+
+    partial void OnDienteOpcionChanged(string value) =>
+        Diente = OpcionesCebv.MappingToBool(value);
+    
+    partial void OnTratamientoDentalOpcionChanged(string value) =>
+        TratamientoDental = OpcionesCebv.MappingToBool(value);
 }

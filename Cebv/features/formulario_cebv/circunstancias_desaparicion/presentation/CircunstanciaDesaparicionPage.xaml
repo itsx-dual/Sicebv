@@ -356,7 +356,7 @@
                                      Margin="10">
                             <ui:DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre de la persona" Width="*" />
-                                <!-- Añadir el nombre de la persona en el campo de abajo de la cuál es el registro -->
+                                <!-- Añadir el nombre de la persona en el campo de abajo de la cual es el registro -->
                                 <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
                                 <DataGridTextColumn Header="Folio CEBV" Width="*" />
                             </ui:DataGrid.Columns>
@@ -380,7 +380,7 @@
                                          Margin="10">
                                 <ui:DataGrid.Columns>
                                     <DataGridTextColumn Header="Nombre de la persona" Width="*" />
-                                    <!-- Añadir el nombre de la persona en el campo de abajo de la cuál es el registro -->
+                                    <!-- Añadir el nombre de la persona en el campo de abajo de la cual es el registro -->
                                     <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
                                     <DataGridTextColumn Header="Folio CEBV" Width="*" />
                                 </ui:DataGrid.Columns>
