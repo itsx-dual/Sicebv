@@ -14,20 +14,40 @@
         <ui:CardControl
             Margin="5 5 60 5"
             Padding="10"
-            Icon="{ui:SymbolIcon Mail24}"
+            Icon="{ui:SymbolIcon Tag24}"
             HorizontalAlignment="Stretch">
             <ui:CardControl.Header>
-                <ui:TextBlock
-                    FontTypography="BodyStrong"
-                    Text="2222"
-                    TextWrapping="WrapWithOverflow" />
+                <StackPanel>
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        Text="Joyería"
+                        TextWrapping="Wrap" />
 
+                    <StackPanel Orientation="Horizontal">
+                        <ui:TextBlock
+                            Margin="0 0 10 0"
+                            FontTypography="Subtitle"
+                            Text="Anillo"
+                            TextWrapping="Wrap" />
+
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            FontTypography="Subtitle"
+                            Text="Dorado"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        Text="Marca"
+                        TextWrapping="Wrap" />
+                </StackPanel>
             </ui:CardControl.Header>
             <StackPanel>
                 <ui:TextBlock
-                    Appearance="Secondary"
-                    Text="fdsafasdgada"
-                    TextWrapping="WrapWithOverflow" />
+                    Appearance="Tertiary"
+                    Text="EJEMPLO DE DESCRIPCION BIEN MACABRA QUQE TE VAS DE CULO"
+                    TextWrapping="Wrap" />
             </StackPanel>
         </ui:CardControl>
     </Grid>

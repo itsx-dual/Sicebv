@@ -1,7 +1,13 @@
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using Cebv.core.data;
 
 namespace Cebv.core.modules.persona.data;
+
+public class PersonasWrapped
+{
+    [JsonPropertyName("data")] public ObservableCollection<Persona>? Data { get; set; }
+}
 
 public class Persona
 {

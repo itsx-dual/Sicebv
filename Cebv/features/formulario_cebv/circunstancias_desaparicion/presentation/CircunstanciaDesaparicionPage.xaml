@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
+      xmlns:data="clr-namespace:Cebv.core.modules.persona.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,6 +14,10 @@
       d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="CircunstanciaDesaparicionPage">
+
+    <Page.DataContext>
+        <presentation:CircunstanciaDesaparicionViewModel />
+    </Page.DataContext>
 
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
@@ -183,14 +189,14 @@
                                 <ui:TextBlock Text="COORDENADA LATITUD:" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
                                               Minimum="-90"
-                                              Maximum="90"/>
+                                              Maximum="90" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="COORDENADA LONGITUD" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
                                               Minimum="-180"
-                                              Maximum="180"/>
+                                              Maximum="180" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -348,6 +354,71 @@
                                     IsOpen="True"
                                     IsClosable="False" />
                     </StackPanel>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NOMBRE(S):" />
+                            <ui:TextBox Text="{Binding NombreDirecto}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="PRIMER APELLIDO:" />
+                            <ui:TextBox Text="{Binding PrimerApellidoDirecto}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SEGUNDO APELLIDO: " />
+                            <ui:TextBox Text="{Binding SegundoApellidoDirecto}" />
+                        </StackPanel>
+
+                        <ui:Button Icon="{ui:SymbolIcon Search24}"
+                                   Appearance="Primary"
+                                   VerticalContentAlignment="Stretch"
+                                   Command="{Binding BuscarPersonaCommand}"
+                                   Margin="0 15 0 0" />
+                    </WrapPanel>
+
+                    <ui:ListView
+                        HorizontalAlignment="Stretch"
+                        MaxHeight="250"
+                        ItemsSource="{Binding Personas, Mode=TwoWay}"
+                        SelectionMode="Single">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate DataType="{x:Type data:Persona}">
+                                <ui:CardControl
+                                    Margin="5 5 60 5"
+                                    Padding="10"
+                                    Icon="{ui:SymbolIcon Person24}"
+                                    HorizontalAlignment="Stretch">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:TextBlock
+                                                    FontTypography="Subtitle"
+                                                    Appearance="Primary"
+                                                    Margin="0 0 10 0"
+                                                    Text="{Binding Nombre}"
+                                                    TextWrapping="WrapWithOverflow" />
+
+                                                <ui:TextBlock
+                                                    FontTypography="Subtitle"
+                                                    Appearance="Secondary"
+                                                    Text="{Binding ApellidoPaterno}"
+                                                    TextWrapping="WrapWithOverflow"
+                                                    Margin="0 0 10 0" />
+
+                                                <ui:TextBlock
+                                                    FontTypography="Subtitle"
+                                                    Appearance="Secondary"
+                                                    Text="{Binding ApellidoMaterno}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                </ui:CardControl>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="REFERENCIAS DE LA O LAS OTRA(S) PERSONAS(S)" />

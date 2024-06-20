@@ -41,7 +41,7 @@ public partial class PersonaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Estado> _lugaresNacimientos = new();
     [ObservableProperty] private Estado _lugarNacimiento = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
-    [ObservableProperty] private Catalogo _nacionaliad = new();
+    [ObservableProperty] private Catalogo _nacionalidad = new();
 
     // Sexo y género de la persona
     [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();

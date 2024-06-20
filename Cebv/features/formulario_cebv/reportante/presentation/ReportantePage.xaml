@@ -113,7 +113,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="FECHA DE NACIMIENTO:" />
                             <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding Reportante.FechaNacimiento}" />
+                                        SelectedDate="{Binding Reportante.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -142,7 +142,7 @@
                             <ComboBox Width="250"
                                       IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Nacionaliad}"
+                                      SelectedItem="{Binding Reportante.Nacionalidad}"
                                       ItemsSource="{Binding Reportante.Nacionalidades}" />
                         </StackPanel>
                     </WrapPanel>
@@ -500,7 +500,7 @@
                                             HorizontalAlignment="Stretch">
                                             <ui:CardControl.Header>
                                                 <ui:TextBlock
-                                                    FontTypography="BodyStrong"
+                                                    FontTypography="Subtitle"
                                                     Text="{Binding Nombre}"
                                                     TextWrapping="WrapWithOverflow" />
                                             </ui:CardControl.Header>
