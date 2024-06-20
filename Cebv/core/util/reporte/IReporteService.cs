@@ -13,7 +13,7 @@ public interface IReporteService
     
     ReporteResponse ClearReporteActual();
     
-    ReporteResponse? GetReporteActual();
+    ReporteResponse GetReporteActual();
     
     int GetReporteActualId();
 
@@ -28,6 +28,8 @@ public interface IReporteService
     
     void SetReportanteId(int id);
     int GetReportanteId();
+    int GetDesaparecidoId();
 
     bool SendInformacionInicio(InicioPostObject informacion);
+    bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion);
 }

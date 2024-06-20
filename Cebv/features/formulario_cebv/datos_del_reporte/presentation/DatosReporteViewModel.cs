@@ -56,8 +56,6 @@ public partial class DatosReporteViewModel : ObservableObject
         
         if (_reporteService.HayReporte())
         {
-            Console.WriteLine("Hay reporte");
-            
             var reporte = _reporteService.GetReporteActual();
             var reportante = reporte.Reportantes.First();
             
