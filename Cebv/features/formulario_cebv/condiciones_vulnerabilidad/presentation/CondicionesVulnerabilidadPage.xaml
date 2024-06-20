@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -13,10 +12,6 @@
       mc:Ignorable="d"
       Name="PageCondiciones"
       Title="CondicionesVulnerabilidadPage">
-
-    <Page.DataContext>
-        <local:CondicionesVulnerabilidadViewModel />
-    </Page.DataContext>
 
     <Grid Margin="10">
 
@@ -37,7 +32,7 @@
                     <ui:TextBlock Text="TIPO DE SANGRE:" />
                     <ComboBox DisplayMemberPath="Nombre"
                               SelectedItem="{Binding TipoSangre}"
-                              ItemsSource="{Binding TiposSangre}"/>
+                              ItemsSource="{Binding TiposSangre}" />
                 </StackPanel>
             </Border>
 
@@ -48,9 +43,8 @@
                          ItemsSource="{Binding CondicionesSalud}"
                          Margin="10">
                 <ui:DataGrid.Columns>
-                    <DataGridTextColumn Header="Condición"
-                                        Width="*"
-                                        Binding="{Binding Path=Condicion }" />
+                    <DataGridComboBoxColumn Header="Condicion"
+                                            Width="*" />
                     <DataGridTextColumn Header="Tratamiento"
                                         Width="*"
                                         Binding="{Binding Path=Tratamiento}" />
@@ -59,7 +53,9 @@
                                             SelectedValueBinding="{Binding Naturaleza}"
                                             Width="*">
                     </DataGridComboBoxColumn>
-                    <DataGridCheckBoxColumn Header="Padece la condicion actualmente" Binding="{Binding PadeceCondicion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <DataGridTextColumn Header="Observaciones"
+                                        Width="*" />
                 </ui:DataGrid.Columns>
             </ui:DataGrid>
 
@@ -70,22 +66,23 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" />
                             <ComboBox SelectedItem="{Binding TransitoEstadosUnidosOpcion}"
-                                      ItemsSource="{Binding Opciones}"/>
+                                      ItemsSource="{Binding Opciones}" />
                         </StackPanel>
-                        
+
                         <StackPanel MinWidth="250">
                             <ui:TextBlock
                                 Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding SituacionMigratoria}"
-                                      ItemsSource="{Binding SituacionesMigratorias}"/>
+                                      ItemsSource="{Binding SituacionesMigratorias}" />
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <StackPanel>
                         <ui:TextBlock
                             Text="ESPECIFIQUE EL PROCESO DE REGULARIZACION MIGRATORIA QUE SE ENCUENTRA:" />
-                        <ui:TextBox Text="{Binding ProcesoMigratorioDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox Text="{Binding ProcesoMigratorioDescripcion}" TextWrapping="Wrap"
+                                    AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -111,14 +108,14 @@
                                 Margin="5">
                         <ui:TextBlock Text="Pertenencia grupal o étnica" />
                         <ComboBox SelectedItem="{Binding PertenenciaGrupalOpcion}"
-                                  ItemsSource="{Binding Opciones}"/>
+                                  ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <!-- Enfoques diferenciados -->
                     <Grid Grid.Column="0"
                           Grid.Row="1"
                           Grid.ColumnSpan="3"
-                          Margin="5">
+                          Margin="5 5 5 15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
@@ -150,9 +147,9 @@
                                    Appearance="Primary" />
 
                         <ui:ListView
-                                     Grid.Row="2"
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="2">
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="3"
@@ -316,7 +313,8 @@
                                     Margin="5">
                             <ui:TextBlock
                                 Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
-                            <ui:TextBox Text="{Binding CaracteristicaPersonal}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            <ui:TextBox Text="{Binding CaracteristicaPersonal}" TextWrapping="Wrap"
+                                        AcceptsReturn="True" MinHeight="100" />
                         </StackPanel>
 
                         <StackPanel Grid.ColumnSpan="3"
@@ -324,7 +322,8 @@
                                     Margin="5">
                             <ui:TextBlock
                                 Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
-                            <ui:TextBox Text="{Binding InformacionPersonal}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            <ui:TextBox Text="{Binding InformacionPersonal}" TextWrapping="Wrap" AcceptsReturn="True"
+                                        MinHeight="100" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -335,7 +334,7 @@
                 <WrapPanel Margin="10">
                     <CheckBox Content="¿Esta embarazada?"
                               Margin="10"
-                              IsChecked="{Binding EstaEmbarazada}"/>
+                              IsChecked="{Binding EstaEmbarazada}" />
 
                     <ui:NumberBox Maximum="9"
                                   Minimum="0"

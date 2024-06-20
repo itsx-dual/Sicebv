@@ -1,9 +1,12 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Cebv.core.data;
+using Cebv.core.modules.persona.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
@@ -68,5 +71,25 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
         Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
+    }
+    
+    
+    /**
+     * Logica de busqueda
+     */
+    [ObservableProperty] private string? _nombreDirecto;
+    [ObservableProperty] private string? _nombreIndirecto;
+    [ObservableProperty] private string? _primerApellidoDirecto;
+    [ObservableProperty] private string? _primerApellidoIndirecto;
+    [ObservableProperty] private string? _segundoApellidoDirecto;
+    [ObservableProperty] private string? _segundoApellidoIndirecto;
+    
+    [ObservableProperty] private ObservableCollection<Persona> _personas = new();
+    
+    [RelayCommand]
+    private async Task BuscarPersona()
+    {
+        Personas =  await CircunstanciaDesaparicionNetwork.BuscarPersona(NombreDirecto, PrimerApellidoDirecto, SegundoApellidoDirecto);
+        Console.WriteLine(Personas.Count);
     }
 }

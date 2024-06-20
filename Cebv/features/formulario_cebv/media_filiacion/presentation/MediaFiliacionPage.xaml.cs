@@ -8,7 +8,5 @@ public partial class MediaFiliacionPage : Page
     public MediaFiliacionPage()
     {
         InitializeComponent();
-        DataContext = App.Current.Services.GetService<MediaFiliacionViewModel>();
-
     }
 }

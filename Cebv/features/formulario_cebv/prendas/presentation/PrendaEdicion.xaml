@@ -1,0 +1,55 @@
+<ui:FluentWindow x:Class="Cebv.features.formulario_cebv.prendas.presentation.PrendaEdicion"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 mc:Ignorable="d"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 WindowCornerPreference="Round"
+                 WindowStartupLocation="CenterScreen"
+                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 d:DesignWidth="200"
+                 d:DesignHeight="400"
+                 Title="PrendaEdicion">
+
+    <Grid>
+        <StackPanel Margin="10">
+            <ui:TextBlock Text="Grupo Pertenencia" />
+            <ComboBox DisplayMemberPath="Nombre"
+                      SelectedItem="{Binding  GrupoPertenencia}"
+                      ItemsSource="{Binding GruposPertenencias}" />
+
+            <ui:TextBlock Text="Pertenencia" Margin="0,10,0,0" />
+            <ComboBox DisplayMemberPath="Nombre"
+                      SelectedItem="{Binding  Pertenencia}"
+                      ItemsSource="{Binding Pertenencias}" />
+
+            <ui:TextBlock Text="Color" Margin="0,10,0,0" />
+            <ComboBox DisplayMemberPath="Nombre"
+                      SelectedItem="{Binding  Color}"
+                      ItemsSource="{Binding Colores}" />
+
+            <ui:TextBlock Text="Marca" Margin="0,10,0,0" />
+            <ui:TextBox Text="{Binding Marca}" />
+
+            <ui:TextBlock Text="Descripcion" Margin="0,10,0,0" />
+            <ui:TextBox Text="{Binding Descripcion}" />
+
+            <UniformGrid Columns="2" Margin="0 20 0 0">
+                <ui:Button Content="Cancelar"
+                           Appearance="Primary"
+                           HorizontalAlignment="Stretch"
+                           Click="OnCancelar"
+                           Margin="10" />
+
+                <ui:Button Content="Guardar"
+                           Appearance="Primary"
+                           HorizontalAlignment="Stretch"
+                           Command="{Binding GuardarPrendaCommand}"
+                           Margin="10" />
+            </UniformGrid>
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>

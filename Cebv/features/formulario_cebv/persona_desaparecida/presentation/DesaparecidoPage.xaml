@@ -5,6 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:data="clr-namespace:Cebv.core.modules.contacto.data"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
+      xmlns:data1="clr-namespace:Cebv.core.modules.persona.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,7 +15,12 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DesaparecidoPage">
-    
+
+    <Page.DataContext>
+        <presentation:DesaparecidoViewModel />
+    </Page.DataContext>
+
+
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -73,38 +81,80 @@
                             <ui:TextBlock Text="PSEUDÓNIMO SEGUNDO APELLIDO: " />
                             <ui:TextBox Text="{Binding Desaparecido.PseudonimoApellidoMaterno}" />
                         </StackPanel>
+
+                        <ui:Button Appearance="Primary"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   VerticalAlignment="Stretch"
+                                   Margin="0 15 0 0"
+                                   Command="{Binding Desaparecido.AddPseudonimoCommand}" />
                     </WrapPanel>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <!-- TOOD: Hacer alias solo un campo -->
-                        <!-- TOOD: Hacer pseudonimos lista desplegable -->
-                        <!-- TOOD: Hacer pseudonimos lista desplegable -->
-                        <WrapPanel>
-                            <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ALIAS:" />
-                                <ui:TextBox Text="{Binding Desaparecido.Apodo}" />
-                            </StackPanel>
+                    <ui:CardExpander Icon="{ui:SymbolIcon Person24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Pseudónimos" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Desaparecido.Pseudonimos, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data1:Pseudonimo}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Person24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:TextBlock
+                                                            FontTypography="Subtitle"
+                                                            Appearance="Primary"
+                                                            Margin="0 0 10 0"
+                                                            Text="{Binding Nombre}"
+                                                            TextWrapping="WrapWithOverflow" />
 
-                            <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                       VerticalAlignment="Stretch"
-                                       Appearance="Primary"
-                                       Margin="0 15 25 0"
-                                       Command="{Binding Desaparecido.AddApodoCommand}" />
+                                                        <ui:TextBlock
+                                                            FontTypography="Subtitle"
+                                                            Appearance="Secondary"
+                                                            Text="{Binding ApellidoPaterno}"
+                                                            TextWrapping="WrapWithOverflow"
+                                                            Margin="0 0 10 0" />
 
-                            <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="LISTA DE ALIAS:" />
-                                <ComboBox SelectedItem="{Binding Desaparecido.ApodoSelected}"
-                                          ItemsSource="{Binding Desaparecido.Apodos}" />
-                            </StackPanel>
+                                                        <ui:TextBlock
+                                                            FontTypography="Subtitle"
+                                                            Appearance="Secondary"
+                                                            Text="{Binding ApellidoMaterno}"
+                                                            TextWrapping="WrapWithOverflow" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                        </ui:CardControl>
 
-                            <ui:Button Icon="{ui:SymbolIcon Delete24}"
-                                       VerticalAlignment="Stretch"
-                                       Appearance="Danger"
-                                       Margin="0 15 0 0"
-                                       Command="{Binding  Desaparecido.RemoveApodoCommand}" />
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.Desaparecido.RemovePseudonimoCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
 
-                        </WrapPanel>
-                    </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="ALIAS:" />
+                            <ui:TextBox Text="{Binding Desaparecido.Apodo}" />
+                        </StackPanel>
+                    </WrapPanel>
+
 
                     <!-- Apodos -->
                     <WrapPanel Margin="0 0 0 15">
@@ -135,7 +185,8 @@
                         <WrapPanel>
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker IsTodayHighlighted="True"
+                                            SelectedDate="{Binding Desaparecido.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -220,17 +271,18 @@
                         <WrapPanel>
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO APROXIMADA:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="FECHA DE NACIMIENTO CEBV:" />
-                                <ui:TextBox />
+                                <ui:TextBlock Text="FECHA DE NACIMIENTO PARA CNB:" />
+                                <DatePicker IsTodayHighlighted="True"
+                                            SelectedDate="{Binding Desaparecido.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA:" />
-                                <ui:TextBox />
+                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -312,22 +364,17 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="LUGAR DE NACIMIENTO:" />
-                            <ComboBox IsEditable="True" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Desaparecido.LugarNacimiento}"
+                                      ItemsSource="{Binding Desaparecido.LugaresNacimientos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NACIONALIDAD:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Nacionalidad}"
-                                      ItemsSource="{Binding Nacionalidades}" />
+                                      SelectedItem="{Binding Desaparecido.Nacionalidad}"
+                                      ItemsSource="{Binding Desaparecido.Nacionalidades}" />
                         </StackPanel>
-
-                        <ui:Button Visibility="Collapsed"
-                                   MinWidth="150"
-                                   MinHeight="38"
-                                   Content="Añadir"
-                                   Icon="{ui:SymbolIcon Add24}"
-                                   Appearance="Primary" />
                     </WrapPanel>
 
                     <!-- Identifcaciones oficiales -->
@@ -346,7 +393,8 @@
                     <!-- Observaciones del curp -->
                     <StackPanel>
                         <ui:TextBlock Text="OBSERVACIONES DEL CURP:" />
-                        <ui:TextBox Text="{Binding Desaparecido.ObservacionesCurp}" ClearButtonEnabled="True" />
+                        <ui:TextBox Text="{Binding Desaparecido.ObservacionesCurp}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -430,7 +478,8 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="REFERENCIA:" />
-                        <ui:TextBox Text="{Binding Ubicacion.Referencia}" />
+                        <ui:TextBox Text="{Binding Ubicacion.Referencia}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -457,8 +506,67 @@
                             <ui:TextBox Text="{Binding Contacto.ObservacionesMovil}" />
                         </StackPanel>
 
-                        <ui:Button Content="Añadir otro  teléfono móvil" Appearance="Secondary" />
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Appearance="Primary"
+                                   Margin="0 15 0 0"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding Contacto.AddTelefonoMovilCommand}" />
                     </WrapPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Teléfonos móviles" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Contacto.TelefonosMoviles, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:Telefono}">
+                                    <Grid>
+
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Phone24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        Text="{Binding CompaniaTelefonica.Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Numero}"
+                                                        TextWrapping="WrapWithOverflow" />
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Observaciones}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.Contacto.RemoveTelefonoMovilCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -471,8 +579,57 @@
                             <ui:TextBox Text="{Binding Contacto.ObservacionesFijo}" />
                         </StackPanel>
 
-                        <ui:Button Content="Añadir otro  teléfono fijo" Appearance="Secondary" />
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Appearance="Primary"
+                                   Margin="0 15 0 0"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding Contacto.AddTelefonoFijoCommand}" />
                     </WrapPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Teléfonos fijos" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Contacto.TelefonosFijos, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:Telefono}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Call24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <ui:TextBlock
+                                                    FontTypography="BodyStrong"
+                                                    Text="{Binding Numero}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Observaciones}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.Contacto.RemoveTelefonoFijoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
 
 
                     <WrapPanel Margin="0 0 0 15">
@@ -486,10 +643,59 @@
                             <ui:TextBox Text="{Binding Contacto.ObservacionesCorreoElectronico}" />
                         </StackPanel>
 
-                        <ui:Button Content="Añadir otro correo electrónico" Appearance="Secondary" />
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Appearance="Primary"
+                                   Margin="0 15 0 0"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding Contacto.AddCorreoElectronicoCommand}" />
                     </WrapPanel>
 
-                    <WrapPanel>
+                    <ui:CardExpander Icon="{ui:SymbolIcon MailMultiple24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Correos electrónicos" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Contacto.CorreosElectronicos, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:CorreoElectronico}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Mail24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <ui:TextBlock
+                                                    FontTypography="BodyStrong"
+                                                    Text="{Binding Correo}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Observaciones}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.Contacto.RemoveCorreoElectronicoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
+                    <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0  25 0">
                             <ui:TextBlock Text="TIPO DE RED SOCIAL:" />
                             <ComboBox DisplayMemberPath="Nombre"
@@ -507,8 +713,65 @@
                             <ui:TextBox Text="{Binding Contacto.ObservacionesRedSocial}" />
                         </StackPanel>
 
-                        <ui:Button Content="Añadir otra red social" Appearance="Secondary" />
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Appearance="Primary"
+                                   Margin="0 15 0 0"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding Contacto.AddRedSocialCommand}" />
                     </WrapPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon Mention24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Redes sociales" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Contacto.RedesSociales, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:RedSocial}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Mention24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        Text="{Binding TipoRedSocial.Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Usuario}"
+                                                        TextWrapping="WrapWithOverflow" />
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Observaciones}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.Contacto.RemoveRedSocialCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
                 </StackPanel>
             </Border>
 
@@ -519,23 +782,23 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
-                                Text="¿HABLA ESPAÑOL?." />
+                                Text="¿HABLA ESPAÑOL?" />
                             <ComboBox SelectedItem="{Binding HablaEspanolOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
-                                Text="¿SABE LEER?." />
+                                Text="¿SABE LEER Y ESCRIBIR?" />
                             <ComboBox SelectedItem="{Binding SabeLeerOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock
-                                Text="¿SABE ESCRIBIR?." />
-                            <ComboBox SelectedItem="{Binding SabeEscribirOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ui:TextBlock Text="RELIGIÓN:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Desaparecido.Religion}"
+                                      ItemsSource="{Binding Desaparecido.Religiones}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -550,17 +813,10 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="AVANCE DE ESCOLARIDAD: " />
                             <ComboBox>
-                                <ComboBoxItem Content="EN CURSO"/>
-                                <ComboBoxItem Content="TERMINADA"/>
-                                <ComboBoxItem Content="NO ESPECIFICA"/>
+                                <ComboBoxItem Content="EN CURSO" />
+                                <ComboBoxItem Content="TERMINADA" />
+                                <ComboBoxItem Content="NO ESPECIFICA" />
                             </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="RELIGIÓN:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Religion}"
-                                      ItemsSource="{Binding Desaparecido.Religiones}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -570,9 +826,9 @@
                             <ui:TextBox Text="{Binding Desaparecido.OcupacionUnoObservaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100"/>
+                                        MinHeight="100" />
                         </StackPanel>
-                        
+
                         <StackPanel>
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO GENERAL PRINCIPAL:" />
@@ -580,7 +836,7 @@
                                           SelectedItem="{Binding Desaparecido.TipoOcupacionUno}"
                                           ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
                             </StackPanel>
-                            
+
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO ESPECÍFICO PRINCIPAL:" />
                                 <ComboBox DisplayMemberPath="Nombre"
@@ -589,16 +845,16 @@
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="525" Margin="0 0 25 0">
                             <ui:TextBlock Text="DESCRIPCIÓN DE LA OCUPACIÓN SECUNDARIA:" />
                             <ui:TextBox Text="{Binding Desaparecido.OcupacionDosObservaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100"/>
+                                        MinHeight="100" />
                         </StackPanel>
-                        
+
                         <StackPanel>
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO GENERAL SECUNDARIA:" />
@@ -606,7 +862,7 @@
                                           SelectedItem="{Binding Desaparecido.TipoOcupacionDos}"
                                           ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
                             </StackPanel>
-                            
+
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="CÓDIGO ESPECÍFICO SECUNDARIA:" />
                                 <ComboBox DisplayMemberPath="Nombre"
@@ -615,9 +871,9 @@
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="OTRAS ESPECIFICACIONES DE LA OCUPACIÓN:"/>
+                        <ui:TextBlock Text="OTRAS ESPECIFICACIONES DE LA OCUPACIÓN:" />
                         <ui:TextBox Text="{Binding Desaparecido.OcupacionesObservaciones}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
@@ -633,7 +889,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="NOMBRE DE LA PAREJA O CÓNYUGE:" />
-                            <ui:TextBox Text="{Binding Desaparecido.NombrePareja}"/>
+                            <ui:TextBox Text="{Binding Desaparecido.NombrePareja}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

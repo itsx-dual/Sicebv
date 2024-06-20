@@ -42,13 +42,6 @@ public partial class DesaparecidoViewModel : ObservableObject
     // Información de nacimiento
     [ObservableProperty] private bool _fechaAproximada;
 
-    [ObservableProperty] private DateTime? _fechaNacimiento;
-    [ObservableProperty] private ObservableCollection<Estado> _lugaresNacimientos = new();
-    [ObservableProperty] private Estado _lugarNacimiento = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
-    [ObservableProperty] private Catalogo _nacionalidad = new();
-
-
     // Datos de domicilio
     [ObservableProperty] private UbicacionViewModel _ubicacion = new();
 

@@ -37,9 +37,6 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        //services.AddScoped<PersonaViewModel>();
-        //services.AddScoped<DesaparecidoViewModel>();
-
         services.AddTransient<FormularioCebvViewModel>();
         
         services.AddSingleton<IReporteService, ReporteService>();

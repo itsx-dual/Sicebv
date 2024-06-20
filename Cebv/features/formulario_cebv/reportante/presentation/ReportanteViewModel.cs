@@ -32,7 +32,7 @@ public partial class ReportanteViewModel : ObservableObject
 
     [ObservableProperty] private bool _puedeGuardar;
 
-    [ObservableProperty] private PersonaViewModel _reportante = App.Current.Services.GetService<PersonaViewModel>()!;
+    [ObservableProperty] private PersonaViewModel _reportante = new();
 
 
     // Datos de identificación de la persona
@@ -54,22 +54,21 @@ public partial class ReportanteViewModel : ObservableObject
     };
 
     [ObservableProperty] private string _estatusEscolaridad = "No especifica";
-    
-    [ObservableProperty] private string _pertenciaColectivo = OpcionesCebv.No;
-    [ObservableProperty] private bool? _pertenenciaC = false;
-    [ObservableProperty] private string _nombreColectivo = String.Empty;
-    
+
+    [ObservableProperty] private string _pertenenciaColectivoOpcion = OpcionesCebv.No;
+    [ObservableProperty] private bool? _pertenenciaColectivo = false;
+
     // Amezanas
     [ObservableProperty] private string _victimaExtorsionOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _victimaExtorsion;
 
-    [ObservableProperty] private string _recibioAmenazaOpcion= OpcionesCebv.No;
+    [ObservableProperty] private string _recibioAmenazaOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _recibioAmenaza;
-    
+
     // Busquedas pasadas
-    [ObservableProperty] private string _participoBusquedaOpcion= OpcionesCebv.No;
+    [ObservableProperty] private string _participoBusquedaOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _participoBusqueda;
-    
+
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
     [ObservableProperty] private Catalogo _colectivo = new();
 
@@ -81,9 +80,6 @@ public partial class ReportanteViewModel : ObservableObject
         Parentescos = await ReportanteNetwork.GetParentescos();
         Colectivos = await ReportanteNetwork.GetColectivos();
     }
-
-    partial void OnPertenciaColectivoChanging(string value) =>
-        PertenenciaC = OpcionesCebv.MappingToBool(value);
 
     /**
      * Guardar Borrador
@@ -105,4 +101,16 @@ public partial class ReportanteViewModel : ObservableObject
         ValidarBorrador();
         Console.WriteLine(Reportante.Nombre);
     }
+
+    partial void OnPertenenciaColectivoOpcionChanged(string value) =>
+        PertenenciaColectivo = OpcionesCebv.MappingToBool(value);
+
+    partial void OnVictimaExtorsionOpcionChanged(string value) =>
+        VictimaExtorsion = OpcionesCebv.MappingToBool(value);
+
+    partial void OnRecibioAmenazaOpcionChanged(string value) =>
+        RecibioAmenaza = OpcionesCebv.MappingToBool(value);
+
+    partial void OnParticipoBusquedaOpcionChanged(string value) =>
+        ParticipoBusqueda = OpcionesCebv.MappingToBool(value);
 }
