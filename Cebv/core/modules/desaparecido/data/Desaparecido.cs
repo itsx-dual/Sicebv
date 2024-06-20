@@ -15,16 +15,34 @@ public sealed record DesaparecidoResponse
 
     [JsonPropertyName("estatus_cebv")] public EstatusPersona? EstatusCebv { get; set; }
 
+    [JsonPropertyName("documentos_legales")]
+    public List<DocumentoLegal>? DocumentosLegales { get; set; }
+
+
     [JsonPropertyName("clasificacion_persona")]
     public string? ClasificacionPersona { get; set; }
 
-    [JsonPropertyName("habla_espanhol")] public bool HablaEspanhol { get; set; }
+    [JsonPropertyName("habla_espanhol")] public bool? HablaEspanhol { get; set; }
 
-    [JsonPropertyName("sabe_leer")] public bool SabeLeer { get; set; }
+    [JsonPropertyName("sabe_leer")] public bool? SabeLeer { get; set; }
 
-    [JsonPropertyName("sabe_escribir")] public bool SabeEscribir { get; set; }
+    [JsonPropertyName("sabe_escribir")] public bool? SabeEscribir { get; set; }
 
     [JsonPropertyName("url_boletin")] public string? UrlBoletin { get; set; }
+
+    //------------------------------------------------------------------------------
+    [JsonPropertyName("declaracion_especial_ausencia")]
+    public bool? DeclaracionAusencia { get; set; }
+
+    [JsonPropertyName("accion_urgente")] public bool? AccionUrgente { get; set; }
+
+    [JsonPropertyName("dictamen")] public bool? Dictamen { get; set; }
+
+    [JsonPropertyName("ci_nivel_federal")] public bool? CarpetaFederal { get; set; }
+
+    [JsonPropertyName("otro_derecho_humano")]
+    public string? OtroDerecho { get; set; }
+
 
     [JsonPropertyName("amparo_buscador")] public string? AmparoBuscador { get; set; }
 
@@ -85,18 +103,11 @@ public class DesaparecidoRequest
 
 public class DocumentoLegal
 {
-    [property: JsonPropertyName("tipo_documento")]
-    public string? TipoDocumento { get; set; }
-
-    [property: JsonPropertyName("numero_documento")]
-    public string? NumeroDocumento { get; set; }
-
-    [property: JsonPropertyName("donde_radica")]
-    public string? DondeRadica { get; set; }
-
-    [property: JsonPropertyName("nombre_servidor_publico")]
-    public string? NombreServidorPublico { get; set; }
-
-    [property: JsonPropertyName("fecha_recepcion")]
-    public DateTime? FechaRecepcion { get; set; }
+    [property: JsonPropertyName("id")] public int Id { get; set; }
+    [property: JsonPropertyName("desaparecido_id")] public int? DesaparecidoId { get; set; }
+    [property: JsonPropertyName("tipo_documento")] public string? TipoDocumento { get; set; }
+    [property: JsonPropertyName("numero_documento")] public string? NumeroDocumento { get; set; }
+    [property: JsonPropertyName("donde_radica")] public string? DondeRadica { get; set; }
+    [property: JsonPropertyName("nombre_servidor_publico")] public string? NombreServidorPublico { get; set; }
+    [property: JsonPropertyName("fecha_recepcion")] public DateTime? FechaRecepcion { get; set; }
 }

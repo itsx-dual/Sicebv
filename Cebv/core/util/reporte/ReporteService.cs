@@ -17,14 +17,11 @@ public enum EstadoReporte
 
 public class ReporteService : IReporteService
 {
-    private ReporteResponse? _reporte;
+    private ReporteResponse _reporte = new();
     private EstadoReporte _estadoActual = EstadoReporte.Indefinido;
-    private int _reporte_id = -1;
-    private int _reportante_id = -1;
-    private int _desaparecido_id = -1;
 
 
-    public ReporteResponse? GetReporteActual()
+    public ReporteResponse GetReporteActual()
     {
         return _reporte;
     }
@@ -48,7 +45,7 @@ public class ReporteService : IReporteService
 
     public ReporteResponse ClearReporteActual()
     {
-        _reporte = new ReporteResponse();
+        _reporte = new();
         _estadoActual = EstadoReporte.Nuevo;
         return _reporte;
     }
@@ -70,7 +67,7 @@ public class ReporteService : IReporteService
 
     public void SetReporteId(int id)
     {
-        this._reporte_id = id;
+        throw new NotImplementedException();
     }
 
     public int GetReporteId()
@@ -87,12 +84,21 @@ public class ReporteService : IReporteService
 
     public void SetReportanteId(int id)
     {
-        this._reportante_id = id;
+        throw new NotImplementedException();
     }
 
     public int GetReportanteId()
     {
-        return _reporte.Reportantes.First().Id;
+        var reportante = _reporte.Reportantes?.FirstOrDefault();
+        if (reportante == null) return -1;
+        return reportante.Id;
+    }
+
+    public int GetDesaparecidoId()
+    {
+        var desaparecido = _reporte.Desaparecidos?.FirstOrDefault();
+        if (desaparecido == null) return -1;
+        return desaparecido.Id;
     }
 
     public bool SendInformacionInicio(InicioPostObject informacion)
@@ -104,6 +110,52 @@ public class ReporteService : IReporteService
         }
 
         ReporteServiceNetwork.PutInicioReporte(_reporte.Id, informacion);
+        return true;
+    }
+
+    public bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion)
+    {
+        var desaparecido = _reporte.Desaparecidos?.FirstOrDefault();
+        var carpetaInvestigacion  = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI");
+        var amparo = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "AB");
+        var recomendacion = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "DH");
+
+        if (desaparecido == null)
+        {
+            ReporteServiceNetwork.PostInstrumentoJuridico(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutInstrumentoJuridico(informacion, desaparecido.Id);
+        }
+
+        if (carpetaInvestigacion == null)
+        {
+            ReporteServiceNetwork.PostCarpetaInvestigacion(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutCarpetaInvestigacion(informacion, carpetaInvestigacion.Id);
+        }
+        
+        if (amparo == null)
+        {
+            ReporteServiceNetwork.PostAmparo(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutAmparo(informacion, amparo.Id);
+        }
+
+        if (recomendacion == null)
+        {
+            ReporteServiceNetwork.PostRecomendacionDerechosHumanos(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutRecomendacionDerechosHumanos(informacion, recomendacion.Id);
+        }
+        
         return true;
     }
 }

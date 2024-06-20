@@ -6,6 +6,7 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -15,7 +16,7 @@
       Title="InstrumentoJuridicoPage">
     
     <Page.DataContext>
-        <presentation:InstrumentoJuridicoViewModel />
+        <presentation:InstrumentoJuridicoViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -40,8 +41,11 @@
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="ESPECIFICA SI HAY O EXISTE CARPETA DE INVESTIGACIÓN (CI). " />
-                        <ComboBox SelectedItem="{Binding OpcionCarpetaCebv}"
-                                  ItemsSource="{Binding Opciones}" />
+                        <ComboBox SelectedItem="{Binding OpcionCarpetaKey}"
+                                  SelectedValue="{Binding OpcionCarpeta}"
+                                  ItemsSource="{Binding Opciones}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
@@ -77,8 +81,11 @@
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE AMPARO BUSCADOR" />
-                        <ComboBox SelectedItem="{Binding OpcionAmparoCebv}"
-                                  ItemsSource="{Binding Opciones}" />
+                        <ComboBox SelectedItem="{Binding OpcionAmparoKey}"
+                                  SelectedValue="{Binding OpcionAmparo}"
+                                  ItemsSource="{Binding Opciones}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
@@ -115,8 +122,11 @@
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="ESPECÍFICA SI HAY O EXISTE RECOMENDACIÓN DE DERECHOS HUMANOS (DH)" />
-                        <ComboBox SelectedItem="{Binding OpcionRecomendacionCebv}"
-                                  ItemsSource="{Binding Opciones}" />
+                        <ComboBox SelectedItem="{Binding OpcionRecomendacionKey}"
+                                  SelectedValue="{Binding OpcionRecomendacion}"
+                                  ItemsSource="{Binding Opciones}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
@@ -182,6 +192,8 @@
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:ReportantePage}"
                    Appearance="Primary" />
     </Grid>
 </Page>
