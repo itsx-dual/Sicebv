@@ -17,12 +17,14 @@ public enum EstadoReporte
 
 public class ReporteService : IReporteService
 {
-    private ReporteResponse _reporte = new();
+    private ReporteResponse? _reporte;
     private EstadoReporte _estadoActual = EstadoReporte.Indefinido;
 
 
     public ReporteResponse GetReporteActual()
     {
+        if (_reporte is null) return new();
+        
         return _reporte;
     }
 
