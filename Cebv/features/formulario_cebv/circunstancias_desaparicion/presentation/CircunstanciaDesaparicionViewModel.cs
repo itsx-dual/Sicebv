@@ -3,15 +3,22 @@ using System.Diagnostics;
 using Cebv.core.data;
 using Cebv.core.modules.persona.data;
 using Cebv.core.modules.ubicacion.presentation;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
 public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 {
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    
+    
     public CircunstanciaDesaparicionViewModel()
     {
         CargarCatalogos();
@@ -91,5 +98,13 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         Personas =  await CircunstanciaDesaparicionNetwork.BuscarPersona(NombreDirecto, PrimerApellidoDirecto, SegundoApellidoDirecto);
         Console.WriteLine(Personas.Count);
+    }
+    
+    
+    [RelayCommand]
+    private void OnGuardarYSiguente(Type pageType)
+    {
+        _reporteService.UbicacionHechos = Ubicacion;
+        _navigationService.Navigate(pageType);
     }
 }

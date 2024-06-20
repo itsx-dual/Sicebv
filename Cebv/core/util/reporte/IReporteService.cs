@@ -1,10 +1,15 @@
 using Cebv.core.modules.reporte.data;
+using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
 
 namespace Cebv.core.util.reporte;
 
 public interface IReporteService
 {
+    Estado? UbicacionEstado { get; set; }
+    
+    UbicacionViewModel? UbicacionHechos { get; set; }
     void SetReporteActual(ReporteResponse? reporte);
     
     void SetReporteActualFromApi(int id);
@@ -13,7 +18,7 @@ public interface IReporteService
     
     ReporteResponse ClearReporteActual();
     
-    ReporteResponse GetReporteActual();
+    ReporteResponse? GetReporteActual();
     
     int GetReporteActualId();
 

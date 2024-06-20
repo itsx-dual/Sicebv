@@ -1,5 +1,7 @@
 using Cebv.core.modules.reporte.data;
 using Cebv.core.modules.reporte.domain;
+using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.domain;
 using Cebv.features.formulario_cebv.datos_del_reporte.presentation;
@@ -21,11 +23,9 @@ public class ReporteService : IReporteService
     private EstadoReporte _estadoActual = EstadoReporte.Indefinido;
 
 
-    public ReporteResponse GetReporteActual()
+    public ReporteResponse? GetReporteActual()
     {
-        if (_reporte is null) return new();
-        
-        return _reporte;
+        return _reporte ?? null;
     }
 
     public int GetReporteActualId()
@@ -33,6 +33,9 @@ public class ReporteService : IReporteService
         if (_reporte == null) return -1;
         return _reporte.Id;
     }
+
+    public Estado? UbicacionEstado { get; set; }
+    public UbicacionViewModel? UbicacionHechos { get; set; }
 
     public void SetReporteActual(ReporteResponse? reporte)
     {

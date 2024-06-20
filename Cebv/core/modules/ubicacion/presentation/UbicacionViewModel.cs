@@ -26,7 +26,7 @@ public partial class UbicacionViewModel : ObservableObject
     [ObservableProperty] private string _codigoPostal = String.Empty;
 
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
-    [ObservableProperty] private Estado _estado = new();
+    [ObservableProperty] private Estado? _estado;
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private Municipio _municipio = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
@@ -44,8 +44,8 @@ public partial class UbicacionViewModel : ObservableObject
         Estados = await UbicacionNetwork.GetEstados();
 
 
-    async partial void OnEstadoChanged(Estado value) =>
-        Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
+    async partial void OnEstadoChanged(Estado? value) =>
+        Municipios = await UbicacionNetwork.GetMuncipios(value!.Id);
 
     async partial void OnMunicipioChanged(Municipio value) =>
         Asentamientos = await UbicacionNetwork.GetAsentamientos(value.Id);
