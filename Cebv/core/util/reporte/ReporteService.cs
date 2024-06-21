@@ -4,6 +4,7 @@ using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.domain;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 
 namespace Cebv.core.util.reporte;
@@ -116,6 +117,16 @@ public class ReporteService : IReporteService
 
         ReporteServiceNetwork.PutInicioReporte(_reporte.Id, informacion);
         return true;
+    }
+
+    public bool SendModoTiempoLugar(ModoTiempoLugarPost informacion)
+    {
+        var hechoDesaparicion = ReporteServiceNetwork.GetHechosDesaparicion(_reporte!.Id);
+
+        
+          ReporteServiceNetwork.PostHechosDesaparicion(informacion);
+
+         return false;
     }
 
     public bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion)

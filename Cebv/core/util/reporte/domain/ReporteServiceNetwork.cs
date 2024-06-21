@@ -1,8 +1,13 @@
-﻿using System.Net.Http;
+﻿using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
 using Cebv.core.util.reporte.data;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -35,6 +40,41 @@ public partial class ReporteServiceNetwork
 
         var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<ReporteQueryResponse>(json).Data;
+        return JsonSerializer.Deserialize<ReporteQueryResponse>(json)!.Data;
+    }
+    
+    public static async Task<ObservableCollection<HechosDesaparicionResponse>?> GetHechosDesaparicion(int id)
+    {
+        var request = new HttpRequestMessage
+        {
+            RequestUri = new Uri($"/api/hechos-desapariciones?filter[reporte_id]={id}", UriKind.Relative),
+            Method = HttpMethod.Get
+        };
+
+        var response = await Client.SendAsync(request);
+        var json = await response.Content.ReadAsStringAsync();
+        
+        var hechosDesaparicion = JsonSerializer.Deserialize<HechosDesaparicionQueryResponse>(json)!.Data;
+       
+        return hechosDesaparicion;
+    }
+
+    public static async void PostHechosDesaparicion(ModoTiempoLugarPost informacion)
+    {
+        var request = new HttpRequestMessage
+        {
+            RequestUri = new Uri("/api/hechos-desapariciones", UriKind.Relative),
+            Method = HttpMethod.Post,
+            Content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "hechos_desaparicion", informacion.DescripcionHechosDesaparicion! },
+                { "reporte_id", _reporteService.GetReporteId().ToString() },
+            })
+        };
+        
+        using var response = await Client.SendAsync(request);
+        
+        if (response.IsSuccessStatusCode) Console.WriteLine("Jalloooooo");
+        else Console.WriteLine("No jalo");
     }
 }

@@ -1,0 +1,80 @@
+<ui:FluentWindow x:Class="Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation.AgregarExpediente"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 mc:Ignorable="d"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 WindowCornerPreference="Round"
+                 WindowStartupLocation="CenterScreen"
+                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 Title="AgregarExpediente" Width="250" Height="180">
+    
+    <StackPanel Margin="10">
+
+        <StackPanel MinWidth="250" Margin="10">
+            <ui:TextBlock Text="¿USTED QUE ES DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?" TextWrapping="Wrap" />
+            <ComboBox DisplayMemberPath="Nombre"
+                      SelectedItem="{Binding Parentesco}"
+                      ItemsSource="{Binding Parentescos}" />
+        </StackPanel>
+
+        <ui:CardControl
+            Margin="10"
+            Padding="10"
+            Icon="{ui:SymbolIcon Tag24}"
+            HorizontalAlignment="Stretch">
+            <ui:CardControl.Header>
+                <StackPanel Orientation="Horizontal">
+                    <ui:TextBlock
+                        FontTypography="Subtitle"
+                        Appearance="Primary"
+                        Text="{Binding Persona.Nombre}"
+                        TextWrapping="Wrap"
+                        Margin="0 0 10 0"/>
+
+                    <ui:TextBlock
+                        Margin="0 0 10 0"
+                        FontTypography="Subtitle"
+                        Appearance="Secondary"
+                        Text="{Binding Persona.ApellidoPaterno}"
+                        TextWrapping="Wrap"/>
+
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        FontTypography="Subtitle"
+                        Text="{Binding Persona.ApellidoMaterno}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+            </ui:CardControl.Header>
+            <StackPanel>
+                <ui:TextBlock
+                    Appearance="Tertiary"
+                    Text="{Binding Persona.FechaNacimiento.Date, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
+                    TextWrapping="Wrap" />
+
+                <ui:TextBlock
+                    Appearance="Tertiary"
+                    Text="{Binding Persona.Curp}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardControl>
+
+        <UniformGrid Columns="2" Margin="0 20 0 0">
+            <ui:Button Content="Cancelar"
+                       Appearance="Primary"
+                       HorizontalAlignment="Stretch"
+                       Click="OnCancelar"
+                       Margin="10" />
+
+            <ui:Button Content="Guardar"
+                       Appearance="Primary"
+                       HorizontalAlignment="Stretch"
+                       Command="{Binding GuardarPrendaCommand}"
+                       Margin="10" />
+        </UniformGrid>
+    </StackPanel>
+</ui:FluentWindow>

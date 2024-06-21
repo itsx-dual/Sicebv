@@ -35,7 +35,7 @@
                         MaxWidth="400"
                         Margin="10 10 10 25">
                 <ui:TextBlock Text="FOLIO CEBV:" />
-                <ui:TextBox Text="EJEMPLO-FOLIO-CEBV-123" />
+                <ui:TextBox Text="{Binding Folio.FolioCebv}" />
             </StackPanel>
 
 
@@ -67,7 +67,7 @@
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="ZONA DEL ESTADO:" />
-                        <ui:TextBox Text="" />
+                        <ui:TextBox Text="{Binding ZonaEstado}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
@@ -108,7 +108,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                            <ui:TextBox Text="Nombre Apellido1 Apellido2" IsEnabled="False" />
+                            <ui:TextBox Text="{Binding Folio.User.Name}" IsEnabled="False" />
                         </StackPanel>
 
 
@@ -117,6 +117,7 @@
                                    HorizontalAlignment="Right"
                                    Icon="{ui:SymbolIcon Pen24}"
                                    VerticalAlignment="Stretch"
+                                   Command="{Binding SetFolioCommand}"
                                    Appearance="Primary" />
 
                     </WrapPanel>
