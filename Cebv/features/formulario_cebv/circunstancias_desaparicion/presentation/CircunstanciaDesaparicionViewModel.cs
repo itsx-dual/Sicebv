@@ -15,10 +15,12 @@ namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation
 
 public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 {
-    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    
-    
+
+
     public CircunstanciaDesaparicionViewModel()
     {
         CargarCatalogos();
@@ -70,7 +72,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private int _numeroPersonasMismoEvento = 1;
 
-
     /**
      * Peticiones a la red
      */
@@ -79,32 +80,144 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
         Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
     }
-    
-    
+
     /**
      * Logica de busqueda
      */
     [ObservableProperty] private string? _nombreDirecto;
+
     [ObservableProperty] private string? _nombreIndirecto;
     [ObservableProperty] private string? _primerApellidoDirecto;
     [ObservableProperty] private string? _primerApellidoIndirecto;
     [ObservableProperty] private string? _segundoApellidoDirecto;
     [ObservableProperty] private string? _segundoApellidoIndirecto;
-    
-    [ObservableProperty] private ObservableCollection<Persona> _personas = new();
-    
+
+    [ObservableProperty] private ObservableCollection<Persona> _personasDirectas = new();
+    [ObservableProperty] private ObservableCollection<Persona> _personasIndirectas = new();
+    [ObservableProperty] private ObservableCollection<Expediente> _expedientesDirectos = new();
+    [ObservableProperty] private ObservableCollection<Expediente> _expedientesIndirectos = new();
+
     [RelayCommand]
-    private async Task BuscarPersona()
+    private async Task BuscarPersonaDirecta()
     {
-        Personas =  await CircunstanciaDesaparicionNetwork.BuscarPersona(NombreDirecto, PrimerApellidoDirecto, SegundoApellidoDirecto);
-        Console.WriteLine(Personas.Count);
+        PersonasDirectas = await CircunstanciaDesaparicionNetwork.BuscarPersona(
+            NombreDirecto,
+            PrimerApellidoDirecto,
+            SegundoApellidoDirecto
+        );
+        Console.WriteLine(PersonasDirectas.Count);
     }
-    
-    
+
+    [RelayCommand]
+    private async Task BuscarPersonaIndirecta()
+    {
+        PersonasIndirectas = await CircunstanciaDesaparicionNetwork.BuscarPersona2(
+            NombreIndirecto,
+            PrimerApellidoIndirecto,
+            SegundoApellidoIndirecto
+        );
+        Console.WriteLine(PersonasIndirectas.Count);
+    }
+
+    [RelayCommand]
+    private void AddExpedienteDirecto(Persona persona)
+    {
+        if (ExpedientesDirectos.Any(p => p.Persona.Id == persona.Id)) return;
+
+        var viewModel = new AgregarExpedienteViewModel(persona);
+
+        // Suscribirse al evento de guardado
+        viewModel.GuardarExpediente += OnExpedienteDirectoGuardado;
+
+        // Abrir la ventana de edición de la prenda
+        var dialog = new AgregarExpediente { DataContext = viewModel };
+
+        // Configurar la acción de cierre para la ventana de edición
+        if (dialog.DataContext is AgregarExpedienteViewModel vm)
+        {
+            vm.CloseAction = () => dialog.Close();
+        }
+
+        dialog.ShowDialog();
+    }
+
+    private void OnExpedienteDirectoGuardado(object? sender, Expediente expediente)
+    {
+        if (sender is not AgregarExpedienteViewModel vm) return;
+
+        ExpedientesDirectos.Add(expediente);
+    }
+
+    [RelayCommand]
+    private void RemoveExpedienteDirecto(Expediente expediente)
+    {
+        ExpedientesDirectos.Remove(expediente);
+    }
+
+    [RelayCommand]
+    private void AddExpedienteIndirecto(Persona persona)
+    {
+        if (ExpedientesIndirectos.Any(p => p.Persona.Id == persona.Id)) return;
+
+        var viewModel = new AgregarExpedienteViewModel(persona);
+
+        // Suscribirse al evento de guardado
+        viewModel.GuardarExpediente += OnExpedienteIndirectoGuardado;
+
+        // Abrir la ventana de edición de la prenda
+        var dialog = new AgregarExpediente { DataContext = viewModel };
+
+        // Configurar la acción de cierre para la ventana de edición
+        if (dialog.DataContext is AgregarExpedienteViewModel vm)
+        {
+            vm.CloseAction = () => dialog.Close();
+        }
+
+        dialog.ShowDialog();
+    }
+
+    private void OnExpedienteIndirectoGuardado(object? sender, Expediente expediente)
+    {
+        if (sender is not AgregarExpedienteViewModel vm) return;
+
+        ExpedientesIndirectos.Add(expediente);
+    }
+
+    [RelayCommand]
+    private void RemoveExpedienteIndirecto(Expediente expediente)
+    {
+        ExpedientesIndirectos.Remove(expediente);
+    }
+
+
     [RelayCommand]
     private void OnGuardarYSiguente(Type pageType)
     {
         _reporteService.UbicacionHechos = Ubicacion;
-        _navigationService.Navigate(pageType);
+        
+        ModoTiempoLugarPost informacion = new()
+        {
+            ReporteId = 2,
+            FechaDesaparicion = FechaDesaparicion,
+            FechaPercato = FechaPercato,
+            AclaracionHechos = AclaracionHechos,
+            Ubicacion = Ubicacion,
+            AmenazaCambioComportamiento = AmenazaCambioComportamiento,
+            AmenazaDescripcion = AmenazaDescripcion,
+            ContadorDesaparicion = ContadorDesaparicion,
+            SituacionPreviaDescripcion = SituacionPreviaDescripcion,
+            DatosPersonasRealacionadas = DatosPersonasRealacionadas,
+            DescripcionHechosDesaparicion = DescripcionHechosDesaparicion,
+            SintesisHechosDesaparicion = SintesisHechosDesaparicion,
+            TipoHipotesisUno = TipoHipotesisUno.Id,
+            TipoHipotesisDos = TipoHipotesisDos.Id,
+            Sitio = Sitio.Id,
+            AreaCodifica = AreaCodifica,
+            DesaparecioAcompanado = DesaparecioAcompanado,
+            NumeroPersonasMismoEvento = NumeroPersonasMismoEvento,
+        };
+        
+        if (_reporteService.SendModoTiempoLugar(informacion)) _navigationService.Navigate(pageType);
     }
+    
 }

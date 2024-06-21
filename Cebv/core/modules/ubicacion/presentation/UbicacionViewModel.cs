@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.domain;
+using CommunityToolkit.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.core.modules.ubicacion.presentation;
@@ -40,12 +41,27 @@ public partial class UbicacionViewModel : ObservableObject
     /**
      * Peticiones a la API para obtener los catálogos
      */
-    private async void CargarCatalogos() =>
-        Estados = await UbicacionNetwork.GetEstados();
+    private async void CargarCatalogos()
+    {
+        try
+        {
+            Estados = await UbicacionNetwork.GetEstados();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
 
-    async partial void OnEstadoChanged(Estado? value) =>
-        Municipios = await UbicacionNetwork.GetMuncipios(value!.Id);
+    async partial void OnEstadoChanged(Estado? value)
+    {
+        if (value is null) return;
+
+        Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
+    }
+
 
     async partial void OnMunicipioChanged(Municipio value) =>
         Asentamientos = await UbicacionNetwork.GetAsentamientos(value.Id);

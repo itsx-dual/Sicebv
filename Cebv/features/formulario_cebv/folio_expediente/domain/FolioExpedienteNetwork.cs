@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text.Json;
 using Cebv.core.data;
 using Cebv.core.domain;
+using Cebv.features.formulario_cebv.folio_expediente.data;
 
 namespace Cebv.features.formulario_cebv.folio_expediente.domain;
 
@@ -29,6 +30,25 @@ public class FolioExpedienteNetwork
 
         CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
 
+        return jsonResponse.Data;
+    }
+
+    public static async Task<ObservableCollection<Folio>> SetFolio(int reporteId)
+    {
+        var asignarFolio = await Client.GetAsync($"api/reportes/asignar_folio/{reporteId}");
+        
+        var test = await asignarFolio.Content.ReadAsStringAsync();
+        
+        Console.WriteLine(test);
+        
+        var consultarFolio = await Client.GetAsync($"api/reportes/ver_folio/{reporteId}");
+
+        var response = await consultarFolio.Content.ReadAsStringAsync();
+        
+        Console.WriteLine(response);
+        
+        FoliosWrapped jsonResponse = JsonSerializer.Deserialize<FoliosWrapped>(response)!;
+        
         return jsonResponse.Data;
     }
 }

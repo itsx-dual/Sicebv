@@ -25,6 +25,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -47,6 +48,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -69,6 +71,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -91,6 +94,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(requestDesaparecido);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -113,6 +117,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -135,6 +140,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -157,6 +163,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
@@ -181,6 +188,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(requestDesaparecido);
+        var json = response.Content.ReadAsStringAsync();
         _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }

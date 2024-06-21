@@ -2,6 +2,7 @@ using Cebv.core.modules.reporte.data;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 
 namespace Cebv.core.util.reporte;
 
@@ -36,5 +37,8 @@ public interface IReporteService
     int GetDesaparecidoId();
 
     bool SendInformacionInicio(InicioPostObject informacion);
+    bool SendModoTiempoLugar(ModoTiempoLugarPost informacion);
     bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion);
+
+    bool SendReportante(ReportantePostObject informacion);
 }

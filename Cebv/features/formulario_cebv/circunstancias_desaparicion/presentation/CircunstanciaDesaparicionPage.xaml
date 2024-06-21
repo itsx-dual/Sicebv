@@ -355,14 +355,13 @@
                         </StackPanel>
                     </WrapPanel>
 
-                    <StackPanel Margin="10">
-                        <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
-                                    FontSize="14"
-                                    Title="Expedientes directos:"
-                                    Severity="Informational"
-                                    IsOpen="True"
-                                    IsClosable="False" />
-                    </StackPanel>
+                    <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
+                                FontSize="14"
+                                Title="Expedientes directos:"
+                                Severity="Informational"
+                                IsOpen="True"
+                                Margin="10"
+                                IsClosable="False" />
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -383,90 +382,305 @@
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
                                    Appearance="Primary"
                                    VerticalContentAlignment="Stretch"
-                                   Command="{Binding BuscarPersonaCommand}"
+                                   Command="{Binding BuscarPersonaDirectaCommand}"
                                    Margin="0 15 0 0" />
                     </WrapPanel>
 
                     <ui:ListView
                         HorizontalAlignment="Stretch"
-                        MaxHeight="250"
-                        ItemsSource="{Binding Personas, Mode=TwoWay}"
+                        MaxHeight="400"
+                        ItemsSource="{Binding PersonasDirectas, Mode=TwoWay}"
                         SelectionMode="Single">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:Persona}">
-                                <ui:CardControl
-                                    Margin="5 5 60 5"
-                                    Padding="10"
-                                    Icon="{ui:SymbolIcon Person24}"
-                                    HorizontalAlignment="Stretch">
-                                    <ui:CardControl.Header>
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ui:TextBlock
-                                                    FontTypography="Subtitle"
-                                                    Appearance="Primary"
-                                                    Margin="0 0 10 0"
-                                                    Text="{Binding Nombre}"
-                                                    TextWrapping="WrapWithOverflow" />
+                                <Grid>
+                                    <ui:CardControl
+                                        Margin="5 5 60 5"
+                                        Padding="10"
+                                        Icon="{ui:SymbolIcon Person24}"
+                                        HorizontalAlignment="Stretch">
+                                        <ui:CardControl.Header>
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:TextBlock
+                                                        FontTypography="Subtitle"
+                                                        Appearance="Primary"
+                                                        Margin="0 0 10 0"
+                                                        Text="{Binding Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
 
-                                                <ui:TextBlock
-                                                    FontTypography="Subtitle"
-                                                    Appearance="Secondary"
-                                                    Text="{Binding ApellidoPaterno}"
-                                                    TextWrapping="WrapWithOverflow"
-                                                    Margin="0 0 10 0" />
+                                                    <ui:TextBlock
+                                                        FontTypography="Subtitle"
+                                                        Appearance="Secondary"
+                                                        Text="{Binding ApellidoPaterno}"
+                                                        TextWrapping="WrapWithOverflow"
+                                                        Margin="0 0 10 0" />
 
-                                                <ui:TextBlock
-                                                    FontTypography="Subtitle"
-                                                    Appearance="Secondary"
-                                                    Text="{Binding ApellidoMaterno}"
-                                                    TextWrapping="WrapWithOverflow" />
+                                                    <ui:TextBlock
+                                                        FontTypography="Subtitle"
+                                                        Appearance="Secondary"
+                                                        Text="{Binding ApellidoMaterno}"
+                                                        TextWrapping="WrapWithOverflow" />
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </ui:CardControl.Header>
-                                </ui:CardControl>
+                                        </ui:CardControl.Header>
+                                    </ui:CardControl>
+
+                                    <ui:Button VerticalAlignment="Stretch"
+                                               Appearance="Primary"
+                                               HorizontalAlignment="Right"
+                                               Icon="{ui:SymbolIcon Add24}"
+                                               MinWidth="50"
+                                               Margin="5"
+                                               Command="{Binding DataContext.AddExpedienteDirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               CommandParameter="{Binding}" />
+
+                                </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Referencias de la o las otra(s) personas(s):" />
-                        <ui:DataGrid MinHeight="200"
-                                     AutoGenerateColumns="False"
-                                     Margin="10">
-                            <ui:DataGrid.Columns>
-                                <DataGridTextColumn Header="Nombre de la persona" Width="*" />
-                                <!-- Añadir el nombre de la persona en el campo de abajo de la cual es el registro -->
-                                <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
-                                <DataGridTextColumn Header="Folio CEBV" Width="*" />
-                            </ui:DataGrid.Columns>
-                        </ui:DataGrid>
-                    </StackPanel>
+                    <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Expedientes directos" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
 
-                    <StackPanel>
-                        <ui:InfoBar Message="{StaticResource LeyendaFolioIndirecto}"
-                                    FontSize="14"
-                                    Severity="Informational"
-                                    IsOpen="True"
-                                    Margin="10"
-                                    Title="Expediente indirectos"
-                                    IsClosable="False" />
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding ExpedientesDirectos, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type presentation:Expediente}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Person24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:TextBlock
+                                                        Margin="0 0 10 0"
+                                                        FontTypography="Subtitle"
+                                                        Text="{Binding Persona.Nombre}"
+                                                        TextWrapping="Wrap" />
+
+                                                    <ui:TextBlock
+                                                        Margin="0 0 10 0"
+                                                        Appearance="Secondary"
+                                                        FontTypography="Subtitle"
+                                                        Text="{Binding Persona.ApellidoPaterno}"
+                                                        TextWrapping="Wrap" />
+
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        FontTypography="Subtitle"
+                                                        Text="{Binding Persona.ApellidoMaterno}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    Text="{Binding Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
+                                                    TextWrapping="Wrap"
+                                                    Margin="4" />
+
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    Text="{Binding Persona.Curp}"
+                                                    TextWrapping="Wrap"
+                                                    Margin="4" />
+
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    Text="{Binding Parentesco.Nombre}"
+                                                    TextWrapping="Wrap"
+                                                    Margin="4" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <!-- Botones de visualización -->
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.RemoveExpedienteDirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
 
 
-                        <StackPanel>
-                            <ui:TextBlock Text="Referencias de la o las otra(s) personas(s)" />
-                            <ui:DataGrid MinHeight="200"
-                                         AutoGenerateColumns="False"
-                                         Margin="10">
-                                <ui:DataGrid.Columns>
-                                    <DataGridTextColumn Header="Nombre de la persona" Width="*" />
-                                    <!-- Añadir el nombre de la persona en el campo de abajo de la cual es el registro -->
-                                    <DataGridComboBoxColumn Header="Relación o parentesco" Width="*" />
-                                    <DataGridTextColumn Header="Folio CEBV" Width="*" />
-                                </ui:DataGrid.Columns>
-                            </ui:DataGrid>
+                    <!-- Expedientes indirectos -->
+                    <ui:InfoBar Message="{StaticResource LeyendaFolioIndirecto}"
+                                FontSize="14"
+                                Severity="Informational"
+                                IsOpen="True"
+                                Margin="10"
+                                Title="Expediente indirectos"
+                                IsClosable="False" />
+
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="NOMBRE(S):" />
+                            <ui:TextBox Text="{Binding NombreIndirecto}" />
                         </StackPanel>
-                    </StackPanel>
+
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="PRIMER APELLIDO:" />
+                            <ui:TextBox Text="{Binding PrimerApellidoIndirecto}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                            <ui:TextBlock Text="SEGUNDO APELLIDO: " />
+                            <ui:TextBox Text="{Binding SegundoApellidoIndirecto}" />
+                        </StackPanel>
+
+                        <ui:Button Icon="{ui:SymbolIcon Search24}"
+                                   Appearance="Primary"
+                                   VerticalContentAlignment="Stretch"
+                                   Command="{Binding BuscarPersonaIndirectaCommand}"
+                                   Margin="0 15 0 0" />
+                    </WrapPanel>
+
+                    <ui:ListView
+                        HorizontalAlignment="Stretch"
+                        MaxHeight="400"
+                        ItemsSource="{Binding PersonasIndirectas, Mode=TwoWay}"
+                        SelectionMode="Single">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate DataType="{x:Type data:Persona}">
+                                <Grid>
+                                    <ui:CardControl
+                                        Margin="5 5 60 5"
+                                        Padding="10"
+                                        Icon="{ui:SymbolIcon Person24}"
+                                        HorizontalAlignment="Stretch">
+                                        <ui:CardControl.Header>
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:TextBlock
+                                                        FontTypography="Subtitle"
+                                                        Appearance="Primary"
+                                                        Margin="0 0 10 0"
+                                                        Text="{Binding Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <ui:TextBlock
+                                                        FontTypography="Subtitle"
+                                                        Appearance="Secondary"
+                                                        Text="{Binding ApellidoPaterno}"
+                                                        TextWrapping="WrapWithOverflow"
+                                                        Margin="0 0 10 0" />
+
+                                                    <ui:TextBlock
+                                                        FontTypography="Subtitle"
+                                                        Appearance="Secondary"
+                                                        Text="{Binding ApellidoMaterno}"
+                                                        TextWrapping="WrapWithOverflow" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </ui:CardControl.Header>
+                                    </ui:CardControl>
+
+                                    <ui:Button VerticalAlignment="Stretch"
+                                               Appearance="Primary"
+                                               HorizontalAlignment="Right"
+                                               Icon="{ui:SymbolIcon Add24}"
+                                               MinWidth="50"
+                                               Margin="5"
+                                               Command="{Binding DataContext.AddExpedienteIndirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               CommandParameter="{Binding}" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Expedientes directos" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding ExpedientesIndirectos, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type presentation:Expediente}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Person24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <ui:TextBlock
+                                                        Margin="0 0 10 0"
+                                                        FontTypography="Subtitle"
+                                                        Text="{Binding Persona.Nombre}"
+                                                        TextWrapping="Wrap" />
+
+                                                    <ui:TextBlock
+                                                        Margin="0 0 10 0"
+                                                        Appearance="Secondary"
+                                                        FontTypography="Subtitle"
+                                                        Text="{Binding Persona.ApellidoPaterno}"
+                                                        TextWrapping="Wrap" />
+
+                                                    <ui:TextBlock
+                                                        Appearance="Secondary"
+                                                        FontTypography="Subtitle"
+                                                        Text="{Binding Persona.ApellidoMaterno}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    Text="{Binding Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
+                                                    TextWrapping="Wrap"
+                                                    Margin="4" />
+
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    Text="{Binding Persona.Curp}"
+                                                    TextWrapping="Wrap"
+                                                    Margin="4" />
+
+                                                <ui:TextBlock
+                                                    Appearance="Tertiary"
+                                                    Text="{Binding Parentesco.Nombre}"
+                                                    TextWrapping="Wrap"
+                                                    Margin="4" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <!-- Botones de visualización -->
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.RemoveExpedienteIndirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
                 </StackPanel>
             </Border>
 
@@ -480,6 +694,6 @@
                    HorizontalAlignment="Stretch"
                    Appearance="Primary"
                    Command="{Binding GuardarYSiguenteCommand}"
-                   CommandParameter="{x:Type presentation1:DesaparicionForzadaPage}"/>
+                   CommandParameter="{x:Type presentation1:DesaparicionForzadaPage}" />
     </Grid>
 </Page>
