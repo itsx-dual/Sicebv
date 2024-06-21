@@ -36,26 +36,26 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE CODIFICACIÓN:" FontTypography="Caption" />
+                            <ui:TextBlock Text="Fecha de codificación:" FontTypography="Caption" />
                             <DatePicker SelectedDate="{Binding FechaCodificacion}" IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="NOMBRE DE QUIEN CODIFICÓ:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NombreCodificador}" />
+                            <ui:TextBlock Text="Nombre de quien codificó:" FontTypography="Caption" />
+                            <ui:TextBox Text="{Binding NombreCodificador}" Tag="Letter"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
-                        <ui:TextBlock Text="OBSERVACIONES GENERALES:" FontTypography="Caption" />
+                        <ui:TextBlock Text="Observaciones generales:" FontTypography="Caption" />
                         <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="N° DE TARJETA OGPI:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NumeroTarjeta}" />
+                            <ui:TextBlock Text="N° de tarjeta OGPI:" FontTypography="Caption" />
+                            <ui:TextBox Text="{Binding NumeroTarjeta}" Tag="Number" MaxLength="18"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -79,19 +79,19 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0  0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FOLIO FUB:" />
+                            <ui:TextBlock Text="Folio FUB:" />
                             <ui:TextBox Text="{Binding FolioFub}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="AUTORIDAD QUE INGRESÓ FUB:" />
+                            <ui:TextBlock Text="Autoridad que ingresó FUB:" />
                             <ui:TextBox Text="{Binding OrigenFolioFub}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="ESTATUS DE PERSONA EN RNPDNO:" />
+                            <ui:TextBlock Text="Estatus de persona en RNPDNO:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding EstatusPersona}"
                                       ItemsSource="{Binding EstatusPersonas}" />

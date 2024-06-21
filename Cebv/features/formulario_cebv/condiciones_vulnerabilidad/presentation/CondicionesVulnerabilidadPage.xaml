@@ -10,7 +10,7 @@
       d:DesignWidth="1000"
       d:DesignHeight="Auto"
       mc:Ignorable="d"
-      Name="PageCondiciones"
+      Name="pageCondiciones"
       Title="CondicionesVulnerabilidadPage">
 
     <Grid Margin="10">
@@ -29,7 +29,7 @@
             <ui:TextBlock Text="Tipo de sangre" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="200">
-                    <ui:TextBlock Text="TIPO DE SANGRE:" />
+                    <ui:TextBlock Text="Tipo de sangre:" />
                     <ComboBox DisplayMemberPath="Nombre"
                               SelectedItem="{Binding TipoSangre}"
                               ItemsSource="{Binding TiposSangre}" />
@@ -43,7 +43,7 @@
                          ItemsSource="{Binding CondicionesSalud}"
                          Margin="10">
                 <ui:DataGrid.Columns>
-                    <DataGridComboBoxColumn Header="Condicion"
+                    <DataGridComboBoxColumn Header="Condición"
                                             Width="*" />
                     <DataGridTextColumn Header="Tratamiento"
                                         Width="*"
@@ -64,14 +64,14 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿SE ENCUENTRA EN TRANSITO A ESTADOS UNIDOS DE NORTE AMERICA?:" />
+                            <ui:TextBlock Text="¿Se encuentra en tránsito a Estados Unidos de Norte América?:" />
                             <ComboBox SelectedItem="{Binding TransitoEstadosUnidosOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock
-                                Text="SI NO VA EN TRANSITO A ESTADOS UNIDOS DE NORTEAMERICA, LA PERSONA ES:" />
+                                Text="Si no va en tránsito a Estados Unidos de Norteamérica, la persona es:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding SituacionMigratoria}"
                                       ItemsSource="{Binding SituacionesMigratorias}" />
@@ -80,7 +80,7 @@
 
                     <StackPanel>
                         <ui:TextBlock
-                            Text="ESPECIFIQUE EL PROCESO DE REGULARIZACION MIGRATORIA QUE SE ENCUENTRA:" />
+                            Text="Especifique el proceso de regularización migratoria que se encuentra:" />
                         <ui:TextBox Text="{Binding ProcesoMigratorioDescripcion}" TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
@@ -168,7 +168,7 @@
                                             <!-- se realiza otra instancia aparte del viewmodel donde el index siempre es 0 -->
                                             <ui:Button Appearance="Danger"
                                                        Icon="{ui:SymbolIcon Delete24}"
-                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
+                                                       Command="{Binding ElementName=pageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
                                                        CommandParameter="{Binding Chars}" />
                                         </StackPanel>
                                     </Grid>
@@ -233,7 +233,7 @@
                                                     HorizontalAlignment="Right">
                                             <ui:Button Appearance="Danger"
                                                        Icon="{ui:SymbolIcon Delete24}"
-                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
+                                                       Command="{Binding ElementName=pageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
                                                        CommandParameter="{Binding Chars}" />
                                         </StackPanel>
                                     </Grid>
@@ -298,7 +298,7 @@
                                                     HorizontalAlignment="Right">
                                             <ui:Button Appearance="Danger"
                                                        Icon="{ui:SymbolIcon Delete24}"
-                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
+                                                       Command="{Binding ElementName=pageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
                                                        CommandParameter="{Binding Chars}" />
                                         </StackPanel>
                                     </Grid>
@@ -312,7 +312,7 @@
                                     MinWidth="200"
                                     Margin="5">
                             <ui:TextBlock
-                                Text="CARACTERÍSTICA PERSONAL QUE PUDIERA COLOCAR A LA PERSONA EN MAYOR VULNERABILIDAD" />
+                                Text="Característica personal que pudiera colocar a la persona en mayor vulnerabilidad" />
                             <ui:TextBox Text="{Binding CaracteristicaPersonal}" TextWrapping="Wrap"
                                         AcceptsReturn="True" MinHeight="100" />
                         </StackPanel>
@@ -321,7 +321,7 @@
                                     MinWidth="200"
                                     Margin="5">
                             <ui:TextBlock
-                                Text="INFORMACIÓN PERSONAL ADICIONAL QUE SE CONSIDERE RELEVANTE PARA LA BÚSQUEDA Y LOCALIZACIÓN DE LA PERSONA" />
+                                Text="Información personal adicional que se considere relevante para la búsqueda y localización de la persona" />
                             <ui:TextBox Text="{Binding InformacionPersonal}" TextWrapping="Wrap" AcceptsReturn="True"
                                         MinHeight="100" />
                         </StackPanel>
@@ -332,7 +332,7 @@
             <ui:TextBlock Text="Embarazo" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}">
                 <WrapPanel Margin="10">
-                    <CheckBox Content="¿Esta embarazada?"
+                    <CheckBox Content="¿Está embarazada?"
                               Margin="10"
                               IsChecked="{Binding EstaEmbarazada}" />
 
@@ -342,7 +342,8 @@
                                   PlaceholderText="Meses de embarazo"
                                   Value="{Binding MesesEmbarazo}"
                                   Margin="5"
-                                  IsEnabled="{Binding EstaEmbarazada}" />
+                                  IsEnabled="{Binding EstaEmbarazada}" 
+                                  Tag="Number"/>
                 </WrapPanel>
             </Border>
         </StackPanel>
