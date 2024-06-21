@@ -41,39 +41,41 @@
             <ui:TextBlock Text="Hora y fecha de los hechos" FontTypography="Title" Margin="10" />
 
             <ui:ToggleSwitch Margin="25 15 0 15"
-                             OnContent="¿SE DESCONOCE FECHA EXACTA? Sí"
-                             OffContent="¿SE DESCONOCE FECHA EXACTA? No"
-                             IsChecked="{Binding FechaAproximada  }" />
+                             OnContent="¿Se desconoce fecha exacta? Sí"
+                             OffContent="¿Se desconoce fecha exacta? No"
+                             IsChecked="{Binding FechaAproximada}" />
             <Border Style="{StaticResource CebvBorder}"
                     Visibility="{Binding FechaAproximada,
                     Converter={StaticResource VisibilityConverter}}">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DESAPARICIÓN:" />
+                            <ui:TextBlock Text="Fecha desaparición:" />
                             <DatePicker SelectedDate="{Binding FechaDesaparicion}" IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                            <ui:TextBox Text="{Binding HoraDesaparicion}" Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBlock Text="Hora desaparición:" />
+                            <ui:TextBox Text="{Binding HoraDesaparicion}" 
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE PERCATO:" />
+                            <ui:TextBlock Text="Fecha de percato:" />
                             <DatePicker SelectedDate="{Binding FechaPercato}" IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="HORA DE PERCATO:" />
-                            <ui:TextBox Text="{Binding HoraPercato}" Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBlock Text="Hora de percato:" />
+                            <ui:TextBox Text="{Binding HoraPercato}" 
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
+                        <ui:TextBlock Text="Aclaración de la fecha y hora de los hechos:" />
                         <ui:TextBox Text="{Binding AclaracionHechos}" TextWrapping="Wrap" AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
@@ -87,40 +89,42 @@
                     <WrapPanel Margin="0 0 0 15">
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DESAPARICIÓN APROXIMADA" />
+                            <ui:TextBlock Text="Fecha desaparición aproximada:" />
                             <ui:TextBox Text="{Binding FechaDesaparicionCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DESAPARICIÓN PARA CNB:" />
+                            <ui:TextBlock Text="Fecha desaparición para CNB:" />
                             <DatePicker SelectedDate="{Binding FechaDesaparicion}" IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                            <ui:TextBox Text="{Binding HoraDesaparicion}" Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBlock Text="Hora desaparición:" />
+                            <ui:TextBox Text="{Binding HoraDesaparicion}" 
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE PERCATO APROXIMADA:" />
+                            <ui:TextBlock Text="Fecha de percato aproximada:" />
                             <ui:TextBox Text="{Binding FechaPercatoCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE PERCATO PARA CNB:" />
+                            <ui:TextBlock Text="Fecha de percato para CNB:" />
                             <DatePicker SelectedDate="{Binding FechaPercato}" IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="HORA DE PERCATO:" />
-                            <ui:TextBox Text="{Binding HoraPercato}" Icon="{ui:SymbolIcon Clock24}" />
+                            <ui:TextBlock Text="Hora de percato:" />
+                            <ui:TextBox Text="{Binding HoraPercato}" 
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
+                        <ui:TextBlock Text="Aclaración de la fecha y hora de los hechos:" />
                         <ui:TextBox Text="{Binding AclaracionHechos}" TextWrapping="Wrap" AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
@@ -131,55 +135,58 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 25">
-                        <RadioButton Content="MISMO DOMICILIO QUE LA PERSONA REPORTANTE" Margin="5" />
-                        <RadioButton Content="MISMO DOMICILIO QUE LA PERSONA DESAPARECIDA" Margin="5" />
-                        <RadioButton Content="OTRO DOMICILIO" Margin="5" />
+                        <RadioButton Content="Mismo domicilio que la persona reportante" Margin="5" />
+                        <RadioButton Content="Mismo domicilio que la persona desaparecida" Margin="5" />
+                        <RadioButton Content="Otro domicilio" Margin="5" />
                     </StackPanel>
 
                     <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="CALLE:" />
+                                <ui:TextBlock Text="Calle:" />
                                 <ui:TextBox Text="{Binding Ubicacion.Calle}" ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="N° EXTERIOR:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" ClearButtonEnabled="True" />
+                                <ui:TextBlock Text="N° Exterior:" />
+                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" 
+                                            ClearButtonEnabled="True" Tag="Number"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="N° INTERIOR:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True" />
+                                <ui:TextBlock Text="N° Interior:" />
+                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True" 
+                                            Tag="Number"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="COLONIA:" />
+                                <ui:TextBlock Text="Colonia:" />
                                 <ui:TextBox Text="{Binding Ubicacion.Colonia}" ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="CÓDIGO POSTAL:" />
-                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" ClearButtonEnabled="True" />
+                                <ui:TextBlock Text="Código postal:" />
+                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" 
+                                            ClearButtonEnabled="True" Tag="Number"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ESTADO:" />
+                                <ui:TextBlock Text="Estado:" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Ubicacion.Estado}"
                                           ItemsSource="{Binding Ubicacion.Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="MUNICIPIO:" />
+                                <ui:TextBlock Text="Municipio:" />
                                 <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
                                           ItemsSource="{Binding Ubicacion.Municipios}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="LOCALIDAD:" />
+                                <ui:TextBlock Text="Localidad:" />
                                 <ComboBox IsEditable="True"
                                           DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Ubicacion.Asentamiento}"
@@ -187,14 +194,14 @@
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="COORDENADA LATITUD:" />
+                                <ui:TextBlock Text="Coordenada latitud:" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
                                               Minimum="-90"
                                               Maximum="90" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="COORDENADA LONGITUD" />
+                                <ui:TextBlock Text="Coordenada longitud" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
                                               Minimum="-180"
                                               Maximum="180" />
@@ -203,23 +210,23 @@
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ENTRE CALLE 1:" />
+                                <ui:TextBlock Text="Entre calle 1:" />
                                 <ui:TextBox Text="{Binding Ubicacion.EntreCalle1}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ENTRE CALLE 2:" />
+                                <ui:TextBlock Text="Entre calle 2:" />
                                 <ui:TextBox Text="{Binding Ubicacion.EntreCalle2}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="TRAMO CARRETERO:" />
+                                <ui:TextBlock Text="Tramo carretero:" />
                                 <ui:TextBox Text="{Binding Ubicacion.TramoCarretero}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="REFERENCIA:" />
+                            <ui:TextBlock Text="Referencia:" />
                             <ui:TextBox Text="{Binding Ubicacion.Referencia}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
@@ -234,49 +241,49 @@
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
-                            Text="¿LA PERSONA DESAPARECIDA HABÍA RECIBIDO AMENAZAS O HABÍA CAMBIADO SU COMPORTAMIENTO O RUTINA RECIENTEMENTE?" />
+                            Text="¿La persona desaparecida había recibido amenazas o había cambiado su comportamiento o rutina recientemente?" />
                         <ComboBox SelectedItem="{Binding AmenazaCambioComportamientoOpcion}"
                                   ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="DESCRIPCIÓN DE LA SITUACIÓN DE AMENAZAS:" />
+                        <ui:TextBlock Text="Descripción de la situación de amenazas:" />
                         <ui:TextBox Text="{Binding AmenazaDescripcion}" TextWrapping="Wrap" AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="¿CÚANTAS VECES ANTES LA PERSONA HA DESAPARECIDO O SE HA AUSENTADO?:" />
+                        <ui:TextBlock Text="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" />
                         <ui:NumberBox Value="{Binding ContadorDesaparicion}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
-                            Text="DESCRIPCIÓN DE LA SITUACIÓN PREVIA O ANOTE LOS FOLIOS EN EL CAMPO SIGUIENTE SI YA HA ESTADO REGISTRADA:" />
+                            Text="Descripción de la situación previa o anote los folios en el campo siguiente si ya ha estado registrada:" />
                         <ui:TextBox Text="{Binding SituacionPreviaDescripcion}" TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="FOLIOS PREVIOS" />
+                        <ui:TextBlock Text="Folios previos:" />
                         <ui:TextBox Text="{Binding FoliosPrevios}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
-                            Text="DATO(S) DE PERSONA(S) QUE PUDIERON ESTAR RELACIONADAS O BRINDAR INFORMACIÓN SOBRE LA DESAPARICIÓN:" />
+                            Text="Dato(s) de persona(s) que pudieron estar relacionadas o brindar información sobre la desaparición:" />
                         <ui:TextBox Text="{Binding DatosPersonasRealacionadas}" TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="DESCRIPCIÓN DE LOS HECHOS DE LA DESAPARICIÓN:" />
-                        <ui:TextBox Text="{Binding DescripcionHechosDesaparicion}" TextWrapping="Wrap"
-                                    AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBlock Text="Descripción de los hechos de la desaparición:" />
+                        <ui:TextBox Text="{Binding DescripcionHechosDesaparicion}" 
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude"/>
                     </StackPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="SÍNTESIS DE LOS HECHOS DE DESAPARICIÓN:" />
+                        <ui:TextBlock Text="Síntesis de los hechos de desaparición:" />
                         <ui:TextBox Text="{Binding SintesisHechosDesaparicion}" TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
@@ -289,13 +296,13 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 1:" />
+                            <ui:TextBlock Text="Posible hipótesis de desaparición 1:" />
                             <ComboBox SelectedItem="{Binding TipoHipotesisUno}"
                                       ItemsSource="{Binding TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
-                            <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 1:" />
+                            <ui:TextBlock Text="Circunstancia inicial 1:" />
                             <ui:TextBox Text="{Binding TipoHipotesisUno.CircunstanciaId}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
@@ -303,13 +310,13 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="POSIBLE HIPÓTESIS DE DESAPARICIÓN 2:" />
+                            <ui:TextBlock Text="Posible hipótesis de desaparición 2:" />
                             <ComboBox SelectedItem="{Binding TipoHipotesisDos}"
                                       ItemsSource="{Binding TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
-                            <ui:TextBlock Text="CIRCUNSTANCIA INICIAL 2:" />
+                            <ui:TextBlock Text="Circunstancia inicial 2:" />
                             <ui:TextBox Text="{Binding TipoHipotesisDos.CircunstanciaId}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
@@ -317,14 +324,14 @@
 
                     <WrapPanel>
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="SITIO INICIAL:" />
+                            <ui:TextBlock Text="Sitio inicial:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Sitio}"
                                       ItemsSource="{Binding Sitios}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="ÁREA QUE CODIFICA SITIO INICIAL:" />
+                            <ui:TextBlock Text="Área que codifica sitio inicial:" />
                             <ui:TextBox Text="{Binding AreaCodifica}" />
                         </StackPanel>
                     </WrapPanel>
@@ -336,14 +343,15 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿DESAPARECIÓ CON ALGUIEN MÁS?:" />
+                            <ui:TextBlock Text="¿Desapareció con alguien más?:" />
                             <ComboBox SelectedItem="{Binding DesaparecioAcompanadoOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                            <ui:NumberBox Value="{Binding NumeroPersonasMismoEvento}" />
+                            <ui:TextBlock Text="N° de personas en el mismo evento:" />
+                            <ui:NumberBox Value="{Binding NumeroPersonasMismoEvento}" 
+                                          Tag="Number"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -357,18 +365,18 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="NOMBRE(S):" />
-                            <ui:TextBox Text="{Binding NombreDirecto}" />
+                            <ui:TextBlock Text="Nombre(s):" />
+                            <ui:TextBox Text="{Binding NombreDirecto}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="PRIMER APELLIDO:" />
-                            <ui:TextBox Text="{Binding PrimerApellidoDirecto}" />
+                            <ui:TextBlock Text="Primer apellido:" />
+                            <ui:TextBox Text="{Binding PrimerApellidoDirecto}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="SEGUNDO APELLIDO: " />
-                            <ui:TextBox Text="{Binding SegundoApellidoDirecto}" />
+                            <ui:TextBlock Text="Segundo apellido: " />
+                            <ui:TextBox Text="{Binding SegundoApellidoDirecto}" Tag="Letter"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
@@ -595,6 +603,7 @@
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
+
 
                     <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
                         <ui:CardExpander.Header>

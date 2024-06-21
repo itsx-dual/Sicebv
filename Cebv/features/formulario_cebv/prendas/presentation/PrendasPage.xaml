@@ -41,21 +41,21 @@
                 <UniformGrid Columns="2">
                     <StackPanel Margin="5">
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="GRUPO PERTENENCIA:" />
+                            <ui:TextBlock Text="Grupo pertenencia:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding GrupoPertenencia }"
                                       ItemsSource="{Binding GruposPertenencias}" />
                         </StackPanel>
 
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="PERTENENCIA:" />
+                            <ui:TextBlock Text="Pertenencia:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Pertenencia }"
                                       ItemsSource="{Binding Pertenencias}" />
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock Text="COLOR:" />
+                            <ui:TextBlock Text="Color:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Color }"
                                       ItemsSource="{Binding Colores}" />
@@ -64,12 +64,12 @@
 
                     <StackPanel Margin="5">
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="MARCA:" />
+                            <ui:TextBlock Text="Marca:" />
                             <ui:TextBox Text="{Binding Marca}" />
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock Text="DESCIPCIÓN:" />
+                            <ui:TextBlock Text="Descripción:" />
                             <ui:TextBox Text="{Binding Descripcion}"
                                         TextWrapping="Wrap"
                                         MinHeight="100"

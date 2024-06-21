@@ -31,7 +31,7 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="FOTOGRAFÍAS:" />
+                        <ui:TextBlock Text="Fotografías:" />
                         <ui:Button Icon="{ui:SymbolIcon Attach24}"
                                    Command="{Binding OpenFileCommand}"
                                    Content="Añadir imágenes"
@@ -47,12 +47,12 @@
             <ui:TextBlock Text="Información exacta" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5" IsEnabled="False">
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
-                    <ui:TextBox Text="EJEMPLO SEÑA PARTICULAR" Margin="0 0 0 15" />
+                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
+                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
+                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
+                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
+                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
+                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
                 </StackPanel>
             </Border>
 
@@ -60,7 +60,7 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="SEÑAS PARTICULARES PARA EL BOLETÍN:" />
+                        <ui:TextBlock Text="Señas Particulares para el Boletín:" />
 
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
@@ -71,26 +71,26 @@
                                      Margin="0 0 0 25" />
 
                     <StackPanel Margin="0 0 0 15" IsEnabled="{Binding ElementName=MenorToggleSwitch, Path=IsChecked}">
-                        <ui:TextBlock Text="INFORMACIÓN ADICIONAL:" />
+                        <ui:TextBlock Text="Información Adicional:" />
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <ui:TextBlock Text="Generación de boletín" FontTypography="Title" Margin="10" />
+            <ui:TextBlock Text="Generación de Boletín" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}">
                 <WrapPanel>
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
-                        <ui:TextBlock Text="TIPO DE BOLETÍN:" />
+                        <ui:TextBlock Text="Tipo de Boletín:" />
                         <ComboBox>
-                            <ComboBoxItem Content="Búsqueda inmediata" />
-                            <ComboBoxItem Content="Larga data" />
-                            <ComboBoxItem Content="Uso interno" />
+                            <ComboBoxItem Content="Búsqueda Inmediata" />
+                            <ComboBoxItem Content="Larga Data" />
+                            <ComboBoxItem Content="Uso Interno" />
                         </ComboBox>
                     </StackPanel>
 
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
-                        <ui:TextBlock Text="ESTATUS DE LA PERSONA DESAPARECIDA:" />
+                        <ui:TextBlock Text="Estatus de la Persona Desaparecida:" />
                         <ComboBox>
                             <ComboBoxItem Content="Desaparecida" />
                             <ComboBoxItem Content="Localizada" />

@@ -10,8 +10,8 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="Auto"
-      d:DesignHeight="Auto"
+      d:DesignWidth="auto"
+      d:DesignHeight="auto"
       Title="PestanaReporteView">
 
     <Page.DataContext>
@@ -21,9 +21,9 @@
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -34,13 +34,13 @@
 
             <WrapPanel IsEnabled="False" Margin="10 10 10 25">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
-                    <ui:TextBlock Text="FECHA DE INICIO:" />
+                    <ui:TextBlock Text="Fecha de inicio:" />
                     <ui:TextBox Text="{Binding Fecha, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
                                 IsEnabled="False"/>
                 </StackPanel>
 
                 <StackPanel MinWidth="250">
-                    <ui:TextBlock Text="HORA DE INICIO:" />
+                    <ui:TextBlock Text="Hora de inicio:" />
                     <ui:TextBox Text="{Binding Fecha, StringFormat='{}{0:hh\\:mm tt}', ConverterCulture=es_MX}"
                                 IsEnabled="False"/>
                 </StackPanel>
@@ -51,28 +51,28 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO:" />
+                        <ui:TextBlock Text="Medio de conocimiento genérico:" />
                         <ComboBox DisplayMemberPath="Nombre"
                                   SelectedItem="{Binding TipoMedio}"
                                   ItemsSource="{Binding TiposMedios}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO:" />
+                        <ui:TextBlock Text="Medio de conocimiento específico:" />
                         <ComboBox DisplayMemberPath="Nombre"
                                   SelectedItem="{Binding Medio}"
                                   ItemsSource="{Binding Medios}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE:" />
+                        <ui:TextBlock Text="Estado de donde proviene el reporte:" />
                         <ComboBox DisplayMemberPath="Nombre"
                                   SelectedItem="{Binding Ubicacion.Estado}"
                                   ItemsSource="{Binding Ubicacion.Estados}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250">
-                        <ui:TextBlock Text="INSTITUCIÓN DE ORIGEN:" />
+                        <ui:TextBlock Text="Institución de origen:" />
                         <ui:TextBox Text="{Binding DependenciaOrigen}" />
                     </StackPanel>
                 </WrapPanel>
@@ -84,7 +84,7 @@
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
-                            Text="USO EXCLUSIVO DE LA INFORMACIÓN PARA BÚSQUEDA E IDENTIFICACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
+                            Text="Uso exclusivo de la información para búsqueda e identificación de la persona desaparecida o no localizada." />
                         <ComboBox SelectedValue="{Binding InformacionExclusivaBusqueda}"
                                   ItemsSource="{Binding InformacionExclusivaBusquedaList}"
                                   SelectedItem="{Binding InformacionExclusivaBusquedaSelectedKey}"
@@ -94,7 +94,7 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
-                            Text="SOLICITA QUE SE HAGA PÚBLICA LA INFORMACIÓN DE LA PERSONA DESAPARECIDA O NO LOCALIZADA." />
+                            Text="Solicita que se haga pública la información de la persona desaparecida o no localizada." />
                         <ComboBox SelectedValue="{Binding PublicacionInformacion}"
                                   ItemsSource="{Binding PublicacionInformacionList}"
                                   SelectedItem="{Binding PublicacionInformacionSelectedKey}"

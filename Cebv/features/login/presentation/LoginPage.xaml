@@ -45,14 +45,14 @@
                                         Text="{Binding Username}"
                                         PlaceholderText="Usuario"
                                         Icon="{ui:SymbolIcon Person32}"
-                                        Margin="5" />
+                                        Margin="5" Tag="Exclude"/>
 
                             <ui:PasswordBox PlaceholderEnabled="True"
                                             PlaceholderText="Contraseña"
                                             Icon="{ui:SymbolIcon Password24}"
                                             IconPlacement="Left"
                                             PasswordChanged="PasswordBoxChanged"
-                                            Margin="5" />
+                                            Margin="5" Tag="Exclude"/>
 
                             <ui:Button Appearance="Primary"
                                        Margin="5"

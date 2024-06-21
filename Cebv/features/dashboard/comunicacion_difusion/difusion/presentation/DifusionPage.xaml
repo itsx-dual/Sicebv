@@ -11,14 +11,13 @@
       d:DesignWidth="1200"
       d:DesignHeight="auto"
       mc:Ignorable="d"
-      Title="DifusionPage">
+      Title="DifusiónPage">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height=".5*" />
         </Grid.RowDefinitions>
-
 
         <ui:TextBlock Grid.Row="0" Text="{StaticResource DifusionTitle}" FontTypography="TitleLarge" />
 
@@ -34,18 +33,18 @@
                                 <StackPanel Orientation="Horizontal">
                                     <ui:TextBlock Text="Nombre" Margin="0 0 5 0" FontTypography="Subtitle" />
                                     <ui:TextBlock Text="Apellido1" Margin="0 0 5 0" FontTypography="Subtitle" />
-                                    <ui:TextBlock Text="Apellido2 " FontTypography="Subtitle" />
+                                    <ui:TextBlock Text="Apellido2" FontTypography="Subtitle" />
                                 </StackPanel>
 
-                                <ui:TextBlock Text="EJEMPLO-FOLIO-123" />
+                                <ui:TextBlock Text="Ejemplo-Folio-123" />
                             </StackPanel>
                         </ui:CardExpander.Header>
 
                         <StackPanel>
                             <WrapPanel>
                                 <StackPanel MinWidth="250" IsEnabled="False">
-                                    <ui:TextBlock Text="NOMBRE COLECTIVO:" />
-                                    <ui:TextBox Text="ITSX COLECTIVO NOMBRE" />
+                                    <ui:TextBlock Text="Nombre colectivo:" />
+                                    <ui:TextBox Text="ITSX Colectivo Nombre" />
                                 </StackPanel>
                             </WrapPanel>
                         </StackPanel>
@@ -58,60 +57,59 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
-                            <ui:TextBlock Text="IDENTIFICADOR DE DIFUSIÓN:" />
+                            <ui:TextBlock Text="Identificador de difusión:" />
                             <ui:TextBox HorizontalContentAlignment="Center" Text="4" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="PERSONA QUE SOLICITA:" />
+                            <ui:TextBlock Text="Persona que solicita:" />
                             <ComboBox />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE SOLICITUD:" />
+                            <ui:TextBlock Text="Fecha de solicitud:" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="FECHA DE ENTREGA:" />
+                            <ui:TextBlock Text="Fecha de entrega:" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE INICIO DE DIFUSIÓN:" />
+                            <ui:TextBlock Text="Fecha de inicio de difusión:" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE TÉRMINO DE DIFUSIÓN:" />
+                            <ui:TextBlock Text="Fecha de término de difusión:" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="TIPO DE MATERIAL PROPORCIONADO:" />
+                            <ui:TextBlock Text="Tipo de material proporcionado:" />
                             <ComboBox />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="NÚMERO DE PERSONAS PARTICIPANTES" />
-                            <ui:NumberBox Value="1" />
+                            <ui:TextBlock Text="Número de personas participantes" />
+                            <ui:NumberBox Value="1" Tag="Number"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="OBSERVACIONES:" />
+                        <ui:TextBlock Text="Observaciones:" />
                         <ui:TextBox MinHeight="150" TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>
             </Border>
         </StackPanel>
-
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
