@@ -65,17 +65,18 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         var reporte = _reporteService.GetReporteActual();
         var desaparecido = reporte.Desaparecidos?.FirstOrDefault();
 
-        if (desaparecido?.DocumentosLegales?.FirstOrDefault() == null) return;
-
-        var carpetaInvestigacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "CI");
-        var amparo = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "AB");
-        var recomendacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "DH");
-            
+        if (desaparecido == null) return;
         DeclaracionAusencia = (bool) desaparecido.DeclaracionAusencia;
         AccionUrgente = (bool) desaparecido.AccionUrgente;
         Dictamen = (bool) desaparecido.Dictamen;
         CarpeteFederal = (bool) desaparecido.CarpetaFederal;
         OtroDerecho = desaparecido.OtroDerecho;
+        
+        if (desaparecido.DocumentosLegales == null || desaparecido.DocumentosLegales.Count == 0) return;
+        var carpetaInvestigacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "CI");
+        var amparo = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "AB");
+        var recomendacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "DH");
+            
 
         if (null != carpetaInvestigacion)
         {

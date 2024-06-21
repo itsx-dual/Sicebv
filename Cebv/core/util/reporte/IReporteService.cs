@@ -39,4 +39,6 @@ public interface IReporteService
     bool SendInformacionInicio(InicioPostObject informacion);
     bool SendModoTiempoLugar(ModoTiempoLugarPost informacion);
     bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion);
+
+    bool SendReportante(ReportantePostObject informacion);
 }

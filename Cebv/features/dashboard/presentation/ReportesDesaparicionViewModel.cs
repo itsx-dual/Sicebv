@@ -45,7 +45,7 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
         if (ReporteSelected.Desaparecidos.Count > 0)
         {
             var reportado = ReporteSelected.Desaparecidos?.FirstOrDefault();
-            nombre = $"{reportado.Persona.Nombre} {reportado.Persona.ApellidoPaterno} {reportado.Persona.ApellidoMaterno}";
+            nombre = $"{reportado.Persona?.Nombre} {reportado.Persona?.ApellidoPaterno} {reportado.Persona?.ApellidoMaterno}";
         }
         
         FormularioCebvViewModel dataContext = new()
