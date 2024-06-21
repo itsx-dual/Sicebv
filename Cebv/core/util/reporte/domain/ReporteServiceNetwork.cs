@@ -29,7 +29,7 @@ public partial class ReporteServiceNetwork
             _ => null
         };
     }
-    
+
     public static async Task<ReporteResponse> ShowReporte(int id)
     {
         var request = new HttpRequestMessage
@@ -42,7 +42,7 @@ public partial class ReporteServiceNetwork
         var json = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<ReporteQueryResponse>(json)!.Data;
     }
-    
+
     public static async Task<ObservableCollection<HechosDesaparicionResponse>?> GetHechosDesaparicion(int id)
     {
         var request = new HttpRequestMessage
@@ -53,9 +53,9 @@ public partial class ReporteServiceNetwork
 
         var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        
+
         var hechosDesaparicion = JsonSerializer.Deserialize<HechosDesaparicionQueryResponse>(json)!.Data;
-       
+
         return hechosDesaparicion;
     }
 
@@ -68,12 +68,12 @@ public partial class ReporteServiceNetwork
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "hechos_desaparicion", informacion.DescripcionHechosDesaparicion! },
-                { "reporte_id", _reporteService.GetReporteId().ToString() },
+                { "reporte_id", "1" },
             })
         };
-        
+
         using var response = await Client.SendAsync(request);
-        
+
         if (response.IsSuccessStatusCode) Console.WriteLine("Jalloooooo");
         else Console.WriteLine("No jalo");
     }
