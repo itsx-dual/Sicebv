@@ -9,6 +9,11 @@ public class PersonasWrapped
     [JsonPropertyName("data")] public ObservableCollection<Persona>? Data { get; set; }
 }
 
+public class PersonaWrapped
+{
+    [JsonPropertyName("data")] public Persona Data { get; set; }
+}
+
 public class Persona
 {
     [JsonPropertyName("id")] public int Id { get; set; }

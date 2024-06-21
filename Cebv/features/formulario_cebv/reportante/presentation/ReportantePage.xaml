@@ -8,6 +8,7 @@
       xmlns:data="clr-namespace:Cebv.core.modules.contacto.data"
       xmlns:data1="clr-namespace:Cebv.core.data"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -17,7 +18,7 @@
       Title="ReportantePage">
     
     <Page.DataContext>
-        <presentation:ReportanteViewModel />
+        <presentation:ReportanteViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -609,6 +610,8 @@
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary"
+                   Command="{Binding GuardarYSiguienteCommand}"
+                   CommandParameter="{x:Type presentation1:DesaparecidoPage}"/>
     </Grid>
 </Page>

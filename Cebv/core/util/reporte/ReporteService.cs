@@ -158,4 +158,17 @@ public class ReporteService : IReporteService
         
         return true;
     }
+
+    public bool SendReportante(ReportantePostObject informacion)
+    {
+        var reportante = _reporte.Reportantes?.FirstOrDefault();
+        if (HayReporte() && reportante != null)
+        {
+            ReporteServiceNetwork.PutReportante(informacion, reportante.Id);
+            return true;
+        }
+        ReporteServiceNetwork.PostReportante(informacion);
+        
+        return true;
+    }
 }

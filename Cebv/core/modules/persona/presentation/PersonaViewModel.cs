@@ -1,9 +1,11 @@
 using System.Collections.ObjectModel;
+using System.Security;
 using Cebv.core.data;
 using Cebv.core.modules.persona.data;
 using Cebv.core.modules.persona.domain;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.domain;
+using Cebv.core.util.reporte.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -17,6 +19,40 @@ public partial class PersonaViewModel : ObservableObject
     public PersonaViewModel()
     {
         CargarCatalogos();
+    }
+
+    public static async Task<PersonaViewModel> CreateAsync(Persona persona = null)
+    {
+        var result = new PersonaViewModel();
+        result.Sexos = await PersonaNetwork.GetSexos();
+        result.Generos = await PersonaNetwork.GetGeneros();
+        result.Religiones = await PersonaNetwork.GetReligiones();
+        result.Lenguas = await PersonaNetwork.GetLenguas();
+        result.LugaresNacimientos = await UbicacionNetwork.GetEstados();
+        result.Nacionalidades = await UbicacionNetwork.GetNacionalidades();
+        result.Escolaridades = await PersonaNetwork.GetEscolaridades();
+        result.TiposOcupaciones = await PersonaNetwork.GetTiposOcupaciones();
+        result.EstadosConyugales = await PersonaNetwork.GetEstadosConyugales();
+        result.GruposVulnerables = await PersonaNetwork.GetGruposVulnerables();
+
+        if (persona != null)
+        {
+            result.Nombre = persona.Nombre!;
+            result.ApellidoPaterno = persona.ApellidoPaterno;
+            result.ApellidoMaterno = persona.ApellidoMaterno;
+            result.PseudonimoNombre = persona.PseudonimoNombre;
+            result.PseudonimoApellidoPaterno = persona.PseudonimoApellidoPaterno;
+            result.PseudonimoApellidoMaterno = persona.PseudonimoApellidoMaterno;
+            result.FechaNacimiento = persona.FechaNacimiento;
+            result.Curp = persona.Curp;
+            result.ObservacionesCurp = persona.ObservacionesCurp;
+            result.Rfc = persona.Rfc;
+            result.OcupacionUno.Nombre = persona.Ocupacion;
+            result.Sexo = result.Sexos.FirstOrDefault(catalogo => persona.Sexo != null && catalogo.Id == persona.Sexo.Id);
+            result.Genero = result.Generos.FirstOrDefault(catalogo => persona.Sexo != null && catalogo.Id == persona.Sexo.Id);
+        }
+        
+        return result;
     }
 
     /**

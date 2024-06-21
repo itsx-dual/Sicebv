@@ -19,8 +19,7 @@
     <Page.DataContext>
         <presentation:DesaparecidoViewModel />
     </Page.DataContext>
-
-
+    
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
