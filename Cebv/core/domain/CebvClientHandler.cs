@@ -8,7 +8,7 @@ public static class CebvClientHandler
 {
     public static HttpClient SharedClient = new()
     {
-        BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("api_uri") ?? string.Empty),
+        BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("dev_uri") ?? string.Empty),
 
         DefaultRequestHeaders =
         {

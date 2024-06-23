@@ -34,9 +34,9 @@
                 <StackPanel>
                     <WrapPanel>
                         <StackPanel MinWidth="200" Margin="10">
-                            <ui:TextBlock Text="N° DE PERSONAS CON LAS QUE VIVE:" />
+                            <ui:TextBlock Text="N° de personas con las que vive:" />
                             <ui:NumberBox Minimum="0"
-                                          Value="0" />
+                                          Value="0" Tag="Number"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -62,18 +62,18 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿DÓNDE TRABAJA?" />
+                            <ui:TextBlock Text="¿Dónde trabaja?" />
                             <TextBox />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿CUANTOS AÑOS LLEVA LAVORANDO?" />
+                            <ui:TextBlock Text="¿Cuántos años lleva laborando?" />
                             <ui:NumberBox Minimum="0"
-                                          Value="0" />
+                                          Value="0" Tag="Number"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="¿LE GUSTA SU TRABAJO?" />
+                            <ui:TextBlock Text="¿Le gusta su trabajo?" />
                             <ComboBox SelectedItem="{Binding GustaTrabajoOpcion}"
                                       ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
@@ -81,45 +81,45 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿HA MANIFESTADO INTENCIÓN DE IRSE A TRABAJAR FUERA DE LA CUIDAD?" />
+                            <ui:TextBlock Text="¿Ha manifestado intención de irse a trabajar fuera de la ciudad?" />
                             <ComboBox SelectedItem="{Binding TrabajarFueraOpcion}"
                                       ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="¿A DÓNDE DESEA IRSE?" />
+                            <ui:TextBlock Text="¿A dónde desea irse?" />
                             <TextBox />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿HA SUFRIDO VIOLENCIA POR PARTE DE ALGÚN COMPAÑERO DE TRABAJO?" />
+                            <ui:TextBlock Text="¿Ha sufrido violencia por parte de algún compañero de trabajo?" />
                             <ComboBox SelectedItem="{Binding ViolenciaTrabajoOpcion}"
                                       ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="¿POR PARTE DE QUIÉN?" />
+                            <ui:TextBlock Text="¿Por parte de quién?" />
                             <ui:TextBox />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿TIENE DEUDAS?" />
+                            <ui:TextBlock Text="¿Tiene deudas?" />
                             <ComboBox SelectedItem="{Binding TieneDeudasOpcion}"
                                       ItemsSource="{Binding Opciones}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MONTO APROXIMADO DE LAS DEUDAS:"
+                            <ui:TextBlock Text="Monto aproximado de las deudas:"
                                           FontTypography="Caption" />
-                            <ui:NumberBox Minimum="0" Value="0" />
+                            <ui:NumberBox Minimum="0" Value="0" Tag="Units"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="350">
-                            <ui:TextBlock Text="¿A QUIÉN LE DEBE?" />
+                            <ui:TextBlock Text="¿A quién le debe?" />
                             <TextBox />
                         </StackPanel>
                     </WrapPanel>
@@ -131,7 +131,7 @@
                 <StackPanel>
                     <WrapPanel Margin="10">
                         <StackPanel MinWidth="300" Margin="0 0 15 0">
-                            <ui:TextBlock Text="PASATIEMPOS:" />
+                            <ui:TextBlock Text="Pasatiempos:" />
                             <ui:TextBox />
                         </StackPanel>
 
@@ -141,7 +141,7 @@
                                    VerticalAlignment="Stretch" />
 
                         <StackPanel MinWidth="300" Margin="0 0 15 0">
-                            <ui:TextBlock Text="CLUBES U ORGANIZACIONES A LAS QUE PERTENECE" />
+                            <ui:TextBlock Text="Clubes u organizaciones a las que pertenece" />
                             <ui:TextBox />
                         </StackPanel>
 
@@ -156,17 +156,17 @@
 
                         <WrapPanel Margin="10">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="NIVEL:"/>
+                                <ui:TextBlock Text="Nivel:"/>
                                 <ui:TextBox/>
                             </StackPanel>
                             
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="INSTITUCIÓN:"/>
+                                <ui:TextBlock Text="Institución:"/>
                                 <ui:TextBox/>
                             </StackPanel>
                             
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="DIRECCIÓN:"/>
+                                <ui:TextBlock Text="Dirección:"/>
                                 <ui:TextBox/>
                             </StackPanel>
                         </WrapPanel>
@@ -177,7 +177,7 @@
 
                        <ui:DataGrid MinHeight="150"
                                     AutoGenerateColumns="False"
-                                    Margin="10">
+                                    Margin="10" Tag="Exclude">
                            <ui:DataGrid.Columns>
                                <DataGridTextColumn Header="Nombre"
                                                    Width="*" />

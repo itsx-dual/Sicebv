@@ -18,6 +18,7 @@
     <Page.DataContext>
         <local:ReportesDesaparicionViewModel />
     </Page.DataContext>
+    
     <Grid Margin="10">
         <StackPanel>
             <ui:TextBlock Text="Reportes de desaparición" FontTypography="TitleLarge" />
@@ -25,7 +26,8 @@
             <Separator Width="25" Background="Transparent" BorderThickness="0" />
 
             <ui:ListView ItemsSource="{Binding Reportes}"
-                         SelectedItem="{Binding ReporteSelected}">
+                         SelectedItem="{Binding ReporteSelected}"
+                         MouseDoubleClick="EventSetter_OnHandler">
 
                 <ui:ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type data2:ReporteResponse}">
@@ -57,9 +59,6 @@
                                         <ui:TextBlock Text="{Binding TipoReporte.Nombre}" FontWeight="Bold"
                                                       FontSize="24" />
                                         <ui:TextBlock Text="{Binding FechaCreacion}" FontSize="12" />
-                                        
-                                        <ui:Button DataContext="{Binding ElementName=Page, Path=DataContext}"
-                                                   Command="{Binding ReporteClickCommand}"/>
                                     </StackPanel>
 
                                     <ui:TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Right"

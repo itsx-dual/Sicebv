@@ -8,6 +8,5 @@ public partial class InstrumentoJuridicoPage : Page
     public InstrumentoJuridicoPage()
     {
         InitializeComponent();
-        //DataContext = App.Current.Services.GetService<InstrumentoJuridicoViewModel>();
     }
 }

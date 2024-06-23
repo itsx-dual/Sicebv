@@ -12,6 +12,6 @@ public partial class ReportesDesaparicion : Page
 
     private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
     {
-        throw new NotImplementedException();
+        ((ReportesDesaparicionViewModel)DataContext).ReporteClickCommand.Execute(null);
     }
 }

@@ -1,7 +1,10 @@
 using Cebv.core.modules.reporte.data;
 using Cebv.core.modules.reporte.domain;
+using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.domain;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 
 namespace Cebv.core.util.reporte;
@@ -19,14 +22,11 @@ public class ReporteService : IReporteService
 {
     private ReporteResponse? _reporte;
     private EstadoReporte _estadoActual = EstadoReporte.Indefinido;
-    private int _reporte_id = -1;
-    private int _reportante_id = -1;
-    private int _desaparecido_id = -1;
 
 
     public ReporteResponse? GetReporteActual()
     {
-        return _reporte;
+        return _reporte ?? null;
     }
 
     public int GetReporteActualId()
@@ -34,6 +34,9 @@ public class ReporteService : IReporteService
         if (_reporte == null) return -1;
         return _reporte.Id;
     }
+
+    public Estado? UbicacionEstado { get; set; }
+    public UbicacionViewModel? UbicacionHechos { get; set; }
 
     public void SetReporteActual(ReporteResponse? reporte)
     {
@@ -48,7 +51,7 @@ public class ReporteService : IReporteService
 
     public ReporteResponse ClearReporteActual()
     {
-        _reporte = new ReporteResponse();
+        _reporte = new();
         _estadoActual = EstadoReporte.Nuevo;
         return _reporte;
     }
@@ -70,7 +73,7 @@ public class ReporteService : IReporteService
 
     public void SetReporteId(int id)
     {
-        this._reporte_id = id;
+        throw new NotImplementedException();
     }
 
     public int GetReporteId()
@@ -87,12 +90,21 @@ public class ReporteService : IReporteService
 
     public void SetReportanteId(int id)
     {
-        this._reportante_id = id;
+        throw new NotImplementedException();
     }
 
     public int GetReportanteId()
     {
-        return _reporte.Reportantes.First().Id;
+        var reportante = _reporte.Reportantes?.FirstOrDefault();
+        if (reportante == null) return -1;
+        return reportante.Id;
+    }
+
+    public int GetDesaparecidoId()
+    {
+        var desaparecido = _reporte.Desaparecidos?.FirstOrDefault();
+        if (desaparecido == null) return -1;
+        return desaparecido.Id;
     }
 
     public bool SendInformacionInicio(InicioPostObject informacion)
@@ -104,6 +116,75 @@ public class ReporteService : IReporteService
         }
 
         ReporteServiceNetwork.PutInicioReporte(_reporte.Id, informacion);
+        return true;
+    }
+
+    public bool SendModoTiempoLugar(ModoTiempoLugarPost informacion)
+    {
+        var hechoDesaparicion = ReporteServiceNetwork.GetHechosDesaparicion(_reporte!.Id);
+
+        
+          ReporteServiceNetwork.PostHechosDesaparicion(informacion);
+
+         return false;
+    }
+
+    public bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion)
+    {
+        var desaparecido = _reporte.Desaparecidos?.FirstOrDefault();
+        var carpetaInvestigacion  = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI");
+        var amparo = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "AB");
+        var recomendacion = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "DH");
+
+        if (desaparecido == null)
+        {
+            ReporteServiceNetwork.PostInstrumentoJuridico(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutInstrumentoJuridico(informacion, desaparecido.Id);
+        }
+
+        if (carpetaInvestigacion == null)
+        {
+            ReporteServiceNetwork.PostCarpetaInvestigacion(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutCarpetaInvestigacion(informacion, carpetaInvestigacion.Id);
+        }
+        
+        if (amparo == null)
+        {
+            ReporteServiceNetwork.PostAmparo(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutAmparo(informacion, amparo.Id);
+        }
+
+        if (recomendacion == null)
+        {
+            ReporteServiceNetwork.PostRecomendacionDerechosHumanos(informacion);
+        }
+        else
+        {
+            ReporteServiceNetwork.PutRecomendacionDerechosHumanos(informacion, recomendacion.Id);
+        }
+        
+        return true;
+    }
+
+    public bool SendReportante(ReportantePostObject informacion)
+    {
+        var reportante = _reporte.Reportantes?.FirstOrDefault();
+        if (HayReporte() && reportante != null)
+        {
+            ReporteServiceNetwork.PutReportante(informacion, reportante.Id);
+            return true;
+        }
+        ReporteServiceNetwork.PostReportante(informacion);
+        
         return true;
     }
 }

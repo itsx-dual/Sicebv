@@ -8,10 +8,10 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="Auto"
-      d:DesignHeight="Auto"
+      d:DesignWidth="auto"
+      d:DesignHeight="auto"
       mc:Ignorable="d"
-      Title="DatosComplementatiosPage">
+      Title="DatosComplementariosPage">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,47 +28,47 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="CALLE:" />
+                            <ui:TextBlock Text="Calle:" />
                             <ui:TextBox Text="{Binding Ubicacion.Calle}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="N° EXTERIOR:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" />
+                            <ui:TextBlock Text="N° Exterior:" />
+                            <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" Tag="Number"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="N° INTERIOR:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" />
+                            <ui:TextBlock Text="N° Interior:" />
+                            <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" Tag="Number"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="COLONIA:" />
+                            <ui:TextBlock Text="Colonia:" />
                             <ui:TextBox Text="{Binding Ubicacion.Colonia}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="CÓDIGO POSTAL:" />
-                            <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" />
+                            <ui:TextBlock Text="Código postal:" />
+                            <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" Tag="Number"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ESTADO:" />
+                            <ui:TextBlock Text="Estado:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Ubicacion.Estado}"
                                       ItemsSource="{Binding Ubicacion.Estados}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="MUNICIPIO:" />
+                            <ui:TextBlock Text="Municipio:" />
                             <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
                                       ItemsSource="{Binding Ubicacion.Municipios}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="LOCALIDAD:" />
+                            <ui:TextBlock Text="Localidad:" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Ubicacion.Asentamiento}"
@@ -78,23 +78,23 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ENTRE CALLE 1:" />
+                            <ui:TextBlock Text="Entre calle 1:" />
                             <ui:TextBox Text="{Binding Ubicacion.EntreCalle1}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ENTRE CALLE 2:" />
+                            <ui:TextBlock Text="Entre calle 2:" />
                             <ui:TextBox Text="{Binding Ubicacion.EntreCalle2}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="TRAMO CARRETERO:" />
+                            <ui:TextBlock Text="Tramo carretero:" />
                             <ui:TextBox Text="{Binding Ubicacion.TramoCarretero}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
-                        <ui:TextBlock Text="REFERENCIA:" />
+                        <ui:TextBlock Text="Referencia:" />
                         <ui:TextBox Text="{Binding Ubicacion.Referencia}" />
                     </StackPanel>
                 </StackPanel>

@@ -56,8 +56,6 @@ public partial class DatosReporteViewModel : ObservableObject
         
         if (_reporteService.HayReporte())
         {
-            Console.WriteLine("Hay reporte");
-            
             var reporte = _reporteService.GetReporteActual();
             var reportante = reporte.Reportantes.First();
             
@@ -82,10 +80,12 @@ public partial class DatosReporteViewModel : ObservableObject
         {
             Medio = Medio.Id,
             TipoReporte = 1,
-            Estado = Ubicacion.Estado.Id,
+            Estado = Ubicacion.Estado!.Id,
             InformacionExclusivaBusqueda = InformacionExclusivaBusqueda,
             PublicacionInformacion = PublicacionInformacion
         };
+        
+        _reporteService.UbicacionEstado = Ubicacion.Estado;
         
         if (_reporteService.SendInformacionInicio(informacion)) _navigationService.Navigate(pageType);
     }

@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
+      xmlns:data1="clr-namespace:Cebv.features.formulario_cebv.prendas.data"
+      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,10 +14,15 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="PrendasPage">
-    
+
     <Page.DataContext>
-        <presentation:PrendasViewModel/>
+        <presentation:PrendasViewModel />
     </Page.DataContext>
+
+    <Page.Resources>
+        <util:VisibilityConverter x:Key="VisibilityConverter" />
+        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+    </Page.Resources>
 
     <Grid Margin="10">
 
@@ -30,96 +37,160 @@
 
         <!-- Content -->
         <StackPanel Grid.Row="1" Margin="10">
-            <UniformGrid Columns="2">
-                <StackPanel Margin="5">
+            <Border Style="{StaticResource CebvBorder}">
+                <UniformGrid Columns="2">
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="Grupo pertenencia:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding GrupoPertenencia }"
+                                      ItemsSource="{Binding GruposPertenencias}" />
+                        </StackPanel>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="GRUPO PERTENENCIA:" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding GrupoPertenencia }"
-                                  ItemsSource="{Binding GruposPertenencias}" />
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="Pertenencia:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Pertenencia }"
+                                      ItemsSource="{Binding Pertenencias}" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="Color:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Color }"
+                                      ItemsSource="{Binding Colores}" />
+                        </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="PERTENENCIA:" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding Pertenencia }"
-                                  ItemsSource="{Binding Pertenencias}" />
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="Marca:" />
+                            <ui:TextBox Text="{Binding Marca}" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="Descripción:" />
+                            <ui:TextBox Text="{Binding Descripcion}"
+                                        TextWrapping="Wrap"
+                                        MinHeight="100"
+                                        AcceptsReturn="True" />
+                        </StackPanel>
+                        
+                        <!-- Botones de edición -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Visibility="{Binding ModoEdicion,
+                                            Converter={StaticResource VisibilityConverter2}}"
+                                    Margin="10">
+                            <ui:Button VerticalAlignment="Stretch"
+                                       Appearance="Secondary"
+                                       Icon="{ui:SymbolIcon Dismiss24 }"
+                                       MinWidth="50"
+                                       Margin="5"
+                                       Command="{Binding CancelarEdicionCommand}"
+                                       CommandParameter="{Binding}" />
+
+                            <ui:Button VerticalAlignment="Stretch"
+                                       Appearance="Primary"
+                                       Icon="{ui:SymbolIcon Checkmark24}"
+                                       MinWidth="50"
+                                       Margin="5"
+                                       Command="{Binding ConfirmarEdicionCommand}"
+                                       CommandParameter="{Binding}" />
+                        </StackPanel>
+
+                        <ui:Button
+                            Visibility="{Binding ModoEdicion,
+                               Converter={StaticResource VisibilityConverter}}"
+                            Content="Añadir"
+                            Margin="10"
+                            HorizontalAlignment="Right"
+                            Command="{Binding AddPrendaCommand}"
+                            Icon="{ui:SymbolIcon Add24}"
+                            Appearance="Success" />
                     </StackPanel>
+                </UniformGrid>
+            </Border>
 
-                    <StackPanel>
-                        <ui:TextBlock Text="COLOR:" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding Color }"
-                                  ItemsSource="{Binding Colores}" />
-                    </StackPanel>
+            <ui:CardExpander Icon="{ui:SymbolIcon Tag24}" Margin="0 0 0 15">
+                <ui:CardExpander.Header>
+                    <ui:TextBlock Text="Prendas" FontTypography="Subtitle" />
+                </ui:CardExpander.Header>
 
-                </StackPanel>
+                <ui:ListView
+                    HorizontalAlignment="Stretch"
+                    MaxHeight="250"
+                    ItemsSource="{Binding Prendas, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type data1:Prenda}">
+                            <Grid>
+                                <ui:CardControl
+                                    Margin="5 5 120 5"
+                                    Padding="10"
+                                    Icon="{ui:SymbolIcon Tag24}"
+                                    HorizontalAlignment="Stretch">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <ui:TextBlock
+                                                Appearance="Secondary"
+                                                Text="{Binding GrupoPertenencia.Nombre}"
+                                                TextWrapping="Wrap" />
 
-                <StackPanel Margin="5">
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="MARCA:" />
-                        <ui:TextBox Text="{Binding Marca}" />
-                    </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:TextBlock
+                                                    Margin="0 0 10 0"
+                                                    FontTypography="Subtitle"
+                                                    Text="{Binding Pertenencia.Nombre}"
+                                                    TextWrapping="Wrap" />
 
-                    <StackPanel>
-                        <ui:TextBlock Text="DESCIPCIÓN:" />
-                        <ui:TextBox Text="{Binding Descripcion}"
-                                    TextWrapping="Wrap"
-                                    MinHeight="100"
-                                    AcceptsReturn="True" />
-                    </StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    FontTypography="Subtitle"
+                                                    Text="{Binding Color.Nombre}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Right"
-                                Margin="10">
-                        <!-- Botones -->
-                        <ui:Button Content="Limpiar"
-                                   Margin="5"
-                                   Icon="{ui:SymbolIcon Delete24}"
-                                   Appearance="Danger" />
+                                            <ui:TextBlock
+                                                Appearance="Secondary"
+                                                Text="{Binding Marca}"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </StackPanel>
 
-                        <ui:Button Content="Guardar"
-                                   Margin="5"
-                                   Command="{Binding InsertarCommand}"
-                                   Icon="{ui:SymbolIcon Add24}"
-                                   Appearance="Success" />
-                    </StackPanel>
-                </StackPanel>
-            </UniformGrid>
+                                    </ui:CardControl.Header>
+                                    <StackPanel>
+                                        <ui:TextBlock
+                                            Appearance="Tertiary"
+                                            Text="{Binding Descripcion}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </ui:CardControl>
+                                
+                                <!-- Botones de visualización -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                            Visibility="{Binding DataContext.ModoEdicion,
+                                            RelativeSource={RelativeSource AncestorType=ListView},
+                                            Converter={StaticResource VisibilityConverter}}">
+                                    <ui:Button VerticalAlignment="Stretch"
+                                               Appearance="Success"
+                                               Icon="{ui:SymbolIcon Edit24}"
+                                               MinWidth="50"
+                                               Margin="5"
+                                               Command="{Binding DataContext.ModoEdicionCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               CommandParameter="{Binding}" />
 
-            <DataGrid x:Name="tablaDatos"
-                      Margin="10"
-                      AutoGenerateColumns="False"
-                      ItemsSource="{Binding SenasParticularesTabla}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="GRUPO PERTENENCIA"
-                                        CanUserResize="False"
-                                        Width="*" />
-                    <DataGridTextColumn Header="PERTENENCIA"
-                                        CanUserResize="False"
-                                        Width="*" />
-                    <DataGridTextColumn Header="COLOR"
-                                        CanUserResize="False"
-                                        Width="*" />
-                    <DataGridTextColumn Header="MATERIAL"
-                                        CanUserResize="False"
-                                        Width="*" />
-                    <DataGridTextColumn Header="MARCA"
-                                        CanUserResize="False"
-                                        Width="*" />
-                    <DataGridTemplateColumn Header="DESCRIPCIÓN"
-                                            Width="3*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <ui:TextBlock Text="{Binding Descripcion}"
-                                              TextWrapping="Wrap" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                </DataGrid.Columns>
-            </DataGrid>
+                                    <ui:Button VerticalAlignment="Stretch"
+                                               Appearance="Danger"
+                                               Icon="{ui:SymbolIcon Delete24}"
+                                               MinWidth="50"
+                                               Margin="5"
+                                               Command="{Binding DataContext.RemovePrendaCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </ui:CardExpander>
         </StackPanel>
 
         <!-- Footer -->

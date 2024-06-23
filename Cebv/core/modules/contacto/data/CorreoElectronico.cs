@@ -1,7 +1,7 @@
 namespace Cebv.core.modules.contacto.data;
 
-public class ContactoElectronico
+public class CorreoElectronico
 {
-    public string Contacto { get; set; } = string.Empty;
+    public string Correo { get; set; } = string.Empty;
     public string? Observaciones { get; set; }
 }

@@ -1,0 +1,54 @@
+<UserControl x:Class="Cebv.core.designsystem.Lienzo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+             ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             d:DesignWidth="auto"
+             d:DesignHeight="auto"
+             mc:Ignorable="d">
+    <Grid>
+        <ui:CardControl
+            Margin="5 5 60 5"
+            Padding="10"
+            Icon="{ui:SymbolIcon Tag24}"
+            HorizontalAlignment="Stretch">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        Text="Joyería"
+                        TextWrapping="Wrap" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <ui:TextBlock
+                            Margin="0 0 10 0"
+                            FontTypography="Subtitle"
+                            Text="Anillo"
+                            TextWrapping="Wrap" />
+
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            FontTypography="Subtitle"
+                            Text="Dorado"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    
+                    <ui:TextBlock
+                        Appearance="Secondary"
+                        Text="Marca"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <StackPanel>
+                <ui:TextBlock
+                    Appearance="Tertiary"
+                    Text="EJEMPLO DE DESCRIPCION BIEN MACABRA QUQE TE VAS DE CULO"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </ui:CardControl>
+    </Grid>
+</UserControl>

@@ -12,7 +12,7 @@
       d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="FolioExpedientePage">
-    
+
     <Page.DataContext>
         <presentation:FolioExpedienteViewModel />
     </Page.DataContext>
@@ -35,42 +35,44 @@
                         MaxWidth="400"
                         Margin="10 10 10 25">
                 <ui:TextBlock Text="FOLIO CEBV:" />
-                <ui:TextBox Text="EJEMPLO-FOLIO-CEBV-123" />
+                <ui:TextBox Text="{Binding Folio.FolioCebv}" />
             </StackPanel>
 
 
             <StackPanel Margin="5 5 5 25" IsEnabled="False">
                 <WrapPanel Margin="0 0 0 15">
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="ESTADO:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBlock Text="Estado:" />
+                        <ui:TextBox
+                            Text="{Binding Estado.Nombre}"
+                            IsEnabled="False" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="MUNICIPIO:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBlock Text="Municipio:" />
+                        <ui:TextBox Text="{Binding UbicacionHechos.Municipio.Nombre}" IsEnabled="False" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="NUMERO DE PERSONAS EN EL MISMO EVENTO:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBlock Text="Número de personas en el mismo evento:" />
+                        <ui:TextBox Text="" IsEnabled="False" Tag="Number"/>
                     </StackPanel>
                 </WrapPanel>
 
                 <WrapPanel>
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="FECHA DE DESAPARICION:" />
+                        <ui:TextBlock Text="Fecha de desaparición:" />
                         <ui:TextBox Text="" IsEnabled="False" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="ZONA DEL ESTADO:" />
-                        <ui:TextBox />
+                        <ui:TextBox Text="{Binding ZonaEstado}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="TERMINACIÓN DE LA ENTIDAD(SC, SDF):" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBlock Text="Terminación de la entidad (SC, SDF):" />
+                        <ui:TextBox Text="{Binding Estado.AbreviaturaCebv}" IsEnabled="False" />
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>
@@ -81,40 +83,41 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="TIPO DE FOLIO: *" />
+                            <ui:TextBlock Text="Tipo de folio: *" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding TipoReporte}"
-                                      ItemsSource="{Binding TiposReportes }" />
+                                      ItemsSource="{Binding TiposReportes}" />
                         </StackPanel>
-                        
+
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="TIPO DE DESAPARICIÓN:" />
-                            <ComboBox>
-                                <ComboBoxItem Content="Único" />
-                                <ComboBoxItem Content="Múltiple" />
-                            </ComboBox>
+                            <ui:TextBlock Text="Tipo de desaparición:" />
+                            <ComboBox SelectedValue="{Binding TipoDesaparicion}"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Key"
+                                      ItemsSource="{Binding TiposDesapariciones}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 25 0">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ÁREA QUE ATENDERÁ:" />
+                            <ui:TextBlock Text="Área que atenderá:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Area}"
-                                      ItemsSource="{Binding Areas }" />
+                                      ItemsSource="{Binding Areas}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                            <ui:TextBox Text="Nombre Apellido1 Apellido2" IsEnabled="False" />
+                            <ui:TextBox Text="{Binding Folio.User.Name}" IsEnabled="False" />
                         </StackPanel>
 
 
                         <ui:Button Margin="0 15 0 0"
-                                   Content="Generar Folio"
+                                   Content="Generar folio"
                                    HorizontalAlignment="Right"
                                    Icon="{ui:SymbolIcon Pen24}"
                                    VerticalAlignment="Stretch"
+                                   Command="{Binding SetFolioCommand}"
                                    Appearance="Primary" />
 
                     </WrapPanel>
@@ -126,18 +129,18 @@
                 <StackPanel Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25  0">
-                            <ui:TextBlock Text="ÁREA A LA QUE CAMBIÓ EL EXPEDIENTE:" />
+                            <ui:TextBlock Text="Área a la que cambió el expediente:" />
                             <ComboBox>
-                                <ComboBoxItem Content="CELULA NORTE"/>
-                                <ComboBoxItem Content="CELULA CENTRO"/>
-                                <ComboBoxItem Content="CELULA SUR"/>
-                                <ComboBoxItem Content="LARGA DATA"/>
-                                <ComboBoxItem Content="DVIAJ"/>
+                                <ComboBoxItem Content="Célula Norte" />
+                                <ComboBoxItem Content="Célula Centro" />
+                                <ComboBoxItem Content="Célula Sur" />
+                                <ComboBoxItem Content="Larga Data" />
+                                <ComboBoxItem Content="DVIAJ" />
                             </ComboBox>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="FECHA DE CAMBIO DE ÁREA:" />
+                            <ui:TextBlock Text="Fecha de cambio de área:" />
                             <DatePicker />
                         </StackPanel>
                     </WrapPanel>
@@ -149,23 +152,23 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25  0">
-                            <ui:TextBlock Text="¿QUIÉN SOLICITA EL PRÉSTAMO?" />
+                            <ui:TextBlock Text="¿Quién solicita el préstamo?" />
                             <ComboBox />
                         </StackPanel>
-                        
+
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="FECHA DE PRÉSTAMO:" />
+                            <ui:TextBlock Text="Fecha de préstamo:" />
                             <DatePicker />
                         </StackPanel>
-                        
+
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="FECHA DE DEVOLUCIÓN:" />
+                            <ui:TextBlock Text="Fecha de devolución:" />
                             <DatePicker />
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <StackPanel>
-                        <ui:TextBlock Text="OBSERVACIONES:" />
+                        <ui:TextBlock Text="Observaciones:" />
                         <TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>

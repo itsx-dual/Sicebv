@@ -110,7 +110,7 @@
                                 <ui:TextBlock Text="Cantidad:"
                                               Margin="10,10,0,0" />
                                 <ui:NumberBox Margin="5,0,5,0"
-                                              Value="1"/>
+                                              Value="1" Tag="Number"/>
 
                             </StackPanel>
                         </Grid>

@@ -49,21 +49,21 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ESTATUS PRELIMINAR: *" />
+                            <ui:TextBlock Text="Estatus preliminar: *" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding EstatusPersona}"
                                       ItemsSource="{Binding EstatusPersonas}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" IsEnabled="False">
-                            <ui:TextBlock Text="FECHA DE ESTATUS PRELIMINAR:" />
+                            <ui:TextBlock Text="Fecha de estatus preliminar:" />
                             <DatePicker />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="FECHA DE LOCALIZACIÓN: *" />
+                            <ui:TextBlock Text="Fecha de localización: *" />
                             <DatePicker IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
@@ -76,31 +76,31 @@
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ESTATUS FORMALIZADO:" />
+                                <ui:TextBlock Text="Estatus formalizado:" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding EstatusPersona}"
                                           ItemsSource="{Binding EstatusPersonas}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="FECHA DE FORMALIZACIÓN DEL ESTATUS:" />
+                                <ui:TextBlock Text="Fecha de formalización del estatus:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
-                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN EN SISTEMA:" />
+                                <ui:TextBlock Text="Fecha de actualización en sistema:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="SÍNTESIS DE LOCALIZACIÓN: *" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                            <ui:TextBlock Text="Síntesis de localización: *" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
-                                Text="DESCRIBA BREVEMENTE LA CONDICIÓN PSICOFÍSICA EN QUE FUE LOCALIZADA LA PERSONA" />
+                                Text="Describa brevemente la condición psicofísica en que fue localizada la persona" />
                             <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
                         </StackPanel>
                     </StackPanel>
@@ -113,41 +113,41 @@
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ESTATUS FORMALIZADO:" />
+                                <ui:TextBlock Text="Estatus formalizado:" />
                                 <ComboBox />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="FECHA DE FORMALIZACIÓN DEL ESTATUS:" />
+                                <ui:TextBlock Text="Fecha de formalización del estatus:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
-                                <ui:TextBlock Text="FECHA DE ACTUALIZACIÓN EN SISTEMA:" />
+                                <ui:TextBlock Text="Fecha de actualización en sistema:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="FECHA DEL HALLAZGO:" />
+                                <ui:TextBlock Text="Fecha del hallazgo:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300">
-                                <ui:TextBlock Text="FECHA DE IDENTIFICACIÓN POR PARTE DEL FAMILIAR:" />
+                                <ui:TextBlock Text="Fecha de identificación por parte del familiar:" />
                                 <DatePicker IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="SÍNTESIS DE LOCALIZACIÓN:" />
+                            <ui:TextBlock Text="Síntesis de localización:" />
                             <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
-                                Text="DESCRIBA LAS CAUSAS DE FALLECIMIENTO:" />
+                                Text="Describa las causas de fallecimiento:" />
                             <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
                         </StackPanel>
                     </StackPanel>
@@ -158,14 +158,14 @@
                         <WrapPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="ESTADO: *" />
+                                <ui:TextBlock Text="Estado: *" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Estado}"
                                           ItemsSource="{Binding Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="MUNICIPIO: *" />
+                                <ui:TextBlock Text="Municipio: *" />
                                 <ComboBox SelectedItem="{Binding Municipio}"
                                           ItemsSource="{Binding Municipios}" />
                             </StackPanel>
@@ -179,13 +179,13 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="HIPOTESIS DE LOCALIZACIÓN (OGPI) 1:" />
+                            <ui:TextBlock Text="Hipótesis de localización (OGPI) 1:" />
                             <ComboBox SelectedItem="{Binding TipoHipotesisUno}"
                                       ItemsSource="{Binding TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
-                            <ui:TextBlock Text="CIRCUNSTANCIA FINAL  1:" />
+                            <ui:TextBlock Text="Circunstancia final 1:" />
                             <ui:TextBox Text="{Binding TipoHipotesisUno.CircunstanciaId}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
@@ -193,13 +193,13 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="HIPOTESIS DE LOCALIZACIÓN (OGPI) 2:" />
+                            <ui:TextBlock Text="Hipótesis de localización (OGPI) 2:" />
                             <ComboBox SelectedItem="{Binding TipoHipotesisDos}"
                                       ItemsSource="{Binding TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
-                            <ui:TextBlock Text="CIRCUNSTANCIA FINAL  2:" />
+                            <ui:TextBlock Text="Circunstancia final 2:" />
                             <ui:TextBox Text="{Binding TipoHipotesisDos.CircunstanciaId}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
@@ -207,25 +207,25 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="SITIO FINAL:" />
+                            <ui:TextBlock Text="Sitio final:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Sitio}"
                                       ItemsSource="{Binding Sitios}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="ÁREA QUE CODIFICA SITIO FINAL:" />
+                            <ui:TextBlock Text="Área que codifica sitio final:" />
                             <ui:TextBox Text="{Binding AreaCodifica}" />
                         </StackPanel>
                         
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="HIPOTESIS DEB:" />
+                            <ui:TextBlock Text="Hipótesis DEB:" />
                             <ComboBox />
                         </StackPanel>
                     </WrapPanel>
                     
                     <StackPanel>
-                        <ui:TextBlock Text="OBSERVACIONES SOBRE LA ACTUALIZACIÓN DE ESTATUS:"/>
+                        <ui:TextBlock Text="Observaciones sobre la actualización de estatus:"/>
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"/>
                     </StackPanel>
                 </StackPanel>
@@ -236,7 +236,7 @@
                 <StackPanel>
                     <StackPanel>
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="DOCUMENTOS:" />
+                            <ui:TextBlock Text="Documentos:" />
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
                                        Command="{Binding OpenInformeLocalizacionFileCommand}"
                                        Content="Añadir informe de localización"
@@ -247,7 +247,7 @@
 
                     <StackPanel>
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="FOTOGRAFÍAS:" />
+                            <ui:TextBlock Text="Fotografías:" />
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
                                        Command="{Binding OpenPruebaVidaFileCommand}"
                                        Content="Añadir prueba de vida"
@@ -261,10 +261,10 @@
 
                     <StackPanel>
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="FOTOGRAFÍAS:" />
+                            <ui:TextBlock Text="Fotografías:" />
                             <ui:Button Icon="{ui:SymbolIcon Attach24}"
                                        Command="{Binding OpenIdentificacionOficialFileCommand}"
-                                       Content="Añadir identificacion oficial"
+                                       Content="Añadir identificación oficial"
                                        Margin="5" />
                         </StackPanel>
 

@@ -1,5 +1,8 @@
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Cebv.core.modules.persona.presentation;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
@@ -45,5 +48,13 @@ public partial class App : Application
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
             
         return services.BuildServiceProvider();
+    }
+    
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.PreviewTextInputEvent, new TextCompositionEventHandler(TextBoxHelper.PreviewTextInput));
+        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
+        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.TrimmedText));
+        base.OnStartup(e);
     }
 }

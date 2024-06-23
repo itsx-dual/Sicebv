@@ -17,7 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class DesaparecidoViewModel : ObservableObject
-{
+{ 
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
 
     [ObservableProperty] private PersonaViewModel _desaparecido = new();
@@ -42,13 +43,6 @@ public partial class DesaparecidoViewModel : ObservableObject
     // Información de nacimiento
     [ObservableProperty] private bool _fechaAproximada;
 
-    [ObservableProperty] private DateTime? _fechaNacimiento;
-    [ObservableProperty] private ObservableCollection<Estado> _lugaresNacimientos = new();
-    [ObservableProperty] private Estado _lugarNacimiento = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
-    [ObservableProperty] private Catalogo _nacionalidad = new();
-
-
     // Datos de domicilio
     [ObservableProperty] private UbicacionViewModel _ubicacion = new();
 
@@ -70,14 +64,15 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     public DesaparecidoViewModel()
     {
-        var reporteService = App.Current.Services.GetService<IReporteService>();
 
-        if (reporteService?.GetStatusReporteActual() == EstadoReporte.Cargado)
+        if (_reporteService.HayReporte())
         {
-            var reportado = reporteService.GetReporteActual().Desaparecidos.First();
+            var reportado = _reporteService.GetReporteActual().Desaparecidos?.FirstOrDefault();
+            if (reportado?.Persona == null) return;
+            
             Nombre = reportado.Persona.Nombre;
-            ApellidoPaterno = reportado.Persona.ApellidoPaterno;
-            ApellidoMaterno = reportado.Persona.ApellidoMaterno;
+            ApellidoPaterno = reportado?.Persona.ApellidoPaterno;
+            ApellidoMaterno = reportado?.Persona.ApellidoMaterno;
         }
     }
 

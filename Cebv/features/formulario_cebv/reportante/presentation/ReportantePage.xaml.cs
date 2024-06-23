@@ -9,26 +9,5 @@ public partial class ReportantePage : Page
     public ReportantePage()
     {
         InitializeComponent();
-        
-        DataContext = App.Current.Services.GetService<ReportanteViewModel>();
-
-
-        NombreTb.LostFocus += (sender, e) =>
-        {
-            if (DataContext is ReportanteViewModel viewModel)
-                viewModel.GuardarBorrador();
-        };
-
-        ApellidoPaternoTb.LostFocus += (sender, e) =>
-        {
-            if (DataContext is ReportanteViewModel viewModel)
-                viewModel.GuardarBorrador();
-        };
-
-        ApellidoMaternoTb.LostFocus += (sender, e) =>
-        {
-            if (DataContext is ReportanteViewModel viewModel)
-                viewModel.GuardarBorrador();
-        };
     }
 }
