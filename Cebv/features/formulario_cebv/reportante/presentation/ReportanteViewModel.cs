@@ -85,6 +85,7 @@ public partial class ReportanteViewModel : ObservableObject
         //Colectivos = await ReportanteNetwork.GetColectivos();
         
         Reporte = _reporteService.GetReporteActual();
+        ValidarBorrador();
     }
 
     /**
@@ -92,11 +93,11 @@ public partial class ReportanteViewModel : ObservableObject
      */
     private void ValidarBorrador()
     {
-        if (Reporte.Reportantes[0]?.Persona?.Nombre == String.Empty ||
-            Reporte.Reportantes[0]?.Persona?.ApellidoPaterno == String.Empty ||
-            Reporte.Reportantes[0]?.Persona?.ApellidoMaterno == String.Empty)
-            PuedeGuardar = false;
-        else PuedeGuardar = true;
+        if (Reporte.Reportantes == null || (Reporte.Reportantes[0].Persona?.Nombre == String.Empty ||
+                                            Reporte.Reportantes[0].Persona?.ApellidoPaterno == String.Empty ||
+                                            Reporte.Reportantes[0].Persona?.ApellidoMaterno == String.Empty))
+            Reporte.EstaTerminado = false;
+        else Reporte.EstaTerminado = true;
 
         WeakReferenceMessenger.Default.Send(new GuardarBorradorMessage(PuedeGuardar));
     }
@@ -122,14 +123,32 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     public void OnGuardarYSiguiente(Type pageType)
     {
+        var persona = new PersonaPostObject
+        {
+            LugarNacimientoId = Reporte.Reportantes?[0].Persona?.LugarNacimiento?.Id,
+            Nombre = Reporte.Reportantes?[0].Persona?.Nombre,
+            ApellidoPaterno = Reporte.Reportantes?[0].Persona?.ApellidoPaterno,
+            ApellidoMaterno = Reporte.Reportantes?[0].Persona?.ApellidoMaterno,
+            PseudonimoNombre = Reporte.Reportantes?[0].Persona?.PseudonimoNombre,
+            PseudonimoApellidoPaterno = Reporte.Reportantes?[0].Persona?.PseudonimoApellidoPaterno,
+            PseudonimoApellidoMaterno = Reporte.Reportantes?[0].Persona?.PseudonimoApellidoMaterno,
+            FechaNacimiento = Reporte.Reportantes?[0].Persona?.FechaNacimiento,
+            Curp = Reporte.Reportantes?[0].Persona?.Curp,
+            ObservacionesCurp = Reporte.Reportantes?[0].Persona?.ObservacionesCurp,
+            Rfc = Reporte.Reportantes?[0].Persona?.Rfc,
+            Ocupacion = Reporte.Reportantes?[0].Persona?.Ocupacion,
+            Sexo = Reporte.Reportantes?[0].Persona?.Sexo?.Id,
+            Genero = Reporte.Reportantes?[0].Persona?.Genero?.Id
+        };
+        
         var reportante = new ReportantePostObject
         {
-            //Persona = persona,
-            //Parentesco = Parentesco.Id,
-            DenunciaAnonima = EsAnonimo,
-            PertenenciaColectivo = PertenenciaColectivo,
-            //NombreColectivo = Colectivo.Nombre,
-            InformacionRelevante = InformacionRelevante
+            Persona = persona,
+            Parentesco = Reporte.Reportantes?[0].Parentesco.Id,
+            DenunciaAnonima = Reporte.Reportantes?[0].DenunciaAnonima,
+            PertenenciaColectivo = Reporte.Reportantes?[0].PertenenciaColectivo,
+            NombreColectivo = Reporte.Reportantes?[0].NombreColectivo,
+            InformacionRelevante = Reporte.Reportantes?[0].InformacionRelevante
         };
         
         _reporteService.SendReportante(reportante);

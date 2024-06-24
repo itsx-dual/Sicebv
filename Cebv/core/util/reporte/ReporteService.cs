@@ -37,6 +37,7 @@ public class ReporteService : IReporteService
     }
 
     public Estado? UbicacionEstado { get; set; }
+    public bool ExistenHechosDesaparicion { get; set; }
     public UbicacionViewModel? UbicacionHechos { get; set; }
 
     public void SetReporteActual(Reporte? reporte)
@@ -182,7 +183,7 @@ public class ReporteService : IReporteService
 
     public bool SendReportante(ReportantePostObject informacion)
     {
-        var reportante = _reporte.Reportantes?.FirstOrDefault();
+        var reportante = _reporte.Reportantes?[0];
         if (HayReporte() && reportante != null)
         {
             ReporteServiceNetwork.PutReportante(informacion, (int)reportante.Id);
@@ -191,5 +192,10 @@ public class ReporteService : IReporteService
         ReporteServiceNetwork.PostReportante(informacion);
         
         return true;
+    }
+
+    public void SetHechosDesaparicionActual(bool hecho)
+    {
+        ExistenHechosDesaparicion = hecho;
     }
 }

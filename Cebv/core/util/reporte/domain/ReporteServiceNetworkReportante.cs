@@ -54,7 +54,7 @@ public partial class ReporteServiceNetwork
         
         var content = new Dictionary<string, string>
         {
-            //{"reporte_id", _reporteService.GetReporteActualId().ToString()},
+            {"reporte_id", _reporteService.GetReporteId().ToString()},
             {"persona_id", personaId.ToString()},
             {"parentesco_id", informacion.Parentesco.ToString()!},
             {"denuncia_anonima", $"{NullableBoolToInt(informacion.DenunciaAnonima)}"},

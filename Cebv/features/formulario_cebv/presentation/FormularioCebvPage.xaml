@@ -147,11 +147,12 @@
                         ToolTip="{StaticResource RegistroPendienteToolTip}" />
                     
                     <ui:Button
-                        Visibility="{Binding PuedeGuardar,
+                        Visibility="{Binding Reporte.EstaTerminado,
                     Converter={StaticResource VisibilityConverter2}}"
                         Content="{StaticResource RegistroPendiente}"
                         Icon="{ui:SymbolIcon Save16}"
                         HorizontalAlignment="Right"
+                        Command="{Binding GenerarFolioCommand}"
                         Appearance="Primary"
                         ToolTip="{StaticResource RegistroPendienteToolTip}" />
                 </WrapPanel>
