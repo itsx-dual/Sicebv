@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 using Cebv.core.data;
 using Cebv.core.modules.contacto.presentation;
 using Cebv.core.modules.persona.presentation;
@@ -81,24 +82,8 @@ public partial class ReportanteViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        var reportante = _reporteService.GetReporteActual().Reportantes?.FirstOrDefault();
-        var persona = reportante?.Persona;
-        
         Parentescos = await ReportanteNetwork.GetParentescos();
         Colectivos = await ReportanteNetwork.GetColectivos();
-        Reportante = await PersonaViewModel.CreateAsync(persona);
-        
-        if (_reporteService.HayReporte())
-        {
-            if (reportante != null)
-            {
-                Parentesco = Parentescos.FirstOrDefault(x => x.Id == reportante.ParentescoId)!;
-                EsAnonimo = reportante.DenunciaAnonima ?? false;
-                PertenenciaColectivo = reportante.PertenenciaColectivo;
-                Colectivo.Nombre = reportante.NombreColectivo;
-                InformacionRelevante = reportante.InformacionRelevante;
-            }
-        }
     }
 
     /**

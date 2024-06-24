@@ -28,7 +28,7 @@ public partial class PersonaViewModel : ObservableObject
         result.Generos = await PersonaNetwork.GetGeneros();
         result.Religiones = await PersonaNetwork.GetReligiones();
         result.Lenguas = await PersonaNetwork.GetLenguas();
-        result.LugaresNacimientos = await UbicacionNetwork.GetEstados();
+        //result.LugaresNacimientos = await UbicacionNetwork.GetEstados();
         result.Nacionalidades = await UbicacionNetwork.GetNacionalidades();
         result.Escolaridades = await PersonaNetwork.GetEscolaridades();
         result.TiposOcupaciones = await PersonaNetwork.GetTiposOcupaciones();
@@ -177,7 +177,7 @@ public partial class PersonaViewModel : ObservableObject
         Generos = await PersonaNetwork.GetGeneros();
         Religiones = await PersonaNetwork.GetReligiones();
         Lenguas = await PersonaNetwork.GetLenguas();
-        LugaresNacimientos = await UbicacionNetwork.GetEstados();
+        //LugaresNacimientos = await UbicacionNetwork.GetEstados();
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
         Escolaridades = await PersonaNetwork.GetEscolaridades();
         TiposOcupaciones = await PersonaNetwork.GetTiposOcupaciones();

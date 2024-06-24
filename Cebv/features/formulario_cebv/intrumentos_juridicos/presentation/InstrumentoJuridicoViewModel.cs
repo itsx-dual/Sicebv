@@ -58,54 +58,6 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     [ObservableProperty] private bool _carpeteFederal;
     [ObservableProperty] private string _otroDerecho = String.Empty;
 
-    public InstrumentoJuridicoViewModel()
-    {
-        if (!_reporteService.HayReporte()) return;
-        
-        var reporte = _reporteService.GetReporteActual();
-        var desaparecido = reporte.Desaparecidos?.FirstOrDefault();
-
-        if (desaparecido == null) return;
-        DeclaracionAusencia = (bool) desaparecido.DeclaracionAusencia;
-        AccionUrgente = (bool) desaparecido.AccionUrgente;
-        Dictamen = (bool) desaparecido.Dictamen;
-        CarpeteFederal = (bool) desaparecido.CarpetaFederal;
-        OtroDerecho = desaparecido.OtroDerecho;
-        
-        if (desaparecido.DocumentosLegales == null || desaparecido.DocumentosLegales.Count == 0) return;
-        var carpetaInvestigacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "CI");
-        var amparo = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "AB");
-        var recomendacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "DH");
-            
-
-        if (null != carpetaInvestigacion)
-        {
-            OpcionCarpeta = true;
-            NumeroCarpeta = carpetaInvestigacion.NumeroDocumento;
-            DondeRadicaCarpeta = carpetaInvestigacion.DondeRadica;
-            NombreServidorPublicoCarpeta = carpetaInvestigacion.NombreServidorPublico;
-            FechaRecepcionCarpeta = carpetaInvestigacion.FechaRecepcion;
-        }
-
-        if (null != amparo)
-        {
-            OpcionAmparo = true;
-            NumeroAmparo = amparo.NumeroDocumento;
-            DondeRadicaAmparo = amparo.DondeRadica;
-            NombreServidorPublicoAmparo = amparo.NombreServidorPublico;
-            FechaRecepcionAmparo = amparo.FechaRecepcion;
-        }
-
-        if (null != recomendacion)
-        {
-            OpcionRecomendacion = true;
-            NumeroRecomendacion = recomendacion.NumeroDocumento;
-            DondeRadicaRecomendacion = recomendacion.DondeRadica;
-            NombreServidorPublicoRecomendacion = recomendacion.NombreServidorPublico;
-            FechaRecepcionRecomendacion = recomendacion.FechaRecepcion;
-        }
-    }
-
     [RelayCommand]
     public void OnGuardarYSiguente(Type pageType)
     {

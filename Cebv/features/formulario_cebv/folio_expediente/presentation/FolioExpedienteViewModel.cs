@@ -86,11 +86,11 @@ public partial class FolioExpedienteViewModel : ObservableObject
     {
         if (!_reporteService.HayReporte()) return;
         
-        var id = _reporteService.GetReporteActualId();
+        //var id = _reporteService.GetReporteActualId();
         
-        Folios = await FolioExpedienteNetwork.SetFolio(id);
+        //Folios = await FolioExpedienteNetwork.SetFolio(id);
         
-        Folio = Folios.FirstOrDefault()!;
+        //Folio = Folios.FirstOrDefault()!;
     }
 
 

@@ -1,11 +1,12 @@
 using Cebv.core.modules.reporte.data;
 using Cebv.core.modules.reporte.domain;
-using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.domain;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_del_reporte.presentation;
+using Estado = Cebv.core.modules.ubicacion.data.Estado;
 
 namespace Cebv.core.util.reporte;
 
@@ -20,28 +21,33 @@ public enum EstadoReporte
 
 public class ReporteService : IReporteService
 {
-    private ReporteResponse? _reporte;
+    private Reporte _reporte = new();
     private EstadoReporte _estadoActual = EstadoReporte.Indefinido;
 
 
-    public ReporteResponse? GetReporteActual()
+    public Reporte GetReporteActual()
     {
-        return _reporte ?? null;
+        return _reporte;
     }
 
-    public int GetReporteActualId()
+    public async Task<Reporte> reload(int id)
     {
-        if (_reporte == null) return -1;
-        return _reporte.Id;
+        _reporte =  await ReporteServiceNetwork.ShowReporte(id);
+        return _reporte;
     }
 
     public Estado? UbicacionEstado { get; set; }
     public UbicacionViewModel? UbicacionHechos { get; set; }
 
-    public void SetReporteActual(ReporteResponse? reporte)
+    public void SetReporteActual(Reporte? reporte)
     {
         if (reporte == null) return;
         _reporte = reporte;
+    }
+
+    public void SetReporteActual(ReporteResponse? reporte)
+    {
+        throw new NotImplementedException();
     }
 
     public async void SetReporteActualFromApi(int id)
@@ -49,7 +55,7 @@ public class ReporteService : IReporteService
         _reporte = await ReporteServiceNetwork.ShowReporte(id);
     }
 
-    public ReporteResponse ClearReporteActual()
+    public Reporte ClearReporteActual()
     {
         _reporte = new();
         _estadoActual = EstadoReporte.Nuevo;
@@ -79,7 +85,7 @@ public class ReporteService : IReporteService
     public int GetReporteId()
     {
         if (!HayReporte()) return -1;
-        return _reporte.Id;
+        return (int) _reporte.Id!;
     }
 
     public bool HayReporte()
@@ -97,7 +103,7 @@ public class ReporteService : IReporteService
     {
         var reportante = _reporte.Reportantes?.FirstOrDefault();
         if (reportante == null) return -1;
-        return reportante.Id;
+        return (int) reportante.Id!;
     }
 
     public int GetDesaparecidoId()
@@ -115,13 +121,13 @@ public class ReporteService : IReporteService
             return true;
         }
 
-        ReporteServiceNetwork.PutInicioReporte(_reporte.Id, informacion);
+        ReporteServiceNetwork.PutInicioReporte((int) _reporte.Id!, informacion);
         return true;
     }
 
     public bool SendModoTiempoLugar(ModoTiempoLugarPost informacion)
     {
-        var hechoDesaparicion = ReporteServiceNetwork.GetHechosDesaparicion(_reporte!.Id);
+        var hechoDesaparicion = ReporteServiceNetwork.GetHechosDesaparicion((int)_reporte!.Id);
 
         
           ReporteServiceNetwork.PostHechosDesaparicion(informacion);
@@ -151,7 +157,7 @@ public class ReporteService : IReporteService
         }
         else
         {
-            ReporteServiceNetwork.PutCarpetaInvestigacion(informacion, carpetaInvestigacion.Id);
+            ReporteServiceNetwork.PutCarpetaInvestigacion(informacion, (int)carpetaInvestigacion.Id);
         }
         
         if (amparo == null)
@@ -160,7 +166,7 @@ public class ReporteService : IReporteService
         }
         else
         {
-            ReporteServiceNetwork.PutAmparo(informacion, amparo.Id);
+            ReporteServiceNetwork.PutAmparo(informacion, (int)amparo.Id);
         }
 
         if (recomendacion == null)
@@ -169,7 +175,7 @@ public class ReporteService : IReporteService
         }
         else
         {
-            ReporteServiceNetwork.PutRecomendacionDerechosHumanos(informacion, recomendacion.Id);
+            ReporteServiceNetwork.PutRecomendacionDerechosHumanos(informacion, (int)recomendacion.Id);
         }
         
         return true;
@@ -180,7 +186,7 @@ public class ReporteService : IReporteService
         var reportante = _reporte.Reportantes?.FirstOrDefault();
         if (HayReporte() && reportante != null)
         {
-            ReporteServiceNetwork.PutReportante(informacion, reportante.Id);
+            ReporteServiceNetwork.PutReportante(informacion, (int)reportante.Id);
             return true;
         }
         ReporteServiceNetwork.PostReportante(informacion);

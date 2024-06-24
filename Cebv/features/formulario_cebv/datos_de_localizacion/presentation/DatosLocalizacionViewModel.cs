@@ -47,7 +47,7 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
     private async void CargarCatalogos()
     {
-        Estados = await UbicacionNetwork.GetEstados();
+        //Estados = await UbicacionNetwork.GetEstados();
         TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
         Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
         EstatusPersonas = await ControlOgpiNetwork.GetEstatusPersonas();

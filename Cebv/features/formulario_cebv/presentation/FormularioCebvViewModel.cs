@@ -1,7 +1,11 @@
+using System.ComponentModel;
 using Cebv.core.modules.reportante.data;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.presentation;
 
@@ -11,6 +15,9 @@ public partial class FormularioCebvViewModel : ObservableObject,
 {
     [ObservableProperty] private string _nombreCompleto = string.Empty;
     [ObservableProperty] private bool _puedeGuardar;
+    
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    [ObservableProperty] private Reporte _reporte;
     public Type callerType = null;
     
     /**
@@ -22,6 +29,17 @@ public partial class FormularioCebvViewModel : ObservableObject,
     {
         WeakReferenceMessenger.Default.Register<NombreCompletoMessage>(this);
         WeakReferenceMessenger.Default.Register<GuardarBorradorMessage>(this);
+        Reporte = _reporteService.GetReporteActual();
+        var reportante = Reporte.Desaparecidos?.FirstOrDefault();
+        if (reportante != null)
+        {
+            NombreCompleto = $"{reportante.Persona?.Nombre} {reportante.Persona?.ApellidoPaterno} {reportante.Persona?.ApellidoMaterno}";
+        }
+    }
+
+    private void OnNombreChanged(string nombre)
+    {
+        
     }
 
     public void Receive(NombreCompletoMessage message)

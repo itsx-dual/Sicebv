@@ -64,16 +64,7 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     public DesaparecidoViewModel()
     {
-
-        if (_reporteService.HayReporte())
-        {
-            var reportado = _reporteService.GetReporteActual().Desaparecidos?.FirstOrDefault();
-            if (reportado?.Persona == null) return;
-            
-            Nombre = reportado.Persona.Nombre;
-            ApellidoPaterno = reportado?.Persona.ApellidoPaterno;
-            ApellidoMaterno = reportado?.Persona.ApellidoMaterno;
-        }
+        
     }
 
     /**

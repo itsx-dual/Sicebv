@@ -1,9 +1,10 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Text.Json;
 using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.modules.ubicacion.data;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Cebv.core.modules.ubicacion.domain;
 
@@ -11,15 +12,15 @@ public class UbicacionNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
-    public static async Task<ObservableCollection<Estado>> GetEstados()
+    public static async Task<ObservableCollection<util.reporte.viewmodels.Estado>> GetEstados()
     {
         var request = await Client.GetAsync("api/estados");
 
         var response = await request.Content.ReadAsStringAsync();
 
-        EstadosWrapped jsonResponse = JsonSerializer.Deserialize<EstadosWrapped>(response)!;
+        EstadosWrapped jsonResponse = JsonConvert.DeserializeObject<EstadosWrapped>(response)!;
 
-        return new ObservableCollection<Estado>(jsonResponse.Data);
+        return new ObservableCollection<util.reporte.viewmodels.Estado>(jsonResponse.Data);
     }
 
     public static async Task<ObservableCollection<Municipio>> GetMuncipios(string id)

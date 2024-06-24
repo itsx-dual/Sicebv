@@ -1,16 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Cebv.core.util.reporte.domain;
 
@@ -30,7 +32,7 @@ public partial class ReporteServiceNetwork
         };
     }
 
-    public static async Task<ReporteResponse> ShowReporte(int id)
+    public static async Task<Reporte> ShowReporte(int id)
     {
         var request = new HttpRequestMessage
         {
@@ -40,7 +42,7 @@ public partial class ReporteServiceNetwork
 
         var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<ReporteQueryResponse>(json)!.Data;
+        return JsonConvert.DeserializeObject<Reportes>(json).Data;
     }
 
     public static async Task<ObservableCollection<HechosDesaparicionResponse>?> GetHechosDesaparicion(int id)

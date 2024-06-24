@@ -1,8 +1,9 @@
 using Cebv.core.modules.reporte.data;
-using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Estado = Cebv.core.modules.ubicacion.data.Estado;
 
 namespace Cebv.core.util.reporte;
 
@@ -17,11 +18,9 @@ public interface IReporteService
     
     bool SendReporteActual();
     
-    ReporteResponse ClearReporteActual();
+    Reporte ClearReporteActual();
     
-    ReporteResponse? GetReporteActual();
-    
-    int GetReporteActualId();
+    Reporte GetReporteActual();
 
     EstadoReporte GetStatusReporteActual();
 
@@ -31,6 +30,8 @@ public interface IReporteService
 
     void SetReporteId(int id);
     int GetReporteId();
+
+    Task<Reporte> reload(int id);
     
     void SetReportanteId(int id);
     int GetReportanteId();

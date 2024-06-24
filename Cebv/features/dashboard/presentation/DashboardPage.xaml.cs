@@ -13,7 +13,8 @@ public partial class DashboardPage : Page
 {
     private bool _isUserClosedPane;
     private bool _isPaneOpenedOrClosedFromCode;
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    
     
     public DashboardPage()
     {

@@ -84,7 +84,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Parentescos = await ReportanteNetwork.GetParentescos();
         TiposMedios = await ReporteNetwork.GetTiposMedios();
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
-        Estados = await UbicacionNetwork.GetEstados();
+        //Estados = await UbicacionNetwork.GetEstados();
     }
 
     async partial void OnTipoMedioChanged(Catalogo value) =>

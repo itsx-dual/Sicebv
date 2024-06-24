@@ -24,7 +24,6 @@
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
       xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.presentation"
       xmlns:presentation141="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
-
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -137,7 +136,7 @@
                 </Grid.ColumnDefinitions>
                 <ui:TextBlock Text="{Binding NombreCompleto}"
                               FontTypography="Title"
-                              TextWrapping="Wrap" />
+                              TextWrapping="Wrap"/> 
 
                 <WrapPanel Grid.Column="1">
                     <ui:Button Content="Relacionar información"

@@ -13,7 +13,7 @@ public partial class ReporteServiceNetwork
         
         var content = new Dictionary<string, string>
         {
-            {"reporte_id", _reporteService.GetReporteActualId().ToString()},
+            //{"reporte_id", _reporteService.GetReporteActualId().ToString()},
             {"persona_id", personaId.ToString()},
             {"parentesco_id", informacion.Parentesco.ToString()!},
             {"denuncia_anonima", $"{NullableBoolToInt(informacion.DenunciaAnonima)}"},
@@ -34,7 +34,7 @@ public partial class ReporteServiceNetwork
         };
 
         using var response = await Client.SendAsync(request);
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteActualId());
+        //_reporteService.SetReporteActualFromApi(_reporteService.GetReporteActualId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
     
@@ -49,12 +49,12 @@ public partial class ReporteServiceNetwork
         }
         else
         {
-            personaId = await PutPersona(informacion.Persona, persona.Id);
+            personaId = await PutPersona(informacion.Persona, (int) persona.Id);
         }
         
         var content = new Dictionary<string, string>
         {
-            {"reporte_id", _reporteService.GetReporteActualId().ToString()},
+            //{"reporte_id", _reporteService.GetReporteActualId().ToString()},
             {"persona_id", personaId.ToString()},
             {"parentesco_id", informacion.Parentesco.ToString()!},
             {"denuncia_anonima", $"{NullableBoolToInt(informacion.DenunciaAnonima)}"},
@@ -76,7 +76,7 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteActualId());
+        //_reporteService.SetReporteActualFromApi(_reporteService.GetReporteActualId());
         _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 }
