@@ -14,4 +14,9 @@ public partial class ReportesDesaparicion : Page
     {
         ((ReportesDesaparicionViewModel)DataContext).ReporteClickCommand.Execute(null);
     }
+
+    private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        ((ReportesDesaparicionViewModel)DataContext).DesaparecidoClickCommand.Execute(null);
+    }
 }

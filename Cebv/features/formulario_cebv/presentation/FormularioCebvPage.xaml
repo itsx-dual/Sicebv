@@ -134,7 +134,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <ui:TextBlock Text="{Binding NombreCompleto}"
+                <ui:TextBlock Text="{Binding Reporte.Desaparecidos[0].Persona.NombreCompleto}"
                               FontTypography="Title"
                               TextWrapping="Wrap"/> 
 

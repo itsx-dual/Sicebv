@@ -61,6 +61,8 @@ public partial class ReporteServiceNetwork
     
     public static async void PutInicioReporte(int id, InicioPostObject content)
     {
+        var reporte = _reporteService.GetReporteActual();
+        
         var reporteRequest = new HttpRequestMessage
         {
             RequestUri = new Uri($"/api/reportes/{id}", UriKind.Relative),
@@ -69,32 +71,18 @@ public partial class ReporteServiceNetwork
             {
                 { "estado_id", content.Estado },
                 { "medio_conocimiento_id", content.Medio.ToString() },
-                { "tipo_reporte_id", content.TipoReporte.ToString() }
+                { "tipo_reporte_id", content.TipoReporte.ToString() },
+                { "institucion_origen", content.DependenciaOrigen }
             })
         };
 
-        var reporteResponse = await Client.SendAsync(reporteRequest);
-        var json = await reporteResponse.Content.ReadAsStringAsync();
-        var reporte = JsonSerializer.Deserialize<ReporteQueryResponse>(json);
-
-        if (reporteResponse.IsSuccessStatusCode)
-        {
-            _reporteService.SetReporteActual(reporte?.Data);
-            _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
-        }
-        else
-        {
-            _snackbar.Show(
-                "No se ha podido registrar la informacion de inicio", 
-                "",
-                ControlAppearance.Danger,
-                new SymbolIcon(SymbolRegular.Warning24),
-                new TimeSpan( 0,0, 5));
-        }
+        await Client.SendAsync(reporteRequest);
+        await _reporteService.reload(reporte.Id);
+        reporte = _reporteService.GetReporteActual();
         
         var reportanteRequest = new HttpRequestMessage
         {
-            RequestUri = new Uri($"/api/reportantes/{_reporteService.GetReportanteId()}", UriKind.Relative),
+            RequestUri = new Uri($"/api/reportantes/{reporte.Reportantes?[0].Id}", UriKind.Relative),
             Method = HttpMethod.Put,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
@@ -105,6 +93,6 @@ public partial class ReporteServiceNetwork
         };
         
         await Client.SendAsync(reportanteRequest);
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
+        await _reporteService.reload(reporte.Id);
     }
 }

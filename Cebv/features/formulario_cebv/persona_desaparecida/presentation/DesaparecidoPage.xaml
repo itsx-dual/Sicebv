@@ -45,17 +45,17 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding Nombre}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Nombre}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Primer apellido:" />
-                            <ui:TextBox Text="{Binding ApellidoPaterno}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.ApellidoPaterno}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Segundo apellido:" />
-                            <ui:TextBox Text="{Binding ApellidoMaterno}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.ApellidoMaterno}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -68,17 +68,17 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Pseudónimo(s) nombre(s):" />
-                            <ui:TextBox Text="{Binding Desaparecido.PseudonimoNombre}" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.PseudonimoNombre}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Pseudónimo primer apellido:" />
-                            <ui:TextBox Text="{Binding Desaparecido.PseudonimoApellidoPaterno}" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.PseudonimoApellidoPaterno}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Pseudónimo segundo apellido: " />
-                            <ui:TextBox Text="{Binding Desaparecido.PseudonimoApellidoMaterno}" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.PseudonimoApellidoMaterno}" />
                         </StackPanel>
 
                         <ui:Button Appearance="Primary"
@@ -185,7 +185,7 @@
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="Fecha de nacimiento específica:" />
                                 <DatePicker IsTodayHighlighted="True"
-                                            SelectedDate="{Binding Desaparecido.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
+                                            SelectedDate="{Binding Reporte.Desaparecidos[0].Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -238,6 +238,7 @@
                                     MaxDecimalPlaces="0"
                                     Maximum="120"
                                     Minimum="0"
+                                    Value="{Binding EdadAnos}"
                                     PlaceholderText="Años"
                                     SmallChange="1" 
                                     Tag="Number"/>
@@ -250,6 +251,7 @@
                                     MaxDecimalPlaces="0"
                                     Maximum="12"
                                     Minimum="0"
+                                    Value="{Binding EdadMeses}"
                                     PlaceholderText="Meses"
                                     SmallChange="1" 
                                     Tag="Number"/>
@@ -262,6 +264,7 @@
                                     MaxDecimalPlaces="0"
                                     Maximum="31"
                                     Minimum="0"
+                                    Value="{Binding EdadDias}"
                                     PlaceholderText="Días"
                                     SmallChange="1" 
                                     Tag="Number"/>

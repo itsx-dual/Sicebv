@@ -84,8 +84,7 @@ public class ReporteService : IReporteService
 
     public int GetReporteId()
     {
-        if (!HayReporte()) return -1;
-        return (int) _reporte.Id!;
+        return _reporte.Id;
     }
 
     public bool HayReporte()
@@ -121,7 +120,7 @@ public class ReporteService : IReporteService
             return true;
         }
 
-        ReporteServiceNetwork.PutInicioReporte((int) _reporte.Id!, informacion);
+        ReporteServiceNetwork.PutInicioReporte(_reporte.Id, informacion);
         return true;
     }
 

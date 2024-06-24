@@ -3,6 +3,7 @@ using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +12,19 @@ namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 
 public partial class InstrumentoJuridicoViewModel : ObservableObject
 {
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
+    public InstrumentoJuridicoViewModel()
+    {
+        Reporte = _reporteService.GetReporteActual();
+    }
+    
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
     private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>();
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     // Opciones cebv.
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    [ObservableProperty] private Reporte _reporte;
 
     /**
      * Carpeta de investigación.
@@ -78,11 +85,11 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             ServidorPublicoRecomendacion = NombreServidorPublicoRecomendacion,
             FechaRecepcionRecomendacion = FechaRecepcionRecomendacion,
             
-            DeclaracionAusencia = DeclaracionAusencia,
-            AccionUrgente = AccionUrgente,
-            Dictamen = Dictamen,
-            CarpetaFederal = CarpeteFederal,
-            OtroDerecho = OtroDerecho
+            DeclaracionAusencia = (bool) Reporte.Desaparecidos[0].DeclaracionEspecialAusencia,
+            AccionUrgente = (bool) Reporte.Desaparecidos[0].AccionUrgente,
+            Dictamen = (bool) Reporte.Desaparecidos[0].Dictamen,
+            CarpetaFederal = (bool) Reporte.Desaparecidos[0].CiNivelFederal,
+            OtroDerecho = Reporte.Desaparecidos[0].OtroDerechoHumano
         };
 
         if (_reporteService.SendInformacionInstrumentoJuridico(informacion)) _navigationService.Navigate(pageType);

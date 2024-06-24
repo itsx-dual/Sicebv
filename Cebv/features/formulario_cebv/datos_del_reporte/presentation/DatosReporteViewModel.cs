@@ -47,15 +47,12 @@ public partial class DatosReporteViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     [ObservableProperty] private Reporte _reporte;
     
-    [ObservableProperty] private DateTime? _fecha = DateTime.Now;
-    
     /**
      * Fuente de información.
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios;
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados;
-    [ObservableProperty] private string _dependenciaOrigen = string.Empty;
 
     /**
      * Información de consentimiento.
@@ -66,16 +63,18 @@ public partial class DatosReporteViewModel : ObservableObject
     [ObservableProperty] private Dictionary<string, bool?> _publicacionInformacionList = OpcionesCebv.Ops;
     [ObservableProperty] private string _publicacionInformacionSelectedKey = "No";
 
-    //async partial void OnTipoMedioChanged(Catalogo value) =>
-    //    Medios = await ReporteNetwork.GetMedios(value.Id);
-
     [RelayCommand]
     public void OnGuardarYSiguente(Type pageType)
     {
         var informacion = new InicioPostObject
         {
-            //Medio = Medio.Id,
-            TipoReporte = 1,
+            TipoMedio = (int) Reporte.MedioConocimiento?.TipoMedio.Id!,
+            Medio = (int) Reporte.MedioConocimiento.Id!,
+            DependenciaOrigen = Reporte.InstitucionOrigen!,
+            TipoReporte = (int) Reporte.TipoReporte?.Id!,
+            Estado = Reporte.Estado?.Id!,
+            InformacionExclusivaBusqueda = Reporte.Reportantes?[0].InformacionExclusivaBusqueda,
+            PublicacionInformacion = Reporte.Reportantes?[0].PublicacionBoletin
         };
         
         

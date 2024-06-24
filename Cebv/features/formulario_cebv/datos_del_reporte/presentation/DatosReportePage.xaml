@@ -73,7 +73,7 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Institución de origen:" />
-                        <ui:TextBox Text="{Binding DependenciaOrigen}" />
+                        <ui:TextBox Text="{Binding Reporte.InstitucionOrigen}" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -95,7 +95,7 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Solicita que se haga pública la información de la persona desaparecida o no localizada." />
-                        <ComboBox SelectedValue="{Binding Reporte.Reportantes[0].InformacionExclusivaBusqueda}"
+                        <ComboBox SelectedValue="{Binding Reporte.Reportantes[0].PublicacionBoletin}"
                                   ItemsSource="{Binding PublicacionInformacionList}"
                                   SelectedItem="{Binding PublicacionInformacionSelectedKey}"
                                   DisplayMemberPath="Key"

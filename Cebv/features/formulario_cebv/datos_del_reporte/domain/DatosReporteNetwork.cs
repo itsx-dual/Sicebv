@@ -12,6 +12,7 @@ public class MedioConocimientoCall(ObservableCollection<MedioConocimiento> data)
     public ObservableCollection<MedioConocimiento> Data = data;
 }
 
+[method: JsonConstructor]
 public class TiposMediosCall(ObservableCollection<Catalogo> data)
 {
     public ObservableCollection<Catalogo> Data = data;

@@ -30,16 +30,6 @@ public partial class FormularioCebvViewModel : ObservableObject,
         WeakReferenceMessenger.Default.Register<NombreCompletoMessage>(this);
         WeakReferenceMessenger.Default.Register<GuardarBorradorMessage>(this);
         Reporte = _reporteService.GetReporteActual();
-        var reportante = Reporte.Desaparecidos?.FirstOrDefault();
-        if (reportante != null)
-        {
-            NombreCompleto = $"{reportante.Persona?.Nombre} {reportante.Persona?.ApellidoPaterno} {reportante.Persona?.ApellidoMaterno}";
-        }
-    }
-
-    private void OnNombreChanged(string nombre)
-    {
-        
     }
 
     public void Receive(NombreCompletoMessage message)

@@ -81,7 +81,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         SexosR = await PersonaNetwork.GetSexos();
         SexosD = await PersonaNetwork.GetSexos();
-        Parentescos = await ReportanteNetwork.GetParentescos();
+        //Parentescos = await ReportanteNetwork.GetParentescos();
         TiposMedios = await ReporteNetwork.GetTiposMedios();
         Nacionalidades = await UbicacionNetwork.GetNacionalidades();
         //Estados = await UbicacionNetwork.GetEstados();

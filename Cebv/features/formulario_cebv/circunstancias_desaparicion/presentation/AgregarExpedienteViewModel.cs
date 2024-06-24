@@ -33,7 +33,7 @@ public partial class AgregarExpedienteViewModel : ObservableObject
     
     private async void CargarCatalogos()
     {
-        Parentescos = await ReportanteNetwork.GetParentescos();
+        //Parentescos = await ReportanteNetwork.GetParentescos();
     }
     
     [RelayCommand]

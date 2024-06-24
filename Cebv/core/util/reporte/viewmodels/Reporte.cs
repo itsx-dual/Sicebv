@@ -17,6 +17,7 @@ public partial class Reporte : ObservableObject
         Estado? estado,
         TipoHipotesis? hipotesis_oficial,
         string? tipo_desaparicion,
+        string? institucion_origen,
         DateTime? fecha_localizacion,
         bool? declaracion_especial_ausencia,
         bool? accion_urgente,
@@ -48,6 +49,7 @@ public partial class Reporte : ObservableObject
         Desaparecidos = desaparecidos;
         FechaCreacion = fecha_creacion;
         FechaActualizacion = fecha_actualizacion;
+        InstitucionOrigen = institucion_origen;
     }
 
     public Reporte() { }
@@ -79,6 +81,8 @@ public partial class Reporte : ObservableObject
     [ObservableProperty] private string? _otroDerechoHumano;
 
     [ObservableProperty] private string? _sintesisLocalizacion;
+    
+    [ObservableProperty] private string? _institucionOrigen;
 
     [ObservableProperty] private ObservableCollection<Reportante>? _reportantes;
 

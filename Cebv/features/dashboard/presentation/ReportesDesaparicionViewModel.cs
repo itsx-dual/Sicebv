@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Reflection;
+using Cebv.app.presentation;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.persona.data;
 using Cebv.core.modules.reporte.data;
@@ -19,6 +20,7 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<ReporteResponse> _reportes = [];
     [ObservableProperty] private ReporteResponse _reporteSelected;
+    [ObservableProperty] private DesaparecidoResponse _desaparecidoSelected;
 
     public ReportesDesaparicionViewModel()
     {
@@ -33,6 +35,7 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     [RelayCommand]
     public async void OnReporteClick()
     {
+        if (ReporteSelected == null) return;
         var dashboardNavigation = App.Current.Services.GetService<IDashboardNavigationService>();
         if (dashboardNavigation == null) return;
 
@@ -41,5 +44,12 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
         reporteService.SetStatusReporteActual(EstadoReporte.Cargado);
         
         dashboardNavigation.Navigate(typeof(FormularioCebvPage));
+    }
+
+    [RelayCommand]
+    public async void OnDesaparecidoClick()
+    {
+        var webview = new WebView2Window($"reportes/informes-inicios/{DesaparecidoSelected.Id}", "Informe de inicio");
+        webview.Show();
     }
 }

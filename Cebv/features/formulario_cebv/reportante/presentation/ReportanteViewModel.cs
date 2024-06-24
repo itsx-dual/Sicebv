@@ -8,21 +8,23 @@ using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.reportante.presentation;
 
 public partial class ReportanteViewModel : ObservableObject
 {
     [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Reporte _reporte;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
     private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>();
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     /**
     * Constructor
@@ -37,12 +39,9 @@ public partial class ReportanteViewModel : ObservableObject
      */
     [ObservableProperty] private bool _esAnonimo;
     [ObservableProperty] private bool _puedeGuardar;
-    [ObservableProperty] private PersonaViewModel _reportante;
-
 
     // Datos de identificación de la persona
-    [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
-    [ObservableProperty] private Catalogo _parentesco = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _parentescos;
 
     // Datos de contacto
     [ObservableProperty] private ContactoViewModel _contacto = new();
@@ -75,7 +74,6 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private bool? _participoBusqueda;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
-    [ObservableProperty] private Catalogo _colectivo = new();
 
     /**
      * Peticiones a la Api
@@ -83,7 +81,10 @@ public partial class ReportanteViewModel : ObservableObject
     private async void CargarCatalogos()
     {
         Parentescos = await ReportanteNetwork.GetParentescos();
-        Colectivos = await ReportanteNetwork.GetColectivos();
+        //TODO: Corregir colectivos
+        //Colectivos = await ReportanteNetwork.GetColectivos();
+        
+        Reporte = _reporteService.GetReporteActual();
     }
 
     /**
@@ -91,9 +92,9 @@ public partial class ReportanteViewModel : ObservableObject
      */
     private void ValidarBorrador()
     {
-        if (Reportante.Nombre == String.Empty ||
-            Reportante.ApellidoPaterno == String.Empty ||
-            Reportante.ApellidoMaterno == String.Empty)
+        if (Reporte.Reportantes[0]?.Persona?.Nombre == String.Empty ||
+            Reporte.Reportantes[0]?.Persona?.ApellidoPaterno == String.Empty ||
+            Reporte.Reportantes[0]?.Persona?.ApellidoMaterno == String.Empty)
             PuedeGuardar = false;
         else PuedeGuardar = true;
 
@@ -104,7 +105,6 @@ public partial class ReportanteViewModel : ObservableObject
     public void GuardarBorrador()
     {
         ValidarBorrador();
-        Console.WriteLine(Reportante.Nombre);
     }
 
     partial void OnPertenenciaColectivoOpcionChanged(string value) =>
@@ -122,32 +122,13 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     public void OnGuardarYSiguiente(Type pageType)
     {
-
-        var persona = new PersonaPostObject
-        {
-            LugarNacimientoId = Ubicacion.Estado.Id,
-            Nombre = Reportante.Nombre,
-            ApellidoPaterno = Reportante.ApellidoPaterno,
-            ApellidoMaterno = Reportante.ApellidoMaterno,
-            PseudonimoNombre = Reportante.PseudonimoNombre,
-            PseudonimoApellidoPaterno = Reportante.PseudonimoApellidoPaterno,
-            PseudonimoApellidoMaterno = Reportante.PseudonimoApellidoMaterno,
-            FechaNacimiento = Reportante.FechaNacimiento,
-            Curp = Reportante.Curp,
-            ObservacionesCurp = Reportante.ObservacionesCurp,
-            Rfc = Reportante.Rfc,
-            Ocupacion = Reportante.OcupacionUno.Nombre,
-            Sexo = Reportante.Sexo.Id,
-            Genero = Reportante.Genero.Id,
-        };
-
         var reportante = new ReportantePostObject
         {
-            Persona = persona,
-            Parentesco = Parentesco.Id,
+            //Persona = persona,
+            //Parentesco = Parentesco.Id,
             DenunciaAnonima = EsAnonimo,
             PertenenciaColectivo = PertenenciaColectivo,
-            NombreColectivo = Colectivo.Nombre,
+            //NombreColectivo = Colectivo.Nombre,
             InformacionRelevante = InformacionRelevante
         };
         

@@ -21,8 +21,8 @@ public partial class Persona : ObservableObject
         string? observaciones_curp,
         string? rfc,
         string? ocupacion,
-        (int Id, string Nombre)? sexo,
-        (int Id, string Nombre)? genero,
+        Catalogo? sexo,
+        Catalogo? genero,
         ObservableCollection<(int Id, string Apodo)>? apodos,
         ObservableCollection<(int Id, string Nombre)>? nacionalidades)
     {
@@ -51,13 +51,15 @@ public partial class Persona : ObservableObject
     [ObservableProperty]
     private Estado? _lugarNacimiento;
     
-    [ObservableProperty]
+    public string NombreCompleto => $"{Nombre} {ApellidoPaterno} {ApellidoMaterno}";
+    
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _nombre;
     
-    [ObservableProperty]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoPaterno;
     
-    [ObservableProperty]
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoMaterno;
     
     [ObservableProperty]
@@ -85,10 +87,10 @@ public partial class Persona : ObservableObject
     private string? _ocupacion;
     
     [ObservableProperty]
-    private (int Id, string Nombre)? _sexo;
+    private Catalogo? _sexo;
     
     [ObservableProperty]
-    private (int Id, string Nombre)? _genero;
+    private Catalogo? _genero;
     
     [ObservableProperty]
     private ObservableCollection<(int Id, string Apodo)>? _apodos = new();

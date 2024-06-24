@@ -9,7 +9,7 @@ public partial class Reportante : ObservableObject
     public Reportante(int? id,
         int? reporte_id,
         Persona? persona,
-        (int? Id, string? Nombre)? parentesco,
+        Catalogo? parentesco,
         bool? denuncia_anonima,
         bool? informacion_consentimiento,
         bool? informacion_exclusiva_busqueda,
@@ -47,7 +47,7 @@ public partial class Reportante : ObservableObject
     private Persona? _persona;
     
     [ObservableProperty]
-    private (int? Id, string? Nombre)? _parentesco;
+    private Catalogo? _parentesco;
     
     [ObservableProperty]
     private bool? _denunciaAnonima;
