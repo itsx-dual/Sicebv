@@ -39,4 +39,8 @@ public partial class MedioConocimiento : ObservableObject
     
     [ObservableProperty]
     private string? _nombre;
+    
+    /**
+     * Hola tanil no se que madres le movi pero esto no jala
+     */
 }
