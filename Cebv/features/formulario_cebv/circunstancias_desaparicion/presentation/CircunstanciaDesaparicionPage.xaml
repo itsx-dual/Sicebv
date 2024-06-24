@@ -51,13 +51,14 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición:" />
-                            <DatePicker SelectedDate="{Binding FechaDesaparicion}" IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding FechaDesaparicion}"
+                                        IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding HoraDesaparicion}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                            <ui:TextBox Text="{Binding HoraDesaparicion}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -69,8 +70,8 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding HoraPercato}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                            <ui:TextBox Text="{Binding HoraPercato}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -100,8 +101,8 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding HoraDesaparicion}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                            <ui:TextBox Text="{Binding HoraDesaparicion}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -118,8 +119,8 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding HoraPercato}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                            <ui:TextBox Text="{Binding HoraPercato}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -149,14 +150,14 @@
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Exterior:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" 
-                                            ClearButtonEnabled="True" Tag="Number"/>
+                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}"
+                                            ClearButtonEnabled="True" Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Interior:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True" 
-                                            Tag="Number"/>
+                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True"
+                                            Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -166,8 +167,8 @@
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="Código postal:" />
-                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" 
-                                            ClearButtonEnabled="True" Tag="Number"/>
+                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}"
+                                            ClearButtonEnabled="True" Tag="Number" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -278,8 +279,8 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Descripción de los hechos de la desaparición:" />
-                        <ui:TextBox Text="{Binding DescripcionHechosDesaparicion}" 
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude"/>
+                        <ui:TextBox Text="{Binding DescripcionHechosDesaparicion}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude" />
                     </StackPanel>
 
                     <StackPanel>
@@ -350,8 +351,8 @@
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="N° de personas en el mismo evento:" />
-                            <ui:NumberBox Value="{Binding NumeroPersonasMismoEvento}" 
-                                          Tag="Number"/>
+                            <ui:NumberBox Value="{Binding NumeroPersonasMismoEvento}"
+                                          Tag="Number" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -366,17 +367,20 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding NombreDirecto}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding NombreDirecto}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Primer apellido:" />
-                            <ui:TextBox Text="{Binding PrimerApellidoDirecto}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding PrimerApellidoDirecto}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Segundo apellido: " />
-                            <ui:TextBox Text="{Binding SegundoApellidoDirecto}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding SegundoApellidoDirecto}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
@@ -529,18 +533,21 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="NOMBRE(S):" />
-                            <ui:TextBox Text="{Binding NombreIndirecto}" />
+                            <ui:TextBlock Text="Nombre(s):" />
+                            <ui:TextBox Text="{Binding NombreIndirecto}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="PRIMER APELLIDO:" />
-                            <ui:TextBox Text="{Binding PrimerApellidoIndirecto}" />
+                            <ui:TextBlock Text="Primer apellido:" />
+                            <ui:TextBox Text="{Binding PrimerApellidoIndirecto}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="SEGUNDO APELLIDO: " />
-                            <ui:TextBox Text="{Binding SegundoApellidoIndirecto}" />
+                            <ui:TextBlock Text="Segundo apellido: " />
+                            <ui:TextBox Text="{Binding SegundoApellidoIndirecto}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
@@ -607,7 +614,7 @@
 
                     <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
                         <ui:CardExpander.Header>
-                            <ui:TextBlock Text="Expedientes directos" FontTypography="Subtitle" />
+                            <ui:TextBlock Text="Expedientes indirectos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
 
                         <ui:ListView

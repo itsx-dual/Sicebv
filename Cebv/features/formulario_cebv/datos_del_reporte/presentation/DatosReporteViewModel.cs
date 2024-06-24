@@ -1,9 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
-using Cebv.core.modules.reporte.data;
-using Cebv.core.modules.reporte.domain;
 using Cebv.core.modules.ubicacion.domain;
-using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
@@ -12,7 +9,6 @@ using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.presentation;

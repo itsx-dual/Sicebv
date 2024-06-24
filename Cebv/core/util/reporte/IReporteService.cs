@@ -10,29 +10,31 @@ namespace Cebv.core.util.reporte;
 public interface IReporteService
 {
     Estado? UbicacionEstado { get; set; }
-    
+
+    bool ExistenHechosDesaparicion { get; set; }
+
     UbicacionViewModel? UbicacionHechos { get; set; }
     void SetReporteActual(ReporteResponse? reporte);
-    
+
     void SetReporteActualFromApi(int id);
-    
+
     bool SendReporteActual();
-    
+
     Reporte ClearReporteActual();
-    
+
     Reporte GetReporteActual();
 
     EstadoReporte GetStatusReporteActual();
 
     bool HayReporte();
-    
+
     void SetStatusReporteActual(EstadoReporte estado);
 
     void SetReporteId(int id);
     int GetReporteId();
 
     Task<Reporte> reload(int id);
-    
+
     void SetReportanteId(int id);
     int GetReportanteId();
     int GetDesaparecidoId();
@@ -42,4 +44,9 @@ public interface IReporteService
     bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion);
 
     bool SendReportante(ReportantePostObject informacion);
+
+    /**
+     * Hechos de desaparición
+     */
+    void SetHechosDesaparicionActual(bool hecho);
 }

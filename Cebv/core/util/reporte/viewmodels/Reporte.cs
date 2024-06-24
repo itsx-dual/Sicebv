@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -11,7 +12,9 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class Reporte : ObservableObject
 {
     [JsonConstructor]
-    public Reporte(int id, bool? esta_terminado,
+    public Reporte(
+        int id,
+        bool? esta_terminado,
         TipoReporte? tipo_reporte,
         MedioConocimiento? medio_conocimiento,
         Estado? estado,
@@ -26,6 +29,7 @@ public partial class Reporte : ObservableObject
         string? sintesis_localizacion,
         ObservableCollection<Reportante>? reportantes,
         ObservableCollection<Desaparecido>? desaparecidos,
+        HechoDesaparicionQueryResponse? hechos_desaparicion,
         DateTime? fecha_creacion,
         DateTime? fecha_actualizacion
     )
@@ -46,6 +50,7 @@ public partial class Reporte : ObservableObject
         SintesisLocalizacion = sintesis_localizacion;
         Reportantes = reportantes;
         Desaparecidos = desaparecidos;
+        HechosDesaparicion = hechos_desaparicion;
         FechaCreacion = fecha_creacion;
         FechaActualizacion = fecha_actualizacion;
     }
@@ -83,9 +88,10 @@ public partial class Reporte : ObservableObject
     [ObservableProperty] private ObservableCollection<Reportante>? _reportantes;
 
     [ObservableProperty] private ObservableCollection<Desaparecido>? _desaparecidos;
+    
+    [ObservableProperty] private HechoDesaparicionQueryResponse? _hechosDesaparicion;
 
     [ObservableProperty] private DateTime? _fechaCreacion;
 
     [ObservableProperty] private DateTime? _fechaActualizacion;
-
 }

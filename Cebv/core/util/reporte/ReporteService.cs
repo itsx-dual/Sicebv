@@ -32,11 +32,12 @@ public class ReporteService : IReporteService
 
     public async Task<Reporte> reload(int id)
     {
-        _reporte =  await ReporteServiceNetwork.ShowReporte(id);
+        _reporte = await ReporteServiceNetwork.ShowReporte(id);
         return _reporte;
     }
 
     public Estado? UbicacionEstado { get; set; }
+    public bool ExistenHechosDesaparicion { get; set; }
     public UbicacionViewModel? UbicacionHechos { get; set; }
 
     public void SetReporteActual(Reporte? reporte)
@@ -85,7 +86,7 @@ public class ReporteService : IReporteService
     public int GetReporteId()
     {
         if (!HayReporte()) return -1;
-        return (int) _reporte.Id!;
+        return (int)_reporte.Id!;
     }
 
     public bool HayReporte()
@@ -103,7 +104,7 @@ public class ReporteService : IReporteService
     {
         var reportante = _reporte.Reportantes?.FirstOrDefault();
         if (reportante == null) return -1;
-        return (int) reportante.Id!;
+        return (int)reportante.Id!;
     }
 
     public int GetDesaparecidoId()
@@ -121,24 +122,28 @@ public class ReporteService : IReporteService
             return true;
         }
 
-        ReporteServiceNetwork.PutInicioReporte((int) _reporte.Id!, informacion);
+        ReporteServiceNetwork.PutInicioReporte((int)_reporte.Id!, informacion);
         return true;
     }
 
     public bool SendModoTiempoLugar(ModoTiempoLugarPost informacion)
     {
-        var hechoDesaparicion = ReporteServiceNetwork.GetHechosDesaparicion((int)_reporte!.Id);
+        var modoTiempoLugar = _reporte.HechosDesaparicion;
+        if (HayReporte() && modoTiempoLugar!.Data != null)
+        {
+            ReporteServiceNetwork.PutHechosDesaparicion(modoTiempoLugar.Data!.Id, informacion);
+            return true;
+        }
 
-        
-          ReporteServiceNetwork.PostHechosDesaparicion(informacion);
+        ReporteServiceNetwork.PostHechosdesaparicion(informacion);
 
-         return false;
+        return false;
     }
 
     public bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion)
     {
         var desaparecido = _reporte.Desaparecidos?.FirstOrDefault();
-        var carpetaInvestigacion  = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI");
+        var carpetaInvestigacion = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI");
         var amparo = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "AB");
         var recomendacion = desaparecido?.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "DH");
 
@@ -159,7 +164,7 @@ public class ReporteService : IReporteService
         {
             ReporteServiceNetwork.PutCarpetaInvestigacion(informacion, (int)carpetaInvestigacion.Id);
         }
-        
+
         if (amparo == null)
         {
             ReporteServiceNetwork.PostAmparo(informacion);
@@ -177,7 +182,7 @@ public class ReporteService : IReporteService
         {
             ReporteServiceNetwork.PutRecomendacionDerechosHumanos(informacion, (int)recomendacion.Id);
         }
-        
+
         return true;
     }
 
@@ -189,8 +194,15 @@ public class ReporteService : IReporteService
             ReporteServiceNetwork.PutReportante(informacion, (int)reportante.Id);
             return true;
         }
+
         ReporteServiceNetwork.PostReportante(informacion);
-        
+
         return true;
     }
+
+    public void SetHechosDesaparicionActual(bool hecho)
+    {
+        ExistenHechosDesaparicion = hecho;
+    }
+    
 }
