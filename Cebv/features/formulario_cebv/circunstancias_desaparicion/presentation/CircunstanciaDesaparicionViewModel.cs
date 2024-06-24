@@ -1,29 +1,33 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Cebv.core.data;
-using Cebv.core.modules.persona.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Catalogo = Cebv.core.data.Catalogo;
+using Persona = Cebv.core.modules.persona.data.Persona;
+using TipoHipotesis = Cebv.features.formulario_cebv.circunstancias_desaparicion.data.TipoHipotesis;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
 public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 {
+    private static IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
+
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
+    
+    [ObservableProperty] private Reporte _reporte;
 
     public CircunstanciaDesaparicionViewModel()
     {
-        CargarCatalogos();
+        LoadAsync();
     }
 
     /**
@@ -75,10 +79,11 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     /**
      * Peticiones a la red
      */
-    private async void CargarCatalogos()
+    private async void LoadAsync()
     {
         TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
         Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
+        Reporte = _reporteService.GetReporteActual();
     }
 
     /**
@@ -194,10 +199,10 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     private void OnGuardarYSiguente(Type pageType)
     {
         _reporteService.UbicacionHechos = Ubicacion;
-        
+
         ModoTiempoLugarPost informacion = new()
         {
-            ReporteId = 2,
+            ReporteId = Reporte.Id,
             FechaDesaparicion = FechaDesaparicion,
             FechaPercato = FechaPercato,
             AclaracionHechos = AclaracionHechos,
@@ -216,8 +221,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             DesaparecioAcompanado = DesaparecioAcompanado,
             NumeroPersonasMismoEvento = NumeroPersonasMismoEvento,
         };
-        
+
         if (_reporteService.SendModoTiempoLugar(informacion)) _navigationService.Navigate(pageType);
     }
-    
 }
