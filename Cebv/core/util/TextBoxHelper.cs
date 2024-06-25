@@ -3,11 +3,30 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
+    /// <summary>
+    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
+    /// </summary>
+    /// <param name="depObj"></param>
+    /// <returns></returns>   
+    private static bool IsDatePicker(DependencyObject depObj)
+    {
+        while (depObj != null)
+        {
+            if (depObj is DatePicker)
+            {
+                return true;
+            }
+            depObj = VisualTreeHelper.GetParent(depObj);
+        }
+        return false;
+    }
+    
     /// <summary>
     /// Eventos que se dispara cuando el texto de un TextBox cambia
     /// </summary>
@@ -17,8 +36,8 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
         
-        // Verificar si el TextBox tiene el Tag "Exclude"
-        if (textBox?.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
         }
@@ -42,9 +61,10 @@ public class TextBoxHelper
     public static void PreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
+        string pattern;
         
-        // Verificar si el TextBox tiene el Tag "Exclude"
-        if (textBox?.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
         }
@@ -52,40 +72,26 @@ public class TextBoxHelper
         if (textBox?.Tag?.ToString() == "Number")
         {
             // Patrón para permitir solo números
-            string pattern = @"[^0-9]";
-
-            if (Regex.IsMatch(e.Text, pattern))
-            {
-                e.Handled = true; // Marcar el evento como manejado para cancelar la entrada de texto
-            }
+            pattern = @"[^0-9]";
+            
         }else if (textBox?.Tag?.ToString() == "Letter")
         {
             // Patrón para permitir solo letras
-            string pattern = @"[^A-ZÑ.]";
-
-            if (Regex.IsMatch(e.Text.ToUpper(), pattern))
-            {
-                e.Handled = true;
-            }
+            pattern = @"[^A-ZÑ.]";
 
         }else if (textBox?.Tag?.ToString() == "Units")
         {
             // Patrón para permitir solo numeros y caracteres de unidad de medida
-            string pattern = @"[^0-9.:]";
-
-            if (Regex.IsMatch(e.Text, pattern))
-            {
-                e.Handled = true;
-            }
+            pattern = @"[^0-9.:]";
         }else
         {
             // Patrón para permitir solo letras y la Ñ
-            string pattern = @"[^A-ZÑ0-9]";
-            
-            if (Regex.IsMatch(e.Text.ToUpper(), pattern))
-            {
-                e.Handled = true;
-            }
+            pattern = @"[^A-ZÑ0-9,]";
+        }
+        
+        if (Regex.IsMatch(e.Text.ToUpper(), pattern))
+        {
+            e.Handled = true;
         }
     }
     
@@ -100,8 +106,8 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
         
-        // Verificar si el TextBox tiene el Tag "Exclude"
-        if (textBox?.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
         }
