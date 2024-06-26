@@ -9,6 +9,8 @@ namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
+    private static bool _validation = true;
+    
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
     /// </summary>
@@ -68,25 +70,30 @@ public class TextBoxHelper
         {
             return;
         }
-        
-        if (textBox?.Tag?.ToString() == "Number")
-        {
-            // Patrón para permitir solo números
-            pattern = @"[^0-9]";
-            
-        }else if (textBox?.Tag?.ToString() == "Letter")
-        {
-            // Patrón para permitir solo letras
-            pattern = @"[^A-ZÑ.]";
 
-        }else if (textBox?.Tag?.ToString() == "Units")
+        switch (textBox?.Tag?.ToString())
         {
-            // Patrón para permitir solo numeros y caracteres de unidad de medida
-            pattern = @"[^0-9.:]";
-        }else
-        {
-            // Patrón para permitir solo letras y la Ñ
-            pattern = @"[^A-ZÑ0-9,]";
+            case "Number":
+                // Patrón para permitir solo números
+                pattern = @"[^0-9]";
+                break;
+            case "Letter":
+                // Patrón para permitir solo letras
+                pattern = @"[^A-ZÑ.]";
+                break;
+            case "Units":
+                // Patrón para permitir solo numeros y caracteres de unidad de medida
+                pattern = @"[^0-9.,]";
+                break;
+            case "Time":
+                // Patrón para permitir solo números y caracteres de tiempo
+                pattern = @"[^\d{2}:\d{2}$]";
+                textBox.MaxLength = 5;
+                break;
+            default:
+                // Patrón para permitir letras y la Ñ
+                pattern = @"[^A-ZÑ0-9,]";
+                break;
         }
         
         if (Regex.IsMatch(e.Text.ToUpper(), pattern))
@@ -110,6 +117,22 @@ public class TextBoxHelper
         if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
+        }
+
+        if (textBox?.Tag?.ToString() == "Time")
+        {
+            if (!Regex.IsMatch(textBox.Text, @"^\d{2}:\d{2}$"))
+            {
+
+                MessageBox.Show("Por favor ingrese formato valido: \"Hora : Minutos\" \nEjemplo: \"22:30\"",
+                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+                textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                textBox.BorderBrush = SystemColors.ControlDarkBrush;
+            }
         }
 
         // Eliminar espacios finales e iniciales

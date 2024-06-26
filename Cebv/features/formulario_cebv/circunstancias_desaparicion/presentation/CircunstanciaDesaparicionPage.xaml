@@ -57,7 +57,7 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora desaparición:" />
                             <ui:TextBox Text="{Binding HoraDesaparicion}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -70,7 +70,7 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora de percato:" />
                             <ui:TextBox Text="{Binding HoraPercato}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -101,7 +101,7 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora desaparición:" />
                             <ui:TextBox Text="{Binding HoraDesaparicion}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -119,7 +119,7 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora de percato:" />
                             <ui:TextBox Text="{Binding HoraPercato}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Units"/>
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
                         </StackPanel>
                     </WrapPanel>
 
