@@ -21,7 +21,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
         TiposDesapariciones.Add("MULTIPLE", "M");
         Estado = _reporteService.UbicacionEstado;
         UbicacionHechos = _reporteService.UbicacionHechos;
-        MatchArea();
+        CargarCatalogos();
     }
 
     private IFormularioCebvNavigationService _navigationService =
@@ -181,7 +181,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
         Centro();
         Sur();
         
-        CargarCatalogos();
+        
 
         var id = _reporteService.UbicacionHechos!.Municipio.Id;
 
@@ -219,7 +219,6 @@ public partial class FolioExpedienteViewModel : ObservableObject
         if (ZonaSur.Contains(id)) ZonaEstado = "Sur";
         
         Area = area;
-        
         
         Console.WriteLine(Area.Nombre);
     }

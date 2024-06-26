@@ -16,6 +16,10 @@ public class TextBoxHelper
     public static void UpperCaseText(object sender, TextChangedEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
+        DatePicker datePicker = (sender as DatePicker)!;
+        
+        if (datePicker?.Tag?.ToString() == "Exclude") return;
+
         
         // Verificar si el TextBox tiene el Tag "Exclude"
         if (textBox?.Tag?.ToString() == "Exclude")
@@ -42,6 +46,9 @@ public class TextBoxHelper
     public static void PreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
+        DatePicker datePicker = (sender as DatePicker)!;
+        
+        if (datePicker?.Tag?.ToString() == "Exclude") return;
         
         // Verificar si el TextBox tiene el Tag "Exclude"
         if (textBox?.Tag?.ToString() == "Exclude")
@@ -99,6 +106,9 @@ public class TextBoxHelper
     public static void TrimmedText(object sender, RoutedEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
+        DatePicker datePicker = (sender as DatePicker)!;
+        
+        if (datePicker?.Tag?.ToString() == "Exclude") return;
         
         // Verificar si el TextBox tiene el Tag "Exclude"
         if (textBox?.Tag?.ToString() == "Exclude")
