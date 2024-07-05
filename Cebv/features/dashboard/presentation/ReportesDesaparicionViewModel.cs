@@ -46,8 +46,8 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
         if (dashboardNavigation == null) return;
 
         var reporteService = App.Current.Services.GetService<IReporteService>()!;
-        var reporte = await reporteService.reload(ReporteSelected.Id);
-        reporteService.SetStatusReporteActual(EstadoReporte.Cargado);
+        await reporteService.Reload(ReporteSelected.Id);
+        reporteService.SetStatusReporte(EstadoReporte.Cargado);
         
         dashboardNavigation.Navigate(typeof(FormularioCebvPage));
     }

@@ -9,6 +9,7 @@ namespace Cebv.core.util.reporte.viewmodels;
 /// Representacion del reporte dado por el enpoint de
 /// "/api/reportes"
 /// </summary>
+[JsonObject(MemberSerialization.OptIn)]
 public partial class Reporte : ObservableObject
 {
     [JsonConstructor]
@@ -57,45 +58,65 @@ public partial class Reporte : ObservableObject
         InstitucionOrigen = institucion_origen;
     }
 
-    public Reporte() { }
+    public Reporte() { Id = -1; }
 
-    [ObservableProperty] private int _id;
-
-    [ObservableProperty] private bool? _estaTerminado;
-
-    [ObservableProperty] private TipoReporte? _tipoReporte;
-
-    [ObservableProperty] private MedioConocimiento? _medioConocimiento;
-
-    [ObservableProperty] private Estado? _estado;
-
-    [ObservableProperty] private TipoHipotesis? _hipotesisOficial;
-
-    [ObservableProperty] private string? _tipoDesaparicion;
-
-    [ObservableProperty] private DateTime? _fechaLocalizacion;
-
-    [ObservableProperty] private bool? _declaracionEspecialAusencia;
-
-    [ObservableProperty] private bool? _accionUrgente;
-
-    [ObservableProperty] private bool? _dictamen;
-
-    [ObservableProperty] private bool? _ciNivelFederal;
-
-    [ObservableProperty] private string? _otroDerechoHumano;
-
-    [ObservableProperty] private string? _sintesisLocalizacion;
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
+    private int _id;
     
-    [ObservableProperty] private string? _institucionOrigen;
-
-    [ObservableProperty] private ObservableCollection<Reportante>? _reportantes;
-
-    [ObservableProperty] private ObservableCollection<Desaparecido>? _desaparecidos;
+    [ObservableProperty, JsonProperty(PropertyName = "esta_terminado")]
+    private bool? _estaTerminado;
     
-    [ObservableProperty] private HechoDesaparicionQueryResponse? _hechosDesaparicion;
-
-    [ObservableProperty] private DateTime? _fechaCreacion;
-
-    [ObservableProperty] private DateTime? _fechaActualizacion;
+    [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
+    private TipoReporte? _tipoReporte;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
+    private MedioConocimiento? _medioConocimiento;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "estado")]
+    private Estado? _estado;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "hipotesis_oficial")]
+    private TipoHipotesis? _hipotesisOficial;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "tipo_desaparicion")]
+    private string? _tipoDesaparicion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "fecha_localizacion")]
+    private DateTime? _fechaLocalizacion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "declaracion_especial_ausencia")]
+    private bool? _declaracionEspecialAusencia;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "accion_urgente")]
+    private bool? _accionUrgente;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "dictamen")]
+    private bool? _dictamen;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "ci_nivel_federal")]
+    private bool? _ciNivelFederal;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "otro_derecho_humano")]
+    private string? _otroDerechoHumano;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "sintesis_localizacion")]
+    private string? _sintesisLocalizacion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "institucion_origen")]
+    private string? _institucionOrigen;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "reportantes")]
+    private ObservableCollection<Reportante>? _reportantes = new();
+    
+    [ObservableProperty, JsonProperty(PropertyName = "desaparecidos")]
+    private ObservableCollection<Desaparecido>? _desaparecidos = new();
+    
+    [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
+    private HechoDesaparicionQueryResponse? _hechosDesaparicion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "fecha_creacion")]
+    private DateTime? _fechaCreacion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "fecha_actualizacion")]
+    private DateTime? _fechaActualizacion;
 }

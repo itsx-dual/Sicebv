@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class Catalogo : ObservableObject
 {
     [JsonConstructor]
@@ -11,6 +12,8 @@ public partial class Catalogo : ObservableObject
         Id = id;
         Nombre = nombre;
     }
+
+    public Catalogo() { }
 
     public override bool Equals(object? obj)
     {
@@ -27,6 +30,6 @@ public partial class Catalogo : ObservableObject
                Nombre == catalogo.Nombre;
     }
 
-    [ObservableProperty] private int? _id;
-    [ObservableProperty] private string? _nombre;
+    [ObservableProperty, JsonProperty(PropertyName = "id")] private int? _id;
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")] private string? _nombre;
 }

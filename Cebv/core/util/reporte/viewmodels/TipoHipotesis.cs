@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class TipoHipotesis : ObservableObject
 {
     [JsonConstructor]
@@ -17,10 +18,10 @@ public partial class TipoHipotesis : ObservableObject
         Circunstancia = circunstancia;
     }
     
-    [ObservableProperty] int? _id;
-    [ObservableProperty] string? _abreviatura;
-    [ObservableProperty] string? _descripcion;
-    [ObservableProperty] (int Id, int Descripcion)? _circunstancia;
+    [ObservableProperty, JsonProperty(PropertyName = "id")] int? _id;
+    [ObservableProperty, JsonProperty(PropertyName = "abreviatura")] string? _abreviatura;
+    [ObservableProperty, JsonProperty(PropertyName = "descripcion")] string? _descripcion;
+    [ObservableProperty, JsonProperty(PropertyName = "circunstancia")] (int Id, int Descripcion)? _circunstancia;
     
     
 }

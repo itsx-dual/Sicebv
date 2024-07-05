@@ -83,7 +83,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
         Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
-        Reporte = _reporteService.GetReporteActual();
+        Reporte = _reporteService.GetReporte();
     }
 
     /**
@@ -198,7 +198,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarYSiguente(Type pageType)
     {
-        _reporteService.UbicacionHechos = Ubicacion;
+        //_reporteService.UbicacionHechos = Ubicacion;
 
         ModoTiempoLugarPost informacion = new()
         {
@@ -222,6 +222,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             NumeroPersonasMismoEvento = NumeroPersonasMismoEvento,
         };
 
-        if (_reporteService.SendModoTiempoLugar(informacion)) _navigationService.Navigate(pageType);
+        //if (_reporteService.SendModoTiempoLugar(informacion)) _navigationService.Navigate(pageType);
     }
 }

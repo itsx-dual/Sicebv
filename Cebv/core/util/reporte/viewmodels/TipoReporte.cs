@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class TipoReporte : ObservableObject
 {
     [JsonConstructor]
@@ -13,12 +14,12 @@ public partial class TipoReporte : ObservableObject
         Abreviatura = abreviatura;
     }
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")]
     private string? _nombre;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "abreviatura")]
     private string? _abreviatura;
 }

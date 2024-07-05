@@ -34,7 +34,7 @@ public partial class FormularioCebvViewModel : ObservableObject,
     {
         WeakReferenceMessenger.Default.Register<NombreCompletoMessage>(this);
         WeakReferenceMessenger.Default.Register<GuardarBorradorMessage>(this);
-        Reporte = _reporteService.GetReporteActual();
+        Reporte = _reporteService.GetReporte();
     }
 
     public void Receive(NombreCompletoMessage message)

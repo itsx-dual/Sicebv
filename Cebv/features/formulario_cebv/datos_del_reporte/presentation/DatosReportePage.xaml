@@ -52,7 +52,7 @@
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="Medio de conocimiento genérico:" />
-                        <ComboBox SelectedItem="{Binding Reporte.MedioConocimiento.TipoMedio}"
+                        <ComboBox SelectedItem="{Binding TipoMedio}"
                                   ItemsSource="{Binding TiposMedios}"
                                   DisplayMemberPath="Nombre"/>
                     </StackPanel>

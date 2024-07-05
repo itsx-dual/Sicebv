@@ -92,8 +92,8 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     public DesaparecidoViewModel()
     {
-        Reporte = _reporteService.GetReporteActual();
-        DiferenciaFechas(Reporte.Desaparecidos?[0].Persona?.FechaNacimiento, DateTime.Now);
+        //Reporte = _reporteService.GetReporte();
+        //DiferenciaFechas(Reporte.Desaparecidos?[0].Persona?.FechaNacimiento, DateTime.Now);
     }
 
     /**

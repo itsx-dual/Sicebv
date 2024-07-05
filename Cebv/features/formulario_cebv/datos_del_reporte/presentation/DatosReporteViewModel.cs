@@ -25,28 +25,31 @@ public partial class DatosReporteViewModel : ObservableObject
 
     private async void LoadAsync()
     {
-        // El orden de carga de los catalogos es irrelevante, pero lo ultimo que hay que cargar
-        // Es el reporte, lo cual activara todos los SelectedItems.
-        //
-        // Si se asigna el reporte varias veces, los SelectedItems pierden lsa referencias, asi que hay que cargar
-        // una vez se cersiora uno de que los catalogos tienen datos que hay dentro de Reporte.
-        
-        var tipoMedioId = _reporteService.GetReporteActual().MedioConocimiento?.TipoMedio?.Id;
-        Medios = await DatosReporteNetwork.GetMedios(tipoMedioId);
+        var tipoMedioId = _reporteService.GetReporte().MedioConocimiento?.TipoMedio.Id;
+        Medios = await DatosReporteNetwork.GetMedios(tipoMedioId ?? 1);
         TiposMedios = await DatosReporteNetwork.GetTiposMedios();
         Estados = await UbicacionNetwork.GetEstados();
         
-        Reporte = _reporteService.GetReporteActual();
+        Reporte = _reporteService.GetReporte();
+        TipoMedio = Reporte.MedioConocimiento?.TipoMedio!;
+        
+        // Esta seccion del formulario lidia con dos atributos de reportante.
+        if (Reporte.Reportantes?.Count == 0)
+        {
+            Reporte.Reportantes?.Add(new Reportante());
+        }
     }
 
+    [ObservableProperty] private Reporte _reporte;
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-    [ObservableProperty] private Reporte _reporte;
     
     /**
      * Fuente de información.
      */
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios;
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
+    [ObservableProperty] private Catalogo _tipoMedio;
+    
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados;
 
@@ -59,21 +62,15 @@ public partial class DatosReporteViewModel : ObservableObject
     [ObservableProperty] private Dictionary<string, bool?> _publicacionInformacionList = OpcionesCebv.Ops;
     [ObservableProperty] private string _publicacionInformacionSelectedKey = "No";
 
+    async partial void OnTipoMedioChanged(Catalogo value)
+    {
+        Medios = await DatosReporteNetwork.GetMedios(value.Id);
+    }
+
     [RelayCommand]
     public void OnGuardarYSiguente(Type pageType)
     {
-        var informacion = new InicioPostObject
-        {
-            TipoMedio = (int) Reporte.MedioConocimiento?.TipoMedio.Id!,
-            Medio = (int) Reporte.MedioConocimiento.Id!,
-            DependenciaOrigen = Reporte.InstitucionOrigen!,
-            TipoReporte = (int) Reporte.TipoReporte?.Id!,
-            Estado = Reporte.Estado?.Id!,
-            InformacionExclusivaBusqueda = Reporte.Reportantes?[0].InformacionExclusivaBusqueda,
-            PublicacionInformacion = Reporte.Reportantes?[0].PublicacionBoletin
-        };
-        
-        
-        if (_reporteService.SendInformacionInicio(informacion)) _navigationService.Navigate(pageType);
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

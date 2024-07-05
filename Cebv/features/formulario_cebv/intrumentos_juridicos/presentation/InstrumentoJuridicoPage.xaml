@@ -53,23 +53,23 @@
                                Converter={StaticResource VisibilityConverter}}">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding NumeroCarpeta}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding DondeRadicaCarpeta}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoCarpeta}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción de CI, IM o reporte de FGE:" />
                             <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionCarpeta}" />
+                                        SelectedDate="{Binding CarpetaInvestigacion.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -94,23 +94,23 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de amparo buscador:" />
-                            <ui:TextBox Text="{Binding NumeroAmparo}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica el amparo buscador:" />
-                            <ui:TextBox Text="{Binding DondeRadicaAmparo}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del juez:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoAmparo}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción:" />
                             <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionAmparo}" />
+                                        SelectedDate="{Binding AmparoBuscador.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -135,24 +135,24 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de recomendación derechos humanos:" />
-                            <ui:TextBox Text="{Binding NumeroRecomendacion}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la recomendación derechos humanos:"
                                           FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding DondeRadicaRecomendacion}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoRecomendacion}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción recomendación DH:" />
                             <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionRecomendacion}" />
+                                        SelectedDate="{Binding RecomedacionDerechosHumanos.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

@@ -19,8 +19,8 @@ public partial class FolioExpedienteViewModel : ObservableObject
     {
         TiposDesapariciones.Add("UNICA", "U");
         TiposDesapariciones.Add("MULTIPLE", "M");
-        Estado = _reporteService.UbicacionEstado;
-        UbicacionHechos = _reporteService.UbicacionHechos;
+        //Estado = _reporteService.UbicacionEstado;
+        //UbicacionHechos = _reporteService.UbicacionHechos;
         MatchArea();
     }
 
@@ -73,12 +73,12 @@ public partial class FolioExpedienteViewModel : ObservableObject
     {
         TiposReportes = await FolioExpedienteNetwork.GetTiposReportes();
         Areas = await FolioExpedienteNetwork.GetAreas();
-        Estado = _reporteService.UbicacionEstado;
+        //Estado = _reporteService.UbicacionEstado;
     }
 
     partial void OnTipoReporteChanged(Catalogo value)
     {
-        Estado = _reporteService.UbicacionEstado;
+        //Estado = _reporteService.UbicacionEstado;
     }
 
     [RelayCommand]
@@ -183,44 +183,44 @@ public partial class FolioExpedienteViewModel : ObservableObject
         
         CargarCatalogos();
 
-        var id = _reporteService.UbicacionHechos!.Municipio.Id;
+        //var id = _reporteService.UbicacionHechos!.Municipio.Id;
 
         Catalogo area = new();
         
-        if (CanalizaNorte.Contains(id))
-        {
-            area = new Catalogo
-            {
-                Id = 1,
-                Nombre = "Celula Norte"
-            };
-        }
-
-        if (CanalizaCentro.Contains(id))
-        {
-            area = new Catalogo
-            {
-                Id = 2,
-                Nombre = "Celula Centro"
-            };
-        }
-
-        if (CanalizaSur.Contains(id))
-        {
-            area = new Catalogo
-            {
-                Id = 3,
-                Nombre = "Celula Sur"
-            };
-        }
-        
-        if (ZonaNorte.Contains(id)) ZonaEstado = "Norte";
-        if (ZonaCentro.Contains(id)) ZonaEstado = "Centro";
-        if (ZonaSur.Contains(id)) ZonaEstado = "Sur";
-        
-        Area = area;
-        
-        
-        Console.WriteLine(Area.Nombre);
+        //if (CanalizaNorte.Contains(id))
+        //{
+        //    area = new Catalogo
+        //    {
+        //        Id = 1,
+        //        Nombre = "Celula Norte"
+        //    };
+        //}
+//
+        //if (CanalizaCentro.Contains(id))
+        //{
+        //    area = new Catalogo
+        //    {
+        //        Id = 2,
+        //        Nombre = "Celula Centro"
+        //    };
+        //}
+//
+        //if (CanalizaSur.Contains(id))
+        //{
+        //    area = new Catalogo
+        //    {
+        //        Id = 3,
+        //        Nombre = "Celula Sur"
+        //    };
+        //}
+        //
+        //if (ZonaNorte.Contains(id)) ZonaEstado = "Norte";
+        //if (ZonaCentro.Contains(id)) ZonaEstado = "Centro";
+        //if (ZonaSur.Contains(id)) ZonaEstado = "Sur";
+        //
+        //Area = area;
+        //
+        //
+        //Console.WriteLine(Area.Nombre);
     }
 }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class Persona : ObservableObject
 {
     [JsonConstructor]
@@ -23,8 +24,11 @@ public partial class Persona : ObservableObject
         string? ocupacion,
         Catalogo? sexo,
         Catalogo? genero,
-        ObservableCollection<(int Id, string Apodo)>? apodos,
-        ObservableCollection<(int Id, string Nombre)>? nacionalidades)
+        Catalogo? religion,
+        Catalogo? lengua,
+        ObservableCollection<Apodo>? apodos,
+        ObservableCollection<Catalogo>? nacionalidades
+        )
     {
         Id = id;
         Nombre = nombre;
@@ -36,66 +40,75 @@ public partial class Persona : ObservableObject
         PseudonimoApellidoMaterno= pseudonimo_apellido_materno;
         FechaNacimiento = fecha_nacimiento;
         Curp = curp;
-        ObservacionesCurp = ObservacionesCurp;
+        ObservacionesCurp = observaciones_curp;
         Rfc = rfc;
         Ocupacion = ocupacion;
         Sexo = sexo;
         Genero = genero;
         Apodos = apodos;
         Nacionalidades = nacionalidades;
+        Religion = religion;
+        Lengua = lengua;
     }
+
+    public Persona() { }
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
-    
-    [ObservableProperty]
-    private Estado? _lugarNacimiento;
     
     public string NombreCompleto => $"{Nombre} {ApellidoPaterno} {ApellidoMaterno}";
     
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty, JsonProperty(PropertyName = "lugar_nacimiento")]
+    private Estado? _lugarNacimiento;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _nombre;
     
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoPaterno;
     
-    [ObservableProperty] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty, JsonProperty(PropertyName = "apellido_materno")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoMaterno;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "pseudonimo_nombre")]
     private string? _pseudonimoNombre;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "pseudonimo_apellido_paterno")]
     private string? _pseudonimoApellidoPaterno;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "pseudonimo_apellido_materno")]
     private string? _pseudonimoApellidoMaterno;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "fecha_nacimiento")]
     private DateTime? _fechaNacimiento;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "curp")]
     private string? _curp;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "observaciones_curp")]
     private string? _observacionesCurp;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "rfc")]
     private string? _rfc;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "ocupacion")]
     private string? _ocupacion;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "sexo")]
     private Catalogo? _sexo;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "genero")]
     private Catalogo? _genero;
     
-    [ObservableProperty]
-    private ObservableCollection<(int Id, string Apodo)>? _apodos = new();
+    [ObservableProperty, JsonProperty(PropertyName = "apodos")]
+    private ObservableCollection<Apodo>? _apodos = new();
     
-    [ObservableProperty]
-    private ObservableCollection<(int Id, string Nombre)>? _nacionalidades = new();
+    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
+    private ObservableCollection<Catalogo>? _nacionalidades = new();
     
+    [ObservableProperty, JsonProperty(PropertyName = "religion")]
+    private Catalogo? _religion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "lengua")]
+    private Catalogo? _lengua;
 }

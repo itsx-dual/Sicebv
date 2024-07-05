@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class MedioConocimiento : ObservableObject
 {
     [JsonConstructor]
@@ -31,16 +32,12 @@ public partial class MedioConocimiento : ObservableObject
                Nombre == medio.Nombre;
     }
 
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "tipo_medio")]
     private Catalogo _tipoMedio;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")]
     private string? _nombre;
-    
-    /**
-     * Hola tanil no se que madres le movi pero esto no jala
-     */
 }

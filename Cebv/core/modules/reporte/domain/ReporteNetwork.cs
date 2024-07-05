@@ -15,11 +15,8 @@ public class ReporteNetwork
     public static async Task<ObservableCollection<ReporteResponse>> GetReportes()
     {
         var request = await Client.GetAsync("api/reportes");
-
         var response = await request.Content.ReadAsStringAsync();
-
         ReportesQueryResponse reportes = JsonSerializer.Deserialize<ReportesQueryResponse>(response)!;
-
         return new ObservableCollection<ReporteResponse>(reportes.Data);
     }
     

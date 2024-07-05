@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class Estado : ObservableObject
 {
     [JsonConstructor]
@@ -38,18 +39,18 @@ public partial class Estado : ObservableObject
                MunicipiosCount == estado.MunicipiosCount;
     }
 
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
     private string? _id;
 
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")]
     private string? _nombre;
 
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "abreviatura_inegi")]
     private string? _abreviaturaInegi;
 
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "abreviatura_cebv")]
     private string? _abreviaturaCebv;
 
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "municipios_count")]
     private string? _municipiosCount;
 }

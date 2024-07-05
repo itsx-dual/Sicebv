@@ -40,7 +40,7 @@
             <ui:ToggleSwitch Margin="25 0 0 25"
                              OnContent="La persona que reporta, ¿desea que sus datos sean anónimos? Sí"
                              OffContent="La persona que reporta, ¿desea que sus datos sean anónimos? No"
-                             IsChecked="{Binding Reporte.Reportantes[0].DenunciaAnonima}" />
+                             IsChecked="{Binding Reporte.Reportantes[0].DenunciaAnonima}"/>
         </StackPanel>
 
 
@@ -87,28 +87,28 @@
                             <ui:TextBlock Text="Sexo:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.Reportantes[0].Persona.Sexo}"
-                                      ItemsSource="{Binding Reportante.Sexos}" />
+                                      ItemsSource="{Binding Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Género:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.Reportantes[0].Persona.Genero}"
-                                      ItemsSource="{Binding Reportante.Generos}" />
+                                      ItemsSource="{Binding Generos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Religión:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Religion}"
-                                      ItemsSource="{Binding Reportante.Religiones}" />
+                                      SelectedItem="{Binding Reporte.Reportantes[0].Persona.Religion}"
+                                      ItemsSource="{Binding Religiones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Lengua:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Lengua}"
-                                      ItemsSource="{Binding Reportante.Lenguas}" />
+                                      SelectedItem="{Binding Reporte.Reportantes[0].Persona.Lengua}"
+                                      ItemsSource="{Binding Lenguas}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -124,6 +124,7 @@
                             <ui:TextBlock Text="Edad (años):" />
                             <ui:NumberBox Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                           MaxDecimalPlaces="0"
+                                          Value="{Binding Reporte.Reportantes[0].EdadEstimada}"
                                           Maximum="120"
                                           Minimum="0"
                                           PlaceholderText="Años"
@@ -147,8 +148,8 @@
                             <ComboBox Width="250"
                                       IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Nacionalidad}"
-                                      ItemsSource="{Binding Reportante.Nacionalidades}" />
+                                      SelectedItem="{Binding Reporte.Reportantes[0].Persona.Nacionalidades[0]}"
+                                      ItemsSource="{Binding Nacionalidades}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -156,7 +157,7 @@
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="RFC:" />
-                            <ui:TextBox Text="{Binding Reporte.Reportantes[0].Persona.Rfc}" />
+                            <ui:TextBox Text="{Binding Reporte.Reportantes[0].Persona.Rfc}" MaxLength="13"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">

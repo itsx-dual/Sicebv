@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
+[JsonObject(MemberSerialization.OptIn)]
 public partial class Reportante : ObservableObject
 {
     [JsonConstructor]
@@ -10,7 +11,7 @@ public partial class Reportante : ObservableObject
         int? reporte_id,
         Persona? persona,
         Catalogo? parentesco,
-        bool? denuncia_anonima,
+        bool denuncia_anonima,
         bool? informacion_consentimiento,
         bool? informacion_exclusiva_busqueda,
         bool? publicacion_registro_nacional,
@@ -18,6 +19,7 @@ public partial class Reportante : ObservableObject
         bool? pertenencia_colectivo,
         string? nombre_colectivo,
         string? informacion_relevante,
+        int? edad_estimada,
         DateTime? created_at,
         DateTime? updated_at)
     {
@@ -33,50 +35,56 @@ public partial class Reportante : ObservableObject
         PertenenciaColectivo = pertenencia_colectivo;
         NombreColectivo = nombre_colectivo;
         InformacionRelevante = informacion_relevante;
+        EdadEstimada = edad_estimada;
         CreatedAt = created_at;
         UpdatedAt = updated_at;
     }
 
-    [ObservableProperty]
+    public Reportante() { }
+    
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "reporte_id")]
     private int? _reporteId;
     
-    [ObservableProperty]
-    private Persona? _persona;
+    [ObservableProperty, JsonProperty(PropertyName = "persona")]
+    private Persona? _persona = new();
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "parentesco")]
     private Catalogo? _parentesco;
     
-    [ObservableProperty]
-    private bool? _denunciaAnonima;
+    [ObservableProperty, JsonProperty(PropertyName = "denuncia_anonima")]
+    private bool _denunciaAnonima;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "informacion_consentimiento")]
     private bool? _informacionConsentimiento;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "informacion_exclusiva_busqueda")]
     private bool? _informacionExclusivaBusqueda;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "publicacion_registro_nacional")]
     private bool? _publicacionRegistroNacional;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "publicacion_boletin")]
     private bool? _publicacionBoletin;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "pertenencia_colectivo")]
     private bool? _pertenenciaColectivo;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "nombre_colectivo")]
     private string? _nombreColectivo;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "informacion_relevante")]
     private string? _informacionRelevante;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "edad_estimada")]
+    private int? _edadEstimada;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "created_at")]
     private DateTime? _createdAt;
     
-    [ObservableProperty]
+    [ObservableProperty, JsonProperty(PropertyName = "updated_at")]
     private DateTime? _updatedAt;
     
 }
