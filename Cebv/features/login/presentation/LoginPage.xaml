@@ -17,12 +17,16 @@
 
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">
+            
             <ui:TextBlock HorizontalAlignment="Center"
                           Text="Inicio de sesión"
-                          FontSize="30"/>
+                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                          FontTypography="TitleLarge"
+                          FontWeight="Light"
+                          Margin="10"/>
             
-            <Border Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
-                    CornerRadius="8">
+            <Border Background="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                    CornerRadius="10">
                 <StackPanel Orientation="Horizontal"
                             Margin="10"
                             HorizontalAlignment="Center"
@@ -56,9 +60,9 @@
                                        Command="{Binding ViewModel.IniciarSesionCommand}"
                                        Content="Iniciar sesión" />
                             
-                            <ui:TextBlock Text="{Binding  ErrorMessage}" 
-                                          Foreground="Maroon"
-                                          Visibility="{Binding ErrorVisibility}"
+                            <ui:TextBlock Text="{Binding  ViewModel.ErrorMessage}" 
+                                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                          Visibility="{Binding ViewModel.ErrorVisibility}"
                                           Margin="5"/>
                         </StackPanel>
                     </Grid>
