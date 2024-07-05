@@ -15,19 +15,19 @@ namespace Cebv.features.formulario_cebv.folio_expediente.presentation;
 
 public partial class FolioExpedienteViewModel : ObservableObject
 {
-    public FolioExpedienteViewModel()
+    public IFormularioCebvNavigationService FormularioNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
+
+    public FolioExpedienteViewModel(IFormularioCebvNavigationService formularioNavigationService, IReporteService reporteService)
     {
+        FormularioNavigationService = formularioNavigationService;
+        ReporteService = reporteService;
         TiposDesapariciones.Add("UNICA", "U");
         TiposDesapariciones.Add("MULTIPLE", "M");
-        Estado = _reporteService.UbicacionEstado;
-        UbicacionHechos = _reporteService.UbicacionHechos;
+        Estado = ReporteService.UbicacionEstado;
+        UbicacionHechos = ReporteService.UbicacionHechos;
         CargarCatalogos();
     }
-
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
     [ObservableProperty] private Estado? _estado;
     [ObservableProperty] private UbicacionViewModel? _ubicacionHechos;
@@ -73,20 +73,20 @@ public partial class FolioExpedienteViewModel : ObservableObject
     {
         TiposReportes = await FolioExpedienteNetwork.GetTiposReportes();
         Areas = await FolioExpedienteNetwork.GetAreas();
-        Estado = _reporteService.UbicacionEstado;
+        Estado = ReporteService.UbicacionEstado;
     }
 
     partial void OnTipoReporteChanged(Catalogo value)
     {
-        Estado = _reporteService.UbicacionEstado;
+        Estado = ReporteService.UbicacionEstado;
     }
 
     [RelayCommand]
     private async Task SetFolio()
     {
-        if (!_reporteService.HayReporte()) return;
+        if (!ReporteService.HayReporte()) return;
         
-        var id = _reporteService.GetReporteActualId();
+        var id = ReporteService.GetReporteActualId();
         
         Folios = await FolioExpedienteNetwork.SetFolio(id);
         
@@ -183,7 +183,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
         
         
 
-        var id = _reporteService.UbicacionHechos!.Municipio.Id;
+        var id = ReporteService.UbicacionHechos!.Municipio.Id;
 
         Catalogo area = new();
         

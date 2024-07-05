@@ -21,7 +21,6 @@ public partial class DashboardNavigationService : IDashboardNavigationService
     /// </summary>
     private IPageService? _pageService;
 
-    private IReporteService? _reporteService = App.Current.Services.GetService<IReporteService>();
     private IDashboardNavigationService _dashboardNavigationServiceImplementation;
 
     /// <summary>

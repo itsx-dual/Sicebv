@@ -11,10 +11,8 @@ namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 
 public partial class InstrumentoJuridicoViewModel : ObservableObject
 {
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
-
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>();
+    public IFormularioCebvNavigationService FormularioNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
 
     // Opciones cebv.
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
@@ -58,11 +56,14 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     [ObservableProperty] private bool _carpeteFederal;
     [ObservableProperty] private string _otroDerecho = String.Empty;
 
-    public InstrumentoJuridicoViewModel()
+    public InstrumentoJuridicoViewModel(IFormularioCebvNavigationService formularioNavigationService, IReporteService reporteService)
     {
-        if (!_reporteService.HayReporte()) return;
+        ReporteService = reporteService;
+        FormularioNavigationService = formularioNavigationService;
         
-        var reporte = _reporteService.GetReporteActual();
+        if (!ReporteService.HayReporte()) return;
+        
+        var reporte = ReporteService.GetReporteActual();
         var desaparecido = reporte.Desaparecidos?.FirstOrDefault();
 
         if (desaparecido == null) return;
@@ -133,6 +134,6 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             OtroDerecho = OtroDerecho
         };
 
-        if (_reporteService.SendInformacionInstrumentoJuridico(informacion)) _navigationService.Navigate(pageType);
+        if (ReporteService.SendInformacionInstrumentoJuridico(informacion)) FormularioNavigationService.Navigate(pageType);
     }
 }

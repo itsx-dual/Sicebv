@@ -18,9 +18,6 @@
       Loaded="DashboardPage_OnLoaded"
       SizeChanged="DashboardPage_OnSizeChanged"
       Title="DashboardPage">
-    <Page.DataContext>
-        <local:DashboardViewModel/>
-    </Page.DataContext>
     <Grid>
         <ui:TitleBar x:Name="Titulo" 
                      Title="{StaticResource DashboardTitle}"

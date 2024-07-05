@@ -1,7 +1,5 @@
 ﻿using System.Net.Http;
-using System.Text.Json;
 using Cebv.core.util.reporte.data;
-using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 namespace Cebv.core.util.reporte.domain;
 
@@ -15,7 +13,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "desaparecido_id", _reporteService.GetDesaparecidoId().ToString() },
+                { "desaparecido_id", ReporteService.GetDesaparecidoId().ToString() },
                 { "tipo_documento", "CI" },
                 { "numero_documento", informacion.NumeroCarpeta },
                 { "donde_radica", informacion.DondeRadicaCarpeta },
@@ -26,8 +24,8 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PostAmparo(InstrumentoJuridicoPostObject informacion)
@@ -38,7 +36,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "desaparecido_id", _reporteService.GetDesaparecidoId().ToString() },
+                { "desaparecido_id", ReporteService.GetDesaparecidoId().ToString() },
                 { "tipo_documento", "AB" },
                 { "numero_documento", informacion.NumeroAmparo },
                 { "donde_radica", informacion.DondeRadicaAmparo },
@@ -49,8 +47,8 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PostRecomendacionDerechosHumanos(InstrumentoJuridicoPostObject informacion)
@@ -61,7 +59,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "desaparecido_id", _reporteService.GetDesaparecidoId().ToString() },
+                { "desaparecido_id", ReporteService.GetDesaparecidoId().ToString() },
                 { "tipo_documento", "DH" },
                 { "numero_documento", informacion.NumeroRecomendacion },
                 { "donde_radica", informacion.DondeRadicaRecomendacion },
@@ -72,8 +70,8 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PostInstrumentoJuridico(InstrumentoJuridicoPostObject informacion)
@@ -89,14 +87,14 @@ public partial class ReporteServiceNetwork
                 { "dictamen", $"{NullableBoolToInt(informacion.Dictamen)}" },
                 { "ci_nivel_federal", $"{NullableBoolToInt(informacion.CarpetaFederal)}" },
                 { "otro_derecho_humano", informacion.OtroDerecho },
-                { "reporte_id", _reporteService.GetReporteId().ToString() },
+                { "reporte_id", ReporteService.GetReporteId().ToString() },
             })
         };
 
         using var response = await Client.SendAsync(requestDesaparecido);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PutCarpetaInvestigacion(InstrumentoJuridicoPostObject informacion, int id)
@@ -107,7 +105,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Put,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "desaparecido_id", _reporteService.GetDesaparecidoId().ToString() },
+                { "desaparecido_id", ReporteService.GetDesaparecidoId().ToString() },
                 { "tipo_documento", "CI" },
                 { "numero_documento", informacion.NumeroCarpeta },
                 { "donde_radica", informacion.DondeRadicaCarpeta },
@@ -118,8 +116,8 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PutAmparo(InstrumentoJuridicoPostObject informacion, int id)
@@ -130,7 +128,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Put,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "desaparecido_id", _reporteService.GetDesaparecidoId().ToString() },
+                { "desaparecido_id", ReporteService.GetDesaparecidoId().ToString() },
                 { "tipo_documento", "AB" },
                 { "numero_documento", informacion.NumeroAmparo },
                 { "donde_radica", informacion.DondeRadicaAmparo },
@@ -141,8 +139,8 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PutRecomendacionDerechosHumanos(InstrumentoJuridicoPostObject informacion, int id)
@@ -153,7 +151,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Put,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "desaparecido_id", _reporteService.GetDesaparecidoId().ToString() },
+                { "desaparecido_id", ReporteService.GetDesaparecidoId().ToString() },
                 { "tipo_documento", "DH" },
                 { "numero_documento", informacion.NumeroRecomendacion },
                 { "donde_radica", informacion.DondeRadicaRecomendacion },
@@ -164,8 +162,8 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 
     public static async void PutInstrumentoJuridico(InstrumentoJuridicoPostObject informacion, int id)
@@ -177,7 +175,7 @@ public partial class ReporteServiceNetwork
             { "dictamen", $"{NullableBoolToInt(informacion.Dictamen)}" },
             { "ci_nivel_federal", $"{NullableBoolToInt(informacion.CarpetaFederal)}" },
             { "otro_derecho_humano", informacion.OtroDerecho },
-            { "reporte_id", _reporteService.GetReporteId().ToString() },
+            { "reporte_id", ReporteService.GetReporteId().ToString() },
         };
 
         var requestDesaparecido = new HttpRequestMessage
@@ -189,7 +187,7 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(requestDesaparecido);
         var json = response.Content.ReadAsStringAsync();
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
     }
 }

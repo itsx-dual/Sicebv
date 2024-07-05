@@ -26,8 +26,8 @@ public partial class ReporteServiceNetwork
         var json = await reporteResponse.Content.ReadAsStringAsync();
         var reporte = JsonSerializer.Deserialize<ReporteQueryResponse>(json);
         
-        _reporteService.SetReporteActual(reporte?.Data);
-        _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+        ReporteService.SetReporteActual(reporte?.Data);
+        ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
 
         var reportanteRequest = new HttpRequestMessage
         {
@@ -35,7 +35,7 @@ public partial class ReporteServiceNetwork
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "reporte_id", _reporteService.GetReporteId().ToString() },
+                { "reporte_id", ReporteService.GetReporteId().ToString() },
                 { "informacion_exclusiva_busqueda", $"{NullableBoolToInt(content.InformacionExclusivaBusqueda)}" },
                 { "publicacion_boletin", $"{NullableBoolToInt(content.PublicacionInformacion)}" }
             })
@@ -46,11 +46,11 @@ public partial class ReporteServiceNetwork
         
         if (reporteResponse.IsSuccessStatusCode && reportanteResponse.IsSuccessStatusCode)
         {
-            _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
+            ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
         }
         else
         {
-            _snackbar.Show(
+            Snackbar.Show(
                 "No se ha podido registrar la informacion de inicio", 
                 "",
                 ControlAppearance.Danger,
@@ -79,12 +79,12 @@ public partial class ReporteServiceNetwork
 
         if (reporteResponse.IsSuccessStatusCode)
         {
-            _reporteService.SetReporteActual(reporte?.Data);
-            _reporteService.SetStatusReporteActual(EstadoReporte.Guardado);
+            ReporteService.SetReporteActual(reporte?.Data);
+            ReporteService.SetStatusReporteActual(EstadoReporte.Guardado);
         }
         else
         {
-            _snackbar.Show(
+            Snackbar.Show(
                 "No se ha podido registrar la informacion de inicio", 
                 "",
                 ControlAppearance.Danger,
@@ -94,17 +94,17 @@ public partial class ReporteServiceNetwork
         
         var reportanteRequest = new HttpRequestMessage
         {
-            RequestUri = new Uri($"/api/reportantes/{_reporteService.GetReportanteId()}", UriKind.Relative),
+            RequestUri = new Uri($"/api/reportantes/{ReporteService.GetReportanteId()}", UriKind.Relative),
             Method = HttpMethod.Put,
             Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                { "reporte_id", _reporteService.GetReporteId().ToString() },
+                { "reporte_id", ReporteService.GetReporteId().ToString() },
                 { "informacion_exclusiva_busqueda", $"{NullableBoolToInt(content.InformacionExclusivaBusqueda)}" },
                 { "publicacion_boletin", $"{NullableBoolToInt(content.PublicacionInformacion)}" }
             })
         };
         
         await Client.SendAsync(reportanteRequest);
-        _reporteService.SetReporteActualFromApi(_reporteService.GetReporteId());
+        ReporteService.SetReporteActualFromApi(ReporteService.GetReporteId());
     }
 }

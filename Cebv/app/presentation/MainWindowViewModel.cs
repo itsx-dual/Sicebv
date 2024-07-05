@@ -8,12 +8,15 @@ namespace Cebv.app.presentation;
 public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableObject _currentPage;
-    private LoginViewModel _loginViewModel;
+    private LoginViewModel LoginViewModel { get; }
+    private DashboardViewModel DashboardViewModel { get; }
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel)
     {
-        _loginViewModel = new LoginViewModel();
-        CurrentPage = _loginViewModel;
+        LoginViewModel = loginViewModel;
+        DashboardViewModel = dashboardViewModel;
+        
+        CurrentPage = LoginViewModel;
 
         BroadCast.OnMessageTransmitted += _onMessageReceived;
     }
@@ -22,7 +25,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (message == "inicio exitoso")
         {
-            CurrentPage = new DashboardViewModel();
+            CurrentPage = DashboardViewModel;
         }
     }
 }

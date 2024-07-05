@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.login.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,9 +11,6 @@
       d:DesignWidth="1024"
       d:DesignHeight="768"
       Title="LoginPage">
-    <Page.DataContext>
-        <local:LoginViewModel />
-    </Page.DataContext>
     
     <Grid>
         <ui:TitleBar Title="Inicio de sesión"/>
@@ -42,7 +38,7 @@
                           Width="300">
                         <StackPanel>
                             <ui:TextBox PlaceholderEnabled="True"
-                                        Text="{Binding Username}"
+                                        Text="{Binding ViewModel.Username}"
                                         PlaceholderText="Usuario"
                                         Icon="{ui:SymbolIcon Person32}"
                                         Margin="5" Tag="Exclude"/>
@@ -57,7 +53,7 @@
                             <ui:Button Appearance="Primary"
                                        Margin="5"
                                        Width="290"
-                                       Command="{Binding IniciarSesionCommand}"
+                                       Command="{Binding ViewModel.IniciarSesionCommand}"
                                        Content="Iniciar sesión" />
                             
                             <ui:TextBlock Text="{Binding  ErrorMessage}" 

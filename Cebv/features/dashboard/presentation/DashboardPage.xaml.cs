@@ -1,30 +1,44 @@
-using System.Windows;
 using System.Windows.Controls;
 using Cebv.core.util.navigation;
-using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.presentation;
-using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.presentation;
 
 public partial class DashboardPage : Page
 {
+    public DashboardViewModel ViewModel { get; }
+
+    public DashboardPage(
+        DashboardViewModel viewModel,
+        IDashboardNavigationService navigationService,
+        ISnackbarService snackbarService,
+        IReporteService reporteService)
+    {
+        ViewModel = viewModel;
+        DataContext = this;
+        
+        InitializeComponent();
+
+        DashboardNavigationService = navigationService;
+        SnackbarService = snackbarService;
+        ReporteService = reporteService;
+
+        DashboardNavigationService.SetNavigationControl(MainNavigationView);
+        SnackbarService.SetSnackbarPresenter(SnackbarPresenter);
+    }
+
+    /**
+     * Services
+     */
+    public IDashboardNavigationService DashboardNavigationService { get; set; }
+
+    public ISnackbarService SnackbarService { get; set; }
+    
+    public IReporteService ReporteService { get; set; }
+
     private bool _isUserClosedPane;
     private bool _isPaneOpenedOrClosedFromCode;
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
-    
-    public DashboardPage()
-    {
-        InitializeComponent();
-        
-        var navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
-        var snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
-        
-        navigationService.SetNavigationControl(MainNavigationView);
-        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
-    }
 
     private void DashboardPage_OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -37,12 +51,12 @@ public partial class DashboardPage : Page
         {
             return;
         }
-        
+
         _isPaneOpenedOrClosedFromCode = true;
         MainNavigationView.SetCurrentValue(NavigationView.IsPaneOpenProperty, e.NewSize.Width > 1200);
         _isPaneOpenedOrClosedFromCode = false;
     }
-    
+
     private void NavigationView_OnPaneOpened(NavigationView sender, RoutedEventArgs args)
     {
         if (_isPaneOpenedOrClosedFromCode)
@@ -65,13 +79,14 @@ public partial class DashboardPage : Page
 
     private void MainNavigationView_OnSelectionChanged(NavigationView sender, RoutedEventArgs args)
     {
-        if (MainNavigationView.SelectedItem.TargetPageType == typeof(FormularioCebvPage)) {
+        if (MainNavigationView.SelectedItem.TargetPageType == typeof(FormularioCebvPage))
+        {
             MainNavigationView.SetCurrentValue(NavigationView.IsPaneOpenProperty, false);
         }
     }
 
     private void NuevoReporte_OnClick(object sender, RoutedEventArgs e)
     {
-        _reporteService.ClearReporteActual();
+        ReporteService.ClearReporteActual();
     }
 }

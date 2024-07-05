@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Cebv.app.presentation"
         mc:Ignorable="d"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:dashboard="clr-namespace:Cebv.features.dashboard.presentation"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         WindowCornerPreference="Default"
@@ -17,5 +15,4 @@
         d:DesignWidth="1024"
         d:DesignHeight="768"
         Title="DashboardWindow">
-    <dashboard:DashboardPage/>
 </ui:FluentWindow>

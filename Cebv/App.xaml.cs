@@ -1,14 +1,7 @@
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Cebv.core.modules.persona.presentation;
-using Cebv.core.util;
+using Cebv.app.presentation;
 using Cebv.core.util.navigation;
-using Cebv.core.util.reporte;
-using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
-using Cebv.features.formulario_cebv.presentation;
-using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
+using Cebv.features.dashboard.presentation;
+using Cebv.features.login.presentation;
 
 namespace Cebv;
 
@@ -17,36 +10,38 @@ namespace Cebv;
 /// </summary>
 public partial class App : Application
 {
-    public App()
-    {
-        Services = ConfigureServices();
-        InitializeComponent();
-    }
+    private static readonly IHost Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+        .ConfigureServices((context, services) =>
+        {
+            // Inicio de sesion
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<LoginPage>();
+            services.AddTransient<LoginWindow>();
 
-    /// <summary>
-    /// Gets the current <see cref="App"/> instance in use
-    /// </summary>
-    public new static App Current => (App)Application.Current;
-
-    /// <summary>
-    /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
-    /// </summary>
-    public IServiceProvider Services { get; }
-
-    /// <summary>
-    /// Configures the services for the application.
-    /// </summary>
-    private static IServiceProvider ConfigureServices()
-    {
-        var services = new ServiceCollection();
-
-        services.AddTransient<FormularioCebvViewModel>();
-        
-        services.AddSingleton<IReporteService, ReporteService>();
-        services.AddSingleton<ISnackbarService, SnackbarService>();
-        services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
-        services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
+            // Dashboard
+            services.AddSingleton<DashboardWindow>();
+            services.AddSingleton<DashboardPage>();
+            services.AddSingleton<DashboardViewModel>();
             
-        return services.BuildServiceProvider();
+            // Navegación principal
+            services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
+            
+            // Manejo de errores
+            services.AddSingleton<ISnackbarService, SnackbarService>();
+            
+            services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
+            services.AddSingleton<IReporteService, ReporteService>();
+        }).Build();
+
+    [STAThread]
+    public static void Main()
+    {
+        Host.Start();
+
+        App app = new();
+        app.InitializeComponent();
+        app.MainWindow = Host.Services.GetRequiredService<LoginWindow>();
+        app.MainWindow.Visibility = Visibility.Visible;
+        app.Run();
     }
 }

@@ -1,12 +1,13 @@
-using Cebv.features.dashboard.presentation;
+using Cebv.features.login.presentation;
 using Wpf.Ui.Controls;
 
 namespace Cebv.app.presentation;
 
 public partial class LoginWindow : FluentWindow
 {
-    public LoginWindow()
+    public LoginWindow(LoginPage loginPage)
     {
+        Content = loginPage;
         InitializeComponent();
     }
 }

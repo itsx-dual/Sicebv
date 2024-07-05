@@ -18,7 +18,9 @@ namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class DesaparecidoViewModel : ObservableObject
 { 
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    public IFormularioCebvNavigationService FormularioNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
+    
     [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
 
     [ObservableProperty] private PersonaViewModel _desaparecido = new();
@@ -62,12 +64,14 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private string _sabeEscribirOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _sabeEscribir;
 
-    public DesaparecidoViewModel()
+    public DesaparecidoViewModel(IFormularioCebvNavigationService formularioNavigationService, IReporteService reporteService)
     {
+        FormularioNavigationService = formularioNavigationService;
+        ReporteService = reporteService;
 
-        if (_reporteService.HayReporte())
+        if (ReporteService.HayReporte())
         {
-            var reportado = _reporteService.GetReporteActual().Desaparecidos?.FirstOrDefault();
+            var reportado = ReporteService.GetReporteActual().Desaparecidos?.FirstOrDefault();
             if (reportado?.Persona == null) return;
             
             Nombre = reportado.Persona.Nombre;

@@ -1,10 +1,7 @@
 <Application x:Class="Cebv.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:presentation="clr-namespace:Cebv.features.login.presentation"
-             xmlns:presentation1="clr-namespace:Cebv.features.dashboard.presentation"
-             StartupUri="app/presentation/LoginWindow.xaml">
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -20,20 +17,6 @@
                 <ResourceDictionary Source="core/resources/strings/ReporteDesaparicionString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/UtilString.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <DataTemplate DataType="{x:Type presentation:LoginViewModel}">
-                <presentation:LoginPage />
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type presentation1:DashboardViewModel}">
-                <presentation1:DashboardPage />
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type presentation1:ReportesDesaparicionViewModel}">
-                <presentation1:ReportesDesaparicion />
-            </DataTemplate>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

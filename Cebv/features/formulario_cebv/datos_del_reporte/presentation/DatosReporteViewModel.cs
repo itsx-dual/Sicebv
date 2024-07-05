@@ -18,13 +18,15 @@ public partial class DatosReporteViewModel : ObservableObject
     /**
      * Constructor de la clase.
      */
-    public DatosReporteViewModel()
+    public IFormularioCebvNavigationService FormularioNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
+    public DatosReporteViewModel(IFormularioCebvNavigationService formularioNavigationService, IReporteService reporteService)
     {
+        FormularioNavigationService = formularioNavigationService;
+        ReporteService = reporteService;
+        
         CargarCatalogos();
     }
-
-    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>();
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
     
     [ObservableProperty] private DateTime? _fecha = DateTime.Now;
     
@@ -54,9 +56,9 @@ public partial class DatosReporteViewModel : ObservableObject
     private async void CargarCatalogos() {
         TiposMedios = await ReporteNetwork.GetTiposMedios();
         
-        if (_reporteService.HayReporte())
+        if (ReporteService.HayReporte())
         {
-            var reporte = _reporteService.GetReporteActual();
+            var reporte = ReporteService.GetReporteActual();
             var reportante = reporte.Reportantes.First();
             
             Fecha = reporte.FechaCreacion;
@@ -85,8 +87,8 @@ public partial class DatosReporteViewModel : ObservableObject
             PublicacionInformacion = PublicacionInformacion
         };
         
-        _reporteService.UbicacionEstado = Ubicacion.Estado;
+        ReporteService.UbicacionEstado = Ubicacion.Estado;
         
-        if (_reporteService.SendInformacionInicio(informacion)) _navigationService.Navigate(pageType);
+        if (ReporteService.SendInformacionInicio(informacion)) FormularioNavigationService.Navigate(pageType);
     }
 }

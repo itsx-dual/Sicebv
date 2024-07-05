@@ -10,7 +10,6 @@ namespace Cebv.features.dashboard.presentation;
 public partial class DashboardViewModel : ObservableObject
 {
     [ObservableProperty] private Usuario _usuario;
-
     
     [ObservableProperty]
     private ICollection<object> _menuItems = new ObservableCollection<object>

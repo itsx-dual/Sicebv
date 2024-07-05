@@ -1,24 +1,22 @@
-﻿using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
-using Cebv.core.util.reporte.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
-using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
-using Wpf.Ui.Controls;
 
 namespace Cebv.core.util.reporte.domain;
 
 public partial class ReporteServiceNetwork
 {
     private static HttpClient Client = CebvClientHandler.SharedClient;
-    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
-    private static ISnackbarService _snackbar = App.Current.Services.GetService<ISnackbarService>();
+    public static IReporteService ReporteService { get; set; }
+    public static ISnackbarService Snackbar { get; set; }
+
+    public ReporteServiceNetwork(IReporteService reporteService, ISnackbarService snackbarService)
+    {
+        ReporteService = reporteService;
+        Snackbar = snackbarService;
+    }
 
     private static int? NullableBoolToInt(bool? boolean)
     {

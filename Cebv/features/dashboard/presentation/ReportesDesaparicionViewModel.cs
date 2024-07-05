@@ -19,9 +19,14 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<ReporteResponse> _reportes = [];
     [ObservableProperty] private ReporteResponse _reporteSelected;
+    
+    public IDashboardNavigationService DashboardNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
 
-    public ReportesDesaparicionViewModel()
+    public ReportesDesaparicionViewModel( IDashboardNavigationService navigationService, IReporteService reporteService)
     {
+        DashboardNavigationService = navigationService;
+        ReporteService = reporteService;
         CargarReportes();
     }
 
@@ -33,13 +38,9 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     [RelayCommand]
     public void OnReporteClick()
     {
-        var dashboardNavigation = App.Current.Services.GetService<IDashboardNavigationService>();
-        if (dashboardNavigation == null) return;
-
-        var reporteService = App.Current.Services.GetService<IReporteService>();
-        reporteService?.ClearReporteActual();
-        reporteService?.SetStatusReporteActual(EstadoReporte.Cargado);
-        reporteService?.SetReporteActual(ReporteSelected);
+        ReporteService.ClearReporteActual();
+        ReporteService.SetStatusReporteActual(EstadoReporte.Cargado);
+        ReporteService.SetReporteActual(ReporteSelected);
 
         string nombre = string.Empty;
         if (ReporteSelected.Desaparecidos.Count > 0)
@@ -54,6 +55,6 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
             callerType = GetType()
         };
         
-        dashboardNavigation.Navigate(typeof(FormularioCebvPage), dataContext, GetType());
+        DashboardNavigationService.Navigate(typeof(FormularioCebvPage), dataContext, GetType());
     }
 }

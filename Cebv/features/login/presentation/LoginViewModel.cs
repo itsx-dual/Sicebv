@@ -13,12 +13,21 @@ public partial class LoginViewModel : ObservableObject
 
     [ObservableProperty] private string _password = "password";
 
+    partial void OnUsernameChanged(string value) =>
+        Console.WriteLine(value);
+    
+    partial void OnPasswordChanged(string value) =>
+        Console.WriteLine(value);
+
     [ObservableProperty] private string _errorMessage = String.Empty;
     [ObservableProperty] private Visibility _errorVisibility = Visibility.Collapsed;
     [ObservableProperty] private bool _iniciandoSesion;
 
-    public LoginViewModel()
+    private DashboardWindow DashboardWindow { get; }
+
+    public LoginViewModel(DashboardWindow dashboardWindow)
     {
+        DashboardWindow = dashboardWindow;
         ErrorMessage = string.Empty;
         ErrorVisibility = Visibility.Collapsed;
         IniciandoSesion = false;
@@ -35,9 +44,8 @@ public partial class LoginViewModel : ObservableObject
 
         if (result is TokenWrapped)
         {
-            var dashboard = new DashboardWindow();
             var currentWindow = Application.Current.MainWindow;
-            dashboard.Show();
+            DashboardWindow.Show();
             currentWindow?.Close();
         }
         else if (result is Error)

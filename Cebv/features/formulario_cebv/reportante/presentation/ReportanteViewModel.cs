@@ -17,24 +17,29 @@ namespace Cebv.features.formulario_cebv.reportante.presentation;
 
 public partial class ReportanteViewModel : ObservableObject
 {
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    public IFormularioCebvNavigationService FormularioNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
 
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>();
+    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
 
     /**
     * Constructor
     */
-    public ReportanteViewModel()
+    public ReportanteViewModel(
+        IFormularioCebvNavigationService formularioNavigationService,
+        IReporteService reporteService
+    )
     {
+        FormularioNavigationService = formularioNavigationService;
+        ReporteService = reporteService;
         CargarCatalogos();
     }
-    
+
     /**
      * Datos de control
      */
     [ObservableProperty] private bool _esAnonimo;
+
     [ObservableProperty] private bool _puedeGuardar;
     [ObservableProperty] private PersonaViewModel _reportante;
 
@@ -81,14 +86,14 @@ public partial class ReportanteViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        var reportante = _reporteService.GetReporteActual().Reportantes?.FirstOrDefault();
+        var reportante = ReporteService.GetReporteActual().Reportantes?.FirstOrDefault();
         var persona = reportante?.Persona;
-        
+
         Parentescos = await ReportanteNetwork.GetParentescos();
         Colectivos = await ReportanteNetwork.GetColectivos();
         Reportante = await PersonaViewModel.CreateAsync(persona);
-        
-        if (_reporteService.HayReporte())
+
+        if (ReporteService.HayReporte())
         {
             if (reportante != null)
             {
@@ -137,7 +142,6 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     public void OnGuardarYSiguiente(Type pageType)
     {
-
         var persona = new PersonaPostObject
         {
             LugarNacimientoId = Ubicacion.Estado.Id,
@@ -165,8 +169,8 @@ public partial class ReportanteViewModel : ObservableObject
             NombreColectivo = Colectivo.Nombre,
             InformacionRelevante = InformacionRelevante
         };
-        
-        _reporteService.SendReportante(reportante);
-        _navigationService.Navigate(pageType);
+
+        ReporteService.SendReportante(reportante);
+        FormularioNavigationService.Navigate(pageType);
     }
 };

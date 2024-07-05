@@ -15,14 +15,14 @@ namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation
 
 public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 {
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
-
-    public CircunstanciaDesaparicionViewModel()
+    public IFormularioCebvNavigationService FormularioNavigationService { get; set; }
+    public IReporteService ReporteService { get; set; }
+    
+    public CircunstanciaDesaparicionViewModel(IFormularioCebvNavigationService formularioNavigationService, IReporteService reporteService)
     {
+        FormularioNavigationService = formularioNavigationService;
+        ReporteService = reporteService;
+        
         CargarCatalogos();
     }
 
@@ -193,7 +193,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarYSiguente(Type pageType)
     {
-        _reporteService.UbicacionHechos = Ubicacion;
+        ReporteService.UbicacionHechos = Ubicacion;
         
         ModoTiempoLugarPost informacion = new()
         {
@@ -217,7 +217,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             NumeroPersonasMismoEvento = NumeroPersonasMismoEvento,
         };
         
-        if (_reporteService.SendModoTiempoLugar(informacion)) _navigationService.Navigate(pageType);
+        if (ReporteService.SendModoTiempoLugar(informacion)) FormularioNavigationService.Navigate(pageType);
     }
     
 }
