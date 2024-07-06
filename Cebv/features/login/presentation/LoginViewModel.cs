@@ -1,10 +1,8 @@
-using System.Windows;
 using Cebv.app.presentation;
 using Cebv.features.login.data;
 using Cebv.features.login.domain;
 
 namespace Cebv.features.login.presentation;
-
 public partial class LoginViewModel : ObservableObject
 {
     [ObservableProperty] private string _username = "test@example.com";
