@@ -69,7 +69,8 @@
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción de CI, IM o reporte de FGE:" />
                             <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionCarpeta}" />
+                                        SelectedDate="{Binding FechaRecepcionCarpeta}"
+                                        Tag="Exclude"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

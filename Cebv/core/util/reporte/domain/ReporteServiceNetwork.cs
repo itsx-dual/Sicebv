@@ -74,7 +74,6 @@ public partial class ReporteServiceNetwork
 
         using var response = await Client.SendAsync(request);
 
-        if (response.IsSuccessStatusCode) Console.WriteLine("Jalloooooo");
-        else Console.WriteLine("No jalo");
+        Console.WriteLine(response.IsSuccessStatusCode ? "Jalloooooo" : "No jalo");
     }
 }
