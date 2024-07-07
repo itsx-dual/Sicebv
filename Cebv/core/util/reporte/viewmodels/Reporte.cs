@@ -31,7 +31,7 @@ public partial class Reporte : ObservableObject
         string? sintesis_localizacion,
         ObservableCollection<Reportante>? reportantes,
         ObservableCollection<Desaparecido>? desaparecidos,
-        HechoDesaparicionQueryResponse? hechos_desaparicion,
+        HechosDesaparicionResponse? hechos_desaparicion,
         DateTime? fecha_creacion,
         DateTime? fecha_actualizacion
     )
@@ -112,7 +112,7 @@ public partial class Reporte : ObservableObject
     private ObservableCollection<Desaparecido>? _desaparecidos = new();
     
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechoDesaparicionQueryResponse? _hechosDesaparicion;
+    private HechosDesaparicionResponse? _hechosDesaparicion;
     
     [ObservableProperty, JsonProperty(PropertyName = "fecha_creacion")]
     private DateTime? _fechaCreacion;

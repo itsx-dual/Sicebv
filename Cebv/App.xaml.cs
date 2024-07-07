@@ -47,12 +47,4 @@ public partial class App : Application
             
         return services.BuildServiceProvider();
     }
-    
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        //EventManager.RegisterClassHandler(typeof(TextBox), TextBox.PreviewTextInputEvent, new TextCompositionEventHandler(TextBoxHelper.PreviewTextInput));
-        //EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
-        //EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.TrimmedText));
-        base.OnStartup(e);
-    }
 }

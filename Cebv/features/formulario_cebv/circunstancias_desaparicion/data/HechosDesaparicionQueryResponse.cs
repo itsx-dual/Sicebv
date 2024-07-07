@@ -1,65 +1,97 @@
-using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
-using Cebv.core.modules.reporte.data;
-using Cebv.core.util.reporte.domain;
-using Cebv.core.util.reporte.viewmodels;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 
-public class HechosDesaparicionQueryResponse
+[JsonObject(MemberSerialization.OptIn)]
+public partial class HechosDesaparicionResponse : ObservableObject
 {
-    [JsonPropertyName("data")] public ObservableCollection<HechosDesaparicionResponse>? Data { get; set; }
-}
+    public HechosDesaparicionResponse(
+        int? id,
+        int? reporteId,
+        DateTime? fechaDesaparicion,
+        string? fechaDesaparicionCebv,
+        DateTime? fechaPercato,
+        string? fechaPercatoCebv,
+        string? aclaracionesFechaHechos,
+        bool? cambioComportamiento,
+        string? descripcionCambioComportamiento,
+        bool? fueAmenazado,
+        string? descripcionAmenaza,
+        int? contadorDesapariciones,
+        string? situacionPrevia,
+        string? informacionRelevante,
+        string? hechosDesaparicion,
+        string? sintesisDesaparicion
+    )
+    {
+        Id = id;
+        ReporteId = reporteId;
+        FechaDesaparicion = fechaDesaparicion;
+        FechaDesaparicionCebv = fechaDesaparicionCebv;
+        FechaPercato = fechaPercato;
+        FechaPercatoCebv = fechaPercatoCebv;
+        AclaracionesFechaHechos = aclaracionesFechaHechos;
+        CambioComportamiento = cambioComportamiento;
+        DescripcionCambioComportamiento = descripcionCambioComportamiento;
+        FueAmenazado = fueAmenazado;
+        DescripcionAmenaza = descripcionAmenaza;
+        ContadorDesapariciones = contadorDesapariciones;
+        SituacionPrevia = situacionPrevia;
+        InformacionRelevante = informacionRelevante;
+        HechosDesaparicion = hechosDesaparicion;
+        SintesisDesaparicion = sintesisDesaparicion;
+    }
 
-public class HechoDesaparicionQueryResponse
-{
-    [JsonPropertyName("data")] public HechosDesaparicionResponse? Data { get; set; }
-}
+    public HechosDesaparicionResponse()
+    {
+    }
 
-public class HechosDesaparicionResponse
-{
-    [JsonPropertyName("id")] public int? Id { get; set; }
-    [JsonPropertyName("reporte_id")] public int? ReporteId { get; set; }
+    [ObservableProperty, JsonProperty("id")]
+    private int? _id;
 
-    [JsonPropertyName("fecha_desaparicion")]
-    public DateTime? FechaDesaparicion { get; set; }
+    [ObservableProperty, JsonProperty("reporte_id")]
+    private int? _reporteId;
 
-    [JsonPropertyName("fecha_desaparicion_cebv")]
-    public string? FechaDesaparicionCebv { get; set; }
+    [ObservableProperty, JsonProperty("fecha_desaparicion")]
+    private DateTime? _fechaDesaparicion;
 
-    [JsonPropertyName("fecha_percato")] public DateTime? FechaPercato { get; set; }
+    [ObservableProperty, JsonProperty("fecha_desaparicion_cebv")]
+    private string? _fechaDesaparicionCebv;
 
-    [JsonPropertyName("fecha_percato_cebv")]
-    public string? FechaPercatoCebv { get; set; }
+    [ObservableProperty, JsonProperty("fecha_percato")]
+    private DateTime? _fechaPercato;
 
-    [JsonPropertyName("aclaraciones_fecha_hechos")]
-    public string? AclaracionesFechaHechos { get; set; }
+    [ObservableProperty, JsonProperty("fecha_percato_cebv")]
+    private string? _fechaPercatoCebv;
 
-    [JsonPropertyName("cambio_comportamiento")]
-    public bool? CambioComportamiento { get; set; }
+    [ObservableProperty, JsonProperty("aclaraciones_fecha_hechos")]
+    private string? _aclaracionesFechaHechos;
 
-    [JsonPropertyName("descripcion_cambio_comportamiento")]
-    public string? DescripcionCambioComportamiento { get; set; }
+    [ObservableProperty, JsonProperty("cambio_comportamiento")]
+    private bool? _cambioComportamiento;
 
-    [JsonPropertyName("fue_amenazado")] public bool? FueAmenazado { get; set; }
+    [ObservableProperty, JsonProperty("descripcion_cambio_comportamiento")]
+    private string? _descripcionCambioComportamiento;
 
-    [JsonPropertyName("descripcion_amenaza")]
-    public string? DescripcionAmenaza { get; set; }
+    [ObservableProperty, JsonProperty("fue_amenazado")]
+    private bool? _fueAmenazado;
 
-    [JsonPropertyName("contador_desapariciones")]
-    public int? ContadorDesapariciones { get; set; }
+    [ObservableProperty, JsonProperty("descripcion_amenaza")]
+    private string? _descripcionAmenaza;
 
-    [JsonPropertyName("situacion_previa")] public string? SituacionPrevia { get; set; }
+    [ObservableProperty, JsonProperty("contador_desapariciones")]
+    private int? _contadorDesapariciones;
 
-    [JsonPropertyName("informacion_relevante")]
-    public string? InformacionRelevante { get; set; }
+    [ObservableProperty, JsonProperty("situacion_previa")]
+    private string? _situacionPrevia;
 
-    [JsonPropertyName("hechos_desaparicion")]
-    public string? HechosDesaparicion { get; set; }
+    [ObservableProperty, JsonProperty("informacion_relevante")]
+    private string? _informacionRelevante;
 
-    [JsonPropertyName("sintesis_desaparicion")]
-    public string? SintesisDesaparicion { get; set; }
+    [ObservableProperty, JsonProperty("hechos_desaparicion")]
+    private string? _hechosDesaparicion;
 
-    [JsonPropertyName("created_at")] public DateTime? CreatedAt { get; set; }
-    [JsonPropertyName("updated_at")] public DateTime? UpdatedAt { get; set; }
+    [ObservableProperty, JsonProperty("sintesis_desaparicion")]
+    private string? _sintesisDesaparicion;
 }
