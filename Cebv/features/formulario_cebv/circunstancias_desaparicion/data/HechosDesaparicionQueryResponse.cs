@@ -6,13 +6,16 @@ namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 [JsonObject(MemberSerialization.OptIn)]
 public partial class HechosDesaparicionResponse : ObservableObject
 {
+    [JsonConstructor]
     public HechosDesaparicionResponse(
         int? id,
         int? reporteId,
         DateTime? fechaDesaparicion,
         string? fechaDesaparicionCebv,
+        string? horaDesaparicion,
         DateTime? fechaPercato,
         string? fechaPercatoCebv,
+        string? horaPercato,
         string? aclaracionesFechaHechos,
         bool? cambioComportamiento,
         string? descripcionCambioComportamiento,
@@ -22,15 +25,19 @@ public partial class HechosDesaparicionResponse : ObservableObject
         string? situacionPrevia,
         string? informacionRelevante,
         string? hechosDesaparicion,
-        string? sintesisDesaparicion
+        string? sintesisDesaparicion,
+        bool? desaparecioAcompanado,
+        int? personasMismoEvento
     )
     {
         Id = id;
         ReporteId = reporteId;
         FechaDesaparicion = fechaDesaparicion;
         FechaDesaparicionCebv = fechaDesaparicionCebv;
+        HoraDesaparicion = horaDesaparicion;
         FechaPercato = fechaPercato;
         FechaPercatoCebv = fechaPercatoCebv;
+        HoraPercato = horaPercato;
         AclaracionesFechaHechos = aclaracionesFechaHechos;
         CambioComportamiento = cambioComportamiento;
         DescripcionCambioComportamiento = descripcionCambioComportamiento;
@@ -41,6 +48,8 @@ public partial class HechosDesaparicionResponse : ObservableObject
         InformacionRelevante = informacionRelevante;
         HechosDesaparicion = hechosDesaparicion;
         SintesisDesaparicion = sintesisDesaparicion;
+        DesaparecioAcompanado = desaparecioAcompanado;
+        PersonasMismoEvento = personasMismoEvento;
     }
 
     public HechosDesaparicionResponse()
@@ -59,11 +68,17 @@ public partial class HechosDesaparicionResponse : ObservableObject
     [ObservableProperty, JsonProperty("fecha_desaparicion_cebv")]
     private string? _fechaDesaparicionCebv;
 
+    [ObservableProperty, JsonProperty("hora_desaparicion")]
+    private string? _horaDesaparicion;
+
     [ObservableProperty, JsonProperty("fecha_percato")]
     private DateTime? _fechaPercato;
 
     [ObservableProperty, JsonProperty("fecha_percato_cebv")]
     private string? _fechaPercatoCebv;
+
+    [ObservableProperty, JsonProperty("hora_percato")]
+    private string? _horaPercato;
 
     [ObservableProperty, JsonProperty("aclaraciones_fecha_hechos")]
     private string? _aclaracionesFechaHechos;
@@ -94,4 +109,10 @@ public partial class HechosDesaparicionResponse : ObservableObject
 
     [ObservableProperty, JsonProperty("sintesis_desaparicion")]
     private string? _sintesisDesaparicion;
+
+    [ObservableProperty, JsonProperty("desaparecio_acompanado")]
+    private bool? _desaparecioAcompanado;
+
+    [ObservableProperty, JsonProperty("personas_mismo_evento")]
+    private int? _personasMismoEvento;
 }
