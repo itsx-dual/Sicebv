@@ -33,9 +33,9 @@
       x:Name="FormularioPage"
       Loaded="FormularioCebvPage_OnLoaded"
       Title="FormularioCebvPage">
-    
+
     <Page.DataContext>
-        <presentation14:FormularioCebvViewModel/>
+        <presentation14:FormularioCebvViewModel />
     </Page.DataContext>
 
     <Page.Resources>
@@ -106,7 +106,7 @@
             <ui:NavigationViewItem Content="{StaticResource VehiculosTitle}"
                                    Icon="{ui:SymbolIcon VehicleCar28}"
                                    TargetPageType="{x:Type presentation61:VehiculosInvolucradosPage}" />
-            
+
             <ui:NavigationViewItem Content="{StaticResource DatosComplementariosTitle}"
                                    Icon="{ui:SymbolIcon Info24}"
                                    TargetPageType="{x:Type presentation141:DatosComplementariosPage}" />
@@ -136,16 +136,16 @@
                 </Grid.ColumnDefinitions>
                 <ui:TextBlock Text="{Binding Reporte.Desaparecidos[0].Persona.NombreCompleto}"
                               FontTypography="Title"
-                              TextWrapping="Wrap"/> 
+                              TextWrapping="Wrap" />
 
                 <WrapPanel Grid.Column="1">
                     <ui:Button Content="Relacionar información"
                                Margin="0 0 25 0"
-                        Icon="{ui:SymbolIcon PersonCircle24}"
-                        HorizontalAlignment="Right"
-                        Appearance="Success"
-                        ToolTip="{StaticResource RegistroPendienteToolTip}" />
-                    
+                               Icon="{ui:SymbolIcon PersonCircle24}"
+                               HorizontalAlignment="Right"
+                               Appearance="Success"
+                               ToolTip="{StaticResource RegistroPendienteToolTip}" />
+
                     <ui:Button
                         Visibility="{Binding Reporte.EstaTerminado,
                     Converter={StaticResource VisibilityConverter2}}"

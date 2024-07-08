@@ -5,6 +5,9 @@ using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Catalogo = Cebv.core.data.Catalogo;
+using Persona = Cebv.core.modules.persona.data.Persona;
+using TipoHipotesis = Cebv.core.util.reporte.viewmodels.TipoHipotesis;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 
@@ -18,7 +21,7 @@ public class CircunstanciaDesaparicionNetwork
 
         var response = await request.Content.ReadAsStringAsync();
 
-        TiposHipotesisWrapped jsonResponse = JsonSerializer.Deserialize<TiposHipotesisWrapped>(response)!;
+        TiposHipotesisWrappedNewtonsoft jsonResponse = JsonSerializer.Deserialize<TiposHipotesisWrappedNewtonsoft>(response)!;
 
         return jsonResponse.Data;
     }

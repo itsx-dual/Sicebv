@@ -1,8 +1,6 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
 using Cebv.core.modules.hipotesis.domain;
-using Cebv.core.modules.reporte.domain;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.core.modules.hipotesis.presentation;
@@ -34,6 +32,6 @@ public partial class HipotesisViewModel : ObservableObject
     {
         TiposHipotesis = await HipotesisNetwork.GetTiposHipotesis();
         Sitios = await HipotesisNetwork.GetSitios();
-        Areas = await ReporteNetwork.GetAreas();
+        Areas = await HipotesisNetwork.GetAreas();
     }
 }

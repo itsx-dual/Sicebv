@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.presentation;
@@ -8,6 +7,7 @@ using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
@@ -25,6 +25,11 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
      * Constructor de la clase.
      */
     public CircunstanciaDesaparicionViewModel()
+    {
+        LoadAsync();
+    }
+
+    private async void LoadAsync()
     {
         Reporte = _reporteService.GetReporte();
 
@@ -44,10 +49,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
      */
     [ObservableProperty] private bool _fechaAproximada;
 
-    [ObservableProperty] private string _horaDesaparicion = String.Empty;
-
-    [ObservableProperty] private string _horaPercato = String.Empty;
-
     [ObservableProperty] private UbicacionViewModel _ubicacion = new();
 
     [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
@@ -64,6 +65,21 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     // Hipotesis
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
+    [ObservableProperty] private Catalogo _sitio = new();
+    [ObservableProperty] private Catalogo _area = new();
+
+    partial void OnSitioChanged(Catalogo value)
+    {
+        Reporte.Hipotesis![0].Sitio = value;
+        Reporte.Hipotesis![1].Sitio = value;
+    }
+
+    partial void OnAreaChanged(Catalogo value)
+    {
+        Reporte.Hipotesis![0].Area = value;
+        Reporte.Hipotesis![1].Area = value;
+    }
+
 
     private void SyncHipotesis()
     {
@@ -72,7 +88,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         if (Reporte.Hipotesis is not null && Reporte.Hipotesis.Count > 0) return;
 
         Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
-        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Final.ToString() });
+        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
     }
 
 
@@ -80,8 +96,11 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [ObservableProperty] private string _desaparecioAcompanadoOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _desaparecioAcompanado = false;
 
-    [ObservableProperty] private int _numeroPersonasMismoEvento = 1;
-
+    partial void OnDesaparecioAcompanadoOpcionChanged(string value)
+    {
+        DesaparecioAcompanado = OpcionesCebv.MappingToBool(value);
+        Reporte.HechosDesaparicion!.DesaparecioAcompanado = DesaparecioAcompanado;
+    }
 
     /**
      * Expedientes directos e indirectos
