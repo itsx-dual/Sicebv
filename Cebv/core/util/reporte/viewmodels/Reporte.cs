@@ -31,7 +31,7 @@ public partial class Reporte : ObservableObject
         string? sintesis_localizacion,
         ObservableCollection<Reportante>? reportantes,
         ObservableCollection<Desaparecido>? desaparecidos,
-        HechoDesaparicionQueryResponse? hechos_desaparicion,
+        HechosDesaparicionResponse? hechos_desaparicion,
         DateTime? fecha_creacion,
         DateTime? fecha_actualizacion
     )
@@ -58,65 +58,71 @@ public partial class Reporte : ObservableObject
         InstitucionOrigen = institucion_origen;
     }
 
-    public Reporte() { Id = -1; }
+    public Reporte()
+    {
+        Id = -1;
+    }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int _id;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "esta_terminado")]
     private bool? _estaTerminado;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
     private TipoReporte? _tipoReporte;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
     private MedioConocimiento? _medioConocimiento;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
     private Estado? _estado;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis_oficial")]
     private TipoHipotesis? _hipotesisOficial;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "tipo_desaparicion")]
     private string? _tipoDesaparicion;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "fecha_localizacion")]
     private DateTime? _fechaLocalizacion;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "declaracion_especial_ausencia")]
     private bool? _declaracionEspecialAusencia;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "accion_urgente")]
     private bool? _accionUrgente;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "dictamen")]
     private bool? _dictamen;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "ci_nivel_federal")]
     private bool? _ciNivelFederal;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "otro_derecho_humano")]
     private string? _otroDerechoHumano;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "sintesis_localizacion")]
     private string? _sintesisLocalizacion;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "institucion_origen")]
     private string? _institucionOrigen;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "reportantes")]
     private ObservableCollection<Reportante>? _reportantes = new();
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "desaparecidos")]
     private ObservableCollection<Desaparecido>? _desaparecidos = new();
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechoDesaparicionQueryResponse? _hechosDesaparicion;
-    
+    private HechosDesaparicionResponse? _hechosDesaparicion;
+
+    [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
+    private ObservableCollection<Hipotesis>? _hipotesis;
+
     [ObservableProperty, JsonProperty(PropertyName = "fecha_creacion")]
     private DateTime? _fechaCreacion;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "fecha_actualizacion")]
     private DateTime? _fechaActualizacion;
 }

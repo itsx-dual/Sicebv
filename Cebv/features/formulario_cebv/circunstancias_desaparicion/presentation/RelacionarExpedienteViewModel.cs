@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
-using Cebv.core.modules.persona.data;
 using Cebv.core.modules.reportante.domain;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Persona = Cebv.core.modules.persona.data.Persona;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
@@ -13,13 +13,13 @@ public class Expediente
     public Catalogo Parentesco { get; set; } = new();
 }
 
-public partial class AgregarExpedienteViewModel : ObservableObject
+public partial class RelacionarExpedienteViewModel : ObservableObject
 {
     public event EventHandler<Expediente>? GuardarExpediente;
 
     public Persona Persona { get; set; }
 
-    public AgregarExpedienteViewModel(Persona persona)
+    public RelacionarExpedienteViewModel(Persona persona)
     {
         CargarCatalogos();
         Persona = persona;
@@ -33,11 +33,11 @@ public partial class AgregarExpedienteViewModel : ObservableObject
     
     private async void CargarCatalogos()
     {
-        //Parentescos = await ReportanteNetwork.GetParentescos();
+        Parentescos = await ReportanteNetwork.GetCatalogo("parentescos");
     }
     
     [RelayCommand]
-    private void GuardarPrenda()
+    private void OnGuardarPrenda()
     {
         
         Expediente.Persona = Persona;

@@ -23,11 +23,15 @@ public class TipoHipotesis
     [property: JsonPropertyName("descripcion")]
     public string Descripcion { get; set; } = String.Empty;
 
-    [property: JsonPropertyName("circunstancia_id")]
-    public int CircunstanciaId { get; set; }
+    [property: JsonPropertyName("circunstancia")]
+    public Circunstancia Circunstancia { get; set; }
 
     public override string ToString()
     {
         return Abreviatura + " - " + Descripcion;
     }
+}
+
+public class Circunstancia
+{
 }
