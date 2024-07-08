@@ -162,16 +162,16 @@
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
                     <CheckBox Content="Declaración especial de ausencia." Margin="0 0 0 15"
-                              IsChecked="{Binding Reporte.Desaparecidos[0].DeclaracionEspecialAusencia}" />
+                              IsChecked="{Binding Desaparecido.DeclaracionEspecialAusencia}" />
 
                     <CheckBox Content="Acción urgente." Margin="0 0 0 15"
-                              IsChecked="{Binding Reporte.Desaparecidos[0].AccionUrgente}" />
+                              IsChecked="{Binding Desaparecido.AccionUrgente}" />
 
                     <CheckBox Content="Dictamen" Margin="0 0 0 15"
-                              IsChecked="{Binding Reporte.Desaparecidos[0].Dictamen}" />
+                              IsChecked="{Binding Desaparecido.Dictamen}" />
 
                     <CheckBox Content="Carpeta de investigación a nivel federal." Margin="0 0 0 15"
-                              IsChecked="{Binding Reporte.Desaparecidos[0].CiNivelFederal}" />
+                              IsChecked="{Binding Desaparecido.CiNivelFederal}" />
 
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Content="Otro, especifica:"
@@ -180,7 +180,7 @@
 
                         <ui:TextBox MinWidth="250"
                                     IsEnabled="{Binding ElementName=OtroDerechoCheckBox, Path=IsChecked}"
-                                    Text="{Binding Reporte.Desaparecidos[0].OtroDerechoHumano}" />
+                                    Text="{Binding Desaparecido.OtroDerechoHumano}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
