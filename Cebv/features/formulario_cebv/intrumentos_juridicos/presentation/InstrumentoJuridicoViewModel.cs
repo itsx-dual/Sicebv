@@ -1,5 +1,4 @@
 using Cebv.core.data;
-using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -15,16 +14,18 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     public InstrumentoJuridicoViewModel()
     {
         Reporte = _reporteService.GetReporte();
-
         // Esta seccion del formulario lidia con cuatro atributos de desaparecido.
         if (Reporte.Desaparecidos?.Count == 0)
         {
-            Reporte.Desaparecidos?.Add(new Desaparecido());
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos?.Add(Desaparecido);
         }
-
-        var desaparecido = Reporte.Desaparecidos[0];
+        else
+        {
+            Desaparecido = Reporte.Desaparecidos?.FirstOrDefault()!;
+        }
         
-        CarpetaInvestigacion = desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI")!;
+        CarpetaInvestigacion = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI")!;
         if (CarpetaInvestigacion == null)
         {
             CarpetaInvestigacion = new DocumentoLegal { TipoDocumento = "CI" };
@@ -35,7 +36,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             OpcionCarpeta = true;
         }
 
-        AmparoBuscador = desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "AB")!;
+        AmparoBuscador = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "AB")!;
         if (AmparoBuscador == null)
         {
             AmparoBuscador = new DocumentoLegal { TipoDocumento = "AB" };
@@ -46,7 +47,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             OpcionAmparo = true;
         }
 
-        RecomedacionDerechosHumanos = desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "DH")!;
+        RecomedacionDerechosHumanos = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "DH")!;
         if (RecomedacionDerechosHumanos == null)
         {
             RecomedacionDerechosHumanos = new DocumentoLegal { TipoDocumento = "DH" };
@@ -66,6 +67,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     // Opciones cebv.
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Desaparecido _desaparecido;
 
     /**
      * Carpeta de investigación.
@@ -76,7 +78,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
 
     partial void OnOpcionCarpetaChanged(bool? value)
     {
-        var documentos = Reporte.Desaparecidos[0].DocumentosLegales;
+        var documentos = Desaparecido.DocumentosLegales;
         if (value != null && (bool) value)
         {
             var tiene_ci = documentos.Any(x => x.Equals(CarpetaInvestigacion));
@@ -101,7 +103,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
 
     partial void OnOpcionAmparoChanged(bool? value)
     {
-        var documentos = Reporte.Desaparecidos[0].DocumentosLegales;
+        var documentos = Desaparecido.DocumentosLegales;
         if (value != null && (bool) value)
         {
             var tiene_amparo = documentos.Any(x => x.Equals(AmparoBuscador));
@@ -126,7 +128,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
 
     partial void OnOpcionRecomendacionChanged(bool? value)
     {
-        var documentos = Reporte.Desaparecidos[0].DocumentosLegales;
+        var documentos = Desaparecido.DocumentosLegales;
         if (value != null && (bool) value)
         {
             var tiene_recomendacion = documentos.Any(x => x.Equals(RecomedacionDerechosHumanos));
@@ -141,15 +143,6 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         var recomendacion = documentos.FirstOrDefault(x => x.Equals(RecomedacionDerechosHumanos));
         documentos.Remove(recomendacion);
     }
-
-    /**
-     * Otros
-     */
-    [ObservableProperty] private bool _declaracionAusencia;
-    [ObservableProperty] private bool _accionUrgente;
-    [ObservableProperty] private bool _dictamen;
-    [ObservableProperty] private bool _carpeteFederal;
-    [ObservableProperty] private string _otroDerecho = String.Empty;
 
     [RelayCommand]
     public void OnGuardarYSiguente(Type pageType)

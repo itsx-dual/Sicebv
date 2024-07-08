@@ -1,11 +1,10 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Net.Http;
 using Cebv.core.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Newtonsoft.Json;
-using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
-namespace Cebv.core.modules.reportante.domain;
+namespace Cebv.features.formulario_cebv.persona_desaparecida.domain;
 
 [method: JsonConstructor]
 class CatalogoCall(ObservableCollection<Catalogo> data)
@@ -28,7 +27,12 @@ class AsentamientosCall(ObservableCollection<Asentamiento> data)
     public ObservableCollection<Asentamiento> Data = data;
 }
 
-public static class ReportanteNetwork
+class OcupacionesCall(ObservableCollection<Ocupacion> data)
+{
+    public ObservableCollection<Ocupacion> Data = data;
+}
+
+public class DesaparecidoNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
@@ -57,5 +61,12 @@ public static class ReportanteNetwork
         var request = await Client.GetAsync($"/api/asentamientos?search={municipio_id}");
         var response = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<AsentamientosCall>(response)?.Data!;
+    }
+    
+    public static async Task<ObservableCollection<Ocupacion>> OcupacionesDadoTipo(int? tipo_ocupacion_id)
+    {
+        var request = await Client.GetAsync($"/api/ocupaciones?search={tipo_ocupacion_id}");
+        var response = await request.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<OcupacionesCall>(response)?.Data!;
     }
 }

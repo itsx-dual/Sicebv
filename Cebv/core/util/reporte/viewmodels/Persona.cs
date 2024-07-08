@@ -22,12 +22,17 @@ public partial class Persona : ObservableObject
         string? observaciones_curp,
         string? rfc,
         string? ocupacion,
+        string? nivel_escolaridad,
         Catalogo? sexo,
         Catalogo? genero,
         Catalogo? religion,
         Catalogo? lengua,
+        Catalogo? escolaridad,
+        Catalogo? estado_conyugal,
         ObservableCollection<Apodo>? apodos,
-        ObservableCollection<Catalogo>? nacionalidades
+        ObservableCollection<Catalogo>? nacionalidades,
+        ObservableCollection<Catalogo>? grupos_vulnerables,
+        ObservableCollection<Telefono>? telefonos
         )
     {
         Id = id;
@@ -43,12 +48,17 @@ public partial class Persona : ObservableObject
         ObservacionesCurp = observaciones_curp;
         Rfc = rfc;
         Ocupacion = ocupacion;
+        NivelEscolaridad = nivel_escolaridad;
         Sexo = sexo;
         Genero = genero;
         Apodos = apodos;
         Nacionalidades = nacionalidades;
         Religion = religion;
         Lengua = lengua;
+        Telefonos = telefonos;
+        Escolaridad = escolaridad;
+        EstadoConyugal = estado_conyugal;
+        GruposVulnerables = grupos_vulnerables;
     }
 
     public Persona() { }
@@ -111,4 +121,25 @@ public partial class Persona : ObservableObject
     
     [ObservableProperty, JsonProperty(PropertyName = "lengua")]
     private Catalogo? _lengua;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "escolaridad")]
+    private Catalogo? _escolaridad;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "estado_conyugal")]
+    private Catalogo? _estadoConyugal;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "nivel_escolaridad")]
+    private string? _nivelEscolaridad;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
+    private ObservableCollection<Telefono>? _telefonos = new();
+    
+    [ObservableProperty, JsonProperty(PropertyName = "contactos")]
+    private ObservableCollection<Contacto>? _contactos = new();
+    
+    [ObservableProperty, JsonProperty(PropertyName = "direcciones")]
+    private ObservableCollection<Direccion>? _direcciones = new();
+    
+    [ObservableProperty, JsonProperty(PropertyName = "grupos_vulnerables")]
+    private ObservableCollection<Catalogo>? _gruposVulnerables = new();
 }

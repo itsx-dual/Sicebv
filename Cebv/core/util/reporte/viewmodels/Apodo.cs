@@ -7,11 +7,13 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class Apodo : ObservableObject
 {
     [JsonConstructor]
-    public Apodo(int id, int persona_id, string apodo)
+    public Apodo(int id, int? persona_id, string? nombre, string? apellido_paterno, string? apellido_materno)
     {
         Id = id;
         PersonaId = persona_id;
-        ApodoNombre = apodo;
+        Nombre = nombre;
+        ApellidoPaterno = apellido_paterno;
+        ApellidoMaterno = apellido_materno;
     }
 
     public Apodo() { }
@@ -29,10 +31,14 @@ public partial class Apodo : ObservableObject
     {
         return Id == apodo.Id &&
                PersonaId == apodo.PersonaId &&
-               ApodoNombre == apodo.ApodoNombre;
+               Nombre == apodo.Nombre &&
+               ApellidoPaterno == apodo.ApellidoPaterno &&
+               ApellidoMaterno == apodo.ApellidoMaterno;
     }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int? _id;
     [ObservableProperty, JsonProperty(PropertyName = "persona_id")] private int? _personaId;
-    [ObservableProperty, JsonProperty(PropertyName = "apodo")] private string? _apodoNombre;
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")] private string? _nombre;
+    [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")] private string? _apellidoPaterno;
+    [ObservableProperty, JsonProperty(PropertyName = "apellido_materno")] private string? _apellidoMaterno;
 }
