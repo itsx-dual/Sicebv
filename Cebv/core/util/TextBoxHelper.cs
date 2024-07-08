@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -9,8 +10,6 @@ namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
-    private static bool _validation = true;
-    
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
     /// </summary>
@@ -60,11 +59,17 @@ public class TextBoxHelper
         textBox.SelectionLength = 0;
     }
 
+    /// <summary>
+    /// Evento que se dispara cuando se presiona una tecla en un TextBox
+    /// y permite solo ciertos caracteres según el Tag del TextBox.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public static void PreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
         string pattern;
-        
+
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
         if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
@@ -86,19 +91,57 @@ public class TextBoxHelper
                 pattern = @"[^0-9.,]";
                 break;
             case "Time":
-                // Patrón para permitir solo números y caracteres de tiempo
+                //Solo números y caracteres de tiempo
                 pattern = @"[^\d{2}:\d{2}$]";
                 textBox.MaxLength = 5;
+                break;
+            case "Date":
+                //Solo números y caracteres de fecha
+                pattern = @"[^\d{2}/\d{2}/\d{4}$]";
+                textBox.MaxLength = 10;
                 break;
             default:
                 // Patrón para permitir letras y la Ñ
                 pattern = @"[^A-ZÑ0-9,]";
                 break;
         }
-        
+
         if (Regex.IsMatch(e.Text.ToUpper(), pattern))
         {
             e.Handled = true;
+        }
+    }
+    
+    /// <summary>
+    /// Evento que se dispara cuando el texto de un TextBox cambia
+    /// y permite completar automáticamente el texto según el Tag del TextBox.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public static void AutoCompleted(object sender, TextChangedEventArgs e)
+    {
+        TextBox textBox = (sender as TextBox)!;
+        
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        {
+            return;
+        }
+        
+        if (textBox?.Tag?.ToString() == "Date")
+        {
+            if ((textBox.Text.Length == 2 || textBox.Text.Length == 5) && !textBox.Text.EndsWith("/"))
+            {
+                textBox.Text += "/";
+                textBox.CaretIndex = textBox.Text.Length;
+            }
+        }else if (textBox?.Tag?.ToString() == "Time")
+        {
+            if (textBox.Text.Length == 2 && !textBox.Text.EndsWith(":"))
+            {
+                textBox.Text += ":";
+                textBox.CaretIndex = textBox.Text.Length;
+            }
         }
     }
     
@@ -121,15 +164,25 @@ public class TextBoxHelper
 
         if (textBox?.Tag?.ToString() == "Time")
         {
-            if (!Regex.IsMatch(textBox.Text, @"^\d{2}:\d{2}$"))
+            if (!Regex.IsMatch(textBox.Text, @"^([0-1][0-9]|2[0-3]):([0-5][0-9])$"))
             {
-
-                MessageBox.Show("Por favor ingrese formato valido: \"Hora : Minutos\" \nEjemplo: \"22:30\"",
-                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
-                
+                /*MessageBox.Show("Por favor ingrese formato valido: \"Hora : Minutos\" \nEjemplo: \"22:30\"",
+                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
+                e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }else
+            {
+                textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }
-            else
+        }else if (textBox?.Tag?.ToString() == "Date")
+        {
+            if (!Regex.IsMatch(textBox.Text, @"^\d{2}/\d{2}/\d{4}$"))
+            {
+                /*MessageBox.Show("Por favor ingrese formato valido: \"DD/MM/YYYY\" \nEjemplo: \"22/12/2021\"",
+                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
+                e.Handled = true;
+                textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }else
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }

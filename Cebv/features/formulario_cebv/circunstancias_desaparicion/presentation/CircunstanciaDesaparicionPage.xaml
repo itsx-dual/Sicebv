@@ -90,7 +90,7 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición aproximada:" />
-                            <ui:TextBox Text="{Binding FechaDesaparicionCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" />
+                            <ui:TextBox Text="{Binding FechaDesaparicionCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -108,7 +108,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato aproximada:" />
-                            <ui:TextBox Text="{Binding FechaPercatoCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" />
+                            <ui:TextBox Text="{Binding FechaPercatoCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
