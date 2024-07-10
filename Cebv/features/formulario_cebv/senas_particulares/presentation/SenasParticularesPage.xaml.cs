@@ -22,8 +22,8 @@ public partial class SenasParticularesPage : Page
             Color colorRegionCuerpo = this.GetPixelColor(RegionCuerpoImage, posicion);
             Color colorLado = this.GetPixelColor(LadoImage, posicion);
 
-            ((dynamic)this.DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
-            ((dynamic)this.DataContext).ColorLado = colorLado.ToString().Substring(3);
+            ((SenasParticularesViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
+            ((SenasParticularesViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
         }
     }
     

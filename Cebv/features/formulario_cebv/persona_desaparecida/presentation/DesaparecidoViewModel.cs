@@ -16,8 +16,7 @@ public partial class DesaparecidoViewModel : ObservableObject
 { 
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido;
     
@@ -135,14 +134,14 @@ public partial class DesaparecidoViewModel : ObservableObject
             Desaparecido.Persona.Nacionalidades.Add(new Catalogo());
         }
         
-        if ((bool) !Desaparecido.Persona?.Direcciones?.Any()!)
+        if (Desaparecido.Persona?.Direcciones != null && (bool) !Desaparecido.Persona?.Direcciones?.Any())
         {
             Desaparecido.Persona?.Direcciones?.Add(new Direccion());
         }
         else
         {
-            EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?[0]
-                .Equals(Reporte.Reportantes?[0].Persona.Direcciones?[0]) ?? false;
+            EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?
+                .Equals(Reporte.Reportantes?.FirstOrDefault()?.Persona.Direcciones?.FirstOrDefault()) ?? false;
             
             EstadoSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
             MunicipioSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;

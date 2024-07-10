@@ -1,3 +1,4 @@
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -43,9 +44,7 @@ public partial class HechosDesaparicionResponse : ObservableObject
         SintesisDesaparicion = sintesisDesaparicion;
     }
 
-    public HechosDesaparicionResponse()
-    {
-    }
+    public HechosDesaparicionResponse() { }
 
     [ObservableProperty, JsonProperty("id")]
     private int? _id;
@@ -94,4 +93,7 @@ public partial class HechosDesaparicionResponse : ObservableObject
 
     [ObservableProperty, JsonProperty("sintesis_desaparicion")]
     private string? _sintesisDesaparicion;
+    
+    [ObservableProperty, JsonProperty("lugar_hechos")]
+    private Direccion? _lugarHechos = new();
 }

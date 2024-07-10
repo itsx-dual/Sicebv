@@ -6,6 +6,7 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -36,7 +37,20 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ui:TextBlock Grid.Row="0" Text="{StaticResource EncuadreTitle}" FontTypography="TitleLarge" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ui:TextBlock Grid.Column="0" 
+                          Text="{StaticResource EncuadreTitle}" FontTypography="TitleLarge"/>
+            <ui:Button Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Content="Guardar reporte"
+                       Icon="{ui:SymbolIcon Save24}"
+                       Appearance="Primary"
+                       Command="{Binding GuardarReporteCommand}"/>
+        </Grid>
 
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Inicio" FontTypography="Title" Margin="10" />
@@ -45,14 +59,14 @@
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO: *" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TipoMedio}"
+                                  SelectedItem="{Binding TipoMedioSelected}"
                                   ItemsSource="{Binding TiposMedios}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="MEDIO DE CONOCIMIENTO ESPECÍFICO: *" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding Medio}"
+                                  SelectedItem="{Binding Reporte.MedioConocimiento}"
                                   ItemsSource="{Binding Medios}" />
                     </StackPanel>
                 </WrapPanel>
@@ -65,18 +79,18 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
-                            <ui:TextBox Text="{Binding NombreR}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" />
                         </StackPanel>
 
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
-                            <ui:TextBox Text="{Binding ApellidoPaternoR}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
-                            <ui:TextBox Text="{Binding ApellidoMaternoR}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -84,14 +98,14 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEXO:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding SexoR}"
-                                      ItemsSource="{Binding SexosR}" />
+                                      SelectedItem="{Binding Reportante.Persona.Sexo}"
+                                      ItemsSource="{Binding Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿USTED QUE ES DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Parentesco}"
+                                      SelectedItem="{Binding Reportante.Parentesco}"
                                       ItemsSource="{Binding Parentescos}" />
                         </StackPanel>
                     </WrapPanel>
@@ -99,22 +113,28 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"
+                                        Text="{Binding NoTelefonoReportante}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPAÑÍA:" />
-                            <ComboBox />
+                            <ComboBox ItemsSource="{Binding CompaniasTelefonicas}"
+                                      SelectedItem="{Binding CompañiaTelefonicaReportanteSelected}"
+                                      DisplayMemberPath="Nombre"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"
+                                        Text="{Binding ObservacionesTelefonoReportante}"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
                                    Appearance="Primary"
-                                   Margin="0 15 0 0" />
+                                   Margin="0 15 0 0"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   Command="{Binding AddTelefonoMovilReportanteCommand}"/>
                     </WrapPanel>
                 </StackPanel>
             </Border>
@@ -126,18 +146,18 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
-                            <ui:TextBox Text="{Binding NombreD}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}" />
                         </StackPanel>
 
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
-                            <ui:TextBox Text="{Binding ApellidoPaternoD}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
-                            <ui:TextBox Text="{Binding ApellidoMaternoD}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -145,8 +165,8 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEXO:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding SexoD}"
-                                      ItemsSource="{Binding SexosD}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Sexo}"
+                                      ItemsSource="{Binding Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -154,7 +174,7 @@
                             <ComboBox Width="250"
                                       IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Nacionaliad}"
+                                      SelectedItem="{Binding Desaparecido.Persona.Nacionalidades[0]}"
                                       ItemsSource="{Binding Nacionalidades}" />
                         </StackPanel>
                     </WrapPanel>
@@ -162,16 +182,17 @@
                     <ui:ToggleSwitch Margin="0 15 0 0"
                                      OnContent="¿SE DESCONOCE FECHA EXACTA? Sí"
                                      OffContent="¿SE DESCONOCE FECHA EXACTA? No"
-                                     IsChecked="{Binding FechaAproximada }" />
+                                     IsChecked="{Binding SeConoceFechaNacimientoDesaparecido}"/>
 
                     <!-- Fecha exacta -->
                     <StackPanel Margin="0 15 0 15"
-                                Visibility="{Binding FechaAproximada,
+                                Visibility="{Binding SeConoceFechaNacimientoDesaparecido,
                                     Converter={StaticResource VisibilityConverter}}">
                         <WrapPanel>
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker IsTodayHighlighted="True"
+                                            SelectedDate="{Binding Desaparecido.Persona.FechaNacimiento}"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -217,7 +238,7 @@
 
                     <!-- Fecha aproximada -->
                     <StackPanel Margin="0 15 0 15"
-                                Visibility="{Binding FechaAproximada,
+                                Visibility="{Binding SeConoceFechaNacimientoDesaparecido,
                                     Converter={StaticResource VisibilityConverter2}}">
                         <WrapPanel>
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -277,27 +298,33 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"
+                                        Text="{Binding NoTelefonoDesaparecido}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPAÑÍA:" />
-                            <ComboBox />
+                            <ComboBox ItemsSource="{Binding CompaniasTelefonicas}"
+                                      DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"
+                                        Text="{Binding ObservacionesTelefonoDesaparecido}"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
                                    Appearance="Primary"
-                                   Margin="0 15 0 0" />
+                                   Margin="0 15 0 0"
+                                   Icon="{ui:SymbolIcon Add24}"
+                                   Command="{Binding  AddTelefonoMovilDesaparecidoCommand}"/>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="CURP:" />
-                        <ui:TextBox Text="{Binding Curp}" />
+                        <ui:TextBox Text="{Binding Desaparecido.Persona.Curp}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -306,36 +333,39 @@
             <ui:ToggleSwitch Margin="25 15 0 15"
                              OnContent="¿SE DESCONOCE FECHA EXACTA? Sí"
                              OffContent="¿SE DESCONOCE FECHA EXACTA? No"
-                             IsChecked="{Binding FechaAproximada2  }" />
+                             IsChecked="{Binding SeConoceFechaExactaHechos}" />
 
             <Border>
                 <StackPanel Margin="5">
                     <StackPanel
-                        Visibility="{Binding FechaAproximada2,
+                        Visibility="{Binding SeConoceFechaExactaHechos,
                     Converter={StaticResource VisibilityConverter}}">
 
                         <StackPanel Margin="5">
                             <WrapPanel Margin="0 0 0 15">
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="FECHA DESAPARICIÓN: *" />
-                                    <DatePicker IsTodayHighlighted="True" />
+                                    <DatePicker IsTodayHighlighted="True"
+                                                SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"/>
                                 </StackPanel>
 
                                 <StackPanel MinWidth="250">
                                     <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                                    <ui:TextBox Icon="{ui:SymbolIcon Clock24}" />
+                                    <ui:TextBox Icon="{ui:SymbolIcon Clock24}"
+                                                Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicion.TimeOfDay}"/>
                                 </StackPanel>
                             </WrapPanel>
 
                             <StackPanel>
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True"
+                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel
-                        Visibility="{Binding FechaAproximada,
+                        Visibility="{Binding SeConoceFechaExactaHechos,
                 Converter={StaticResource VisibilityConverter2}}">
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -364,27 +394,32 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox ClearButtonEnabled="True"
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox ClearButtonEnabled="True"
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox ClearButtonEnabled="True"
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroInterior}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox ClearButtonEnabled="True"
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Colonia}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="CÓDIGO POSTAL:" />
-                                <ui:TextBox ClearButtonEnabled="True" />
+                                <ui:TextBox ClearButtonEnabled="True"
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.CodigoPostal}"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -392,21 +427,32 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ESTADO:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Estado}"
+                                          SelectedItem="{Binding EstadoSelected}"
                                           ItemsSource="{Binding Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="MUNICIPIO: *" />
-                                <ComboBox SelectedItem="{Binding Municipio}"
-                                          ItemsSource="{Binding Municipios}" />
+                                <ComboBox SelectedItem="{Binding MunicipioSelected}"
+                                          ItemsSource="{Binding Municipios}"
+                                          IsTextSearchEnabled="True">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <TextBlock Text="{Binding Id}"/>
+                                                <TextBlock Text=" - "/>
+                                                <TextBlock Text="{Binding Nombre}"/>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="LOCALIDAD:" />
-                                <ComboBox IsEditable="True"
+                                <ComboBox IsTextSearchEnabled="True"
                                           DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Asentamiento}"
+                                          SelectedItem="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento}"
                                           ItemsSource="{Binding Asentamientos}" />
                             </StackPanel>
 
@@ -424,34 +470,35 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
-                                <ui:TextBox Text="{Binding EntreCalle1}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle1}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
-                                <ui:TextBox Text="{Binding EntreCalle2}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle2}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
-                                <ui:TextBox Text="{Binding TramoCarretero}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.TramoCarretero}"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
-                            <ui:TextBox Text="{Binding Referencia}" />
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Referencia}"/>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="CIRCUNSTANCIAS DE LA DESAPARICIÓN: *" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150"
+                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                        <ui:NumberBox Value="1" />
+                        <ui:NumberBox Value="1"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -507,16 +554,359 @@
 
             <ui:TextBlock Text="Señas particulares" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
-                <StackPanel Margin="5">
-                    <ui:TextBlock Text="TO DO" FontTypography="Subtitle" Margin="10" />
-                </StackPanel>
+                <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource SenasParticularesTitle}" FontTypography="TitleLarge" />
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.2*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.2*" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      Grid.Column="0"
+                      Margin="10"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      MaxWidth="500">
+
+                    <ui:Image Source="/core/resources/images/senas/Cuerpo MapingSide.png"
+                              x:Name="LadoImage"
+                              CornerRadius="8"
+                              Stretch="Uniform" />
+
+                    <ui:Image Source="/core/resources/images/senas/RegionCuerpoColorMejorado.png"
+                              x:Name="RegionCuerpoImage"
+                              CornerRadius="8"
+                              Stretch="Uniform" />
+
+                    <ui:Image Source="/core/resources/images/senas/CuerpoUNIXMejorado.png"
+                              CornerRadius="8"
+                              BorderBrush="#000000"
+                              Stretch="Uniform" />
+                </Grid>
+
+                <Grid Grid.Row="0"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <!-- Tipo de seña -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <!-- Region cuerpo -->
+                                <ui:TextBlock Text="Región del cuerpo:"
+                                              Margin="10,10,0,0" />
+                                <ComboBox Margin="5,0,5,0"
+                                          DisplayMemberPath="Nombre"
+                                          SelectedValue="{Binding RegionCuerpoSelected}"
+                                          ItemsSource="{Binding RegionesCuerpo}"/>
+                                
+                                <!-- Vista -->
+                                <ui:TextBlock Text="Vista:"
+                                              Margin="10,10,0,0" />
+                                <ComboBox Margin="5,0,5,0"
+                                          DisplayMemberPath="Nombre"
+                                          SelectedValue="{Binding VistaSelected}"
+                                          ItemsSource="{Binding Vistas}" />
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <ui:TextBlock Text="Lado:"
+                                              Margin="10,10,0,0" />
+                                <ComboBox Margin="5,0,5,0"
+                                          DisplayMemberPath="Nombre"
+                                          SelectedValue="{Binding LadoSelected}"
+                                          ItemsSource="{Binding Lados}" />
+
+                                <!-- Cantidad -->
+                                <ui:TextBlock Text="Cantidad:"
+                                              Margin="10,10,0,0" />
+                                <ui:NumberBox Margin="5,0,5,0"
+                                              Value="{Binding Cantidad}"
+                                              Tag="Number"/>
+
+                            </StackPanel>
+                        </Grid>
+                        
+                        <ui:TextBlock Text="Tipo de seña:"
+                                      Margin="10,10,0,0" />
+                        <ComboBox Margin="5,0,5,0"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValue="{Binding TipoSelected}"
+                                  ItemsSource="{Binding Tipos}" />
+
+                        
+                        <!-- Descripcion -->
+                        <ui:TextBlock Text="Descripción:"
+                                      Margin="10,10,0,0" />
+                        <TextBox Margin="10"
+                                 VerticalAlignment="Stretch"
+                                 Height="100"
+                                 Text="{Binding Descripcion}"
+                                 TextWrapping="Wrap" />
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="10">
+                            <ui:Button Content="Eliminar"
+                                       Margin="5,0,0,0"
+                                       Icon="{ui:SymbolIcon Delete24}"
+                                       Appearance="Danger" />
+                            <ui:Button Content="Subir imagen"
+                                       Margin="5,0,0,0"
+                                       Icon="{ui:SymbolIcon ArrowUpload24}" />
+                            <ui:Button Content="Agregar registro"
+                                       Margin="5,0,0,0"
+                                       Command="{Binding AddSenaParticularCommand}"
+                                       Icon="{ui:SymbolIcon Add24}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <DataGrid Grid.Row="1"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="10,0,10,10"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Region del cuerpo"
+                                            CanUserResize="False"
+                                            Width="*"
+                                            Binding="{Binding RegionCuerpo.Nombre}" />
+                        <DataGridTextColumn Header="Vista"
+                                            CanUserResize="False"
+                                            Width="*"
+                                            Binding="{Binding Vista.Nombre}" />
+                        <DataGridTextColumn Header="Lado"
+                                            CanUserResize="False"
+                                            Width="*"
+                                            Binding="{Binding Lado.Nombre}" />
+                        <DataGridTextColumn Header="Tipo"
+                                            CanUserResize="False"
+                                            Width="*"
+                                            Binding="{Binding Tipo.Nombre}" />
+                        <DataGridTextColumn Header="Cantidad"
+                                            CanUserResize="False"
+                                            Width="*"
+                                            Binding="{Binding Cantidad}" />
+                        <DataGridTextColumn Header="Descripcion"
+                                            CanUserResize="False"
+                                            Width="3*"
+                                            Binding="{Binding Descripcion}" />
+                        <DataGridTextColumn Header="Fotografia"
+                                            CanUserResize="False"
+                                            Width="*"
+                                            Binding="{Binding Foto}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ui:Button Icon="{ui:SymbolIcon Delete24}"
+                                               Appearance="Danger"
+                                               Margin="3"
+                                               Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
+                                               CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </StackPanel>
+    </Grid>
             </Border>
 
             <ui:TextBlock Text="Vestimenta" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
-                <StackPanel Margin="5">
-                    <ui:TextBlock Text="TO DO" FontTypography="Subtitle" Margin="10" />
-                </StackPanel>
+                <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource PrendasVestirTitle}" FontTypography="TitleLarge" />
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <Border Style="{StaticResource CebvBorder}">
+                <UniformGrid Columns="2">
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="Grupo pertenencia:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding GrupoPertenencia }"
+                                      ItemsSource="{Binding GruposPertenencias}" />
+                        </StackPanel>
+
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="Pertenencia:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Pertenencia }"
+                                      ItemsSource="{Binding Pertenencias}" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="Color:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Color }"
+                                      ItemsSource="{Binding Colores}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <StackPanel Margin="0 0 0 15">
+                            <ui:TextBlock Text="Marca:" />
+                            <ui:TextBox Text="{Binding Marca}" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ui:TextBlock Text="Descripción:" />
+                            <ui:TextBox Text="{Binding Descripcion}"
+                                        TextWrapping="Wrap"
+                                        MinHeight="100"
+                                        AcceptsReturn="True" />
+                        </StackPanel>
+                        
+                        <!-- Botones de edición -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Visibility="{Binding ModoEdicion,
+                                            Converter={StaticResource VisibilityConverter2}}"
+                                    Margin="10">
+                            <ui:Button VerticalAlignment="Stretch"
+                                       Appearance="Secondary"
+                                       Icon="{ui:SymbolIcon Dismiss24 }"
+                                       MinWidth="50"
+                                       Margin="5"
+                                       Command="{Binding CancelarEdicionCommand}"
+                                       CommandParameter="{Binding}" />
+
+                            <ui:Button VerticalAlignment="Stretch"
+                                       Appearance="Primary"
+                                       Icon="{ui:SymbolIcon Checkmark24}"
+                                       MinWidth="50"
+                                       Margin="5"
+                                       Command="{Binding ConfirmarEdicionCommand}"
+                                       CommandParameter="{Binding}" />
+                        </StackPanel>
+
+                        <ui:Button
+                            Visibility="{Binding ModoEdicion,
+                               Converter={StaticResource VisibilityConverter}}"
+                            Content="Añadir"
+                            Margin="10"
+                            HorizontalAlignment="Right"
+                            Command="{Binding AddPrendaCommand}"
+                            Icon="{ui:SymbolIcon Add24}"
+                            Appearance="Success" />
+                    </StackPanel>
+                </UniformGrid>
+            </Border>
+
+            <ui:CardExpander Icon="{ui:SymbolIcon Tag24}" Margin="0 0 0 15">
+                <ui:CardExpander.Header>
+                    <ui:TextBlock Text="Prendas" FontTypography="Subtitle" />
+                </ui:CardExpander.Header>
+
+                <ui:ListView
+                    HorizontalAlignment="Stretch"
+                    MaxHeight="250"
+                    ItemsSource="{Binding Prendas, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ui:CardControl
+                                    Margin="5 5 120 5"
+                                    Padding="10"
+                                    Icon="{ui:SymbolIcon Tag24}"
+                                    HorizontalAlignment="Stretch">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <ui:TextBlock
+                                                Appearance="Secondary"
+                                                Text="{Binding GrupoPertenencia.Nombre}"
+                                                TextWrapping="Wrap" />
+
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:TextBlock
+                                                    Margin="0 0 10 0"
+                                                    FontTypography="Subtitle"
+                                                    Text="{Binding Pertenencia.Nombre}"
+                                                    TextWrapping="Wrap" />
+
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    FontTypography="Subtitle"
+                                                    Text="{Binding Color.Nombre}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
+
+                                            <ui:TextBlock
+                                                Appearance="Secondary"
+                                                Text="{Binding Marca}"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </StackPanel>
+
+                                    </ui:CardControl.Header>
+                                    <StackPanel>
+                                        <ui:TextBlock
+                                            Appearance="Tertiary"
+                                            Text="{Binding Descripcion}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </ui:CardControl>
+                                
+                                <!-- Botones de visualización -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                            Visibility="{Binding DataContext.ModoEdicion,
+                                            RelativeSource={RelativeSource AncestorType=ListView},
+                                            Converter={StaticResource VisibilityConverter}}">
+                                    <ui:Button VerticalAlignment="Stretch"
+                                               Appearance="Success"
+                                               Icon="{ui:SymbolIcon Edit24}"
+                                               MinWidth="50"
+                                               Margin="5"
+                                               Command="{Binding DataContext.ModoEdicionCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               CommandParameter="{Binding}" />
+
+                                    <ui:Button VerticalAlignment="Stretch"
+                                               Appearance="Danger"
+                                               Icon="{ui:SymbolIcon Delete24}"
+                                               MinWidth="50"
+                                               Margin="5"
+                                               Command="{Binding DataContext.RemovePrendaCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </ui:CardExpander>
+        </StackPanel>
+    </Grid>
             </Border>
 
             <ui:TextBlock Text="Fotografías" FontTypography="Title" Margin="10" />

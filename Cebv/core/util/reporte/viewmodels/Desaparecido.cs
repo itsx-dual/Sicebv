@@ -81,7 +81,7 @@ public partial class Desaparecido : ObservableObject
     private string? _reporteId;
 
     [ObservableProperty, JsonProperty(PropertyName = "persona")]
-    private Persona? _persona;
+    private Persona _persona = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "estatus_rpdno")]
     private EstatusPersona? _estatusRpdno;
