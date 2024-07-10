@@ -90,12 +90,14 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición aproximada:" />
-                            <ui:TextBox Text="{Binding FechaDesaparicionCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date"/>
+                            <ui:TextBox Text="{Binding FechaDesaparicionCebv}" 
+                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaDesaparicionAprox"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición para CNB:" />
-                            <DatePicker SelectedDate="{Binding FechaDesaparicion}" IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding FechaDesaparicion}" 
+                                        IsTodayHighlighted="True" x:Name="FechaDesaparicion"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -108,12 +110,14 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato aproximada:" />
-                            <ui:TextBox Text="{Binding FechaPercatoCebv}" Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date"/>
+                            <ui:TextBox Text="{Binding FechaPercatoCebv}" 
+                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaPercatoAprox"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato para CNB:" />
-                            <DatePicker SelectedDate="{Binding FechaPercato}" IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding FechaPercato}" 
+                                        IsTodayHighlighted="True" x:Name="FechaPercato"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">

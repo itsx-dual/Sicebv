@@ -276,14 +276,14 @@
                         <WrapPanel>
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de nacimiento aproximada:" />
-                                <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" />
+                                <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaAprox"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de nacimiento para CNB:" />
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDate="{Binding Desaparecido.FechaNacimiento, 
-                                            StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
+                                            StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" x:Name="DatePicker"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250">

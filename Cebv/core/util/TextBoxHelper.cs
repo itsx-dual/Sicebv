@@ -176,7 +176,7 @@ public class TextBoxHelper
             }
         }else if (textBox?.Tag?.ToString() == "Date")
         {
-            if (!Regex.IsMatch(textBox.Text, @"^\d{2}/\d{2}/\d{4}$"))
+            if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
             {
                 /*MessageBox.Show("Por favor ingrese formato valido: \"DD/MM/YYYY\" \nEjemplo: \"22/12/2021\"",
                     "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
