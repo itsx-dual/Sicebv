@@ -1,11 +1,30 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Text.Json;
 using Cebv.core.data;
 using Cebv.core.domain;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.core.util.reporte.viewmodels;
+using Newtonsoft.Json;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.core.modules.hipotesis.domain;
+
+[method: JsonConstructor]
+public class TiposHipotesisCall(ObservableCollection<TipoHipotesis> data)
+{
+    public ObservableCollection<TipoHipotesis> Data = data;
+}
+
+[method: JsonConstructor]
+public class SitiosCall(ObservableCollection<Catalogo> data)
+{
+    public ObservableCollection<Catalogo> Data = data;
+}
+
+[method: JsonConstructor]
+public class AreasCall(ObservableCollection<Catalogo> data)
+{
+    public ObservableCollection<Catalogo> Data = data;
+}
 
 public class HipotesisNetwork
 {
@@ -13,23 +32,40 @@ public class HipotesisNetwork
 
     public static async Task<ObservableCollection<TipoHipotesis>> GetTiposHipotesis()
     {
-        var request = await Client.GetAsync("api/tipos-hipotesis");
+        var request = new HttpRequestMessage
+        {
+            RequestUri = new Uri("/api/tipos-hipotesis", UriKind.Relative),
+            Method = HttpMethod.Get
+        };
 
-        var response = await request.Content.ReadAsStringAsync();
-
-        TiposHipotesisWrapped jsonResponse = JsonSerializer.Deserialize<TiposHipotesisWrapped>(response)!;
-
-        return jsonResponse.Data;
+        using var response = await Client.SendAsync(request);
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<TiposHipotesisCall>(json)?.Data!;
     }
 
     public static async Task<ObservableCollection<Catalogo>> GetSitios()
     {
-        var request = await Client.GetAsync("api/sitios");
+        var request = new HttpRequestMessage
+        {
+            RequestUri = new Uri("/api/sitios", UriKind.Relative),
+            Method = HttpMethod.Get
+        };
 
-        var response = await request.Content.ReadAsStringAsync();
+        using var response = await Client.SendAsync(request);
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<SitiosCall>(json)?.Data!;
+    }
 
-        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
+    public static async Task<ObservableCollection<Catalogo>> GetAreas()
+    {
+        var request = new HttpRequestMessage
+        {
+            RequestUri = new Uri("/api/areas", UriKind.Relative),
+            Method = HttpMethod.Get
+        };
 
-        return jsonResponse.Data;
+        using var response = await Client.SendAsync(request);
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<SitiosCall>(json)?.Data!;
     }
 }

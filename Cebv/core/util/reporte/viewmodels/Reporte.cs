@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.features.formulario_cebv.folio_expediente.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -118,11 +119,14 @@ public partial class Reporte : ObservableObject
     private HechosDesaparicionResponse? _hechosDesaparicion = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
-    private ObservableCollection<Hipotesis>? _hipotesis;
+    private ObservableCollection<Hipotesis>? _hipotesis = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "fecha_creacion")]
     private DateTime? _fechaCreacion;
 
     [ObservableProperty, JsonProperty(PropertyName = "fecha_actualizacion")]
     private DateTime? _fechaActualizacion;
+
+    [ObservableProperty, JsonProperty("folios")]
+    private ObservableCollection<FolioPretty>? _folios = new();
 }

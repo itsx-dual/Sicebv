@@ -1,16 +1,15 @@
-
-
 using System.Collections.ObjectModel;
 using System.IO;
-using Cebv.core.data;
 using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.domain;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using Cebv.features.formulario_cebv.control_ogpi.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using Catalogo = Cebv.core.data.Catalogo;
+using Estado = Cebv.core.modules.ubicacion.data.Estado;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
@@ -33,8 +32,8 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
     // Hipotesis
     [ObservableProperty] private ObservableCollection<TipoHipotesis> _tiposHipotesis = new();
-    [ObservableProperty] private TipoHipotesis _tipoHipotesisUno = new();
-    [ObservableProperty] private TipoHipotesis _tipoHipotesisDos = new();
+    [ObservableProperty] private TipoHipotesis _tipoHipotesisUno;
+    [ObservableProperty] private TipoHipotesis _tipoHipotesisDos;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _sitios = new();
     [ObservableProperty] private Catalogo _sitio = new();
