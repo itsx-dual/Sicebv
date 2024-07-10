@@ -1,49 +1,42 @@
 using System.Collections.ObjectModel;
-using Cebv.features.formulario_cebv.senas_particulares.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.senas_particulares.presentation;
 
 public partial class SenasParticularesViewModel : ObservableObject
 {
-    [ObservableProperty] private TipoSenas _tipoSenasSelected;
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Desaparecido _desaparecido;
 
-    [ObservableProperty]
-    private VistaSenas _vistaSenasSelected;
+    // Catalogos
+    [ObservableProperty] private ObservableCollection<Catalogo> _vistas;
+    [ObservableProperty] private ObservableCollection<Catalogo> _tipos;
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _lados;
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo;
 
-    [ObservableProperty]
-    private int _cantidad = 1;
-
-    [ObservableProperty]
-    private string _descripcion;
-
-    [ObservableProperty]
-    private string _colorRegionCuerpo;
-
-    [ObservableProperty]
-    private string _colorLado;
-
-    [ObservableProperty]
-    private Dictionary<string, RegionCuerpo> _regionCuerpo;
-
-    [ObservableProperty]
-    private ObservableCollection<TipoSenas> _tipoSenas;
-
-    [ObservableProperty]
-    private ObservableCollection<VistaSenas> _vistaSenas;
-
-    [ObservableProperty]
-    private Dictionary<string, LadoSenas> _ladoSenas;
+    // Valores seleccionados
+    [ObservableProperty] private Catalogo _vistaSelected;
+    [ObservableProperty] private Catalogo _tipoSelected;
+    [ObservableProperty] private CatalogoColor _regionCuerpoSelected;
+    [ObservableProperty] private CatalogoColor _ladoSelected;
+    
+    // Propiedades para insercion a lista
+    [ObservableProperty] private int _cantidad = 1;
+    [ObservableProperty] private string _descripcion;
+    [ObservableProperty] private string _colorRegionCuerpo;
+    [ObservableProperty] private string _colorLado;
 
     public SenasParticularesViewModel()
     {
-        SenasParticularesData = new ObservableCollection<SenasParticularesData>();
-        SenasParticularesTabla = new ObservableCollection<SenasParticularesTabla>();
-        
-        DefaultValues();
-        CargarCatalogos();
+        InitAsync();
     }
 
     private void DefaultValues()
@@ -54,51 +47,71 @@ public partial class SenasParticularesViewModel : ObservableObject
         Cantidad = 1;
     }
 
-    [RelayCommand]
-    public async void Insertar()
+    private async Task CargarCatalogos()
     {
-        SenasParticularesData.Add(new SenasParticularesData(
-            1,
-            (int)RegionCuerpo[ColorRegionCuerpo].id,
-            (int)VistaSenasSelected.id,
-            (int)LadoSenas[ColorLado].id,
-            (int)TipoSenasSelected.id,
-            Cantidad,
-            Descripcion,
-            "https://www.url.com"
-        ));
+        Vistas = await SenasParticularesNetwork.GetCatalogo("vistas");
+        Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
+        RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
+        Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
+    } 
 
-        SenasParticularesTabla.Add(new SenasParticularesTabla((string)
-            RegionCuerpo[ColorRegionCuerpo].nombre,
-            VistaSenasSelected.nombre,
-            LadoSenas[ColorLado].nombre,
-            TipoSenasSelected.nombre,
-            Cantidad,
-            Descripcion,
-            "https://www.url.com"
-        ));
-        
+    private async void InitAsync()
+    {
+        await CargarCatalogos();
         DefaultValues();
-    }
-    
-    public ObservableCollection<SenasParticularesData> SenasParticularesData { get; set; }
-    public ObservableCollection<SenasParticularesTabla> SenasParticularesTabla { get; set; }
-
-    public async void CargarCatalogos()
-    {
-        RegionCuerpo = await SenasParticularesNetwork.GetRegionCuerpo();;
-        TipoSenas = new ObservableCollection<TipoSenas>(await SenasParticularesNetwork.GetTipo());
-        VistaSenas = new ObservableCollection<VistaSenas>(await SenasParticularesNetwork.GetVista());
-        LadoSenas = await SenasParticularesNetwork.GetLado();
-    }
-
-    public async void CargarSenasParticulares()
-    {
-        SenasParticularesTabla = new ObservableCollection<SenasParticularesTabla>();
-        SenasParticularesData = new ObservableCollection<SenasParticularesData>(await SenasParticularesNetwork.GetSenasParticulares());
-        foreach (var senaParticular in SenasParticularesData)
+        Reporte = _reporteService.GetReporte();
+        
+        if (Reporte.Desaparecidos.Any())
         {
-            //TODO: Implementar representacion de lista para el datagrid.
+            Desaparecido = Reporte.Desaparecidos.First();
         }
+        else
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
+    }
+
+    partial void OnColorRegionCuerpoChanged(string value)
+    {
+        var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
+        RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+    }
+
+    partial void OnColorLadoChanged(string value)
+    {
+        var lado = Lados.FirstOrDefault(e => e.Color == value); 
+        LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
+    }
+
+    [RelayCommand]
+    private void OnAddSenaParticular()
+    {
+        Desaparecido.Persona.SenasParticulares.Add(new SenaParticular
+        {
+            Cantidad = Cantidad,
+            Descripcion = Descripcion,
+            Foto = null,
+            RegionCuerpo = RegionCuerpoSelected,
+            Vista = VistaSelected,
+            Lado = LadoSelected,
+            Tipo = TipoSelected
+        });
+        
+        Console.WriteLine(Desaparecido.Persona.SenasParticulares);
+    }
+
+    [RelayCommand]
+    private void OnDeleteSenaParticular(dynamic sena)
+    {
+        var senaParticular = sena as SenaParticular;
+        if (senaParticular != null) Desaparecido.Persona.SenasParticulares.Remove(senaParticular);
+    }
+
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

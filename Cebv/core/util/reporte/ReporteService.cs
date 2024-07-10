@@ -24,9 +24,10 @@ public class ReporteService : IReporteService
 
     public async Task<Reporte> Sync()
     {
-        _reporte = await ReporteServiceNetwork.Sync(_reporte);
+        var reporte = await ReporteServiceNetwork.Sync(_reporte);
+        if (reporte != null) _reporte = reporte;
         _estadoActual = EstadoReporte.Guardado;
-        return _reporte;
+        return reporte;
     } 
 
     public async Task<Reporte> Reload(int id)

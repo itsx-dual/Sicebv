@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
 using System.Text;
 using Cebv.core.domain;
 using Cebv.core.util.reporte.viewmodels;
@@ -40,7 +42,7 @@ public abstract class ReporteServiceNetwork
     {
         var json = JsonConvert.SerializeObject(reporte);
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n");
+        Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
 
         var request = new HttpRequestMessage
         {
