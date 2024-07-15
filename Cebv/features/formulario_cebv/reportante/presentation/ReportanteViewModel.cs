@@ -15,6 +15,7 @@ public partial class ReportanteViewModel : ObservableObject
 {
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Reportante _reportante;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
@@ -89,24 +90,29 @@ public partial class ReportanteViewModel : ObservableObject
         if (municipioId != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId);
 
         Reporte = reporte;
-        if (Reporte.Reportantes?.Count == 0)
+        if (Reporte.Reportantes.Count == 0)
         {
-            Reporte.Reportantes?.Add(new Reportante());
-        }
-
-        if (Reporte.Reportantes[0].Persona.Nacionalidades.Count == 0)
-        {
-            Reporte.Reportantes[0].Persona.Nacionalidades.Add(new Catalogo());
-        }
-        
-        if (!Reporte.Reportantes[0].Persona.Direcciones.Any())
-        {
-            Reporte.Reportantes[0].Persona.Direcciones.Add(new Direccion());
+            Reportante = new Reportante();
+            Reporte.Reportantes.Add(Reportante);
         }
         else
         {
-            EstadoSelected = Reporte.Reportantes[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
-            MunicipioSelected = Reporte.Reportantes[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
+            Reportante = Reporte.Reportantes[0];
+        }
+
+        if (Reportante.Persona.Nacionalidades.Count == 0)
+        {
+            Reportante.Persona.Nacionalidades.Add(new Catalogo());
+        }
+        
+        if (!Reportante.Persona.Direcciones.Any())
+        {
+            Reportante.Persona.Direcciones.Add(new Direccion());
+        }
+        else
+        {
+            EstadoSelected = Reportante.Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
+            MunicipioSelected = Reportante.Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
         }
 
         if (reporte.Reportantes?.FirstOrDefault()?.ParticipacionBusquedas == null)
@@ -129,10 +135,10 @@ public partial class ReportanteViewModel : ObservableObject
         
         EdadAproxmida = CalculateAge(reporte.Reportantes?.FirstOrDefault()?.Persona.FechaNacimiento);
         
-        TieneTelefonosMoviles = Reporte.Reportantes[0].Persona.Telefonos.Any(x => (bool)x.EsMovil!);
-        TieneTelefonosFijos = Reporte.Reportantes[0].Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
-        TieneCorreos = Reporte.Reportantes[0].Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
-        TienePertenenciasGrupales = Reporte.Reportantes[0].Persona.GruposVulnerables.Any();
+        TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
+        TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
+        TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
+        TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
     }
     
     public static int? CalculateAge(DateTime? birthDate)
@@ -148,7 +154,7 @@ public partial class ReportanteViewModel : ObservableObject
 
     partial void OnEdadAproxmidaChanged(int? value)
     {
-        if (Reporte.Reportantes != null) Reporte.Reportantes[0].EdadEstimada = value;
+        if (Reporte.Reportantes != null) Reportante.EdadEstimada = value;
     }
 
     partial void OnParticipoBusquedaChanged(bool? value)
@@ -156,10 +162,10 @@ public partial class ReportanteViewModel : ObservableObject
         switch (value)
         {
             case false:
-                Reporte.Reportantes[0].ParticipacionBusquedas = "";
+                Reportante.ParticipacionBusquedas = "";
                 break;
             case null:
-                Reporte.Reportantes[0].ParticipacionBusquedas = null;
+                Reportante.ParticipacionBusquedas = null;
                 break;
         };
     }
@@ -169,10 +175,10 @@ public partial class ReportanteViewModel : ObservableObject
         switch (value)
         {
             case false:
-                Reporte.Reportantes[0].DescripcionExtorsion = "";
+                Reportante.DescripcionExtorsion = "";
                 break;
             case null:
-                Reporte.Reportantes[0].DescripcionExtorsion = null;
+                Reportante.DescripcionExtorsion = null;
                 break;
         };
     }
@@ -182,10 +188,10 @@ public partial class ReportanteViewModel : ObservableObject
         switch (value)
         {
             case false:
-                Reporte.Reportantes[0].DescripcionDondeProviene = "";
+                Reportante.DescripcionDondeProviene = "";
                 break;
             case null:
-                Reporte.Reportantes[0].DescripcionDondeProviene = null;
+                Reportante.DescripcionDondeProviene = null;
                 break;
         };
     }

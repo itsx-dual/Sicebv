@@ -4,16 +4,17 @@ using Newtonsoft.Json;
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Catalogo : ObservableObject
+public partial class CatalogoColor : ObservableObject
 {
     [JsonConstructor]
-    public Catalogo(int id, string nombre)
+    public CatalogoColor(int id, string nombre, string color)
     {
         Id = id;
         Nombre = nombre;
+        Color = color;
     }
 
-    public Catalogo() { }
+    public CatalogoColor() { }
 
     public override bool Equals(object? obj)
     {
@@ -21,20 +22,17 @@ public partial class Catalogo : ObservableObject
         if (ReferenceEquals(obj, null)) return false; // Other object is null
         if (obj.GetType() != GetType()) return false; // Different types
 
-        return Equals((Catalogo) obj);
+        return Equals((CatalogoColor) obj);
     }
 
-    private bool Equals(Catalogo catalogo)
+    private bool Equals(CatalogoColor catalogo)
     {
         return Id == catalogo.Id &&
-               Nombre == catalogo.Nombre;
-    }
-
-    public override string ToString()
-    {
-        return $"{Nombre}";
+               Nombre == catalogo.Nombre &&
+               Color == catalogo.Color;
     }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int? _id;
     [ObservableProperty, JsonProperty(PropertyName = "nombre")] private string? _nombre;
+    [ObservableProperty, JsonProperty(PropertyName = "color")] private string? _color;
 }

@@ -29,11 +29,13 @@ public partial class Persona : ObservableObject
         Catalogo? lengua,
         Catalogo? escolaridad,
         Catalogo? estado_conyugal,
+        MediaFiliacion? media_filiacion,
         ObservableCollection<Apodo>? apodos,
         ObservableCollection<Catalogo>? nacionalidades,
         ObservableCollection<Catalogo>? grupos_vulnerables,
-        ObservableCollection<Telefono>? telefonos
-        )
+        ObservableCollection<Telefono>? telefonos,
+        ObservableCollection<SenaParticular>? senas_particulares
+    )
     {
         Id = id;
         Nombre = nombre;
@@ -59,6 +61,8 @@ public partial class Persona : ObservableObject
         Escolaridad = escolaridad;
         EstadoConyugal = estado_conyugal;
         GruposVulnerables = grupos_vulnerables;
+        SenasParticulares = senas_particulares;
+        MediaFiliacion = media_filiacion;
     }
 
     public Persona() { }
@@ -128,6 +132,9 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "estado_conyugal")]
     private Catalogo? _estadoConyugal;
     
+    [ObservableProperty, JsonProperty(PropertyName = "media_filiacion")]
+    private MediaFiliacion? _mediaFiliacion = new();
+    
     [ObservableProperty, JsonProperty(PropertyName = "nivel_escolaridad")]
     private string? _nivelEscolaridad;
     
@@ -142,4 +149,7 @@ public partial class Persona : ObservableObject
     
     [ObservableProperty, JsonProperty(PropertyName = "grupos_vulnerables")]
     private ObservableCollection<Catalogo>? _gruposVulnerables = new();
+    
+    [ObservableProperty, JsonProperty(PropertyName = "senas_particulares")]
+    private ObservableCollection<SenaParticular> _senasParticulares = [];
 }

@@ -56,8 +56,8 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
     }
 
-    async partial void OnEstadoChanged(Estado value) =>
-        Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
+    //async partial void OnEstadoChanged(Estado value) =>
+    //    Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
 
 
     /**

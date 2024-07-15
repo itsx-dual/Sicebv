@@ -13,7 +13,14 @@ public partial class Municipio : ObservableObject
       Nombre = nombre;
       Estado = estado;
    }
-   
+
+   public Municipio() { }
+
+   public override string ToString()
+   {
+      return $"{Nombre} - {Id}";
+   }
+
    public override bool Equals(object? obj)
    {
       if (ReferenceEquals(this, obj)) return true; // Same object reference

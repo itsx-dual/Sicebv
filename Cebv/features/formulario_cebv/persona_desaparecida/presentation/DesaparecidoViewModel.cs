@@ -16,8 +16,7 @@ public partial class DesaparecidoViewModel : ObservableObject
 { 
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido;
     
@@ -34,6 +33,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposRedesSociales = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposOcupaciones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
     [ObservableProperty] private ObservableCollection<Ocupacion> _ocupacionesPrincipales = new();
     [ObservableProperty] private ObservableCollection<Ocupacion> _ocupacionesSecundarias = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
@@ -108,6 +108,7 @@ public partial class DesaparecidoViewModel : ObservableObject
         Colectivos = await DesaparecidoNetwork.GetCatalogo("colectivos");
         Religiones = await DesaparecidoNetwork.GetCatalogo("religiones");
         Lenguas = await DesaparecidoNetwork.GetCatalogo("lenguas");
+        RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
         Nacionalidades = await DesaparecidoNetwork.GetCatalogo("nacionalidades");
         Escolaridades = await DesaparecidoNetwork.GetCatalogo("escolaridades");
         EstadosConyugales = await DesaparecidoNetwork.GetCatalogo("estados-conyugales");
@@ -135,14 +136,14 @@ public partial class DesaparecidoViewModel : ObservableObject
             Desaparecido.Persona.Nacionalidades.Add(new Catalogo());
         }
         
-        if ((bool) !Desaparecido.Persona?.Direcciones?.Any()!)
+        if (Desaparecido.Persona?.Direcciones != null && (bool) !Desaparecido.Persona?.Direcciones?.Any())
         {
             Desaparecido.Persona?.Direcciones?.Add(new Direccion());
         }
         else
         {
-            EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?[0]
-                .Equals(Reporte.Reportantes?[0].Persona.Direcciones?[0]) ?? false;
+            EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?
+                .Equals(Reporte.Reportantes?.FirstOrDefault()?.Persona.Direcciones?.FirstOrDefault()) ?? false;
             
             EstadoSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
             MunicipioSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
@@ -349,7 +350,6 @@ public partial class DesaparecidoViewModel : ObservableObject
             EdadAnos--;
             EdadMeses += 12;
         }
-
     }
 
     [RelayCommand]

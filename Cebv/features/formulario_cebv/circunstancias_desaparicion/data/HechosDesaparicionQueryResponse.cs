@@ -1,3 +1,4 @@
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -26,6 +27,7 @@ public partial class HechosDesaparicionResponse : ObservableObject
         string? informacionRelevante,
         string? hechosDesaparicion,
         string? sintesisDesaparicion,
+        int? cantidad_desaparecidos,
         bool? desaparecioAcompanado,
         int? personasMismoEvento
     )
@@ -50,17 +52,19 @@ public partial class HechosDesaparicionResponse : ObservableObject
         SintesisDesaparicion = sintesisDesaparicion;
         DesaparecioAcompanado = desaparecioAcompanado;
         PersonasMismoEvento = personasMismoEvento;
+        CantidadDesaparecidos = cantidad_desaparecidos;
     }
 
-    public HechosDesaparicionResponse()
-    {
-    }
+    public HechosDesaparicionResponse() { }
 
     [ObservableProperty, JsonProperty("id")]
     private int? _id;
 
     [ObservableProperty, JsonProperty("reporte_id")]
     private int? _reporteId;
+    
+    [ObservableProperty, JsonProperty("cantidad_desaparecidos")]
+    private int? _cantidadDesaparecidos;
 
     [ObservableProperty, JsonProperty("fecha_desaparicion")]
     private DateTime? _fechaDesaparicion;
@@ -110,9 +114,18 @@ public partial class HechosDesaparicionResponse : ObservableObject
     [ObservableProperty, JsonProperty("sintesis_desaparicion")]
     private string? _sintesisDesaparicion;
 
+    [ObservableProperty, JsonProperty("lugar_hechos")]
+    private Direccion? _lugarHechos = new();
+    
     [ObservableProperty, JsonProperty("desaparecio_acompanado")]
     private bool? _desaparecioAcompanado;
 
     [ObservableProperty, JsonProperty("personas_mismo_evento")]
     private int? _personasMismoEvento;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "fecha_desaparicion_aproximada")]
+    private DateTime? _fechaDesaparicionAproximada;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "observaciones_fecha_desaparicion")]
+    private string? _observacionesFechaDesaparicion;
 }

@@ -110,13 +110,13 @@ public partial class Reporte : ObservableObject
     private string? _institucionOrigen;
 
     [ObservableProperty, JsonProperty(PropertyName = "reportantes")]
-    private ObservableCollection<Reportante>? _reportantes = new();
+    private ObservableCollection<Reportante> _reportantes = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "desaparecidos")]
-    private ObservableCollection<Desaparecido>? _desaparecidos = new();
+    private ObservableCollection<Desaparecido> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechosDesaparicionResponse? _hechosDesaparicion;
+    private HechosDesaparicionResponse? _hechosDesaparicion = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
     private ObservableCollection<Hipotesis>? _hipotesis = new();
