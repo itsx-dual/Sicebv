@@ -27,6 +27,7 @@ public partial class HechosDesaparicionResponse : ObservableObject
         string? informacionRelevante,
         string? hechosDesaparicion,
         string? sintesisDesaparicion,
+        int? cantidad_desaparecidos,
         bool? desaparecioAcompanado,
         int? personasMismoEvento
     )
@@ -51,6 +52,7 @@ public partial class HechosDesaparicionResponse : ObservableObject
         SintesisDesaparicion = sintesisDesaparicion;
         DesaparecioAcompanado = desaparecioAcompanado;
         PersonasMismoEvento = personasMismoEvento;
+        CantidadDesaparecidos = cantidad_desaparecidos;
     }
 
     public HechosDesaparicionResponse() { }
@@ -60,6 +62,9 @@ public partial class HechosDesaparicionResponse : ObservableObject
 
     [ObservableProperty, JsonProperty("reporte_id")]
     private int? _reporteId;
+    
+    [ObservableProperty, JsonProperty("cantidad_desaparecidos")]
+    private int? _cantidadDesaparecidos;
 
     [ObservableProperty, JsonProperty("fecha_desaparicion")]
     private DateTime? _fechaDesaparicion;
@@ -117,4 +122,10 @@ public partial class HechosDesaparicionResponse : ObservableObject
 
     [ObservableProperty, JsonProperty("personas_mismo_evento")]
     private int? _personasMismoEvento;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "fecha_desaparicion_aproximada")]
+    private DateTime? _fechaDesaparicionAproximada;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "observaciones_fecha_desaparicion")]
+    private string? _observacionesFechaDesaparicion;
 }

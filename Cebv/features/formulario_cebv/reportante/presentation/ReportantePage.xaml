@@ -211,13 +211,12 @@
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Teléfonos móviles" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
-                        <ui:ListView
-                            HorizontalAlignment="Stretch"
-                            MaxHeight="250"
-                            ItemsSource="{Binding Source={StaticResource TelefonosMoviles}}"
-                            SelectionMode="Single">
+                        <ui:ListView HorizontalAlignment="Stretch"
+                                     MaxHeight="250"
+                                     ItemsSource="{Binding Source={StaticResource TelefonosMoviles}}"
+                                     SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type viewmodels:Telefono}">
+                                <DataTemplate>
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"

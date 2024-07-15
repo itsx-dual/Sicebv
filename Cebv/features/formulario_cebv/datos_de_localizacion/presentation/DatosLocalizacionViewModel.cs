@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Catalogo = Cebv.core.data.Catalogo;
 using Estado = Cebv.core.modules.ubicacion.data.Estado;
+using Municipio = Cebv.core.util.reporte.viewmodels.Municipio;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
@@ -53,8 +54,8 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
     }
 
-    async partial void OnEstadoChanged(Estado value) =>
-        Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
+    //async partial void OnEstadoChanged(Estado value) =>
+    //    Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
 
 
     /**

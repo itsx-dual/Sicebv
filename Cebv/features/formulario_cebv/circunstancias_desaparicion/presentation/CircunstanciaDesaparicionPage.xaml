@@ -51,6 +51,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición:" />
+                            <!-- TODO: Requerido -->
                             <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
@@ -146,6 +147,11 @@
                         <RadioButton Content="Mismo domicilio que la persona reportante" Margin="5" />
                         <RadioButton Content="Mismo domicilio que la persona desaparecida" Margin="5" />
                         <RadioButton Content="Otro domicilio" Margin="5" />
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Tipo de domicilio:" />
+                            <ComboBox ItemsSource="{Binding TiposDomicilio}"
+                                      DisplayMemberPath="Nombre"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel>
@@ -182,12 +188,14 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Estado:" />
+                                <!-- TODO: Requerido -->
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Ubicacion.Estado}"
                                           ItemsSource="{Binding Ubicacion.Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <!-- TODO: Requerido -->
                                 <ui:TextBlock Text="Municipio:" />
                                 <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
                                           ItemsSource="{Binding Ubicacion.Municipios}" />
@@ -343,7 +351,7 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Área que codifica sitio inicial:" />
+                            <ui:TextBlock Text="Área que codifica:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Area}"
                                       ItemsSource="{Binding Hipotesis.Areas}" />
@@ -404,6 +412,7 @@
                                    Margin="0 15 0 0" />
                     </WrapPanel>
 
+                    <!-- TODO: Clarificar que las personas que aparecen son para relacionar con expedientes directos-->
                     <ui:ListView
                         HorizontalAlignment="Stretch"
                         MaxHeight="400"
@@ -463,11 +472,10 @@
                             <ui:TextBlock Text="Expedientes directos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
 
-                        <ui:ListView
-                            HorizontalAlignment="Stretch"
-                            MaxHeight="250"
-                            ItemsSource="{Binding ExpedienteDirecto.Expedientes, Mode=TwoWay}"
-                            SelectionMode="Single">
+                        <ui:ListView HorizontalAlignment="Stretch"
+                                     MaxHeight="250"
+                                     ItemsSource="{Binding ExpedienteDirecto.Expedientes, Mode=TwoWay}"
+                                     SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate DataType="{x:Type presentation:Expediente}">
                                     <Grid>

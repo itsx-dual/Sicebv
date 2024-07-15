@@ -51,12 +51,12 @@ public partial class PrendasViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
-        Colores = await PrendasNetwork.GetColores();
+        //GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
+        //Colores = await PrendasNetwork.GetColores();
     }
 
-    async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
-        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
+    //async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
+        //Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
 
     /**
      * Añadir y eliminar prendas

@@ -33,6 +33,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposRedesSociales = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposOcupaciones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
     [ObservableProperty] private ObservableCollection<Ocupacion> _ocupacionesPrincipales = new();
     [ObservableProperty] private ObservableCollection<Ocupacion> _ocupacionesSecundarias = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
@@ -107,6 +108,7 @@ public partial class DesaparecidoViewModel : ObservableObject
         Colectivos = await DesaparecidoNetwork.GetCatalogo("colectivos");
         Religiones = await DesaparecidoNetwork.GetCatalogo("religiones");
         Lenguas = await DesaparecidoNetwork.GetCatalogo("lenguas");
+        RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
         Nacionalidades = await DesaparecidoNetwork.GetCatalogo("nacionalidades");
         Escolaridades = await DesaparecidoNetwork.GetCatalogo("escolaridades");
         EstadosConyugales = await DesaparecidoNetwork.GetCatalogo("estados-conyugales");
@@ -348,7 +350,6 @@ public partial class DesaparecidoViewModel : ObservableObject
             EdadAnos--;
             EdadMeses += 12;
         }
-
     }
 
     [RelayCommand]

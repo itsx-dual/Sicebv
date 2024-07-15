@@ -214,7 +214,7 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Área que codifica sitio final:" />
+                            <ui:TextBlock Text="Área que codifica:" />
                             <ui:TextBox Text="{Binding AreaCodifica}" />
                         </StackPanel>
                         

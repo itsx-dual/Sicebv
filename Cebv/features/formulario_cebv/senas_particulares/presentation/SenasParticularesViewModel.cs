@@ -27,12 +27,12 @@ public partial class SenasParticularesViewModel : ObservableObject
     [ObservableProperty] private Catalogo _tipoSelected;
     [ObservableProperty] private CatalogoColor _regionCuerpoSelected;
     [ObservableProperty] private CatalogoColor _ladoSelected;
+    [ObservableProperty] private string _colorRegionCuerpo;
+    [ObservableProperty] private string _colorLado;
     
     // Propiedades para insercion a lista
     [ObservableProperty] private int _cantidad = 1;
     [ObservableProperty] private string _descripcion;
-    [ObservableProperty] private string _colorRegionCuerpo;
-    [ObservableProperty] private string _colorLado;
 
     public SenasParticularesViewModel()
     {
@@ -97,8 +97,6 @@ public partial class SenasParticularesViewModel : ObservableObject
             Lado = LadoSelected,
             Tipo = TipoSelected
         });
-        
-        Console.WriteLine(Desaparecido.Persona.SenasParticulares);
     }
 
     [RelayCommand]

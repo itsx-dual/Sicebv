@@ -1,3 +1,4 @@
+using System.Globalization;
 using Wpf.Ui.Controls;
 
 namespace Cebv.app.presentation;

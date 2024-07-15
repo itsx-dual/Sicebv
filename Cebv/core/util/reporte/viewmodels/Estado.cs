@@ -39,6 +39,11 @@ public partial class Estado : ObservableObject
                MunicipiosCount == estado.MunicipiosCount;
     }
 
+    public override string ToString()
+    {
+        return $"{Nombre}";
+    }
+
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private string _id;
 

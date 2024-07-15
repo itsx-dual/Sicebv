@@ -418,9 +418,16 @@
                             <ui:TextBox Text="{Binding Desaparecido.Persona.Rfc}" MaxLength="13"/>
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="CURP:" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.Curp}" MaxLength="18"/>
+                        </StackPanel>
+                        
+                        <!-- TODO: La visibilidad depende de si la curp esta vacia -->
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="Razón por la cual no tiene CURP:" />
+                            <ComboBox ItemsSource="{Binding RazonesCurp}"
+                                      DisplayMemberPath="Nombre"/>
                         </StackPanel>
                     </WrapPanel>
 

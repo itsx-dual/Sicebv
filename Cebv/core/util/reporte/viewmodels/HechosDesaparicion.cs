@@ -23,6 +23,9 @@ public partial class HechosDesaparicion : ObservableObject
         string? informacionRelevante,
         string? hechosDesaparicionDescripcion,
         string? sintesisDesaparicionDescripcion,
+        DateTime? fecha_desaparicion_aproximada,
+        string? fecha_desaparicion_cebv,
+        string? observaciones_fecha_desaparicion,
         DateTime? createdAt,
         DateTime? updatedAt)
     {
