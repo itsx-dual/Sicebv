@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
-using Cebv.core.modules.ubicacion.data;
+using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Catalogo = Cebv.core.data.Catalogo;
 using Estado = Cebv.core.modules.ubicacion.data.Estado;
+using Municipio = Cebv.core.modules.ubicacion.data.Municipio;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
@@ -40,8 +41,10 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
     [ObservableProperty] private string _areaCodifica = String.Empty;
     
-    [ObservableProperty] private ObservableCollection<Catalogo> _estatusPersonas = new();
+    [ObservableProperty] private ObservableCollection<EstatusPersona> _estatusPersonas = new();
     [ObservableProperty] private Catalogo _estatusPersona = new();
+    
+    [ObservableProperty] private HipotesisViewModel _hipotesis = new();
 
 
     private async void CargarCatalogos()

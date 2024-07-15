@@ -39,7 +39,6 @@
                 <ui:TextBox Text="{Binding Reporte.Folios[0].FolioCebv}" />
             </StackPanel>
 
-
             <StackPanel Margin="5 5 5 25" IsEnabled="False">
                 <WrapPanel Margin="0 0 0 15">
                     <StackPanel MinWidth="250" Margin="5">

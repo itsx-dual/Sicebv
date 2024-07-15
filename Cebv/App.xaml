@@ -4,6 +4,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:presentation="clr-namespace:Cebv.features.login.presentation"
              xmlns:presentation1="clr-namespace:Cebv.features.dashboard.presentation"
+             xmlns:util="clr-namespace:Cebv.core.util"
              StartupUri="app/presentation/LoginWindow.xaml">
 
     <Application.Resources>
@@ -20,6 +21,9 @@
                 <ResourceDictionary Source="core/resources/strings/ReporteDesaparicionString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/UtilString.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <util:VisibilityConverter x:Key="VisibilityConverter" /> 
+            <util:VisibilityConverter2 x:Key="VisibilityConverter2" /> 
 
             <DataTemplate DataType="{x:Type presentation:LoginViewModel}">
                 <presentation:LoginPage />

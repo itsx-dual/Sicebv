@@ -127,6 +127,9 @@ public partial class Reporte : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "fecha_actualizacion")]
     private DateTime? _fechaActualizacion;
 
+    [ObservableProperty, JsonProperty("control_ogpi")]
+    private ControlOgpi? _controlOgpi;
+
     [ObservableProperty, JsonProperty("folios")]
     private ObservableCollection<FolioPretty>? _folios = new();
 }

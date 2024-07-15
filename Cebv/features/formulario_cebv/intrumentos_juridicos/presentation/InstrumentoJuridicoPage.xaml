@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -18,10 +17,6 @@
     <Page.DataContext>
         <presentation:InstrumentoJuridicoViewModel/>
     </Page.DataContext>
-
-    <Page.Resources>
-        <util:VisibilityConverter2 x:Key="VisibilityConverter" />
-    </Page.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -50,7 +45,7 @@
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding OpcionCarpeta,
-                               Converter={StaticResource VisibilityConverter}}">
+                               Converter={StaticResource VisibilityConverter2}}">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de CI, IM o reporte de FGE:" />
                             <ui:TextBox Text="{Binding CarpetaInvestigacion.NumeroDocumento}" />
@@ -90,7 +85,7 @@
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding OpcionAmparo,
-                               Converter={StaticResource VisibilityConverter}}">
+                               Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de amparo buscador:" />
@@ -131,7 +126,7 @@
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding OpcionRecomendacion,
-                               Converter={StaticResource VisibilityConverter}}">
+                               Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de recomendación derechos humanos:" />

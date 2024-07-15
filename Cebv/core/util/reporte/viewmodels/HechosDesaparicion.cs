@@ -6,15 +6,13 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class HechosDesaparicion : ObservableObject
 {
     [JsonConstructor]
-    public HechosDesaparicion(
-        int? id,
+    public HechosDesaparicion(int? id,
         int? reporteId,
         DateTime? fechaDesaparicion,
         string? fechaDesaparicionCebv,
         DateTime? fechaPercato,
         string? fechaPercatoCebv,
         string? aclaracionesFechaHechos,
-        bool? cambioComportamiento,
         string? descripcionCambioComportamiento,
         bool? fueAmenazado,
         string? descripcionAmenaza,
@@ -24,7 +22,8 @@ public partial class HechosDesaparicion : ObservableObject
         string? hechosDesaparicionDescripcion,
         string? sintesisDesaparicionDescripcion,
         DateTime? createdAt,
-        DateTime? updatedAt)
+        DateTime? updatedAt,
+        bool? cambioComportamiento = false)
     {
         Id = id;
         ReporteId = reporteId;
@@ -57,7 +56,7 @@ public partial class HechosDesaparicion : ObservableObject
     [ObservableProperty] private DateTime? _fechaPercato;
     [ObservableProperty] private string? _fechaPercatoCebv;
     [ObservableProperty] private string? _aclaracionesFechaHechos;
-    [ObservableProperty] private bool? _cambioComportamiento;
+    [ObservableProperty] private bool? _cambioComportamiento = false;
     [ObservableProperty] private string? _descripcionCambioComportamiento;
     [ObservableProperty] private bool? _fueAmenazado;
     [ObservableProperty] private string? _descripcionAmenaza;
