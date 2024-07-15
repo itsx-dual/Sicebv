@@ -39,7 +39,6 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarPrenda()
     {
-        
         Expediente.Persona = Persona;
         Expediente.Parentesco = Parentesco;
         

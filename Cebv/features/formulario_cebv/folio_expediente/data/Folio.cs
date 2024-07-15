@@ -32,7 +32,8 @@ public partial class FolioPretty : ObservableObject
         int? reporteId,
         UserPretty? user,
         string? folioCebv,
-        string? folioCFub,
+        string? folioFub,
+        string? autoridadIngresaFub,
         DateTime? createdAt,
         DateTime? updatedAt
     )
@@ -42,7 +43,8 @@ public partial class FolioPretty : ObservableObject
         ReporteId = reporteId;
         User = user;
         FolioCebv = folioCebv;
-        FolioCFub = folioCFub;
+        FolioFub = folioFub;
+        AutoridadIngresaFub = autoridadIngresaFub;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
@@ -67,8 +69,11 @@ public partial class FolioPretty : ObservableObject
     private string? _folioCebv;
 
     [ObservableProperty, JsonProperty("folio_fub")]
-    private string? _folioCFub;
-
+    private string? _folioFub;
+    
+    [ObservableProperty, JsonProperty("autoridad_ingresa_fub")]
+    private string? _autoridadIngresaFub;
+    
     [ObservableProperty, JsonProperty("created_at")]
     private DateTime? _createdAt;
 

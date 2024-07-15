@@ -5,6 +5,7 @@ using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.features.formulario_cebv.folio_expediente.data;
 using Catalogo = Cebv.core.data.Catalogo;
 using Persona = Cebv.core.modules.persona.data.Persona;
 using TipoHipotesis = Cebv.core.util.reporte.viewmodels.TipoHipotesis;
@@ -21,7 +22,8 @@ public class CircunstanciaDesaparicionNetwork
 
         var response = await request.Content.ReadAsStringAsync();
 
-        TiposHipotesisWrappedNewtonsoft jsonResponse = JsonSerializer.Deserialize<TiposHipotesisWrappedNewtonsoft>(response)!;
+        TiposHipotesisWrappedNewtonsoft jsonResponse =
+            JsonSerializer.Deserialize<TiposHipotesisWrappedNewtonsoft>(response)!;
 
         return jsonResponse.Data;
     }
@@ -50,18 +52,19 @@ public class CircunstanciaDesaparicionNetwork
 
         return jsonResponse.Data!;
     }
-    
-    public static async Task<ObservableCollection<Persona>> BuscarPersona2(string? nombre, string? apellidoPaterno,
-        string? apellidoMaterno)
+
+    public static async Task<ObservableCollection<Folio>> GetFoliosPrevios(int? personaId)
     {
-        var request = await Client.GetAsync($"api/personas?filter[nombre]={nombre}" +
-                                            $"&filter[apellido_paterno]={apellidoPaterno}" +
-                                            $"&filter[apellido_materno]={apellidoMaterno}");
+        if (personaId is null) return new();
+        
+        var consultarFolio = await Client.GetAsync($"api/personas/{personaId}/folios");
 
-        var response = await request.Content.ReadAsStringAsync();
+        var response = await consultarFolio.Content.ReadAsStringAsync();
 
-        PersonasWrapped jsonResponse = JsonSerializer.Deserialize<PersonasWrapped>(response)!;
+        Console.WriteLine(response);
 
-        return jsonResponse.Data!;
+        FoliosWrapped jsonResponse = JsonSerializer.Deserialize<FoliosWrapped>(response)!;
+
+        return jsonResponse.Data;
     }
 }

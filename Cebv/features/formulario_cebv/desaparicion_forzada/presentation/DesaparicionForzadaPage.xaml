@@ -5,17 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
+      xmlns:data="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1200"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      Name="Page"
       Title="DesaparicionForzadaPage">
 
     <Page.DataContext>
         <presentation:DesaparicionForzadaViewModel />
     </Page.DataContext>
+
+    <Page.Resources>
+        <CollectionViewSource x:Key="Perpetradores"
+                              Source="{Binding Perpetrador.Perpetradores}" />
+    </Page.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -32,13 +40,16 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Sufrió desaparición forzada?" />
                             <ComboBox SelectedItem="{Binding SufrioDesaparicionForzadaOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
+                    </WrapPanel>
 
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                    <WrapPanel Margin="0 0 0 15"
+                               Visibility="{Binding SufrioDesaparicionForzada ,Converter={StaticResource VisibilityConverter2} }">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Autoridad:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Autoridad}"
@@ -52,13 +63,17 @@
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Sufrió desaparición por particulares?" />
                             <ComboBox SelectedItem="{Binding SufrioDesaparicionParticularOpcion}"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
+                    </WrapPanel>
 
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                    <WrapPanel Margin="0 0 0 15"
+                               Visibility="{Binding SufrioDesaparicionParticular,
+                               Converter={StaticResource VisibilityConverter2}}">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Particular:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Particular}"
@@ -108,7 +123,9 @@
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="400">
+                        <StackPanel MinWidth="400"
+                                    Visibility="{Binding DetencionLegalExtorsion,
+                                    Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="Observaciones de la detención legal o extorsión:" />
                             <ui:TextBox Text="{Binding DetencionLegalExtorsionDescripcion}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
@@ -127,7 +144,9 @@
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="400">
+                        <StackPanel MinWidth="400"
+                                    Visibility="{Binding HaSidoAvistado,
+                                    Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿Dónde?" />
                             <ui:TextBox Text="{Binding HaSidoAvistadoDescripcion}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
@@ -137,48 +156,122 @@
             </Border>
 
             <ui:TextBlock Text="Información sobre el perpetrador" FontTypography="Title" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}">
+            <Border Margin="0 0 0 25" Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre(s) / apodo(s)" />
-                            <ui:TextBox Text="{Binding Nombre}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <WrapPanel Margin="0 0 0 15">
+                                <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                    <ui:TextBlock Text="Nombre(s) / apodo(s)" />
+                                    <ui:TextBox Text="{Binding Perpetrador.Nombre}" />
+                                </StackPanel>
+
+                                <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                    <ui:TextBlock Text="Sexo:" />
+                                    <ComboBox DisplayMemberPath="Nombre"
+                                              SelectedItem="{Binding Perpetrador.Sexo}"
+                                              ItemsSource="{Binding Perpetrador.Sexos}" />
+                                </StackPanel>
+
+                            </WrapPanel>
+
+                            <WrapPanel Margin="0 0 0 15">
+                                <StackPanel MinWidth="300" Margin="0 0 25 0">
+                                    <ui:TextBlock Text="Último estatus del perpetrador:" />
+                                    <ComboBox DisplayMemberPath="Nombre"
+                                              SelectedItem="{Binding Perpetrador.EstatusPerpetrador}"
+                                              ItemsSource="{Binding Perpetrador.EstatusPerpetradores}" />
+                                </StackPanel>
+
+                                <StackPanel MinWidth="300" Margin="0 0 10 0">
+                                    <ui:TextBlock Text="Descripción:" />
+                                    <ui:TextBox Text="{Binding Perpetrador.PerpetradorDescripcion}" TextWrapping="Wrap"
+                                                AcceptsReturn="True" />
+                                </StackPanel>
+                            </WrapPanel>
                         </StackPanel>
 
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Sexo:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Sexo}"
-                                      ItemsSource="{Binding Sexos}" />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="300" Margin="0 0 10 0">
-                            <ui:TextBlock Text="Descripción:" />
-                            <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
-                        </StackPanel>
-
-                        <ui:Button Margin="0 15 0 0"
+                        <ui:Button Grid.Column="1"
+                                   Margin="0 15 0 15"
                                    Icon="{ui:SymbolIcon Add24}"
                                    VerticalAlignment="Stretch"
+                                   Command="{Binding Perpetrador.AddPerpetradorCommand}"
                                    Appearance="Primary" />
-                    </WrapPanel>
+                    </Grid>
 
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Último estatus del perpetrador:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding EstatusPerpetrador}"
-                                      ItemsSource="{Binding EstatusPerpetradores}" />
-                        </StackPanel>
+                    <ui:CardExpander Icon="{ui:SymbolIcon PersonProhibited24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Perpetradores" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Source={StaticResource Perpetradores}}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:Perpetrador}">
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon PersonProhibited24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
 
-                        <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="Descripción del grupo perpetrador" />
-                            <ui:TextBox Text="{Binding GrupoPerpetradorDescripcion}" TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
-                        </StackPanel>
-                    </WrapPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding Sexo.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow"
+                                                                      Margin="0 0 10 0" />
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding EstatusPerpetrador.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Descripcion }"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
 
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.Perpetrador.RemovePerpetradorCommand}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
+                    <StackPanel MinWidth="400">
+                        <ui:TextBlock Text="Descripción del grupo perpetrador" />
+                        <ui:TextBox Text="{Binding GrupoPerpetradorDescripcion}" TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ui:TextBlock Text="Información relevante" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}">
+                <StackPanel Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Se suscitaron otros delitos antes o después de la desaparición?" />
@@ -198,11 +291,12 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:ContextoPage}"
                    Appearance="Primary" />
     </Grid>
 </Page>

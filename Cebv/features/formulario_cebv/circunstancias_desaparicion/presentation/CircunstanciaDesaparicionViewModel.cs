@@ -5,6 +5,8 @@ using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
+using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -35,17 +37,28 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         TiposDomicilio = await DesaparecidoNetwork.GetCatalogo("tipos-domicilio");
         Reporte = _reporteService.GetReporte();
-
-        // Si no existe los hechos de desaparición se asume que es la primera vez capturando
-        // y se crean unos nuevos completamente en blanco para que no haya error de nullabilidad.
-        Reporte.HechosDesaparicion ??= new();
-
+        
+        Reporte.HechosDesaparicion ??= new ();
+        
         SyncHipotesis();
 
-        if (!string.IsNullOrEmpty(Reporte.HechosDesaparicion.FechaDesaparicionCebv) ||
+        if (!string.IsNullOrEmpty(Reporte.HechosDesaparicion!.FechaDesaparicionCebv) ||
             !string.IsNullOrEmpty(Reporte.HechosDesaparicion.FechaPercatoCebv))
             FechaAproximada = true;
+
+        FoliosPrevios();
     }
+
+    private async void FoliosPrevios()
+    {
+        var persona = Reporte.Desaparecidos![0].Persona;
+
+        if (persona is null || persona.Id is null) return;
+
+        Folios = await CircunstanciaDesaparicionNetwork.GetFoliosPrevios(persona.Id);
+    }
+
+    [ObservableProperty] private ObservableCollection<Folio> _folios = new();
 
     /**
      * Variables de la clase
@@ -56,7 +69,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
 
-    [ObservableProperty] private string _amenazaCambioComportamientoOpcion = OpcionesCebv.No;
+    [ObservableProperty] private string? _amenazaCambioComportamientoOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _amenazaCambioComportamiento = false;
     [ObservableProperty] private string _amenazaDescripcion = String.Empty;
 
@@ -93,6 +106,13 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
         Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
         Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
+
+        AmenazaCambioComportamientoOpcion = AmenazaCambioComportamiento switch
+        {
+            true => OpcionesCebv.Si,
+            false => OpcionesCebv.No,
+            _ => OpcionesCebv.NoEspecifica
+        };
     }
 
 

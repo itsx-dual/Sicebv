@@ -262,7 +262,9 @@
                                   ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
-                    <StackPanel Margin="0 0 0 15">
+                    <StackPanel Margin="0 0 0 15"
+                                Visibility="{Binding AmenazaCambioComportamiento,
+                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación de amenazas:" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenaza}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
@@ -283,7 +285,8 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Folios previos:" />
-                        <ui:TextBox Text="{Binding FoliosPrevios}" />
+                        <ListBox DisplayMemberPath="FolioCebv"
+                                 ItemsSource="{Binding Folios}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
