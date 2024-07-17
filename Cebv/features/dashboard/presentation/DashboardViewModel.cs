@@ -2,13 +2,16 @@ using Wpf.Ui.Controls;
 using Cebv.features.dashboard.data;
 using Cebv.features.dashboard.domain;
 using System.Collections.ObjectModel;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.dashboard.presentation;
 
 public partial class DashboardViewModel : ObservableObject
 {
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     [ObservableProperty] private Usuario _usuario;
 
     

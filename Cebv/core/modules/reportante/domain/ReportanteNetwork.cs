@@ -1,113 +1,61 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using Cebv.core.data;
 using Cebv.core.domain;
-using Cebv.core.modules.reporte.data;
-using CommunityToolkit.Diagnostics;
+using Cebv.core.util.reporte.viewmodels;
+using Newtonsoft.Json;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.core.modules.reportante.domain;
+
+[method: JsonConstructor]
+class CatalogoCall(ObservableCollection<Catalogo> data)
+{
+    public ObservableCollection<Catalogo> Data = data;
+}
+
+class EstadosCall(ObservableCollection<Estado> data)
+{
+    public ObservableCollection<Estado> Data = data;
+}
+
+class MunicipiosCall(ObservableCollection<Municipio> data)
+{
+    public ObservableCollection<Municipio> Data = data;
+}
+
+class AsentamientosCall(ObservableCollection<Asentamiento> data)
+{
+    public ObservableCollection<Asentamiento> Data = data;
+}
 
 public static class ReportanteNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
-    public static async Task<Object> GetReporte(int reporteId)
+    public static async Task<ObservableCollection<Catalogo>> GetCatalogo(string catalogo)
     {
-        Guard.IsGreaterThan(reporteId, 1);
-        var request = await Client.GetAsync($"api/reportes/{reporteId}");
+        var request = await Client.GetAsync($"/api/{catalogo}");
         var response = await request.Content.ReadAsStringAsync();
-
-        ReporteQueryResponse? jsonResponse = JsonSerializer.Deserialize<ReporteQueryResponse>(response);
-
-        ReporteResponse reporteResponse;
-
-        Guard.IsNotNull(jsonResponse);
-
-        reporteResponse = jsonResponse.Data;
-
-        return reporteResponse;
+        return JsonConvert.DeserializeObject<CatalogoCall>(response)?.Data!;
     }
-
-    public static async Task<ObservableCollection<Catalogo>> GetParentescos()
+    public static async Task<ObservableCollection<Estado>> GetEstados()
     {
-        var request = await Client.GetAsync("api/parentescos");
-
+        var request = await Client.GetAsync("/api/estados");
         var response = await request.Content.ReadAsStringAsync();
-
-        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
-
-        return jsonResponse.Data;
-    }
-
-    public static async Task PostReportante(
-        int reporteId,
-        int personaId,
-        int parentescoId,
-        bool denunciaAnonima,
-        bool informacionConsentimiento,
-        bool informacionExclusivaBusqueda,
-        bool publicacionRegistroNacional,
-        bool publicacionBoletin,
-        bool pertenenciaColectivo,
-        string? nombreColectivo = null,
-        string? informacionRelevante = null)
-    {
-        using StringContent jsonContent = new(
-            JsonSerializer.Serialize(new
-            {
-                reporte_id = reporteId,
-                persona_id = personaId,
-                parentesco_id = parentescoId,
-                denuncia_anonima = denunciaAnonima,
-                informacion_consentimiento = informacionConsentimiento,
-                informacion_exclusiva_busqueda = informacionExclusivaBusqueda,
-                publicacion_registro_nacional = publicacionRegistroNacional,
-                publicacion_boletin = publicacionBoletin,
-                pertenencia_colectivo = pertenenciaColectivo,
-                nombre_colectivo = nombreColectivo,
-                informacion_relevante = informacionRelevante
-            }),
-            Encoding.UTF8,
-            "application/json");
-
-        using HttpResponseMessage response = await Client.PostAsync(
-            "api/reportantes",
-            jsonContent);
-
-        Console.WriteLine(response);
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}\n");
-    }
-
-    public static async Task PostArea(string nombreArea)
-    {
-        using StringContent jsonContent = new(
-            JsonSerializer.Serialize(new
-            {
-                nombre = nombreArea,
-            }),
-            Encoding.UTF8,
-            "application/json");
-
-        using HttpResponseMessage response = await Client.PostAsync(
-            "api/areas",
-            jsonContent);
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"{jsonResponse}\n");
+        return JsonConvert.DeserializeObject<EstadosCall>(response)?.Data!;
     }
     
-    public static async Task<ObservableCollection<Catalogo>> GetColectivos()
+    public static async Task<ObservableCollection<Municipio>> GetMunicipiosDeEstado(string estado_id)
     {
-        var request = await Client.GetAsync("api/colectivos");
-
+        var request = await Client.GetAsync($"/api/municipios?search={estado_id}");
         var response = await request.Content.ReadAsStringAsync();
-
-        CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
-
-        return jsonResponse.Data;
+        return JsonConvert.DeserializeObject<MunicipiosCall>(response)?.Data!;
+    }
+    
+    public static async Task<ObservableCollection<Asentamiento>> GetAsentamientosDeMunicipio(string municipio_id)
+    {
+        var request = await Client.GetAsync($"/api/asentamientos?search={municipio_id}");
+        var response = await request.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<AsentamientosCall>(response)?.Data!;
     }
 }

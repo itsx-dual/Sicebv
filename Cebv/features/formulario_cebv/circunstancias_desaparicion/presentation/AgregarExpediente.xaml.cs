@@ -12,7 +12,7 @@ public partial class AgregarExpediente : FluentWindow
 
     protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
     {
-        if (DataContext is AgregarExpedienteViewModel vm)
+        if (DataContext is RelacionarExpedienteViewModel vm)
         {
             vm.CloseAction = null;
         }

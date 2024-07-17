@@ -1,138 +1,153 @@
 using Cebv.core.data;
-using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
-using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using DocumentoLegal = Cebv.core.util.reporte.viewmodels.DocumentoLegal;
 
 namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 
 public partial class InstrumentoJuridicoViewModel : ObservableObject
 {
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
+    public InstrumentoJuridicoViewModel()
+    {
+        Reporte = _reporteService.GetReporte();
+        // Esta seccion del formulario lidia con cuatro atributos de desaparecido.
+        if (Reporte.Desaparecidos?.Count == 0)
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos?.Add(Desaparecido);
+        }
+        else
+        {
+            Desaparecido = Reporte.Desaparecidos?.FirstOrDefault()!;
+        }
+        
+        CarpetaInvestigacion = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI")!;
+        if (CarpetaInvestigacion == null)
+        {
+            CarpetaInvestigacion = new DocumentoLegal { TipoDocumento = "CI" };
+            OpcionCarpeta = false;
+        }
+        else
+        {
+            OpcionCarpeta = true;
+        }
+
+        AmparoBuscador = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "AB")!;
+        if (AmparoBuscador == null)
+        {
+            AmparoBuscador = new DocumentoLegal { TipoDocumento = "AB" };
+            OpcionAmparo = false;
+        }
+        else
+        {
+            OpcionAmparo = true;
+        }
+
+        RecomedacionDerechosHumanos = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "DH")!;
+        if (RecomedacionDerechosHumanos == null)
+        {
+            RecomedacionDerechosHumanos = new DocumentoLegal { TipoDocumento = "DH" };
+            OpcionRecomendacion = false;
+        }
+        else
+        {
+            OpcionRecomendacion = true;
+        }
+    }
+
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
     private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>();
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     // Opciones cebv.
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Desaparecido _desaparecido;
 
     /**
      * Carpeta de investigación.
      */
     [ObservableProperty] private string _opcionCarpetaKey = "No";
-    [ObservableProperty] private bool? _opcionCarpeta = false;
-    [ObservableProperty] private string _numeroCarpeta = String.Empty;
-    [ObservableProperty] private string _dondeRadicaCarpeta = String.Empty;
-    [ObservableProperty] private string _nombreServidorPublicoCarpeta = String.Empty;
-    [ObservableProperty] private DateTime? _fechaRecepcionCarpeta;
+    [ObservableProperty] private bool? _opcionCarpeta;
+    [ObservableProperty] private DocumentoLegal _carpetaInvestigacion = new();
+
+    partial void OnOpcionCarpetaChanged(bool? value)
+    {
+        var documentos = Desaparecido.DocumentosLegales;
+        if (value != null && (bool) value)
+        {
+            var tiene_ci = documentos.Any(x => x.Equals(CarpetaInvestigacion));
+
+            if (!tiene_ci)
+            {
+                documentos.Add(CarpetaInvestigacion);
+            }
+            return;
+        }
+
+        var ci = documentos.FirstOrDefault(x => x.Equals(CarpetaInvestigacion));
+        documentos.Remove(ci);
+    }
 
     /**
      * Amparo buscador.
      */
     [ObservableProperty] private string _opcionAmparoKey = "No";
-    [ObservableProperty] private bool? _opcionAmparo = false;
-    [ObservableProperty] private string _numeroAmparo = String.Empty;
-    [ObservableProperty] private string _dondeRadicaAmparo = String.Empty;
-    [ObservableProperty] private string _nombreServidorPublicoAmparo = String.Empty;
-    [ObservableProperty] private DateTime? _fechaRecepcionAmparo;
+    [ObservableProperty] private bool? _opcionAmparo;
+    [ObservableProperty] private DocumentoLegal _amparoBuscador = new();
+
+    partial void OnOpcionAmparoChanged(bool? value)
+    {
+        var documentos = Desaparecido.DocumentosLegales;
+        if (value != null && (bool) value)
+        {
+            var tiene_amparo = documentos.Any(x => x.Equals(AmparoBuscador));
+
+            if (!tiene_amparo)
+            {
+                documentos.Add(AmparoBuscador);
+            }
+            return;
+        }
+
+        var amparo = documentos.FirstOrDefault(x => x.Equals(AmparoBuscador));
+        documentos.Remove(amparo);
+    }
 
     /**
      * Recomendación de derechos humanos.
      */
     [ObservableProperty] private string _opcionRecomendacionKey = "No";
     [ObservableProperty] private bool? _opcionRecomendacion = false;
-    [ObservableProperty] private string _numeroRecomendacion = String.Empty;
-    [ObservableProperty] private string _dondeRadicaRecomendacion = String.Empty;
-    [ObservableProperty] private string _nombreServidorPublicoRecomendacion = String.Empty;
-    [ObservableProperty] private DateTime? _fechaRecepcionRecomendacion;
+    [ObservableProperty] private DocumentoLegal _recomedacionDerechosHumanos;
 
-    /**
-     * Otros
-     */
-    [ObservableProperty] private bool _declaracionAusencia;
-    [ObservableProperty] private bool _accionUrgente;
-    [ObservableProperty] private bool _dictamen;
-    [ObservableProperty] private bool _carpeteFederal;
-    [ObservableProperty] private string _otroDerecho = String.Empty;
-
-    public InstrumentoJuridicoViewModel()
+    partial void OnOpcionRecomendacionChanged(bool? value)
     {
-        if (!_reporteService.HayReporte()) return;
-        
-        var reporte = _reporteService.GetReporteActual();
-        var desaparecido = reporte.Desaparecidos?.FirstOrDefault();
-
-        if (desaparecido == null) return;
-        DeclaracionAusencia = (bool) desaparecido.DeclaracionAusencia;
-        AccionUrgente = (bool) desaparecido.AccionUrgente;
-        Dictamen = (bool) desaparecido.Dictamen;
-        CarpeteFederal = (bool) desaparecido.CarpetaFederal;
-        OtroDerecho = desaparecido.OtroDerecho;
-        
-        if (desaparecido.DocumentosLegales == null || desaparecido.DocumentosLegales.Count == 0) return;
-        var carpetaInvestigacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "CI");
-        var amparo = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "AB");
-        var recomendacion = desaparecido.DocumentosLegales.FirstOrDefault(x => x.TipoDocumento == "DH");
-            
-
-        if (null != carpetaInvestigacion)
+        var documentos = Desaparecido.DocumentosLegales;
+        if (value != null && (bool) value)
         {
-            OpcionCarpeta = true;
-            NumeroCarpeta = carpetaInvestigacion.NumeroDocumento;
-            DondeRadicaCarpeta = carpetaInvestigacion.DondeRadica;
-            NombreServidorPublicoCarpeta = carpetaInvestigacion.NombreServidorPublico;
-            FechaRecepcionCarpeta = carpetaInvestigacion.FechaRecepcion;
+            var tiene_recomendacion = documentos.Any(x => x.Equals(RecomedacionDerechosHumanos));
+
+            if (!tiene_recomendacion)
+            {
+                documentos.Add(RecomedacionDerechosHumanos);
+            }
+            return;
         }
 
-        if (null != amparo)
-        {
-            OpcionAmparo = true;
-            NumeroAmparo = amparo.NumeroDocumento;
-            DondeRadicaAmparo = amparo.DondeRadica;
-            NombreServidorPublicoAmparo = amparo.NombreServidorPublico;
-            FechaRecepcionAmparo = amparo.FechaRecepcion;
-        }
-
-        if (null != recomendacion)
-        {
-            OpcionRecomendacion = true;
-            NumeroRecomendacion = recomendacion.NumeroDocumento;
-            DondeRadicaRecomendacion = recomendacion.DondeRadica;
-            NombreServidorPublicoRecomendacion = recomendacion.NombreServidorPublico;
-            FechaRecepcionRecomendacion = recomendacion.FechaRecepcion;
-        }
+        var recomendacion = documentos.FirstOrDefault(x => x.Equals(RecomedacionDerechosHumanos));
+        documentos.Remove(recomendacion);
     }
 
     [RelayCommand]
     public void OnGuardarYSiguente(Type pageType)
     {
-        var informacion = new InstrumentoJuridicoPostObject
-        {
-            NumeroCarpeta = NumeroCarpeta,
-            DondeRadicaCarpeta = DondeRadicaCarpeta,
-            ServidorPublicoCarpeta = NombreServidorPublicoCarpeta,
-            FechaRecepcionCarpeta = FechaRecepcionCarpeta,
-            
-            NumeroAmparo = NumeroAmparo,
-            DondeRadicaAmparo = DondeRadicaAmparo,
-            ServidorPublicoAmparo =  NombreServidorPublicoAmparo,
-            FechaRecepcionAmparo = FechaRecepcionAmparo,
-            
-            NumeroRecomendacion = NumeroRecomendacion,
-            DondeRadicaRecomendacion = DondeRadicaRecomendacion,
-            ServidorPublicoRecomendacion = NombreServidorPublicoRecomendacion,
-            FechaRecepcionRecomendacion = FechaRecepcionRecomendacion,
-            
-            DeclaracionAusencia = DeclaracionAusencia,
-            AccionUrgente = AccionUrgente,
-            Dictamen = Dictamen,
-            CarpetaFederal = CarpeteFederal,
-            OtroDerecho = OtroDerecho
-        };
-
-        if (_reporteService.SendInformacionInstrumentoJuridico(informacion)) _navigationService.Navigate(pageType);
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

@@ -1,36 +1,31 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Cebv.core.domain;
-using Cebv.core.modules.reporte.data;
-using Cebv.core.util.reporte.data;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
-using Wpf.Ui.Controls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cebv.core.util.reporte.domain;
 
-public partial class ReporteServiceNetwork
+public partial class ReporteResponse : ObservableObject
 {
-    private static HttpClient Client = CebvClientHandler.SharedClient;
-    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
-    private static ISnackbarService _snackbar = App.Current.Services.GetService<ISnackbarService>();
-
-    private static int? NullableBoolToInt(bool? boolean)
+    [JsonConstructor]
+    public ReporteResponse(Reporte data)
     {
-        return boolean switch
-        {
-            true => 1,
-            false => 0,
-            _ => null
-        };
+        Data = data;
     }
 
-    public static async Task<ReporteResponse> ShowReporte(int id)
+    [ObservableProperty] private Reporte? _data;
+}
+
+public abstract class ReporteServiceNetwork
+{
+    private static HttpClient Client => CebvClientHandler.SharedClient;
+
+    public static async Task<Reporte> ShowReporte(int id)
     {
         var request = new HttpRequestMessage
         {
@@ -40,40 +35,28 @@ public partial class ReporteServiceNetwork
 
         var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<ReporteQueryResponse>(json)!.Data;
+        return JsonConvert.DeserializeObject<Reportes>(json)?.Data!;
     }
 
-    public static async Task<ObservableCollection<HechosDesaparicionResponse>?> GetHechosDesaparicion(int id)
+    public static async Task<Reporte> Sync(Reporte reporte)
     {
+        var json = JsonConvert.SerializeObject(reporte);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
+
         var request = new HttpRequestMessage
         {
-            RequestUri = new Uri($"/api/hechos-desapariciones?filter[reporte_id]={id}", UriKind.Relative),
-            Method = HttpMethod.Get
-        };
-
-        var response = await Client.SendAsync(request);
-        var json = await response.Content.ReadAsStringAsync();
-
-        var hechosDesaparicion = JsonSerializer.Deserialize<HechosDesaparicionQueryResponse>(json)!.Data;
-
-        return hechosDesaparicion;
-    }
-
-    public static async void PostHechosDesaparicion(ModoTiempoLugarPost informacion)
-    {
-        var request = new HttpRequestMessage
-        {
-            RequestUri = new Uri("/api/hechos-desapariciones", UriKind.Relative),
+            RequestUri = new Uri("/api/actualizar/reporte", UriKind.Relative),
             Method = HttpMethod.Post,
-            Content = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                { "hechos_desaparicion", informacion.DescripcionHechosDesaparicion! },
-                { "reporte_id", "1" },
-            })
+            Content = new StringContent(json, Encoding.UTF8, "application/json")
         };
-
-        using var response = await Client.SendAsync(request);
-
-        Console.WriteLine(response.IsSuccessStatusCode ? "Jalloooooo" : "No jalo");
+        
+        var response = await Client.SendAsync(request);
+        json = await response.Content.ReadAsStringAsync();
+        
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
+        Console.ForegroundColor = ConsoleColor.White;
+        return JsonConvert.DeserializeObject<ReporteResponse>(json)?.Data!;
     }
 }

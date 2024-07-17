@@ -37,25 +37,27 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de codificación:" FontTypography="Caption" />
-                            <DatePicker SelectedDate="{Binding FechaCodificacion}" IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding Reporte.ControlOgpi.FechaCodificacion}"
+                                        IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Nombre de quien codificó:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NombreCodificador}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.NombreCodificador}" Tag="Letter" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
                         <ui:TextBlock Text="Observaciones generales:" FontTypography="Caption" />
-                        <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True"
+                        <ui:TextBox Text="{Binding Reporte.ControlOgpi.Observaciones}" TextWrapping="Wrap"
+                                    AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="N° de tarjeta OGPI:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NumeroTarjeta}" Tag="Number" MaxLength="18"/>
+                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.NumeroTarjeta}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -80,21 +82,21 @@
                     <WrapPanel Margin="0 0  0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Folio FUB:" />
-                            <ui:TextBox Text="{Binding FolioFub}" />
+                            <ui:TextBox Text="{Binding Reporte.Folios[0].FolioFub}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Autoridad que ingresó FUB:" />
-                            <ui:TextBox Text="{Binding OrigenFolioFub}" />
+                            <ui:TextBox Text="{Binding Reporte.Folios[0].AutoridadIngresaFub}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Estatus de persona en RNPDNO:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding EstatusPersona}"
-                                      ItemsSource="{Binding EstatusPersonas}" />
+                            <ComboBox x:Name="ComboBox" DisplayMemberPath="Nombre"
+                                      ItemsSource="{Binding EstatusPersonas}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].EstatusRpdno}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -103,11 +105,12 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
-                   Content="{StaticResource GuardarContinuar}"
+                   Content="{StaticResource Guardar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary"
+                   Command="{Binding GuardarCommand}" />
+
     </Grid>
 </Page>

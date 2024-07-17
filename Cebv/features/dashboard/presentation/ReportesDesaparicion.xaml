@@ -71,7 +71,11 @@
 
                                 <Separator Grid.Row="2" Height="25" Background="Transparent" BorderThickness="0" />
 
-                                <ui:ListView Grid.Row="3" ItemsSource="{Binding Desaparecidos}" IsSelected="False">
+                                <ui:ListView Grid.Row="3" 
+                                             ItemsSource="{Binding Desaparecidos}"
+                                             SelectedItem="{Binding ElementName=Page, Path=DataContext.DesaparecidoSelected}"
+                                             IsSelected="False"
+                                             MouseDoubleClick="Control_OnMouseDoubleClick">
                                     <ui:ListView.ItemTemplate>
                                         <DataTemplate DataType="{x:Type data1:DesaparecidoResponse}">
                                             <Grid Margin="5">

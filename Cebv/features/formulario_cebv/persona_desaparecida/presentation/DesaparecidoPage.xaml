@@ -8,12 +8,14 @@
       xmlns:data="clr-namespace:Cebv.core.modules.contacto.data"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       xmlns:data1="clr-namespace:Cebv.core.modules.persona.data"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.media_filiacion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
+      Name="Page"
       Title="DesaparecidoPage">
 
     <Page.DataContext>
@@ -23,6 +25,23 @@
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+        <util:BooleanNegation x:Key="BooleanNegation"/>
+        
+        <CollectionViewSource x:Key="TelefonosMoviles"
+                              Filter="TelefonosMoviles_OnFilter"
+                              Source="{Binding Desaparecido.Persona.Telefonos}"/>
+        
+        <CollectionViewSource x:Key="TelefonosFijos"
+                              Filter="TelefonosFijos_OnFilter"
+                              Source="{Binding Desaparecido.Persona.Telefonos}"/>
+        
+        <CollectionViewSource x:Key="CorreosElectronicos"
+                              Filter="CorreosElectronicos_OnFilter"
+                              Source="{Binding Desaparecido.Persona.Contactos}"/>
+        
+        <CollectionViewSource x:Key="RedesSociales"
+                              Filter="RedesSociales_OnFilter"
+                              Source="{Binding Desaparecido.Persona.Contactos}"/>
     </Page.Resources>
 
     <Grid Margin="10">
@@ -45,22 +64,22 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding Nombre}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Primer apellido:" />
-                            <ui:TextBox Text="{Binding ApellidoPaterno}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Segundo apellido:" />
-                            <ui:TextBox Text="{Binding ApellidoMaterno}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}" Tag="Letter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Identidad resguardada:" />
-                            <ui:TextBox Text="{Binding IdentidadResguardada}" />
+                            <ui:TextBox Text="{Binding Desaparecido.IdentidadResguardada}"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -68,37 +87,38 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Pseudónimo(s) nombre(s):" />
-                            <ui:TextBox Text="{Binding Desaparecido.PseudonimoNombre}" />
+                            <ui:TextBox Text="{Binding ApodoNombre}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Pseudónimo primer apellido:" />
-                            <ui:TextBox Text="{Binding Desaparecido.PseudonimoApellidoPaterno}" />
+                            <ui:TextBox Text="{Binding ApodoApellidoPaterno}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Pseudónimo segundo apellido: " />
-                            <ui:TextBox Text="{Binding Desaparecido.PseudonimoApellidoMaterno}" />
+                            <ui:TextBox Text="{Binding ApodoApellidoMaterno}" />
                         </StackPanel>
 
                         <ui:Button Appearance="Primary"
                                    Icon="{ui:SymbolIcon Add24}"
                                    VerticalAlignment="Stretch"
                                    Margin="0 15 0 0"
-                                   Command="{Binding Desaparecido.AddPseudonimoCommand}" />
+                                   Command="{Binding AddApodoCommand}"/>
                     </WrapPanel>
 
-                    <ui:CardExpander Icon="{ui:SymbolIcon Person24}" Margin="0 0 0 15">
+                    <ui:CardExpander Icon="{ui:SymbolIcon Person24}" Margin="0 0 0 15"
+                                     IsExpanded="{Binding TieneApodos}">
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Pseudónimos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding Desaparecido.Pseudonimos, Mode=TwoWay}"
+                            ItemsSource="{Binding Desaparecido.Persona.Apodos, Mode=TwoWay}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data1:Pseudonimo}">
+                                <DataTemplate>
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"
@@ -138,8 +158,8 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.Desaparecido.RemovePseudonimoCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   CommandParameter="{Binding}" />
+                                                   CommandParameter="{Binding}"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemoveApodoCommand}"/>
 
                                     </Grid>
                                 </DataTemplate>
@@ -150,7 +170,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Alias:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Apodo}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Alias}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -160,22 +180,22 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Sexo:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Sexo}"
-                                      ItemsSource="{Binding Desaparecido.Sexos}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Sexo}"
+                                      ItemsSource="{Binding Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Género:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Genero}"
-                                      ItemsSource="{Binding Desaparecido.Generos}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Genero}"
+                                      ItemsSource="{Binding Generos}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <ui:ToggleSwitch Margin="0 15 0 0"
                                      OnContent="¿Se desconoce fecha exacta? Sí"
                                      OffContent="¿Se desconoce fecha exacta? No"
-                                     IsChecked="{Binding FechaAproximada  }" />
+                                     IsChecked="{Binding FechaAproximada}" />
 
                     <!-- Fecha exacta -->
                     <StackPanel Margin="0 15 0 15"
@@ -185,7 +205,7 @@
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="Fecha de nacimiento específica:" />
                                 <DatePicker IsTodayHighlighted="True"
-                                            SelectedDate="{Binding Desaparecido.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
+                                            SelectedDate="{Binding Desaparecido.Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -238,6 +258,7 @@
                                     MaxDecimalPlaces="0"
                                     Maximum="120"
                                     Minimum="0"
+                                    Value="{Binding EdadAnos}"
                                     PlaceholderText="Años"
                                     SmallChange="1" 
                                     Tag="Number"/>
@@ -250,6 +271,7 @@
                                     MaxDecimalPlaces="0"
                                     Maximum="12"
                                     Minimum="0"
+                                    Value="{Binding EdadMeses}"
                                     PlaceholderText="Meses"
                                     SmallChange="1" 
                                     Tag="Number"/>
@@ -262,6 +284,7 @@
                                     MaxDecimalPlaces="0"
                                     Maximum="31"
                                     Minimum="0"
+                                    Value="{Binding EdadDias}"
                                     PlaceholderText="Días"
                                     SmallChange="1" 
                                     Tag="Number"/>
@@ -282,7 +305,7 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de nacimiento para CNB:" />
                                 <DatePicker IsTodayHighlighted="True"
-                                            SelectedDate="{Binding Desaparecido.FechaNacimiento, 
+                                            SelectedDate="{Binding Desaparecido.Persona.FechaNacimiento, 
                                             StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" x:Name="DatePicker"/>
                             </StackPanel>
 
@@ -377,15 +400,15 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Lugar de nacimiento:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.LugarNacimiento}"
-                                      ItemsSource="{Binding Desaparecido.LugaresNacimientos}"/>
+                                      SelectedItem="{Binding Desaparecido.Persona.LugarNacimiento}"
+                                      ItemsSource="{Binding Estados}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nacionalidad:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Nacionalidad}"
-                                      ItemsSource="{Binding Desaparecido.Nacionalidades}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Nacionalidades[0]}"
+                                      ItemsSource="{Binding Nacionalidades}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -393,19 +416,26 @@
                     <WrapPanel Margin=" 0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="RFC:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Rfc}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Rfc}" MaxLength="13"/>
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="CURP:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Curp}" MaxLength="18"/>
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Curp}" MaxLength="18"/>
+                        </StackPanel>
+                        
+                        <!-- TODO: La visibilidad depende de si la curp esta vacia -->
+                        <StackPanel MinWidth="250">
+                            <ui:TextBlock Text="Razón por la cual no tiene CURP:" />
+                            <ComboBox ItemsSource="{Binding RazonesCurp}"
+                                      DisplayMemberPath="Nombre"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <!-- Observaciones del curp -->
                     <StackPanel>
                         <ui:TextBlock Text="Observaciones del CURP:" />
-                        <ui:TextBox Text="{Binding Desaparecido.ObservacionesCurp}"
+                        <ui:TextBox Text="{Binding Desaparecido.Persona.ObservacionesCurp}"
                                     TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
@@ -418,33 +448,44 @@
 
                     <StackPanel Margin="0 0 0 25">
                         <ui:ToggleSwitch OffContent="Mismo domicilio que la persona reportante No"
-                                            OnContent="Mismo domicilio que la persona reportante No" />
+                                         OnContent="Mismo domicilio que la persona reportante No"
+                                         IsChecked="{Binding EsMismoDomicilioReportante}"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Calle:" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"
+                                        Text="{Binding Desaparecido.Persona.Direcciones[0].Calle}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"/>
+                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"
+                                        Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroExterior}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"/>
+                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"
+                                        Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroInterior}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Colonia:" />
-                            <ui:TextBox ClearButtonEnabled="True" />
+                            <ui:TextBox ClearButtonEnabled="True"
+                                        Text="{Binding Desaparecido.Persona.Direcciones[0].Colonia}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código Postal:" />
-                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"/>
+                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"
+                                        Text="{Binding Desaparecido.Persona.Direcciones[0].CodigoPostal}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -452,46 +493,63 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Estado:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Ubicacion.Estado}"
-                                      ItemsSource="{Binding Ubicacion.Estados}" />
+                                      SelectedItem="{Binding EstadoSelected}"
+                                      ItemsSource="{Binding Estados}"
+                                      IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Municipio:" />
-                            <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
-                                      ItemsSource="{Binding Ubicacion.Municipios}" />
+                            <ComboBox SelectedItem="{Binding MunicipioSelected}"
+                                      ItemsSource="{Binding Municipios}"
+                                      IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBlock Text="{Binding Id}"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding Nombre}"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Localidad:" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Ubicacion.Asentamiento}"
-                                      ItemsSource="{Binding Ubicacion.Asentamientos}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Direcciones[0].Asentamiento}"
+                                      ItemsSource="{Binding Asentamientos}"
+                                      IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Entre calle 1:" />
-                            <ui:TextBox Text="{Binding Ubicacion.EntreCalle1}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].Calle1}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Entre calle 2:" />
-                            <ui:TextBox Text="{Binding Ubicacion.EntreCalle2}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].Calle2}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tramo Carretero:" />
-                            <ui:TextBox Text="{Binding Ubicacion.TramoCarretero}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].TramoCarretero}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Referencia:" />
-                        <ui:TextBox Text="{Binding Ubicacion.Referencia}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].Referencia}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                                    IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -503,42 +561,42 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono móvil:" />
-                            <ui:TextBox Text="{Binding Contacto.TelefonoMovil}" Tag="Number"
+                            <ui:TextBox Text="{Binding NoTelefonoMovil}" Tag="Number"
                                         MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Compañía:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Contacto.CompaniaTelefonica}"
-                                      ItemsSource="{Binding Contacto.CompaniasTelefonicas}" />
+                                      SelectedItem="{Binding CompaniaTelefonicaSelected}"
+                                      ItemsSource="{Binding CompaniasTelefonicas}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesMovil}" />
+                            <ui:TextBox Text="{Binding ObservacionesMovil}" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary"
                                    Margin="0 15 0 0"
                                    VerticalAlignment="Stretch"
-                                   Command="{Binding Contacto.AddTelefonoMovilCommand}" />
+                                   Command="{Binding AddTelefonoMovilCommand}" />
                     </WrapPanel>
 
-                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15">
+                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15"
+                                     IsExpanded="{Binding TieneTelefonosMoviles}">
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Teléfonos móviles" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding Contacto.TelefonosMoviles, Mode=TwoWay}"
+                            ItemsSource="{Binding Source={StaticResource TelefonosMoviles}}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data:Telefono}">
+                                <DataTemplate>
                                     <Grid>
-
                                         <ui:CardControl
                                             Margin="5 5 60 5"
                                             Padding="10"
@@ -548,7 +606,7 @@
                                                 <StackPanel>
                                                     <ui:TextBlock
                                                         Appearance="Secondary"
-                                                        Text="{Binding CompaniaTelefonica.Nombre}"
+                                                        Text="{Binding Compania.Nombre}"
                                                         TextWrapping="WrapWithOverflow" />
 
                                                     <ui:TextBlock
@@ -571,9 +629,8 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.Contacto.RemoveTelefonoMovilCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   CommandParameter="{Binding}" />
-
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                                   CommandParameter="{Binding}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -584,32 +641,33 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono fijo:" />
-                            <ui:TextBox Text="{Binding Contacto.TelefonoFijo}" Tag="Number" MaxLength="10"/>
+                            <ui:TextBox Text="{Binding NoTelefonoFijo}" Tag="Number" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesFijo}" />
+                            <ui:TextBox Text="{Binding ObservacionesFijo}" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary"
                                    Margin="0 15 0 0"
                                    VerticalAlignment="Stretch"
-                                   Command="{Binding Contacto.AddTelefonoFijoCommand}" />
+                                   Command="{Binding AddTelefonoFijoCommand}" />
                     </WrapPanel>
 
-                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15">
+                    <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15"
+                                     IsExpanded="{Binding TieneTelefonosFijos}">
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Teléfonos fijos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding Contacto.TelefonosFijos, Mode=TwoWay}"
+                            ItemsSource="{Binding Source={StaticResource TelefonosFijos}}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data:Telefono}">
+                                <DataTemplate>
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"
@@ -636,8 +694,8 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.Contacto.RemoveTelefonoFijoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   CommandParameter="{Binding}" />
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                                   CommandParameter="{Binding}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -648,32 +706,33 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Correo electrónico:" />
-                            <ui:TextBox Text="{Binding Contacto.CorreoElectronico}" Tag="Exclude"/>
+                            <ui:TextBox Text="{Binding UsuarioCorreo}" Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesCorreoElectronico}" />
+                            <ui:TextBox Text="{Binding ObservacionesCorreo}" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary"
                                    Margin="0 15 0 0"
                                    VerticalAlignment="Stretch"
-                                   Command="{Binding Contacto.AddCorreoElectronicoCommand}" />
+                                   Command="{Binding AddCorreoCommand}"/>
                     </WrapPanel>
 
-                    <ui:CardExpander Icon="{ui:SymbolIcon MailMultiple24}" Margin="0 0 0 15">
+                    <ui:CardExpander Icon="{ui:SymbolIcon MailMultiple24}" Margin="0 0 0 15"
+                                     IsExpanded="{Binding TieneCorreos}">
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Correos electrónicos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding Contacto.CorreosElectronicos, Mode=TwoWay}"
+                            ItemsSource="{Binding Source={StaticResource CorreosElectronicos}}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data:CorreoElectronico}">
+                                <DataTemplate>
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"
@@ -683,7 +742,7 @@
                                             <ui:CardControl.Header>
                                                 <ui:TextBlock
                                                     FontTypography="BodyStrong"
-                                                    Text="{Binding Correo}"
+                                                    Text="{Binding Nombre}"
                                                     TextWrapping="WrapWithOverflow" />
                                             </ui:CardControl.Header>
                                             <StackPanel>
@@ -700,8 +759,8 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.Contacto.RemoveCorreoElectronicoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   CommandParameter="{Binding}" />
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarContactoCommand}"
+                                                   CommandParameter="{Binding}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -712,38 +771,39 @@
                         <StackPanel MinWidth="250" Margin="0 0  25 0">
                             <ui:TextBlock Text="Tipo de red social:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Contacto.TipoRedSocial}"
-                                      ItemsSource="{Binding Contacto.TiposRedesSociales}" />
+                                      SelectedItem="{Binding TipoRedSocialSelected}"
+                                      ItemsSource="{Binding TiposRedesSociales}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Usuario:" />
-                            <ui:TextBox Text="{Binding Contacto.Usuario}" Tag="Exclude"/>
+                            <ui:TextBox Text="{Binding UsuarioRedSocial}" Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding Contacto.ObservacionesRedSocial}" />
+                            <ui:TextBox Text="{Binding ObservacionesRedSocial}" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
                                    Appearance="Primary"
                                    Margin="0 15 0 0"
                                    VerticalAlignment="Stretch"
-                                   Command="{Binding Contacto.AddRedSocialCommand}" />
+                                   Command="{Binding AddRedSocialCommand}" />
                     </WrapPanel>
 
-                    <ui:CardExpander Icon="{ui:SymbolIcon Mention24}" Margin="0 0 0 15">
+                    <ui:CardExpander Icon="{ui:SymbolIcon Mention24}" Margin="0 0 0 15"
+                                     IsExpanded="{Binding TieneRedesSociales}">
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Redes sociales" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding Contacto.RedesSociales, Mode=TwoWay}"
+                            ItemsSource="{Binding Source={StaticResource RedesSociales}}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data:RedSocial}">
+                                <DataTemplate>
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"
@@ -759,7 +819,7 @@
 
                                                     <ui:TextBlock
                                                         FontTypography="BodyStrong"
-                                                        Text="{Binding Usuario}"
+                                                        Text="{Binding Nombre}"
                                                         TextWrapping="WrapWithOverflow" />
                                                 </StackPanel>
                                             </ui:CardControl.Header>
@@ -777,9 +837,8 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.Contacto.RemoveRedSocialCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   CommandParameter="{Binding}" />
-
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarContactoCommand}"
+                                                   CommandParameter="{Binding}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -796,22 +855,26 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
                                 Text="¿Habla español?" />
-                            <ComboBox SelectedItem="{Binding HablaEspanolOpcion}"
+                            <ComboBox SelectedValue="{Binding Desaparecido.HablaEspanhol}"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Key"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
                                 Text="¿Sabe leer y escribir?" />
-                            <ComboBox SelectedItem="{Binding SabeLeerOpcion}"
+                            <ComboBox SelectedValue="{Binding Desaparecido.SabeLeer}"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Key"
                                       ItemsSource="{Binding Opciones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Religión:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Religion}"
-                                      ItemsSource="{Binding Desaparecido.Religiones}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Religion}"
+                                      ItemsSource="{Binding Religiones}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -819,24 +882,21 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nivel de escolaridad:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Escolaridad}"
-                                      ItemsSource="{Binding Desaparecido.Escolaridades}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Escolaridad}"
+                                      ItemsSource="{Binding Escolaridades}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Avance de escolaridad: " />
-                            <ComboBox>
-                                <ComboBoxItem Content="En curso" />
-                                <ComboBoxItem Content="Terminada" />
-                                <ComboBoxItem Content="No especifica" />
-                            </ComboBox>
+                            <ComboBox SelectedValue="{Binding Desaparecido.Persona.NivelEscolaridad}"
+                                      ItemsSource="{Binding EstatusEscolaridades}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="525" Margin="0 0 25 0">
                             <ui:TextBlock Text="Descripción de la ocupación principal:" />
-                            <ui:TextBox Text="{Binding Desaparecido.OcupacionUnoObservaciones}"
+                            <ui:TextBox Text="{Binding Desaparecido.DescripcionOcupacionPrincipal}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
                                         MinHeight="100" />
@@ -846,15 +906,15 @@
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="Código general principal:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Desaparecido.TipoOcupacionUno}"
-                                          ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
+                                          SelectedItem="{Binding TipoOcupacionPrincipalSelected}"
+                                          ItemsSource="{Binding TiposOcupaciones}" />
                             </StackPanel>
 
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="Código específico principal:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Desaparecido.OcupacionUno}"
-                                          ItemsSource="{Binding Desaparecido.OcupacionesUno}" />
+                                          SelectedItem="{Binding Desaparecido.OcupacionPrincipal}"
+                                          ItemsSource="{Binding OcupacionesPrincipales}"/>
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
@@ -862,7 +922,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="525" Margin="0 0 25 0">
                             <ui:TextBlock Text="Descripción de la ocupación secundaria" />
-                            <ui:TextBox Text="{Binding Desaparecido.OcupacionDosObservaciones}"
+                            <ui:TextBox Text="{Binding Desaparecido.DescripcionOcupacionSecundaria}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
                                         MinHeight="100" />
@@ -872,22 +932,22 @@
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="Código general secundaria:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Desaparecido.TipoOcupacionDos}"
-                                          ItemsSource="{Binding Desaparecido.TiposOcupaciones}" />
+                                          SelectedItem="{Binding TipoOcupacionSecundariaSelected}"
+                                          ItemsSource="{Binding TiposOcupaciones}" />
                             </StackPanel>
 
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="Código específico secundaria:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Desaparecido.OcupacionDos}"
-                                          ItemsSource="{Binding Desaparecido.OcupacionesDos}" />
+                                          SelectedItem="{Binding Desaparecido.OcupacionSecundaria}"
+                                          ItemsSource="{Binding OcupacionesSecundarias}" />
                             </StackPanel>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Otras especificaciones de la ocupación:" />
-                        <ui:TextBox Text="{Binding Desaparecido.OcupacionesObservaciones}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Desaparecido.OtrasEspecificacionesOcupacion}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
@@ -896,13 +956,13 @@
                         <StackPanel Margin="0 0 25 0" MinWidth="250">
                             <ui:TextBlock Text="Estado conyugal:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.EstadoConyugal}"
-                                      ItemsSource="{Binding Desaparecido.EstadosConyugales}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.EstadoConyugal}"
+                                      ItemsSource="{Binding EstadosConyugales}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Nombre de la pareja o cónyuge" />
-                            <ui:TextBox Text="{Binding Desaparecido.NombrePareja}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding Desaparecido.NombreParejaConyugue}" Tag="Letter"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -915,6 +975,8 @@
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary"
+                   Command="{Binding GuardarYContinuarCommand}"
+                   CommandParameter="{x:Type presentation1:MediaFiliacionPage}"/>
     </Grid>
 </Page>

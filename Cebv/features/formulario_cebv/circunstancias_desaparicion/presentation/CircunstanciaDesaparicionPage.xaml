@@ -51,32 +51,36 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición:" />
-                            <DatePicker SelectedDate="{Binding FechaDesaparicion}" IsTodayHighlighted="True" />
+                            <!-- TODO: Requerido -->
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
+                                        IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding HoraDesaparicion}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraDesaparicion}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato:" />
-                            <DatePicker SelectedDate="{Binding FechaPercato}" IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
+                                        IsTodayHighlighted="True" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding HoraPercato}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraPercato}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="Aclaración de la fecha y hora de los hechos:" />
-                        <ui:TextBox Text="{Binding AclaracionHechos}" TextWrapping="Wrap" AcceptsReturn="True"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
+                                    TextWrapping="Wrap" AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
@@ -90,46 +94,47 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición aproximada:" />
-                            <ui:TextBox Text="{Binding FechaDesaparicionCebv}" 
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}" 
                                         Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaDesaparicionAprox"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición para CNB:" />
-                            <DatePicker SelectedDate="{Binding FechaDesaparicion}" 
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}" 
                                         IsTodayHighlighted="True" x:Name="FechaDesaparicion"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding HoraDesaparicion}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraDesaparicion}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato aproximada:" />
-                            <ui:TextBox Text="{Binding FechaPercatoCebv}" 
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}" 
                                         Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaPercatoAprox"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato para CNB:" />
-                            <DatePicker SelectedDate="{Binding FechaPercato}" 
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}" 
                                         IsTodayHighlighted="True" x:Name="FechaPercato"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding HoraPercato}" 
-                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraPercato}"
+                                        Icon="{ui:SymbolIcon Clock24}" Tag="Time" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="Aclaración de la fecha y hora de los hechos:" />
-                        <ui:TextBox Text="{Binding AclaracionHechos}" TextWrapping="Wrap" AcceptsReturn="True"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
+                                    TextWrapping="Wrap" AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
@@ -142,6 +147,11 @@
                         <RadioButton Content="Mismo domicilio que la persona reportante" Margin="5" />
                         <RadioButton Content="Mismo domicilio que la persona desaparecida" Margin="5" />
                         <RadioButton Content="Otro domicilio" Margin="5" />
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Tipo de domicilio:" />
+                            <ComboBox ItemsSource="{Binding TiposDomicilio}"
+                                      DisplayMemberPath="Nombre"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel>
@@ -153,14 +163,14 @@
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Exterior:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" 
-                                            ClearButtonEnabled="True" Tag="Number"/>
+                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}"
+                                            ClearButtonEnabled="True" Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Interior:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True" 
-                                            Tag="Number"/>
+                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True"
+                                            Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -170,20 +180,22 @@
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="Código postal:" />
-                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" 
-                                            ClearButtonEnabled="True" Tag="Number"/>
+                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}"
+                                            ClearButtonEnabled="True" Tag="Number" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Estado:" />
+                                <!-- TODO: Requerido -->
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Ubicacion.Estado}"
                                           ItemsSource="{Binding Ubicacion.Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <!-- TODO: Requerido -->
                                 <ui:TextBlock Text="Municipio:" />
                                 <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
                                           ItemsSource="{Binding Ubicacion.Municipios}" />
@@ -250,45 +262,51 @@
                                   ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
-                    <StackPanel Margin="0 0 0 15">
+                    <StackPanel Margin="0 0 0 15"
+                                Visibility="{Binding AmenazaCambioComportamiento,
+                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación de amenazas:" />
-                        <ui:TextBox Text="{Binding AmenazaDescripcion}" TextWrapping="Wrap" AcceptsReturn="True"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenaza}" TextWrapping="Wrap"
+                                    AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" />
-                        <ui:NumberBox Value="{Binding ContadorDesaparicion}" />
+                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Descripción de la situación previa o anote los folios en el campo siguiente si ya ha estado registrada:" />
-                        <ui:TextBox Text="{Binding SituacionPreviaDescripcion}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SituacionPrevia}" TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Folios previos:" />
-                        <ui:TextBox Text="{Binding FoliosPrevios}" />
+                        <ListBox DisplayMemberPath="FolioCebv"
+                                 ItemsSource="{Binding Folios}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Dato(s) de persona(s) que pudieron estar relacionadas o brindar información sobre la desaparición:" />
-                        <ui:TextBox Text="{Binding DatosPersonasRealacionadas}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.InformacionRelevante}"
+                                    TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Descripción de los hechos de la desaparición:" />
-                        <ui:TextBox Text="{Binding DescripcionHechosDesaparicion}" 
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude"/>
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude" />
                     </StackPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="Síntesis de los hechos de desaparición:" />
-                        <ui:TextBox Text="{Binding SintesisHechosDesaparicion}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SintesisDesaparicion}"
+                                    TextWrapping="Wrap"
                                     AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
 
@@ -301,13 +319,13 @@
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Posible hipótesis de desaparición 1:" />
-                            <ComboBox SelectedItem="{Binding TipoHipotesisUno}"
-                                      ItemsSource="{Binding TiposHipotesis}" />
+                            <ComboBox SelectedItem="{Binding Reporte.Hipotesis[0].TipoHipotesis}"
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
                             <ui:TextBlock Text="Circunstancia inicial 1:" />
-                            <ui:TextBox Text="{Binding TipoHipotesisUno.CircunstanciaId}"
+                            <ui:TextBox Text="{Binding Reporte.Hipotesis[0].TipoHipotesis.Circunstancia.Id}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </WrapPanel>
@@ -315,13 +333,13 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Posible hipótesis de desaparición 2:" />
-                            <ComboBox SelectedItem="{Binding TipoHipotesisDos}"
-                                      ItemsSource="{Binding TiposHipotesis}" />
+                            <ComboBox SelectedItem="{Binding Reporte.Hipotesis[1].TipoHipotesis}"
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
                             <ui:TextBlock Text="Circunstancia inicial 2:" />
-                            <ui:TextBox Text="{Binding TipoHipotesisDos.CircunstanciaId}"
+                            <ui:TextBox Text="{Binding Reporte.Hipotesis[1].TipoHipotesis.Circunstancia.Id}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </WrapPanel>
@@ -331,12 +349,15 @@
                             <ui:TextBlock Text="Sitio inicial:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Sitio}"
-                                      ItemsSource="{Binding Sitios}" />
+                                      ItemsSource="{Binding Hipotesis.Sitios}">
+                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Área que codifica sitio inicial:" />
-                            <ui:TextBox Text="{Binding AreaCodifica}" />
+                            <ui:TextBlock Text="Área que codifica:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding Area}"
+                                      ItemsSource="{Binding Hipotesis.Areas}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -354,8 +375,9 @@
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="N° de personas en el mismo evento:" />
-                            <ui:NumberBox Value="{Binding NumeroPersonasMismoEvento}" 
-                                          Tag="Number"/>
+                            <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
+                                          Text="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
+                                          Tag="Number" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -370,30 +392,34 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding NombreDirecto}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding ExpedienteDirecto.Nombre}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Primer apellido:" />
-                            <ui:TextBox Text="{Binding PrimerApellidoDirecto}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding ExpedienteDirecto.PrimerApellido}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Segundo apellido: " />
-                            <ui:TextBox Text="{Binding SegundoApellidoDirecto}" Tag="Letter"/>
+                            <ui:TextBox Text="{Binding ExpedienteDirecto.SegundoApellido}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
                                    Appearance="Primary"
                                    VerticalContentAlignment="Stretch"
-                                   Command="{Binding BuscarPersonaDirectaCommand}"
+                                   Command="{Binding ExpedienteDirecto.BuscarPersonaCommand}"
                                    Margin="0 15 0 0" />
                     </WrapPanel>
 
+                    <!-- TODO: Clarificar que las personas que aparecen son para relacionar con expedientes directos-->
                     <ui:ListView
                         HorizontalAlignment="Stretch"
                         MaxHeight="400"
-                        ItemsSource="{Binding PersonasDirectas, Mode=TwoWay}"
+                        ItemsSource="{Binding ExpedienteDirecto.Personas, Mode=TwoWay}"
                         SelectionMode="Single">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:Persona}">
@@ -436,7 +462,7 @@
                                                Icon="{ui:SymbolIcon Add24}"
                                                MinWidth="50"
                                                Margin="5"
-                                               Command="{Binding DataContext.AddExpedienteDirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               Command="{Binding DataContext.ExpedienteDirecto.AddExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                CommandParameter="{Binding}" />
 
                                 </Grid>
@@ -449,11 +475,10 @@
                             <ui:TextBlock Text="Expedientes directos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
 
-                        <ui:ListView
-                            HorizontalAlignment="Stretch"
-                            MaxHeight="250"
-                            ItemsSource="{Binding ExpedientesDirectos, Mode=TwoWay}"
-                            SelectionMode="Single">
+                        <ui:ListView HorizontalAlignment="Stretch"
+                                     MaxHeight="250"
+                                     ItemsSource="{Binding ExpedienteDirecto.Expedientes, Mode=TwoWay}"
+                                     SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate DataType="{x:Type presentation:Expediente}">
                                     <Grid>
@@ -513,7 +538,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.RemoveExpedienteDirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   Command="{Binding DataContext.ExpedienteDirecto.RemoveExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                    CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
@@ -533,31 +558,34 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="NOMBRE(S):" />
-                            <ui:TextBox Text="{Binding NombreIndirecto}" />
+                            <ui:TextBlock Text="Nombre(s):" />
+                            <ui:TextBox Text="{Binding ExpedienteIndirecto.Nombre}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="PRIMER APELLIDO:" />
-                            <ui:TextBox Text="{Binding PrimerApellidoIndirecto}" />
+                            <ui:TextBlock Text="Primer apellido:" />
+                            <ui:TextBox Text="{Binding ExpedienteIndirecto.PrimerApellido}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="SEGUNDO APELLIDO: " />
-                            <ui:TextBox Text="{Binding SegundoApellidoIndirecto}" />
+                            <ui:TextBlock Text="Segundo apellido: " />
+                            <ui:TextBox Text="{Binding ExpedienteIndirecto.SegundoApellido}"
+                                        Tag="Exclude" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
                                    Appearance="Primary"
                                    VerticalContentAlignment="Stretch"
-                                   Command="{Binding BuscarPersonaIndirectaCommand}"
+                                   Command="{Binding ExpedienteIndirecto.BuscarPersonaCommand}"
                                    Margin="0 15 0 0" />
                     </WrapPanel>
 
                     <ui:ListView
                         HorizontalAlignment="Stretch"
                         MaxHeight="400"
-                        ItemsSource="{Binding PersonasIndirectas, Mode=TwoWay}"
+                        ItemsSource="{Binding ExpedienteIndirecto.Personas, Mode=TwoWay}"
                         SelectionMode="Single">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:Persona}">
@@ -600,7 +628,7 @@
                                                Icon="{ui:SymbolIcon Add24}"
                                                MinWidth="50"
                                                Margin="5"
-                                               Command="{Binding DataContext.AddExpedienteIndirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               Command="{Binding DataContext.ExpedienteIndirecto.AddExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                CommandParameter="{Binding}" />
 
                                 </Grid>
@@ -611,13 +639,13 @@
 
                     <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
                         <ui:CardExpander.Header>
-                            <ui:TextBlock Text="Expedientes directos" FontTypography="Subtitle" />
+                            <ui:TextBlock Text="Expedientes indirectos" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
 
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding ExpedientesIndirectos, Mode=TwoWay}"
+                            ItemsSource="{Binding ExpedienteIndirecto.Expedientes, Mode=TwoWay}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate DataType="{x:Type presentation:Expediente}">
@@ -678,7 +706,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.RemoveExpedienteIndirectoCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   Command="{Binding DataContext.ExpedienteIndirecto.RemoveExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                    CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>

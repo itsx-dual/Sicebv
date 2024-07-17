@@ -1,15 +1,15 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
-using Cebv.core.modules.reporte.data;
-using Cebv.core.modules.reporte.domain;
-using Cebv.core.modules.ubicacion.presentation;
+using Cebv.core.modules.ubicacion.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.datos_del_reporte.presentation;
 
@@ -20,73 +20,58 @@ public partial class DatosReporteViewModel : ObservableObject
      */
     public DatosReporteViewModel()
     {
-        CargarCatalogos();
+        LoadAsync();
     }
 
-    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>();
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
+    private async void LoadAsync()
+    {
+        var tipoMedioId = _reporteService.GetReporte().MedioConocimiento?.TipoMedio.Id;
+        Medios = await DatosReporteNetwork.GetMedios(tipoMedioId ?? 1);
+        TiposMedios = await DatosReporteNetwork.GetTiposMedios();
+        Estados = await UbicacionNetwork.GetEstados();
+        
+        Reporte = _reporteService.GetReporte();
+        TipoMedio = Reporte.MedioConocimiento?.TipoMedio!;
+        
+        // Esta seccion del formulario lidia con dos atributos de reportante.
+        if (Reporte.Reportantes?.Count == 0)
+        {
+            Reporte.Reportantes?.Add(new Reportante());
+        }
+    }
+
+    [ObservableProperty] private Reporte _reporte;
     
-    [ObservableProperty] private DateTime? _fecha = DateTime.Now;
+    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     
     /**
      * Fuente de información.
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
-    [ObservableProperty] private Catalogo _tipoMedio = new();
-    [ObservableProperty] private ObservableCollection<Medio> _medios = new();
-    [ObservableProperty] private Medio _medio = new();
-    [ObservableProperty] private string _dependenciaOrigen = string.Empty;
-    [ObservableProperty] private UbicacionViewModel _ubicacion = new();
+    [ObservableProperty] private Catalogo _tipoMedio;
+    
+    [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = new();
+    [ObservableProperty] private ObservableCollection<Estado> _estados;
 
     /**
      * Información de consentimiento.
      */
     [ObservableProperty] private Dictionary<string, bool?> _informacionExclusivaBusquedaList = OpcionesCebv.Ops;
     [ObservableProperty] private string _informacionExclusivaBusquedaSelectedKey = "No";
-    [ObservableProperty] private bool? _informacionExclusivaBusqueda = false;
+    
     [ObservableProperty] private Dictionary<string, bool?> _publicacionInformacionList = OpcionesCebv.Ops;
     [ObservableProperty] private string _publicacionInformacionSelectedKey = "No";
-    [ObservableProperty] private bool? _publicacionInformacion = false;
-    
-    /**
-     * Peticiones a la API.
-     */
-    private async void CargarCatalogos() {
-        TiposMedios = await ReporteNetwork.GetTiposMedios();
-        
-        if (_reporteService.HayReporte())
-        {
-            var reporte = _reporteService.GetReporteActual();
-            var reportante = reporte.Reportantes.First();
-            
-            Fecha = reporte.FechaCreacion;
-            TipoMedio = TiposMedios.Where(catalogo => catalogo.Id == reporte.MedioConocimiento.TipoMedio.Id).First();
-            Medios = await ReporteNetwork.GetMedios(reporte.MedioConocimiento.TipoMedio.Id);
-            Medio = Medios.Where(medio => medio.Id == reporte.MedioConocimiento.Id).First();
-            Ubicacion.Estado = Ubicacion.Estados.Where(estado => estado.Id == reporte.Estado.Id).First();
 
-            InformacionExclusivaBusqueda = reportante.InformacionExclusivaBusqueda;
-            PublicacionInformacion = reportante.PublicacionBoletin;
-        }
+    async partial void OnTipoMedioChanged(Catalogo value)
+    {
+        Medios = await DatosReporteNetwork.GetMedios(value.Id);
     }
-
-    async partial void OnTipoMedioChanged(Catalogo value) =>
-        Medios = await ReporteNetwork.GetMedios(value.Id);
 
     [RelayCommand]
     public void OnGuardarYSiguente(Type pageType)
     {
-        var informacion = new InicioPostObject
-        {
-            Medio = Medio.Id,
-            TipoReporte = 1,
-            Estado = Ubicacion.Estado!.Id,
-            InformacionExclusivaBusqueda = InformacionExclusivaBusqueda,
-            PublicacionInformacion = PublicacionInformacion
-        };
-        
-        _reporteService.UbicacionEstado = Ubicacion.Estado;
-        
-        if (_reporteService.SendInformacionInicio(informacion)) _navigationService.Navigate(pageType);
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

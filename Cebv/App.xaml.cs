@@ -1,14 +1,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Cebv.core.modules.persona.presentation;
 using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
-using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
+using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 
 namespace Cebv;
 
@@ -41,6 +40,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddTransient<FormularioCebvViewModel>();
+        services.AddTransient<CircunstanciaDesaparicionViewModel>();
         
         services.AddSingleton<IReporteService, ReporteService>();
         services.AddSingleton<ISnackbarService, SnackbarService>();
