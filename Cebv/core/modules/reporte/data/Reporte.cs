@@ -38,7 +38,7 @@ public class ReporteResponse
     public string? TipoDesaparicion { get; set; }
 
     [JsonPropertyName("fecha_localizacion")]
-    public DateOnly? FechaLocalizacion { get; set; }
+    public DateTime? FechaLocalizacion { get; set; }
 
     [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
@@ -73,7 +73,7 @@ public class ReporteRequest
     public string? TipoDesaparicion { get; set; }
 
     [JsonPropertyName("fecha_localizacion")]
-    public DateOnly? FechaLocalizacion { get; set; }
+    public DateTime? FechaLocalizacion { get; set; }
 
     [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
