@@ -3,13 +3,35 @@ using Cebv.core.util.reporte.viewmodels;
 
 namespace Cebv.core.util.reporte;
 
+/// <summary>
+/// Representa los posibles estados de un reporte.
+/// </summary>
 public enum EstadoReporte
 {
+    /// <summary>
+    /// El estado inicial del reporte, antes de cualquier modificación.
+    /// </summary>
     Indefinido,
+    
+    /// <summary>
+    /// El reporte ha sido creado pero aún no se ha guardado.
+    /// </summary>
     Nuevo,
+    
+    /// <summary>
+    /// El reporte ha sido sincronizado exitosamente en el servicio web.
+    /// </summary>
     Guardado,
-    Terminado,
+    
+    /// <summary>
+    /// El reporte ha sido cargado desde una fuente de datos externa.
+    /// </summary>
     Cargado,
+    
+    /// <summary>
+    /// El reporte esta en un estado de error en donde la sincorinizacion no fue exitosa.
+    /// </summary>
+    Error,
 }
 
 public class ReporteService : IReporteService
@@ -25,8 +47,17 @@ public class ReporteService : IReporteService
     public async Task<Reporte> Sync()
     {
         var reporte = await ReporteServiceNetwork.Sync(_reporte);
-        if (reporte != null) _reporte = reporte;
-        _estadoActual = EstadoReporte.Guardado;
+        
+        if (reporte != null)
+        {
+            _reporte = reporte;
+            _estadoActual = EstadoReporte.Guardado;
+        }
+        else
+        {
+            _estadoActual = EstadoReporte.Error;
+        }
+        
         return reporte;
     } 
 
