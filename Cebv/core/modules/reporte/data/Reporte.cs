@@ -8,12 +8,12 @@ namespace Cebv.core.modules.reporte.data;
 
 public class ReportesQueryResponse
 {
-    [property: JsonPropertyName("data")] public List<ReporteResponse> Data { get; set; } = null!;
+    [property: JsonPropertyName("data")] public List<ReporteResponse> Data { get; set; }
 }
 
 public class ReporteQueryResponse
 {
-    [property: JsonPropertyName("data")] public ReporteResponse Data { get; set; } = null!;
+    [property: JsonPropertyName("data")] public ReporteResponse Data { get; set; }
 }
 
 public class ReporteResponse
@@ -38,7 +38,7 @@ public class ReporteResponse
     public string? TipoDesaparicion { get; set; }
 
     [JsonPropertyName("fecha_localizacion")]
-    public DateOnly? FechaLocalizacion { get; set; }
+    public DateTime? FechaLocalizacion { get; set; }
 
     [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
@@ -73,7 +73,7 @@ public class ReporteRequest
     public string? TipoDesaparicion { get; set; }
 
     [JsonPropertyName("fecha_localizacion")]
-    public DateOnly? FechaLocalizacion { get; set; }
+    public DateTime? FechaLocalizacion { get; set; }
 
     [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
