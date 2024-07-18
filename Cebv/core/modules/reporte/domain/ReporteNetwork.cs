@@ -44,7 +44,7 @@ public class ReporteNetwork
         return new ObservableCollection<Catalogo>(jsonResponse.Data);
     }
 
-    public static async Task<Object> GetAreas()
+    public static async Task<ObservableCollection<Catalogo>> GetAreas()
     {
         var request = await Client.GetAsync("api/areas");
 
@@ -52,11 +52,7 @@ public class ReporteNetwork
 
         CatalogosWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response);
 
-        ObservableCollection<Catalogo> areas = new ObservableCollection<Catalogo>();
-
-        foreach (var area in jsonResponse?.Data!) areas.Add(area);
-
-        return areas;
+        return jsonResponse!.Data;
     }
 
     public static async Task<ObservableCollection<Catalogo>> GetTiposMedios()

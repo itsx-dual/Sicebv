@@ -5,6 +5,7 @@ using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,6 +40,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddTransient<FormularioCebvViewModel>();
+        services.AddTransient<CircunstanciaDesaparicionViewModel>();
         
         services.AddSingleton<IReporteService, ReporteService>();
         services.AddSingleton<ISnackbarService, SnackbarService>();
@@ -46,13 +48,5 @@ public partial class App : Application
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
             
         return services.BuildServiceProvider();
-    }
-    
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        //EventManager.RegisterClassHandler(typeof(TextBox), TextBox.PreviewTextInputEvent, new TextCompositionEventHandler(TextBoxHelper.PreviewTextInput));
-        //EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
-        //EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.TrimmedText));
-        base.OnStartup(e);
     }
 }

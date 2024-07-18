@@ -23,7 +23,7 @@
         <ui:TextBlock Grid.Row="0" Text="{StaticResource DatosComplementariosTitle}" FontTypography="TitleLarge" />
         
         <StackPanel Grid.Row="1">
-            <ui:TextBlock Text="Domicilio de completitud" FontTypography="Title" Margin="10" />
+            <ui:TextBlock Text="Domicilio de complementario" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">

@@ -70,6 +70,7 @@
                 
                 <ui:NavigationViewItem Content="{StaticResource EncuadreTitle}"
                                        Icon="{ui:SymbolIcon Square24}"
+                                       Click="NuevoReporte_OnClick"
                                        TargetPageType="{x:Type presentation2:EncuadrePreeliminarPage}"/>
                 
                 <ui:NavigationViewItem Content="{StaticResource BusquedaFamiliaTitle}"

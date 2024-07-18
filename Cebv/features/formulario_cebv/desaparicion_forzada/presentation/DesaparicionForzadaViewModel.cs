@@ -1,12 +1,22 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.desaparicion_forzada.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.desaparicion_forzada.presentation;
 
 public partial class DesaparicionForzadaViewModel : ObservableObject
 {
+    private IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
+
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
     /**
      * Constructor de la clase
      */
@@ -14,7 +24,7 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     {
         CargarCatalogos();
     }
-    
+
     /**
      * Variables de la clase
      */
@@ -24,6 +34,9 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     [ObservableProperty] private string _sufrioDesaparicionForzadaOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _sufrioDesaparicionForzada = false;
 
+    partial void OnSufrioDesaparicionForzadaOpcionChanged(string value) =>
+        SufrioDesaparicionForzada = OpcionesCebv.MappingToBool(value);
+
     [ObservableProperty] private ObservableCollection<Catalogo> _autoridades = new();
     [ObservableProperty] private Catalogo _autoridad = new();
 
@@ -32,6 +45,9 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     // Particular
     [ObservableProperty] private string _sufrioDesaparicionParticularOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _sufrioDesaparicionParticular = false;
+
+    partial void OnSufrioDesaparicionParticularOpcionChanged(string value) =>
+        SufrioDesaparicionParticular = OpcionesCebv.MappingToBool(value);
 
     [ObservableProperty] private ObservableCollection<Catalogo> _particulares = new();
     [ObservableProperty] private Catalogo _particular = new();
@@ -52,31 +68,30 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     [ObservableProperty] private string _detencionLegalExtorsionOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _detencionLegalExtorsion = false;
 
+    partial void OnDetencionLegalExtorsionOpcionChanged(string value) =>
+        DetencionLegalExtorsion = OpcionesCebv.MappingToBool(value);
+
     [ObservableProperty] private string _detencionLegalExtorsionDescripcion = String.Empty;
 
     // Ha sido avistado previamente
     [ObservableProperty] private string _haSidoAvistadoOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _haSidoAvistado = false;
 
+    partial void OnHaSidoAvistadoOpcionChanged(string value) =>
+        HaSidoAvistado = OpcionesCebv.MappingToBool(value);
+
     [ObservableProperty] private string _haSidoAvistadoDescripcion = String.Empty;
 
     // Información sobre el perpetrador
-    [ObservableProperty] private string _nombre = String.Empty;
-
-    [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();
-    [ObservableProperty] private Catalogo _sexo = new();
-
-    [ObservableProperty] private string _perpetradorDescripcion = String.Empty;
-
-    [ObservableProperty] private ObservableCollection<Catalogo> _estatusPerpetradores = new();
-    [ObservableProperty] private Catalogo _estatusPerpetrador = new();
-
+    [ObservableProperty] private PerpetradorViewModel _perpetrador = new();
+    
     [ObservableProperty] private string _grupoPerpetradorDescripcion = String.Empty;
 
     [ObservableProperty] private string _delitoDesaparicionOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _delitoDesaparicion = false;
 
     [ObservableProperty] private string _delitoDesaparicionDescripcion = String.Empty;
+
 
     /**
      * Permite cargar los catalogos necesarios para el formulario
@@ -87,7 +102,12 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
         Particulares = await DesaparicionForzadaNetwork.GetParticulares();
         MetodosCaptura = await DesaparicionForzadaNetwork.GetMetodosCaptura();
         MediosCaptura = await DesaparicionForzadaNetwork.GetMediosCaptura();
-        Sexos = await DesaparicionForzadaNetwork.GetSexos();
-        EstatusPerpetradores = await DesaparicionForzadaNetwork.GetEstatusPerpetradores();
+    }
+
+    [RelayCommand]
+    private void OnGuardarYSiguente(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

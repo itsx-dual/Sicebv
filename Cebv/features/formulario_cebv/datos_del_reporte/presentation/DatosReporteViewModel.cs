@@ -41,6 +41,7 @@ public partial class DatosReporteViewModel : ObservableObject
     }
 
     [ObservableProperty] private Reporte _reporte;
+    
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     

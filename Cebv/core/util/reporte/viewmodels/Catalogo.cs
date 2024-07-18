@@ -30,6 +30,11 @@ public partial class Catalogo : ObservableObject
                Nombre == catalogo.Nombre;
     }
 
+    public override string ToString()
+    {
+        return $"{Nombre}";
+    }
+
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int? _id;
     [ObservableProperty, JsonProperty(PropertyName = "nombre")] private string? _nombre;
 }

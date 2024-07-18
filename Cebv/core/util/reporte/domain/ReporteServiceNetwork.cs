@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
 using System.Text;
 using Cebv.core.domain;
 using Cebv.core.util.reporte.viewmodels;
@@ -19,9 +21,9 @@ public partial class ReporteResponse : ObservableObject
     [ObservableProperty] private Reporte? _data;
 }
 
-public partial class ReporteServiceNetwork
+public abstract class ReporteServiceNetwork
 {
-    private static HttpClient Client = CebvClientHandler.SharedClient;
+    private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<Reporte> ShowReporte(int id)
     {
@@ -33,14 +35,14 @@ public partial class ReporteServiceNetwork
 
         var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<Reportes>(json)?.Data;
+        return JsonConvert.DeserializeObject<Reportes>(json)?.Data!;
     }
 
     public static async Task<Reporte> Sync(Reporte reporte)
     {
         var json = JsonConvert.SerializeObject(reporte);
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Entrada: {JObject.Parse(json).ToString(Formatting.Indented)}\n");
+        Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
 
         var request = new HttpRequestMessage
         {
@@ -53,7 +55,7 @@ public partial class ReporteServiceNetwork
         json = await response.Content.ReadAsStringAsync();
         
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"Salida: {JObject.Parse(json).ToString(Formatting.Indented)}");
+        Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
         Console.ForegroundColor = ConsoleColor.White;
         return JsonConvert.DeserializeObject<ReporteResponse>(json)?.Data!;
     }

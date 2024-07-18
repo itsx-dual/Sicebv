@@ -8,7 +8,7 @@ public partial class Estado : ObservableObject
 {
     [JsonConstructor]
     public Estado(
-        string? id,
+        string id,
         string? nombre,
         string? abreviatura_inegi,
         string? abreviatura_cebv,
@@ -39,8 +39,13 @@ public partial class Estado : ObservableObject
                MunicipiosCount == estado.MunicipiosCount;
     }
 
+    public override string ToString()
+    {
+        return $"{Nombre}";
+    }
+
     [ObservableProperty, JsonProperty(PropertyName = "id")]
-    private string? _id;
+    private string _id;
 
     [ObservableProperty, JsonProperty(PropertyName = "nombre")]
     private string? _nombre;

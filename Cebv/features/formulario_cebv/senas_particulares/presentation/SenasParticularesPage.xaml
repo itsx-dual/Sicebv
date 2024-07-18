@@ -6,11 +6,13 @@
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignWidth="1024"
       d:DesignHeight="auto"
+      Name="Page"
       Title="SenasParticualresPage">
 
     <Page.DataContext>
@@ -20,9 +22,9 @@
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height=".5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ui:TextBlock Grid.Row="0" Text="{StaticResource SenasParticularesTitle}" FontTypography="TitleLarge" />
@@ -81,19 +83,17 @@
                                 <ui:TextBlock Text="Región del cuerpo:"
                                               Margin="10,10,0,0" />
                                 <ComboBox Margin="5,0,5,0"
-                                          SelectedValuePath="Key"
-                                          DisplayMemberPath="Value.nombre"
-                                          SelectedValue="{Binding ColorRegionCuerpo}"
-                                          ItemsSource="{Binding RegionCuerpo}" />
-
+                                          DisplayMemberPath="Nombre"
+                                          SelectedValue="{Binding RegionCuerpoSelected}"
+                                          ItemsSource="{Binding RegionesCuerpo}"/>
+                                
                                 <!-- Vista -->
                                 <ui:TextBlock Text="Vista:"
                                               Margin="10,10,0,0" />
                                 <ComboBox Margin="5,0,5,0"
-                                          DisplayMemberPath="nombre"
-                                          SelectedIndex="2"
-                                          SelectedValue="{Binding VistaSenasSelected}"
-                                          ItemsSource="{Binding VistaSenas}" />
+                                          DisplayMemberPath="Nombre"
+                                          SelectedValue="{Binding VistaSelected}"
+                                          ItemsSource="{Binding Vistas}" />
 
                             </StackPanel>
 
@@ -101,16 +101,16 @@
                                 <ui:TextBlock Text="Lado:"
                                               Margin="10,10,0,0" />
                                 <ComboBox Margin="5,0,5,0"
-                                          SelectedValuePath="Key"
-                                          DisplayMemberPath="Value.nombre"
-                                          SelectedValue="{Binding ColorLado}"
-                                          ItemsSource="{Binding LadoSenas}" />
+                                          DisplayMemberPath="Nombre"
+                                          SelectedValue="{Binding LadoSelected}"
+                                          ItemsSource="{Binding Lados}" />
 
                                 <!-- Cantidad -->
                                 <ui:TextBlock Text="Cantidad:"
                                               Margin="10,10,0,0" />
                                 <ui:NumberBox Margin="5,0,5,0"
-                                              Value="1" Tag="Number"/>
+                                              Value="{Binding Cantidad}"
+                                              Tag="Number"/>
 
                             </StackPanel>
                         </Grid>
@@ -118,10 +118,9 @@
                         <ui:TextBlock Text="Tipo de seña:"
                                       Margin="10,10,0,0" />
                         <ComboBox Margin="5,0,5,0"
-                                  DisplayMemberPath="nombre"
-                                  SelectedIndex="7"
-                                  SelectedValue="{Binding TipoSenasSelected}"
-                                  ItemsSource="{Binding TipoSenas}" />
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValue="{Binding TipoSelected}"
+                                  ItemsSource="{Binding Tipos}" />
 
                         
                         <!-- Descripcion -->
@@ -145,51 +144,57 @@
                                        Icon="{ui:SymbolIcon ArrowUpload24}" />
                             <ui:Button Content="Agregar registro"
                                        Margin="5,0,0,0"
-                                       Command="{Binding InsertarCommand}"
+                                       Command="{Binding AddSenaParticularCommand}"
                                        Icon="{ui:SymbolIcon Add24}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-                <DataGrid x:Name="tablaDatos" Grid.Row="1"
+                <DataGrid Grid.Row="1"
                           Grid.Column="0"
                           Grid.ColumnSpan="3"
                           Margin="10,0,10,10"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding SenasParticularesTabla}">
+                          ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Region del cuerpo"
                                             CanUserResize="False"
                                             Width="*"
-                                            Binding="{Binding region_cuerpo}" />
+                                            Binding="{Binding RegionCuerpo.Nombre}" />
                         <DataGridTextColumn Header="Vista"
                                             CanUserResize="False"
                                             Width="*"
-                                            Binding="{Binding vista}" />
+                                            Binding="{Binding Vista.Nombre}" />
                         <DataGridTextColumn Header="Lado"
                                             CanUserResize="False"
                                             Width="*"
-                                            Binding="{Binding lado}" />
+                                            Binding="{Binding Lado.Nombre}" />
                         <DataGridTextColumn Header="Tipo"
                                             CanUserResize="False"
                                             Width="*"
-                                            Binding="{Binding tipo}" />
+                                            Binding="{Binding Tipo.Nombre}" />
                         <DataGridTextColumn Header="Cantidad"
                                             CanUserResize="False"
                                             Width="*"
-                                            Binding="{Binding cantidad}" />
-                        <DataGridTemplateColumn Header="Descripción"
-                                                Width="3*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ui:TextBlock Text="{Binding descripcion}"
-                                                  TextWrapping="Wrap" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                                            Binding="{Binding Cantidad}" />
+                        <DataGridTextColumn Header="Descripcion"
+                                            CanUserResize="False"
+                                            Width="3*"
+                                            Binding="{Binding Descripcion}" />
                         <DataGridTextColumn Header="Fotografia"
                                             CanUserResize="False"
                                             Width="*"
-                                            Binding="{Binding foto}" />
+                                            Binding="{Binding Foto}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ui:Button Icon="{ui:SymbolIcon Delete24}"
+                                               Appearance="Danger"
+                                               Margin="3"
+                                               Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
+                                               CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -197,11 +202,12 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Command="{Binding GuardarYContinuarCommand}"
+                   CommandParameter="{x:Type presentation1:CondicionesVulnerabilidadPage}"
+                   Appearance="Primary"/>
     </Grid>
 </Page>

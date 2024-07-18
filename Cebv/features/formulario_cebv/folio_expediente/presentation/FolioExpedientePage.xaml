@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.folio_expediente.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -35,9 +36,8 @@
                         MaxWidth="400"
                         Margin="10 10 10 25">
                 <ui:TextBlock Text="FOLIO CEBV:" />
-                <ui:TextBox Text="{Binding Folio.FolioCebv}" />
+                <ui:TextBox Text="{Binding Reporte.Folios[0].FolioCebv}" />
             </StackPanel>
-
 
             <StackPanel Margin="5 5 5 25" IsEnabled="False">
                 <WrapPanel Margin="0 0 0 15">
@@ -55,14 +55,14 @@
 
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="Número de personas en el mismo evento:" />
-                        <ui:TextBox Text="" IsEnabled="False" Tag="Number"/>
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" IsEnabled="False" Tag="Number"/>
                     </StackPanel>
                 </WrapPanel>
 
                 <WrapPanel>
                     <StackPanel MinWidth="250" Margin="5">
                         <ui:TextBlock Text="Fecha de desaparición:" />
-                        <ui:TextBox Text="" IsEnabled="False" />
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicion, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" IsEnabled="False" />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
@@ -108,7 +108,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                            <ui:TextBox Text="{Binding Folio.User.Name}" IsEnabled="False" />
+                            <ui:TextBox Text="{Binding Reporte.Folios[0].User.Name}" IsEnabled="False" />
                         </StackPanel>
 
 
@@ -177,7 +177,8 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:GeneracionBoletinPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
