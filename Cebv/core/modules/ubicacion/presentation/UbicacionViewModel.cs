@@ -43,15 +43,7 @@ public partial class UbicacionViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        try
-        {
-            Estados = await UbicacionNetwork.GetEstados();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+       Estados = await UbicacionNetwork.GetEstados();
     }
 
 
