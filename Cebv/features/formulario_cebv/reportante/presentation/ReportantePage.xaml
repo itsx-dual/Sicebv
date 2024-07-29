@@ -130,7 +130,8 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de Nacimiento:" />
                             <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding Reportante.Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" />
+                                        SelectedDate="{Binding Reportante.Persona.FechaNacimiento, 
+                                        StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
