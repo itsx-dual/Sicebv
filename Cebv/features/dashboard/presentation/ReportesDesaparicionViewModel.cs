@@ -24,6 +24,8 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     
     [ObservableProperty] private ObservableCollection<ReporteResponse> _reportes = [];
+    [ObservableProperty] private ObservableCollection<ReporteResponse> _reportesRecientes = [];
+    [ObservableProperty] private ObservableCollection<ReporteResponse> _reportesPendientes = [];
     [ObservableProperty] private ReporteResponse _reporteSelected;
     [ObservableProperty] private DesaparecidoResponse _desaparecidoSelected;
 
@@ -36,6 +38,10 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     private async void CargarReportes()
     {
         Reportes = await ReporteNetwork.GetReportes();
+        ReportesRecientes = new ObservableCollection<ReporteResponse>(Reportes.OrderByDescending
+            (r => r.FechaCreacion).Take(10));
+        ReportesPendientes = new ObservableCollection<ReporteResponse>(Reportes.Where(r 
+            => r.EstaTerminado == false));
     }
 
     [RelayCommand]

@@ -51,6 +51,8 @@ public class ReporteResponse
 
     [JsonPropertyName("fecha_actualizacion")]
     public string FechaActualizacion { get; set; } = null!;
+    
+    [JsonPropertyName("esta_terminado")] public bool EstaTerminado { get; set; }
 }
 
 public class ReporteRequest

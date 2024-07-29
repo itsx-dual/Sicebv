@@ -51,9 +51,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     private async void FoliosPrevios()
     {
-        var persona = Reporte.Desaparecidos![0].Persona;
+        var persona = Reporte.Desaparecidos.FirstOrDefault();
 
-        if (persona is null || persona.Id is null) return;
+        if (persona?.Id is null) return;
 
         Folios = await CircunstanciaDesaparicionNetwork.GetFoliosPrevios(persona.Id);
     }

@@ -1,0 +1,77 @@
+<UserControl x:Class="Cebv.features.dashboard.presentation.ReportesRecientesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+             ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
+             xmlns:data2="clr-namespace:Cebv.core.modules.reporte.data"
+             xmlns:data1="clr-namespace:Cebv.core.modules.desaparecido.data"
+             x:Name="UserControl">
+    <UserControl.DataContext>
+        <local:ReportesDesaparicionViewModel />
+    </UserControl.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{ui:ThemeResource TextFillColorPrimaryBrush}" 
+                CornerRadius="8" TextElement.Foreground="{ui:ThemeResource TextFillColorInverseBrush}">
+            <ui:TextBlock Text="Reportes recientes" FontTypography="Title" TextAlignment="Center" />
+        </Border>
+        
+        <ui:ListView Grid.Row="1" ItemsSource="{Binding ReportesRecientes}">
+            <ui:ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type data2:ReporteResponse}">
+                    <Border Padding="16"
+                            Background="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            TextElement.Foreground="{ui:ThemeResource TextFillColorInverseBrush}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <ui:TextBlock Grid.Row="0" FontSize="12" FontWeight="Bold">
+                                <Run Text="{Binding TipoReporte.Nombre}" />
+                                <Run Text=" - " />
+                                <Run Text="{Binding FechaCreacion}" />
+                            </ui:TextBlock>
+                            
+                            <Separator Grid.Row="1" Height="25" Background="Transparent" BorderThickness="0" />
+                            
+                            <ui:ListView Grid.Row="2"  ItemsSource="{Binding Desaparecidos}">
+                                <ui:ListView.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type data1:DesaparecidoResponse}">
+                                        <TextBlock FontSize="14">
+                                            <Run Text="{Binding Persona.Nombre}" 
+                                                 FontWeight="Bold" Foreground="{ui:ThemeResource TextFillColorInverseBrush}"/>
+                                            <Run Text=" " />
+                                            <Run Text="{Binding Persona.ApellidoPaterno}" 
+                                                 FontWeight="Bold" Foreground="{ui:ThemeResource TextFillColorInverseBrush}"/>
+                                            <Run Text=" " />
+                                            <Run Text="{Binding Persona.ApellidoMaterno}" 
+                                                 FontWeight="Bold" Foreground="{ui:ThemeResource TextFillColorInverseBrush}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ui:ListView.ItemTemplate>
+                            </ui:ListView>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ui:ListView.ItemTemplate>
+        </ui:ListView>
+    </Grid>
+</UserControl>

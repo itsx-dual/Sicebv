@@ -8,6 +8,8 @@ using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Appearance;
+using Wpf.Ui.Markup;
 
 namespace Cebv;
 
@@ -56,6 +58,20 @@ public partial class App : Application
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.AutoCompleted));
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.TrimmedText));
+        
         base.OnStartup(e);
+    }
+    
+    // Método para cambiar el tema
+    public void SetTheme(ApplicationTheme theme)
+    {
+        var themeDictionary = Resources.MergedDictionaries
+            .OfType <ThemesDictionary>()
+            .FirstOrDefault();
+
+        if (themeDictionary != null)
+        {
+            themeDictionary.Theme = theme;
+        }
     }
 }
