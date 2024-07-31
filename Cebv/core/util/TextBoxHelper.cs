@@ -5,11 +5,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Cebv.core.util.snackbar;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
+    private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
     /// </summary>
@@ -169,7 +174,13 @@ public class TextBoxHelper
                 /*MessageBox.Show("Por favor ingrese formato valido: \"Hora : Minutos\" \nEjemplo: \"22:30\"",
                     "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
                 e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                _snackBarService.Show(
+                    "La hora no esta en un formato correcto",
+                    "Se escribe en formato de 24 horas y 60 minutos, ejemplo 14:30",
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning28),
+                    new TimeSpan(0, 0, 5));
             }else
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;

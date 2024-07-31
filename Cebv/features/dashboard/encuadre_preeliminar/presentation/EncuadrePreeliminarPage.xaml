@@ -6,11 +6,9 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
       xmlns:util="clr-namespace:Cebv.core.util"
-      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
@@ -79,12 +77,18 @@
                                   SelectedItem="{Binding Reporte.MedioConocimiento}"
                                   ItemsSource="{Binding Medios}" />
                     </StackPanel>
-                    
+
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE:" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding Reporte.Estado}"
-                                  ItemsSource="{Binding Estados}" />
+                        <ComboBox SelectedItem="{Binding Reporte.Estado}"
+                                  ItemsSource="{Binding Estados}"
+                                  IsEditable="True"/>
+                    </StackPanel>
+                    
+                    <StackPanel MinWidth="250" Margin="0 0 25 0">
+                        <ui:TextBlock Text="ZONA DEL ESTADO DE DONDE PROVIENE EL REPORTE:" />
+                        <ComboBox SelectedItem="{Binding Reporte.ZonaEstado}"
+                                  ItemsSource="{Binding ZonasEstados}"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -134,7 +138,8 @@
                             <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding NoTelefonoReportante}"
-                                        MaxLength="10"/>
+                                        MaxLength="10"
+                                        Tag="Number"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -249,8 +254,8 @@
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
                                 <DatePicker IsTodayHighlighted="True"
-                                            SelectedDate="{Binding FechaNacimientoDesaparecido,
-                                            StringFormat='{}'}"/>
+                                            SelectedDateFormat="Short"
+                                            SelectedDate="{Binding FechaNacimientoDesaparecido}"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -304,13 +309,14 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO APROXIMADA:" />
                                 <DatePicker IsTodayHighlighted="True"
-                                            SelectedDate="{Binding FechaNacimientoDesaparecido, ConverterCulture=es-MX}"/>
+                                            SelectedDateFormat="Short"
+                                            SelectedDate="{Binding FechaNacimientoDesaparecido, ConverterCulture=es-MX}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO CEBV:" />
                                 <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
-                                            MaxLength="12"/>
+                                            MaxLength="12" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250">
@@ -362,16 +368,17 @@
                     <StackPanel MinWidth="250"
                                 Margin="0 0 0 15"
                                 Orientation="Horizontal">
-                        
+
                         <StackPanel MinWidth="250" Margin="0,0,25,0">
                             <ui:TextBlock Text="CURP:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.Curp}"
-                                        MaxLength="18" />
+                            <ui:TextBox Text="{Binding Curp}"
+                                        MaxLength="18"/>
                         </StackPanel>
-                        
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Razón por la cual no tiene CURP:" />
-                            <ComboBox ItemsSource="{Binding RazonesCurp}"/>
+
+                        <StackPanel MinWidth="250"
+                                    Visibility="{Binding NoHayCurp, Converter={StaticResource VisibilityConverter2}}">
+                            <ui:TextBlock Text="Razón por la cual no tiene CURP:"/>
+                            <ComboBox ItemsSource="{Binding RazonesCurp}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -380,7 +387,8 @@
                             <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding NoTelefonoDesaparecido}"
-                                        MaxLength="10"/>
+                                        MaxLength="10"
+                                        Tag="Number"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -469,13 +477,14 @@
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="FECHA DESAPARICIÓN: *" />
                                     <DatePicker IsTodayHighlighted="True"
+                                                SelectedDateFormat="Short"
                                                 SelectedDate="{Binding FechaDesaparicion}" />
                                 </StackPanel>
 
                                 <!-- TODO: Mascara-->
                                 <StackPanel MinWidth="250">
                                     <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                                    <ui:TextBox Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
+                                    <ui:TextBox Icon="{ui:SymbolIcon Clock24}" Tag="Time" />
                                 </StackPanel>
                             </WrapPanel>
 
@@ -494,18 +503,19 @@
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DESAPARICIÓN APROXIMADA: *" />
                                 <DatePicker IsTodayHighlighted="True"
+                                            SelectedDateFormat="Short"
                                             SelectedDate="{Binding FechaDesaparicion}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DESAPARICIÓN CEBV:" />
-                                <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}" 
-                                            MaxLength="12"/>
+                                <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
+                                            MaxLength="12" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="HORA DESAPARICIÓN:" />
-                                <ui:TextBox Icon="{ui:SymbolIcon Clock24}" Tag="Time"/>
+                                <ui:TextBox Icon="{ui:SymbolIcon Clock24}" Tag="Time" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -545,17 +555,17 @@
                                 <ui:TextBlock Text="CÓDIGO POSTAL:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             MaxLength="5"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.CodigoPostal}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.CodigoPostal}"
+                                            Tag="Number"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ESTADO:" />
-                                <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding EstadoSelected}"
+                                <ComboBox SelectedItem="{Binding EstadoSelected}"
                                           ItemsSource="{Binding Estados}"
-                                          IsEditable="True" />
+                                          IsEditable="True"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -564,7 +574,7 @@
                                           ItemsSource="{Binding Municipios}"
                                           IsEditable="True" />
                             </StackPanel>
-                            
+
                             <!-- Agregar NO ESPECIFICA -->
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="LOCALIDAD:" />
@@ -609,14 +619,17 @@
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="CIRCUNSTANCIAS DE LA DESAPARICIÓN: *" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150"
-                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}" />
+                        <ui:TextBlock Text="DESCRIPCIÓN DE LOS HECHOS: *" />
+                        <ui:TextBox TextWrapping="Wrap"
+                                    AcceptsReturn="True"
+                                    MinHeight="150"
+                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}"
+                                    Tag="Exclude"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.CantidadDesaparecidos}" />
+                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -694,18 +707,15 @@
             </Border>
 
             <ui:TextBlock Text="Señas particulares" FontTypography="Title" Margin="10" />
+            
             <Border Margin="0 0 0 25">
                 <Grid Margin="10">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
-                    <ui:TextBlock Grid.Row="0" Text="{StaticResource SenasParticularesTitle}"
-                                  FontTypography="TitleLarge" />
-
+                    
                     <StackPanel Grid.Row="1" Margin="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -823,6 +833,54 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
+                            
+                            <ui:CardExpander Grid.Row="1"
+                                             Grid.Column="0"
+                                             Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
+                                             Margin="10,0,10,0"
+                                             IsExpanded="True">
+                                
+                                <ui:CardExpander.Header>
+                                    <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
+                                </ui:CardExpander.Header>
+                                
+                                <ui:ListView ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
+                                    <ui:ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <ui:CardControl HorizontalAlignment="Stretch"
+                                                                 >
+                                                    <ui:CardControl.Header>
+                                                        <ui:TextBlock Text="{Binding RegionCuerpo.Nombre}"/>
+                                                    </ui:CardControl.Header>
+                                                    
+                                                    <StackPanel HorizontalAlignment="Left">
+                                                        <ui:TextBlock Text="{Binding Lado.Nombre}"/>
+                                                        <ui:TextBlock Text="{Binding Descripcion}"/>
+                                                    </StackPanel>
+                                                </ui:CardControl>
+                                                
+                                                <ui:Button Grid.Column="1"
+                                                           VerticalAlignment="Stretch"
+                                                           Appearance="Danger"
+                                                           HorizontalAlignment="Right"
+                                                           Icon="{ui:SymbolIcon Delete24}"
+                                                           MinWidth="50"
+                                                           Margin="5"
+                                                           CommandParameter="{Binding}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ui:ListView.ItemTemplate>
+                                </ui:ListView>
+                            </ui:CardExpander>
+                            
+                            
+                            <!---
                             <DataGrid Grid.Row="1"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="3"
@@ -870,7 +928,7 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                 </DataGrid.Columns>
-                            </DataGrid>
+                            </DataGrid> -->
                         </Grid>
                     </StackPanel>
                 </Grid>
@@ -898,21 +956,21 @@
                                         <ui:TextBlock Text="Grupo pertenencia:" />
                                         <ComboBox SelectedItem="{Binding GrupoPerteneciaSelected }"
                                                   ItemsSource="{Binding GruposPertenencia}"
-                                                  IsEditable="True"/>
+                                                  IsEditable="True" />
                                     </StackPanel>
 
                                     <StackPanel Margin="0 0 0 15">
                                         <ui:TextBlock Text="Pertenencia:" />
                                         <ComboBox SelectedItem="{Binding PerteneciaSelected }"
                                                   ItemsSource="{Binding Pertenencias}"
-                                                  IsEditable="True"/>
+                                                  IsEditable="True" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <ui:TextBlock Text="Color:" />
                                         <ComboBox SelectedItem="{Binding ColorSelected }"
                                                   ItemsSource="{Binding Colores}"
-                                                  IsEditable="True"/>
+                                                  IsEditable="True" />
                                     </StackPanel>
                                 </StackPanel>
 
@@ -1049,23 +1107,44 @@
                     </StackPanel>
                 </Grid>
             </Border>
+            
             <ui:TextBlock Text="Fotografías" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
                 <StackPanel Margin="5">
-                    <!-- TODO: Agregar fotografia por default para generacion de boletines -->
                     <ui:Button Icon="{ui:SymbolIcon Attach24}"
                                Content="Añadir imagenes"
                                Command="{Binding OpenFileCommand}"
                                Margin="0 0 0 25"/>
 
-                    <WrapPanel Grid.Row="4"
-                               x:Name="Imagenes"
-                               DataContext="{Binding ElementName=Page, Path=DataContext.Files}"
-                               DataContextChanged="Imagenes_OnDataContextChanged" />
+                    <ui:ListView x:Name="Imagenes"
+                                 ItemsSource="{Binding ImagenesDesaparecido}"
+                                 SelectedItem="{Binding ImagenBoletin}"
+                                 SelectedIndex="0">
+                        <ui:ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Width="Auto"/>
+                            </ItemsPanelTemplate>    
+                        </ui:ListView.ItemsPanel>
+                        
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ui:Image Source="{Binding}"
+                                          CornerRadius="8"
+                                          Width="200"
+                                          Height="200"
+                                          Stretch="UniformToFill"/>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
                 </StackPanel>
             </Border>
+            
+            <ui:Button HorizontalAlignment="Stretch"
+                       Content="Guardar reporte"
+                       Icon="{ui:SymbolIcon Save24}"
+                       Appearance="Primary"
+                       Command="{Binding GuardarReporteCommand}" />
+            
         </StackPanel>
-        <!-- TODO: Ventana de opcion para dejar pendiente o para registrar el reporte -->
-        <!-- TODO: Agregar en el header -->
     </Grid>
 </Page>
