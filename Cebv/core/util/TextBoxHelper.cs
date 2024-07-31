@@ -40,6 +40,11 @@ public class TextBoxHelper
     public static void DatePickerSelectedDateChanged(object sender, SelectionChangedEventArgs e)
     {
         DatePicker datePicker = sender as DatePicker;
+        // Verificar si el DatePicker tiene el Tag "Exclude"
+        if (datePicker.Tag?.ToString() == "Exclude")
+        {
+            return;
+        }
 
         if (datePicker != null)
         {
