@@ -1,15 +1,19 @@
-using System.Net.Mime;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Cebv.core.util.snackbar;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
+    private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
+    
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
     /// </summary>
@@ -19,7 +23,7 @@ public class TextBoxHelper
     {
         while (depObj != null)
         {
-            if (depObj is DatePicker)
+            if (depObj is System.Windows.Controls.DatePicker)
             {
                 return true;
             }
@@ -27,7 +31,28 @@ public class TextBoxHelper
         }
         return false;
     }
-    
+
+    /// <summary>
+    /// Maneja el evento SelectedDateChanged para restringir la selección de fechas futuras.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public static void DatePickerSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DatePicker datePicker = sender as DatePicker;
+
+        if (datePicker != null)
+        {
+            datePicker.DisplayDateEnd = DateTime.Now;
+            datePicker.SelectedDateChanged -= DatePickerSelectedDateChanged;
+
+            if (datePicker.SelectedDate.HasValue && datePicker.SelectedDate.Value > DateTime.Now)
+            {
+                datePicker.SelectedDate = DateTime.Now;
+            }
+        }
+    }
+
     /// <summary>
     /// Eventos que se dispara cuando el texto de un TextBox cambia
     /// </summary>
@@ -166,11 +191,17 @@ public class TextBoxHelper
         {
             if (!Regex.IsMatch(textBox.Text, @"^([0-1][0-9]|2[0-3]):([0-5][0-9])$"))
             {
-                /*MessageBox.Show("Por favor ingrese formato valido: \"Hora : Minutos\" \nEjemplo: \"22:30\"",
-                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
+                _snackbarService.Show(
+                    "Formato no valido",
+                    "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"",
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.Warning32),
+                    new TimeSpan(0, 0, 5));
+                
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Red);
-            }else
+            }
+            else
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }
@@ -178,11 +209,17 @@ public class TextBoxHelper
         {
             if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
             {
-                /*MessageBox.Show("Por favor ingrese formato valido: \"DD/MM/YYYY\" \nEjemplo: \"22/12/2021\"",
-                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
+                _snackbarService.Show(
+                    "Formato no valido",
+                    "Por favor ingrese formato valido: \"DD/MM/AAAA\" \nEjemplo: \"31/12/2021\"",
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.Warning32),
+                    new TimeSpan(0, 0, 5));
+                
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Red);
-            }else
+            }
+            else
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }

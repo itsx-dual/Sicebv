@@ -141,7 +141,7 @@
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Fecha de cambio de área:" />
-                            <DatePicker />
+                            <DatePicker SelectedDateFormat="Short"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -158,12 +158,12 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de préstamo:" />
-                            <DatePicker />
+                            <DatePicker SelectedDateFormat="Short"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Fecha de devolución:" />
-                            <DatePicker />
+                            <DatePicker SelectedDateFormat="Short"/>
                         </StackPanel>
                     </WrapPanel>
 

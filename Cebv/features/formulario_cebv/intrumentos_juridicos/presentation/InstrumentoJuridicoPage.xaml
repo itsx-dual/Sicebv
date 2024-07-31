@@ -63,7 +63,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción de CI, IM o reporte de FGE:" />
-                            <DatePicker IsTodayHighlighted="True"
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
                                         SelectedDate="{Binding CarpetaInvestigacion.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
@@ -104,7 +104,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción:" />
-                            <DatePicker IsTodayHighlighted="True"
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
                                         SelectedDate="{Binding AmparoBuscador.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
@@ -146,7 +146,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción recomendación DH:" />
-                            <DatePicker IsTodayHighlighted="True"
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
                                         SelectedDate="{Binding RecomedacionDerechosHumanos.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>

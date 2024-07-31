@@ -8,7 +8,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:login="clr-namespace:Cebv.features.login.presentation"
         ExtendsContentIntoTitleBar="True"
-        WindowBackdropType="Acrylic"
+        WindowBackdropType="Mica"
         WindowCornerPreference="Default"
         WindowStartupLocation="CenterScreen"
         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
