@@ -1,9 +1,13 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.prendas.data;
 using Cebv.features.formulario_cebv.prendas.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using Catalogo = Cebv.core.data.Catalogo;
 
 namespace Cebv.features.formulario_cebv.prendas.presentation;
 
@@ -15,7 +19,13 @@ public enum PrendasUiState
 
 public partial class PrendasViewModel : ObservableObject
 {
+    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private static IDashboardNavigationService _navigationService =
+        App.Current.Services.GetService<IDashboardNavigationService>()!;
+    [ObservableProperty] private Reporte _reporte;
+    
     [ObservableProperty] private PrendasUiState _uiState;
+    [ObservableProperty] private Desaparecido _desaparecido;
 
     /**
      * Constructor de la clase
@@ -24,6 +34,8 @@ public partial class PrendasViewModel : ObservableObject
     {
         CargarCatalogos();
         UiState = PrendasUiState.Normal;
+        Reporte = _reporteService.GetReporte();
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
     }
 
     /**
@@ -51,12 +63,12 @@ public partial class PrendasViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
-        Colores = await PrendasNetwork.GetColores();
+        //GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
+        //Colores = await PrendasNetwork.GetColores();
     }
 
-    async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
-        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
+    //async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
+        //Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
 
     /**
      * Añadir y eliminar prendas

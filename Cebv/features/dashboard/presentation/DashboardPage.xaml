@@ -70,7 +70,20 @@
                 
                 <ui:NavigationViewItem Content="{StaticResource EncuadreTitle}"
                                        Icon="{ui:SymbolIcon Square24}"
-                                       TargetPageType="{x:Type presentation2:EncuadrePreeliminarPage}"/>
+                                       Click="NuevoReporte_OnClick"
+                                       TargetPageType="{x:Type presentation2:EncuadrePreeliminarPage}">
+                    <ui:NavigationViewItem.MenuItems>
+                        <ui:NavigationViewItem
+                            Content="Nuevo reporte"
+                            Icon="{ui:SymbolIcon Add24}"/>
+                        
+                        <!-- TODO: Agregar InfoBadge -->
+                        <ui:NavigationViewItem
+                            Content="Retomar pendiente"
+                            Icon="{ui:SymbolIcon ArrowEnterLeft24}"/>
+                        
+                    </ui:NavigationViewItem.MenuItems>
+                </ui:NavigationViewItem>
                 
                 <ui:NavigationViewItem Content="{StaticResource BusquedaFamiliaTitle}"
                                        Icon="{ui:SymbolIcon GroupList24}"

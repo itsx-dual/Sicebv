@@ -1,11 +1,17 @@
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Cebv.core.modules.ubicacion.data;
 
 public class EstadosWrapped
 {
-    [JsonPropertyName("data")]
-    public List<Estado> Data { get; set; }
+    [Newtonsoft.Json.JsonConstructor]
+    public EstadosWrapped(List<util.reporte.viewmodels.Estado> data)
+    {
+        Data = data;
+    }
+
+    public List<util.reporte.viewmodels.Estado> Data;
 }
 
 public class Estado

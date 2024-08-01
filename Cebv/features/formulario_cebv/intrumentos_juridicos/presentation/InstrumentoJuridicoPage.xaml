@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.intrumentos_juridicos.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -18,10 +17,6 @@
     <Page.DataContext>
         <presentation:InstrumentoJuridicoViewModel/>
     </Page.DataContext>
-
-    <Page.Resources>
-        <util:VisibilityConverter2 x:Key="VisibilityConverter" />
-    </Page.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -50,26 +45,26 @@
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding OpcionCarpeta,
-                               Converter={StaticResource VisibilityConverter}}">
+                               Converter={StaticResource VisibilityConverter2}}">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding NumeroCarpeta}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding DondeRadicaCarpeta}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoCarpeta}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción de CI, IM o reporte de FGE:" />
-                            <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionCarpeta}" />
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
+                                        SelectedDate="{Binding CarpetaInvestigacion.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -90,27 +85,27 @@
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding OpcionAmparo,
-                               Converter={StaticResource VisibilityConverter}}">
+                               Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de amparo buscador:" />
-                            <ui:TextBox Text="{Binding NumeroAmparo}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica el amparo buscador:" />
-                            <ui:TextBox Text="{Binding DondeRadicaAmparo}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del juez:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoAmparo}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción:" />
-                            <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionAmparo}" />
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
+                                        SelectedDate="{Binding AmparoBuscador.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -131,28 +126,28 @@
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding OpcionRecomendacion,
-                               Converter={StaticResource VisibilityConverter}}">
+                               Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de recomendación derechos humanos:" />
-                            <ui:TextBox Text="{Binding NumeroRecomendacion}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la recomendación derechos humanos:"
                                           FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding DondeRadicaRecomendacion}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding NombreServidorPublicoRecomendacion}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción recomendación DH:" />
-                            <DatePicker IsTodayHighlighted="True"
-                                        SelectedDate="{Binding FechaRecepcionRecomendacion}" />
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
+                                        SelectedDate="{Binding RecomedacionDerechosHumanos.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -162,16 +157,16 @@
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
                     <CheckBox Content="Declaración especial de ausencia." Margin="0 0 0 15"
-                              IsChecked="{Binding DeclaracionAusencia}" />
+                              IsChecked="{Binding Desaparecido.DeclaracionEspecialAusencia}" />
 
                     <CheckBox Content="Acción urgente." Margin="0 0 0 15"
-                              IsChecked="{Binding AccionUrgente}" />
+                              IsChecked="{Binding Desaparecido.AccionUrgente}" />
 
                     <CheckBox Content="Dictamen" Margin="0 0 0 15"
-                              IsChecked="{Binding Dictamen}" />
+                              IsChecked="{Binding Desaparecido.Dictamen}" />
 
                     <CheckBox Content="Carpeta de investigación a nivel federal." Margin="0 0 0 15"
-                              IsChecked="{Binding CarpeteFederal}" />
+                              IsChecked="{Binding Desaparecido.CiNivelFederal}" />
 
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Content="Otro, especifica:"
@@ -180,7 +175,7 @@
 
                         <ui:TextBox MinWidth="250"
                                     IsEnabled="{Binding ElementName=OtroDerechoCheckBox, Path=IsChecked}"
-                                    Text="{Binding OtroDerecho}" />
+                                    Text="{Binding Desaparecido.OtroDerechoHumano}" />
                     </StackPanel>
                 </StackPanel>
             </Border>

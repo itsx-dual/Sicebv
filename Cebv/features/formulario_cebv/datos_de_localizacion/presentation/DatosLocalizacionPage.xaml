@@ -51,20 +51,19 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Estatus preliminar: *" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding EstatusPersona}"
                                       ItemsSource="{Binding EstatusPersonas}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" IsEnabled="False">
                             <ui:TextBlock Text="Fecha de estatus preliminar:" />
-                            <DatePicker />
+                            <DatePicker SelectedDateFormat="Short" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Fecha de localización: *" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -78,18 +77,17 @@
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Estatus formalizado:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding EstatusPersona}"
                                           ItemsSource="{Binding EstatusPersonas}"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de formalización del estatus:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
                                 <ui:TextBlock Text="Fecha de actualización en sistema:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -119,24 +117,24 @@
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de formalización del estatus:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
                                 <ui:TextBlock Text="Fecha de actualización en sistema:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha del hallazgo:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300">
                                 <ui:TextBlock Text="Fecha de identificación por parte del familiar:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -180,8 +178,8 @@
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Hipótesis de localización (OGPI) 1:" />
-                            <ComboBox SelectedItem="{Binding TipoHipotesisUno}"
-                                      ItemsSource="{Binding TiposHipotesis}" />
+                            <ComboBox 
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
@@ -194,8 +192,8 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Hipótesis de localización (OGPI) 2:" />
-                            <ComboBox SelectedItem="{Binding TipoHipotesisDos}"
-                                      ItemsSource="{Binding TiposHipotesis}" />
+                            <ComboBox 
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
@@ -209,12 +207,11 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Sitio final:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Sitio}"
-                                      ItemsSource="{Binding Sitios}" />
+                                      ItemsSource="{Binding Hipotesis.Sitios}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Área que codifica sitio final:" />
+                            <ui:TextBlock Text="Área que codifica:" />
                             <ui:TextBox Text="{Binding AreaCodifica}" />
                         </StackPanel>
                         

@@ -42,7 +42,7 @@ public partial class PrendaEdicionViewModel : ObservableObject
     {
         await CargarCatalogosAsync();
         
-        Pertenencias = await PrendasNetwork.GetPertenencias(prenda.GrupoPertenencia!.Id);
+        //Pertenencias = await PrendasNetwork.GetPertenencias(prenda.GrupoPertenencia!.Id);
 
         // Asignar propiedades después de cargar los catálogos
         GrupoPertenencia = prenda.GrupoPertenencia!;
@@ -54,12 +54,12 @@ public partial class PrendaEdicionViewModel : ObservableObject
     
     private async Task CargarCatalogosAsync()
     {
-        GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
-        Colores = await PrendasNetwork.GetColores();
+        //GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
+        //Colores = await PrendasNetwork.GetColores();
     }
 
-    async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
-        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
+    //async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
+    //    Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
 
     [RelayCommand]
     private void GuardarPrenda()

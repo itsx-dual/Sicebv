@@ -119,10 +119,10 @@
                 <ui:ListView
                     HorizontalAlignment="Stretch"
                     MaxHeight="250"
-                    ItemsSource="{Binding Prendas, Mode=TwoWay}"
+                    ItemsSource="{Binding Desaparecido.PrendasDeVestir}"
                     SelectionMode="Single">
                     <ui:ListView.ItemTemplate>
-                        <DataTemplate DataType="{x:Type data1:Prenda}">
+                        <DataTemplate>
                             <Grid>
                                 <ui:CardControl
                                     Margin="5 5 120 5"
@@ -133,7 +133,7 @@
                                         <StackPanel>
                                             <ui:TextBlock
                                                 Appearance="Secondary"
-                                                Text="{Binding GrupoPertenencia.Nombre}"
+                                                Text="{Binding Pertenencia.GrupoPertenencia.Nombre}"
                                                 TextWrapping="Wrap" />
 
                                             <StackPanel Orientation="Horizontal">

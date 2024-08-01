@@ -15,11 +15,8 @@ public class ReporteNetwork
     public static async Task<ObservableCollection<ReporteResponse>> GetReportes()
     {
         var request = await Client.GetAsync("api/reportes");
-
         var response = await request.Content.ReadAsStringAsync();
-
         ReportesQueryResponse reportes = JsonSerializer.Deserialize<ReportesQueryResponse>(response)!;
-
         return new ObservableCollection<ReporteResponse>(reportes.Data);
     }
     
@@ -47,7 +44,7 @@ public class ReporteNetwork
         return new ObservableCollection<Catalogo>(jsonResponse.Data);
     }
 
-    public static async Task<Object> GetAreas()
+    public static async Task<ObservableCollection<Catalogo>> GetAreas()
     {
         var request = await Client.GetAsync("api/areas");
 
@@ -55,11 +52,7 @@ public class ReporteNetwork
 
         CatalogosWrapped? jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response);
 
-        ObservableCollection<Catalogo> areas = new ObservableCollection<Catalogo>();
-
-        foreach (var area in jsonResponse?.Data!) areas.Add(area);
-
-        return areas;
+        return jsonResponse!.Data;
     }
 
     public static async Task<ObservableCollection<Catalogo>> GetTiposMedios()
@@ -72,16 +65,20 @@ public class ReporteNetwork
 
         return new ObservableCollection<Catalogo>(jsonResponse.Data);
     }
-
-    public static async Task<ObservableCollection<Medio>> GetMedios(int id)
+    
+    public static async Task<ObservableCollection<Medio>> GetMedios(int? id)
     {
-        var request = await Client.GetAsync($"api/medios?search={id}");
+        if (id != null)
+        {
+            var request = await Client.GetAsync($"api/medios?search={id}");
 
-        var response = await request.Content.ReadAsStringAsync();
+            var response = await request.Content.ReadAsStringAsync();
 
-        MediosWrapped jsonResponse = JsonSerializer.Deserialize<MediosWrapped>(response)!;
+            MediosWrapped jsonResponse = JsonSerializer.Deserialize<MediosWrapped>(response)!;
+            return new ObservableCollection<Medio>(jsonResponse.Data);
+        }
 
-        return new ObservableCollection<Medio>(jsonResponse.Data);
+        return null;
     }
 
     public static async Task<Object> GetTiposHipotesis()

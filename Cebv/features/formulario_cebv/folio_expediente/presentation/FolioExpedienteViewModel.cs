@@ -1,33 +1,35 @@
 using System.Collections.ObjectModel;
-using System.Windows.Automation;
-using Cebv.core.data;
-using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.formulario_cebv.folio_expediente.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Catalogo = Cebv.core.data.Catalogo;
+using Estado = Cebv.core.modules.ubicacion.data.Estado;
 
 namespace Cebv.features.formulario_cebv.folio_expediente.presentation;
 
 public partial class FolioExpedienteViewModel : ObservableObject
 {
-    public FolioExpedienteViewModel()
-    {
-        TiposDesapariciones.Add("UNICA", "U");
-        TiposDesapariciones.Add("MULTIPLE", "M");
-        Estado = _reporteService.UbicacionEstado;
-        UbicacionHechos = _reporteService.UbicacionHechos;
-        MatchArea();
-    }
+    private static IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
 
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    [ObservableProperty] private Reporte _reporte;
+    
+    public FolioExpedienteViewModel()
+    {
+        TiposDesapariciones.Add("UNICA", "U");
+        TiposDesapariciones.Add("MULTIPLE", "M");
+        Reporte = _reporteService.GetReporte();
+        CargarCatalogos();
+    }
 
     [ObservableProperty] private Estado? _estado;
     [ObservableProperty] private UbicacionViewModel? _ubicacionHechos;
@@ -47,7 +49,6 @@ public partial class FolioExpedienteViewModel : ObservableObject
     [ObservableProperty] private string _tipoDesaparicion = String.Empty;
     [ObservableProperty] private string _zonaEstado = String.Empty;
 
-
     [ObservableProperty] private ObservableCollection<string> _canalizaNorte = new();
     [ObservableProperty] private ObservableCollection<string> _canalizaCentro = new();
     [ObservableProperty] private ObservableCollection<string> _canalizaSur = new();
@@ -56,9 +57,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<string> _zonaCentro = new();
     [ObservableProperty] private ObservableCollection<string> _zonaSur = new();
     
-    
-    [ObservableProperty] private ObservableCollection<Folio> _folios = new();
-    [ObservableProperty] private Folio _folio = new();
+    [ObservableProperty] private FolioPretty _folio = new();
 
     partial void OnTipoDesaparicionChanged(string value)
     {
@@ -73,26 +72,14 @@ public partial class FolioExpedienteViewModel : ObservableObject
     {
         TiposReportes = await FolioExpedienteNetwork.GetTiposReportes();
         Areas = await FolioExpedienteNetwork.GetAreas();
-        Estado = _reporteService.UbicacionEstado;
     }
-
-    partial void OnTipoReporteChanged(Catalogo value)
-    {
-        Estado = _reporteService.UbicacionEstado;
-    }
+    
 
     [RelayCommand]
     private async Task SetFolio()
-    {
-        if (!_reporteService.HayReporte()) return;
-        
-        var id = _reporteService.GetReporteActualId();
-        
-        Folios = await FolioExpedienteNetwork.SetFolio(id);
-        
-        Folio = Folios.FirstOrDefault()!;
+    { 
+        await FolioExpedienteNetwork.SetFolio(Reporte.Id);
     }
-
 
     /**
     * Logica de la zona que atiende el reporte
@@ -175,52 +162,57 @@ public partial class FolioExpedienteViewModel : ObservableObject
         ];
     }
 
-    private void MatchArea()
+    /*private void MatchArea()
     {
         Norte();
         Centro();
         Sur();
-        
-        CargarCatalogos();
 
-        var id = _reporteService.UbicacionHechos!.Municipio.Id;
+        //var id = _reporteService.UbicacionHechos!.Municipio.Id;
 
         Catalogo area = new();
-        
-        if (CanalizaNorte.Contains(id))
-        {
-            area = new Catalogo
-            {
-                Id = 1,
-                Nombre = "Celula Norte"
-            };
-        }
 
-        if (CanalizaCentro.Contains(id))
-        {
-            area = new Catalogo
-            {
-                Id = 2,
-                Nombre = "Celula Centro"
-            };
-        }
+        //if (CanalizaNorte.Contains(id))
+        //{
+        //    area = new Catalogo
+        //    {
+        //        Id = 1,
+        //        Nombre = "Celula Norte"
+        //    };
+        //}
+//
+        //if (CanalizaCentro.Contains(id))
+        //{
+        //    area = new Catalogo
+        //    {
+        //        Id = 2,
+        //        Nombre = "Celula Centro"
+        //    };
+        //}
+//
+        //if (CanalizaSur.Contains(id))
+        //{
+        //    area = new Catalogo
+        //    {
+        //        Id = 3,
+        //        Nombre = "Celula Sur"
+        //    };
+        //}
+        //
+        //if (ZonaNorte.Contains(id)) ZonaEstado = "Norte";
+        //if (ZonaCentro.Contains(id)) ZonaEstado = "Centro";
+        //if (ZonaSur.Contains(id)) ZonaEstado = "Sur";
+        //
+        //Area = area;
+        //
+        //
+        //Console.WriteLine(Area.Nombre);
+    }*/
 
-        if (CanalizaSur.Contains(id))
-        {
-            area = new Catalogo
-            {
-                Id = 3,
-                Nombre = "Celula Sur"
-            };
-        }
-        
-        if (ZonaNorte.Contains(id)) ZonaEstado = "Norte";
-        if (ZonaCentro.Contains(id)) ZonaEstado = "Centro";
-        if (ZonaSur.Contains(id)) ZonaEstado = "Sur";
-        
-        Area = area;
-        
-        
-        Console.WriteLine(Area.Nombre);
+    [RelayCommand]
+    private void OnGuardarYSiguente(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

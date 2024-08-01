@@ -6,6 +6,7 @@
 
     <!-- Contenido de los botones comunes en la UI -->
     <system:String x:Key="GuardarContinuar">Guardar y continuar</system:String>
+    <system:String x:Key="Guardar">Guardar</system:String>
     <system:String x:Key="Continuar">Continuar</system:String>
     <system:String x:Key="RegistroPendiente">Registro pendiente</system:String>
     

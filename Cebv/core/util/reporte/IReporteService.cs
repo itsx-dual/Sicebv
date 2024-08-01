@@ -1,44 +1,75 @@
-using Cebv.core.modules.reporte.data;
-using Cebv.core.modules.ubicacion.data;
-using Cebv.core.modules.ubicacion.presentation;
-using Cebv.core.util.reporte.data;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.core.util.reporte.viewmodels;
 
 namespace Cebv.core.util.reporte;
 
+/// <summary>
+/// Interfaz <c>IReporteService</c>
+/// </summary>
 public interface IReporteService
 {
-    Estado? UbicacionEstado { get; set; }
+    /// <summary>
+    /// Obtiene el reporte actual.
+    /// </summary>
+    /// <returns>El objeto <see cref="Reporte"/> si existe, de lo contrario null.</returns>
+    Reporte GetReporte();
     
-    UbicacionViewModel? UbicacionHechos { get; set; }
-    void SetReporteActual(ReporteResponse? reporte);
+    /// <summary>
+    /// Sincroniza el reporte actual con el servicio web externo de forma asíncrona.
+    /// </summary>
+    /// <returns>
+    /// Una tarea que representa la operación de sincronización y que, al completarse, devuelve el <see cref="Reporte"/> sincronizado,
+    /// null si no se logro sincronizar de manera exitosa.
+    /// </returns>
+    /// <remarks>
+    /// Este método se encarga de realizar la comunicación con el servicio web, 
+    /// enviar los datos necesarios y recibir la respuesta actualizada.
+    /// </remarks>
+    Task<Reporte> Sync();
     
-    void SetReporteActualFromApi(int id);
+    /// <summary>
+    /// Recarga un reporte específico desde el servicio web externo de forma asíncrona.
+    /// </summary>
+    /// <param name="id">El identificador único del reporte a recargar.</param>
+    /// <returns>Una tarea que representa la operación de recarga y que, al completarse, devuelve el <see cref="Reporte"/> recargado.</returns>
+    /// <remarks>
+    /// Este método realiza una solicitud al servicio web para obtener los datos del reporte 
+    /// correspondiente al identificador proporcionado.
+    /// </remarks>
+    Task<Reporte> Reload(int id);
     
-    bool SendReporteActual();
+    /// <summary>
+    /// Borra el contenido del <see cref="Reporte"/> actual.
+    /// </summary>
+    /// <returns>El objeto Reporte vacío.</returns>
+    Reporte ClearReporte();
     
-    ReporteResponse ClearReporteActual();
+    /// <summary>
+    /// Obtiene el estado actual del <see cref="Reporte"/>.
+    /// </summary>
+    /// <returns>El estado del reporte, representado por el enum <see cref="EstadoReporte"/>.</returns>
+    EstadoReporte GetStatusReporte();
     
-    ReporteResponse? GetReporteActual();
+    /// <summary>
+    /// Establece el estado del reporte.
+    /// </summary>
+    /// <param name="estado">El nuevo estado del reporte, utilizando el enum <see cref="EstadoReporte"/>.</param>
+    void SetStatusReporte(EstadoReporte estado);
     
-    int GetReporteActualId();
-
-    EstadoReporte GetStatusReporteActual();
-
-    bool HayReporte();
+    /// <summary>
+    /// Crea los folios de los desaparecidos del reporte.
+    /// </summary>
+    /// <returns>True si los folios fueron correctamente asignados, False si no se asignaron.</returns>
+    Task<bool> SetFolios();
     
-    void SetStatusReporteActual(EstadoReporte estado);
-
-    void SetReporteId(int id);
+    /// <summary>
+    /// Obtiene el identificador único del reporte actual.
+    /// </summary>
+    /// <returns>El identificador del reporte, o 0 si no hay reporte cargado.</returns>
     int GetReporteId();
     
-    void SetReportanteId(int id);
-    int GetReportanteId();
-    int GetDesaparecidoId();
-
-    bool SendInformacionInicio(InicioPostObject informacion);
-    bool SendModoTiempoLugar(ModoTiempoLugarPost informacion);
-    bool SendInformacionInstrumentoJuridico(InstrumentoJuridicoPostObject informacion);
-
-    bool SendReportante(ReportantePostObject informacion);
+    /// <summary>
+    /// Verifica si hay un reporte cargado actualmente.
+    /// </summary>
+    /// <returns>True si hay un reporte, False si no lo hay.</returns>
+    bool HayReporte();
 }

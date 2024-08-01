@@ -1,9 +1,8 @@
 // @no-log
-GET http://api_cebv.test/api/hechos-desapariciones
+GET http://api_cebv.test/api/reportes/1
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "reporte_id": 4,
-  "casa": 3
+  "reporte_id": 7
 }

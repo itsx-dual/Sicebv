@@ -2,9 +2,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.presentation;
@@ -13,12 +13,12 @@ public partial class DashboardPage : Page
 {
     private bool _isUserClosedPane;
     private bool _isPaneOpenedOrClosedFromCode;
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>();
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    
     
     public DashboardPage()
     {
         InitializeComponent();
-        
         var navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
         var snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
         
@@ -72,6 +72,6 @@ public partial class DashboardPage : Page
 
     private void NuevoReporte_OnClick(object sender, RoutedEventArgs e)
     {
-        _reporteService.ClearReporteActual();
+        _reporteService.ClearReporte();
     }
 }

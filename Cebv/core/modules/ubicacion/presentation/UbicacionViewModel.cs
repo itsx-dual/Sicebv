@@ -26,7 +26,7 @@ public partial class UbicacionViewModel : ObservableObject
     [ObservableProperty] private string _colonia = String.Empty;
     [ObservableProperty] private string _codigoPostal = String.Empty;
 
-    [ObservableProperty] private ObservableCollection<Estado> _estados = new();
+    [ObservableProperty] private ObservableCollection<util.reporte.viewmodels.Estado> _estados = new();
     [ObservableProperty] private Estado? _estado;
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private Municipio _municipio = new();
@@ -43,15 +43,7 @@ public partial class UbicacionViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        try
-        {
-            Estados = await UbicacionNetwork.GetEstados();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+       Estados = await UbicacionNetwork.GetEstados();
     }
 
 

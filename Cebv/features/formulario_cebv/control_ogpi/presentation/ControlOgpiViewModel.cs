@@ -1,33 +1,56 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.control_ogpi.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.control_ogpi.presentation;
 
 public partial class ControlOgpiViewModel : ObservableObject
 {
+    [ObservableProperty] private Reporte _reporte;
+
+    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+
     /**
      * Constructor de la clase
      */
     public ControlOgpiViewModel()
     {
-        CargarCatalogos();
+        LoadAsync();
     }
 
-    [ObservableProperty] private DateTime? _fechaCodificacion;
-    [ObservableProperty] private string _nombreCodificador = String.Empty;
-    [ObservableProperty] private string _observaciones = String.Empty;
-    [ObservableProperty] private string _numeroTarjeta = String.Empty;
-    [ObservableProperty] private string _folioFub = String.Empty;
-    [ObservableProperty] private string _origenFolioFub = String.Empty;
+    private async Task LoadAsync()
+    {
+        Reporte = _reporteService.GetReporte();
+        await CargarCatalogos();
+    }
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _estatusPersonas = new();
-    [ObservableProperty] private Catalogo _estatusPersona = new();
+    [ObservableProperty] private ObservableCollection<EstatusPersona> _estatusPersonas = new();
 
     /**
      * Método que carga los catálogos
      */
-    private async void CargarCatalogos() =>
+    private async Task CargarCatalogos() =>
         EstatusPersonas = await ControlOgpiNetwork.GetEstatusPersonas();
+
+    [RelayCommand]
+    private async Task AsignarFolio()
+    {
+        if (Reporte.Folios is null ||
+            Reporte.Folios.Count <= 0) return;
+
+        var folio = Reporte.Folios[0];
+
+        await ControlOgpiNetwork.SetFolioFub(folio);
+    }
+
+    [RelayCommand]
+    private void Guardar()
+    {
+        _ = AsignarFolio();
+        _reporteService.Sync();
+    }
 }
