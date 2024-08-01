@@ -338,7 +338,7 @@
                                               Maximum="120"
                                               Minimum="0"
                                               PlaceholderText="Años"
-                                              SmallChange="1" />
+                                              SmallChange="1" Tag="Number"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -350,7 +350,7 @@
                                     Value="{Binding MesesDesaparecido}"
                                     Minimum="0"
                                     PlaceholderText="Meses"
-                                    SmallChange="1" />
+                                    SmallChange="1" Tag="Number"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -362,7 +362,7 @@
                                     Minimum="0"
                                     Value="{Binding DiasDesaparecido}"
                                     PlaceholderText="Días"
-                                    SmallChange="1" />
+                                    SmallChange="1" Tag="Number"/>
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>
@@ -538,12 +538,13 @@
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}" 
+                                            MaxLength="10"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
-                                <ui:TextBox ClearButtonEnabled="True"
+                                <ui:TextBox ClearButtonEnabled="True"  MaxLength="10"
                                             Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroInterior}" />
                             </StackPanel>
 
@@ -631,7 +632,8 @@
 
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"/>
+                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" Tag="Number"
+                                      Minimum="0"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -648,7 +650,7 @@
                                           Minimum="30"
                                           PlaceholderText="Centímetros"
                                           Value="{Binding Desaparecido.Persona.MediaFiliacion.Estatura}"
-                                          SmallChange="1" />
+                                          SmallChange="1" Tag="Units"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -658,7 +660,7 @@
                                           Minimum="30"
                                           PlaceholderText="Kilogramos"
                                           Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso}"
-                                          SmallChange="1" />
+                                          SmallChange="1" Tag="Units"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -799,7 +801,7 @@
                                                           Margin="10,10,0,0" />
                                             <ui:NumberBox Margin="5,0,5,0"
                                                           Value="{Binding Cantidad}"
-                                                          Tag="Number" />
+                                                          Tag="Number" Minimum="1"/>
 
                                         </StackPanel>
                                     </Grid>
