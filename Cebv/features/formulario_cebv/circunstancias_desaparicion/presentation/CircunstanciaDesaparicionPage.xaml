@@ -52,7 +52,7 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición:" />
                             <!-- TODO: Requerido -->
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -66,7 +66,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato:" />
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -100,7 +100,7 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición para CNB:" />
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}" 
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}" 
                                         IsTodayHighlighted="True" x:Name="FechaDesaparicion"/>
                         </StackPanel>
 
@@ -120,7 +120,7 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato para CNB:" />
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}" 
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}" 
                                         IsTodayHighlighted="True" x:Name="FechaPercato"/>
                         </StackPanel>
 

@@ -1,5 +1,3 @@
-using System.Net.Mime;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +30,33 @@ public class TextBoxHelper
         }
         return false;
     }
-    
+
+    /// <summary>
+    /// Maneja el evento SelectedDateChanged para restringir la selección de fechas futuras.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public static void DatePickerSelectedDateChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DatePicker datePicker = sender as DatePicker;
+        // Verificar si el DatePicker tiene el Tag "Exclude"
+        if (datePicker.Tag?.ToString() == "Exclude")
+        {
+            return;
+        }
+
+        if (datePicker != null)
+        {
+            datePicker.DisplayDateEnd = DateTime.Now;
+            datePicker.SelectedDateChanged -= DatePickerSelectedDateChanged;
+
+            if (datePicker.SelectedDate.HasValue && datePicker.SelectedDate.Value > DateTime.Now)
+            {
+                datePicker.SelectedDate = DateTime.Now;
+            }
+        }
+    }
+
     /// <summary>
     /// Eventos que se dispara cuando el texto de un TextBox cambia
     /// </summary>
@@ -86,6 +110,13 @@ public class TextBoxHelper
             case "Number":
                 // Patrón para permitir solo números
                 pattern = @"[^0-9]";
+          
+                // No permitir números negativos
+                if (textBox.Text.Contains("-") || e.Text == "-")
+                {
+                    e.Handled = true;
+                    return;
+                }
                 break;
             case "Letter":
                 // Patrón para permitir solo letras
@@ -94,6 +125,21 @@ public class TextBoxHelper
             case "Units":
                 // Patrón para permitir solo numeros y caracteres de unidad de medida
                 pattern = @"[^0-9.,]";
+                // Permitir solo un punto decimal o coma
+                if (e.Text == "." || e.Text == ",")
+                {
+                    if (textBox.Text.Contains(".") || textBox.Text.Contains(","))
+                    {
+                        e.Handled = true;
+                    }
+                    return;
+                }
+                // No permitir números negativos
+                if (textBox.Text.Contains("-") || e.Text == "-")
+                {
+                    e.Handled = true;
+                    return;
+                }
                 break;
             case "Time":
                 //Solo números y caracteres de tiempo
@@ -171,17 +217,18 @@ public class TextBoxHelper
         {
             if (!Regex.IsMatch(textBox.Text, @"^([0-1][0-9]|2[0-3]):([0-5][0-9])$"))
             {
-                /*MessageBox.Show("Por favor ingrese formato valido: \"Hora : Minutos\" \nEjemplo: \"22:30\"",
-                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
-                e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                _snackBarService.Show(
-                    "La hora no esta en un formato correcto",
-                    "Se escribe en formato de 24 horas y 60 minutos, ejemplo 14:30",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning28),
+                _snackbarService.Show(
+                    "Formato no valido",
+                    "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"",
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.Warning32),
                     new TimeSpan(0, 0, 5));
-            }else
+                
+                e.Handled = true;
+                textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }
@@ -189,11 +236,17 @@ public class TextBoxHelper
         {
             if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
             {
-                /*MessageBox.Show("Por favor ingrese formato valido: \"DD/MM/YYYY\" \nEjemplo: \"22/12/2021\"",
-                    "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);*/
+                _snackbarService.Show(
+                    "Formato no valido",
+                    "Por favor ingrese formato valido: \"DD/MM/AAAA\" \nEjemplo: \"31/12/2021\"",
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.Warning32),
+                    new TimeSpan(0, 0, 5));
+                
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Red);
-            }else
+            }
+            else
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }
