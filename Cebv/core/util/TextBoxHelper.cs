@@ -12,7 +12,7 @@ namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
-    private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
+    private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
     /// </summary>

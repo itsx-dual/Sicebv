@@ -62,6 +62,14 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     }
     
     [RelayCommand]
+    private void OnGenerarFichaDeDatos()
+    {
+        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
+        var webview = new WebView2Window($"reportes/reportes-preliminares/{Desaparecido.Id}", "Ficha de datos resumida");
+        webview.Show();
+    }
+    
+    [RelayCommand]
     private async void SetFolio()
     {
         await _reporteService.Sync();

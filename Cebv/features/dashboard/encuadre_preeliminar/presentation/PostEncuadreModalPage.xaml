@@ -112,6 +112,7 @@
                         <ui:Button Content="Generar ficha de datos"
                                    Icon="{ui:SymbolIcon DocumentPerson16}"
                                    Appearance="Primary"
+                                   Command="{Binding GenerarFichaDeDatosCommand}"
                                    Margin="0,0,5,5"/>
                     
                         <ui:Button Content="Generar boletin de busqueda inmediata"
