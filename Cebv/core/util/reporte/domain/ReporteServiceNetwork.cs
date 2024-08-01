@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Windows.Media.Imaging;
 using Cebv.core.domain;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -25,6 +25,17 @@ public abstract class ReporteServiceNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
+    // Metodo generado con Gemini
+    private static Stream BitmapImageToStream(BitmapImage bitmapImage)
+    {
+        MemoryStream memoryStream = new MemoryStream(); // Use MemoryStream for in-memory operations
+        BitmapEncoder encoder = new PngBitmapEncoder(); // Or JpegBitmapEncoder
+        encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+        encoder.Save(memoryStream);
+        memoryStream.Position = 0; // Reset stream position to the beginning for reading
+        return memoryStream;
+    }
+    
     public static async Task<Reporte> ShowReporte(int id)
     {
         var request = new HttpRequestMessage
@@ -58,5 +69,44 @@ public abstract class ReporteServiceNetwork
         Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
         Console.ForegroundColor = ConsoleColor.White;
         return JsonConvert.DeserializeObject<ReporteResponse>(json)?.Data!;
+    }
+
+    public static async Task<bool> SetFolios(int reporte_id)
+    {
+        var response = await Client.GetAsync($"api/reportes/asignar_folio/{reporte_id}");
+        var json = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
+        
+        return response.IsSuccessStatusCode;
+    }
+
+    public static async Task SubirFotosDesaparecido(int desaparecido_id, List<BitmapImage> imagenes, BitmapImage? imagen_boletin)
+    {
+        var form = new MultipartFormDataContent();
+        var count = 0;
+        foreach (var imagen in imagenes)
+        {
+            var content = new StreamContent(BitmapImageToStream(imagen));
+            var filename = Path.GetFileName(imagen.UriSource.ToString());
+            
+            form.Add(content, $"file_{count+1}", filename);
+            count++;
+        }
+
+        if (imagen_boletin != null)
+        {
+            var content = new StreamContent(BitmapImageToStream(imagen_boletin));
+            var filename = Path.GetFileName(imagen_boletin.UriSource.ToString());
+            form.Add(content, "boletin", filename);
+        }
+        
+        var request = new HttpRequestMessage
+        {
+            RequestUri = new Uri($"/api/desaparecidos/{desaparecido_id}/fotos/upload", UriKind.Relative),
+            Method = HttpMethod.Post,
+            Content = form
+        };
+
+        var response = await Client.SendAsync(request);
     }
 }

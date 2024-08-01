@@ -17,9 +17,10 @@ public partial class Reporte : ObservableObject
     public Reporte(
         int id,
         bool? esta_terminado,
-        TipoReporte? tipo_reporte,
+        Catalogo? tipo_reporte,
         MedioConocimiento? medio_conocimiento,
         Estado? estado,
+        Catalogo? zona_estado,
         TipoHipotesis? hipotesis_oficial,
         string? tipo_desaparicion,
         string? institucion_origen,
@@ -42,6 +43,7 @@ public partial class Reporte : ObservableObject
         TipoReporte = tipo_reporte;
         MedioConocimiento = medio_conocimiento;
         Estado = estado;
+        ZonaEstado = zona_estado;
         HipotesisOficial = hipotesis_oficial;
         TipoDesaparicion = tipo_desaparicion;
         FechaLocalizacion = fecha_localizacion;
@@ -71,13 +73,16 @@ public partial class Reporte : ObservableObject
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    private TipoReporte? _tipoReporte;
+    private Catalogo? _tipoReporte;
 
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
     private MedioConocimiento? _medioConocimiento;
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
     private Estado? _estado;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "zona_estado")]
+    private Catalogo? _zonaEstado;
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis_oficial")]
     private TipoHipotesis? _hipotesisOficial;

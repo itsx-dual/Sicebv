@@ -12,18 +12,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
-
+                
                 <ResourceDictionary Source="core/designsystem/Styles.xaml" />
-
                 <ResourceDictionary Source="core/resources/strings/BusquedaFamiliaString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/ComunicacionDifusionPage.xaml" />
                 <ResourceDictionary Source="core/resources/strings/EncuadrePreeliminarString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/ReporteDesaparicionString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/UtilString.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-            <util:VisibilityConverter x:Key="VisibilityConverter" /> 
-            <util:VisibilityConverter2 x:Key="VisibilityConverter2" /> 
+
+            <util:VisibilityConverter x:Key="VisibilityConverter" />
+            <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
 
             <DataTemplate DataType="{x:Type presentation:LoginViewModel}">
                 <presentation:LoginPage />

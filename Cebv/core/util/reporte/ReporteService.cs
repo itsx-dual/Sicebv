@@ -90,6 +90,16 @@ public class ReporteService : IReporteService
         return _reporte.Id;
     }
 
+    public async Task<bool> SetFolios()
+    {
+        if (_estadoActual == EstadoReporte.Guardado)
+        {
+            return await ReporteServiceNetwork.SetFolios(_reporte.Id);
+        }
+
+        return false;
+    }
+
     public bool HayReporte()
     {
         return _estadoActual != EstadoReporte.Indefinido &&

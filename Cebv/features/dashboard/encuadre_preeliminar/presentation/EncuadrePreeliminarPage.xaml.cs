@@ -59,7 +59,7 @@ public partial class EncuadrePreeliminarPage : Page
         if (DataContext == null) return;
         if (Imagenes == null) return;
         
-        Imagenes.Children.Clear();
+        //Imagenes.Children.Clear();
         
         Console.WriteLine("DataContext Changed");
         
@@ -79,7 +79,7 @@ public partial class EncuadrePreeliminarPage : Page
                 Stretch = Stretch.UniformToFill
             };
 
-            Imagenes.Children.Add(wpfuiImage);
+            //Imagenes.Children.Add(wpfuiImage);
         }
     }
 }

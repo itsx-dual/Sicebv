@@ -56,6 +56,12 @@ public interface IReporteService
     void SetStatusReporte(EstadoReporte estado);
     
     /// <summary>
+    /// Crea los folios de los desaparecidos del reporte.
+    /// </summary>
+    /// <returns>True si los folios fueron correctamente asignados, False si no se asignaron.</returns>
+    Task<bool> SetFolios();
+    
+    /// <summary>
     /// Obtiene el identificador único del reporte actual.
     /// </summary>
     /// <returns>El identificador del reporte, o 0 si no hay reporte cargado.</returns>

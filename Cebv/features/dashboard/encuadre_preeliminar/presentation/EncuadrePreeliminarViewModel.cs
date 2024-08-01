@@ -1,8 +1,11 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Media.Imaging;
+using Cebv.app.presentation;
 using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.presentation;
@@ -21,7 +24,6 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 public partial class EncuadrePreeliminarViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
     private static IDashboardNavigationService _navigationService =
         App.Current.Services.GetService<IDashboardNavigationService>()!;
 
@@ -40,6 +42,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _zonasEstados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
@@ -86,6 +89,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private int _mesesDesaparecido;
     [ObservableProperty] private int _diasDesaparecido;
     [ObservableProperty] private ObservableCollection<string> _files = new();
+    [ObservableProperty] private string _curp;
 
     // Valores para insercion a listas
     [ObservableProperty] private string _noTelefonoReportante = string.Empty;
@@ -99,6 +103,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private bool _reportanteTieneTelefonos;
     [ObservableProperty] private bool _desaparecidoTieneTelefonos;
     [ObservableProperty] private bool _hayPrendas;
+    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
+    [ObservableProperty] private BitmapImage? _imagenBoletin;
+    [ObservableProperty] private bool _noHayCurp;
 
     public EncuadrePreeliminarViewModel() =>
         InitAsync();
@@ -124,6 +131,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
         Estados = await ReportanteNetwork.GetEstados();
+        ZonasEstados = await SenasParticularesNetwork.GetCatalogo("zonas-estados");
         TiposMedios = await DatosReporteNetwork.GetTiposMedios();
     }
 
@@ -135,10 +143,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Cantidad = 1;
     }
 
-    private async void InitAsync()
+    private void GetReporteFromService()
     {
-        await CargarCatalogos();
-        DefaultValues();
         Reporte = _reporteService.GetReporte();
 
         if (Reporte.Reportantes.Any())
@@ -162,6 +168,14 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         }
     }
 
+    private async void InitAsync()
+    {
+        await CargarCatalogos();
+        DefaultValues();
+        GetReporteFromService();
+        Curp = "";
+    }
+
     private void DiferenciaFechas(DateTime? a, DateTime? b)
     {
         if (a == null || b == null) return;
@@ -181,6 +195,12 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             AnosDesaparecido--;
             MesesDesaparecido += 12;
         }
+    }
+
+    partial void OnCurpChanged(string value)
+    {
+        NoHayCurp = value.Length == 0;
+        Desaparecido.Persona.Curp = value;
     }
 
     async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
@@ -409,13 +429,23 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             return;
         }
 
-        Files = new ObservableCollection<string>(openFileDialog.FileNames);
+        //Files = new ObservableCollection<string>(openFileDialog.FileNames);
+        foreach (var file in openFileDialog.FileNames)
+        {
+            ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
+        }
     }
 
     [RelayCommand]
-    private void OnGuardarReporte()
+    private async void OnGuardarReporte()
     {
-        if (_reporteService.Sync() == null)
+        // Añadir registros pendientes
+        AddTelefonoMovilReportanteCommand.Execute(null);
+        AddTelefonoMovilDesaparecidoCommand.Execute(null);
+        AddSenaParticularCommand.Execute(null);
+        AddPrendaDeVestirCommand.Execute(null);
+        
+        if (await _reporteService.Sync() == null)
         {
             _snackBarService.Show(
                 "Error fatal",
@@ -426,13 +456,22 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             return;
         }
 
-        _navigationService.Navigate(typeof(ReportesDesaparicion));
+        GetReporteFromService();
+        if (ImagenesDesaparecido.Count > 0)
+        {
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        }
 
-        _snackBarService.Show(
-            "El reporte ha sido creado exitosamente",
-            "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
-            ControlAppearance.Success,
-            new SymbolIcon(SymbolRegular.Checkmark32),
-            new TimeSpan(0, 0, 5));
+        var modal = new PostEncuadreModalWindow();
+        if (modal.ShowDialog() ?? false)
+        {
+            _navigationService.Navigate(typeof(ReportesDesaparicion));
+            _snackBarService.Show(
+                "El reporte ha sido creado exitosamente",
+                "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
+                ControlAppearance.Success,
+                new SymbolIcon(SymbolRegular.Checkmark32),
+                new TimeSpan(0, 0, 5));
+        }
     }
 }
