@@ -23,7 +23,7 @@ public class TextBoxHelper
     {
         while (depObj != null)
         {
-            if (depObj is System.Windows.Controls.DatePicker)
+            if (depObj is DatePicker)
             {
                 return true;
             }
@@ -111,6 +111,13 @@ public class TextBoxHelper
             case "Number":
                 // Patrón para permitir solo números
                 pattern = @"[^0-9]";
+          
+                // No permitir números negativos
+                if (textBox.Text.Contains("-") || e.Text == "-")
+                {
+                    e.Handled = true;
+                    return;
+                }
                 break;
             case "Letter":
                 // Patrón para permitir solo letras
@@ -119,6 +126,21 @@ public class TextBoxHelper
             case "Units":
                 // Patrón para permitir solo numeros y caracteres de unidad de medida
                 pattern = @"[^0-9.,]";
+                // Permitir solo un punto decimal o coma
+                if (e.Text == "." || e.Text == ",")
+                {
+                    if (textBox.Text.Contains(".") || textBox.Text.Contains(","))
+                    {
+                        e.Handled = true;
+                    }
+                    return;
+                }
+                // No permitir números negativos
+                if (textBox.Text.Contains("-") || e.Text == "-")
+                {
+                    e.Handled = true;
+                    return;
+                }
                 break;
             case "Time":
                 //Solo números y caracteres de tiempo
