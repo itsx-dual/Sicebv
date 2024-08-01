@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using Cebv.app.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.snackbar;
@@ -66,12 +67,35 @@ public partial class DashboardPage : Page
     private void MainNavigationView_OnSelectionChanged(NavigationView sender, RoutedEventArgs args)
     {
         if (MainNavigationView.SelectedItem.TargetPageType == typeof(FormularioCebvPage)) {
-            MainNavigationView.SetCurrentValue(NavigationView.IsPaneOpenProperty, false);
+            MainNavigationView.SetCurrentValue(NavigationView.IsPaneOpenProperty, false);   
         }
     }
 
     private void NuevoReporte_OnClick(object sender, RoutedEventArgs e)
     {
         _reporteService.ClearReporte();
+    }
+
+    private void ReporteDesaparicion_Click(object sender, RoutedEventArgs e)
+    {
+        if (!MainNavigationView.IsPaneOpen)
+        {
+            _isPaneOpenedOrClosedFromCode = true;
+            MainNavigationView.SetCurrentValue(NavigationView.IsPaneOpenProperty, true);
+            _isPaneOpenedOrClosedFromCode = false;
+        }
+    }
+    
+    private void CerrarSesion_OnClick(object sender, RoutedEventArgs e)
+    {
+        var login = new LoginWindow();
+        login.Show();
+
+        // Cerrar la ventana actual
+        Window currentWindow = Window.GetWindow(this);
+        if (currentWindow != null)
+        {
+            currentWindow.Close();
+        }
     }
 }

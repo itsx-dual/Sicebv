@@ -8,7 +8,6 @@ namespace Cebv.features.dashboard.presentation;
 public partial class Widget2 : UserControl
 {
     private int _currentIndex = 0;
-    private ObservableCollection<ReporteResponse> _reportesPendientes;
 
     public Widget2()
     {
@@ -20,19 +19,41 @@ public partial class Widget2 : UserControl
     {
         if (DataContext is ReportesDesaparicionViewModel viewModel)
         {
-            _reportesPendientes = viewModel.ReportesPendientes;
-            UpdateCarousel();
+            UpdateCarousel(viewModel.ReportesPendientes);
         }
     }
 
-    private void UpdateCarousel()
+    private void UpdateCarousel(ObservableCollection<ReporteResponse> reportesPendientes)
     {
-        var visibleItems = new ObservableCollection<ReporteResponse>();
-        for (int i = _currentIndex; i < _currentIndex + 1 && i < _reportesPendientes.Count; i++)
+        if (reportesPendientes == null || reportesPendientes.Count == 0)
         {
-            visibleItems.Add(_reportesPendientes[i]);
+            CarouselListBox.ItemsSource = null;
+            return;
         }
 
-        CarouselListBox.ItemsSource = visibleItems;
+        // Solo muestra un elemento en el carrusel
+        CarouselListBox.ItemsSource = new ObservableCollection<ReporteResponse> { reportesPendientes[_currentIndex] };
     }
-}
+
+    private void OnPreviousClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is ReportesDesaparicionViewModel viewModel)
+        {
+            if (viewModel.ReportesPendientes.Count == 0) return;
+
+            _currentIndex = (_currentIndex - 1 + viewModel.ReportesPendientes.Count) % viewModel.ReportesPendientes.Count;
+            UpdateCarousel(viewModel.ReportesPendientes);
+        }
+    }
+
+    private void OnNextClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is ReportesDesaparicionViewModel viewModel)
+        {
+            if (viewModel.ReportesPendientes.Count == 0) return;
+
+            _currentIndex = (_currentIndex + 1) % viewModel.ReportesPendientes.Count;
+            UpdateCarousel(viewModel.ReportesPendientes);
+        }
+    }
+}   

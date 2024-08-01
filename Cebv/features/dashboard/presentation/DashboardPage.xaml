@@ -1,99 +1,101 @@
-<Page x:Class="Cebv.features.dashboard.presentation.DashboardPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
-      mc:Ignorable="d"
-      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.presentation"
-      xmlns:presentation1="clr-namespace:Cebv.features.dashboard.comunicacion_difusion.presentation"
-      xmlns:presentation2="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
-      xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
-      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1024"
-      d:DesignHeight="768"
-      Loaded="DashboardPage_OnLoaded"
-      SizeChanged="DashboardPage_OnSizeChanged"
-      Title="DashboardPage">
-    <Page.DataContext>
-        <local:DashboardViewModel/>
-    </Page.DataContext>
-    <Grid>
-        <ui:TitleBar x:Name="Titulo" 
-                     Title="{StaticResource DashboardTitle}"
-                     ApplicationTheme="Dark">
-            <ui:TitleBar.Icon>
-                <ui:SymbolIcon Symbol="LocationLive24"/>
-            </ui:TitleBar.Icon>
-        </ui:TitleBar>
-        
-        <ui:NavigationView x:Name="MainNavigationView"    
-                           IsBackButtonVisible="Auto"
-                           IsPaneToggleVisible="True"
-                           TitleBar="{Binding ElementName=Titulo, Mode=OneWay}"
-                           PaneDisplayMode="Left"
-                           PaneOpened="NavigationView_OnPaneOpened"
-                           PaneClosed="NavigationView_OnPaneClosed"
-                           SelectionChanged="MainNavigationView_OnSelectionChanged"
-                           PaneTitle="Dashboard">
-        
-            <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem
-                    Content="Inicio"
-                    Icon="{ui:SymbolIcon Home24}"
-                    TargetPageType="{x:Type local:Inicio}"/>
-                
-                <ui:NavigationViewItemSeparator/>
-                
-                <ui:NavigationViewItem Content="{StaticResource TestTitle}"
-                                       Icon="{ui:SymbolIcon Grid24}"
-                                       Click="NuevoReporte_OnClick"
-                                       TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
-                
-                <ui:NavigationViewItem Content="Reportes de desaparición"
-                                       Icon="{ui:SymbolIcon News24}">
-                    <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem
-                            Content="Consulta"
-                            Icon="{ui:SymbolIcon Library24}"
-                            TargetPageType="{x:Type local:ReportesDesaparicion}"/>
-                        
-                        <ui:NavigationViewItem
-                            Content="Capturar reporte de desaparición"
-                            Icon="{ui:SymbolIcon Pen24}"
-                            TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
-                    </ui:NavigationViewItem.MenuItems>
-                </ui:NavigationViewItem>
-                
-                <ui:NavigationViewItem Content="{StaticResource EncuadreTitle}"
-                                       Icon="{ui:SymbolIcon Square24}"
-                                       Click="NuevoReporte_OnClick"
-                                       TargetPageType="{x:Type presentation2:EncuadrePreeliminarPage}"/>
-                
-                <ui:NavigationViewItem Content="{StaticResource BusquedaFamiliaTitle}"
-                                       Icon="{ui:SymbolIcon GroupList24}"
-                                       TargetPageType="{x:Type presentation3:BusquedaFamiliaPage}"/>
-                
-                <ui:NavigationViewItem Content="{StaticResource ComunicacionDifusionTitle}"
-                                       Icon="{ui:SymbolIcon Mail24}"
-                                       TargetPageType="{x:Type presentation1:ComunicacionDifusionPage}"/>
-                
-            </ui:NavigationView.MenuItems>
+    <Page x:Class="Cebv.features.dashboard.presentation.DashboardPage"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+          xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
+          mc:Ignorable="d"
+          xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+          xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.presentation"
+          xmlns:presentation1="clr-namespace:Cebv.features.dashboard.comunicacion_difusion.presentation"
+          xmlns:presentation2="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
+          xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
+          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+          ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+          ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+          d:DesignWidth="1024"
+          d:DesignHeight="768"
+          Loaded="DashboardPage_OnLoaded"
+          SizeChanged="DashboardPage_OnSizeChanged"
+          Title="DashboardPage">
+        <Page.DataContext>
+            <local:DashboardViewModel/>
+        </Page.DataContext>
+        <Grid>
+            <ui:TitleBar x:Name="Titulo" 
+                         Title="{StaticResource DashboardTitle}"
+                         ApplicationTheme="Dark">
+                <ui:TitleBar.Icon>
+                    <ui:SymbolIcon Symbol="LocationLive24"/>
+                </ui:TitleBar.Icon>
+            </ui:TitleBar>
             
-            <ui:NavigationView.ContentOverlay>
-                <Grid>
-                    <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
-                </Grid>
-            </ui:NavigationView.ContentOverlay>
+            <ui:NavigationView x:Name="MainNavigationView"    
+                               IsBackButtonVisible="Auto"
+                               IsPaneToggleVisible="True"
+                               TitleBar="{Binding ElementName=Titulo, Mode=OneWay}"
+                               PaneDisplayMode="Left"
+                               PaneOpened="NavigationView_OnPaneOpened"
+                               PaneClosed="NavigationView_OnPaneClosed"
+                               SelectionChanged="MainNavigationView_OnSelectionChanged"
+                               PaneTitle="Dashboard">
             
-            <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem
-                    Content="Cerrar sesión"
-                    Icon="{ui:SymbolIcon ArrowExit20}"/>
-            </ui:NavigationView.FooterMenuItems>
-        </ui:NavigationView>
-    </Grid>
-</Page>
+                <ui:NavigationView.MenuItems>
+                    <ui:NavigationViewItem
+                        Content="Inicio"
+                        Icon="{ui:SymbolIcon Home24}"
+                        TargetPageType="{x:Type local:Inicio}"/>
+                    
+                    <ui:NavigationViewItemSeparator/>
+                    
+                    <ui:NavigationViewItem Content="{StaticResource TestTitle}"
+                                           Icon="{ui:SymbolIcon Grid24}"
+                                           Click="NuevoReporte_OnClick"
+                                           TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
+                    
+                    <ui:NavigationViewItem Content="Reportes de desaparición"
+                                           Icon="{ui:SymbolIcon News24}"
+                                           Click="ReporteDesaparicion_Click">
+                        <ui:NavigationViewItem.MenuItems>
+                            <ui:NavigationViewItem
+                                Content="Consulta"  
+                                Icon="{ui:SymbolIcon Library24}"
+                                TargetPageType="{x:Type local:ReportesDesaparicion}"/>
+                            
+                            <ui:NavigationViewItem
+                                Content="Capturar reporte de desaparición"
+                                Icon="{ui:SymbolIcon Pen24}"
+                                TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
+                        </ui:NavigationViewItem.MenuItems>
+                    </ui:NavigationViewItem>
+                    
+                    <ui:NavigationViewItem Content="{StaticResource EncuadreTitle}"
+                                           Icon="{ui:SymbolIcon Square24}"
+                                           Click="NuevoReporte_OnClick"
+                                           TargetPageType="{x:Type presentation2:EncuadrePreeliminarPage}"/>
+                    
+                    <ui:NavigationViewItem Content="{StaticResource BusquedaFamiliaTitle}"
+                                           Icon="{ui:SymbolIcon GroupList24}"
+                                           TargetPageType="{x:Type presentation3:BusquedaFamiliaPage}"/>
+                    
+                    <ui:NavigationViewItem Content="{StaticResource ComunicacionDifusionTitle}"
+                                           Icon="{ui:SymbolIcon Mail24}"
+                                           TargetPageType="{x:Type presentation1:ComunicacionDifusionPage}"/>
+                    
+                </ui:NavigationView.MenuItems>
+                
+                <ui:NavigationView.ContentOverlay>
+                    <Grid>
+                        <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
+                    </Grid>
+                </ui:NavigationView.ContentOverlay>
+                
+                <ui:NavigationView.FooterMenuItems>
+                    <ui:NavigationViewItem
+                        Content="Cerrar sesión"
+                        Icon="{ui:SymbolIcon ArrowExit20}"
+                        Click="CerrarSesion_OnClick"/>
+                </ui:NavigationView.FooterMenuItems>
+            </ui:NavigationView>
+        </Grid>
+    </Page>

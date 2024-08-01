@@ -16,7 +16,7 @@
         <local:ReportesDesaparicionViewModel />
     </UserControl.DataContext>
     
-    <Grid>
+    <Grid> 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>

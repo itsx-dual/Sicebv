@@ -7,91 +7,104 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:presentation="clr-namespace:Cebv.features.dashboard.presentation"
              xmlns:data2="clr-namespace:Cebv.core.modules.reporte.data"
+             xmlns:data1="clr-namespace:Cebv.core.modules.desaparecido.data"
              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
              d:DesignWidth="Auto"
              d:DesignHeight="Auto">
+
     <UserControl.DataContext>
         <presentation:ReportesDesaparicionViewModel />
     </UserControl.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Background="{ui:ThemeResource TextFillColorPrimaryBrush}" CornerRadius="8" Grid.Row="0" Margin="10">
-            <TextBlock Text="Reportes pendientes" FontSize="24" FontWeight="Bold" Foreground="{ui:ThemeResource TextFillColorInverseBrush}" TextAlignment="Center"/>
-        </Border> 
+        <Border Background="{ui:ThemeResource TextFillColorPrimaryBrush}" CornerRadius="8" Grid.Row="0" Margin="0,10,0,0">
+            <TextBlock Text="Reportes pendientes" FontSize="24" FontWeight="Bold" 
+                       Foreground="{ui:ThemeResource TextFillColorInverseBrush}" TextAlignment="Center"/>
+        </Border>
 
         <!-- Carrusel -->
-        <Grid Grid.Row="1">
-            <ListBox x:Name="CarouselListBox" Margin="50,0" VerticalAlignment="Center" ItemsSource="{Binding ReportesPendientes}">
+        <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <ListBox x:Name="CarouselListBox" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                     SelectedItem="{Binding ReporteSelected, Mode=TwoWay}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type data2:ReporteResponse}">
-                        <Border BorderBrush="Gray" BorderThickness=".5" VerticalAlignment="Center" Width="400"
+                        <Border VerticalAlignment="Center" HorizontalAlignment="Center"
                                 TextElement.Foreground="{ui:ThemeResource TextFillColorInverseBrush}">
-                            <Grid>
+                            <Grid Background="{ui:ThemeResource TextFillColorTertiaryBrush}">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                
-                                <StackPanel Grid.Row="0" Background="{ui:ThemeResource TextFillColorPrimaryBrush}">
-                                    <ui:TextBlock Text="Reportes pendientes" HorizontalAlignment="Center"/>
-                               </StackPanel>
-                                
-                                <Border Grid.Row="1" Background="{ui:ThemeResource TextFillColorTertiaryBrush}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                    
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                
-                                        <ui:TextBlock Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Center">
-                                            <Run Text="{Binding MedioConocimiento.TipoMedio.Nombre}" />
-                                            <Run Text=" - " />
-                                            <Run Text="{Binding MedioConocimiento.Nombre}" />
-                                        </ui:TextBlock>
-                                        <ui:TextBlock Text="{Binding FechaCreacion}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"/>
-                    
-                                        <ui:TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding MedioConocimiento.TipoMedio.Nombre}" HorizontalAlignment="Center"/>
-                                        <ui:TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Estado.Nombre}" HorizontalAlignment="Center"/>
-                    
-                                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Background="{ui:ThemeResource TextFillColorDisabledBrush}">
-                                            <ui:TextBlock HorizontalAlignment="Center">
-                                                <Run Text="{Binding Persona.Nombre}" FontWeight="Bold" />
-                                                <Run Text=" " />
-                                                <Run Text="{Binding Persona.ApellidoPaterno}" FontWeight="Bold" />
-                                                <Run Text=" " />
-                                                <Run Text="{Binding Persona.ApellidoMaterno}" FontWeight="Bold" />-
-                                            </ui:TextBlock>
-                                            <ui:TextBlock HorizontalAlignment="Center">
-                                                <Run Text="{Binding EstatusCebv.Nombre}" />
-                                                <Run Text=" - " />
-                                                <Run Text="{Binding EstatusRpdno.Nombre}" FontStyle="Oblique" />
-                                            </ui:TextBlock>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ui:TextBlock Grid.Column="0" Text="{Binding TipoReporte.Nombre}" 
+                                              Grid.Row="0" HorizontalAlignment="Center" Margin="10"/>
+                                <ui:TextBlock Text="{Binding FechaCreacion}" Grid.Column="0" 
+                                              Grid.Row="1" HorizontalAlignment="Center" Margin="10"/>
+
+                                <ui:TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="10">
+                                    <Run Text="{Binding MedioConocimiento.TipoMedio.Nombre}" />
+                                    <Run Text=" - " />
+                                    <Run Text="{Binding MedioConocimiento.Nombre}" />
+                                </ui:TextBlock>
+                                <ui:TextBlock Grid.Row="1" Grid.Column="1" Margin="10"
+                                              Text="{Binding Estado.Nombre}" HorizontalAlignment="Center"/>
+
+                                <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+                                         ItemsSource="{Binding Desaparecidos}"
+                                         SelectedItem="{Binding ElementName=Page, Path=DataContext.DesaparecidoSelected}"
+                                         IsSelected="False">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type data1:DesaparecidoResponse}">
+                                            <StackPanel Background="{ui:ThemeResource TextFillColorDisabledBrush}">
+                                                <Ellipse Width="48" Height="48" Margin="6"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center"
+                                                         Fill="{ui:ThemeResource ControlStrongStrokeColorDefaultBrush}" />
+                                                
+                                                <ui:TextBlock HorizontalAlignment="Center">
+                                                    <Run Text="{Binding Persona.Nombre}" FontWeight="Bold"/>
+                                                    <Run Text=" " />
+                                                    <Run Text="{Binding Persona.ApellidoPaterno}" FontWeight="Bold" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{Binding Persona.ApellidoMaterno}" FontWeight="Bold" />
+                                                </ui:TextBlock>
+                                                <ui:TextBlock HorizontalAlignment="Center">
+                                                    <Run Text="{Binding EstatusCebv.Nombre}" />
+                                                    <Run Text=" - " />
+                                                    <Run Text="{Binding EstatusRpdno.Nombre}" FontStyle="Oblique" />
+                                                </ui:TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+
+        <!-- Botones de navegación -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Anterior" Width="100" Margin="5" Click="OnPreviousClick"/>
+            <Button Content="Siguiente" Width="100" Margin="5" Click="OnNextClick"/>
+        </StackPanel>
     </Grid>
 </UserControl>
