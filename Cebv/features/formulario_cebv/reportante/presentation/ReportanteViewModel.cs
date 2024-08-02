@@ -72,19 +72,35 @@ public partial class ReportanteViewModel : ObservableObject
     private async void CargarCatalogos()
     {
         var reporte = _reporteService.GetReporte();
+        
+        // Verifica si reporte y Reportantes están inicializados
+        if (reporte == null || reporte.Reportantes == null || reporte.Reportantes.Count == 0)
+        {
+            Reportante = new Reportante();
+            if (reporte != null)
+            {
+                reporte.Reportantes.Add(Reportante);
+            }
+        }
+        else
+        {
+            Reportante = reporte.Reportantes[0];
+        }
+        
         var estadoId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
         var municipioId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
         
-        Parentescos = await ReportanteNetwork.GetCatalogo("parentescos");
-        Sexos = await ReportanteNetwork.GetCatalogo("sexos");
-        Generos = await ReportanteNetwork.GetCatalogo("generos");
-        Colectivos = await ReportanteNetwork.GetCatalogo("colectivos");
-        Religiones = await ReportanteNetwork.GetCatalogo("religiones");
-        Lenguas = await ReportanteNetwork.GetCatalogo("lenguas");
-        Nacionalidades = await ReportanteNetwork.GetCatalogo("nacionalidades");
-        Escolaridades = await ReportanteNetwork.GetCatalogo("escolaridades");
-        EstadosConyugales = await ReportanteNetwork.GetCatalogo("estados-conyugales");
-        GruposVulnerables = await ReportanteNetwork.GetCatalogo("grupos-vulnerables");
+        // Cargar los catálogos de forma asincrónica usando el método LoadCatalog
+        Parentescos = await LoadCatalog("parentescos");
+        Sexos = await LoadCatalog("sexos");
+        Generos = await LoadCatalog("generos");
+        Colectivos = await LoadCatalog("colectivos");
+        Religiones = await LoadCatalog("religiones");
+        Lenguas = await LoadCatalog("lenguas");
+        Nacionalidades = await LoadCatalog("nacionalidades");
+        Escolaridades = await LoadCatalog("escolaridades");
+        EstadosConyugales = await LoadCatalog("estados-conyugales");
+        GruposVulnerables = await LoadCatalog("grupos-vulnerables");
         Estados = await ReportanteNetwork.GetEstados();
         if (estadoId != null) Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(estadoId);
         if (municipioId != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId);
@@ -133,12 +149,18 @@ public partial class ReportanteViewModel : ObservableObject
         }
         else RecibioAmenaza = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
         
-        EdadAproxmida = CalculateAge(reporte.Reportantes?.FirstOrDefault()?.Persona.FechaNacimiento);
-        
+        EdadAproxmida = CalculateAge(reporte?.Reportantes?.FirstOrDefault()?.Persona.FechaNacimiento);
+
         TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
         TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
         TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
         TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
+    }
+    
+    private async Task<ObservableCollection<Catalogo>> LoadCatalog(string catalogName)
+    {
+        var catalog = await ReportanteNetwork.GetCatalogo(catalogName);
+        return catalog ?? new ObservableCollection<Catalogo>();
     }
     
     public static int? CalculateAge(DateTime? birthDate)
