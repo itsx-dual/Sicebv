@@ -9,7 +9,7 @@ namespace Cebv.features.login.presentation;
 
 public partial class LoginViewModel : ObservableObject
 {
-    [ObservableProperty] private string _username = "ismael@cebv.com";
+    [ObservableProperty] private string _username = "nicolas@cebv.com";
 
     [ObservableProperty] private string _password = "password";
 

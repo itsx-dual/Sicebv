@@ -70,7 +70,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Name="NombreTb" Text="{Binding Reportante.Persona.Nombre}" 
+                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" 
                                         Tag="Letter"/>
                         </StackPanel>
 
@@ -324,7 +324,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Correo Electrónico:" />
-                            <ui:TextBox Text="{Binding NombreContacto}" Tag="Exclude"/>
+                            <ui:TextBox Text="{Binding NombreContacto}" Tag="Mail"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -399,12 +399,14 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0].NumeroExterior}"/>
+                            <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0]
+                            .NumeroExterior}" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0].NumeroInterior}"/>
+                            <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0]
+                            .NumeroInterior}" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -414,7 +416,8 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código postal:" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0].CodigoPostal}"/>
+                            <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0]
+                            .CodigoPostal}" Tag="Number" MaxLength="5"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -644,6 +647,33 @@
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
                                     Text="{Binding Reportante.DescripcionDondeProviene}"/>
                     </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Margin="10"
+                    Visibility="{Binding Reportante.DenunciaAnonima,
+                    Converter={StaticResource VisibilityConverter2}}">
+            <ui:TextBlock Text="Datos de identificación de la persona" FontTypography="Title" Margin="10" />
+            
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Nombre(s):" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" 
+                                        Tag="Letter"/>
+                            <ui:TextBlock Text="Teléfono móvil:" />
+                            <ui:TextBox Text="{Binding NoTelefonoMovil}" 
+                                        Tag="Number"
+                                        MaxLength="10"/>
+                        </StackPanel>
+
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Observaciones:" />
+                            <ui:TextBox Text="{Binding ObservacionesMovil}" />
+                        </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
         </StackPanel>

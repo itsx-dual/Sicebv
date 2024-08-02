@@ -67,7 +67,7 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail")
         {
             return;
         }
@@ -151,6 +151,10 @@ public class TextBoxHelper
                 pattern = @"[^\d{2}/\d{2}/\d{4}$]";
                 textBox.MaxLength = 10;
                 break;
+            case "Mail":
+                // Patrón para permitir letras, números y caracteres especiales de correo electrónico
+                pattern = @"[^a-zA-ZñÑ0-9@._-]";
+                break;
             default:
                 // Patrón para permitir letras y la Ñ
                 pattern = @"[^A-ZÑ0-9,]";
@@ -220,15 +224,14 @@ public class TextBoxHelper
                 _snackbarService.Show(
                     "Formato no valido",
                     "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"",
-                    ControlAppearance.Danger,
-                    new SymbolIcon(SymbolRegular.Warning32),
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
                     new TimeSpan(0, 0, 5));
                 
                 e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
             else
-
             {
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }
@@ -239,12 +242,30 @@ public class TextBoxHelper
                 _snackbarService.Show(
                     "Formato no valido",
                     "Por favor ingrese formato valido: \"DD/MM/AAAA\" \nEjemplo: \"31/12/2021\"",
-                    ControlAppearance.Danger,
-                    new SymbolIcon(SymbolRegular.Warning32),
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
                     new TimeSpan(0, 0, 5));
                 
                 e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+            }
+            else
+            {
+                textBox.BorderBrush = SystemColors.ControlDarkBrush;
+            }
+        }else if (textBox?.Tag?.ToString() == "Mail")
+        {
+            if (!Regex.IsMatch(textBox.Text, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+            {
+                _snackbarService.Show(
+                    "Formato no valido",
+                    "Por favor ingrese un correo electrónico valido",
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+                
+                e.Handled = true;
+                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
             else
             {

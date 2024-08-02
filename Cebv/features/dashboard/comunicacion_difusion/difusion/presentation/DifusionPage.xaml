@@ -99,7 +99,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de personas participantes" />
-                            <ui:NumberBox Value="1" Tag="Number"/>
+                            <ui:NumberBox Value="1" Tag="Number" Minimum="0"/>
                         </StackPanel>
                     </WrapPanel>
 

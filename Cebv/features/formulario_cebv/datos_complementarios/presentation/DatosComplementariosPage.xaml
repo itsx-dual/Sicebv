@@ -34,12 +34,12 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" Tag="Number"/>
+                            <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" Tag="Number"/>
+                            <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -49,7 +49,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código postal:" />
-                            <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" Tag="Number"/>
+                            <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" Tag="Number" MaxLength="5"/>
                         </StackPanel>
                     </WrapPanel>
 
