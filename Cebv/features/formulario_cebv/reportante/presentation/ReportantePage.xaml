@@ -651,7 +651,7 @@
             </Border>
         </StackPanel>
         
-        <StackPanel Grid.Row="1" Margin="10"
+        <!--<StackPanel Grid.Row="1" Margin="10"
                     Visibility="{Binding Reportante.DenunciaAnonima,
                     Converter={StaticResource VisibilityConverter2}}">
             <ui:TextBlock Text="Datos de identificación de la persona" FontTypography="Title" Margin="10" />
@@ -676,7 +676,7 @@
                     </WrapPanel>
                 </StackPanel>
             </Border>
-        </StackPanel>
+        </StackPanel-->
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
