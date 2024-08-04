@@ -5,18 +5,23 @@ using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
 public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 {
+    private ISnackbarService _snackbarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -51,6 +56,17 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     private async void FoliosPrevios()
     {
+        if (Reporte.Desaparecidos == null || Reporte.Desaparecidos.Count == 0)
+        {
+            _snackbarService.Show(
+                "No hay persona desaparecida",
+                "Registre una persona desaparecida",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.ChatWarning16),
+                new TimeSpan(0, 0, 5));
+            return;
+        }
+        
         var persona = Reporte.Desaparecidos![0].Persona;
 
         if (persona is null || persona.Id is null) return;
