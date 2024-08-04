@@ -26,6 +26,13 @@ public class PrendasNetworkEncuadrePreeliminar
         var json = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PertenenciaCall>(json)?.Data!;
     }
+    
+    public static async Task<ObservableCollection<Pertenencia>> GetPertenencias()
+    {
+        var request = await Client.GetAsync("api/pertenencias");
+        var json = await request.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<PertenenciaCall>(json)?.Data!;
+    }
 }
 
 public class PrendasNetwork

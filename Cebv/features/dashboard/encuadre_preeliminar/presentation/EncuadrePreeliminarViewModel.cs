@@ -127,7 +127,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Vistas = await SenasParticularesNetwork.GetCatalogo("vistas");
         Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
         Colores = await SenasParticularesNetwork.GetCatalogo("colores");
-        //Pertenencias = await PrendasNetwork.GetPertenencias();
+        Pertenencias = await PrendasNetworkEncuadrePreeliminar.GetPertenencias();
         GruposPertenencia = await SenasParticularesNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");

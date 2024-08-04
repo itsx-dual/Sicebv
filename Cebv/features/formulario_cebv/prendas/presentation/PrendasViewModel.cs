@@ -202,6 +202,8 @@ public partial class PrendasViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarYContinuar(Type pageType)
     {
+        AddPrendaCommand.Execute(null);
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
