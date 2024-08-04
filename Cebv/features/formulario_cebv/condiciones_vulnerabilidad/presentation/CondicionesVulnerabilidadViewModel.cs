@@ -1,7 +1,11 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.condiciones_vulnerabilidad.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation;
 
@@ -16,6 +20,9 @@ public class CondicionesSalud
 
 public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 {
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    
     public CondicionesVulnerabilidadViewModel()
     {
         CargarCatalogos();
@@ -65,4 +72,14 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = new();
     [ObservableProperty] private Catalogo _tipoSangre = new();
+    
+    /**
+     * Guardar y continuar
+     */
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
+    }
 }

@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.domain;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using Cebv.features.formulario_cebv.control_ogpi.domain;
@@ -11,11 +13,15 @@ using Microsoft.Win32;
 using Catalogo = Cebv.core.data.Catalogo;
 using Estado = Cebv.core.modules.ubicacion.data.Estado;
 using Municipio = Cebv.core.modules.ubicacion.data.Municipio;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
 public partial class DatosLocalizacionViewModel : ObservableObject
 {
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    
     /**
      * Constructor
      */
@@ -138,5 +144,15 @@ public partial class DatosLocalizacionViewModel : ObservableObject
         }
 
         OpenedIdentificacionOficialPath = openFileDialog.FileNames;
+    }
+    
+    /**
+     * Guardar y continuar
+     */
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

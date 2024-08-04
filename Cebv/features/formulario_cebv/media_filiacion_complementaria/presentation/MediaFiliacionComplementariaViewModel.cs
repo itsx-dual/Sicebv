@@ -1,12 +1,21 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.media_filiacion_complementaria.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation;
 
 public partial class MediaFiliacionComplementariaViewModel : ObservableObject
 {
+    private IReporteService _reporteService = 
+        App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    
     /**
      * Constructor de la clase
      */
@@ -56,7 +65,16 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
         TiposIntervenciones = await MediaFiliacionComplementariaNetwork.GetIntervencionesQuirurgicas();
         EnfermedadesPieles = await MediaFiliacionComplementariaNetwork.GetEnfermedadesPiel();
     }
-
+    
+    /**
+     * Guardar y continuar
+     */
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
+    }
 
     partial void OnDienteOpcionChanged(string value) =>
         Diente = OpcionesCebv.MappingToBool(value);

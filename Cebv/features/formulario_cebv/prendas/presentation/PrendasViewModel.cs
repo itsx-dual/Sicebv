@@ -194,4 +194,14 @@ public partial class PrendasViewModel : ObservableObject
         Marca = null;
         Descripcion = null;
     }
+    
+    /**
+     * Guardar y continuar
+     */
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
+    }
 }

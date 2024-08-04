@@ -155,6 +155,10 @@ public class TextBoxHelper
                 // Patrón para permitir letras, números y caracteres especiales de correo electrónico
                 pattern = @"[^a-zA-ZñÑ0-9@._-]";
                 break;
+            case "No.House":
+                // Patrón para permitir letras, números y caracteres especiales de un número e casa
+                pattern = @"[^A-ZñÑ0-9_]";
+                break;
             default:
                 // Patrón para permitir letras y la Ñ
                 pattern = @"[^A-ZÑ0-9,]";

@@ -462,14 +462,14 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10" 
+                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10" Tag="No.House"
                                         Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroExterior}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
+                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10" Tag="No.House"
                                         Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroInterior}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>

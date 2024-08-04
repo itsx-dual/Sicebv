@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,6 +14,10 @@
       mc:Ignorable="d"
       Name="pageCondiciones"
       Title="CondicionesVulnerabilidadPage">
+    
+    <Page.DataContext>
+        <presentation:CondicionesVulnerabilidadViewModel />
+    </Page.DataContext>
 
     <Grid Margin="10">
 
@@ -350,11 +356,12 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
+                   Command="{Binding GuardarYContinuarCommand}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary" 
+                   CommandParameter="{x:Type presentation1:CircunstanciaDesaparicionPage}"/>
     </Grid>
 </Page>

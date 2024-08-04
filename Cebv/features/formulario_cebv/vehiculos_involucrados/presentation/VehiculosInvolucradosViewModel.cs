@@ -1,15 +1,21 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using Cebv.core.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.vehiculos_involucrados.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.vehiculos_involucrados.presentation;
 
 public partial class VehiculosInvolucradosViewModel : ObservableObject
 {
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    
     /**
      * Constructor de la clase
      */
@@ -82,5 +88,15 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
         Colores = await VehiculosNetwork.GetColores();
         TiposVehiculos = await VehiculosNetwork.GetTiposVehiculos();
         UsosVehiculos = await VehiculosNetwork.GetUsosVehiculos();
+    }
+    
+    /**
+     * Guardar y continuar
+     */
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

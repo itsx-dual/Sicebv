@@ -7,6 +7,7 @@
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       xmlns:data1="clr-namespace:Cebv.features.formulario_cebv.prendas.data"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -195,11 +196,12 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
+                   Command="{Binding GuardarYContinuarCommand}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary" 
+                   CommandParameter="{x:Type presentation1:SenasParticularesPage}"/>
     </Grid>
 </Page>

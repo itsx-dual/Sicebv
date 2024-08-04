@@ -224,7 +224,7 @@ public partial class DesaparecidoViewModel : ObservableObject
                 Desaparecido.Persona.Direcciones[0] = new Direccion();
             }
         }
-        catch (Exception ex)
+        catch
         {
             _snackbarService.Show(
                 "No se encontró una dirección para el reportante",
@@ -369,18 +369,18 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private string _sabeEscribirOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _sabeEscribir;
 
-    private void DiferenciaFechas(DateTime? a, DateTime b)
+    private void DiferenciaFechas(DateTime? a, DateTime? b)
     {
-        if (a == null) return;
+        if (a == null || b == null) return;
         
-        EdadAnos = b.Year - a?.Year;
-        EdadMeses = b.Month - a?.Month;
-        EdadDias = b.Day - a?.Day;
+        EdadAnos = (int)(b?.Year - a?.Year)!;
+        EdadMeses = (int)(b?.Month - a?.Month)!;
+        EdadDias = (int)(b?.Day - a?.Day)!;
         
         if (EdadDias < 0)
         {
             EdadMeses--;
-            EdadDias += DateTime.DaysInMonth(b.Year, b.Month);
+            EdadDias += DateTime.DaysInMonth((int)b?.Year!, (int)b?.Month!);
         }
 
         if (EdadMeses < 0)

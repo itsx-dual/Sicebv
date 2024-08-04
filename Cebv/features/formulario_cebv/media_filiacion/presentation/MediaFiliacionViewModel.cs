@@ -1,13 +1,21 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using Cebv.core.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
 using Cebv.features.formulario_cebv.media_filiacion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Catalogo = Cebv.core.data.Catalogo;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.media_filiacion.presentation;
 
 public partial class MediaFiliacionViewModel : ObservableObject
 {
+    private IReporteService _reporteService = 
+        App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService = 
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     /**
      * Constructor de la clase
      */
@@ -102,7 +110,7 @@ public partial class MediaFiliacionViewModel : ObservableObject
     /**
      * Peticiones a la API para obtener los catalogos
      */
-    private async void CargarCatalogos()
+    private async void CargarCatalogos()    
     {
         Complexiones = await MediaFiliacionNetwork.GetComplexiones();
         ColoresPieles = await MediaFiliacionNetwork.GetColoresPieles();
@@ -120,5 +128,15 @@ public partial class MediaFiliacionViewModel : ObservableObject
         TamanosLabios = await MediaFiliacionNetwork.GetTamanosLabios();
         TamanosOrejas = await MediaFiliacionNetwork.GetTamanosOrejas();
         FormasOrejas = await MediaFiliacionNetwork.GetFormasOrejas();
+    }
+    
+    /**
+     * Guardar y continuar
+     **/
+    [RelayCommand]
+    private void OnGuardarYContinuar(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }
