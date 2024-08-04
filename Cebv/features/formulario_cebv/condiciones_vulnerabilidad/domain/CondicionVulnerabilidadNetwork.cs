@@ -6,6 +6,7 @@ using Cebv.core.domain;
 
 namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.domain;
 
+
 public class CondicionVulnerabilidadNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;

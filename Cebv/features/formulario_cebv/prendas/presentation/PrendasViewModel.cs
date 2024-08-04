@@ -41,7 +41,7 @@ public partial class PrendasViewModel : ObservableObject
     /**
      * Variables de la clase
      */
-    [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencias = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencias = new ();
 
     [ObservableProperty] private Catalogo _grupoPertenencia = new();
 
@@ -63,8 +63,9 @@ public partial class PrendasViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        //GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
-        //Colores = await PrendasNetwork.GetColores();
+        GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
+        Pertenencias = await PrendasNetwork.GetPertenencias();
+        Colores = await PrendasNetwork.GetColores();
     }
 
     //async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
