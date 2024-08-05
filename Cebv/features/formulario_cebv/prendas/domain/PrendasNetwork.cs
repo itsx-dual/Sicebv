@@ -4,20 +4,19 @@ using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Newtonsoft.Json;
-using System.Text.Json;
 using Catalogo = Cebv.core.data.Catalogo;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Cebv.features.formulario_cebv.prendas.domain;
 
-public class PrendasNetworkEncuadrePreeliminar
+[method: JsonConstructor]
+class PertenenciaCall(ObservableCollection<Pertenencia> data)
 {
-    [method: JsonConstructor]
-    class PertenenciaCall(ObservableCollection<Pertenencia> data)
-    {
-        public ObservableCollection<Pertenencia> Data = data;
-    }
-    
+    public ObservableCollection<Pertenencia> Data = data;
+}
+
+public class PrendasNetwork
+{
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<ObservableCollection<Pertenencia>> GetPertenencias(int pertenenciaId)
@@ -27,18 +26,13 @@ public class PrendasNetworkEncuadrePreeliminar
         return JsonConvert.DeserializeObject<PertenenciaCall>(json)?.Data!;
     }
     
-    public static async Task<ObservableCollection<Pertenencia>> GetPertenencias()
+    public static async Task<ObservableCollection<Pertenencia>> GetPertenenciasEncuadre()
     {
         var request = await Client.GetAsync("api/pertenencias");
         var json = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PertenenciaCall>(json)?.Data!;
     }
-}
-
-public class PrendasNetwork
-{
-    private static HttpClient Client => CebvClientHandler.SharedClient;
-
+    
     public static async Task<ObservableCollection<Catalogo>> GetGruposPertenencias()
     {
         var request = await Client.GetAsync("api/grupos-pertenencias");
@@ -55,9 +49,9 @@ public class PrendasNetwork
         var request = await Client.GetAsync("api/pertenencias");
         
         var response = await request.Content.ReadAsStringAsync();
-
+        
         CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
-
+        
         return jsonResponse.Data;
     }
 
@@ -66,9 +60,9 @@ public class PrendasNetwork
         var request = await Client.GetAsync("api/colores");
         
         var response = await request.Content.ReadAsStringAsync();
-
+        
         CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
-
+        
         return jsonResponse.Data;
     }
 }

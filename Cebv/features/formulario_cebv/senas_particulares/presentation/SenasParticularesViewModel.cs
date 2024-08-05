@@ -109,7 +109,7 @@ public partial class SenasParticularesViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarYContinuar(Type pageType)
     {
-        AddSenaParticularCommand.Execute(null);
+        //AddSenaParticularCommand.Execute(null);
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

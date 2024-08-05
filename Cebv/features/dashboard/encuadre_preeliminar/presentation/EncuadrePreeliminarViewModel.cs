@@ -127,7 +127,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Vistas = await SenasParticularesNetwork.GetCatalogo("vistas");
         Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
         Colores = await SenasParticularesNetwork.GetCatalogo("colores");
-        Pertenencias = await PrendasNetworkEncuadrePreeliminar.GetPertenencias();
+        Pertenencias = await PrendasNetwork.GetPertenenciasEncuadre();
         GruposPertenencia = await SenasParticularesNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
@@ -222,7 +222,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)
     {
         if (value == null) return;
-        Pertenencias = await PrendasNetworkEncuadrePreeliminar.GetPertenencias(value.Id ?? 0);
+        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id ?? 0);
     }
 
     partial void OnSeDesconoceFechaNacimientoDesaparecidoChanged(bool value)

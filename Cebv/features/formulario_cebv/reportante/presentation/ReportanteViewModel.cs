@@ -90,17 +90,16 @@ public partial class ReportanteViewModel : ObservableObject
         var estadoId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
         var municipioId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
         
-        // Cargar los catálogos de forma asincrónica usando el método LoadCatalog
-        Parentescos = await LoadCatalog("parentescos");
-        Sexos = await LoadCatalog("sexos");
-        Generos = await LoadCatalog("generos");
-        Colectivos = await LoadCatalog("colectivos");
-        Religiones = await LoadCatalog("religiones");
-        Lenguas = await LoadCatalog("lenguas");
-        Nacionalidades = await LoadCatalog("nacionalidades");
-        Escolaridades = await LoadCatalog("escolaridades");
-        EstadosConyugales = await LoadCatalog("estados-conyugales");
-        GruposVulnerables = await LoadCatalog("grupos-vulnerables");
+        Parentescos = await ReportanteNetwork.GetCatalogo("parentescos");
+        Sexos = await ReportanteNetwork.GetCatalogo("sexos");
+        Generos = await ReportanteNetwork.GetCatalogo("generos");
+        Colectivos = await ReportanteNetwork.GetCatalogo("colectivos");
+        Religiones = await ReportanteNetwork.GetCatalogo("religiones");
+        Lenguas = await ReportanteNetwork.GetCatalogo("lenguas");
+        Nacionalidades = await ReportanteNetwork.GetCatalogo("nacionalidades");
+        Escolaridades = await ReportanteNetwork.GetCatalogo("escolaridades");
+        EstadosConyugales = await ReportanteNetwork.GetCatalogo("estados-conyugales");
+        GruposVulnerables = await ReportanteNetwork.GetCatalogo("grupos-vulnerables");
         Estados = await ReportanteNetwork.GetEstados();
         if (estadoId != null) Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(estadoId);
         if (municipioId != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId);
@@ -155,12 +154,6 @@ public partial class ReportanteViewModel : ObservableObject
         TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
         TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
         TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
-    }
-    
-    private async Task<ObservableCollection<Catalogo>> LoadCatalog(string catalogName)
-    {
-        var catalog = await ReportanteNetwork.GetCatalogo(catalogName);
-        return catalog ?? new ObservableCollection<Catalogo>();
     }
     
     public static int? CalculateAge(DateTime? birthDate)
