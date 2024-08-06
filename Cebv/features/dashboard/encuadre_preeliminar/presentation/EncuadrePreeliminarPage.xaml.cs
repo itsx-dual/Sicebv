@@ -82,4 +82,9 @@ public partial class EncuadrePreeliminarPage : Page
             //Imagenes.Children.Add(wpfuiImage);
         }
     }
+
+    private void Grid_OnSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        var grid = sender as Grid;
+    }
 }
