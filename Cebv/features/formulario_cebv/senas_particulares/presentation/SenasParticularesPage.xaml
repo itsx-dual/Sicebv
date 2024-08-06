@@ -85,8 +85,8 @@
                                 <ComboBox Margin="5,0,5,0"
                                           DisplayMemberPath="Nombre"
                                           SelectedValue="{Binding RegionCuerpoSelected}"
-                                          ItemsSource="{Binding RegionesCuerpo}"/>
-                                
+                                          ItemsSource="{Binding RegionesCuerpo}" />
+
                                 <!-- Vista -->
                                 <ui:TextBlock Text="Vista:"
                                               Margin="10,10,0,0" />
@@ -110,11 +110,11 @@
                                               Margin="10,10,0,0" />
                                 <ui:NumberBox Margin="5,0,5,0"
                                               Value="{Binding Cantidad}"
-                                              Tag="Number" Minimum="1"/>
+                                              Tag="Number" Minimum="1" />
 
                             </StackPanel>
                         </Grid>
-                        
+
                         <ui:TextBlock Text="Tipo de seña:"
                                       Margin="10,10,0,0" />
                         <ComboBox Margin="5,0,5,0"
@@ -122,7 +122,7 @@
                                   SelectedValue="{Binding TipoSelected}"
                                   ItemsSource="{Binding Tipos}" />
 
-                        
+
                         <!-- Descripcion -->
                         <ui:TextBlock Text="Descripción:"
                                       Margin="10,10,0,0" />
@@ -149,54 +149,92 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-                <DataGrid Grid.Row="1"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="3"
-                          Margin="10,0,10,10"
-                          AutoGenerateColumns="False"
-                          ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Region del cuerpo"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding RegionCuerpo.Nombre}" />
-                        <DataGridTextColumn Header="Vista"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding Vista.Nombre}" />
-                        <DataGridTextColumn Header="Lado"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding Lado.Nombre}" />
-                        <DataGridTextColumn Header="Tipo"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding Tipo.Nombre}" />
-                        <DataGridTextColumn Header="Cantidad"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding Cantidad}" />
-                        <DataGridTextColumn Header="Descripcion"
-                                            CanUserResize="False"
-                                            Width="3*"
-                                            Binding="{Binding Descripcion}" />
-                        <DataGridTextColumn Header="Fotografia"
-                                            CanUserResize="False"
-                                            Width="*"
-                                            Binding="{Binding Foto}"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ui:Button Icon="{ui:SymbolIcon Delete24}"
+                <ui:CardExpander Grid.Row="1"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
+                                 Margin="10,0,10,0"
+                                 IsExpanded="True">
+                    <ui:CardExpander.Header>
+                        <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
+                    </ui:CardExpander.Header>
+
+                    <ui:ListView ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
+                        <ui:ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Grid.IsSharedSizeScope="True"
+                                            Name="StackPanel" />
+                            </ItemsPanelTemplate>
+                        </ui:ListView.ItemsPanel>
+
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <!-- Me da vergüenza la cantidad de tiempo que gaste en las siguientes dos lineas: -->
+                                <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}"
+                                      Margin="-5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ui:Card Margin="3,3,0,3">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel HorizontalAlignment="Left">
+                                                <ui:TextBlock
+                                                    Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
+                                                    FontTypography="BodyStrong" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
+                                            </StackPanel>
+
+                                            <DockPanel Grid.Column="1"
+                                                       HorizontalAlignment="Stretch">
+                                                <ui:TextBlock Text="Descripción:"
+                                                              FontTypography="BodyStrong"
+                                                              DockPanel.Dock="Top"
+                                                              Margin="10,0,10,0"
+                                                              HorizontalAlignment="Left" />
+
+                                                <ui:TextBlock Text="{Binding Descripcion}"
+                                                              HorizontalAlignment="Left"
+                                                              Margin="10,0,10,0"
+                                                              TextWrapping="Wrap" />
+                                            </DockPanel>
+
+                                            <ui:Image Grid.Column="2"
+                                                      Source="{Binding Imagen}"
+                                                      Width="100"
+                                                      Height="100"
+                                                      CornerRadius="8"
+                                                      Stretch="UniformToFill" />
+                                        </Grid>
+                                    </ui:Card>
+
+                                    <ui:Button Grid.Column="1"
+                                               VerticalAlignment="Stretch"
                                                Appearance="Danger"
-                                               Margin="3"
+                                               HorizontalAlignment="Stretch"
+                                               Icon="{ui:SymbolIcon Delete24}"
+                                               Width="60"
+                                               Margin="4"
                                                Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
-                                               CommandParameter="{Binding}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                               CommandParameter="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                </ui:CardExpander>
             </Grid>
         </StackPanel>
 
@@ -208,6 +246,6 @@
                    HorizontalAlignment="Stretch"
                    Command="{Binding GuardarYContinuarCommand}"
                    CommandParameter="{x:Type presentation1:CondicionesVulnerabilidadPage}"
-                   Appearance="Primary"/>
+                   Appearance="Primary" />
     </Grid>
 </Page>

@@ -84,6 +84,8 @@
       <Resource Include="core\resources\images\senas\Minus loadIcon.png" />
       <Resource Include="core\resources\images\senas\Minus RegionCuerpoColorMejorado.png" />
       <Resource Include="core\resources\images\senas\RegionCuerpoColorMejorado.png" />
+      <None Remove="core\resources\placeholder.jpg" />
+      <Resource Include="core\resources\placeholder.jpg" />
     </ItemGroup>
 
     <ItemGroup>

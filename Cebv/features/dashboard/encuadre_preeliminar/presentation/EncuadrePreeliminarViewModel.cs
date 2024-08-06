@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
@@ -8,6 +9,7 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.dashboard.encuadre_preeliminar.domain;
 using Cebv.features.dashboard.presentation;
 using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
@@ -69,6 +71,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private Catalogo _vistaSelected;
     [ObservableProperty] private Catalogo _tipoSelected;
+    [ObservableProperty] private BitmapImage _imagenSenaParticularSelected;
     [ObservableProperty] private CatalogoColor _regionCuerpoSelected;
     [ObservableProperty] private CatalogoColor _ladoSelected;
     [ObservableProperty] private string _colorRegionCuerpo;
@@ -105,34 +108,41 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private bool _hayPrendas;
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage? _imagenBoletin;
+    private Dictionary<string, BitmapImage> _fotosSenas;
     [ObservableProperty] private bool _noHayCurp;
 
-    public EncuadrePreeliminarViewModel() =>
+    public EncuadrePreeliminarViewModel()
+    {
         InitAsync();
+    }
 
     private async Task CargarCatalogos()
     {
-        Sexos = await ReportanteNetwork.GetCatalogo("sexos");
-        RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
-        Generos = await ReportanteNetwork.GetCatalogo("generos");
-        Parentescos = await ReportanteNetwork.GetCatalogo("parentescos");
-        Nacionalidades = await ReportanteNetwork.GetCatalogo("nacionalidades");
-        CompaniasTelefonicas = await DesaparecidoNetwork.GetCatalogo("companias-telefonicas");
-        Complexiones = await DesaparecidoNetwork.GetCatalogo("complexiones");
-        ColoresPiel = await DesaparecidoNetwork.GetCatalogo("colores-pieles");
-        ColoresOjos = await DesaparecidoNetwork.GetCatalogo("colores-ojos");
-        ColoresCabello = await DesaparecidoNetwork.GetCatalogo("colores-cabellos");
-        TamanosCabello = await DesaparecidoNetwork.GetCatalogo("tamanos-cabellos");
-        TiposCabello = await DesaparecidoNetwork.GetCatalogo("tipos-cabellos");
-        Vistas = await SenasParticularesNetwork.GetCatalogo("vistas");
-        Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
-        Colores = await SenasParticularesNetwork.GetCatalogo("colores");
-        GruposPertenencia = await SenasParticularesNetwork.GetCatalogo("grupos-pertenencias");
+        Stopwatch sw = new();
+        sw.Start();
+        Sexos = await EncuadrePreeliminarNetwork.GetCatalogo("sexos");
+        RazonesCurp = await EncuadrePreeliminarNetwork.GetCatalogo("razones-curp");
+        Generos = await EncuadrePreeliminarNetwork.GetCatalogo("generos");
+        Parentescos = await EncuadrePreeliminarNetwork.GetCatalogo("parentescos");
+        Nacionalidades = await EncuadrePreeliminarNetwork.GetCatalogo("nacionalidades");
+        CompaniasTelefonicas = await EncuadrePreeliminarNetwork.GetCatalogo("companias-telefonicas");
+        Complexiones = await EncuadrePreeliminarNetwork.GetCatalogo("complexiones");
+        ColoresPiel = await EncuadrePreeliminarNetwork.GetCatalogo("colores-pieles");
+        ColoresOjos = await EncuadrePreeliminarNetwork.GetCatalogo("colores-ojos");
+        ColoresCabello = await EncuadrePreeliminarNetwork.GetCatalogo("colores-cabellos");
+        TamanosCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tamanos-cabellos");
+        TiposCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tipos-cabellos");
+        Vistas = await EncuadrePreeliminarNetwork.GetCatalogo("vistas");
+        Tipos = await EncuadrePreeliminarNetwork.GetCatalogo("tipos");
+        Colores = await EncuadrePreeliminarNetwork.GetCatalogo("colores");
+        GruposPertenencia = await EncuadrePreeliminarNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
+        ZonasEstados = await EncuadrePreeliminarNetwork.GetCatalogo("zonas-estados");
         Estados = await ReportanteNetwork.GetEstados();
-        ZonasEstados = await SenasParticularesNetwork.GetCatalogo("zonas-estados");
         TiposMedios = await DatosReporteNetwork.GetTiposMedios();
+        sw.Stop();
+        Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
 
     private void DefaultValues()
@@ -141,6 +151,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         ColorLado = "6C7156";
         Descripcion = "";
         Cantidad = 1;
+        ImagenSenaParticularSelected = null;
     }
 
     private void GetReporteFromService()
@@ -398,7 +409,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             RegionCuerpo = RegionCuerpoSelected,
             Vista = VistaSelected,
             Lado = LadoSelected,
-            Tipo = TipoSelected
+            Tipo = TipoSelected,
+            Imagen = ImagenSenaParticularSelected
         });
     }
 
@@ -410,30 +422,37 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private void OnOpenFile()
+    private void OnOpenDesaparecidoImages()
     {
-        OpenFileDialog openFileDialog =
-            new()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                Multiselect = true
-            };
-
-        if (openFileDialog.ShowDialog() != true)
+        OpenFileDialog openFileDialog = new()
         {
-            return;
-        }
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+            Multiselect = true,
+            Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.webp"
+        };
 
-        if (!File.Exists(openFileDialog.FileName))
-        {
-            return;
-        }
+        if (openFileDialog.ShowDialog() == false) return;
+        if (!File.Exists(openFileDialog.FileName)) return;
 
-        //Files = new ObservableCollection<string>(openFileDialog.FileNames);
         foreach (var file in openFileDialog.FileNames)
         {
             ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
         }
+    }
+    
+    [RelayCommand]
+    private void OnOpenSenaParticularImage()
+    {
+        OpenFileDialog openFileDialog = new()
+        {
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+            Multiselect = false,
+            Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.webp"
+        };
+
+        if (openFileDialog.ShowDialog() == false) return;
+        if (!File.Exists(openFileDialog.FileName)) return;
+        ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
 
     [RelayCommand]
@@ -442,10 +461,12 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
         AddTelefonoMovilDesaparecidoCommand.Execute(null);
-        AddSenaParticularCommand.Execute(null);
+        //AddSenaParticularCommand.Execute(null);
         AddPrendaDeVestirCommand.Execute(null);
+
+        var senasParticulares = Desaparecido.Persona.SenasParticulares.ToList();
         
-        if (await _reporteService.Sync() == null)
+        if (await _reporteService.Sync() is null)
         {
             _snackBarService.Show(
                 "Error fatal",

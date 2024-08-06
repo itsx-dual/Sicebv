@@ -82,13 +82,13 @@
                         <ui:TextBlock Text="ESTADO DE DONDE PROVIENE EL REPORTE:" />
                         <ComboBox SelectedItem="{Binding Reporte.Estado}"
                                   ItemsSource="{Binding Estados}"
-                                  IsEditable="True"/>
+                                  IsEditable="True" />
                     </StackPanel>
-                    
+
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="ZONA DEL ESTADO DE DONDE PROVIENE EL REPORTE:" />
                         <ComboBox SelectedItem="{Binding Reporte.ZonaEstado}"
-                                  ItemsSource="{Binding ZonasEstados}"/>
+                                  ItemsSource="{Binding ZonasEstados}" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -139,7 +139,7 @@
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding NoTelefonoReportante}"
                                         MaxLength="10"
-                                        Tag="Number"/>
+                                        Tag="Number" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -255,7 +255,7 @@
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDateFormat="Short"
-                                            SelectedDate="{Binding FechaNacimientoDesaparecido}"/>
+                                            SelectedDate="{Binding FechaNacimientoDesaparecido}" />
 
                             </StackPanel>
                         </WrapPanel>
@@ -312,7 +312,7 @@
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDateFormat="Short"
                                             SelectedDate="{Binding FechaNacimientoDesaparecido, ConverterCulture=es-MX}" />
-                              
+
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -338,7 +338,7 @@
                                               Maximum="120"
                                               Minimum="0"
                                               PlaceholderText="Años"
-                                              SmallChange="1" Tag="Number"/>
+                                              SmallChange="1" Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -350,7 +350,7 @@
                                     Value="{Binding MesesDesaparecido}"
                                     Minimum="0"
                                     PlaceholderText="Meses"
-                                    SmallChange="1" Tag="Number"/>
+                                    SmallChange="1" Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -362,7 +362,7 @@
                                     Minimum="0"
                                     Value="{Binding DiasDesaparecido}"
                                     PlaceholderText="Días"
-                                    SmallChange="1" Tag="Number"/>
+                                    SmallChange="1" Tag="Number" />
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>
@@ -374,12 +374,12 @@
                         <StackPanel MinWidth="250" Margin="0,0,25,0">
                             <ui:TextBlock Text="CURP:" />
                             <ui:TextBox Text="{Binding Curp}"
-                                        MaxLength="18"/>
+                                        MaxLength="18" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250"
                                     Visibility="{Binding NoHayCurp, Converter={StaticResource VisibilityConverter2}}">
-                            <ui:TextBlock Text="Razón por la cual no tiene CURP:"/>
+                            <ui:TextBlock Text="Razón por la cual no tiene CURP:" />
                             <ComboBox ItemsSource="{Binding RazonesCurp}" />
                         </StackPanel>
                     </StackPanel>
@@ -390,7 +390,7 @@
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding NoTelefonoDesaparecido}"
                                         MaxLength="10"
-                                        Tag="Number"/>
+                                        Tag="Number" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -538,13 +538,13 @@
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}" 
-                                            MaxLength="10"/>
+                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}"
+                                            MaxLength="10" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
-                                <ui:TextBox ClearButtonEnabled="True"  MaxLength="10"
+                                <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
                                             Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroInterior}" />
                             </StackPanel>
 
@@ -559,7 +559,7 @@
                                 <ui:TextBox ClearButtonEnabled="True"
                                             MaxLength="5"
                                             Text="{Binding Reporte.HechosDesaparicion.LugarHechos.CodigoPostal}"
-                                            Tag="Number"/>
+                                            Tag="Number" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -568,7 +568,7 @@
                                 <ui:TextBlock Text="ESTADO:" />
                                 <ComboBox SelectedItem="{Binding EstadoSelected}"
                                           ItemsSource="{Binding Estados}"
-                                          IsEditable="True"/>
+                                          IsEditable="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -627,13 +627,13 @@
                                     AcceptsReturn="True"
                                     MinHeight="150"
                                     Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}"
-                                    Tag="Exclude"/>
+                                    Tag="Exclude" />
                     </StackPanel>
 
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
                         <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" Tag="Number"
-                                      Minimum="0"/>
+                                      Minimum="0" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -650,7 +650,7 @@
                                           Minimum="30"
                                           PlaceholderText="Centímetros"
                                           Value="{Binding Desaparecido.Persona.MediaFiliacion.Estatura}"
-                                          SmallChange="1" Tag="Units"/>
+                                          SmallChange="1" Tag="Units" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -660,7 +660,7 @@
                                           Minimum="30"
                                           PlaceholderText="Kilogramos"
                                           Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso}"
-                                          SmallChange="1" Tag="Units"/>
+                                          SmallChange="1" Tag="Units" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -711,7 +711,7 @@
             </Border>
 
             <ui:TextBlock Text="Señas particulares" FontTypography="Title" Margin="10" />
-            
+
             <Border Margin="0 0 0 25">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
@@ -719,7 +719,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    
+
                     <StackPanel Grid.Row="1" Margin="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -801,7 +801,7 @@
                                                           Margin="10,10,0,0" />
                                             <ui:NumberBox Margin="5,0,5,0"
                                                           Value="{Binding Cantidad}"
-                                                          Tag="Number" Minimum="1"/>
+                                                          Tag="Number" Minimum="1" />
 
                                         </StackPanel>
                                     </Grid>
@@ -826,10 +826,14 @@
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Right"
                                                 Margin="10">
+                                        <ui:TextBlock Text="{Binding ImagenSenaParticularSelected.BaseUri}"/>
+                                        
                                         <ui:Button Content="Subir imagen"
                                                    Margin="5,0,0,0"
-                                                   Icon="{ui:SymbolIcon ArrowUpload24}" />
-                                        <ui:Button Content="Agregar registro"
+                                                   Command="{Binding OpenSenaParticularImageCommand}"
+                                                   Icon="{ui:SymbolIcon ArrowUpload24}"/>
+                                        
+                                        <ui:Button Content="Agregar seña particular"
                                                    Margin="5,0,0,0"
                                                    Appearance="Primary"
                                                    Command="{Binding AddSenaParticularCommand}"
@@ -837,102 +841,93 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
-                            
+
                             <ui:CardExpander Grid.Row="1"
                                              Grid.Column="0"
                                              Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
                                              Margin="10,0,10,0"
                                              IsExpanded="True">
-                                
                                 <ui:CardExpander.Header>
                                     <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
                                 </ui:CardExpander.Header>
-                                
+
                                 <ui:ListView ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
+                                    <ui:ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Grid.IsSharedSizeScope="True"
+                                                        Name="StackPanel"/>
+                                        </ItemsPanelTemplate>
+                                    </ui:ListView.ItemsPanel>
+
                                     <ui:ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <Grid>
+                                            <!-- Me da vergüenza la cantidad de tiempo que gaste en las siguientes dos lineas: -->
+                                            <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}"
+                                                  Margin="-5">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition/>
-                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                
-                                                <ui:CardControl HorizontalAlignment="Stretch"
-                                                                 >
-                                                    <ui:CardControl.Header>
-                                                        <ui:TextBlock Text="{Binding RegionCuerpo.Nombre}"/>
-                                                    </ui:CardControl.Header>
-                                                    
-                                                    <StackPanel HorizontalAlignment="Left">
-                                                        <ui:TextBlock Text="{Binding Lado.Nombre}"/>
-                                                        <ui:TextBlock Text="{Binding Descripcion}"/>
-                                                    </StackPanel>
-                                                </ui:CardControl>
-                                                
+
+                                                <ui:Card Margin="3,3,0,3">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel HorizontalAlignment="Left">
+                                                            <ui:TextBlock
+                                                                Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
+                                                                FontTypography="BodyStrong" />
+                                                            <ui:TextBlock
+                                                                Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
+                                                            <ui:TextBlock
+                                                                Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
+                                                            <ui:TextBlock
+                                                                Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
+                                                            <ui:TextBlock
+                                                                Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
+                                                        </StackPanel>
+
+                                                        <DockPanel Grid.Column="1"
+                                                                   HorizontalAlignment="Stretch">
+                                                            <ui:TextBlock Text="Descripción:"
+                                                                          FontTypography="BodyStrong"
+                                                                          DockPanel.Dock="Top"
+                                                                          Margin="10,0,10,0"
+                                                                          HorizontalAlignment="Left"/>
+                                                            
+                                                            <ui:TextBlock Text="{Binding Descripcion}"
+                                                                          HorizontalAlignment="Left"
+                                                                          Margin="10,0,10,0"
+                                                                          TextWrapping="Wrap" />
+                                                        </DockPanel>
+                                                        
+                                                        <ui:Image Grid.Column="2"
+                                                                  Source="{Binding Imagen}"
+                                                                  Width="100"
+                                                                  Height="100"
+                                                                  CornerRadius="8"
+                                                                  Stretch="UniformToFill"/>
+                                                    </Grid>
+                                                </ui:Card>
+
                                                 <ui:Button Grid.Column="1"
                                                            VerticalAlignment="Stretch"
                                                            Appearance="Danger"
-                                                           HorizontalAlignment="Right"
+                                                           HorizontalAlignment="Stretch"
                                                            Icon="{ui:SymbolIcon Delete24}"
-                                                           MinWidth="50"
-                                                           Margin="5"
-                                                           CommandParameter="{Binding}"/>
+                                                           Width="60"
+                                                           Margin="4"
+                                                           Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
+                                                           CommandParameter="{Binding}" />
                                             </Grid>
                                         </DataTemplate>
                                     </ui:ListView.ItemTemplate>
                                 </ui:ListView>
                             </ui:CardExpander>
-                            
-                            
-                            <!---
-                            <DataGrid Grid.Row="1"
-                                      Grid.Column="0"
-                                      Grid.ColumnSpan="3"
-                                      Margin="10,0,10,10"
-                                      AutoGenerateColumns="False"
-                                      ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Region del cuerpo"
-                                                        CanUserResize="False"
-                                                        Width="*"
-                                                        Binding="{Binding RegionCuerpo.Nombre}" />
-                                    <DataGridTextColumn Header="Vista"
-                                                        CanUserResize="False"
-                                                        Width="*"
-                                                        Binding="{Binding Vista.Nombre}" />
-                                    <DataGridTextColumn Header="Lado"
-                                                        CanUserResize="False"
-                                                        Width="*"
-                                                        Binding="{Binding Lado.Nombre}" />
-                                    <DataGridTextColumn Header="Tipo"
-                                                        CanUserResize="False"
-                                                        Width="*"
-                                                        Binding="{Binding Tipo.Nombre}" />
-                                    <DataGridTextColumn Header="Cantidad"
-                                                        CanUserResize="False"
-                                                        Width="*"
-                                                        Binding="{Binding Cantidad}" />
-                                    <DataGridTextColumn Header="Descripcion"
-                                                        CanUserResize="False"
-                                                        Width="3*"
-                                                        Binding="{Binding Descripcion}" />
-                                    <DataGridTextColumn Header="Fotografia"
-                                                        CanUserResize="False"
-                                                        Width="*"
-                                                        Binding="{Binding Foto}" />
-                                    <DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ui:Button Icon="{ui:SymbolIcon Delete24}"
-                                                           Appearance="Danger"
-                                                           Margin="3"
-                                                           Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
-                                                           CommandParameter="{Binding}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid> -->
                         </Grid>
                     </StackPanel>
                 </Grid>
@@ -1111,14 +1106,14 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            
+
             <ui:TextBlock Text="Fotografías" FontTypography="Title" Margin="10" />
             <Border Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <ui:Button Icon="{ui:SymbolIcon Attach24}"
                                Content="Añadir imagenes"
-                               Command="{Binding OpenFileCommand}"
-                               Margin="0 0 0 25"/>
+                               Command="{Binding OpenDesaparecidoImagesCommand}"
+                               Margin="0 0 0 25" />
 
                     <ui:ListView x:Name="Imagenes"
                                  ItemsSource="{Binding ImagenesDesaparecido}"
@@ -1126,29 +1121,29 @@
                                  SelectedIndex="0">
                         <ui:ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Width="Auto"/>
-                            </ItemsPanelTemplate>    
+                                <WrapPanel Width="Auto" />
+                            </ItemsPanelTemplate>
                         </ui:ListView.ItemsPanel>
-                        
+
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <ui:Image Source="{Binding}"
                                           CornerRadius="8"
                                           Width="200"
                                           Height="200"
-                                          Stretch="UniformToFill"/>
+                                          Stretch="UniformToFill" />
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
                 </StackPanel>
             </Border>
-            
+
             <ui:Button HorizontalAlignment="Stretch"
                        Content="Guardar reporte"
                        Icon="{ui:SymbolIcon Save24}"
                        Appearance="Primary"
                        Command="{Binding GuardarReporteCommand}" />
-            
+
         </StackPanel>
     </Grid>
 </Page>

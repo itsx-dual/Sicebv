@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.IO;
+using System.Windows.Media.Imaging;
+using Cebv.core.util.reporte.domain;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
@@ -29,9 +32,20 @@ public partial class SenaParticular : ObservableObject
         Lado = lado;
         Tipo = tipo;
     }
-
     public SenaParticular() { }
     
+    async partial void OnFotoChanged(string? ruta)
+    {
+        if (ruta is null || ruta == "") return;
+        Imagen = await ReporteServiceNetwork.GetImage(this.Id);
+    }
+
+    partial void OnImagenChanged(BitmapImage? imagen)
+    {
+        if (imagen is null) return;
+        EncodedImage = ReporteServiceNetwork.BitmapImageToBase64(imagen);
+    }
+
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
     [ObservableProperty, JsonProperty(PropertyName = "persona_id")] private int? _personaId;
     [ObservableProperty, JsonProperty(PropertyName = "cantidad")] private int? _cantidad;
@@ -41,4 +55,6 @@ public partial class SenaParticular : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "vista")] private Catalogo? _vista;
     [ObservableProperty, JsonProperty(PropertyName = "lado")] private CatalogoColor? _lado;
     [ObservableProperty, JsonProperty(PropertyName = "tipo")] private Catalogo? _tipo;
+    [ObservableProperty, JsonProperty(PropertyName = "encoded_image")] private string? _encodedImage;
+    [ObservableProperty] private BitmapImage? _imagen;
 }
