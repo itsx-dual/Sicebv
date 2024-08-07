@@ -37,9 +37,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         TiposDomicilio = await DesaparecidoNetwork.GetCatalogo("tipos-domicilio");
         Reporte = _reporteService.GetReporte();
-        
-        Reporte.HechosDesaparicion ??= new ();
-        
+
+        Reporte.HechosDesaparicion ??= new();
+
         SyncHipotesis();
 
         if (!string.IsNullOrEmpty(Reporte.HechosDesaparicion!.FechaDesaparicionCebv) ||
@@ -47,6 +47,24 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             FechaAproximada = true;
 
         FoliosPrevios();
+        
+        AmenazaCambioComportamiento = Reporte.HechosDesaparicion!.AmenazaCambioComportamiento;
+
+        AmenazaCambioComportamientoOpcion = AmenazaCambioComportamiento switch
+        {
+            true => OpcionesCebv.Si,
+            false => OpcionesCebv.No,
+            _ => OpcionesCebv.NoEspecifica
+        };
+
+        DesaparecioAcompanado = Reporte.HechosDesaparicion!.DesaparecioAcompanado;
+
+        DesaparecioAcompanadoOpcion = DesaparecioAcompanado switch
+        {
+            true => OpcionesCebv.Si,
+            false => OpcionesCebv.No,
+            _ => OpcionesCebv.NoEspecifica
+        };
     }
 
     private async void FoliosPrevios()
@@ -69,29 +87,29 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
 
-    [ObservableProperty] private string? _amenazaCambioComportamientoOpcion = OpcionesCebv.No;
+    [ObservableProperty] private string? _amenazaCambioComportamientoOpcion;
     [ObservableProperty] private bool? _amenazaCambioComportamiento = false;
     [ObservableProperty] private string _amenazaDescripcion = String.Empty;
 
     partial void OnAmenazaCambioComportamientoOpcionChanged(string value)
     {
         AmenazaCambioComportamiento = OpcionesCebv.MappingToBool(value);
-        Reporte.HechosDesaparicion!.CambioComportamiento = AmenazaCambioComportamiento;
+        Reporte.HechosDesaparicion!.AmenazaCambioComportamiento = AmenazaCambioComportamiento;
     }
 
     // Hipotesis
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
-    [ObservableProperty] private Catalogo _sitio = new();
-    [ObservableProperty] private Catalogo _area = new();
+    [ObservableProperty] private Catalogo? _sitio;
+    [ObservableProperty] private Catalogo? _area;
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
 
-    partial void OnSitioChanged(Catalogo value)
+    partial void OnSitioChanged(Catalogo? value)
     {
         Reporte.Hipotesis![0].Sitio = value;
         Reporte.Hipotesis![1].Sitio = value;
     }
 
-    partial void OnAreaChanged(Catalogo value)
+    partial void OnAreaChanged(Catalogo? value)
     {
         Reporte.Hipotesis![0].Area = value;
         Reporte.Hipotesis![1].Area = value;
@@ -102,22 +120,20 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         Reporte.Hipotesis ??= new();
 
-        if (Reporte.Hipotesis is not null && Reporte.Hipotesis.Count > 0) return;
-
-        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
-        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
-
-        AmenazaCambioComportamientoOpcion = AmenazaCambioComportamiento switch
+        if (Reporte.Hipotesis is not null && Reporte.Hipotesis.Count > 0)
         {
-            true => OpcionesCebv.Si,
-            false => OpcionesCebv.No,
-            _ => OpcionesCebv.NoEspecifica
-        };
+            Area = Reporte.Hipotesis![0].Area;
+            Sitio = Reporte.Hipotesis![0].Sitio;
+            return;
+        }
+
+        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
+        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
     }
 
 
     // Desaparicion asociada
-    [ObservableProperty] private string _desaparecioAcompanadoOpcion = OpcionesCebv.No;
+    [ObservableProperty] private string _desaparecioAcompanadoOpcion;
     [ObservableProperty] private bool? _desaparecioAcompanado = false;
 
     partial void OnDesaparecioAcompanadoOpcionChanged(string value)

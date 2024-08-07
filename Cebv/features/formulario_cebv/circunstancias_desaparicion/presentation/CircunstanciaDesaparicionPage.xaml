@@ -94,14 +94,15 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición aproximada:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}" 
-                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaDesaparicionAprox"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}"
+                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date"
+                                        x:Name="FechaDesaparicionAprox" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición para CNB:" />
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}" 
-                                        IsTodayHighlighted="True" x:Name="FechaDesaparicion"/>
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
+                                        IsTodayHighlighted="True" x:Name="FechaDesaparicion" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -114,14 +115,14 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato aproximada:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}" 
-                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaPercatoAprox"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}"
+                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaPercatoAprox" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato para CNB:" />
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}" 
-                                        IsTodayHighlighted="True" x:Name="FechaPercato"/>
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
+                                        IsTodayHighlighted="True" x:Name="FechaPercato" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -150,7 +151,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tipo de domicilio:" />
                             <ComboBox ItemsSource="{Binding TiposDomicilio}"
-                                      DisplayMemberPath="Nombre"/>
+                                      DisplayMemberPath="Nombre" />
                         </StackPanel>
                     </StackPanel>
 
@@ -266,14 +267,16 @@
                                 Visibility="{Binding AmenazaCambioComportamiento,
                                 Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación de amenazas:" />
-                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenaza}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenazaCambioComportamiento}"
+                                    TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" />
-                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}" />
+                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}"
+                                      Text="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
