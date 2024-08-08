@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -34,8 +35,9 @@ public partial class Reporte : ObservableObject
         ObservableCollection<Desaparecido>? desaparecidos,
         HechosDesaparicionResponse? hechos_desaparicion,
         DateTime? fecha_creacion,
-        DateTime? fecha_actualizacion
-    )
+        DateTime? fecha_actualizacion,
+        ObservableCollection<Expediente>? expedientes
+        )
     {
         Id = id;
         EstaTerminado = esta_terminado;
@@ -57,6 +59,7 @@ public partial class Reporte : ObservableObject
         FechaCreacion = fecha_creacion;
         FechaActualizacion = fecha_actualizacion;
         InstitucionOrigen = institucion_origen;
+        Expedientes = expedientes;
     }
 
     public Reporte()
@@ -132,4 +135,7 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty("folios")]
     private ObservableCollection<FolioPretty>? _folios = new();
+    
+    [ObservableProperty, JsonProperty("expedientes")]
+    private ObservableCollection<Expediente>? _expedientes= new();
 }

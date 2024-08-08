@@ -5,6 +5,7 @@ using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
@@ -145,9 +146,59 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     /**
      * Expedientes directos e indirectos
      */
-    [ObservableProperty] private ExpedienteViewModel _expedienteDirecto = new();
+    [ObservableProperty] private string? _nombre;
+    [ObservableProperty] private string? _primerApellido;
+    [ObservableProperty] private string? _segundoApellido;
+    
+    [ObservableProperty] private ObservableCollection<Persona> _personas = new();
 
-    [ObservableProperty] private ExpedienteViewModel _expedienteIndirecto = new();
+    /**
+     * Logica para la relación de los expedientes.
+     */
+    [RelayCommand]
+    private async Task BuscarPersona()
+    {
+        Personas = await CircunstanciaDesaparicionNetwork.SearchPersona(
+            Nombre,
+            PrimerApellido,
+            SegundoApellido
+        );
+    }
+    
+    [RelayCommand]
+    private void AddExpediente(Persona persona)
+    {
+        if (Reporte.Expedientes!.Any(p => p.Persona!.Id == persona.Id)) return;
+
+        var viewModel = new RelacionarExpedienteViewModel(persona);
+
+        // Suscribirse al evento de guardado
+        viewModel.GuardarExpediente += OnExpedienteGuardado;
+
+        // Abrir la ventana de edición de la prenda
+        var dialog = new AgregarExpediente { DataContext = viewModel };
+
+        // Configurar la acción de cierre para la ventana de edición
+        if (dialog.DataContext is RelacionarExpedienteViewModel vm)
+        {
+            vm.CloseAction = () => dialog.Close();
+        }
+
+        dialog.ShowDialog();
+    }
+
+    private void OnExpedienteGuardado(object? sender, Expediente expediente)
+    {
+        if (sender is not RelacionarExpedienteViewModel) return;
+
+        Reporte.Expedientes!.Add(expediente);
+    }
+
+    [RelayCommand]
+    private void RemoveExpediente(Expediente expediente)
+    {
+        Reporte.Expedientes!.Remove(expediente);
+    }
 
     /**
      * Lógica de guardado

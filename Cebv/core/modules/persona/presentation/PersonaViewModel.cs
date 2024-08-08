@@ -1,13 +1,15 @@
 using System.Collections.ObjectModel;
 using System.Security;
-using Cebv.core.data;
 using Cebv.core.modules.persona.data;
 using Cebv.core.modules.persona.domain;
-using Cebv.core.modules.ubicacion.data;
 using Cebv.core.modules.ubicacion.domain;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Catalogo = Cebv.core.data.Catalogo;
+using Estado = Cebv.core.modules.ubicacion.data.Estado;
+using Persona = Cebv.core.util.reporte.viewmodels.Persona;
 
 namespace Cebv.core.modules.persona.presentation;
 

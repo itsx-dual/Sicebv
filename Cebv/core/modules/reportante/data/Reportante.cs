@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Cebv.core.modules.persona.data;
+using Cebv.core.util.reporte.viewmodels;
 
 namespace Cebv.core.modules.reportante.data;
 
@@ -50,8 +50,6 @@ public class ReportanteResponse
 
 public class ReportanteRequest
 {
-    [JsonPropertyName("persona")]
-    public PersonaRequest? Persona { get; set; }
 
     [JsonPropertyName("parentesco_id")]
     public int ParentescoId { get; set; }

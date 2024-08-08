@@ -1,16 +1,21 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Text.Json;
 using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
-using Catalogo = Cebv.core.data.Catalogo;
-using Persona = Cebv.core.modules.persona.data.Persona;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using Persona = Cebv.core.util.reporte.viewmodels.Persona;
 using TipoHipotesis = Cebv.core.util.reporte.viewmodels.TipoHipotesis;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
+
+class PersonaCall(ObservableCollection<Persona> data)
+{
+    public ObservableCollection<Persona> Data = data;
+}
 
 public class CircunstanciaDesaparicionNetwork
 {
@@ -48,15 +53,28 @@ public class CircunstanciaDesaparicionNetwork
 
         var response = await request.Content.ReadAsStringAsync();
 
-        PersonasWrapped jsonResponse = JsonSerializer.Deserialize<PersonasWrapped>(response)!;
+        PersonasWrappedResponse jsonResponse = JsonSerializer.Deserialize<PersonasWrappedResponse>(response)!;
 
         return jsonResponse.Data!;
+    }
+
+    public static async Task<ObservableCollection<Persona>> SearchPersona(
+        string? nombre,
+        string? apellidoPaterno,
+        string? apellidoMaterno
+    )
+    {
+        var request = await Client.GetAsync($"api/personas?filter[nombre]={nombre}" +
+                                            $"&filter[apellido_paterno]={apellidoPaterno}" +
+                                            $"&filter[apellido_materno]={apellidoMaterno}");
+        var response = await request.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<PersonaCall>(response)?.Data!;
     }
 
     public static async Task<ObservableCollection<Folio>> GetFoliosPrevios(int? personaId)
     {
         if (personaId is null) return new();
-        
+
         var consultarFolio = await Client.GetAsync($"api/personas/{personaId}/folios");
 
         var response = await consultarFolio.Content.ReadAsStringAsync();

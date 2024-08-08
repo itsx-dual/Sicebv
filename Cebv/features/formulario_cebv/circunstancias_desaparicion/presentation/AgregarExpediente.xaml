@@ -13,8 +13,8 @@
                  Title="AgregarExpediente"
                  d:DesignWidth="580"
                  Width="580"
-                 d:DesignHeight="290"
-                 Height="290">
+                 d:DesignHeight="400"
+                 Height="400">
 
     <StackPanel Margin="10">
 
@@ -23,11 +23,18 @@
                      ShowMaximize="False"
                      ShowClose="False" />
 
+        <StackPanel MinWidth="250" Margin="10">
+            <ui:TextBlock Text="TIPO DE EXPEDIENTE:"
+                          TextWrapping="Wrap"
+                          Margin="0 0 0 5" />
+            <ComboBox SelectedItem="{Binding TipoExp}"
+                      ItemsSource="{Binding TiposExpedientes}" />
+        </StackPanel>
 
         <StackPanel MinWidth="250" Margin="10">
             <ui:TextBlock Text="¿USTED QUE ES DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?"
                           TextWrapping="Wrap"
-                          Margin="0 0 0 5"/>
+                          Margin="0 0 0 5" />
             <ComboBox DisplayMemberPath="Nombre"
                       SelectedItem="{Binding Parentesco}"
                       ItemsSource="{Binding Parentescos}" />
@@ -36,7 +43,7 @@
         <ui:CardControl
             Margin="10"
             Padding="10"
-            Icon="{ui:SymbolIcon Tag24}"
+            Icon="{ui:SymbolIcon Person24}"
             HorizontalAlignment="Stretch">
             <ui:CardControl.Header>
                 <StackPanel Orientation="Horizontal">
@@ -85,7 +92,7 @@
             <ui:Button Content="Guardar"
                        Appearance="Primary"
                        HorizontalAlignment="Stretch"
-                       Command="{Binding GuardarPrendaCommand}"
+                       Command="{Binding GuardarExpedienteCommand}"
                        Margin="10" />
         </UniformGrid>
     </StackPanel>
