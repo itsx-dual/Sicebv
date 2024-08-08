@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Web;
 using System.Windows;
 using Cebv.app.presentation;
 using Cebv.core.util.navigation;
@@ -27,7 +28,8 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposReportes;
     [ObservableProperty] private ObservableCollection<Catalogo> _areas;
-    [ObservableProperty] private Dictionary<string, string> _tiposDesapariciones;
+    [ObservableProperty] private Dictionary<string, string> _tiposDesapariciones = new() { {"Unica", "U"}, {"Multiple", "M"} };
+    [ObservableProperty] private string _senasParticulares;
 
     public PostEncuadreModalViewModel()
     {
@@ -38,26 +40,44 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     {
         TiposReportes = await EncuadrePreeliminarNetwork.GetCatalogo("tipos-reportes");
         Areas = await EncuadrePreeliminarNetwork.GetCatalogo("areas");
-        TiposDesapariciones = new Dictionary<string, string>
-        {
-            {"Unica", "U"},
-            {"Multiple", "M"}
-        };
     }
 
     private async void InitAsync()
     {
         await CargarCatalogos();
+        GetReporteFromService();
+    }
+    
+    private void GetReporteFromService()
+    {
         Reporte = _reporteService.GetReporte();
-        Reportante = Reporte.Reportantes.FirstOrDefault()!;
-        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        if (Reporte.Reportantes.Any())
+        {
+            Reportante = Reporte.Reportantes.First();
+        }
+        else
+        {
+            Reportante = new Reportante();
+            Reporte.Reportantes.Add(Reportante);
+        }
+
+        if (Reporte.Desaparecidos.Any())
+        {
+            Desaparecido = Reporte.Desaparecidos.First();
+        }
+        else
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
     }
 
     [RelayCommand]
     private void OnGenerarBoletinBusquedaInmediata()
     {
         if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
-        var webview = new WebView2Window($"reportes/boletines/{Desaparecido.Id}", "Boletin de busqueda inmediata");
+        var webview = new WebView2Window($"reportes/boletines/{Desaparecido.Id}?senas={HttpUtility.UrlEncode(SenasParticulares)}", "Boletin de busqueda inmediata");
         webview.Show();
     }
     
@@ -70,6 +90,14 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     }
     
     [RelayCommand]
+    private void GetInformeInicio()
+    {
+        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
+        var webview = new WebView2Window($"reportes/informes-inicios/{Desaparecido.Id}", "Informe de inicio");
+        webview.Show();
+    }
+    
+    [RelayCommand]
     private async void SetFolio()
     {
         await _reporteService.Sync();
@@ -77,9 +105,7 @@ public partial class PostEncuadreModalViewModel : ObservableObject
         if (await _reporteService.SetFolios())
         {
             await _reporteService.Sync();
-            Reporte = _reporteService.GetReporte();
-            Reportante = Reporte.Reportantes.FirstOrDefault()!;
-            Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+            GetReporteFromService();
             return;
         }
         _snackBarService.Show(
@@ -88,13 +114,5 @@ public partial class PostEncuadreModalViewModel : ObservableObject
             ControlAppearance.Danger,
             new SymbolIcon(SymbolRegular.Warning32),
             new TimeSpan(0, 0, 5));
-    }
-
-    [RelayCommand]
-    private void GetInformeInicio()
-    {
-        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
-        var webview = new WebView2Window($"reportes/informes-inicios/{Desaparecido.Id}", "Informe de inicio");
-        webview.Show();
     }
 }

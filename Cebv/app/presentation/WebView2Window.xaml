@@ -6,9 +6,8 @@
         xmlns:local="clr-namespace:Cebv.app.presentation"
         mc:Ignorable="d"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-        Title="WebView2Window" Height="450" Width="800">
-    <Grid>
-        <wv2:WebView2 x:Name="WebView"
+        Title="WebView2Window" Height="600" Width="800"
+        WindowStartupLocation="CenterOwner">
+    <wv2:WebView2 x:Name="WebView"
                       Loaded="WebViewOnLoaded"/>
-    </Grid>
 </Window>

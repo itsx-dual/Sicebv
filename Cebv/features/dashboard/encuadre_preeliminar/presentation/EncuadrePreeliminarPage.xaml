@@ -468,7 +468,7 @@
                              OffContent="¿SE DESCONOCE FECHA EXACTA? No"
                              IsChecked="{Binding SeDesconoceFechaExactaHechos}" />
 
-            <Border>
+            <Border Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
                     <StackPanel
                         Visibility="{Binding SeDesconoceFechaExactaHechos,
@@ -639,7 +639,7 @@
             </Border>
 
             <ui:TextBlock Text="Media filiación" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -649,7 +649,9 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Centímetros"
-                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Estatura}"
+                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Estatura,
+                                          Mode=TwoWay,
+                                          UpdateSourceTrigger=PropertyChanged}"
                                           SmallChange="1" Tag="Units" />
                         </StackPanel>
 
@@ -659,29 +661,28 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Kilogramos"
-                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso}"
+                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso,
+                                          Mode=TwoWay,
+                                          UpdateSourceTrigger=PropertyChanged}"
                                           SmallChange="1" Tag="Units" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPLEXIÓN:" />
                             <ComboBox ItemsSource="{Binding Complexiones}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.Complexion}"
-                                      DisplayMemberPath="Nombre" />
+                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.Complexion}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE PIEL:" />
                             <ComboBox ItemsSource="{Binding ColoresPiel}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorPiel}"
-                                      DisplayMemberPath="Nombre" />
+                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorPiel}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE OJOS:" />
                             <ComboBox ItemsSource="{Binding ColoresOjos}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorOjos}"
-                                      DisplayMemberPath="Nombre" />
+                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorOjos}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -689,22 +690,19 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR CABELLO:" />
                             <ComboBox ItemsSource="{Binding ColoresCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorCabello}"
-                                      DisplayMemberPath="Nombre" />
+                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorCabello}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TAMAÑO CABELLO:" />
                             <ComboBox ItemsSource="{Binding TamanosCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TamanoCabello}"
-                                      DisplayMemberPath="Nombre" />
+                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TamanoCabello}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TIPO CABELLO:" />
                             <ComboBox ItemsSource="{Binding TiposCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TipoCabello}"
-                                      DisplayMemberPath="Nombre" />
+                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TipoCabello}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -800,7 +798,9 @@
                                             <ui:TextBlock Text="Cantidad:"
                                                           Margin="10,10,0,0" />
                                             <ui:NumberBox Margin="5,0,5,0"
-                                                          Value="{Binding Cantidad}"
+                                                          Value="{Binding Cantidad,
+                                                          Mode=TwoWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
                                                           Tag="Number" Minimum="1" />
 
                                         </StackPanel>
