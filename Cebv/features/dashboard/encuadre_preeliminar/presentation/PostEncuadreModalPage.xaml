@@ -31,10 +31,10 @@
                 <!-- Información del reporte -->
                 <ui:TextBlock Text="Información del reporte"
                               FontTypography="Title"
-                              Margin="10" />
+                              Margin="5" />
 
-                <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                    <StackPanel Margin="5">
+                <Border Style="{StaticResource CebvBorder}">
+                    <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Tipo de folio: *" />
@@ -47,7 +47,7 @@
                                 <ComboBox SelectedValue="{Binding Reporte.TipoDesaparicion}"
                                           SelectedValuePath="Value"
                                           DisplayMemberPath="Key"
-                                          ItemsSource="{Binding TiposDesapariciones}"/>
+                                          ItemsSource="{Binding TiposDesapariciones}" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -86,27 +86,39 @@
                 </Border>
 
                 <!-- Generación de documentacion -->
-                <ui:TextBlock Text="Generación de documentación." FontTypography="Title" Margin="10" />
-                <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <ui:TextBlock Text="Generación de documentación." FontTypography="Title" Margin="5" />
+                <Border Style="{StaticResource CebvBorder}">
                     <StackPanel>
                         <StackPanel>
                             <ui:TextBlock Text="Informe de inicio."
                                           FontTypography="Subtitle"
-                                          Margin="10" />
-                            <ui:Button Content="Generar informe de inicio"
-                                       Icon="{ui:SymbolIcon Document16}"
-                                       Appearance="Primary"
-                                       Margin="10"
-                                       Command="{Binding GetInformeInicioCommand}" />
+                                          Padding="0,0,0,10"/>
+                            
+                            <WrapPanel Margin="0,0,0,10">
+                                <StackPanel MinWidth="250" Margin="0,0,10,0">
+                                    <ui:TextBlock Text="Quien da el visto bueno" />
+                                    <ComboBox />
+                                </StackPanel>
+                                
+                                <ui:Button Content="Generar informe de inicio"
+                                           Icon="{ui:SymbolIcon Document16}"
+                                           Appearance="Primary"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Height="37"
+                                           Command="{Binding GetInformeInicioCommand}"/>
+                            </WrapPanel>
+                            
                         </StackPanel>
 
                         <ui:TextBlock Text="Boletines."
                                       FontTypography="Subtitle"
-                                      Margin="10" />
+                                      Margin="0,0,0,10"/>
 
                         <ui:CardExpander Icon="{ui:SymbolIcon Accessibility24}"
-                                         Margin="10,0,10,0"
-                                         IsExpanded="True">
+                                         IsExpanded="True"
+                                         CornerRadius="8"
+                                         Margin="0,0,0,10">
                             <ui:CardExpander.Header>
                                 <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
                             </ui:CardExpander.Header>
@@ -166,27 +178,39 @@
                                                     </DockPanel>
 
                                                     <ui:Image Grid.Column="2"
-                                                              Source="/core/resources/placeholder.jpg"
+                                                              Source="{Binding Imagen}"
                                                               Width="100"
                                                               Height="100"
-                                                              CornerRadius="8" />
+                                                              CornerRadius="8"
+                                                              Stretch="UniformToFill" />
                                                 </Grid>
                                             </ui:Card>
+
+                                            <ui:Button Grid.Column="1"
+                                                       VerticalAlignment="Stretch"
+                                                       Appearance="Danger"
+                                                       HorizontalAlignment="Stretch"
+                                                       Icon="{ui:SymbolIcon Delete24}"
+                                                       Width="60"
+                                                       Margin="4"
+                                                       Visibility="Collapsed"
+                                                       Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
+                                                       CommandParameter="{Binding}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ui:ListView.ItemTemplate>
                             </ui:ListView>
                         </ui:CardExpander>
 
-                        <ui:TextBlock Text="Señas particulares para el boletin:"
-                                      Margin="10,10,10,0" />
+                        <ui:TextBlock Text="Señas particulares para el boletin:"/>
                         <ui:TextBox TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100"
-                                    Margin="10"
+                                    Text="{Binding SenasParticulares}"
+                                    Margin="0,0,0,10"
                                     Tag="Exclude" />
-
-                        <WrapPanel Margin="5" IsEnabled="True">
+                        
+                        <WrapPanel IsEnabled="True">
                             <ui:Button Content="Generar ficha de datos"
                                        Icon="{ui:SymbolIcon DocumentPerson16}"
                                        Appearance="Primary"

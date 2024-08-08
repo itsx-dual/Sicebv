@@ -45,9 +45,7 @@
             </Border>
 
             <ui:TextBlock Text="Información exacta" FontTypography="Title" Margin="10" />
-            <ui:CardExpander Grid.Row="1"
-                             Grid.Column="0"
-                             Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
+            <ui:CardExpander Icon="{ui:SymbolIcon Accessibility24}"
                              Margin="10,0,10,0"
                              IsExpanded="True">
                 <ui:CardExpander.Header>

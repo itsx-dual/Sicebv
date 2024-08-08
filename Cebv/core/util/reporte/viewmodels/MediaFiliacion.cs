@@ -9,6 +9,7 @@ public partial class MediaFiliacion : ObservableObject
     [JsonConstructor]
     public MediaFiliacion(
         int id,
+        int persona_id,
         int? estatura,
         int? peso,
         Catalogo? complexion,
@@ -20,6 +21,7 @@ public partial class MediaFiliacion : ObservableObject
     )
     {
         Id = id;
+        PersonaId = persona_id;
         Estatura = estatura;
         Peso = peso;
         Complexion = complexion;
@@ -31,22 +33,9 @@ public partial class MediaFiliacion : ObservableObject
     }
 
     public MediaFiliacion() { }
-    
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(this, obj)) return true; // Same object reference
-        if (ReferenceEquals(obj, null)) return false; // Other object is null
-        if (obj.GetType() != GetType()) return false; // Different types
-
-        return Equals((MediaFiliacion) obj);
-    }
-
-    private bool Equals(MediaFiliacion mediaFiliacion)
-    {
-        return Id == mediaFiliacion.Id;
-    }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
+    [ObservableProperty, JsonProperty(PropertyName = "persona_id")] private int _personaId;
     [ObservableProperty, JsonProperty(PropertyName = "estatura")] private int? _estatura;
     [ObservableProperty, JsonProperty(PropertyName = "peso")] private int? _peso;
     [ObservableProperty, JsonProperty(PropertyName = "complexion")] private Catalogo? _complexion;
