@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;

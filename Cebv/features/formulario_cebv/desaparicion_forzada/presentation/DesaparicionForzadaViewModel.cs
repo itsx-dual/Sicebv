@@ -37,10 +37,14 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
         Particulares = await CebvNetwork.GetCatalogo("particulares");
         MetodosCaptura = await CebvNetwork.GetCatalogo("metodos-captura");
         MediosCaptura = await CebvNetwork.GetCatalogo("medios-captura");
+        Sexos = await CebvNetwork.GetCatalogo("sexos");
+        EstatusPerpetradores = await CebvNetwork.GetCatalogo("estatus-perpetradores");
 
         Reporte = _reporteService.GetReporte();
 
         Reporte.DesaparicionForzada ??= new DesaparicionForzada();
+
+        Reporte.Perpetradores ??= new ObservableCollection<Perpetrador>();
 
         // Desaparicion por autoridad
         SufrioDesaparicionForzadaOpcion =
@@ -132,12 +136,60 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
             Reporte.DesaparicionForzada.HaSidoAvistado = HaSidoAvistado;
     }
 
-    // Información sobre el perpetrador
-    [ObservableProperty] private PerpetradorViewModel _perpetrador = new();
+    /**
+     * Logica para perpetradores
+     */
+    [ObservableProperty] private string _nombre = String.Empty;
 
-    [ObservableProperty] private string _grupoPerpetradorDescripcion = String.Empty;
+    [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();
+    [ObservableProperty] private Catalogo? _sexo;
 
+    [ObservableProperty] private ObservableCollection<Catalogo> _estatusPerpetradores = new();
+    [ObservableProperty] private Catalogo? _estatusPerpetrador;
+
+    [ObservableProperty] private string _perpetradorDescripcion = String.Empty;
+
+    // Limpiar la selección de la pantalla
+    private void ClearForm()
+    {
+        Nombre = String.Empty;
+        PerpetradorDescripcion = String.Empty;
+        Sexo = null;
+        EstatusPerpetrador = null;
+    }
+
+    // Añadir un perpetrador
+    [RelayCommand]
+    private void AddPerpetrador()
+    {
+        if (string.IsNullOrEmpty(Nombre)) return;
+
+        var perpetrador = new Perpetrador
+        {
+            Nombre = Nombre,
+            Descripcion = PerpetradorDescripcion,
+            Sexo = Sexo,
+            EstatusPerpetrador = EstatusPerpetrador
+        };
+
+        Reporte.Perpetradores?.Add(perpetrador);
+
+        ClearForm();
+    }
+
+    // Eliminar perpetrador
+    [RelayCommand]
+    private void RemovePerpetrador(Perpetrador perpetrador)
+    {
+        Reporte.Perpetradores?.Remove(perpetrador);
+    }
+
+
+    /**
+     * Información relevante
+     */
     [ObservableProperty] private string _delitoDesaparicionOpcion;
+
     [ObservableProperty] private bool? _delitoDesaparicion;
 
     partial void OnDelitoDesaparicionOpcionChanged(string value)

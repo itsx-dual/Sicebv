@@ -22,7 +22,7 @@
 
     <Page.Resources>
         <CollectionViewSource x:Key="Perpetradores"
-                              Source="{Binding Perpetrador.Perpetradores}" />
+                              Source="{Binding Reporte.Perpetradores}" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -168,14 +168,14 @@
                             <WrapPanel Margin="0 0 0 15">
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Nombre(s) / apodo(s)" />
-                                    <ui:TextBox Text="{Binding Perpetrador.Nombre}" />
+                                    <ui:TextBox Text="{Binding Nombre}" />
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Sexo:" />
                                     <ComboBox DisplayMemberPath="Nombre"
-                                              SelectedItem="{Binding Perpetrador.Sexo}"
-                                              ItemsSource="{Binding Perpetrador.Sexos}" />
+                                              SelectedItem="{Binding Sexo}"
+                                              ItemsSource="{Binding Sexos}" />
                                 </StackPanel>
 
                             </WrapPanel>
@@ -184,13 +184,13 @@
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Último estatus del perpetrador:" />
                                     <ComboBox DisplayMemberPath="Nombre"
-                                              SelectedItem="{Binding Perpetrador.EstatusPerpetrador}"
-                                              ItemsSource="{Binding Perpetrador.EstatusPerpetradores}" />
+                                              SelectedItem="{Binding EstatusPerpetrador}"
+                                              ItemsSource="{Binding EstatusPerpetradores}" />
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 10 0">
                                     <ui:TextBlock Text="Descripción:" />
-                                    <ui:TextBox Text="{Binding Perpetrador.PerpetradorDescripcion}" TextWrapping="Wrap"
+                                    <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap"
                                                 AcceptsReturn="True" />
                                 </StackPanel>
                             </WrapPanel>
@@ -200,7 +200,7 @@
                                    Margin="0 15 0 15"
                                    Icon="{ui:SymbolIcon Add24}"
                                    VerticalAlignment="Stretch"
-                                   Command="{Binding Perpetrador.AddPerpetradorCommand}"
+                                   Command="{Binding AddPerpetradorCommand}"
                                    Appearance="Primary" />
                     </Grid>
 
@@ -253,7 +253,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding ElementName=Page, Path=DataContext.Perpetrador.RemovePerpetradorCommand}"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemovePerpetradorCommand}"
                                                    CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
@@ -263,7 +263,7 @@
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Descripción del grupo perpetrador" />
-                        <ui:TextBox Text="{Binding GrupoPerpetradorDescripcion}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionGrupoPerpetrador}" TextWrapping="Wrap"
                                     AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>

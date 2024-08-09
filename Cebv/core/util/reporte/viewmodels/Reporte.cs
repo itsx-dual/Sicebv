@@ -143,4 +143,7 @@ public partial class Reporte : ObservableObject
     
     [ObservableProperty, JsonProperty("desaparicion_forzada")]
     private DesaparicionForzada? _desaparicionForzada = new();
+    
+    [ObservableProperty, JsonProperty("perpetradores")]
+    private ObservableCollection<Perpetrador>? _perpetradores = new();
 }
