@@ -61,7 +61,7 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición:" />
                             <!-- TODO: Requerido -->
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -75,7 +75,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato:" />
-                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -174,13 +174,13 @@
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Exterior:" />
                                 <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}"
-                                            ClearButtonEnabled="True" Tag="Number" />
+                                            ClearButtonEnabled="True" MaxLength="10"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Interior:" />
                                 <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True"
-                                            Tag="Number" />
+                                            MaxLength="10"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -191,7 +191,7 @@
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="Código postal:" />
                                 <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}"
-                                            ClearButtonEnabled="True" Tag="Number" />
+                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -389,7 +389,7 @@
                             <ui:TextBlock Text="N° de personas en el mismo evento:" />
                             <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
                                           Text="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
-                                          Tag="Number" />
+                                          Tag="Number" Minimum="0"/>
                         </StackPanel>
                     </WrapPanel>
 

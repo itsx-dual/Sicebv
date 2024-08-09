@@ -3,17 +3,21 @@ using Cebv.core.data;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class DesaparecidoViewModel : ObservableObject
 { 
+    private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
+    
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
@@ -181,19 +185,53 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     async partial void OnEsMismoDomicilioReportanteChanged(bool value)
     {
-        if (value)
+        try
         {
-            Desaparecido.Persona.Direcciones[0] = Reporte.Reportantes[0].Persona.Direcciones[0];
-            var estadoId = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
-            var municipioId = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
-            
-            if (estadoId != null) Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
-            if (municipioId != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
-            Desaparecido.Persona.Direcciones[0] = Reporte.Reportantes[0].Persona.Direcciones[0];
+            if (value)
+            {
+                var reporteReportante = Reporte?.Reportantes?.FirstOrDefault();
+                var direccionReportante = reporteReportante?.Persona?.Direcciones?.FirstOrDefault();
+
+                if (direccionReportante != null)
+                {
+                    Desaparecido.Persona.Direcciones[0] = direccionReportante;
+                    var estadoId = direccionReportante.Asentamiento?.Municipio?.Estado?.Id;
+                    var municipioId = direccionReportante.Asentamiento?.Municipio?.Id;
+
+                    if (estadoId != null)
+                    {
+                        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
+                    }
+                    if (municipioId != null)
+                    {
+                        Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
+                    }
+
+                    Desaparecido.Persona.Direcciones[0] = direccionReportante;
+                }
+                else
+                {
+                    _snackbarService.Show(
+                        "No se encontró una dirección para el reportante",
+                        "No se realizó la acción",
+                        ControlAppearance.Caution,
+                        new SymbolIcon(SymbolRegular.Warning20),
+                        new TimeSpan(0, 0, 5));
+                }
+            }
+            else
+            {
+                Desaparecido.Persona.Direcciones[0] = new Direccion();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Desaparecido.Persona.Direcciones[0] = new Direccion();
+            _snackbarService.Show(
+                "No se encontró una dirección para el reportante",
+                $"No se realizó la acción",
+                ControlAppearance.Caution,
+                new SymbolIcon(SymbolRegular.Warning20),
+                new TimeSpan(0, 0, 5));
         }
     }
 

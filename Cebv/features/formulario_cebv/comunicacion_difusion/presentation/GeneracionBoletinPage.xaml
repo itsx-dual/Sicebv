@@ -13,7 +13,7 @@
       mc:Ignorable="d"
       Name="GeneracionBoletin"
       Title="GeneracionBoletinPage">
-    
+
     <Page.DataContext>
         <presentation:GeneracionBoletinViewModel />
     </Page.DataContext>
@@ -37,7 +37,7 @@
                                    Content="Añadir imágenes"
                                    Margin="5" />
                     </StackPanel>
-                    
+
                     <WrapPanel x:Name="Imagenes"
                                DataContext="{Binding ElementName=GeneracionBoletin, Path=DataContext.OpenedFilePath}"
                                DataContextChanged="Imagenes_OnDataContextChanged" />
@@ -45,16 +45,91 @@
             </Border>
 
             <ui:TextBlock Text="Información exacta" FontTypography="Title" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <StackPanel Margin="5" IsEnabled="False">
-                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
-                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
-                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
-                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
-                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
-                    <ui:TextBox Text="Ejemplo Seña Particular" Margin="0 0 0 15" />
-                </StackPanel>
-            </Border>
+            <ui:CardExpander Icon="{ui:SymbolIcon Accessibility24}"
+                             Margin="10,0,10,0"
+                             IsExpanded="True">
+                <ui:CardExpander.Header>
+                    <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
+                </ui:CardExpander.Header>
+
+                <ui:ListView ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
+                    <ui:ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Grid.IsSharedSizeScope="True"
+                                        Name="StackPanel" />
+                        </ItemsPanelTemplate>
+                    </ui:ListView.ItemsPanel>
+
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Me da vergüenza la cantidad de tiempo que gaste en las siguientes dos lineas: -->
+                            <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}"
+                                  Margin="-5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ui:Card Margin="3,3,0,3">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel HorizontalAlignment="Left">
+                                            <ui:TextBlock
+                                                Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
+                                                FontTypography="BodyStrong" />
+                                            <ui:TextBlock
+                                                Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
+                                        </StackPanel>
+
+                                        <DockPanel Grid.Column="1"
+                                                   HorizontalAlignment="Stretch">
+                                            <ui:TextBlock Text="Descripción:"
+                                                          FontTypography="BodyStrong"
+                                                          DockPanel.Dock="Top"
+                                                          Margin="10,0,10,0"
+                                                          HorizontalAlignment="Left" />
+
+                                            <ui:TextBlock Text="{Binding Descripcion}"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="10,0,10,0"
+                                                          TextWrapping="Wrap" />
+                                        </DockPanel>
+
+                                        <ui:Image Grid.Column="2"
+                                                  Source="{Binding Imagen}"
+                                                  Width="100"
+                                                  Height="100"
+                                                  CornerRadius="8"
+                                                  Stretch="UniformToFill" />
+                                    </Grid>
+                                </ui:Card>
+
+                                <ui:Button Grid.Column="1"
+                                           VerticalAlignment="Stretch"
+                                           Appearance="Danger"
+                                           HorizontalAlignment="Stretch"
+                                           Icon="{ui:SymbolIcon Delete24}"
+                                           Width="60"
+                                           Margin="4"
+                                           Visibility="Collapsed"
+                                           Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
+                                           CommandParameter="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </ui:CardExpander>
 
             <ui:TextBlock Text="Información tratada" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">

@@ -56,14 +56,14 @@
 
                         <StackPanel MinWidth="250" IsEnabled="False">
                             <ui:TextBlock Text="Fecha de estatus preliminar:" />
-                            <DatePicker />
+                            <DatePicker SelectedDateFormat="Short" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Fecha de localización: *" />
-                            <DatePicker IsTodayHighlighted="True" />
+                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -82,12 +82,12 @@
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de formalización del estatus:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
                                 <ui:TextBlock Text="Fecha de actualización en sistema:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -117,24 +117,24 @@
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de formalización del estatus:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
                                 <ui:TextBlock Text="Fecha de actualización en sistema:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha del hallazgo:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300">
                                 <ui:TextBlock Text="Fecha de identificación por parte del familiar:" />
-                                <DatePicker IsTodayHighlighted="True" />
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 

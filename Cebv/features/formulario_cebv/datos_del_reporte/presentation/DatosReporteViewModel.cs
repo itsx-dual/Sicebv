@@ -69,7 +69,7 @@ public partial class DatosReporteViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

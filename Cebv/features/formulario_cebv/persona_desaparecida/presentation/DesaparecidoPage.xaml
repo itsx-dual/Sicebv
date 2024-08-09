@@ -204,7 +204,7 @@
                         <WrapPanel>
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="Fecha de nacimiento específica:" />
-                                <DatePicker IsTodayHighlighted="True"
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
                                             SelectedDate="{Binding Desaparecido.Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"/>
                             </StackPanel>
                         </WrapPanel>
@@ -304,7 +304,7 @@
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de nacimiento para CNB:" />
-                                <DatePicker IsTodayHighlighted="True"
+                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
                                             SelectedDate="{Binding Desaparecido.Persona.FechaNacimiento, 
                                             StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}" x:Name="DatePicker"/>
                             </StackPanel>
@@ -462,14 +462,14 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"
+                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10" 
                                         Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroExterior}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"
+                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
                                         Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroInterior}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
@@ -483,7 +483,7 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código Postal:" />
-                            <ui:TextBox ClearButtonEnabled="True" Tag="Number"
+                            <ui:TextBox ClearButtonEnabled="True" Tag="Number" MaxLength="5"
                                         Text="{Binding Desaparecido.Persona.Direcciones[0].CodigoPostal}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
@@ -706,7 +706,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Correo electrónico:" />
-                            <ui:TextBox Text="{Binding UsuarioCorreo}" Tag="Exclude"/>
+                            <ui:TextBox Text="{Binding UsuarioCorreo}" Tag="Mail"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">

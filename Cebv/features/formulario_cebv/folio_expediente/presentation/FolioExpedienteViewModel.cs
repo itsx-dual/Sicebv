@@ -49,7 +49,6 @@ public partial class FolioExpedienteViewModel : ObservableObject
     [ObservableProperty] private string _tipoDesaparicion = String.Empty;
     [ObservableProperty] private string _zonaEstado = String.Empty;
 
-
     [ObservableProperty] private ObservableCollection<string> _canalizaNorte = new();
     [ObservableProperty] private ObservableCollection<string> _canalizaCentro = new();
     [ObservableProperty] private ObservableCollection<string> _canalizaSur = new();
@@ -57,7 +56,6 @@ public partial class FolioExpedienteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<string> _zonaNorte = new();
     [ObservableProperty] private ObservableCollection<string> _zonaCentro = new();
     [ObservableProperty] private ObservableCollection<string> _zonaSur = new();
-    
     
     [ObservableProperty] private FolioPretty _folio = new();
 
@@ -82,7 +80,6 @@ public partial class FolioExpedienteViewModel : ObservableObject
     { 
         await FolioExpedienteNetwork.SetFolio(Reporte.Id);
     }
-
 
     /**
     * Logica de la zona que atiende el reporte
@@ -170,7 +167,6 @@ public partial class FolioExpedienteViewModel : ObservableObject
         Norte();
         Centro();
         Sur();
-
 
         //var id = _reporteService.UbicacionHechos!.Municipio.Id;
 

@@ -76,13 +76,19 @@ public partial class Reporte : ObservableObject
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    private TipoReporte? _tipoReporte;
+    private Catalogo? _tipoReporte;
+        
+    [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
+    private Catalogo? _areaAtiende;
 
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
     private MedioConocimiento? _medioConocimiento;
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
     private Estado? _estado;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "zona_estado")]
+    private Catalogo? _zonaEstado;
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis_oficial")]
     private TipoHipotesis? _hipotesisOficial;

@@ -28,30 +28,28 @@ public partial class FolioPretty : ObservableObject
     [Newtonsoft.Json.JsonConstructor]
     public FolioPretty(
         int? id,
-        int? personaId,
-        int? reporteId,
+        int? persona_id,
+        int? reporte_id,
         UserPretty? user,
-        string? folioCebv,
-        string? folioFub,
-        string? autoridadIngresaFub,
-        DateTime? createdAt,
-        DateTime? updatedAt
+        string? folio_cebv,
+        string? folio_fub,
+        string? autoridad_ingresa_fub,
+        DateTime? created_at,
+        DateTime? updated_at
     )
     {
         Id = id;
-        PersonaId = personaId;
-        ReporteId = reporteId;
+        PersonaId = persona_id;
+        ReporteId = reporte_id;
         User = user;
-        FolioCebv = folioCebv;
-        FolioFub = folioFub;
-        AutoridadIngresaFub = autoridadIngresaFub;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+        FolioCebv = folio_cebv;
+        FolioFub = folio_fub;
+        AutoridadIngresaFub = autoridad_ingresa_fub;
+        CreatedAt = created_at;
+        UpdatedAt = updated_at;
     }
 
-    public FolioPretty()
-    {
-    }
+    public FolioPretty() { }
 
     [ObservableProperty, JsonProperty("id")]
     private int? _id;

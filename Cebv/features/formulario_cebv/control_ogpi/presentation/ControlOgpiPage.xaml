@@ -37,7 +37,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de codificación:" FontTypography="Caption" />
-                            <DatePicker SelectedDate="{Binding Reporte.ControlOgpi.FechaCodificacion}"
+                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.ControlOgpi.FechaCodificacion}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 

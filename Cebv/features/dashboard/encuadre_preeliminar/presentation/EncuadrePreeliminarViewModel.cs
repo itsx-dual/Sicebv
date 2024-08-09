@@ -1,10 +1,15 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.Windows.Media.Imaging;
+using Cebv.app.presentation;
 using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.dashboard.encuadre_preeliminar.domain;
 using Cebv.features.dashboard.presentation;
 using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
@@ -21,7 +26,6 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 public partial class EncuadrePreeliminarViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
     private static IDashboardNavigationService _navigationService =
         App.Current.Services.GetService<IDashboardNavigationService>()!;
 
@@ -39,7 +43,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _areas = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _zonasEstados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
@@ -66,6 +72,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private Catalogo _vistaSelected;
     [ObservableProperty] private Catalogo _tipoSelected;
+    [ObservableProperty] private BitmapImage _imagenSenaParticularSelected;
     [ObservableProperty] private CatalogoColor _regionCuerpoSelected;
     [ObservableProperty] private CatalogoColor _ladoSelected;
     [ObservableProperty] private string _colorRegionCuerpo;
@@ -86,6 +93,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private int _mesesDesaparecido;
     [ObservableProperty] private int _diasDesaparecido;
     [ObservableProperty] private ObservableCollection<string> _files = new();
+    [ObservableProperty] private string _curp;
 
     // Valores para insercion a listas
     [ObservableProperty] private string _noTelefonoReportante = string.Empty;
@@ -99,32 +107,44 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private bool _reportanteTieneTelefonos;
     [ObservableProperty] private bool _desaparecidoTieneTelefonos;
     [ObservableProperty] private bool _hayPrendas;
+    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
+    [ObservableProperty] private BitmapImage? _imagenBoletin;
+    private Dictionary<string, BitmapImage> _fotosSenas;
+    [ObservableProperty] private bool _noHayCurp;
 
-    public EncuadrePreeliminarViewModel() =>
+    public EncuadrePreeliminarViewModel()
+    {
         InitAsync();
+    }
 
     private async Task CargarCatalogos()
     {
-        Sexos = await ReportanteNetwork.GetCatalogo("sexos");
-        RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
-        Generos = await ReportanteNetwork.GetCatalogo("generos");
-        Parentescos = await ReportanteNetwork.GetCatalogo("parentescos");
-        Nacionalidades = await ReportanteNetwork.GetCatalogo("nacionalidades");
-        CompaniasTelefonicas = await DesaparecidoNetwork.GetCatalogo("companias-telefonicas");
-        Complexiones = await DesaparecidoNetwork.GetCatalogo("complexiones");
-        ColoresPiel = await DesaparecidoNetwork.GetCatalogo("colores-pieles");
-        ColoresOjos = await DesaparecidoNetwork.GetCatalogo("colores-ojos");
-        ColoresCabello = await DesaparecidoNetwork.GetCatalogo("colores-cabellos");
-        TamanosCabello = await DesaparecidoNetwork.GetCatalogo("tamanos-cabellos");
-        TiposCabello = await DesaparecidoNetwork.GetCatalogo("tipos-cabellos");
-        Vistas = await SenasParticularesNetwork.GetCatalogo("vistas");
-        Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
-        Colores = await SenasParticularesNetwork.GetCatalogo("colores");
-        GruposPertenencia = await SenasParticularesNetwork.GetCatalogo("grupos-pertenencias");
+        Stopwatch sw = new();
+        sw.Start();
+        Sexos = await EncuadrePreeliminarNetwork.GetCatalogo("sexos");
+        Areas = await EncuadrePreeliminarNetwork.GetCatalogo("areas");
+        RazonesCurp = await EncuadrePreeliminarNetwork.GetCatalogo("razones-curp");
+        Generos = await EncuadrePreeliminarNetwork.GetCatalogo("generos");
+        Parentescos = await EncuadrePreeliminarNetwork.GetCatalogo("parentescos");
+        Nacionalidades = await EncuadrePreeliminarNetwork.GetCatalogo("nacionalidades");
+        CompaniasTelefonicas = await EncuadrePreeliminarNetwork.GetCatalogo("companias-telefonicas");
+        Complexiones = await EncuadrePreeliminarNetwork.GetCatalogo("complexiones");
+        ColoresPiel = await EncuadrePreeliminarNetwork.GetCatalogo("colores-pieles");
+        ColoresOjos = await EncuadrePreeliminarNetwork.GetCatalogo("colores-ojos");
+        ColoresCabello = await EncuadrePreeliminarNetwork.GetCatalogo("colores-cabellos");
+        TamanosCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tamanos-cabellos");
+        TiposCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tipos-cabellos");
+        Vistas = await EncuadrePreeliminarNetwork.GetCatalogo("vistas");
+        Tipos = await EncuadrePreeliminarNetwork.GetCatalogo("tipos");
+        Colores = await EncuadrePreeliminarNetwork.GetCatalogo("colores");
+        GruposPertenencia = await EncuadrePreeliminarNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
+        ZonasEstados = await EncuadrePreeliminarNetwork.GetCatalogo("zonas-estados");
         Estados = await ReportanteNetwork.GetEstados();
         TiposMedios = await DatosReporteNetwork.GetTiposMedios();
+        sw.Stop();
+        Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
 
     private void DefaultValues()
@@ -133,12 +153,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         ColorLado = "6C7156";
         Descripcion = "";
         Cantidad = 1;
+        ImagenSenaParticularSelected = null;
     }
 
-    private async void InitAsync()
+    private void GetReporteFromService()
     {
-        await CargarCatalogos();
-        DefaultValues();
         Reporte = _reporteService.GetReporte();
 
         if (Reporte.Reportantes.Any())
@@ -160,6 +179,27 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             Desaparecido = new Desaparecido();
             Reporte.Desaparecidos.Add(Desaparecido);
         }
+    }
+    
+    public bool HaPasadoUnAno(DateTime fecha)
+    {
+        // Calculate the difference in years
+        int yearDifference = DateTime.Now.Year - fecha.Year;
+
+        return yearDifference switch
+        {
+            > 1 => true,
+            1 => DateTime.Now.Month > fecha.Month || (DateTime.Now.Month == fecha.Month && DateTime.Now.Day >= fecha.Day),
+            _ => false
+        };
+    }
+
+    private async void InitAsync()
+    {
+        await CargarCatalogos();
+        DefaultValues();
+        GetReporteFromService();
+        Curp = "";
     }
 
     private void DiferenciaFechas(DateTime? a, DateTime? b)
@@ -183,6 +223,12 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         }
     }
 
+    partial void OnCurpChanged(string value)
+    {
+        NoHayCurp = value.Length == 0;
+        Desaparecido.Persona.Curp = value;
+    }
+
     async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
         Medios = await DatosReporteNetwork.GetMedios(value.Id);
 
@@ -192,10 +238,26 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id);
     }
 
-    async partial void OnMunicipioSelectedChanged(Municipio value)
+    async partial void OnMunicipioSelectedChanged(Municipio municipio)
     {
-        if (value == null) return;
-        Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(value.Id);
+        if (municipio == null) return;
+        Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipio.Id);
+        if (!HaPasadoUnAno(FechaDesaparicion))
+        {
+            Reporte.AreaAtiende = municipio.AreaAtiende;
+        }
+        
+        if (municipio.AreaAtiende is not null)
+        {
+            // Comportamiento indefinido, funcionara siempre y cuando los
+            // ids del endpoint '/api/zonas-estados' y '/api/areas'
+            // coincidan el uno con el otro.
+            Reporte.ZonaEstado = ZonasEstados.FirstOrDefault(zona => zona.Id == municipio.AreaAtiende.Id);
+        }
+        else
+        {
+            Reporte.ZonaEstado = ZonasEstados.FirstOrDefault(zona => zona.Nombre == "No aplica");
+        }
     }
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)
@@ -272,7 +334,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         {
             Reporte.HechosDesaparicion.FechaDesaparicion = value;
         }
-        
+
+        if (HaPasadoUnAno(value))
+        {
+            Reporte.AreaAtiende = Areas.FirstOrDefault(area => area.Nombre == "Larga Data");
+        }
     }
 
     [RelayCommand]
@@ -378,7 +444,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             RegionCuerpo = RegionCuerpoSelected,
             Vista = VistaSelected,
             Lado = LadoSelected,
-            Tipo = TipoSelected
+            Tipo = TipoSelected,
+            Imagen = ImagenSenaParticularSelected
         });
     }
 
@@ -390,32 +457,51 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private void OnOpenFile()
+    private void OnOpenDesaparecidoImages()
     {
-        OpenFileDialog openFileDialog =
-            new()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                Multiselect = true
-            };
-
-        if (openFileDialog.ShowDialog() != true)
+        OpenFileDialog openFileDialog = new()
         {
-            return;
-        }
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+            Multiselect = true,
+            Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.webp"
+        };
 
-        if (!File.Exists(openFileDialog.FileName))
+        if (openFileDialog.ShowDialog() == false) return;
+        if (!File.Exists(openFileDialog.FileName)) return;
+
+        foreach (var file in openFileDialog.FileNames)
         {
-            return;
+            ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
         }
+    }
+    
+    [RelayCommand]
+    private void OnOpenSenaParticularImage()
+    {
+        OpenFileDialog openFileDialog = new()
+        {
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+            Multiselect = false,
+            Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.webp"
+        };
 
-        Files = new ObservableCollection<string>(openFileDialog.FileNames);
+        if (openFileDialog.ShowDialog() == false) return;
+        if (!File.Exists(openFileDialog.FileName)) return;
+        ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
 
     [RelayCommand]
-    private void OnGuardarReporte()
+    private async void OnGuardarReporte()
     {
-        if (_reporteService.Sync() == null)
+        // Añadir registros pendientes
+        AddTelefonoMovilReportanteCommand.Execute(null);
+        AddTelefonoMovilDesaparecidoCommand.Execute(null);
+        //AddSenaParticularCommand.Execute(null);
+        AddPrendaDeVestirCommand.Execute(null);
+
+        var senasParticulares = Desaparecido.Persona.SenasParticulares.ToList();
+        
+        if (await _reporteService.Sync() is null)
         {
             _snackBarService.Show(
                 "Error fatal",
@@ -426,13 +512,22 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             return;
         }
 
-        _navigationService.Navigate(typeof(ReportesDesaparicion));
+        GetReporteFromService();
+        if (ImagenesDesaparecido.Count > 0)
+        {
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        }
 
-        _snackBarService.Show(
-            "El reporte ha sido creado exitosamente",
-            "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
-            ControlAppearance.Success,
-            new SymbolIcon(SymbolRegular.Checkmark32),
-            new TimeSpan(0, 0, 5));
+        var modal = new PostEncuadreModalWindow();
+        if (modal.ShowDialog() ?? false)
+        {
+            _navigationService.Navigate(typeof(ReportesDesaparicion));
+            _snackBarService.Show(
+                "El reporte ha sido creado exitosamente",
+                "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
+                ControlAppearance.Success,
+                new SymbolIcon(SymbolRegular.Checkmark32),
+                new TimeSpan(0, 0, 5));
+        }
     }
 }

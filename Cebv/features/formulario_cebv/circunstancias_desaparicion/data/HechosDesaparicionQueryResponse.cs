@@ -58,9 +58,6 @@ public partial class HechosDesaparicionResponse : ObservableObject
 
     [ObservableProperty, JsonProperty("reporte_id")]
     private int? _reporteId;
-    
-    [ObservableProperty, JsonProperty("cantidad_desaparecidos")]
-    private int? _cantidadDesaparecidos;
 
     [ObservableProperty, JsonProperty("fecha_desaparicion")]
     private DateTime? _fechaDesaparicion;
