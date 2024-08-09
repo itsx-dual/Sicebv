@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Cebv.features.formulario_cebv.contexto.presentation"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -33,10 +34,12 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <WrapPanel Margin=" 0 0 0 15">
-                        <StackPanel MinWidth="200" Margin="10">
+                        <StackPanel MinWidth="200">
                             <ui:TextBlock Text="N° de personas con las que vive:" />
                             <ui:NumberBox Minimum="0"
-                                          Value="0" Tag="Number" />
+                                          Value="{Binding Reporte.Desaparecidos[0].Persona.NumeroPersonasVive}"
+                                          Text="{Binding Reporte.Desaparecidos[0].Persona.NumeroPersonasVive}"
+                                          Tag="Number" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -56,21 +59,21 @@
                                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Parentesco:" />
                                     <ComboBox DisplayMemberPath="Nombre"
-                                              SelectedItem="{Binding Reporte.Reportantes[0].Parentesco}"
                                               ItemsSource="{Binding Parentescos}" />
                                 </StackPanel>
-
-                                <CheckBox Margin="10" Content="¿Ha ejercido Violencia?" />
                             </WrapPanel>
 
-                            <WrapPanel>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Margin="0 10 25 15" Content="¿Ha ejercido Violencia?" />
+                                    <CheckBox Margin="0 10 10 15" Content="¿Es un familiar cercano?" />
+                                </StackPanel>
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Observaciones:" />
                                     <ui:TextBox />
                                 </StackPanel>
 
-                                <CheckBox Content="¿Es un familiar cercano?" />
-                            </WrapPanel>
+                            </StackPanel>
                         </StackPanel>
 
                         <ui:Button Grid.Column="1"
@@ -224,7 +227,8 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation:VehiculosInvolucradosPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
