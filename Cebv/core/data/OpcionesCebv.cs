@@ -31,4 +31,14 @@ public class OpcionesCebv
             _ => null
         };
     }
+
+    public static string MappingToString(bool? value)
+    {
+        return value switch
+        {
+            true => Si,
+            false => No,
+            _ => NoEspecifica
+        };
+    }
 }

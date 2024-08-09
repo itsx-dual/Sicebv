@@ -46,8 +46,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         if (!string.IsNullOrEmpty(Reporte.HechosDesaparicion!.FechaDesaparicionCebv) ||
             !string.IsNullOrEmpty(Reporte.HechosDesaparicion.FechaPercatoCebv))
             FechaAproximada = true;
-
-        FoliosPrevios();
         
         AmenazaCambioComportamiento = Reporte.HechosDesaparicion!.AmenazaCambioComportamiento;
 
@@ -66,13 +64,17 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             false => OpcionesCebv.No,
             _ => OpcionesCebv.NoEspecifica
         };
+        
+        FoliosPrevios();
     }
 
     private async void FoliosPrevios()
     {
-        var persona = Reporte.Desaparecidos![0].Persona;
+        if (Reporte.Desaparecidos.Count == 0) return;
+        
+        var persona = Reporte.Desaparecidos[0].Persona;
 
-        if (persona is null || persona.Id is null) return;
+        if (persona.Id is null) return;
 
         Folios = await CircunstanciaDesaparicionNetwork.GetFoliosPrevios(persona.Id);
     }

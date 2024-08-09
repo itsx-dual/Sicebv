@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
+using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -17,49 +17,51 @@ public partial class Reporte : ObservableObject
     [JsonConstructor]
     public Reporte(
         int id,
-        bool? esta_terminado,
-        TipoReporte? tipo_reporte,
-        MedioConocimiento? medio_conocimiento,
+        bool? estaTerminado,
+        TipoReporte? tipoReporte,
+        MedioConocimiento? medioConocimiento,
         Estado? estado,
-        TipoHipotesis? hipotesis_oficial,
-        string? tipo_desaparicion,
-        string? institucion_origen,
-        DateTime? fecha_localizacion,
-        bool? declaracion_especial_ausencia,
-        bool? accion_urgente,
+        TipoHipotesis? hipotesisOficial,
+        string? tipoDesaparicion,
+        string? institucionOrigen,
+        DateTime? fechaLocalizacion,
+        bool? declaracionEspecialAusencia,
+        bool? accionUrgente,
         bool? dictamen,
-        bool? ci_nivel_federal,
-        string? otro_derecho_humano,
-        string? sintesis_localizacion,
+        bool? ciNivelFederal,
+        string? otroDerechoHumano,
+        string? sintesisLocalizacion,
         ObservableCollection<Reportante>? reportantes,
         ObservableCollection<Desaparecido>? desaparecidos,
-        HechosDesaparicionResponse? hechos_desaparicion,
-        DateTime? fecha_creacion,
-        DateTime? fecha_actualizacion,
-        ObservableCollection<Expediente>? expedientes
+        HechosDesaparicionResponse? hechosDesaparicion,
+        DateTime? fechaCreacion,
+        DateTime? fechaActualizacion,
+        ObservableCollection<Expediente>? expedientes,
+        DesaparicionForzada? desaparicionForzada
         )
     {
         Id = id;
-        EstaTerminado = esta_terminado;
-        TipoReporte = tipo_reporte;
-        MedioConocimiento = medio_conocimiento;
+        EstaTerminado = estaTerminado;
+        TipoReporte = tipoReporte;
+        MedioConocimiento = medioConocimiento;
         Estado = estado;
-        HipotesisOficial = hipotesis_oficial;
-        TipoDesaparicion = tipo_desaparicion;
-        FechaLocalizacion = fecha_localizacion;
-        DeclaracionEspecialAusencia = declaracion_especial_ausencia;
-        AccionUrgente = accion_urgente;
+        HipotesisOficial = hipotesisOficial;
+        TipoDesaparicion = tipoDesaparicion;
+        FechaLocalizacion = fechaLocalizacion;
+        DeclaracionEspecialAusencia = declaracionEspecialAusencia;
+        AccionUrgente = accionUrgente;
         Dictamen = dictamen;
-        CiNivelFederal = ci_nivel_federal;
-        OtroDerechoHumano = otro_derecho_humano;
-        SintesisLocalizacion = sintesis_localizacion;
+        CiNivelFederal = ciNivelFederal;
+        OtroDerechoHumano = otroDerechoHumano;
+        SintesisLocalizacion = sintesisLocalizacion;
         Reportantes = reportantes;
         Desaparecidos = desaparecidos;
-        HechosDesaparicion = hechos_desaparicion;
-        FechaCreacion = fecha_creacion;
-        FechaActualizacion = fecha_actualizacion;
-        InstitucionOrigen = institucion_origen;
+        HechosDesaparicion = hechosDesaparicion;
+        FechaCreacion = fechaCreacion;
+        FechaActualizacion = fechaActualizacion;
+        InstitucionOrigen = institucionOrigen;
         Expedientes = expedientes;
+        DesaparicionForzada = desaparicionForzada;
     }
 
     public Reporte()
@@ -138,4 +140,7 @@ public partial class Reporte : ObservableObject
     
     [ObservableProperty, JsonProperty("expedientes")]
     private ObservableCollection<Expediente>? _expedientes= new();
+    
+    [ObservableProperty, JsonProperty("desaparicion_forzada")]
+    private DesaparicionForzada? _desaparicionForzada = new();
 }
