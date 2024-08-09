@@ -24,6 +24,11 @@ public partial class Catalogo : ObservableObject
         return Equals((Catalogo) obj);
     }
 
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, Nombre);
+    }
+
     private bool Equals(Catalogo catalogo)
     {
         return Id == catalogo.Id &&

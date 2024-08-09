@@ -22,7 +22,7 @@
 
     <Page.Resources>
         <CollectionViewSource x:Key="Perpetradores"
-                              Source="{Binding Perpetrador.Perpetradores}" />
+                              Source="{Binding Reporte.Perpetradores}" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -52,13 +52,13 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Autoridad:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Autoridad}"
+                                      SelectedItem="{Binding Reporte.DesaparicionForzada.Autoridad}"
                                       ItemsSource="{Binding Autoridades}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Describa la situación:" />
-                            <ui:TextBox Text="{Binding AutoriddadDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionAutoridad}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -76,13 +76,13 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Particular:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Particular}"
+                                      SelectedItem="{Binding Reporte.DesaparicionForzada.Particular}"
                                       ItemsSource="{Binding Particulares}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Describa la situación:" />
-                            <ui:TextBox Text="{Binding ParticularDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionParticular}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -90,13 +90,13 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Método de captura:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MetodoCaptura}"
+                                      SelectedItem="{Binding Reporte.DesaparicionForzada.MetodoCaptura}"
                                       ItemsSource="{Binding MetodosCaptura}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Observaciones del método de captura:" />
-                            <ui:TextBox Text="{Binding MetodoCapturaDescripcion}" TextWrapping="Wrap"
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionMetodoCaptura}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
@@ -105,13 +105,13 @@
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Medio de captura:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MedioCaptura}"
+                                      SelectedItem="{Binding Reporte.DesaparicionForzada.MedioCaptura}"
                                       ItemsSource="{Binding MediosCaptura}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Observaciones del medio de captura:" />
-                            <ui:TextBox Text="{Binding MedioCapturaDescripcion}" TextWrapping="Wrap"
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionMedioCaptura}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
@@ -127,7 +127,7 @@
                                     Visibility="{Binding DetencionLegalExtorsion,
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="Observaciones de la detención legal o extorsión:" />
-                            <ui:TextBox Text="{Binding DetencionLegalExtorsionDescripcion}" TextWrapping="Wrap"
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionDetencionPreviaExtorsion}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
@@ -148,7 +148,7 @@
                                     Visibility="{Binding HaSidoAvistado,
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿Dónde?" />
-                            <ui:TextBox Text="{Binding HaSidoAvistadoDescripcion}" TextWrapping="Wrap"
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DondeHaSidoAvistado}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
@@ -168,14 +168,14 @@
                             <WrapPanel Margin="0 0 0 15">
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Nombre(s) / apodo(s)" />
-                                    <ui:TextBox Text="{Binding Perpetrador.Nombre}" />
+                                    <ui:TextBox Text="{Binding Nombre}" />
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Sexo:" />
                                     <ComboBox DisplayMemberPath="Nombre"
-                                              SelectedItem="{Binding Perpetrador.Sexo}"
-                                              ItemsSource="{Binding Perpetrador.Sexos}" />
+                                              SelectedItem="{Binding Sexo}"
+                                              ItemsSource="{Binding Sexos}" />
                                 </StackPanel>
 
                             </WrapPanel>
@@ -184,13 +184,13 @@
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Último estatus del perpetrador:" />
                                     <ComboBox DisplayMemberPath="Nombre"
-                                              SelectedItem="{Binding Perpetrador.EstatusPerpetrador}"
-                                              ItemsSource="{Binding Perpetrador.EstatusPerpetradores}" />
+                                              SelectedItem="{Binding EstatusPerpetrador}"
+                                              ItemsSource="{Binding EstatusPerpetradores}" />
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 10 0">
                                     <ui:TextBlock Text="Descripción:" />
-                                    <ui:TextBox Text="{Binding Perpetrador.PerpetradorDescripcion}" TextWrapping="Wrap"
+                                    <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap"
                                                 AcceptsReturn="True" />
                                 </StackPanel>
                             </WrapPanel>
@@ -200,7 +200,7 @@
                                    Margin="0 15 0 15"
                                    Icon="{ui:SymbolIcon Add24}"
                                    VerticalAlignment="Stretch"
-                                   Command="{Binding Perpetrador.AddPerpetradorCommand}"
+                                   Command="{Binding AddPerpetradorCommand}"
                                    Appearance="Primary" />
                     </Grid>
 
@@ -253,7 +253,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding ElementName=Page, Path=DataContext.Perpetrador.RemovePerpetradorCommand}"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemovePerpetradorCommand}"
                                                    CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
@@ -263,7 +263,7 @@
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Descripción del grupo perpetrador" />
-                        <ui:TextBox Text="{Binding GrupoPerpetradorDescripcion}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionGrupoPerpetrador}" TextWrapping="Wrap"
                                     AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>
@@ -281,7 +281,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Especifique cuáles:" />
-                            <ui:TextBox Text="{Binding DelitoDesaparicionDescripcion}" TextWrapping="Wrap"
+                            <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionDelitosDesaparicion}" TextWrapping="Wrap"
                                         AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>

@@ -8,12 +8,12 @@ namespace Cebv.core.modules.reporte.data;
 
 public class ReportesQueryResponse
 {
-    [property: JsonPropertyName("data")] public List<ReporteResponse> Data { get; set; } = null!;
+    [property: JsonPropertyName("data")] public List<ReporteResponse> Data { get; set; }
 }
 
 public class ReporteQueryResponse
 {
-    [property: JsonPropertyName("data")] public ReporteResponse Data { get; set; } = null!;
+    [property: JsonPropertyName("data")] public ReporteResponse Data { get; set; }
 }
 
 public class ReporteResponse

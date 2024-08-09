@@ -14,8 +14,6 @@ public partial class HechosDesaparicion : ObservableObject
         string? fechaPercatoCebv,
         string? aclaracionesFechaHechos,
         string? descripcionCambioComportamiento,
-        bool? fueAmenazado,
-        string? descripcionAmenaza,
         int? contadorDesaparicion,
         string? situacionPrevia,
         string? informacionRelevante,
@@ -37,8 +35,6 @@ public partial class HechosDesaparicion : ObservableObject
         AclaracionesFechaHechos = aclaracionesFechaHechos;
         CambioComportamiento = cambioComportamiento;
         DescripcionCambioComportamiento = descripcionCambioComportamiento;
-        FueAmenazado = fueAmenazado;
-        DescripcionAmenaza = descripcionAmenaza;
         ContadorDesaparicion = contadorDesaparicion;
         SituacionPrevia = situacionPrevia;
         InformacionRelevante = informacionRelevante;
@@ -52,22 +48,20 @@ public partial class HechosDesaparicion : ObservableObject
     {
     }
 
-    [ObservableProperty] private int? _id;
-    [ObservableProperty] private int? _reporteId;
-    [ObservableProperty] private DateTime? _fechaDesaparicion;
-    [ObservableProperty] private string? _fechaDesaparicionCebv;
-    [ObservableProperty] private DateTime? _fechaPercato;
-    [ObservableProperty] private string? _fechaPercatoCebv;
-    [ObservableProperty] private string? _aclaracionesFechaHechos;
-    [ObservableProperty] private bool? _cambioComportamiento = false;
-    [ObservableProperty] private string? _descripcionCambioComportamiento;
-    [ObservableProperty] private bool? _fueAmenazado;
-    [ObservableProperty] private string? _descripcionAmenaza;
-    [ObservableProperty] private int? _contadorDesaparicion;
-    [ObservableProperty] private string? _situacionPrevia;
-    [ObservableProperty] private string? _informacionRelevante;
-    [ObservableProperty] private string? _hechosDesaparicionDescripcion;
-    [ObservableProperty] private string? _sintesisDesaparicionDescripcion;
-    [ObservableProperty] private DateTime? _createdAt;
-    [ObservableProperty] private DateTime? _updatedAt;
+    [ObservableProperty, JsonProperty("id")] private int? _id;
+    [ObservableProperty, JsonProperty("reporte_id")] private int? _reporteId;
+    [ObservableProperty, JsonProperty("fecha_desaparicion")] private DateTime? _fechaDesaparicion;
+    [ObservableProperty, JsonProperty("fecha_desaparicion_cebv")] private string? _fechaDesaparicionCebv;
+    [ObservableProperty, JsonProperty("")] private DateTime? _fechaPercato;
+    [ObservableProperty, JsonProperty("")] private string? _fechaPercatoCebv;
+    [ObservableProperty, JsonProperty("")] private string? _aclaracionesFechaHechos;
+    [ObservableProperty, JsonProperty("")] private bool? _cambioComportamiento;
+    [ObservableProperty, JsonProperty("")] private string? _descripcionCambioComportamiento;
+    [ObservableProperty, JsonProperty("")] private int? _contadorDesaparicion;
+    [ObservableProperty, JsonProperty("")] private string? _situacionPrevia;
+    [ObservableProperty, JsonProperty("")] private string? _informacionRelevante;
+    [ObservableProperty, JsonProperty("")] private string? _hechosDesaparicionDescripcion;
+    [ObservableProperty, JsonProperty("")] private string? _sintesisDesaparicionDescripcion;
+    [ObservableProperty, JsonProperty("")] private DateTime? _createdAt;
+    [ObservableProperty, JsonProperty("")] private DateTime? _updatedAt;
 }

@@ -12,7 +12,10 @@ namespace Cebv.features.formulario_cebv.senas_particulares.presentation;
 public partial class SenasParticularesViewModel : ObservableObject
 {
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido;
 
@@ -29,7 +32,7 @@ public partial class SenasParticularesViewModel : ObservableObject
     [ObservableProperty] private CatalogoColor _ladoSelected;
     [ObservableProperty] private string _colorRegionCuerpo;
     [ObservableProperty] private string _colorLado;
-    
+
     // Propiedades para insercion a lista
     [ObservableProperty] private int _cantidad = 1;
     [ObservableProperty] private string _descripcion;
@@ -53,14 +56,14 @@ public partial class SenasParticularesViewModel : ObservableObject
         Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
-    } 
+    }
 
     private async void InitAsync()
     {
         await CargarCatalogos();
         DefaultValues();
         Reporte = _reporteService.GetReporte();
-        
+
         if (Reporte.Desaparecidos.Any())
         {
             Desaparecido = Reporte.Desaparecidos.First();
@@ -74,13 +77,17 @@ public partial class SenasParticularesViewModel : ObservableObject
 
     partial void OnColorRegionCuerpoChanged(string value)
     {
+        if (value is null) return;
+
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
         RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
     }
 
     partial void OnColorLadoChanged(string value)
     {
-        var lado = Lados.FirstOrDefault(e => e.Color == value); 
+        if (value is null) return;
+        
+        var lado = Lados.FirstOrDefault(e => e.Color == value);
         LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
     }
 

@@ -10,47 +10,45 @@ public partial class HechosDesaparicionResponse : ObservableObject
     [JsonConstructor]
     public HechosDesaparicionResponse(
         int? id,
-        int? reporte_id,
-        DateTime? fecha_desaparicion,
-        string? fecha_desaparicion_cebv,
-        string? hora_desaparicion,
-        DateTime? fecha_percato,
-        string? fecha_percato_cebv,
-        string? hora_percato,
-        string? aclaraciones_fecha_hechos,
-        bool? cambio_comportamiento,
-        string? descripcion_cambio_comportamiento,
-        bool? fue_amenazado,
-        string? descripcion_amenaza,
-        int? contador_desapariciones,
-        string? situacion_previa,
-        string? informacion_relevante,
-        string? hechos_desaparicion,
-        string? sintesis_desaparicion,
-        bool? desaparecio_acompanado,
-        int? personas_mismo_evento
+        int? reporteId,
+        DateTime? fechaDesaparicion,
+        string? fechaDesaparicionCebv,
+        string? horaDesaparicion,
+        DateTime? fechaPercato,
+        string? fechaPercatoCebv,
+        string? horaPercato,
+        string? aclaracionesFechaHechos,
+        bool? amenazaCambioComportamiento,
+        string? descripcionAmenazaCambioComportamiento,
+        int? contadorDesapariciones,
+        string? situacionPrevia,
+        string? informacionRelevante,
+        string? hechosDesaparicion,
+        string? sintesisDesaparicion,
+        int? cantidad_desaparecidos,
+        bool? desaparecioAcompanado,
+        int? personasMismoEvento
     )
     {
         Id = id;
-        ReporteId = reporte_id;
-        FechaDesaparicion = fecha_desaparicion;
-        FechaDesaparicionCebv = fecha_desaparicion_cebv;
-        HoraDesaparicion = hora_desaparicion;
-        FechaPercato = fecha_percato;
-        FechaPercatoCebv = fecha_percato_cebv;
-        HoraPercato = hora_percato;
-        AclaracionesFechaHechos = aclaraciones_fecha_hechos;
-        CambioComportamiento = cambio_comportamiento;
-        DescripcionCambioComportamiento = descripcion_cambio_comportamiento;
-        FueAmenazado = fue_amenazado;
-        DescripcionAmenaza = descripcion_amenaza;
-        ContadorDesapariciones = contador_desapariciones;
-        SituacionPrevia = situacion_previa;
-        InformacionRelevante = informacion_relevante;
-        HechosDesaparicion = hechos_desaparicion;
-        SintesisDesaparicion = sintesis_desaparicion;
-        DesaparecioAcompanado = desaparecio_acompanado;
-        PersonasMismoEvento = personas_mismo_evento;;
+        ReporteId = reporteId;
+        FechaDesaparicion = fechaDesaparicion;
+        FechaDesaparicionCebv = fechaDesaparicionCebv;
+        HoraDesaparicion = horaDesaparicion;
+        FechaPercato = fechaPercato;
+        FechaPercatoCebv = fechaPercatoCebv;
+        HoraPercato = horaPercato;
+        AclaracionesFechaHechos = aclaracionesFechaHechos;
+        AmenazaCambioComportamiento = amenazaCambioComportamiento;
+        DescripcionAmenazaCambioComportamiento = descripcionAmenazaCambioComportamiento;
+        ContadorDesapariciones = contadorDesapariciones;
+        SituacionPrevia = situacionPrevia;
+        InformacionRelevante = informacionRelevante;
+        HechosDesaparicion = hechosDesaparicion;
+        SintesisDesaparicion = sintesisDesaparicion;
+        DesaparecioAcompanado = desaparecioAcompanado;
+        PersonasMismoEvento = personasMismoEvento;
+        CantidadDesaparecidos = cantidad_desaparecidos;
     }
 
     public HechosDesaparicionResponse() { }
@@ -82,17 +80,11 @@ public partial class HechosDesaparicionResponse : ObservableObject
     [ObservableProperty, JsonProperty("aclaraciones_fecha_hechos")]
     private string? _aclaracionesFechaHechos;
 
-    [ObservableProperty, JsonProperty("cambio_comportamiento")]
-    private bool? _cambioComportamiento;
+    [ObservableProperty, JsonProperty("amenaza_cambio_comportamiento")]
+    private bool? _amenazaCambioComportamiento;
 
-    [ObservableProperty, JsonProperty("descripcion_cambio_comportamiento")]
-    private string? _descripcionCambioComportamiento;
-
-    [ObservableProperty, JsonProperty("fue_amenazado")]
-    private bool? _fueAmenazado;
-
-    [ObservableProperty, JsonProperty("descripcion_amenaza")]
-    private string? _descripcionAmenaza;
+    [ObservableProperty, JsonProperty("descripcion_amenaza_cambio_comportamiento")]
+    private string? _descripcionAmenazaCambioComportamiento;
 
     [ObservableProperty, JsonProperty("contador_desapariciones")]
     private int? _contadorDesapariciones;

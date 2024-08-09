@@ -24,6 +24,7 @@ public partial class Hipotesis : ObservableObject
     public Hipotesis()
     {
     }
+    
 
     [ObservableProperty, JsonProperty("reporte_id")]
     private int? _id;

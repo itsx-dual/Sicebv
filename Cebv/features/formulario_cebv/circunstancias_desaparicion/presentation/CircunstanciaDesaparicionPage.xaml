@@ -6,8 +6,9 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
-      xmlns:data="clr-namespace:Cebv.core.modules.persona.data"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
+      xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
+      xmlns:data1="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.data"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -23,6 +24,14 @@
     <Page.Resources>
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+
+        <CollectionViewSource x:Key="ExpedientesDirectos"
+                              Filter="ExpedientesDirectos_OnFilter"
+                              Source="{Binding Reporte.Expedientes}" />
+
+        <CollectionViewSource x:Key="ExpedientesIndirectos"
+                              Filter="ExpedientesIndirectos_OnFilter"
+                              Source="{Binding Reporte.Expedientes}" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -94,14 +103,15 @@
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición aproximada:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}" 
-                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaDesaparicionAprox"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}"
+                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date"
+                                        x:Name="FechaDesaparicionAprox" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición para CNB:" />
-                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}" 
-                                        IsTodayHighlighted="True" x:Name="FechaDesaparicion"/>
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
+                                        IsTodayHighlighted="True" x:Name="FechaDesaparicion" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -114,14 +124,14 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato aproximada:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}" 
-                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaPercatoAprox"/>
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}"
+                                        Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaPercatoAprox" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato para CNB:" />
-                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}" 
-                                        IsTodayHighlighted="True" x:Name="FechaPercato"/>
+                            <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
+                                        IsTodayHighlighted="True" x:Name="FechaPercato" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -150,7 +160,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tipo de domicilio:" />
                             <ComboBox ItemsSource="{Binding TiposDomicilio}"
-                                      DisplayMemberPath="Nombre"/>
+                                      DisplayMemberPath="Nombre" />
                         </StackPanel>
                     </StackPanel>
 
@@ -266,14 +276,16 @@
                                 Visibility="{Binding AmenazaCambioComportamiento,
                                 Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación de amenazas:" />
-                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenaza}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenazaCambioComportamiento}"
+                                    TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" />
-                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}" />
+                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}"
+                                      Text="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -381,37 +393,29 @@
                         </StackPanel>
                     </WrapPanel>
 
-                    <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
-                                FontSize="14"
-                                Title="Expedientes directos:"
-                                Severity="Informational"
-                                IsOpen="True"
-                                Margin="10"
-                                IsClosable="False" />
-
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding ExpedienteDirecto.Nombre}"
+                            <ui:TextBox Text="{Binding Nombre}"
                                         Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Primer apellido:" />
-                            <ui:TextBox Text="{Binding ExpedienteDirecto.PrimerApellido}"
+                            <ui:TextBox Text="{Binding PrimerApellido}"
                                         Tag="Exclude" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Segundo apellido: " />
-                            <ui:TextBox Text="{Binding ExpedienteDirecto.SegundoApellido}"
+                            <ui:TextBox Text="{Binding SegundoApellido}"
                                         Tag="Exclude" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
                                    Appearance="Primary"
                                    VerticalContentAlignment="Stretch"
-                                   Command="{Binding ExpedienteDirecto.BuscarPersonaCommand}"
+                                   Command="{Binding BuscarPersonaCommand}"
                                    Margin="0 15 0 0" />
                     </WrapPanel>
 
@@ -419,10 +423,10 @@
                     <ui:ListView
                         HorizontalAlignment="Stretch"
                         MaxHeight="400"
-                        ItemsSource="{Binding ExpedienteDirecto.Personas, Mode=TwoWay}"
+                        ItemsSource="{Binding Personas, Mode=TwoWay}"
                         SelectionMode="Single">
                         <ui:ListView.ItemTemplate>
-                            <DataTemplate DataType="{x:Type data:Persona}">
+                            <DataTemplate DataType="{x:Type viewmodels:Persona}">
                                 <Grid>
                                     <ui:CardControl
                                         Margin="5 5 60 5"
@@ -462,13 +466,19 @@
                                                Icon="{ui:SymbolIcon Add24}"
                                                MinWidth="50"
                                                Margin="5"
-                                               Command="{Binding DataContext.ExpedienteDirecto.AddExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                               Command="{Binding DataContext.AddExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                CommandParameter="{Binding}" />
-
                                 </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
+
+                    <ui:InfoBar Message="{StaticResource LeyendaFolioDirecto}"
+                                FontSize="14"
+                                Title="Expedientes directos:"
+                                Severity="Informational"
+                                IsOpen="True"
+                                IsClosable="False" />
 
                     <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
                         <ui:CardExpander.Header>
@@ -477,10 +487,10 @@
 
                         <ui:ListView HorizontalAlignment="Stretch"
                                      MaxHeight="250"
-                                     ItemsSource="{Binding ExpedienteDirecto.Expedientes, Mode=TwoWay}"
+                                     ItemsSource="{Binding Source={StaticResource ExpedientesDirectos}}"
                                      SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type presentation:Expediente}">
+                                <DataTemplate DataType="{x:Type data1:Expediente}">
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"
@@ -538,7 +548,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.ExpedienteDirecto.RemoveExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   Command="{Binding DataContext.RemoveExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                    CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
@@ -552,90 +562,8 @@
                                 FontSize="14"
                                 Severity="Informational"
                                 IsOpen="True"
-                                Margin="10"
                                 Title="Expediente indirectos"
                                 IsClosable="False" />
-
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding ExpedienteIndirecto.Nombre}"
-                                        Tag="Exclude" />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Primer apellido:" />
-                            <ui:TextBox Text="{Binding ExpedienteIndirecto.PrimerApellido}"
-                                        Tag="Exclude" />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Segundo apellido: " />
-                            <ui:TextBox Text="{Binding ExpedienteIndirecto.SegundoApellido}"
-                                        Tag="Exclude" />
-                        </StackPanel>
-
-                        <ui:Button Icon="{ui:SymbolIcon Search24}"
-                                   Appearance="Primary"
-                                   VerticalContentAlignment="Stretch"
-                                   Command="{Binding ExpedienteIndirecto.BuscarPersonaCommand}"
-                                   Margin="0 15 0 0" />
-                    </WrapPanel>
-
-                    <ui:ListView
-                        HorizontalAlignment="Stretch"
-                        MaxHeight="400"
-                        ItemsSource="{Binding ExpedienteIndirecto.Personas, Mode=TwoWay}"
-                        SelectionMode="Single">
-                        <ui:ListView.ItemTemplate>
-                            <DataTemplate DataType="{x:Type data:Persona}">
-                                <Grid>
-                                    <ui:CardControl
-                                        Margin="5 5 60 5"
-                                        Padding="10"
-                                        Icon="{ui:SymbolIcon Person24}"
-                                        HorizontalAlignment="Stretch">
-                                        <ui:CardControl.Header>
-                                            <StackPanel>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <ui:TextBlock
-                                                        FontTypography="Subtitle"
-                                                        Appearance="Primary"
-                                                        Margin="0 0 10 0"
-                                                        Text="{Binding Nombre}"
-                                                        TextWrapping="WrapWithOverflow" />
-
-                                                    <ui:TextBlock
-                                                        FontTypography="Subtitle"
-                                                        Appearance="Secondary"
-                                                        Text="{Binding ApellidoPaterno}"
-                                                        TextWrapping="WrapWithOverflow"
-                                                        Margin="0 0 10 0" />
-
-                                                    <ui:TextBlock
-                                                        FontTypography="Subtitle"
-                                                        Appearance="Secondary"
-                                                        Text="{Binding ApellidoMaterno}"
-                                                        TextWrapping="WrapWithOverflow" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </ui:CardControl.Header>
-                                    </ui:CardControl>
-
-                                    <ui:Button VerticalAlignment="Stretch"
-                                               Appearance="Primary"
-                                               HorizontalAlignment="Right"
-                                               Icon="{ui:SymbolIcon Add24}"
-                                               MinWidth="50"
-                                               Margin="5"
-                                               Command="{Binding DataContext.ExpedienteIndirecto.AddExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
-                                               CommandParameter="{Binding}" />
-
-                                </Grid>
-                            </DataTemplate>
-                        </ui:ListView.ItemTemplate>
-                    </ui:ListView>
-
 
                     <ui:CardExpander Icon="{ui:SymbolIcon Guardian24}" Margin="0 0 0 15">
                         <ui:CardExpander.Header>
@@ -645,10 +573,10 @@
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding ExpedienteIndirecto.Expedientes, Mode=TwoWay}"
+                            ItemsSource="{Binding Source={StaticResource ExpedientesIndirectos}}"
                             SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type presentation:Expediente}">
+                                <DataTemplate DataType="{x:Type data1:Expediente}">
                                     <Grid>
                                         <ui:CardControl
                                             Margin="5 5 60 5"
@@ -706,7 +634,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding DataContext.ExpedienteIndirecto.RemoveExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   Command="{Binding DataContext.RemoveExpedienteCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                    CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
