@@ -54,8 +54,8 @@
                         <WrapPanel Margin="0 0 25 0">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Área que atenderá:" />
-                                <ComboBox DisplayMemberPath="Nombre"
-                                          ItemsSource="{Binding Areas}" />
+                                <ComboBox ItemsSource="{Binding Areas}"
+                                          SelectedItem="{Binding Reporte.AreaAtiende}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">

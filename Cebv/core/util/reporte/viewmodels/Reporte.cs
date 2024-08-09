@@ -18,6 +18,7 @@ public partial class Reporte : ObservableObject
         int id,
         bool? esta_terminado,
         Catalogo? tipo_reporte,
+        Catalogo? area_atiende,
         MedioConocimiento? medio_conocimiento,
         Estado? estado,
         Catalogo? zona_estado,
@@ -41,6 +42,7 @@ public partial class Reporte : ObservableObject
         Id = id;
         EstaTerminado = esta_terminado;
         TipoReporte = tipo_reporte;
+        AreaAtiende = area_atiende;
         MedioConocimiento = medio_conocimiento;
         Estado = estado;
         ZonaEstado = zona_estado;
@@ -74,6 +76,9 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
     private Catalogo? _tipoReporte;
+        
+    [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
+    private Catalogo? _areaAtiende;
 
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
     private MedioConocimiento? _medioConocimiento;
