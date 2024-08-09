@@ -7,11 +7,12 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class Municipio : ObservableObject
 {
    [JsonConstructor]
-   public Municipio(string id, string? nombre, Estado? estado)
+   public Municipio(string id, string? nombre, Estado? estado, Catalogo? area_atiende)
    {
       Id = id;
       Nombre = nombre;
       Estado = estado;
+      AreaAtiende = area_atiende;
    }
 
    public Municipio() { }
@@ -44,4 +45,7 @@ public partial class Municipio : ObservableObject
    
    [ObservableProperty, JsonProperty(PropertyName = "estado")]
    private Estado? _estado;
+   
+   [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
+   private Catalogo? _areaAtiende;
 }
