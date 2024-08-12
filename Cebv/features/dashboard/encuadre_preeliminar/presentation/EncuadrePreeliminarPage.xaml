@@ -84,12 +84,6 @@
                                   ItemsSource="{Binding Estados}"
                                   IsEditable="True" />
                     </StackPanel>
-
-                    <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="ZONA DEL ESTADO DE DONDE PROVIENE EL REPORTE:" />
-                        <ComboBox SelectedItem="{Binding Reporte.ZonaEstado}"
-                                  ItemsSource="{Binding ZonasEstados}" />
-                    </StackPanel>
                 </WrapPanel>
             </Border>
 

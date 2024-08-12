@@ -48,7 +48,7 @@ public class ReporteService : IReporteService
     {
         var reporte = await ReporteServiceNetwork.Sync(_reporte);
         
-        if (reporte != null)
+        if (reporte is not null)
         {
             _reporte = reporte;
             _estadoActual = EstadoReporte.Guardado;

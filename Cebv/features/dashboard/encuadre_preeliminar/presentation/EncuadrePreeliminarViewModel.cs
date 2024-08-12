@@ -43,9 +43,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _areas = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _zonasEstados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
@@ -122,7 +120,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Stopwatch sw = new();
         sw.Start();
         Sexos = await EncuadrePreeliminarNetwork.GetCatalogo("sexos");
-        Areas = await EncuadrePreeliminarNetwork.GetCatalogo("areas");
         RazonesCurp = await EncuadrePreeliminarNetwork.GetCatalogo("razones-curp");
         Generos = await EncuadrePreeliminarNetwork.GetCatalogo("generos");
         Parentescos = await EncuadrePreeliminarNetwork.GetCatalogo("parentescos");
@@ -140,7 +137,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GruposPertenencia = await EncuadrePreeliminarNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
-        ZonasEstados = await EncuadrePreeliminarNetwork.GetCatalogo("zonas-estados");
         Estados = await ReportanteNetwork.GetEstados();
         TiposMedios = await DatosReporteNetwork.GetTiposMedios();
         sw.Stop();
@@ -180,19 +176,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             Reporte.Desaparecidos.Add(Desaparecido);
         }
     }
-    
-    public bool HaPasadoUnAno(DateTime fecha)
-    {
-        // Calculate the difference in years
-        int yearDifference = DateTime.Now.Year - fecha.Year;
-
-        return yearDifference switch
-        {
-            > 1 => true,
-            1 => DateTime.Now.Month > fecha.Month || (DateTime.Now.Month == fecha.Month && DateTime.Now.Day >= fecha.Day),
-            _ => false
-        };
-    }
 
     private async void InitAsync()
     {
@@ -200,6 +183,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         DefaultValues();
         GetReporteFromService();
         Curp = "";
+        FechaDesaparicion = DateTime.Now;
     }
 
     private void DiferenciaFechas(DateTime? a, DateTime? b)
@@ -242,22 +226,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (municipio == null) return;
         Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipio.Id);
-        if (!HaPasadoUnAno(FechaDesaparicion))
-        {
-            Reporte.AreaAtiende = municipio.AreaAtiende;
-        }
-        
-        if (municipio.AreaAtiende is not null)
-        {
-            // Comportamiento indefinido, funcionara siempre y cuando los
-            // ids del endpoint '/api/zonas-estados' y '/api/areas'
-            // coincidan el uno con el otro.
-            Reporte.ZonaEstado = ZonasEstados.FirstOrDefault(zona => zona.Id == municipio.AreaAtiende.Id);
-        }
-        else
-        {
-            Reporte.ZonaEstado = ZonasEstados.FirstOrDefault(zona => zona.Nombre == "No aplica");
-        }
     }
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)
@@ -333,11 +301,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         else
         {
             Reporte.HechosDesaparicion.FechaDesaparicion = value;
-        }
-
-        if (HaPasadoUnAno(value))
-        {
-            Reporte.AreaAtiende = Areas.FirstOrDefault(area => area.Nombre == "Larga Data");
         }
     }
 
@@ -507,7 +470,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
                 "Error fatal",
                 "No se pudo actualizar o ingresar la informacion del reporte",
                 ControlAppearance.Danger,
-                new SymbolIcon(SymbolRegular.Warning32),
+                new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 5));
             return;
         }
