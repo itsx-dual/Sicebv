@@ -575,20 +575,19 @@
                             <!-- Agregar NO ESPECIFICA -->
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="LOCALIDAD:" />
-                                <ComboBox IsTextSearchEnabled="True"
-                                          SelectedItem="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento}"
+                                <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento}"
                                           ItemsSource="{Binding Asentamientos}"
                                           IsEditable="True" />
                             </StackPanel>
 
-                            <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Collapsed">
+                            <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Visible">
                                 <ui:TextBlock Text="LONGITUD:" />
-                                <ui:TextBox Text="{Binding Asentamiento.Longitud}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento.Longitud}" />
                             </StackPanel>
 
-                            <StackPanel MinWidth="200" IsEnabled="False" Visibility="Collapsed">
+                            <StackPanel MinWidth="200" IsEnabled="False" Visibility="Visible">
                                 <ui:TextBlock Text="LATITUD:" />
-                                <ui:TextBox Text="{Binding Asentamiento.Latitud}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento.Latitud}" />
                             </StackPanel>
                         </WrapPanel>
 

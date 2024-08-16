@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
+using Cebv.core.domain;
 using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -10,9 +11,8 @@ using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.encuadre_preeliminar.domain;
-using Cebv.features.dashboard.presentation;
+using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using Cebv.features.formulario_cebv.datos_del_reporte.domain;
-using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using Cebv.features.formulario_cebv.prendas.domain;
 using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -26,8 +26,7 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 public partial class EncuadrePreeliminarViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private static IDashboardNavigationService _navigationService =
-        App.Current.Services.GetService<IDashboardNavigationService>()!;
+    private static IDashboardNavigationService _navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
 
     private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
     [ObservableProperty] private Reporte _reporte;
@@ -119,22 +118,22 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         Stopwatch sw = new();
         sw.Start();
-        Sexos = await EncuadrePreeliminarNetwork.GetCatalogo("sexos");
-        RazonesCurp = await EncuadrePreeliminarNetwork.GetCatalogo("razones-curp");
-        Generos = await EncuadrePreeliminarNetwork.GetCatalogo("generos");
-        Parentescos = await EncuadrePreeliminarNetwork.GetCatalogo("parentescos");
-        Nacionalidades = await EncuadrePreeliminarNetwork.GetCatalogo("nacionalidades");
-        CompaniasTelefonicas = await EncuadrePreeliminarNetwork.GetCatalogo("companias-telefonicas");
-        Complexiones = await EncuadrePreeliminarNetwork.GetCatalogo("complexiones");
-        ColoresPiel = await EncuadrePreeliminarNetwork.GetCatalogo("colores-pieles");
-        ColoresOjos = await EncuadrePreeliminarNetwork.GetCatalogo("colores-ojos");
-        ColoresCabello = await EncuadrePreeliminarNetwork.GetCatalogo("colores-cabellos");
-        TamanosCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tamanos-cabellos");
-        TiposCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tipos-cabellos");
-        Vistas = await EncuadrePreeliminarNetwork.GetCatalogo("vistas");
-        Tipos = await EncuadrePreeliminarNetwork.GetCatalogo("tipos");
-        Colores = await EncuadrePreeliminarNetwork.GetCatalogo("colores");
-        GruposPertenencia = await EncuadrePreeliminarNetwork.GetCatalogo("grupos-pertenencias");
+        Sexos = await CebvNetwork.GetCatalogo("sexos");
+        RazonesCurp = await CebvNetwork.GetCatalogo("razones-curp");
+        Generos = await CebvNetwork.GetCatalogo("generos");
+        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
+        Nacionalidades = await CebvNetwork.GetCatalogo("nacionalidades");
+        CompaniasTelefonicas = await CebvNetwork.GetCatalogo("companias-telefonicas");
+        Complexiones = await CebvNetwork.GetCatalogo("complexiones");
+        ColoresPiel = await CebvNetwork.GetCatalogo("colores-pieles");
+        ColoresOjos = await CebvNetwork.GetCatalogo("colores-ojos");
+        ColoresCabello = await CebvNetwork.GetCatalogo("colores-cabellos");
+        TamanosCabello = await CebvNetwork.GetCatalogo("tamanos-cabellos");
+        TiposCabello = await CebvNetwork.GetCatalogo("tipos-cabellos");
+        Vistas = await CebvNetwork.GetCatalogo("vistas");
+        Tipos = await CebvNetwork.GetCatalogo("tipos");
+        Colores = await CebvNetwork.GetCatalogo("colores");
+        GruposPertenencia = await CebvNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
         Estados = await ReportanteNetwork.GetEstados();
@@ -484,7 +483,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         var modal = new PostEncuadreModalWindow();
         if (modal.ShowDialog() ?? false)
         {
-            _navigationService.Navigate(typeof(ReportesDesaparicion));
+            _navigationService.Navigate(typeof(ReportesDesaparicionPage));
             _snackBarService.Show(
                 "El reporte ha sido creado exitosamente",
                 "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",

@@ -193,3 +193,4 @@ public partial class PersonaViewModel : ObservableObject
     async partial void OnTipoOcupacionDosChanged(Catalogo value) =>
         OcupacionesDos = await PersonaNetwork.GetOcupaciones(value.Id);
 }
+
