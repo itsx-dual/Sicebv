@@ -24,7 +24,7 @@ public abstract class ReporteServiceNetwork
 
         var response = await Client.SendAsync(request);
         var json = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<Reportes>(json)?.Data!;
+        return JsonConvert.DeserializeObject<PaginatedResource<Reporte>>(json)?.Data!;
     }
 
     public static async Task<Reporte> Sync(Reporte reporte)
