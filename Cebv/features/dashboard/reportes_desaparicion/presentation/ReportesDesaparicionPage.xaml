@@ -20,130 +20,135 @@
 
     <Grid Width="{Binding ElementName=Page, Path=ActualWidth}"
           Height="{Binding ElementName=Page, Path=ActualHeight}">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
         <ui:TextBlock Grid.Row="0"
                       Text="Reportes de desaparición"
                       FontTypography="TitleLarge" />
+        
+        <ui:ListView Grid.Row="1"
+                     ItemsSource="{Binding Reportes}"
+                     VirtualizingPanel.IsVirtualizing="True"
+                     VirtualizingPanel.VirtualizationMode="Recycling"
+                     VirtualizingPanel.ScrollUnit="Pixel"
+                     ScrollViewer.IsDeferredScrollingEnabled="True"
+                     ScrollViewer.PanningDeceleration="1"
+                     ScrollViewer.ScrollChanged="ScrollViewer_OnScrollChanged">
+            
+            <ui:ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="16"
+                            Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="1"
-                      ScrollChanged="ScrollViewer_OnScrollChanged">
-            <ui:ListView ItemsSource="{Binding Reportes}">
-                <ui:ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Padding="16"
-                                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1"
-                                CornerRadius="10">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
+                            <ui:TextBlock Grid.Row="0" FontSize="12" HorizontalAlignment="Left">
+                                <ui:TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="MedioConocimientoGenerico" />
+                                        <Binding Path="MedioConocimientoEspecifico" />
+                                    </MultiBinding>
+                                </ui:TextBlock.Text>
+                            </ui:TextBlock>
 
-                                <ui:TextBlock Grid.Row="0" FontSize="12" HorizontalAlignment="Left">
+                            <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                                    <ui:TextBlock Text="{Binding TipoReporte}"
+                                                  FontWeight="Bold"
+                                                  FontSize="24" />
+                                    <ui:TextBlock
+                                        Text="{Binding FechaCreacion, 
+                                                        StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy. HH:mm}',
+                                                        ConverterCulture=es_MX}"
+                                        FontSize="12" />
+                                </StackPanel>
+
+                                <ui:TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Right"
+                                              Margin="0 5 0 0">
                                     <ui:TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} - {1}">
-                                            <Binding Path="MedioConocimientoGenerico" />
-                                            <Binding Path="MedioConocimientoEspecifico" />
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Estado" />
+                                            <Binding Path="AbreviaturaEstadoCebv" />
                                         </MultiBinding>
                                     </ui:TextBlock.Text>
                                 </ui:TextBlock>
-
-                                <Grid Grid.Row="1" HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
-                                        <ui:TextBlock Text="{Binding TipoReporte}"
-                                                      FontWeight="Bold"
-                                                      FontSize="24" />
-                                        <ui:TextBlock
-                                            Text="{Binding FechaCreacion, 
-                                                        StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy. HH:mm}',
-                                                        ConverterCulture=es_MX}"
-                                            FontSize="12" />
-                                    </StackPanel>
-
-                                    <ui:TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Right"
-                                                  Margin="0 5 0 0">
-                                        <ui:TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}, {1}">
-                                                <Binding Path="Estado" />
-                                                <Binding Path="AbreviaturaEstadoCebv" />
-                                            </MultiBinding>
-                                        </ui:TextBlock.Text>
-                                    </ui:TextBlock>
-                                </Grid>
-
-                                <Separator Grid.Row="2" Height="25" Background="Transparent" BorderThickness="0" />
-
-                                <ui:ListView Grid.Row="3"
-                                             ItemsSource="{Binding Desaparecidos}"
-                                             SelectedItem="{Binding ElementName=Page, Path=DataContext.DesaparecidoSelected}"
-                                             IsSelected="False"
-                                             MouseDoubleClick="Control_OnMouseDoubleClick">
-                                    <ui:ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="5">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Ellipse
-                                                    x:Name="Ellipse"
-                                                    Grid.RowSpan="3"
-                                                    Width="48"
-                                                    Height="48"
-                                                    Margin="6"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Fill="{ui:ThemeResource ControlStrongStrokeColorDefaultBrush}" />
-
-                                                <ui:TextBlock Grid.Row="0" Grid.Column="1" FontSize="20">
-                                                    <ui:TextBlock.Text>
-                                                        <MultiBinding StringFormat="{}{0} {1} {2}"
-                                                                      FallbackValue="Nombre desconocido">
-                                                            <Binding Path="Nombre" FallbackValue="" />
-                                                            <Binding Path="ApellidoPaterno" FallbackValue="" />
-                                                            <Binding Path="ApellidoMaterno" FallbackValue="" />
-                                                        </MultiBinding>
-                                                    </ui:TextBlock.Text>
-                                                </ui:TextBlock>
-
-                                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14">
-                                                    <Run Text="{Binding EstatusCebv}" />
-                                                    <Run Text=" - " />
-                                                    <Run Text="{Binding EstatusRnpdno}" FontStyle="Oblique" />
-                                                </TextBlock>
-
-                                                <TextBlock Grid.Row="2"
-                                                           Grid.Column="1"
-                                                           Text="{Binding FolioCebv,
-                                                           FallbackValue='Sin folio asignado'}"
-                                                           FontSize="18" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ui:ListView.ItemTemplate>
-                                </ui:ListView>
                             </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ui:ListView.ItemTemplate>
-            </ui:ListView>
-        </ScrollViewer>
+
+                            <Separator Grid.Row="2" Height="25" Background="Transparent" BorderThickness="0" />
+
+                            <ui:ListView Grid.Row="3"
+                                         ItemsSource="{Binding Desaparecidos}"
+                                         SelectedItem="{Binding ElementName=Page, Path=DataContext.DesaparecidoSelected}"
+                                         IsSelected="False">
+                                <ui:ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse
+                                                x:Name="Ellipse"
+                                                Grid.RowSpan="3"
+                                                Width="48"
+                                                Height="48"
+                                                Margin="6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Fill="{ui:ThemeResource ControlStrongStrokeColorDefaultBrush}" />
+
+                                            <ui:TextBlock Grid.Row="0" Grid.Column="1" FontSize="20">
+                                                <ui:TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1} {2}"
+                                                                  FallbackValue="Nombre desconocido">
+                                                        <Binding Path="Nombre" FallbackValue="" />
+                                                        <Binding Path="ApellidoPaterno" FallbackValue="" />
+                                                        <Binding Path="ApellidoMaterno" FallbackValue="" />
+                                                    </MultiBinding>
+                                                </ui:TextBlock.Text>
+                                            </ui:TextBlock>
+
+                                            <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14">
+                                                <Run Text="{Binding EstatusCebv}" />
+                                                <Run Text=" - " />
+                                                <Run Text="{Binding EstatusRnpdno}" FontStyle="Oblique" />
+                                            </TextBlock>
+
+                                            <TextBlock Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Text="{Binding FolioCebv,
+                                                           FallbackValue='Sin folio asignado'}"
+                                                       FontSize="18" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ui:ListView.ItemTemplate>
+                            </ui:ListView>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ui:ListView.ItemTemplate>
+        </ui:ListView>
     </Grid>
 </Page>

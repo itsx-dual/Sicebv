@@ -90,6 +90,7 @@
 
     <ItemGroup>
       <Folder Include="core\modules\hipotesis\data\" />
+      <Folder Include="features\dashboard\encuadre_preeliminar\domain\" />
       <Folder Include="features\formulario_cebv\presentation\data\" />
       <Folder Include="features\formulario_cebv\presentation\domain\" />
     </ItemGroup>

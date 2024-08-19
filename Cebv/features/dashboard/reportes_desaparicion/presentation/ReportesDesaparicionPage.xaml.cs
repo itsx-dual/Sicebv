@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using ListView = Wpf.Ui.Controls.ListView;
 
 namespace Cebv.features.dashboard.reportes_desaparicion.presentation;
 
@@ -10,19 +11,12 @@ public partial class ReportesDesaparicionPage : Page
     {
         InitializeComponent();
     }
-
-    private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     private void ScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
     {
-        if (sender is null) return;
-        var scroller = sender as ScrollViewer;
         var datacontext = DataContext as ReportesDesaparicionViewModel;
-
-        if (!(scroller.VerticalOffset > scroller.ScrollableHeight * 0.8)) return;
+        Console.WriteLine($"{e.VerticalOffset} {e.ExtentHeight}");
+        if (!(e.VerticalOffset > e.ExtentHeight * 0.5)) return;
         datacontext?.EndingScrollingCommand.Execute(null);
     }
 }

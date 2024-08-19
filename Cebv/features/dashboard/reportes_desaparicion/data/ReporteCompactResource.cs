@@ -29,6 +29,8 @@ public class ReporteCompactResource
         Desaparecidos = desaparecidos;
     }
     
+    public ReporteCompactResource() { }
+    
     [JsonProperty(PropertyName = "id")] 
     public int? Id { get; set; }
     

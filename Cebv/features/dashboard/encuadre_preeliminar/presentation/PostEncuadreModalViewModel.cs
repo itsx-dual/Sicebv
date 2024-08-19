@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Web;
 using Cebv.app.presentation;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
-using Cebv.features.dashboard.encuadre_preeliminar.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,8 +37,8 @@ public partial class PostEncuadreModalViewModel : ObservableObject
 
     private async Task CargarCatalogos()
     {
-        TiposReportes = await EncuadrePreeliminarNetwork.GetCatalogo("tipos-reportes");
-        Areas = await EncuadrePreeliminarNetwork.GetCatalogo("areas");
+        TiposReportes = await CebvNetwork.GetCatalogo("tipos-reportes");
+        Areas = await CebvNetwork.GetCatalogo("areas");
     }
 
     private async void InitAsync()
