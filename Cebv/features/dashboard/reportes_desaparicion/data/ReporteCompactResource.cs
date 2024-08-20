@@ -32,7 +32,7 @@ public class ReporteCompactResource
     public ReporteCompactResource() { }
     
     [JsonProperty(PropertyName = "id")] 
-    public int? Id { get; set; }
+    public int Id { get; set; }
     
     [JsonProperty(PropertyName = "medio_conocimiento_generico")] 
     public string? MedioConocimientoGenerico { get; set; }

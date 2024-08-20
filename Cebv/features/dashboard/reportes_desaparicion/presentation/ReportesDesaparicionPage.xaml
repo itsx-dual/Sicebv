@@ -32,12 +32,14 @@
         
         <ui:ListView Grid.Row="1"
                      ItemsSource="{Binding Reportes}"
+                     SelectedItem="{Binding ReporteSelected}"
                      VirtualizingPanel.IsVirtualizing="True"
                      VirtualizingPanel.VirtualizationMode="Recycling"
                      VirtualizingPanel.ScrollUnit="Pixel"
                      ScrollViewer.IsDeferredScrollingEnabled="True"
                      ScrollViewer.PanningDeceleration="1"
-                     ScrollViewer.ScrollChanged="ScrollViewer_OnScrollChanged">
+                     ScrollViewer.ScrollChanged="ScrollViewer_OnScrollChanged"
+                     MouseDoubleClick="Control_OnMouseDoubleClick">
             
             <ui:ListView.ItemTemplate>
                 <DataTemplate>

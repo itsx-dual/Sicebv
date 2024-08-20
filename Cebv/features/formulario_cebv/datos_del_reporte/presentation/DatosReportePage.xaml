@@ -10,6 +10,7 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      xmlns:data="clr-namespace:Cebv.core.data"
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       Title="PestanaReporteView">
@@ -86,9 +87,8 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Uso exclusivo de la información para búsqueda e identificación de la persona desaparecida o no localizada." />
-                        <ComboBox SelectedValue="{Binding Reporte.Reportantes[0].InformacionExclusivaBusqueda}"
-                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}"
-                                  SelectedItem="{Binding InformacionExclusivaBusquedaSelectedKey}"
+                        <ComboBox SelectedValue="{Binding Reportante.InformacionExclusivaBusqueda}"
+                                  ItemsSource="{Binding Opciones}"
                                   DisplayMemberPath="Key"
                                   SelectedValuePath="Value"/>
                     </StackPanel>
@@ -96,9 +96,8 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Solicita que se haga pública la información de la persona desaparecida o no localizada." />
-                        <ComboBox SelectedValue="{Binding Reporte.Reportantes[0].PublicacionBoletin}"
-                                  ItemsSource="{Binding PublicacionInformacionList}"
-                                  SelectedItem="{Binding PublicacionInformacionSelectedKey}"
+                        <ComboBox SelectedValue="{Binding Reportante.PublicacionBoletin}"
+                                  ItemsSource="{Binding Opciones}"
                                   DisplayMemberPath="Key"
                                   SelectedValuePath="Value"/>
                     </StackPanel>
