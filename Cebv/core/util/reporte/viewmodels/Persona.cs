@@ -29,6 +29,7 @@ public partial class Persona : ObservableObject
         Catalogo? lengua,
         Catalogo? escolaridad,
         Catalogo? estado_conyugal,
+        Catalogo? razon_no_presenta_curp,
         MediaFiliacion? media_filiacion,
         ObservableCollection<Apodo>? apodos,
         ObservableCollection<Catalogo>? nacionalidades,
@@ -61,6 +62,7 @@ public partial class Persona : ObservableObject
         Telefonos = telefonos;
         Escolaridad = escolaridad;
         EstadoConyugal = estado_conyugal;
+        RazonNoPresentaCurp = razon_no_presenta_curp;
         GruposVulnerables = grupos_vulnerables;
         SenasParticulares = senas_particulares;
         MediaFiliacion = media_filiacion;
@@ -137,6 +139,9 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "estado_conyugal")]
     private Catalogo? _estadoConyugal;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "razon_no_presenta_curp")]
+    private Catalogo? _razonNoPresentaCurp;
 
     [ObservableProperty, JsonProperty(PropertyName = "media_filiacion")]
     private MediaFiliacion? _mediaFiliacion = new();

@@ -11,19 +11,36 @@ namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 
 public partial class InstrumentoJuridicoViewModel : ObservableObject
 {
+    // Referente a servicios
+    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Desaparecido _desaparecido;
+    
+    // Catalogos
+    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    
+    // Valores seleccionados
+    [ObservableProperty] private bool? _opcionCarpeta;
+    [ObservableProperty] private DocumentoLegal _carpetaInvestigacion = new();
+    
+    [ObservableProperty] private bool? _opcionAmparo;
+    [ObservableProperty] private DocumentoLegal _amparoBuscador = new();
+    
+    [ObservableProperty] private bool? _opcionRecomendacion = false;
+    [ObservableProperty] private DocumentoLegal _recomedacionDerechosHumanos;
+    
     public InstrumentoJuridicoViewModel()
     {
         Reporte = _reporteService.GetReporte();
-        // Esta seccion del formulario lidia con cuatro atributos de desaparecido.
-        if (Reporte.Desaparecidos?.Count == 0)
+        
+        if (!Reporte.Desaparecidos.Any())
         {
             Desaparecido = new Desaparecido();
             Reporte.Desaparecidos?.Add(Desaparecido);
         }
-        else
-        {
-            Desaparecido = Reporte.Desaparecidos?.FirstOrDefault()!;
-        }
+        Desaparecido = Reporte.Desaparecidos?.FirstOrDefault()!;
         
         CarpetaInvestigacion = Desaparecido.DocumentosLegales?.FirstOrDefault(x => x.TipoDocumento == "CI")!;
         if (CarpetaInvestigacion == null)
@@ -58,28 +75,13 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             OpcionRecomendacion = true;
         }
     }
-
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
-    private IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-
-    // Opciones cebv.
-    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Desaparecido _desaparecido;
-
-    /**
-     * Carpeta de investigación.
-     */
+    
     [ObservableProperty] private string _opcionCarpetaKey = "No";
-    [ObservableProperty] private bool? _opcionCarpeta;
-    [ObservableProperty] private DocumentoLegal _carpetaInvestigacion = new();
 
     partial void OnOpcionCarpetaChanged(bool? value)
     {
         var documentos = Desaparecido.DocumentosLegales;
-        if (value != null && (bool) value)
+        if (value ?? false)
         {
             var tiene_ci = documentos.Any(x => x.Equals(CarpetaInvestigacion));
 
@@ -98,8 +100,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
      * Amparo buscador.
      */
     [ObservableProperty] private string _opcionAmparoKey = "No";
-    [ObservableProperty] private bool? _opcionAmparo;
-    [ObservableProperty] private DocumentoLegal _amparoBuscador = new();
+    
 
     partial void OnOpcionAmparoChanged(bool? value)
     {
@@ -123,8 +124,6 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
      * Recomendación de derechos humanos.
      */
     [ObservableProperty] private string _opcionRecomendacionKey = "No";
-    [ObservableProperty] private bool? _opcionRecomendacion = false;
-    [ObservableProperty] private DocumentoLegal _recomedacionDerechosHumanos;
 
     partial void OnOpcionRecomendacionChanged(bool? value)
     {

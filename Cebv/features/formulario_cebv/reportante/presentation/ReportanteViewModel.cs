@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -16,6 +17,8 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Reportante _reportante;
+    [ObservableProperty] private Direccion _direccionReportante;
+    
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
@@ -29,6 +32,7 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _escolaridades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _estadosConyugales = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerablesFiltrados = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
@@ -66,101 +70,80 @@ public partial class ReportanteViewModel : ObservableObject
 
     public ReportanteViewModel()
     {
-        CargarCatalogos();
+        InitAsync();
     }
-    
-    private async void CargarCatalogos()
+
+    private async void InitAsync()
     {
         var reporte = _reporteService.GetReporte();
-        
-        // Verifica si reporte y Reportantes están inicializados
-        if (reporte == null || reporte.Reportantes == null || reporte.Reportantes.Count == 0)
+        if (!reporte.Reportantes.Any())
         {
             Reportante = new Reportante();
-            if (reporte != null)
-            {
-                reporte.Reportantes.Add(Reportante);
-            }
         }
-        else
-        {
-            Reportante = reporte.Reportantes[0];
-        }
+        Reportante = reporte.Reportantes.FirstOrDefault();
         
-        var estadoId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
-        var municipioId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
+        await CargarCatalogos();
+        await CargarDireccion();
         
-        // Cargar los catálogos de forma asincrónica usando el método LoadCatalog
-        Parentescos = await LoadCatalog("parentescos");
-        Sexos = await LoadCatalog("sexos");
-        Generos = await LoadCatalog("generos");
-        Colectivos = await LoadCatalog("colectivos");
-        Religiones = await LoadCatalog("religiones");
-        Lenguas = await LoadCatalog("lenguas");
-        Nacionalidades = await LoadCatalog("nacionalidades");
-        Escolaridades = await LoadCatalog("escolaridades");
-        EstadosConyugales = await LoadCatalog("estados-conyugales");
-        GruposVulnerables = await LoadCatalog("grupos-vulnerables");
-        Estados = await ReportanteNetwork.GetEstados();
-        if (estadoId != null) Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(estadoId);
-        if (municipioId != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId);
-
         Reporte = reporte;
-        if (Reporte.Reportantes.Count == 0)
-        {
-            Reportante = new Reportante();
-            Reporte.Reportantes.Add(Reportante);
-        }
-        else
-        {
-            Reportante = Reporte.Reportantes[0];
-        }
 
-        if (Reportante.Persona.Nacionalidades.Count == 0)
+        if (!Reportante.Persona.Nacionalidades.Any())
         {
             Reportante.Persona.Nacionalidades.Add(new Catalogo());
         }
-        
-        if (!Reportante.Persona.Direcciones.Any())
-        {
-            Reportante.Persona.Direcciones.Add(new Direccion());
-        }
-        else
-        {
-            EstadoSelected = Reportante.Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
-            MunicipioSelected = Reportante.Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
-        }
 
-        if (reporte.Reportantes?.FirstOrDefault()?.ParticipacionBusquedas == null)
-        {
-            ParticipoBusqueda = null;
-        }
-        else ParticipoBusqueda = reporte.Reportantes.FirstOrDefault()?.ParticipacionBusquedas != String.Empty;
+        ParticipoBusqueda = Reportante.ParticipacionBusquedas is not null
+            ? Reportante.ParticipacionBusquedas != string.Empty
+            : null; 
         
-        if (reporte.Reportantes?.FirstOrDefault()?.DescripcionExtorsion == null)
-        {
-            VictimaExtorsion = null;
-        }
-        else VictimaExtorsion = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
+        VictimaExtorsion = Reportante.DescripcionExtorsion is not null
+            ? Reportante.DescripcionExtorsion != string.Empty
+            : null; 
         
-        if (reporte.Reportantes?.FirstOrDefault()?.DescripcionDondeProviene == null)
-        {
-            RecibioAmenaza = null;
-        }
-        else RecibioAmenaza = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
+        RecibioAmenaza = Reportante.DescripcionDondeProviene is not null
+            ? Reportante.DescripcionDondeProviene != string.Empty
+            : null; 
         
         EdadAproxmida = CalculateAge(reporte?.Reportantes?.FirstOrDefault()?.Persona.FechaNacimiento);
-
         TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
         TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
         TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
         TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
+        GruposVulnerablesFiltrados = new ObservableCollection<Catalogo>(GruposVulnerables.Except(Reporte.Reportantes.FirstOrDefault()?.Persona.GruposVulnerables));
+    }
+
+    private async Task CargarDireccion()
+    {
+        if (!Reportante.Persona.Direcciones.Any())
+        {
+            Reportante.Persona.Direcciones.Add(new Direccion());
+        }
+        DireccionReportante = Reportante.Persona.Direcciones?.FirstOrDefault();
+        
+        var estadoId = DireccionReportante?.Asentamiento?.Municipio?.Estado.Id;
+        var municipioId = DireccionReportante?.Asentamiento?.Municipio.Id;
+
+        EstadoSelected = Estados.FirstOrDefault(x => x.Id == estadoId);
+        
+        Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(estadoId) ?? [];
+        MunicipioSelected = Municipios.FirstOrDefault(x => x.Id == municipioId);
+        
+        Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId) ?? [];
     }
     
-    private async Task<ObservableCollection<Catalogo>> LoadCatalog(string catalogName)
+    private async Task CargarCatalogos()
     {
-        var catalog = await ReportanteNetwork.GetCatalogo(catalogName);
-        return catalog ?? new ObservableCollection<Catalogo>();
+        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
+        Sexos = await CebvNetwork.GetCatalogo("sexos");
+        Generos = await CebvNetwork.GetCatalogo("generos");
+        Colectivos = await CebvNetwork.GetCatalogo("colectivos");
+        Religiones = await CebvNetwork.GetCatalogo("religiones");
+        Lenguas = await CebvNetwork.GetCatalogo("lenguas");
+        Nacionalidades = await CebvNetwork.GetCatalogo("nacionalidades");
+        Escolaridades = await CebvNetwork.GetCatalogo("escolaridades");
+        EstadosConyugales = await CebvNetwork.GetCatalogo("estados-conyugales");
+        GruposVulnerables = await CebvNetwork.GetCatalogo("grupos-vulnerables");
+        Estados = await ReportanteNetwork.GetEstados();
     }
     
     public static int? CalculateAge(DateTime? birthDate)
@@ -220,12 +203,13 @@ public partial class ReportanteViewModel : ObservableObject
 
     async partial void OnEstadoSelectedChanged(Estado value)
     {
-        MunicipioSelected = null;
-        Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id ?? string.Empty);
+        Municipios = null;
+        if (value is not null) Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id);
     }
     
     async partial void OnMunicipioSelectedChanged(Municipio value)
     {
+        Asentamientos = null;
         if (value != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(value.Id);
     }
     
@@ -242,7 +226,8 @@ public partial class ReportanteViewModel : ObservableObject
             EsMovil = true,
             Compania = null
         });
-        
+
+        TieneTelefonosMoviles = Reportante.Persona.Telefonos?.Any(x => x.EsMovil ?? false) ?? false;
         NoTelefonoMovil = string.Empty; 
         ObservacionesMovil = string.Empty;
     }
@@ -252,7 +237,7 @@ public partial class ReportanteViewModel : ObservableObject
     {
         if (NoTelefonoFijo.Length <= 0) return;
         
-        var telefonos = Reporte.Reportantes?[0].Persona?.Telefonos;
+        var telefonos = Reportante.Persona.Telefonos;
         telefonos?.Add(new Telefono
         {
             Numero = NoTelefonoFijo,
@@ -261,6 +246,7 @@ public partial class ReportanteViewModel : ObservableObject
             Compania = null
         });
         
+        TieneTelefonosFijos = Reportante.Persona.Telefonos?.Any(x => !x.EsMovil ?? false) ?? false;
         NoTelefonoFijo = string.Empty; 
         ObservacionesFijo = string.Empty;
     }
@@ -270,14 +256,15 @@ public partial class ReportanteViewModel : ObservableObject
     {
         if (NombreContacto.Length <= 0) return;
         
-        var contactos = Reporte.Reportantes?[0].Persona?.Contactos;
+        var contactos = Reportante.Persona.Contactos;
         contactos?.Add(new Contacto
         {
             Nombre = NombreContacto,
             Observaciones = ObservacionesContacto,
             Tipo = "Correo Electronico"
         });
-        
+
+        TieneCorreos = Reportante.Persona.Contactos?.Any() ?? false;
         NombreContacto = string.Empty; 
         ObservacionesContacto = string.Empty;
     }
@@ -285,8 +272,9 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     private void OnAddGrupoVulnerabilidad()
     {
-        var gruposVulnerables = Reporte.Reportantes?[0].Persona?.GruposVulnerables;
+        var gruposVulnerables = Reporte.Reportantes.FirstOrDefault()?.Persona.GruposVulnerables;
         if (GrupoVulnerableSelected != null) gruposVulnerables?.Add(GrupoVulnerableSelected);
+        GruposVulnerablesFiltrados = new ObservableCollection<Catalogo>(GruposVulnerables.Except(gruposVulnerables));
         GrupoVulnerableSelected = null;
     }
     
@@ -295,6 +283,7 @@ public partial class ReportanteViewModel : ObservableObject
     {
         var gruposVulnerables = Reporte.Reportantes?[0].Persona?.GruposVulnerables;
         gruposVulnerables?.Remove(catalogo);
+        GruposVulnerablesFiltrados = new ObservableCollection<Catalogo>(GruposVulnerables.Except(gruposVulnerables));
     }
 
     [RelayCommand]
