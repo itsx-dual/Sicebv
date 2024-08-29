@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.modules.persona.data;
 using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -13,13 +14,15 @@ namespace Cebv.features.formulario_cebv.reportante.presentation;
 
 public partial class ReportanteViewModel : ObservableObject
 {
+    // TODO: Arreglar porque no muestra lengua
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Reportante _reportante;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-    
+
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _generos = new();
@@ -27,28 +30,29 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _lenguas = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _escolaridades = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _estatusEscolaridades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _estadosConyugales = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
-    
+
     [ObservableProperty] private Estado _estadoSelected;
     [ObservableProperty] private Municipio _municipioSelected;
     [ObservableProperty] private Catalogo _grupoVulnerableSelected;
 
     [ObservableProperty] private string _noTelefonoMovil = string.Empty;
     [ObservableProperty] private string _observacionesMovil = string.Empty;
-    
+
     [ObservableProperty] private string _noTelefonoFijo = string.Empty;
     [ObservableProperty] private string _observacionesFijo = string.Empty;
-    
+
     [ObservableProperty] private string _nombreContacto = string.Empty;
     [ObservableProperty] private string _observacionesContacto = string.Empty;
-    
+
     [ObservableProperty] private int? _edadAproxmida;
-    
+
     [ObservableProperty] private bool _tieneTelefonosMoviles;
     [ObservableProperty] private bool _tieneTelefonosFijos;
     [ObservableProperty] private bool _tieneCorreos;
@@ -57,23 +61,15 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private bool? _victimaExtorsion;
     [ObservableProperty] private bool? _recibioAmenaza;
 
-    // TODO: Actualizar con catalogo de la api
-    [ObservableProperty] private List<string> _estatusEscolaridades = new()
-    {
-        "TERMINADA",
-        "EN CURSO",
-        "NO ESPECIFICA"
-    };
-
     public ReportanteViewModel()
     {
         CargarCatalogos();
     }
-    
+
     private async void CargarCatalogos()
     {
         var reporte = _reporteService.GetReporte();
-        
+
         // Verifica si reporte y Reportantes están inicializados
         if (reporte == null || reporte.Reportantes == null || reporte.Reportantes.Count == 0)
         {
@@ -87,10 +83,11 @@ public partial class ReportanteViewModel : ObservableObject
         {
             Reportante = reporte.Reportantes[0];
         }
-        
-        var estadoId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
+
+        var estadoId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado
+            ?.Id;
         var municipioId = reporte.Reportantes?[0].Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
-        
+
         // Cargar los catálogos de forma asincrónica usando el método LoadCatalog
         Parentescos = await LoadCatalog("parentescos");
         Sexos = await LoadCatalog("sexos");
@@ -100,6 +97,7 @@ public partial class ReportanteViewModel : ObservableObject
         Lenguas = await LoadCatalog("lenguas");
         Nacionalidades = await LoadCatalog("nacionalidades");
         Escolaridades = await LoadCatalog("escolaridades");
+        EstatusEscolaridades = await LoadCatalog("estatus-escolaridades");
         EstadosConyugales = await LoadCatalog("estados-conyugales");
         GruposVulnerables = await LoadCatalog("grupos-vulnerables");
         Estados = await ReportanteNetwork.GetEstados();
@@ -121,7 +119,7 @@ public partial class ReportanteViewModel : ObservableObject
         {
             Reportante.Persona.Nacionalidades.Add(new Catalogo());
         }
-        
+
         if (!Reportante.Persona.Direcciones.Any())
         {
             Reportante.Persona.Direcciones.Add(new Direccion());
@@ -137,37 +135,40 @@ public partial class ReportanteViewModel : ObservableObject
             ParticipoBusqueda = null;
         }
         else ParticipoBusqueda = reporte.Reportantes.FirstOrDefault()?.ParticipacionBusquedas != String.Empty;
-        
+
         if (reporte.Reportantes?.FirstOrDefault()?.DescripcionExtorsion == null)
         {
             VictimaExtorsion = null;
         }
         else VictimaExtorsion = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
-        
+
         if (reporte.Reportantes?.FirstOrDefault()?.DescripcionDondeProviene == null)
         {
             RecibioAmenaza = null;
         }
         else RecibioAmenaza = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
-        
+
         EdadAproxmida = CalculateAge(reporte?.Reportantes?.FirstOrDefault()?.Persona.FechaNacimiento);
 
         TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
         TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
         TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
         TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
+
+        Reporte.Reportantes[0].Persona.Estudios ??= new Estudio();
+        Reporte.Reportantes[0].Persona.ContextoFamiliar ??= new ContextoFamiliar();
     }
-    
+
     private async Task<ObservableCollection<Catalogo>> LoadCatalog(string catalogName)
     {
         var catalog = await ReportanteNetwork.GetCatalogo(catalogName);
         return catalog ?? new ObservableCollection<Catalogo>();
     }
-    
+
     public static int? CalculateAge(DateTime? birthDate)
     {
         if (!birthDate.HasValue) // Check if birthDate is null
-            return null; 
+            return null;
 
         int years = DateTime.Now.Year - birthDate.Value.Year;
         if (birthDate.Value.AddYears(years) > DateTime.Now)
@@ -190,9 +191,11 @@ public partial class ReportanteViewModel : ObservableObject
             case null:
                 Reportante.ParticipacionBusquedas = null;
                 break;
-        };
+        }
+
+        ;
     }
-    
+
     partial void OnVictimaExtorsionChanged(bool? value)
     {
         switch (value)
@@ -203,9 +206,11 @@ public partial class ReportanteViewModel : ObservableObject
             case null:
                 Reportante.DescripcionExtorsion = null;
                 break;
-        };
+        }
+
+        ;
     }
-    
+
     partial void OnRecibioAmenazaChanged(bool? value)
     {
         switch (value)
@@ -216,7 +221,9 @@ public partial class ReportanteViewModel : ObservableObject
             case null:
                 Reportante.DescripcionDondeProviene = null;
                 break;
-        };
+        }
+
+        ;
     }
 
     async partial void OnEstadoSelectedChanged(Estado value)
@@ -224,17 +231,17 @@ public partial class ReportanteViewModel : ObservableObject
         MunicipioSelected = null;
         Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id ?? string.Empty);
     }
-    
+
     async partial void OnMunicipioSelectedChanged(Municipio value)
     {
         if (value != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(value.Id);
     }
-    
+
     [RelayCommand]
     private void OnAddTelefonoMovil()
     {
         if (NoTelefonoMovil.Length <= 0) return;
-        
+
         var telefonos = Reporte.Reportantes?[0].Persona?.Telefonos;
         telefonos?.Add(new Telefono
         {
@@ -243,16 +250,16 @@ public partial class ReportanteViewModel : ObservableObject
             EsMovil = true,
             Compania = null
         });
-        
-        NoTelefonoMovil = string.Empty; 
+
+        NoTelefonoMovil = string.Empty;
         ObservacionesMovil = string.Empty;
     }
-    
+
     [RelayCommand]
     private void OnAddTelefonoFijo()
     {
         if (NoTelefonoFijo.Length <= 0) return;
-        
+
         var telefonos = Reporte.Reportantes?[0].Persona?.Telefonos;
         telefonos?.Add(new Telefono
         {
@@ -261,16 +268,16 @@ public partial class ReportanteViewModel : ObservableObject
             EsMovil = false,
             Compania = null
         });
-        
-        NoTelefonoFijo = string.Empty; 
+
+        NoTelefonoFijo = string.Empty;
         ObservacionesFijo = string.Empty;
     }
-    
+
     [RelayCommand]
     private void OnAddContacto()
     {
         if (NombreContacto.Length <= 0) return;
-        
+
         var contactos = Reporte.Reportantes?[0].Persona?.Contactos;
         contactos?.Add(new Contacto
         {
@@ -278,11 +285,11 @@ public partial class ReportanteViewModel : ObservableObject
             Observaciones = ObservacionesContacto,
             Tipo = "Correo Electronico"
         });
-        
-        NombreContacto = string.Empty; 
+
+        NombreContacto = string.Empty;
         ObservacionesContacto = string.Empty;
     }
-    
+
     [RelayCommand]
     private void OnAddGrupoVulnerabilidad()
     {
@@ -290,7 +297,7 @@ public partial class ReportanteViewModel : ObservableObject
         if (GrupoVulnerableSelected != null) gruposVulnerables?.Add(GrupoVulnerableSelected);
         GrupoVulnerableSelected = null;
     }
-    
+
     [RelayCommand]
     private void OnRemoveGrupoVulnerabilidad(Catalogo catalogo)
     {
@@ -304,7 +311,7 @@ public partial class ReportanteViewModel : ObservableObject
         var telefonos = Reporte.Reportantes?[0].Persona?.Telefonos;
         telefonos?.Remove(telefono);
     }
-    
+
     [RelayCommand]
     private void OnEliminarContacto(Contacto contacto)
     {
@@ -321,7 +328,7 @@ public partial class ReportanteViewModel : ObservableObject
         AddTelefonoFijoCommand.Execute(null);
         AddContactoCommand.Execute(null);
         AddGrupoVulnerabilidadCommand.Execute(null);
-        
+
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

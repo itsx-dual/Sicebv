@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Cebv.core.modules.persona.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -140,6 +141,12 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "senas_particulares")]
     private ObservableCollection<SenaParticular> _senasParticulares = [];
+    
+    [ObservableProperty, JsonProperty("estudios")]
+    private Estudio? _estudios;
+    
+    [ObservableProperty, JsonProperty("contexto_familiar")]
+    private ContextoFamiliar? _contextoFamiliar;
 
     /**
      * Equals, GetHashCode, ToString

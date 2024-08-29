@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:util="clr-namespace:Cebv.core.util"
-      xmlns:data1="clr-namespace:Cebv.core.data"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.reportante.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
@@ -112,15 +111,13 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Religión:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Persona.Religion}"
+                            <ComboBox SelectedItem="{Binding Reportante.Persona.Religion}"
                                       ItemsSource="{Binding Religiones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Lengua:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Persona.Lengua}"
+                            <ComboBox SelectedItem="{Binding Reportante.Persona.Lengua}"
                                       ItemsSource="{Binding Lenguas}" />
                         </StackPanel>
                     </WrapPanel>
@@ -485,13 +482,13 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nivel de escolaridad:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Persona.Escolaridad}"
+                                      SelectedItem="{Binding Reportante.Persona.Estudios.Escolaridad}"
                                       ItemsSource="{Binding Escolaridades}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="350" Margin="0 0 25 0">
                             <ui:TextBlock Text="Avance de escolaridad:" />
-                            <ComboBox SelectedValue="{Binding Reportante.Persona.NivelEscolaridad}"
+                            <ComboBox SelectedValue="{Binding Reportante.Persona.Estudios.EstatusEscolaridad}"
                                       ItemsSource="{Binding EstatusEscolaridades}" />
                         </StackPanel>
                     </WrapPanel>
@@ -500,7 +497,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Estado conyugal:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Persona.EstadoConyugal}"
+                                      SelectedItem="{Binding Reportante.Persona.ContextoFamiliar.EstadoConyugal}"
                                       ItemsSource="{Binding EstadosConyugales}" />
                         </StackPanel>
 
