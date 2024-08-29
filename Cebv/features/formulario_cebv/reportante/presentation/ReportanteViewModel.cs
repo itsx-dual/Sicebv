@@ -57,6 +57,7 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private bool? _victimaExtorsion;
     [ObservableProperty] private bool? _recibioAmenaza;
 
+    // TODO: Actualizar con catalogo de la api
     [ObservableProperty] private List<string> _estatusEscolaridades = new()
     {
         "TERMINADA",

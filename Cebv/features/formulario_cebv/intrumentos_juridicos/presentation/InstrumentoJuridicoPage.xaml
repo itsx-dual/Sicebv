@@ -13,9 +13,9 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="InstrumentoJuridicoPage">
-    
+
     <Page.DataContext>
-        <presentation:InstrumentoJuridicoViewModel/>
+        <presentation:InstrumentoJuridicoViewModel />
     </Page.DataContext>
 
     <Grid Margin="10">
@@ -36,15 +36,12 @@
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="Especifica si hay o existe carpeta de investigación (CI). " />
-                        <ComboBox SelectedItem="{Binding OpcionCarpetaKey}"
-                                  SelectedValue="{Binding OpcionCarpeta}"
-                                  ItemsSource="{Binding Opciones}"
-                                  DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"/>
+                        <ComboBox SelectedItem="{Binding CarpetaOpcion}"
+                                  ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
-                               Visibility="{Binding OpcionCarpeta,
+                               Visibility="{Binding CarpetaInvestigacion.EsOficial,
                                Converter={StaticResource VisibilityConverter2}}">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de CI, IM o reporte de FGE:" />
@@ -76,15 +73,12 @@
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="Específica si hay o existe amparo buscador" />
-                        <ComboBox SelectedItem="{Binding OpcionAmparoKey}"
-                                  SelectedValue="{Binding OpcionAmparo}"
-                                  ItemsSource="{Binding Opciones}"
-                                  DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"/>
+                        <ComboBox SelectedItem="{Binding AmparoOpcion}"
+                                  ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
-                               Visibility="{Binding OpcionAmparo,
+                               Visibility="{Binding AmparoBuscador.EsOficial,
                                Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -117,37 +111,34 @@
                 <StackPanel>
                     <StackPanel>
                         <ui:TextBlock Text="Específica si hay o existe recomendación de derechos humanos (DH)" />
-                        <ComboBox SelectedItem="{Binding OpcionRecomendacionKey}"
-                                  SelectedValue="{Binding OpcionRecomendacion}"
-                                  ItemsSource="{Binding Opciones}"
-                                  DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"/>
+                        <ComboBox SelectedItem="{Binding RecomendacionOpcion}"
+                                  ItemsSource="{Binding Opciones}" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
-                               Visibility="{Binding OpcionRecomendacion,
+                               Visibility="{Binding RecomedacionDerechos.EsOficial,
                                Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de recomendación derechos humanos:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NumeroDocumento}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la recomendación derechos humanos:"
                                           FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.DondeRadica}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NombreServidorPublico}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción recomendación DH:" />
                             <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
-                                        SelectedDate="{Binding RecomedacionDerechosHumanos.FechaRecepcion}" />
+                                        SelectedDate="{Binding RecomedacionDerechos.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

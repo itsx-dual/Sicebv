@@ -153,7 +153,7 @@ public partial class DesaparecidoViewModel : ObservableObject
             MunicipioSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
         }
 
-        TieneApodos = Desaparecido.Persona?.Apodos?.Any() ?? false;
+        TieneApodos = Desaparecido.Persona?.Pseudonimos?.Any() ?? false;
         TieneTelefonosMoviles = Desaparecido.Persona?.Telefonos?.Any(x => (bool)x.EsMovil!) ?? false;
         TieneTelefonosFijos = Desaparecido.Persona?.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
         TieneCorreos = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Correo Electronico") ?? false;
@@ -240,7 +240,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     {
         if (ApodoNombre.Length > 0 || ApodoApellidoPaterno.Length > 0 || ApodoApellidoMaterno.Length > 0)
         {
-            Desaparecido.Persona?.Apodos?.Add(new Apodo
+            Desaparecido.Persona?.Pseudonimos?.Add(new Pseudonimo
             {
                 Nombre = ApodoNombre,
                 ApellidoPaterno = ApodoApellidoPaterno, 
@@ -291,9 +291,9 @@ public partial class DesaparecidoViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnRemoveApodo(Apodo apodo)
+    private void OnRemoveApodo(Pseudonimo pseudonimo)
     {
-        Desaparecido.Persona?.Apodos?.Remove(apodo);
+        Desaparecido.Persona?.Pseudonimos?.Remove(pseudonimo);
     }
     
     [RelayCommand]

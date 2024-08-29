@@ -10,7 +10,7 @@
       d:DesignWidth="1000"
       d:DesignHeight="Auto"
       mc:Ignorable="d"
-      Name="pageCondiciones"
+      Name="PageCondiciones"
       Title="CondicionesVulnerabilidadPage">
 
     <Grid Margin="10">
@@ -28,11 +28,22 @@
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Tipo de sangre" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <StackPanel MinWidth="200">
-                    <ui:TextBlock Text="Tipo de sangre:" />
-                    <ComboBox DisplayMemberPath="Nombre"
-                              SelectedItem="{Binding TipoSangre}"
-                              ItemsSource="{Binding TiposSangre}" />
+                <StackPanel>
+                    <StackPanel MinWidth="200" Margin="0 0 0 15">
+                        <ui:TextBlock Text="Tipo sanguíneo:" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding TipoSangre}"
+                                  ItemsSource="{Binding TiposSangre}" />
+                    </StackPanel>
+                    
+                    <!-- TODO: Corregir lo siguiente dentro del ViewModel -->
+                    <StackPanel MinWidth="200">
+                        <ui:TextBlock Text="Factor Rhesus:" />
+                        <ComboBox>
+                            <ComboBoxItem Content="Positivo"/>
+                            <ComboBoxItem Content="Negativo"/>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
@@ -48,7 +59,7 @@
                     <DataGridTextColumn Header="Tratamiento"
                                         Width="*"
                                         Binding="{Binding Path=Tratamiento}" />
-                    <DataGridComboBoxColumn Header="Naturaleza"
+                    <DataGridComboBoxColumn Header="Indole"
                                             ItemsSource="{Binding NaturalezaOpciones, Mode=TwoWay}"
                                             SelectedValueBinding="{Binding Naturaleza}"
                                             Width="*">
@@ -168,7 +179,7 @@
                                             <!-- se realiza otra instancia aparte del viewmodel donde el index siempre es 0 -->
                                             <ui:Button Appearance="Danger"
                                                        Icon="{ui:SymbolIcon Delete24}"
-                                                       Command="{Binding ElementName=pageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
+                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveEnfoqueDiferenciadoCommand}"
                                                        CommandParameter="{Binding Chars}" />
                                         </StackPanel>
                                     </Grid>
@@ -233,7 +244,7 @@
                                                     HorizontalAlignment="Right">
                                             <ui:Button Appearance="Danger"
                                                        Icon="{ui:SymbolIcon Delete24}"
-                                                       Command="{Binding ElementName=pageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
+                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveCaracteristicaRiesgoCommand}"
                                                        CommandParameter="{Binding Chars}" />
                                         </StackPanel>
                                     </Grid>
@@ -298,7 +309,7 @@
                                                     HorizontalAlignment="Right">
                                             <ui:Button Appearance="Danger"
                                                        Icon="{ui:SymbolIcon Delete24}"
-                                                       Command="{Binding ElementName=pageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
+                                                       Command="{Binding ElementName=PageCondiciones, Path=DataContext.RemoveInformacionRelevanteCommand}"
                                                        CommandParameter="{Binding Chars}" />
                                         </StackPanel>
                                     </Grid>
@@ -342,8 +353,8 @@
                                   PlaceholderText="Meses de embarazo"
                                   Value="{Binding MesesEmbarazo}"
                                   Margin="5"
-                                  IsEnabled="{Binding EstaEmbarazada}" 
-                                  Tag="Number"/>
+                                  IsEnabled="{Binding EstaEmbarazada}"
+                                  Tag="Number" />
                 </WrapPanel>
             </Border>
         </StackPanel>

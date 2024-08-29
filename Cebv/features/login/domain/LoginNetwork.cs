@@ -32,15 +32,26 @@ public class LoginNetwork
             })
         };
 
-        using var response = await Client.SendAsync(request);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-
-        return (int)response.StatusCode switch
+        try
         {
-            200 => Token(jsonResponse),
-            401 => JsonSerializer.Deserialize<Error>(jsonResponse)!,
-            422 => JsonSerializer.Deserialize<Error>(jsonResponse)!,
-            _ => throw new InvalidOperationException($"Status code desconocido: {(int)response.StatusCode}")
-        };
+            using var response = await Client.SendAsync(request);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            return (int)response.StatusCode switch
+            {
+                200 => Token(jsonResponse),
+                401 => JsonSerializer.Deserialize<Error>(jsonResponse)!,
+                422 => JsonSerializer.Deserialize<Error>(jsonResponse)!,
+                _ => new Error() { error = "Error al intentar iniciar sesión" }
+            };
+        }
+        catch (HttpRequestException ex)
+        {
+            return new Error() { error = "Error al intentar conectar con el servidor" };
+        }
+        catch (Exception ex)
+        {
+            return new Error() { error = "Error desconocido" };
+        }
     }
 }

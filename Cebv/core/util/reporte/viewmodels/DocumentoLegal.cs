@@ -9,36 +9,41 @@ public partial class DocumentoLegal : ObservableObject
     [JsonConstructor]
     public DocumentoLegal(
         int? id,
-        string? tipo_documento,
-        string? numero_documento,
-        string? donde_radica,
-        string? nombre_servidor_publico,
-        DateTime? fecha_recepcion,
-        string? desaparecido_id)
+        bool? esOficial,
+        string? tipoDocumento,
+        string? numeroDocumento,
+        string? dondeRadica,
+        string? nombreServidorPublico,
+        DateTime? fechaRecepcion,
+        string? desaparecidoId)
     {
         Id = id;
-        TipoDocumento = tipo_documento;
-        NumeroDocumento = numero_documento;
-        DondeRadica = donde_radica;
-        NombreServidorPublico = nombre_servidor_publico;
-        FechaRecepcion = fecha_recepcion;
-        DesaparecidoId = desaparecido_id;
+        EsOficial = esOficial;
+        TipoDocumento = tipoDocumento;
+        NumeroDocumento = numeroDocumento;
+        DondeRadica = dondeRadica;
+        NombreServidorPublico = nombreServidorPublico;
+        FechaRecepcion = fechaRecepcion;
+        DesaparecidoId = desaparecidoId;
     }
 
-    public DocumentoLegal() { }
+    public DocumentoLegal()
+    {
+    }
 
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(this, obj)) return true; // Same object reference
         if (ReferenceEquals(obj, null)) return false; // Other object is null
         if (obj.GetType() != GetType()) return false; // Different types
-        
-        return Equals((DocumentoLegal) obj);
+
+        return Equals((DocumentoLegal)obj);
     }
 
     private bool Equals(DocumentoLegal documento)
     {
         return Id == documento.Id &&
+               EsOficial == documento.EsOficial &&
                TipoDocumento == documento.TipoDocumento &&
                NumeroDocumento == documento.NumeroDocumento &&
                DondeRadica == documento.DondeRadica &&
@@ -46,26 +51,29 @@ public partial class DocumentoLegal : ObservableObject
                FechaRecepcion == documento.FechaRecepcion &&
                DesaparecidoId == documento.DesaparecidoId;
     }
-    
-    
+
+
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
-    
+
+    [ObservableProperty, JsonProperty("es_oficial")]
+    private bool? _esOficial;
+
     [ObservableProperty, JsonProperty(PropertyName = "tipo_documento")]
     private string? _tipoDocumento;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "numero_documento")]
     private string? _numeroDocumento;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "donde_radica")]
     private string? _dondeRadica;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "nombre_servidor_publico")]
     private string? _nombreServidorPublico;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "fecha_recepcion")]
     private DateTime? _fechaRecepcion;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "desaparecido_id")]
     private string? _desaparecidoId;
 }

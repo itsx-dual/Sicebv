@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
+using Cebv.core.domain;
 using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -11,8 +12,6 @@ using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.encuadre_preeliminar.domain;
 using Cebv.features.dashboard.presentation;
-using Cebv.features.formulario_cebv.datos_del_reporte.domain;
-using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using Cebv.features.formulario_cebv.prendas.domain;
 using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -142,7 +141,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
         ZonasEstados = await EncuadrePreeliminarNetwork.GetCatalogo("zonas-estados");
         Estados = await ReportanteNetwork.GetEstados();
-        TiposMedios = await DatosReporteNetwork.GetTiposMedios();
+        TiposMedios = await CebvNetwork.GetCatalogo("tipos-medios");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
@@ -229,8 +228,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Desaparecido.Persona.Curp = value;
     }
 
-    async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
-        Medios = await DatosReporteNetwork.GetMedios(value.Id);
+    async partial void OnTipoMedioSelectedChanged(Catalogo value)
+    {
+        if (value.Id is null) return;
+
+        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>
+            ("medios", "tipo_medio_id", value.Id.ToString()!);
+    }
 
     async partial void OnEstadoSelectedChanged(Estado value)
     {
