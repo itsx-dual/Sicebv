@@ -6,7 +6,7 @@ using Cebv.features.login.data;
 
 namespace Cebv.features.login.domain;
 
-public class LoginNetwork
+public static class LoginNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
