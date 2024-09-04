@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -7,7 +8,6 @@ using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
@@ -23,6 +23,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido;
+    [ObservableProperty] private Direccion _direccionDesaparecido;
     
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();
@@ -84,82 +85,86 @@ public partial class DesaparecidoViewModel : ObservableObject
     
     public DesaparecidoViewModel()
     {
-        CargarCatalogos();
+        InitAsync();
     }
 
-    private async void CargarCatalogos()
+    private async Task CargarCatalogos()
     {
-        var desaparecido = _reporteService.GetReporte().Desaparecidos?.FirstOrDefault();
-        var estadoId = desaparecido?.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
-        var municipioId = desaparecido?.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
-        
-        TiposOcupaciones = await DesaparecidoNetwork.GetCatalogo("tipos-ocupaciones");
-        if (desaparecido?.OcupacionPrincipal != null)
+        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
+        Sexos = await CebvNetwork.GetCatalogo("sexos");
+        Generos = await CebvNetwork.GetCatalogo("generos");
+        Colectivos = await CebvNetwork.GetCatalogo("colectivos");
+        Religiones = await CebvNetwork.GetCatalogo("religiones");
+        Lenguas = await CebvNetwork.GetCatalogo("lenguas");
+        RazonesCurp = await CebvNetwork.GetCatalogo("razones-curp");
+        Nacionalidades = await CebvNetwork.GetCatalogo("nacionalidades");
+        Escolaridades = await CebvNetwork.GetCatalogo("escolaridades");
+        EstadosConyugales = await CebvNetwork.GetCatalogo("estados-conyugales");
+        GruposVulnerables = await CebvNetwork.GetCatalogo("grupos-vulnerables");
+        CompaniasTelefonicas = await CebvNetwork.GetCatalogo("companias-telefonicas");
+        TiposRedesSociales = await CebvNetwork.GetCatalogo("tipos-redes-sociales");
+        TiposOcupaciones = await CebvNetwork.GetCatalogo("tipos-ocupaciones");
+        Estados = await InegiNetwork.GetEstados();
+    }
+    
+    private async Task CargarDireccion()
+    {
+        if (!Desaparecido.Persona.Direcciones.Any())
         {
-            TipoOcupacionPrincipalSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == desaparecido.OcupacionPrincipal.TipoOcupacion.Id);
+            Desaparecido.Persona.Direcciones.Add(new Direccion());
+        }
+        DireccionDesaparecido = Desaparecido.Persona.Direcciones?.FirstOrDefault();
+        
+        var estadoId = DireccionDesaparecido?.Asentamiento?.Municipio?.Estado.Id;
+        var municipioId = DireccionDesaparecido?.Asentamiento?.Municipio.Id;
+
+        EstadoSelected = Estados.FirstOrDefault(x => x.Id == estadoId);
+        
+        Municipios = await InegiNetwork.GetMunicipiosDeEstado(estadoId);
+        MunicipioSelected = Municipios.FirstOrDefault(x => x.Id == municipioId);
+        
+        Asentamientos = await InegiNetwork.GetAsentamientosDeMunicipio(municipioId);
+    }
+
+    private async void InitAsync()
+    {
+        var reporte = _reporteService.GetReporte();
+
+        if (!reporte.Desaparecidos.Any())
+        {
+            reporte.Desaparecidos.Add(new Desaparecido());
+        }
+        Desaparecido = reporte.Desaparecidos.FirstOrDefault()!;
+
+        await CargarCatalogos();
+        await CargarDireccion();
+        
+        if (Desaparecido.OcupacionPrincipal is not null)
+        {
+            TipoOcupacionPrincipalSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == Desaparecido.OcupacionPrincipal.TipoOcupacion.Id);
             OcupacionesPrincipales = await DesaparecidoNetwork.OcupacionesDadoTipo(TipoOcupacionPrincipalSelected.Id);
         }
         
-        if (desaparecido?.OcupacionSecundaria != null)
+        if (Desaparecido.OcupacionSecundaria is not null)
         {
-            TipoOcupacionSecundariaSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == desaparecido.OcupacionSecundaria.TipoOcupacion.Id);
+            TipoOcupacionSecundariaSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == Desaparecido.OcupacionSecundaria.TipoOcupacion.Id);
             OcupacionesSecundarias = await DesaparecidoNetwork.OcupacionesDadoTipo(TipoOcupacionSecundariaSelected.Id);
         }
         
-        Parentescos = await DesaparecidoNetwork.GetCatalogo("parentescos");
-        Sexos = await DesaparecidoNetwork.GetCatalogo("sexos");
-        Generos = await DesaparecidoNetwork.GetCatalogo("generos");
-        Colectivos = await DesaparecidoNetwork.GetCatalogo("colectivos");
-        Religiones = await DesaparecidoNetwork.GetCatalogo("religiones");
-        Lenguas = await DesaparecidoNetwork.GetCatalogo("lenguas");
-        RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
-        Nacionalidades = await DesaparecidoNetwork.GetCatalogo("nacionalidades");
-        Escolaridades = await DesaparecidoNetwork.GetCatalogo("escolaridades");
-        EstadosConyugales = await DesaparecidoNetwork.GetCatalogo("estados-conyugales");
-        GruposVulnerables = await DesaparecidoNetwork.GetCatalogo("grupos-vulnerables");
-        CompaniasTelefonicas = await DesaparecidoNetwork.GetCatalogo("companias-telefonicas");
-        TiposRedesSociales = await DesaparecidoNetwork.GetCatalogo("tipos-redes-sociales");
-        Estados = await DesaparecidoNetwork.GetEstados();
-        if (estadoId != null) Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
-        if (municipioId != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
-        
-        Reporte = _reporteService.GetReporte();
-        
-        if (Reporte.Desaparecidos?.Count == 0)
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos?.Add(Desaparecido);
-        }
-        else
-        {
-            Desaparecido = Reporte.Desaparecidos?.FirstOrDefault()!;
-        }
-        
-        if (Desaparecido.Persona?.Nacionalidades?.Count == 0)
+        Desaparecido.Persona.Nacionalidades ??= [];
+        if (!Desaparecido.Persona.Nacionalidades.Any())
         {
             Desaparecido.Persona.Nacionalidades.Add(new Catalogo());
         }
-        
-        if (Desaparecido.Persona?.Direcciones != null && (bool) !Desaparecido.Persona?.Direcciones?.Any())
-        {
-            Desaparecido.Persona?.Direcciones?.Add(new Direccion());
-        }
-        else
-        {
-            EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?
-                .Equals(Reporte.Reportantes?.FirstOrDefault()?.Persona.Direcciones?.FirstOrDefault()) ?? false;
-            
-            EstadoSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
-            MunicipioSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
-        }
 
-        TieneApodos = Desaparecido.Persona?.Apodos?.Any() ?? false;
-        TieneTelefonosMoviles = Desaparecido.Persona?.Telefonos?.Any(x => (bool)x.EsMovil!) ?? false;
-        TieneTelefonosFijos = Desaparecido.Persona?.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
-        TieneCorreos = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Correo Electronico") ?? false;
-        TieneRedesSociales = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Red Social") ?? false;
+        Reporte = reporte;
+        TieneApodos = Desaparecido.Persona.Apodos?.Any() ?? false;
+        TieneTelefonosMoviles = Desaparecido.Persona.Telefonos?.Any(x => (bool)x.EsMovil!) ?? false;
+        TieneTelefonosFijos = Desaparecido.Persona.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
+        TieneCorreos = Desaparecido.Persona.Contactos?.Any(x => x.Tipo == "Correo Electronico") ?? false;
+        TieneRedesSociales = Desaparecido.Persona.Contactos?.Any(x => x.Tipo == "Red Social") ?? false;
         
-        DiferenciaFechas(Reporte.Desaparecidos?[0].Persona?.FechaNacimiento, DateTime.Now);
+        DiferenciaFechas(Desaparecido.Persona.FechaNacimiento, DateTime.Now);
     }
 
     async partial void OnTipoOcupacionPrincipalSelectedChanged(Catalogo value)
@@ -175,64 +180,43 @@ public partial class DesaparecidoViewModel : ObservableObject
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         MunicipioSelected = null;
-        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(value.Id ?? string.Empty);
+        Municipios = await InegiNetwork.GetMunicipiosDeEstado(value.Id ?? string.Empty);
     }
     
     async partial void OnMunicipioSelectedChanged(Municipio value)
     {
-        if (value != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(value.Id);
+        if (value != null) Asentamientos = await InegiNetwork.GetAsentamientosDeMunicipio(value.Id);
     }
 
     async partial void OnEsMismoDomicilioReportanteChanged(bool value)
     {
-        try
+        var reportante = Reporte.Reportantes.FirstOrDefault();
+        
+        if (value)
         {
-            if (value)
+            var direccionReportante = reportante.Persona.Direcciones.FirstOrDefault();
+            
+            if (reportante is null) return;
+            if (direccionReportante is null)
             {
-                var reporteReportante = Reporte?.Reportantes?.FirstOrDefault();
-                var direccionReportante = reporteReportante?.Persona?.Direcciones?.FirstOrDefault();
-
-                if (direccionReportante != null)
-                {
-                    Desaparecido.Persona.Direcciones[0] = direccionReportante;
-                    var estadoId = direccionReportante.Asentamiento?.Municipio?.Estado?.Id;
-                    var municipioId = direccionReportante.Asentamiento?.Municipio?.Id;
-
-                    if (estadoId != null)
-                    {
-                        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
-                    }
-                    if (municipioId != null)
-                    {
-                        Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
-                    }
-
-                    Desaparecido.Persona.Direcciones[0] = direccionReportante;
-                }
-                else
-                {
-                    _snackbarService.Show(
-                        "No se encontró una dirección para el reportante",
-                        "No se realizó la acción",
-                        ControlAppearance.Caution,
-                        new SymbolIcon(SymbolRegular.Warning20),
-                        new TimeSpan(0, 0, 5));
-                }
+                _snackbarService.Show(
+                    "El reportante no tiene una direccion",
+                    $"No se realizó la acción",
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5)
+                );
+                return;
             }
-            else
-            {
-                Desaparecido.Persona.Direcciones[0] = new Direccion();
-            }
+
+            if (!value) return;
+            Desaparecido.Persona.Direcciones[0] = direccionReportante;
         }
-        catch (Exception ex)
+        else
         {
-            _snackbarService.Show(
-                "No se encontró una dirección para el reportante",
-                $"No se realizó la acción",
-                ControlAppearance.Caution,
-                new SymbolIcon(SymbolRegular.Warning20),
-                new TimeSpan(0, 0, 5));
+            Desaparecido.Persona.Direcciones.Remove(reportante?.Persona.Direcciones?.FirstOrDefault());
         }
+        await CargarDireccion();
     }
 
     [RelayCommand]
@@ -339,7 +323,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     {
         if (UsuarioRedSocial.Length <= 0) return;
         
-        var contactos = Desaparecido.Persona?.Contactos;
+        var contactos = Desaparecido.Persona.Contactos;
         contactos?.Add(new Contacto
         {
             Nombre = UsuarioRedSocial,
@@ -348,8 +332,8 @@ public partial class DesaparecidoViewModel : ObservableObject
             Tipo = "Red Social"
         });
         
-        UsuarioCorreo = string.Empty; 
-        ObservacionesCorreo = string.Empty;
+        UsuarioRedSocial = string.Empty; 
+        ObservacionesRedSocial = string.Empty;
         TipoRedSocialSelected = null;
     }
 

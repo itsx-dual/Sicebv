@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
-using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
@@ -135,7 +134,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GruposPertenencia = await CebvNetwork.GetCatalogo("grupos-pertenencias");
         RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
-        Estados = await ReportanteNetwork.GetEstados();
+        Estados = await InegiNetwork.GetEstados();
         TiposMedios = await CebvNetwork.GetCatalogo("tipos-medios");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
@@ -217,13 +216,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         if (value == null) return;
-        Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id);
+        Municipios = await InegiNetwork.GetMunicipiosDeEstado(value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio municipio)
     {
         if (municipio == null) return;
-        Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipio.Id);
+        Asentamientos = await InegiNetwork.GetAsentamientosDeMunicipio(municipio.Id);
     }
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)

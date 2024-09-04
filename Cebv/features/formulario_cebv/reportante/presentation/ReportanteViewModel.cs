@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.domain;
-using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -105,8 +104,8 @@ public partial class ReportanteViewModel : ObservableObject
             : null; 
         
         EdadAproxmida = CalculateAge(reporte?.Reportantes?.FirstOrDefault()?.Persona.FechaNacimiento);
-        TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
-        TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
+        TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => x.EsMovil ?? false);
+        TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => !x.EsMovil ?? false);
         TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
         TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
         GruposVulnerablesFiltrados = new ObservableCollection<Catalogo>(GruposVulnerables.Except(Reporte.Reportantes.FirstOrDefault()?.Persona.GruposVulnerables));
@@ -125,10 +124,10 @@ public partial class ReportanteViewModel : ObservableObject
 
         EstadoSelected = Estados.FirstOrDefault(x => x.Id == estadoId);
         
-        Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(estadoId) ?? [];
+        Municipios = await InegiNetwork.GetMunicipiosDeEstado(estadoId);
         MunicipioSelected = Municipios.FirstOrDefault(x => x.Id == municipioId);
         
-        Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId) ?? [];
+        Asentamientos = await InegiNetwork.GetAsentamientosDeMunicipio(municipioId);
     }
     
     private async Task CargarCatalogos()
@@ -143,7 +142,7 @@ public partial class ReportanteViewModel : ObservableObject
         Escolaridades = await CebvNetwork.GetCatalogo("escolaridades");
         EstadosConyugales = await CebvNetwork.GetCatalogo("estados-conyugales");
         GruposVulnerables = await CebvNetwork.GetCatalogo("grupos-vulnerables");
-        Estados = await ReportanteNetwork.GetEstados();
+        Estados = await InegiNetwork.GetEstados();
     }
     
     public static int? CalculateAge(DateTime? birthDate)
@@ -204,13 +203,13 @@ public partial class ReportanteViewModel : ObservableObject
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         Municipios = null;
-        if (value is not null) Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id);
+        if (value is not null) Municipios = await InegiNetwork.GetMunicipiosDeEstado(value.Id);
     }
     
     async partial void OnMunicipioSelectedChanged(Municipio value)
     {
         Asentamientos = null;
-        if (value != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(value.Id);
+        if (value != null) Asentamientos = await InegiNetwork.GetAsentamientosDeMunicipio(value.Id);
     }
     
     [RelayCommand]

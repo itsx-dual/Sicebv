@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
 using Cebv.core.data;
 using Cebv.core.modules.desaparecido.data;
-using Cebv.core.modules.reportante.data;
 using Cebv.core.modules.ubicacion.data;
 
 namespace Cebv.core.modules.reporte.data;
@@ -43,7 +42,7 @@ public class ReporteResponse
     [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
 
-    [JsonPropertyName("reportantes")] public List<ReportanteResponse>? Reportantes { get; set; }
+    //[JsonPropertyName("reportantes")] public List<ReportanteResponse>? Reportantes { get; set; }
 
     [JsonPropertyName("desaparecidos")] public List<DesaparecidoResponse>? Desaparecidos { get; set; }
 
@@ -78,7 +77,7 @@ public class ReporteRequest
     [JsonPropertyName("sintesis_localizacion")]
     public string? SintesisLocalizacion { get; set; }
 
-    [JsonPropertyName("reportantes")] public List<ReportanteResponse>? Reportantes { get; set; }
+    //[JsonPropertyName("reportantes")] public List<ReportanteResponse>? Reportantes { get; set; }
 
     [JsonPropertyName("desaparecidos")] public List<DesaparecidoResponse>? Desaparecidos { get; set; }
 }

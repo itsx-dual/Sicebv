@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using Cebv.core.domain;
-using Cebv.core.modules.reportante.data;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
@@ -28,7 +27,7 @@ public partial class FormularioCebvViewModel : ObservableObject,
     /**
      * Reportante
      */
-    [ObservableProperty] private ReportanteRequest _reportante = new();
+    //[ObservableProperty] private ReportanteRequest _reportante = new();
 
     public FormularioCebvViewModel()
     {
@@ -61,7 +60,7 @@ public partial class FormularioCebvViewModel : ObservableObject,
                 "",
                 ControlAppearance.Success,
                 new SymbolIcon(SymbolRegular.Alert32),
-                new TimeSpan(0,0, 5));
+                new TimeSpan(0,0,5));
         }
         else
         {

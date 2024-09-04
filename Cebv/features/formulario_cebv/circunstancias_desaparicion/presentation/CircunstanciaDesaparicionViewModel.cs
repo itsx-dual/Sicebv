@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
@@ -36,7 +37,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     private async void LoadAsync()
     {
-        TiposDomicilio = await DesaparecidoNetwork.GetCatalogo("tipos-domicilio");
+        TiposDomicilio = await CebvNetwork.GetCatalogo("tipos-domicilio");
         Reporte = _reporteService.GetReporte();
 
         Reporte.HechosDesaparicion ??= new();

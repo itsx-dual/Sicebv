@@ -47,6 +47,11 @@ public partial class Direccion : ObservableObject
     {
         return Id == direccion.Id;
     }
+    
+    public override int GetHashCode() //wao
+    {
+        return HashCode.Combine(Id, Calle);
+    }
 
     public Direccion() { }
     
