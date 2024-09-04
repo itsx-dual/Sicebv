@@ -19,6 +19,8 @@ public partial class Persona : ObservableObject
         string? curp,
         string? observacionesCurp,
         string? rfc,
+        bool? hablaEspanhol,
+        string? especificacionesOcupacion,
         Catalogo? sexo,
         Catalogo? genero,
         Catalogo? religion,
@@ -30,7 +32,10 @@ public partial class Persona : ObservableObject
         ObservableCollection<Catalogo>? gruposVulnerables,
         ObservableCollection<Telefono>? telefonos,
         ObservableCollection<Contacto>? contactos,
-        ObservableCollection<SenaParticular> senasParticulares
+        ObservableCollection<SenaParticular> senasParticulares,
+        Estudio? estudios,
+        ContextoFamiliar? contextoFamiliar,
+        Salud? salud
     )
     {
         Id = id;
@@ -42,6 +47,8 @@ public partial class Persona : ObservableObject
         Curp = curp;
         ObservacionesCurp = observacionesCurp;
         Rfc = rfc;
+        HablaEspanhol = hablaEspanhol;
+        EspecificacionesOcupacion = especificacionesOcupacion;
         Sexo = sexo;
         Genero = genero;
         Religion = religion;
@@ -54,6 +61,9 @@ public partial class Persona : ObservableObject
         Contactos = contactos;
         GruposVulnerables = gruposVulnerables;
         SenasParticulares = senasParticulares;
+        Estudios = estudios;
+        ContextoFamiliar = contextoFamiliar;
+        Salud = salud;
     }
 
     public Persona()
@@ -96,6 +106,12 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "rfc")]
     private string? _rfc;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "habla_espanhol")]
+    private bool? _hablaEspanhol;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "especificaciones_ocupacion")]
+    private string? _especificacionesOcupacion;
 
     /**
      * Llaves foráneas.
@@ -147,6 +163,11 @@ public partial class Persona : ObservableObject
     
     [ObservableProperty, JsonProperty("contexto_familiar")]
     private ContextoFamiliar? _contextoFamiliar;
+    
+    [ObservableProperty, JsonProperty("salud")]
+    private Salud? _salud;
+    
+    // TODO: Añadir ocupaciones
 
     /**
      * Equals, GetHashCode, ToString

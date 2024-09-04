@@ -14,7 +14,8 @@ public partial class Estudio : ObservableObject
         Catalogo? escolaridad,
         Catalogo? estatusEscolaridad,
         int? direccionId,
-        string? nombreInstitucion
+        string? nombreInstitucion,
+        string? sabeLeerEscribir
     )
     {
         Id = id;
@@ -23,6 +24,7 @@ public partial class Estudio : ObservableObject
         EstatusEscolaridad = estatusEscolaridad;
         DireccionId = direccionId;
         NombreInstitucion = nombreInstitucion;
+        SabeLeerEscribir = sabeLeerEscribir;
     }
 
     public Estudio()
@@ -36,7 +38,7 @@ public partial class Estudio : ObservableObject
     private int? _personaId;
 
     [ObservableProperty, JsonProperty("escolaridad")]
-    private Catalogo? _escolaridad;
+    private Catalogo? _escolaridad ;
 
     [ObservableProperty, JsonProperty("estatus_escolaridad")]
     private Catalogo? _estatusEscolaridad;
@@ -46,4 +48,7 @@ public partial class Estudio : ObservableObject
 
     [ObservableProperty, JsonProperty("nombre_institucion")]
     private string? _nombreInstitucion;
+
+    [ObservableProperty, JsonProperty("sabe_leer_escribir")]
+    private string? _sabeLeerEscribir;
 }

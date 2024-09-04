@@ -13,7 +13,7 @@ namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 
 public partial class InstrumentoJuridicoViewModel : ObservableObject
 {
-    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Reporte _reporte = null!;
 
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -24,6 +24,11 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
      * Constructor de la clase.
      */
     public InstrumentoJuridicoViewModel()
+    {
+        LoadAsync();
+    }
+
+    private void LoadAsync()
     {
         Reporte = _reporteService.GetReporte();
 

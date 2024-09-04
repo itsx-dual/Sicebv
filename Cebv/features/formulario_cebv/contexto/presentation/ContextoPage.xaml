@@ -9,7 +9,7 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="1024"
+      d:DesignWidth="auto"
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="ContextoPage">
@@ -158,32 +158,9 @@
             <ui:TextBlock Text="Contexto social" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel>
-                    <WrapPanel Margin="10">
-                        <StackPanel MinWidth="300" Margin="0 0 15 0">
-                            <ui:TextBlock Text="Pasatiempos:" />
-                            <ui:TextBox />
-                        </StackPanel>
-
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   Margin="0 15 25 0"
-                                   Appearance="Primary"
-                                   VerticalAlignment="Stretch" />
-
-                        <StackPanel MinWidth="300" Margin="0 0 15 0">
-                            <ui:TextBlock Text="Clubes u organizaciones a las que pertenece" />
-                            <ui:TextBox />
-                        </StackPanel>
-
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   Margin="0 15 0 0"
-                                   Appearance="Primary"
-                                   VerticalAlignment="Stretch" />
-                    </WrapPanel>
-
+                    <ui:TextBlock Text="¿Estudia?" FontTypography="Subtitle" Margin="5" />
                     <StackPanel>
-                        <ui:TextBlock Text="¿Estudia?" FontTypography="Subtitle" Margin="10" />
-
-                        <WrapPanel Margin="10">
+                        <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Nivel:" />
                                 <ui:TextBox />
@@ -200,27 +177,259 @@
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>
+                    
+                    <!-- Pasatiempos -->
+                    <ui:TextBlock Text="Pasatiempos" FontTypography="Subtitle" Margin="5" />
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 15 0">
+                            <ui:TextBlock Text="Pasatiempos:" />
+                            <ComboBox />
+                        </StackPanel>
 
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Margin="0 15 25 0"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch" />
+                    </WrapPanel>
+                    <ui:CardExpander Icon="{ui:SymbolIcon ShiftsActivity24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Pasatiempos" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Source={StaticResource Perpetradores}}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon PersonProhibited24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding Sexo.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow"
+                                                                      Margin="0 0 10 0" />
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding EstatusPerpetrador.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Descripcion }"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemovePerpetradorCommand}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
+                    <!--  Clubes -->
+                    <ui:TextBlock Text="Clubes u Organizaciones" FontTypography="Subtitle" Margin="5" />
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 15 0">
+                            <ui:TextBlock Text="Clubes u organizaciones a las que pertenece" />
+                            <ComboBox />
+                        </StackPanel>
+
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Margin="0 15 0 0"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch" />
+                    </WrapPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon HomeMore24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Clubes" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Source={StaticResource Perpetradores}}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon PersonProhibited24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding Sexo.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow"
+                                                                      Margin="0 0 10 0" />
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding EstatusPerpetrador.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Descripcion }"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemovePerpetradorCommand}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+
+                    <!-- Amistades -->
+                    <ui:TextBlock Text="Amistades" FontTypography="Subtitle" Margin="5" />
                     <StackPanel>
-                        <ui:TextBlock Text="Amistades" FontTypography="Subtitle" Margin="10" />
+                        <WrapPanel Margin="10">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Nombre:" />
+                                <ui:TextBox />
+                            </StackPanel>
 
-                        <ui:DataGrid MinHeight="150"
-                                     AutoGenerateColumns="False"
-                                     Margin="10" Tag="Exclude">
-                            <ui:DataGrid.Columns>
-                                <DataGridTextColumn Header="Nombre"
-                                                    Width="*" />
-                                <DataGridTextColumn Header="Apodo"
-                                                    Width="*" />
-                                <DataGridTextColumn Header="Teléfono"
-                                                    Width="*" />
-                                <DataGridTextColumn Header="Dirección"
-                                                    Width="*" />
-                                <DataGridTextColumn Header="Redes sociales"
-                                                    Width="*" />
-                            </ui:DataGrid.Columns>
-                        </ui:DataGrid>
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Apellido Paterno:" />
+                                <ui:TextBox />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Apellido Materno:" />
+                                <ui:TextBox />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Apodo:" />
+                                <ui:TextBox />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="10">
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Teléfono:" />
+                                <ui:TextBox />
+                            </StackPanel>
+                            
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Tipo de red social:" />
+                                <ComboBox />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Usuario de redes:" />
+                                <ui:TextBox />
+                            </StackPanel>
+
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Observaciones de red social:" />
+                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <ui:Button Icon="{ui:SymbolIcon Add24}"
+                                   Margin="10"
+                                   Content="Añadir amistad"
+                                   Appearance="Primary"
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch" />
                     </StackPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon PersonSquare24}" Margin="0 5 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Amistades" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        <ui:ListView
+                            HorizontalAlignment="Stretch"
+                            MaxHeight="250"
+                            ItemsSource="{Binding Source={StaticResource Perpetradores}}"
+                            SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon PersonProhibited24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <StackPanel>
+                                                    <ui:TextBlock
+                                                        FontTypography="BodyStrong"
+                                                        Text="{Binding Nombre}"
+                                                        TextWrapping="WrapWithOverflow" />
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding Sexo.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow"
+                                                                      Margin="0 0 10 0" />
+                                                        <ui:TextBlock Appearance="Secondary"
+                                                                      Text="{Binding EstatusPerpetrador.Nombre}"
+                                                                      TextWrapping="WrapWithOverflow" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Descripcion }"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemovePerpetradorCommand}"
+                                                   CommandParameter="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
                 </StackPanel>
             </Border>
         </StackPanel>

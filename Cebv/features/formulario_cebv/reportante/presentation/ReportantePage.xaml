@@ -89,7 +89,7 @@
                             <ui:TextBlock Text="¿Usted qué es de la persona desaparecida o no localizada?" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.Parentesco}"
-                                      ItemsSource="{Binding Parentescos}" />
+                                      ItemsSource="{Binding Persona.Parentescos}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -99,26 +99,26 @@
                             <ui:TextBlock Text="Sexo:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.Persona.Sexo}"
-                                      ItemsSource="{Binding Sexos}" />
+                                      ItemsSource="{Binding Persona.Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Género:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.Persona.Genero}"
-                                      ItemsSource="{Binding Generos}" />
+                                      ItemsSource="{Binding Persona.Generos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Religión:" />
                             <ComboBox SelectedItem="{Binding Reportante.Persona.Religion}"
-                                      ItemsSource="{Binding Religiones}" />
+                                      ItemsSource="{Binding Persona.Religiones}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Lengua:" />
-                            <ComboBox SelectedItem="{Binding Reportante.Persona.Lengua}"
-                                      ItemsSource="{Binding Lenguas}" />
+                            <ComboBox SelectedItem="{Binding Reporte.Reportantes[0].Persona.Lengua}"
+                                      ItemsSource="{Binding Persona.Lenguas}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -160,7 +160,7 @@
                                       IsEditable="True"
                                       DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.Persona.Nacionalidades[0]}"
-                                      ItemsSource="{Binding Nacionalidades}" />
+                                      ItemsSource="{Binding Persona.Nacionalidades}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -483,13 +483,13 @@
                             <ui:TextBlock Text="Nivel de escolaridad:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.Persona.Estudios.Escolaridad}"
-                                      ItemsSource="{Binding Escolaridades}" />
+                                      ItemsSource="{Binding Persona.Escolaridades}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="350" Margin="0 0 25 0">
                             <ui:TextBlock Text="Avance de escolaridad:" />
                             <ComboBox SelectedValue="{Binding Reportante.Persona.Estudios.EstatusEscolaridad}"
-                                      ItemsSource="{Binding EstatusEscolaridades}" />
+                                      ItemsSource="{Binding Persona.EstatusEscolaridades}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -498,7 +498,7 @@
                             <ui:TextBlock Text="Estado conyugal:" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reportante.Persona.ContextoFamiliar.EstadoConyugal}"
-                                      ItemsSource="{Binding EstadosConyugales}" />
+                                      ItemsSource="{Binding Persona.EstadosConyugales}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="350" Margin="0 0 15 0">

@@ -46,16 +46,20 @@ public partial class DatosReporteViewModel : ObservableObject
         // Esta seccion del formulario lidia con dos atributos de reportante.
         if (Reporte.Reportantes.Count == 0)
         {
-            Reporte.Reportantes.Add(new Reportante());
+            Reporte.Reportantes.Add(new Reportante()
+            {
+                InformacionExclusivaBusqueda = false,
+                PublicacionRegistroNacional = false
+            });
         }
 
         // Información exclusiva de búsqueda.
         InformacionExclusivaBusquedaOpcion =
-            MappingToString(Reporte.Reportantes[0].InformacionExclusivaBusqueda ?? false);
+            MappingToString(Reporte.Reportantes[0].InformacionExclusivaBusqueda);
 
         // Publicación de información.
         PublicacionInformacionOpcion =
-            MappingToString(Reporte.Reportantes[0].PublicacionRegistroNacional ?? false);
+            MappingToString(Reporte.Reportantes[0].PublicacionRegistroNacional);
     }
 
     /**
@@ -87,8 +91,7 @@ public partial class DatosReporteViewModel : ObservableObject
     partial void OnInformacionExclusivaBusquedaOpcionChanged(string value)
     {
         InformacionExclusivaBusqueda = MappingToBool(value);
-        if (Reporte.Reportantes[0].InformacionExclusivaBusqueda is not null)
-            Reporte.Reportantes[0].InformacionExclusivaBusqueda = InformacionExclusivaBusqueda;
+        Reporte.Reportantes[0].InformacionExclusivaBusqueda = InformacionExclusivaBusqueda;
     }
 
     /**
@@ -101,8 +104,7 @@ public partial class DatosReporteViewModel : ObservableObject
     partial void OnPublicacionInformacionOpcionChanged(string value)
     {
         PublicacionInformacion = MappingToBool(value);
-        if (Reporte.Reportantes[0].PublicacionRegistroNacional is not null)
-            Reporte.Reportantes[0].PublicacionRegistroNacional = PublicacionInformacion;
+        Reporte.Reportantes[0].PublicacionRegistroNacional = PublicacionInformacion;
     }
 
     async partial void OnTipoMedioChanged(Catalogo? value)

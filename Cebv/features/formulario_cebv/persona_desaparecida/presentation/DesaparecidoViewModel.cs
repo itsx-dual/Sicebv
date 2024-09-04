@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -7,7 +8,6 @@ using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
@@ -15,23 +15,24 @@ using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
 public partial class DesaparecidoViewModel : ObservableObject
-{ 
+{
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
-    
+
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido;
-    
-    [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _sexos = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _generos = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _religiones = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _lenguas = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _escolaridades = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _estadosConyugales = new();
+    [ObservableProperty] private PersonaViewModel _persona = new();
+
+    public DesaparecidoViewModel()
+    {
+        CargarCatalogos();
+    }
+
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
@@ -43,21 +44,21 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
-    
-    [ObservableProperty] private Estado _estadoSelected;
-    [ObservableProperty] private Municipio _municipioSelected;
-    [ObservableProperty] private Catalogo _companiaTelefonicaSelected;
-    [ObservableProperty] private Catalogo _tipoRedSocialSelected;
-    [ObservableProperty] private Catalogo _tipoOcupacionPrincipalSelected;
-    [ObservableProperty] private Catalogo _tipoOcupacionSecundariaSelected;
-    
+
+    [ObservableProperty] private Estado? _estadoSelected;
+    [ObservableProperty] private Municipio? _municipioSelected;
+    [ObservableProperty] private Catalogo? _companiaTelefonicaSelected;
+    [ObservableProperty] private Catalogo? _tipoRedSocialSelected;
+    [ObservableProperty] private Catalogo? _tipoOcupacionPrincipalSelected;
+    [ObservableProperty] private Catalogo? _tipoOcupacionSecundariaSelected;
+
     [ObservableProperty] private bool _esMismoDomicilioReportante;
     [ObservableProperty] private bool _tieneTelefonosMoviles;
     [ObservableProperty] private bool _tieneTelefonosFijos;
     [ObservableProperty] private bool _tieneCorreos;
     [ObservableProperty] private bool _tieneRedesSociales;
     [ObservableProperty] private bool _tieneApodos;
-    
+
     [ObservableProperty] private string? _apodoNombre = string.Empty;
     [ObservableProperty] private string? _apodoApellidoPaterno = string.Empty;
     [ObservableProperty] private string? _apodoApellidoMaterno = string.Empty;
@@ -69,86 +70,67 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private string? _observacionesCorreo = string.Empty;
     [ObservableProperty] private string? _usuarioRedSocial = string.Empty;
     [ObservableProperty] private string? _observacionesRedSocial = string.Empty;
-    
+
     [ObservableProperty] private int? _edadAnos;
     [ObservableProperty] private int? _edadMeses;
     [ObservableProperty] private int? _edadDias;
-    
-    [ObservableProperty] private List<string> _estatusEscolaridades = new()
-    {
-        "TERMINADA",
-        "EN CURSO",
-        "NO ESPECIFICA"
-    };
-
-    
-    public DesaparecidoViewModel()
-    {
-        CargarCatalogos();
-    }
 
     private async void CargarCatalogos()
     {
-        var desaparecido = _reporteService.GetReporte().Desaparecidos?.FirstOrDefault();
+        var desaparecido = _reporteService.GetReporte().Desaparecidos.FirstOrDefault();
         var estadoId = desaparecido?.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
         var municipioId = desaparecido?.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
-        
+
+        /*
         TiposOcupaciones = await DesaparecidoNetwork.GetCatalogo("tipos-ocupaciones");
         if (desaparecido?.OcupacionPrincipal != null)
         {
             TipoOcupacionPrincipalSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == desaparecido.OcupacionPrincipal.TipoOcupacion.Id);
             OcupacionesPrincipales = await DesaparecidoNetwork.OcupacionesDadoTipo(TipoOcupacionPrincipalSelected.Id);
         }
-        
+
         if (desaparecido?.OcupacionSecundaria != null)
         {
             TipoOcupacionSecundariaSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == desaparecido.OcupacionSecundaria.TipoOcupacion.Id);
             OcupacionesSecundarias = await DesaparecidoNetwork.OcupacionesDadoTipo(TipoOcupacionSecundariaSelected.Id);
         }
-        
-        Parentescos = await DesaparecidoNetwork.GetCatalogo("parentescos");
-        Sexos = await DesaparecidoNetwork.GetCatalogo("sexos");
-        Generos = await DesaparecidoNetwork.GetCatalogo("generos");
+        */
+
         Colectivos = await DesaparecidoNetwork.GetCatalogo("colectivos");
-        Religiones = await DesaparecidoNetwork.GetCatalogo("religiones");
-        Lenguas = await DesaparecidoNetwork.GetCatalogo("lenguas");
         RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
-        Nacionalidades = await DesaparecidoNetwork.GetCatalogo("nacionalidades");
-        Escolaridades = await DesaparecidoNetwork.GetCatalogo("escolaridades");
-        EstadosConyugales = await DesaparecidoNetwork.GetCatalogo("estados-conyugales");
         GruposVulnerables = await DesaparecidoNetwork.GetCatalogo("grupos-vulnerables");
         CompaniasTelefonicas = await DesaparecidoNetwork.GetCatalogo("companias-telefonicas");
         TiposRedesSociales = await DesaparecidoNetwork.GetCatalogo("tipos-redes-sociales");
         Estados = await DesaparecidoNetwork.GetEstados();
         if (estadoId != null) Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
         if (municipioId != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
-        
+
         Reporte = _reporteService.GetReporte();
-        
-        if (Reporte.Desaparecidos?.Count == 0)
+
+        if (Reporte.Desaparecidos.Count == 0)
         {
             Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos?.Add(Desaparecido);
+            Reporte.Desaparecidos.Add(Desaparecido);
         }
         else
         {
-            Desaparecido = Reporte.Desaparecidos?.FirstOrDefault()!;
+            Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
         }
-        
+
         if (Desaparecido.Persona?.Nacionalidades?.Count == 0)
         {
             Desaparecido.Persona.Nacionalidades.Add(new Catalogo());
         }
-        
-        if (Desaparecido.Persona?.Direcciones != null && (bool) !Desaparecido.Persona?.Direcciones?.Any())
+
+        if (Desaparecido.Persona?.Direcciones != null && (bool)Desaparecido.Persona?.Direcciones?.Any())
         {
             Desaparecido.Persona?.Direcciones?.Add(new Direccion());
         }
         else
         {
             EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?
-                .Equals(Reporte.Reportantes?.FirstOrDefault()?.Persona.Direcciones?.FirstOrDefault()) ?? false;
-            
+                .Equals(Reporte.Reportantes.FirstOrDefault()?.Persona?.Direcciones?.FirstOrDefault()) ?? false;
+
             EstadoSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
             MunicipioSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
         }
@@ -158,29 +140,33 @@ public partial class DesaparecidoViewModel : ObservableObject
         TieneTelefonosFijos = Desaparecido.Persona?.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
         TieneCorreos = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Correo Electronico") ?? false;
         TieneRedesSociales = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Red Social") ?? false;
-        
-        DiferenciaFechas(Reporte.Desaparecidos?[0].Persona?.FechaNacimiento, DateTime.Now);
+
+        DiferenciaFechas(Reporte.Desaparecidos[0].Persona?.FechaNacimiento, DateTime.Now);
     }
 
-    async partial void OnTipoOcupacionPrincipalSelectedChanged(Catalogo value)
+    async partial void OnTipoOcupacionPrincipalSelectedChanged(Catalogo? value)
     {
+        if (value is null) return;
         OcupacionesPrincipales = await DesaparecidoNetwork.OcupacionesDadoTipo(value.Id);
     }
-    
-    async partial void OnTipoOcupacionSecundariaSelectedChanged(Catalogo value)
+
+    async partial void OnTipoOcupacionSecundariaSelectedChanged(Catalogo? value)
     {
+        if (value is null) return;
         OcupacionesSecundarias = await DesaparecidoNetwork.OcupacionesDadoTipo(value.Id);
     }
 
-    async partial void OnEstadoSelectedChanged(Estado value)
+    async partial void OnEstadoSelectedChanged(Estado? value)
     {
+        if (value is null) return;
         MunicipioSelected = null;
-        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(value.Id ?? string.Empty);
+        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(value.Id);
     }
-    
-    async partial void OnMunicipioSelectedChanged(Municipio value)
+
+    async partial void OnMunicipioSelectedChanged(Municipio? value)
     {
-        if (value != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(value.Id);
+        if (value is null) return;
+        Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(value.Id);
     }
 
     async partial void OnEsMismoDomicilioReportanteChanged(bool value)
@@ -189,11 +175,14 @@ public partial class DesaparecidoViewModel : ObservableObject
         {
             if (value)
             {
-                var reporteReportante = Reporte?.Reportantes?.FirstOrDefault();
+                var reporteReportante = Reporte.Reportantes.FirstOrDefault();
                 var direccionReportante = reporteReportante?.Persona?.Direcciones?.FirstOrDefault();
 
                 if (direccionReportante != null)
                 {
+                    if (Desaparecido.Persona == null) return;
+                    if (Desaparecido.Persona.Direcciones == null) return;
+
                     Desaparecido.Persona.Direcciones[0] = direccionReportante;
                     var estadoId = direccionReportante.Asentamiento?.Municipio?.Estado?.Id;
                     var municipioId = direccionReportante.Asentamiento?.Municipio?.Id;
@@ -202,6 +191,7 @@ public partial class DesaparecidoViewModel : ObservableObject
                     {
                         Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
                     }
+
                     if (municipioId != null)
                     {
                         Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
@@ -221,7 +211,8 @@ public partial class DesaparecidoViewModel : ObservableObject
             }
             else
             {
-                Desaparecido.Persona.Direcciones[0] = new Direccion();
+                if (Desaparecido.Persona is null) return;
+                if (Desaparecido.Persona.Direcciones != null) Desaparecido.Persona.Direcciones[0] = new Direccion();
             }
         }
         catch (Exception ex)
@@ -238,26 +229,26 @@ public partial class DesaparecidoViewModel : ObservableObject
     [RelayCommand]
     private void OnAddApodo()
     {
-        if (ApodoNombre.Length > 0 || ApodoApellidoPaterno.Length > 0 || ApodoApellidoMaterno.Length > 0)
+        if (ApodoNombre?.Length > 0 || ApodoApellidoPaterno?.Length > 0 || ApodoApellidoMaterno?.Length > 0)
         {
             Desaparecido.Persona?.Pseudonimos?.Add(new Pseudonimo
             {
                 Nombre = ApodoNombre,
-                ApellidoPaterno = ApodoApellidoPaterno, 
+                ApellidoPaterno = ApodoApellidoPaterno,
                 ApellidoMaterno = ApodoApellidoMaterno
             });
 
             ApodoNombre = string.Empty;
             ApodoApellidoPaterno = string.Empty;
             ApodoApellidoMaterno = string.Empty;
-        };
+        }
     }
 
     [RelayCommand]
     private void OnAddTelefonoMovil()
     {
-        if (NoTelefonoMovil.Length <= 0) return;
-        
+        if (NoTelefonoMovil?.Length <= 0) return;
+
         var telefonos = Desaparecido.Persona?.Telefonos;
         telefonos?.Add(new Telefono
         {
@@ -266,17 +257,17 @@ public partial class DesaparecidoViewModel : ObservableObject
             EsMovil = true,
             Compania = CompaniaTelefonicaSelected
         });
-        
-        NoTelefonoMovil = string.Empty; 
+
+        NoTelefonoMovil = string.Empty;
         ObservacionesMovil = string.Empty;
         CompaniaTelefonicaSelected = null;
     }
-    
+
     [RelayCommand]
     private void OnAddTelefonoFijo()
     {
-        if (NoTelefonoFijo.Length <= 0) return;
-        
+        if (NoTelefonoFijo?.Length <= 0) return;
+
         var telefonos = Desaparecido.Persona?.Telefonos;
         telefonos?.Add(new Telefono
         {
@@ -285,8 +276,8 @@ public partial class DesaparecidoViewModel : ObservableObject
             EsMovil = false,
             Compania = null
         });
-        
-        NoTelefonoFijo = string.Empty; 
+
+        NoTelefonoFijo = string.Empty;
         ObservacionesFijo = string.Empty;
     }
 
@@ -295,7 +286,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     {
         Desaparecido.Persona?.Pseudonimos?.Remove(pseudonimo);
     }
-    
+
     [RelayCommand]
     private void OnRemoveGrupoVulnerabilidad(Catalogo catalogo)
     {
@@ -309,19 +300,19 @@ public partial class DesaparecidoViewModel : ObservableObject
         var telefonos = Desaparecido.Persona?.Telefonos;
         telefonos?.Remove(telefono);
     }
-    
+
     [RelayCommand]
     private void OnEliminarContacto(Contacto contacto)
     {
         var contactos = Desaparecido.Persona?.Contactos;
         contactos?.Remove(contacto);
     }
-    
+
     [RelayCommand]
     private void OnAddCorreo()
     {
-        if (UsuarioCorreo.Length <= 0) return;
-        
+        if (UsuarioCorreo?.Length <= 0) return;
+
         var contactos = Desaparecido.Persona?.Contactos;
         contactos?.Add(new Contacto
         {
@@ -329,16 +320,16 @@ public partial class DesaparecidoViewModel : ObservableObject
             Observaciones = ObservacionesCorreo,
             Tipo = "Correo Electronico"
         });
-        
-        UsuarioCorreo = string.Empty; 
+
+        UsuarioCorreo = string.Empty;
         ObservacionesCorreo = string.Empty;
     }
 
     [RelayCommand]
     private void OnAddRedSocial()
     {
-        if (UsuarioRedSocial.Length <= 0) return;
-        
+        if (UsuarioRedSocial?.Length <= 0) return;
+
         var contactos = Desaparecido.Persona?.Contactos;
         contactos?.Add(new Contacto
         {
@@ -347,8 +338,8 @@ public partial class DesaparecidoViewModel : ObservableObject
             TipoRedSocial = TipoRedSocialSelected,
             Tipo = "Red Social"
         });
-        
-        UsuarioCorreo = string.Empty; 
+
+        UsuarioCorreo = string.Empty;
         ObservacionesCorreo = string.Empty;
         TipoRedSocialSelected = null;
     }
@@ -372,11 +363,11 @@ public partial class DesaparecidoViewModel : ObservableObject
     private void DiferenciaFechas(DateTime? a, DateTime b)
     {
         if (a == null) return;
-        
-        EdadAnos = b.Year - a?.Year;
-        EdadMeses = b.Month - a?.Month;
-        EdadDias = b.Day - a?.Day;
-        
+
+        EdadAnos = b.Year - a.Value.Year;
+        EdadMeses = b.Month - a.Value.Month;
+        EdadDias = b.Day - a.Value.Day;
+
         if (EdadDias < 0)
         {
             EdadMeses--;
@@ -398,7 +389,7 @@ public partial class DesaparecidoViewModel : ObservableObject
         AddTelefonoFijoCommand.Execute(null);
         AddCorreoCommand.Execute(null);
         AddRedSocialCommand.Execute(null);
-        
+
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

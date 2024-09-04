@@ -104,7 +104,7 @@ public abstract class ReporteServiceNetwork
     {
         var json = JsonConvert.SerializeObject(reporte);
         Console.ForegroundColor = ConsoleColor.Green;
-        //Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
+        Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
 
         var request = new HttpRequestMessage
         {

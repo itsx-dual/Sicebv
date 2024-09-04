@@ -36,9 +36,9 @@ public partial class ContextoFamiliar : ObservableObject
     [ObservableProperty, JsonProperty("estado_conyugal")]
     private Catalogo? _estadoConyugal;
 
-    [ObservableProperty, JsonProperty("nombre_pareja_conyugue")]
-    private string? _nombreParejaConyugue;
-
     [ObservableProperty, JsonProperty("numero_personas_vive")]
     private int? _numeroPersonasVive;
+    
+    [ObservableProperty, JsonProperty("nombre_pareja_conyugue")]
+    private string? _nombreParejaConyugue;
 }
