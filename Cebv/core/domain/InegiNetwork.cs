@@ -9,7 +9,7 @@ namespace Cebv.core.domain;
 public class InegiNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
-    
+
     public static async Task<ObservableCollection<Estado>> GetEstados()
     {
         var request = await Client.GetAsync("/api/estados");
@@ -23,8 +23,8 @@ public class InegiNetwork
         var request = await Client.GetAsync($"/api/municipios?search={estado_id}");
         var response = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PaginatedResource<ObservableCollection<Municipio>>>(response)?.Data!;
-}
-    
+    }
+
     public static async Task<ObservableCollection<Asentamiento>> GetAsentamientosDeMunicipio(string? municipio_id)
     {
         if (municipio_id is null) return [];

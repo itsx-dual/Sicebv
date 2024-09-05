@@ -62,7 +62,8 @@
 
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Inicio" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Margin="0 0 0 25"
+                    Style="{StaticResource CebvBorder}">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="MEDIO DE CONOCIMIENTO GENÉRICO: *" />
@@ -88,7 +89,8 @@
             </Border>
 
             <ui:TextBlock Text="Reportante" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" 
+                    Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <CheckBox Content="El reportante desea ser anonimo"
                               IsChecked="{Binding Reportante.DenunciaAnonima}" />
@@ -199,7 +201,8 @@
             </Border>
 
             <ui:TextBlock Text="Desaparecido" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}"
+                    Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <!-- Nombre Completo -->
                     <WrapPanel Margin="0 0 0 15">
