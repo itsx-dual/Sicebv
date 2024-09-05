@@ -225,7 +225,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     partial void OnCurpChanged(string value)
     {
         NoHayCurp = value.Length == 0;
-        Desaparecido.Persona.Curp = value;
+        if (Desaparecido.Persona != null) Desaparecido.Persona.Curp = value;
     }
 
     async partial void OnTipoMedioSelectedChanged(Catalogo value)

@@ -232,6 +232,11 @@
                                                     Appearance="Secondary"
                                                     Text="{Binding Observaciones}"
                                                     TextWrapping="WrapWithOverflow" />
+                                                
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Compania}"
+                                                    TextWrapping="WrapWithOverflow" />
                                             </StackPanel>
                                         </ui:CardControl>
 

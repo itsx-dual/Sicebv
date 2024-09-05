@@ -32,7 +32,8 @@
         </StackPanel>
 
         <StackPanel MinWidth="250" Margin="10">
-            <ui:TextBlock Text="¿USTED QUE ES DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?"
+            <!-- TODO: Añadir el nombre para relacionar en el parentesco -->
+            <ui:TextBlock Text="RELACIÓN O PARENTESCO CON LA PERSONA REPORTADA:"
                           TextWrapping="Wrap"
                           Margin="0 0 0 5" />
             <ComboBox DisplayMemberPath="Nombre"

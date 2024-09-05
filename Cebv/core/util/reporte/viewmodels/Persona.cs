@@ -35,7 +35,8 @@ public partial class Persona : ObservableObject
         ObservableCollection<SenaParticular> senasParticulares,
         Estudio? estudios,
         ContextoFamiliar? contextoFamiliar,
-        Salud? salud
+        Salud? salud,
+        Ojos? ojos
     )
     {
         Id = id;
@@ -64,6 +65,7 @@ public partial class Persona : ObservableObject
         Estudios = estudios;
         ContextoFamiliar = contextoFamiliar;
         Salud = salud;
+        Ojos = ojos;
     }
 
     public Persona()
@@ -166,6 +168,15 @@ public partial class Persona : ObservableObject
     
     [ObservableProperty, JsonProperty("salud")]
     private Salud? _salud;
+    
+    [ObservableProperty, JsonProperty("ojos")]
+    private Ojos? _ojos;
+
+    [ObservableProperty, JsonProperty("cabello")]
+    private Cabello? _cabello;
+    
+    [ObservableProperty, JsonProperty("vello_facial")]
+    private VelloFacial? _velloFacial;
     
     // TODO: Añadir ocupaciones
 
