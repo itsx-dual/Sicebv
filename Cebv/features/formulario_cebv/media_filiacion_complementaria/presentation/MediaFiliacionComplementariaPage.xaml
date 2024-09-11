@@ -1,4 +1,5 @@
-<Page x:Class="Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation.MediaFiliacionComplementariaPage"
+<Page
+    x:Class="Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation.MediaFiliacionComplementariaPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,6 +7,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:util="clr-namespace:Cebv.core.util"
     xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.media_filiacion_complementaria.presentation"
+    xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -13,11 +15,11 @@
     d:DesignHeight="auto"
     mc:Ignorable="d"
     Title="MediaFiliacionComplementariaPage">
-    
+
     <Page.DataContext>
         <presentation:MediaFiliacionComplementariaViewModel />
     </Page.DataContext>
-    
+
     <Page.Resources>
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
     </Page.Resources>
@@ -50,8 +52,9 @@
                                 Visibility="{Binding Diente,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Especifique la ausencia dental:" />
-                        <ui:TextBox Text="{Binding DienteDescripcion}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox
+                            Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.DescripcionAusenciaDental}"
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
 
@@ -67,8 +70,9 @@
                                 Visibility="{Binding TratamientoDental,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Especifique el tratamiento dental:" />
-                        <ui:TextBox Text="{Binding TratamientoDentalDescripcion}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox
+                            Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.DescripcionTratamientoDental}"
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -79,83 +83,187 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Tipo de mentón:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding TipoMenton}"
-                                      ItemsSource="{Binding TiposMentones}" />
+                            <ComboBox
+                                SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TipoMenton}"
+                                ItemsSource="{Binding TiposMentones}" />
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <StackPanel>
                         <ui:TextBlock Text="Cualquier otra especificación del mentón:" />
-                        <ui:TextBox Text="{Binding TipoMentonDescripcion}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                        <ui:TextBox
+                            Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.EspecificacionesMenton}"
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
+            <!-- Intervenciones quirúrgicas -->
             <ui:TextBlock Text="Intervenciones quirúrgicas" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <WrapPanel Margin="5">
-                    <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Intervención quirúrgica:" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TipoIntervencion}"
-                                  ItemsSource="{Binding TiposIntervenciones}" />
-                    </StackPanel>
+                <StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel MinWidth="400" Margin="0 0 15 0">
-                            <ui:TextBlock Text="Especificación de la intervención quirúrgica:" />
-                            <ui:TextBox Text="{Binding TipoIntervencionDescripcion}" TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Intervención quirúrgica:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding TipoIntervencion}"
+                                      ItemsSource="{Binding TiposIntervenciones}" />
                         </StackPanel>
 
-                        <ui:Button Margin="0 15 0 0"
-                                   Icon="{ui:SymbolIcon Add24}"
-                                   VerticalAlignment="Stretch"
-                                   Appearance="Primary" />
-                    </StackPanel>
-                </WrapPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel MinWidth="400" Margin="0 0 15 0">
+                                <ui:TextBlock Text="Especificación de la intervención quirúrgica:" />
+                                <ui:TextBox Text="{Binding TipoIntervencionDescripcion}" TextWrapping="Wrap"
+                                            AcceptsReturn="True" />
+                            </StackPanel>
+
+                            <ui:Button Margin="0 15 0 0"
+                                       Icon="{ui:SymbolIcon Add24}"
+                                       VerticalAlignment="Stretch"
+                                       Appearance="Primary"
+                                       Command="{Binding AddIntervencionQuirurgicaCommand}" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon PersonPill24}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Intervenciones quirúrgicas" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+
+                        <ui:ListView HorizontalAlignment="Stretch"
+                                     MaxHeight="250"
+                                     ItemsSource="{Binding Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas}"
+                                     SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon PersonPill24}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <ui:TextBlock
+                                                    FontTypography="BodyStrong"
+                                                    Text="{Binding TipoIntervencionQuirurgica.Nombre}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Descripcion}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.RemoveIntervencionQuirurgicaCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}" />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+                </StackPanel>
             </Border>
 
+            <!-- Enfermedades de la piel -->
             <ui:TextBlock Text="Enfermedades de la piel" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <WrapPanel Margin="5">
-                    <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Tipo de enfermedad:" />
-                        <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding EnfermedadPiel}"
-                                  ItemsSource="{Binding EnfermedadesPieles}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel MinWidth="400" Margin="0 0 15 0">
-                            <ui:TextBlock Text="Especificación de la enfermedad en la piel:" />
-                            <ui:TextBox Text="{Binding EnfermedadPielDescripcion}" TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                <StackPanel>
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="250" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Tipo de enfermedad:" />
+                            <ComboBox DisplayMemberPath="Nombre"
+                                      SelectedItem="{Binding EnfermedadPiel}"
+                                      ItemsSource="{Binding EnfermedadesPieles}" />
                         </StackPanel>
 
-                        <ui:Button Margin="0 15 0 0"
-                                   Icon="{ui:SymbolIcon Add24}"
-                                   VerticalAlignment="Stretch"
-                                   Appearance="Primary" />
-                    </StackPanel>
-                </WrapPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel MinWidth="400" Margin="0 0 15 0">
+                                <ui:TextBlock Text="Especificación de la enfermedad en la piel:" />
+                                <ui:TextBox Text="{Binding EnfermedadPielDescripcion}" TextWrapping="Wrap"
+                                            AcceptsReturn="True" />
+                            </StackPanel>
+
+                            <ui:Button Margin="0 15 0 0"
+                                       Icon="{ui:SymbolIcon Add24}"
+                                       VerticalAlignment="Stretch"
+                                       Appearance="Primary"
+                                       Command="{Binding AddEnfermedadPielCommand}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                     <ui:CardExpander Icon="{ui:SymbolIcon Pill16}" Margin="0 0 0 15">
+                        <ui:CardExpander.Header>
+                            <ui:TextBlock Text="Enfermedades en la piel" FontTypography="Subtitle" />
+                        </ui:CardExpander.Header>
+                        
+                        <ui:ListView HorizontalAlignment="Stretch"
+                                     MaxHeight="250"
+                                     ItemsSource="{Binding Reporte.Desaparecidos[0].Persona.EnfermedadesPiel}"
+                                     SelectionMode="Single">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ui:CardControl
+                                            Margin="5 5 60 5"
+                                            Padding="10"
+                                            Icon="{ui:SymbolIcon Pill16}"
+                                            HorizontalAlignment="Stretch">
+                                            <ui:CardControl.Header>
+                                                <ui:TextBlock
+                                                    FontTypography="BodyStrong"
+                                                    Text="{Binding TipoEnfermedadPiel.Nombre}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </ui:CardControl.Header>
+                                            <StackPanel>
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Descripcion}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </ui:CardControl>
+
+                                        <ui:Button VerticalAlignment="Stretch"
+                                                   Appearance="Danger"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Delete24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding DataContext.RemoveEnfermedadPielCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   CommandParameter="{Binding}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </ui:CardExpander>
+                </StackPanel>
             </Border>
 
             <ui:TextBlock Text="Observaciones generales" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="400" Margin="5">
                     <ui:TextBlock Text="Observaciones:" />
-                    <ui:TextBox Text="{Binding ObservacionesGenerales}" TextWrapping="Wrap" AcceptsReturn="True"
-                                MinHeight="100" />
+                    <ui:TextBox
+                        Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.ObservacionesGenerales}"
+                        TextWrapping="Wrap" AcceptsReturn="True"
+                        MinHeight="100" />
                 </StackPanel>
             </Border>
         </StackPanel>
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:PrendasPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"

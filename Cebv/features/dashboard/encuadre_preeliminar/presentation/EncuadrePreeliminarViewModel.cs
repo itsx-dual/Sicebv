@@ -391,7 +391,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         if (PerteneciaSelected == null) return;
 
         var prendasDeVestir = Desaparecido.PrendasDeVestir;
-        prendasDeVestir?.Add(new PrendaDeVestir
+        prendasDeVestir?.Add(new PrendaVestir
         {
             Marca = CurrentMarca,
             Descripcion = CurrentPrendaDescripcion,
@@ -408,7 +408,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnRemovePrendaDeVestir(PrendaDeVestir prenda)
+    private void OnRemovePrendaDeVestir(PrendaVestir prenda)
     {
         Desaparecido.PrendasDeVestir?.Remove(prenda);
     }

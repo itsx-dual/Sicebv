@@ -198,8 +198,7 @@
                         <ui:ListView
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
-                            ItemsSource="{Binding Source={StaticResource Perpetradores}}"
-                            SelectionMode="Single">
+                            SelectionMode="Single"><!-- ItemsSource="{Binding Source={StaticResource Perpetradores}}" -->
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>

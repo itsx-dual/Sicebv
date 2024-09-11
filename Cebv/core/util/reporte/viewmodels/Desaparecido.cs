@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using Cebv.core.modules.desaparecido.data;
+using Cebv.core.util.reporte.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -9,137 +11,90 @@ public partial class Desaparecido : ObservableObject
 {
     [JsonConstructor]
     public Desaparecido(
-        int id,
-        string? reporteId,
-        Persona? persona,
-        EstatusPersona? estatusRpdno,
-        EstatusPersona? estatusCebv,
-        ObservableCollection<DocumentoLegal>? documentosLegales,
-        ObservableCollection<PrendaDeVestir>? prendasDeVestir,
-        bool? hablaEspanhol,
-        bool? sabeLeerEscribir,
-        string? urlBoletin,
-        bool declaracionEspecialAusencia,
-        bool accionUrgente,
-        bool dictamen,
-        bool ciNivelFederal,
-        string? clasificacionPersona,
-        string otroDerechoHumano,
-        string? folioCebv,
-        string? identidadResguardada,
-        string? alias,
-        string? otrasEspecificacionesOcupacion,
-        string? nombreParejaConyugue,
-        DateTime? fechaNacimientoAproximada,
-        string? fechaNacimientoCebv,
-        string? observacionesFechaNacimiento,
-        int? edadMomentoDesaparicionAnos,
-        int? edadMomentoDesaparicionMeses,
-        int? edadMomentoDesaparicionDias,
-        DateTime? createdAt,
-        DateTime? updatedAt)
+        int? id
+    )
     {
-        Id = id;
-        AccionUrgente = accionUrgente;
-        CiNivelFederal = ciNivelFederal;
-        ClasificacionPersona = clasificacionPersona;
-        DeclaracionEspecialAusencia = declaracionEspecialAusencia;
-        Dictamen = dictamen;
-        DocumentosLegales = documentosLegales;
-        EdadMomentoDesaparicionAnos = edadMomentoDesaparicionAnos;
-        EdadMomentoDesaparicionDias = edadMomentoDesaparicionDias;
-        EdadMomentoDesaparicionMeses = edadMomentoDesaparicionMeses;
-        EstatusCebv = estatusCebv;
-        EstatusRpdno = estatusRpdno;
-        FechaNacimientoAproximada = fechaNacimientoAproximada;
-        FechaNacimientoCebv = fechaNacimientoCebv;
-        FolioCebv = folioCebv;
-        IdentidadResguardada = identidadResguardada;
-        ObservacionesFechaNacimiento = observacionesFechaNacimiento;
-        OtrasEspecificacionesOcupacion = otrasEspecificacionesOcupacion;
-        OtroDerechoHumano = otroDerechoHumano;
-        Persona = persona;
-        PrendasDeVestir = prendasDeVestir;
-        ReporteId = reporteId;
-        UrlBoletin = urlBoletin;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
     }
 
-    public Desaparecido() { }
+    public Desaparecido()
+    {
+    }
 
-    [ObservableProperty, JsonProperty(PropertyName = "id")]
-    private int _id;
+    /**
+     * Atributos de desaparecido
+     */
+    [ObservableProperty, JsonProperty("id")]
+    private int? _id;
 
-    [ObservableProperty, JsonProperty(PropertyName = "reporte_id")]
-    private string? _reporteId;
+    [ObservableProperty, JsonProperty("reporte_id")]
+    private int? _reporteId;
 
-    [ObservableProperty, JsonProperty(PropertyName = "persona")]
+    [ObservableProperty, JsonProperty("identidad_resguardada")]
+    private string? _identidadResguardada;
+
+    [ObservableProperty, JsonProperty("persona")]
     private Persona? _persona;
 
-    [ObservableProperty, JsonProperty(PropertyName = "estatus_rpdno")]
-    private EstatusPersona? _estatusRpdno;
+    [ObservableProperty, JsonProperty("estatus_rpdno")]
+    private BasicResource? _estatusRpdno;
 
-    [ObservableProperty, JsonProperty(PropertyName = "estatus_cebv")]
-    private EstatusPersona? _estatusCebv;
+    [ObservableProperty, JsonProperty("estatus_cebv")]
+    private BasicResource? _estatusCebv;
 
+    [ObservableProperty, JsonProperty("clasificacion_persona")]
+    private string? _clasificacionPersona;
+
+    [ObservableProperty, JsonProperty("declaracion_especial_ausencia")]
+    private bool? _declaracionEspecialAusencia;
+
+    [ObservableProperty, JsonProperty("accion_urgente")]
+    private bool? _accionUrgente;
+
+    [ObservableProperty, JsonProperty("dictamen")]
+    private string? _dictamen;
+
+    [ObservableProperty, JsonProperty("ci_nivel_federal")]
+    private bool? _ciNivelFederal;
+
+    [ObservableProperty, JsonProperty("otro_derecho_humano")]
+    private string? _otroDerechoHumano;
+
+    [ObservableProperty, JsonProperty("fecha_nacimiento_aproximada")]
+    private DateTime? _fechaNacimientoAproximada;
+
+    [ObservableProperty, JsonProperty("fecha_nacimiento_cebv")]
+    private string? _fechaNacimientoCebv;
+
+    [ObservableProperty, JsonProperty("observaciones_fecha_nacimiento")]
+    private string? _observacionesFechaNacimiento;
+
+    [ObservableProperty, JsonProperty("edad_momento_desaparicion_anos")]
+    private int? _edadMomentoDesaparicionAnos;
+
+    [ObservableProperty, JsonProperty("edad_momento_desaparicion_meses")]
+    private int? _edadMomentoDesaparicionMeses;
+
+    [ObservableProperty, JsonProperty("edad_momento_desaparicion_dias")]
+    private int? _edadMomentoDesaparicionDias;
+
+    [ObservableProperty, JsonProperty("url_boletin")]
+    private string? _urlBoletin;
+
+    [ObservableProperty, JsonProperty("created_at")]
+    private DateTime? _createdAt;
+
+    [ObservableProperty, JsonProperty("updated_at")]
+    private DateTime? _updatedAt;
+
+    /**
+     * Relaciones de desaparecido
+     */
     [ObservableProperty, JsonProperty(PropertyName = "documentos_legales")]
     private ObservableCollection<DocumentoLegal>? _documentosLegales = new();
     
-    [ObservableProperty, JsonProperty(PropertyName = "prendas_de_vestir")]
-    private ObservableCollection<PrendaDeVestir>? _prendasDeVestir = new();
+    [ObservableProperty, JsonProperty("folios")]
+    private Folio? _folios;
 
-    [ObservableProperty, JsonProperty(PropertyName = "clasificacion_persona")]
-    private string? _clasificacionPersona;
-
-    [ObservableProperty, JsonProperty(PropertyName = "url_boletin")]
-    private string? _urlBoletin;
-
-    [ObservableProperty, JsonProperty(PropertyName = "declaracion_especial_ausencia")]
-    private bool _declaracionEspecialAusencia;
-
-    [ObservableProperty, JsonProperty(PropertyName = "accion_urgente")]
-    private bool _accionUrgente;
-
-    [ObservableProperty, JsonProperty(PropertyName = "dictamen")]
-    private bool _dictamen;
-
-    [ObservableProperty, JsonProperty(PropertyName = "ci_nivel_federal")]
-    private bool _ciNivelFederal;
-
-    [ObservableProperty, JsonProperty(PropertyName = "otro_derecho_humano")]
-    private string _otroDerechoHumano = string.Empty;
-
-    [ObservableProperty, JsonProperty(PropertyName = "folio_cebv")]
-    private string? _folioCebv;
-
-    [ObservableProperty, JsonProperty(PropertyName = "identidad_resguardada")]
-    private string? _identidadResguardada;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "otras_especificaciones_ocupacion")]
-    private string? _otrasEspecificacionesOcupacion;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "fecha_nacimiento_aproximada")]
-    private DateTime? _fechaNacimientoAproximada;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "fecha_nacimiento_cebv")]
-    private string? _fechaNacimientoCebv;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "observaciones_fecha_nacimiento")]
-    private string? _observacionesFechaNacimiento;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "edad_momento_desaparicion_anos")]
-    private int? _edadMomentoDesaparicionAnos;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "edad_momento_desaparicion_meses")]
-    private int? _edadMomentoDesaparicionMeses;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "edad_momento_desaparicion_dias")]
-    private int? _edadMomentoDesaparicionDias;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "created_at")]
-    private DateTime? _createdAt;
-
-    [ObservableProperty, JsonProperty(PropertyName = "updated_at")]
-    private DateTime? _updatedAt;
+    [ObservableProperty, JsonProperty("prendas_vestir")]
+    private ObservableCollection<PrendaVestir> _prendasVestir = [];
 }

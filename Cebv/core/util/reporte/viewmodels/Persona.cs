@@ -36,7 +36,15 @@ public partial class Persona : ObservableObject
         Estudio? estudios,
         ContextoFamiliar? contextoFamiliar,
         Salud? salud,
-        Ojos? ojos
+        Ojos? ojos,
+        Cabello? cabello,
+        VelloFacial? velloFacial,
+        Nariz? nariz,
+        Boca? boca,
+        Orejas? orejas,
+        MediaFiliacionComplementaria? mediaFiliacionComplementaria,
+        ObservableCollection<IntervencionQuirurgica> intervencionesQuirurgicas,
+        ObservableCollection<EnfermedadPiel> enfermedadesPiel
     )
     {
         Id = id;
@@ -66,6 +74,14 @@ public partial class Persona : ObservableObject
         ContextoFamiliar = contextoFamiliar;
         Salud = salud;
         Ojos = ojos;
+        Cabello = cabello;
+        VelloFacial = velloFacial;
+        Nariz = nariz;
+        Boca = boca;
+        Orejas = orejas;
+        MediaFiliacionComplementaria = mediaFiliacionComplementaria;
+        IntervencionesQuirurgicas = intervencionesQuirurgicas;
+        EnfermedadesPiel = enfermedadesPiel;
     }
 
     public Persona()
@@ -108,10 +124,10 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "rfc")]
     private string? _rfc;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "habla_espanhol")]
     private bool? _hablaEspanhol;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "especificaciones_ocupacion")]
     private string? _especificacionesOcupacion;
 
@@ -159,25 +175,43 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "senas_particulares")]
     private ObservableCollection<SenaParticular> _senasParticulares = [];
-    
+
     [ObservableProperty, JsonProperty("estudios")]
     private Estudio? _estudios;
-    
+
     [ObservableProperty, JsonProperty("contexto_familiar")]
     private ContextoFamiliar? _contextoFamiliar;
-    
+
     [ObservableProperty, JsonProperty("salud")]
     private Salud? _salud;
-    
+
     [ObservableProperty, JsonProperty("ojos")]
     private Ojos? _ojos;
 
     [ObservableProperty, JsonProperty("cabello")]
     private Cabello? _cabello;
-    
+
     [ObservableProperty, JsonProperty("vello_facial")]
     private VelloFacial? _velloFacial;
-    
+
+    [ObservableProperty, JsonProperty("nariz")]
+    private Nariz? _nariz;
+
+    [ObservableProperty, JsonProperty("boca")]
+    private Boca? _boca;
+
+    [ObservableProperty, JsonProperty("orejas")]
+    private Orejas? _orejas;
+
+    [ObservableProperty, JsonProperty("media_filiacion_complementaria")]
+    private MediaFiliacionComplementaria? _mediaFiliacionComplementaria;
+
+    [ObservableProperty, JsonProperty("intervenciones_quirurgicas")]
+    private ObservableCollection<IntervencionQuirurgica> _intervencionesQuirurgicas = [];
+
+    [ObservableProperty, JsonProperty("enfermedades_piel")]
+    private ObservableCollection<EnfermedadPiel> _enfermedadesPiel = [];
+
     // TODO: Añadir ocupaciones
 
     /**

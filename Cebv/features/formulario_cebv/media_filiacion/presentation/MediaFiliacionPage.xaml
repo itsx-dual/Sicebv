@@ -89,28 +89,28 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Color de ojos:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding ColorOjo}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Ojos.ColorOjos}"
                                       ItemsSource="{Binding ColoresOjos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Forma de ojos:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding FormaOjo}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Ojos.FormaOjos}"
                                       ItemsSource="{Binding FormasOjos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tamaño de ojos:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding TamanoOjo}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Ojos.TamanoOjos}"
                                       ItemsSource="{Binding TamanosOjos}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="Otra especificación de ojos:" />
-                        <ui:TextBox Text="{Binding DescripcionOjos}"
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Ojos.EspecificacionesOjos}"
                                     TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
 
@@ -124,28 +124,28 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Calvicie:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Calvicie}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.Calvicie}"
                                       ItemsSource="{Binding Calvicies}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Color de cabello:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding ColorCabello}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.ColorCabello}"
                                       ItemsSource="{Binding ColoresCabellos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tamaño de cabello:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding TamanoCabello}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.TamanoCabello}"
                                       ItemsSource="{Binding TamanosCabellos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tipo de cabello:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding TipoCabello}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.TipoCabello}"
                                       ItemsSource="{Binding TiposCabellos}"/>
                         </StackPanel>
 
@@ -153,7 +153,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="Cualquier otra especificación del cabello:" />
-                        <ui:TextBox Text="{Binding DescripcionCabello}"
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Cabello.EspecificacionesCabello}"
                                     TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>
@@ -166,13 +166,15 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Cejas:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding TipoCeja}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.Cejas}"
                                       ItemsSource="{Binding TiposCejas}"/>
                         </StackPanel>
                         
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación de las cejas:" />
-                            <ui:TextBox Text="{Binding DescripcionCejas}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.EspecificacionesCejas}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -185,7 +187,7 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación del bigote:" />
-                            <ui:TextBox Text="{Binding BigoteDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.EspescificacionesBigote}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -198,7 +200,9 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación de la barba:" />
-                            <ui:TextBox Text="{Binding BarbateDescripcion}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.EspecificacionesBarba}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -210,13 +214,15 @@
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Forma de la nariz:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TipoNariz}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Nariz.TipoNariz}"
                                   ItemsSource="{Binding TiposNarices}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Cualquier otra especificación de la nariz:" />
-                        <ui:TextBox Text="{Binding DescripcionNariz}" TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Nariz.EspesificacionesNariz}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -227,20 +233,22 @@
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tamaño de boca:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TamanoBoca}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Boca.TamanoBoca}"
                                   ItemsSource="{Binding TamanosBocas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tamaño de labios:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TamanoLabio}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Boca.TamanoLabios}"
                                   ItemsSource="{Binding TamanosLabios}"/>
                     </StackPanel>
                     
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Cualquier otra especificación de la boca:" />
-                        <ui:TextBox Text="{Binding DescripcionBoca}" TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Boca.EspecificacionesBoca}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -251,20 +259,22 @@
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tamaño de orejas" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding TamanoOreja}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Orejas.TamanoOrejas}"
                                   ItemsSource="{Binding TamanosOrejas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Forma de orejas:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding FormaOreja}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Orejas.FormaOrejas}"
                                   ItemsSource="{Binding FormasOrejas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Cualquier otra especificación de la oreja:" />
-                        <ui:TextBox Text="{Binding DescripcionOreja}" TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Orejas.EspesificacionesOrejas}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>

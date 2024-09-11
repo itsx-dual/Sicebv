@@ -19,7 +19,7 @@ public partial class MediaFiliacionViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Reporte _reporte = null!;
 
     /**
      * Constructor de la clase
@@ -68,8 +68,20 @@ public partial class MediaFiliacionViewModel : ObservableObject
     [ObservableProperty] private string _bigoteOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _bigote = false;
 
+    partial void OnBigoteOpcionChanged(string value)
+    {
+        if (Reporte.Desaparecidos.Count > 0)
+            Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBigote = OpcionesCebv.MappingToBool(value);
+    }
+
     [ObservableProperty] private string _barbaOpcion = OpcionesCebv.No;
     [ObservableProperty] private bool? _barba = false;
+
+    partial void OnBarbaOpcionChanged(string value)
+    {
+        if (Reporte.Desaparecidos.Count > 0)
+            Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBarba = OpcionesCebv.MappingToBool(value);
+    }
 
     // Nariz
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposNarices = new();
@@ -96,8 +108,8 @@ public partial class MediaFiliacionViewModel : ObservableObject
         ColoresOjos = await CebvNetwork.GetCatalogo("colores-ojos");
         FormasOjos = await CebvNetwork.GetCatalogo("formas-ojos");
         TamanosOjos = await CebvNetwork.GetCatalogo("tamanos-ojos");
-        Calvicies = await CebvNetwork.GetCatalogo("calvicies");
-        ColoresCabellos = await CebvNetwork.GetCatalogo("tipos-calvicie");
+        Calvicies = await CebvNetwork.GetCatalogo("tipos-calvicie");
+        ColoresCabellos = await CebvNetwork.GetCatalogo("colores-cabello");
         TamanosCabellos = await CebvNetwork.GetCatalogo("tamanos-cabello");
         TiposCabellos = await CebvNetwork.GetCatalogo("tipos-cabello");
         TiposCejas = await CebvNetwork.GetCatalogo("tipos-cejas");
@@ -110,8 +122,19 @@ public partial class MediaFiliacionViewModel : ObservableObject
         Reporte = _reporteService.GetReporte();
 
         var @default = Reporte.Desaparecidos.FirstOrDefault();
+
+        @default!.Persona!.Salud ??= new();
+        @default.Persona!.Ojos ??= new();
+        @default.Persona!.Cabello ??= new();
+        @default.Persona!.VelloFacial ??= new();
+        @default.Persona!.Nariz ??= new();
+        @default.Persona!.Boca ??= new();
+        @default.Persona!.Orejas ??= new();
+
+        if (@default.Persona.VelloFacial is null) return;
         
-         @default!.Persona!.Salud ??= new();
+        BigoteOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBigote);
+        BarbaOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBigote);
     }
 
     [RelayCommand]

@@ -1,13 +1,12 @@
 using System.Collections.ObjectModel;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.prendas.data;
-using Cebv.features.formulario_cebv.prendas.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Catalogo = Cebv.core.data.Catalogo;
 
 namespace Cebv.features.formulario_cebv.prendas.presentation;
 
@@ -19,9 +18,12 @@ public enum PrendasUiState
 
 public partial class PrendasViewModel : ObservableObject
 {
-    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private static IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
+    
     private static IDashboardNavigationService _navigationService =
         App.Current.Services.GetService<IDashboardNavigationService>()!;
+    
     [ObservableProperty] private Reporte _reporte;
     
     [ObservableProperty] private PrendasUiState _uiState;
@@ -32,7 +34,7 @@ public partial class PrendasViewModel : ObservableObject
      */
     public PrendasViewModel()
     {
-        CargarCatalogos();
+        LoadAsync();
         UiState = PrendasUiState.Normal;
         Reporte = _reporteService.GetReporte();
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
@@ -42,8 +44,7 @@ public partial class PrendasViewModel : ObservableObject
      * Variables de la clase
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencias = new();
-
-    [ObservableProperty] private Catalogo _grupoPertenencia = new();
+    [ObservableProperty] private Catalogo? _grupoPertenencia;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _pertenencias = new();
     [ObservableProperty] private Catalogo? _pertenencia;
@@ -52,7 +53,7 @@ public partial class PrendasViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _color;
 
     [ObservableProperty] private string? _marca;
-    [ObservableProperty] private string? _descripcion;
+    [ObservableProperty] private string _descripcion = string.Empty;
 
     // Lista de prendas
     [ObservableProperty] private ObservableCollection<Prenda> _prendas = new();
@@ -61,14 +62,18 @@ public partial class PrendasViewModel : ObservableObject
     /**
      * Peticiones a la API para obtener los catalogos
      */
-    private async void CargarCatalogos()
+    private async void LoadAsync()
     {
-        //GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
-        //Colores = await PrendasNetwork.GetColores();
+        GruposPertenencias = await CebvNetwork.GetCatalogo("grupos-pertenencias");
+        Colores = await CebvNetwork.GetCatalogo("colores");
     }
 
-    //async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
-        //Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
+    async partial void OnGrupoPertenenciaChanged(Catalogo? value)
+    {
+        if (value?.Id is null) return;
+        
+        Pertenencias = await CebvNetwork.GetByFilter<Catalogo>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
+    }
 
     /**
      * Añadir y eliminar prendas
@@ -192,6 +197,14 @@ public partial class PrendasViewModel : ObservableObject
         Pertenencia = null;
         Color = null;
         Marca = null;
-        Descripcion = null;
+        Descripcion = string.Empty;
+    }
+    
+    
+    [RelayCommand]
+    private void OnGuardarYSiguente(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }
