@@ -390,7 +390,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (PerteneciaSelected == null) return;
 
-        var prendasDeVestir = Desaparecido.PrendasDeVestir;
+        var prendasDeVestir = Desaparecido.PrendasVestir;
         prendasDeVestir?.Add(new PrendaVestir
         {
             Marca = CurrentMarca,
@@ -404,13 +404,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GrupoPerteneciaSelected = null;
         PerteneciaSelected = null;
         ColorSelected = null;
-        HayPrendas = Desaparecido.PrendasDeVestir?.Any() ?? false;
+        HayPrendas = Desaparecido.PrendasVestir?.Any() ?? false;
     }
 
     [RelayCommand]
     private void OnRemovePrendaDeVestir(PrendaVestir prenda)
     {
-        Desaparecido.PrendasDeVestir?.Remove(prenda);
+        Desaparecido.PrendasVestir?.Remove(prenda);
     }
 
     [RelayCommand]
@@ -519,7 +519,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id, ImagenesDesaparecido.ToList(), ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id!.Value, ImagenesDesaparecido.ToList(), ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();

@@ -29,7 +29,7 @@ public enum EstadoReporte
     Cargado,
     
     /// <summary>
-    /// El reporte esta en un estado de error en donde la sincorinizacion no fue exitosa.
+    /// El reporte está en un estado de error en donde la sincorinizacion no fue exitosa.
     /// </summary>
     Error,
 }

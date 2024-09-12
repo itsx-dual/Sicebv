@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
-using Cebv.features.formulario_cebv.prendas.data;
-using Cebv.features.formulario_cebv.prendas.domain;
+using Cebv.core.domain;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -9,7 +8,7 @@ namespace Cebv.features.formulario_cebv.prendas.presentation;
 
 public partial class PrendaEdicionViewModel : ObservableObject
 {
-    public event EventHandler<Prenda>? PrendaGuardada;
+    public event EventHandler<PrendaVestir>? PrendaGuardada;
     
     public int Index { get; set; }
 
@@ -18,10 +17,10 @@ public partial class PrendaEdicionViewModel : ObservableObject
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencias = new();
 
-    [ObservableProperty] private Catalogo _grupoPertenencia = new();
+    [ObservableProperty] private Catalogo? _grupoPertenencia = new();
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _pertenencias = new();
-    [ObservableProperty] private Catalogo? _pertenencia;
+    [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
+    [ObservableProperty] private Pertenencia? _pertenencia;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
     [ObservableProperty] private Catalogo? _color;
@@ -30,7 +29,7 @@ public partial class PrendaEdicionViewModel : ObservableObject
     [ObservableProperty] private string? _descripcion;
 
 
-    public PrendaEdicionViewModel(Prenda prenda, int index)
+    public PrendaEdicionViewModel(PrendaVestir prenda, int index)
     {
         Index = index;
         
@@ -38,14 +37,14 @@ public partial class PrendaEdicionViewModel : ObservableObject
         InitializeAsync(prenda);
     }
     
-    private async void InitializeAsync(Prenda prenda)
+    private async void InitializeAsync(PrendaVestir prenda)
     {
         await CargarCatalogosAsync();
         
         //Pertenencias = await PrendasNetwork.GetPertenencias(prenda.GrupoPertenencia!.Id);
 
         // Asignar propiedades después de cargar los catálogos
-        GrupoPertenencia = prenda.GrupoPertenencia!;
+        GrupoPertenencia = prenda.Pertenencia?.GrupoPertenencia!;
         Pertenencia = prenda.Pertenencia;
         Color = prenda.Color;
         Marca = prenda.Marca;
@@ -54,21 +53,29 @@ public partial class PrendaEdicionViewModel : ObservableObject
     
     private async Task CargarCatalogosAsync()
     {
-        //GruposPertenencias = await PrendasNetwork.GetGruposPertenencias();
-        //Colores = await PrendasNetwork.GetColores();
+        GruposPertenencias = await CebvNetwork.GetCatalogo("grupos-pertenencias");
+        Colores = await CebvNetwork.GetCatalogo("colores");
     }
 
-    //async partial void OnGrupoPertenenciaChanged(Catalogo value) =>
-    //    Pertenencias = await PrendasNetwork.GetPertenencias(value.Id);
+    async partial void OnGrupoPertenenciaChanged(Catalogo? value)
+    {
+        if (value?.Id is null) return;
+
+        Pertenencias =
+            await CebvNetwork.GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
+    }
 
     [RelayCommand]
     private void GuardarPrenda()
     {
-        if (Pertenencia is null) return;
+        if (GrupoPertenencia is null ||
+            Pertenencia is null ||
+            Color is null ||
+            Descripcion == string.Empty)
+            return;
 
-        var prenda = new Prenda
+        var prenda = new PrendaVestir
         {
-            GrupoPertenencia = GrupoPertenencia,
             Pertenencia = Pertenencia,
             Color = Color,
             Marca = Marca,

@@ -11,9 +11,56 @@ public partial class Desaparecido : ObservableObject
 {
     [JsonConstructor]
     public Desaparecido(
-        int? id
+        int? id,
+        int? reporteId,
+        string? identidadResguardada,
+        Persona? persona,
+        BasicResource? estatusRpdno,
+        BasicResource? estatusCebv,
+        string? clasificacionPersona,
+        bool? declaracionEspecialAusencia,
+        bool? accionUrgente,
+        bool? dictamen,
+        bool? ciNivelFederal,
+        string? otroDerechoHumano,
+        DateTime? fechaNacimientoAproximada,
+        string? fechaNacimientoCebv,
+        string? observacionesFechaNacimiento,
+        int? edadMomentoDesaparicionAnos,
+        int? edadMomentoDesaparicionMeses,
+        int? edadMomentoDesaparicionDias,
+        string? urlBoletin,
+        DateTime? createdAt,
+        DateTime? updatedAt,
+        ObservableCollection<DocumentoLegal>? documentosLegales,
+        Folio? folios,
+        ObservableCollection<PrendaVestir> prendasVestir
     )
     {
+        Id = id;
+        ReporteId = reporteId;
+        IdentidadResguardada = identidadResguardada;
+        Persona = persona;
+        EstatusRpdno = estatusRpdno;
+        EstatusCebv = estatusCebv;
+        ClasificacionPersona = clasificacionPersona;
+        DeclaracionEspecialAusencia = declaracionEspecialAusencia;
+        AccionUrgente = accionUrgente;
+        Dictamen = dictamen;
+        CiNivelFederal = ciNivelFederal;
+        OtroDerechoHumano = otroDerechoHumano;
+        FechaNacimientoAproximada = fechaNacimientoAproximada;
+        FechaNacimientoCebv = fechaNacimientoCebv;
+        ObservacionesFechaNacimiento = observacionesFechaNacimiento;
+        EdadMomentoDesaparicionAnos = edadMomentoDesaparicionAnos;
+        EdadMomentoDesaparicionMeses = edadMomentoDesaparicionMeses;
+        EdadMomentoDesaparicionDias = edadMomentoDesaparicionDias;
+        UrlBoletin = urlBoletin;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
+        DocumentosLegales = documentosLegales;
+        Folios = folios;
+        PrendasVestir = prendasVestir;
     }
 
     public Desaparecido()
@@ -51,7 +98,7 @@ public partial class Desaparecido : ObservableObject
     private bool? _accionUrgente;
 
     [ObservableProperty, JsonProperty("dictamen")]
-    private string? _dictamen;
+    private bool? _dictamen;
 
     [ObservableProperty, JsonProperty("ci_nivel_federal")]
     private bool? _ciNivelFederal;
@@ -91,7 +138,7 @@ public partial class Desaparecido : ObservableObject
      */
     [ObservableProperty, JsonProperty(PropertyName = "documentos_legales")]
     private ObservableCollection<DocumentoLegal>? _documentosLegales = new();
-    
+
     [ObservableProperty, JsonProperty("folios")]
     private Folio? _folios;
 

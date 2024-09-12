@@ -41,14 +41,13 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
 
         Reporte = _reporteService.GetReporte();
 
-        Reporte.Desaparecidos[0].Persona ??= new();
-        Reporte.Desaparecidos[0].Persona!.MediaFiliacionComplementaria ??= new();
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona.MediaFiliacionComplementaria ??= new();
 
         DienteOpcion =
-            OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona!.MediaFiliacionComplementaria!
+            OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!
                 .TieneAusenciaDental);
         TratamientoDentalOpcion =
-            OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona!.MediaFiliacionComplementaria!
+            OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!
                 .TieneTratamientoDental);
     }
 
@@ -81,10 +80,10 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
         if (TipoIntervencion is null) return;
 
         //Se entiende @var i como un objeto de tipo IntervencionQuirurgica
-        if (Reporte.Desaparecidos[0].Persona!.IntervencionesQuirurgicas.Any(i =>
+        if (Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas.Any(i =>
                 i.TipoIntervencionQuirurgica?.Id == TipoIntervencion.Id)) return;
 
-        Reporte.Desaparecidos[0].Persona!.IntervencionesQuirurgicas.Add(
+        Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas.Add(
             new()
             {
                 TipoIntervencionQuirurgica = TipoIntervencion,
@@ -99,7 +98,7 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     [RelayCommand]
     private void OnRemoveIntervencionQuirurgica(IntervencionQuirurgica intervencionQuirurgica)
     {
-        Reporte.Desaparecidos[0].Persona!.IntervencionesQuirurgicas.Remove(intervencionQuirurgica);
+        Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas.Remove(intervencionQuirurgica);
     }
 
     // Enfermedades en la piel
@@ -117,10 +116,10 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
         if (EnfermedadPiel is null) return;
 
         //Se entiende @var i como un objeto de tipo EnfermedadPiel
-        if (Reporte.Desaparecidos[0].Persona!.EnfermedadesPiel.Any(i =>
+        if (Reporte.Desaparecidos[0].Persona.EnfermedadesPiel.Any(i =>
                 i.TipoEnfermedadPiel?.Id == EnfermedadPiel.Id)) return;
 
-        Reporte.Desaparecidos[0].Persona!.EnfermedadesPiel.Add(
+        Reporte.Desaparecidos[0].Persona.EnfermedadesPiel.Add(
             new()
             {
                 TipoEnfermedadPiel = EnfermedadPiel,
@@ -135,21 +134,21 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     [RelayCommand]
     private void OnRemoveEnfermedadPiel(EnfermedadPiel enfermedadPiel)
     {
-        Reporte.Desaparecidos[0].Persona!.EnfermedadesPiel.Remove(enfermedadPiel);
+        Reporte.Desaparecidos[0].Persona.EnfermedadesPiel.Remove(enfermedadPiel);
     }
 
     partial void OnDienteOpcionChanged(string value)
     {
         Diente = OpcionesCebv.MappingToBool(value);
 
-        Reporte.Desaparecidos[0].Persona!.MediaFiliacionComplementaria!.TieneAusenciaDental = Diente;
+        Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!.TieneAusenciaDental = Diente;
     }
 
     partial void OnTratamientoDentalOpcionChanged(string value)
     {
         TratamientoDental = OpcionesCebv.MappingToBool(value);
 
-        Reporte.Desaparecidos[0].Persona!.MediaFiliacionComplementaria!.TieneTratamientoDental = TratamientoDental;
+        Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!.TieneTratamientoDental = TratamientoDental;
     }
 
     [RelayCommand]

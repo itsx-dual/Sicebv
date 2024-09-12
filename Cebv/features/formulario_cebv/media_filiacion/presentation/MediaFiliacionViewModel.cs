@@ -71,7 +71,7 @@ public partial class MediaFiliacionViewModel : ObservableObject
     partial void OnBigoteOpcionChanged(string value)
     {
         if (Reporte.Desaparecidos.Count > 0)
-            Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBigote = OpcionesCebv.MappingToBool(value);
+            Reporte.Desaparecidos[0].Persona.VelloFacial!.TieneBigote = OpcionesCebv.MappingToBool(value);
     }
 
     [ObservableProperty] private string _barbaOpcion = OpcionesCebv.No;
@@ -80,7 +80,7 @@ public partial class MediaFiliacionViewModel : ObservableObject
     partial void OnBarbaOpcionChanged(string value)
     {
         if (Reporte.Desaparecidos.Count > 0)
-            Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBarba = OpcionesCebv.MappingToBool(value);
+            Reporte.Desaparecidos[0].Persona.VelloFacial!.TieneBarba = OpcionesCebv.MappingToBool(value);
     }
 
     // Nariz
@@ -123,18 +123,24 @@ public partial class MediaFiliacionViewModel : ObservableObject
 
         var @default = Reporte.Desaparecidos.FirstOrDefault();
 
-        @default!.Persona!.Salud ??= new();
-        @default.Persona!.Ojos ??= new();
-        @default.Persona!.Cabello ??= new();
-        @default.Persona!.VelloFacial ??= new();
-        @default.Persona!.Nariz ??= new();
-        @default.Persona!.Boca ??= new();
-        @default.Persona!.Orejas ??= new();
-
-        if (@default.Persona.VelloFacial is null) return;
+        if (@default != null)
+        {
+            
+            @default.Persona ??= new();
+            
+            @default.Persona.Salud ??= new();
+            @default.Persona.Ojos ??= new();
+            @default.Persona.Cabello ??= new();
+            @default.Persona.VelloFacial ??= new();
+            @default.Persona.Nariz ??= new();
+            @default.Persona.Boca ??= new();
+            @default.Persona.Orejas ??= new();
+        }
         
-        BigoteOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBigote);
-        BarbaOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona!.VelloFacial!.TieneBigote);
+        if (@default?.Persona?.VelloFacial is null) return;
+
+        BigoteOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona?.VelloFacial!.TieneBigote);
+        BarbaOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona?.VelloFacial!.TieneBigote);
     }
 
     [RelayCommand]

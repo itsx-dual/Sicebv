@@ -6,6 +6,7 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -110,19 +111,18 @@
                 </UniformGrid>
             </Border>
 
-            <ui:CardExpander Icon="{ui:SymbolIcon Tag24}" Margin="0 0 0 15">
+            <ui:CardExpander Icon="{ui:SymbolIcon Tag24}" Margin="0 15 0 0 ">
                 <ui:CardExpander.Header>
                     <ui:TextBlock Text="Prendas" FontTypography="Subtitle" />
                 </ui:CardExpander.Header>
 
                 <ui:ListView
-                    HorizontalAlignment="Stretch"
                     MaxHeight="250"
-                    ItemsSource="{Binding Desaparecido.PrendasDeVestir}"
+                    ItemsSource="{Binding Reporte.Desaparecidos[0].PrendasVestir}"
                     SelectionMode="Single">
                     <ui:ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
+                        <DataTemplate >
+                            <Grid HorizontalAlignment="Stretch">
                                 <ui:CardControl
                                     Margin="5 5 120 5"
                                     Padding="10"
@@ -160,7 +160,7 @@
                                         <ui:TextBlock
                                             Appearance="Tertiary"
                                             Text="{Binding Descripcion}"
-                                            TextWrapping="Wrap" />
+                                            TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </ui:CardControl>
                                 
@@ -192,13 +192,13 @@
             </ui:CardExpander>
         </StackPanel>
 
-        <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding }"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:SenasParticularesPage}" />
     </Grid>
 </Page>
