@@ -59,9 +59,9 @@ public partial class Reporte : ObservableObject
         CiNivelFederal = ciNivelFederal;
         OtroDerechoHumano = otroDerechoHumano;
         SintesisLocalizacion = sintesisLocalizacion;
-        Reportantes = reportantes;
-        Desaparecidos = desaparecidos;
-        HechosDesaparicion = hechosDesaparicion;
+        Reportantes = reportantes ?? [];
+        Desaparecidos = desaparecidos ?? [];
+        HechosDesaparicion = hechosDesaparicion ?? new HechosDesaparicionResponse();
         FechaCreacion = fechaCreacion;
         FechaActualizacion = fechaActualizacion;
         InstitucionOrigen = institucionOrigen;
@@ -132,7 +132,7 @@ public partial class Reporte : ObservableObject
     private ObservableCollection<Desaparecido> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechosDesaparicionResponse? _hechosDesaparicion = new();
+    private HechosDesaparicionResponse _hechosDesaparicion = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
     private ObservableCollection<Hipotesis>? _hipotesis = new();

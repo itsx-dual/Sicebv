@@ -456,7 +456,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
         AddTelefonoMovilDesaparecidoCommand.Execute(null);
-        //AddSenaParticularCommand.Execute(null);
         AddPrendaDeVestirCommand.Execute(null);
 
         var senasParticulares = Desaparecido.Persona.SenasParticulares.ToList();

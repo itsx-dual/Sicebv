@@ -45,7 +45,19 @@ public partial class Direccion : ObservableObject
 
     private bool Equals(Direccion direccion)
     {
-        return Id == direccion.Id;
+        var asentamiento = Asentamiento?.Equals(direccion.Asentamiento) ?? false;
+        
+        return Id == direccion.Id &&
+               Calle == direccion.Calle &&
+               Colonia == direccion.Colonia &&
+               NumeroExterior == direccion.NumeroExterior &&
+               NumeroInterior == direccion.NumeroInterior &&
+               Calle1 == direccion.Calle1 &&
+               Calle2 == direccion.Calle2 &&
+               TramoCarretero == direccion.TramoCarretero &&
+               CodigoPostal == direccion.CodigoPostal &&
+               Referencia == direccion.Referencia &&
+               asentamiento;
     }
     
     public override int GetHashCode() //wao

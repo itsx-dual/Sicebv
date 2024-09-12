@@ -27,7 +27,7 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
         </Style>
-
+        
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
 
@@ -116,15 +116,13 @@
                     <WrapPanel Margin=" 0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEXO:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Persona.Sexo}"
+                            <ComboBox SelectedItem="{Binding Reportante.Persona.Sexo}"
                                       ItemsSource="{Binding Sexos}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿USTED QUE ES DE LA PERSONA DESAPARECIDA O NO LOCALIZADA?" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Reportante.Parentesco}"
+                            <ComboBox SelectedItem="{Binding Reportante.Parentesco}"
                                       ItemsSource="{Binding Parentescos}" />
                         </StackPanel>
                     </WrapPanel>
@@ -393,8 +391,10 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPAÑÍA:" />
                             <ComboBox ItemsSource="{Binding CompaniasTelefonicas}"
-                                      DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected}" />
+                                      SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected}"
+                                      IsReadOnly="False"
+                                      IsEditable="True"
+                                      LostFocus="ComboBox_LostFocus" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -428,11 +428,15 @@
                                             Icon="{ui:SymbolIcon Phone24}"
                                             HorizontalAlignment="Stretch">
                                             <ui:CardControl.Header>
-                                                <ui:TextBlock
-                                                    FontTypography="BodyStrong"
-                                                    Text="{Binding Numero}"
-                                                    TextWrapping="WrapWithOverflow" />
+                                                <StackPanel>
+                                                    <ui:TextBlock FontTypography="BodyStrong"
+                                                                  Text="{Binding Numero, StringFormat='Numero: {0}'}"
+                                                                  Margin="0,0,0,5"/>
+                                                    
+                                                    <ui:TextBlock Text="{Binding Compania.Nombre, StringFormat='Compañia: {0}'}"/> 
+                                                </StackPanel>
                                             </ui:CardControl.Header>
+                                            
                                             <StackPanel>
                                                 <ui:TextBlock
                                                     Appearance="Secondary"
@@ -447,7 +451,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoDesaparecidoCommand}"
                                                    CommandParameter="{Binding}" />
 
                                     </Grid>
@@ -963,9 +967,11 @@
 
                                     <StackPanel>
                                         <ui:TextBlock Text="Color:" />
-                                        <ComboBox SelectedItem="{Binding ColorSelected }"
+                                        <ComboBox SelectedItem="{Binding ColorSelected}"
                                                   ItemsSource="{Binding Colores}"
-                                                  IsEditable="True" />
+                                                  IsEditable="True"
+                                                  IsReadOnly="False"
+                                                  LostFocus="ComboBox_LostFocus"/>
                                     </StackPanel>
                                 </StackPanel>
 
