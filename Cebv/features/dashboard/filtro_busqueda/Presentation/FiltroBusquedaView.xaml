@@ -1,0 +1,419 @@
+<Page x:Class="Cebv.features.dashboard.filtro_busqueda.FiltroBusquedaView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:Cebv.features.dashboard.filtro_busqueda"
+      mc:Ignorable="d"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="Auto"
+      d:DesignHeight="800"
+      xmlns:data1="clr-namespace:Cebv.core.modules.desaparecido.data"
+      xmlns:data2="clr-namespace:Cebv.core.modules.reporte.data">
+    
+    <Page.DataContext>
+        <local:FiltroBusquedaViewModel />
+    </Page.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0">
+            <ui:TextBlock Text="Reportes" TextAlignment="Center" FontTypography="TitleLarge"/> 
+            
+            <Expander Header="FILTROS" IsExpanded="True" Margin="10,0,10,0">
+                <WrapPanel>
+                    <Expander Header="Filtros generales" MinWidth="200" Margin="0,0,15,0">
+                        <StackPanel>
+                            <ui:TextBlock Text="Filtros generales" FontTypography="Subtitle"/>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Estado" />
+                                    <ComboBox Width="150" ItemsSource="{Binding Estados}" SelectedItem="{Binding FiltroSeleccionado.Estado}" 
+                                              IsEditable="True"/>
+                                </StackPanel>
+                               
+                                <StackPanel>
+                                    <ui:TextBlock Text="Zona Estado" />
+                                    <ComboBox Width="150" ItemsSource="{Binding Zonas}" SelectedItem="{Binding FiltroSeleccionado.Zona}" 
+                                              IsEditable="True"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Tipo reporte" />
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel>
+                                    <ui:TextBlock Text="Area Atiende" />
+                                    <ComboBox Width="150" ItemsSource="{Binding Areas}" SelectedItem="{Binding FiltroSeleccionado.Area}" 
+                                              IsEditable="True"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel HorizontalAlignment="Center">
+                                <ui:TextBlock Text="Medio conocimiento" />
+                                <ComboBox  Width="150" ItemsSource="{Binding TiposReporte}" SelectedItem="{Binding FiltroSeleccionado.TipoReporte}" 
+                                           IsEditable="True"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                        
+                    <Expander Header="Persona reportante" MinWidth="200" Margin="0,0,15,0">
+                        <StackPanel>
+                            <ui:TextBlock Text="Persona Reportante" FontTypography="Subtitle"/>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <TextBlock Text="Lugar Nacimiento" />
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                           
+                                <StackPanel Margin="0,0,20,0">
+                                    <TextBlock Text="Escolaridad" />
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                           
+                                <StackPanel>
+                                    <TextBlock Text="Sexo"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Genero"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Nacionalidad"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel>
+                                    <ui:TextBlock Text="Religion"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Lengua"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Parentesco"/>
+                                    <ComboBox Width="150" />
+                                </StackPanel>
+                            
+                                <StackPanel>
+                                    <ui:TextBlock Text="Colectivo"/>
+                                    <ComboBox Width="150" />
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Estado conyugal"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Publicacion Boletin"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            
+                                <StackPanel>
+                                    <ui:TextBlock Text="Pub. Registro Nacional"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Fecha Nacimiento"/>
+                                    <DatePicker Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Ocupacion"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            
+                                <StackPanel>
+                                    <ui:TextBlock Text="Denuncia Anonima"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <Separator Margin="0,3,0,2"/>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Telefono"/>
+                                    <ui:TextBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Compañia"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel>
+                                    <ui:TextBlock Text="¿Es movil?" />
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                        
+                    <Expander Header="Persona desaparecida" MinWidth="200" Margin="0,0,15,0">
+                        <StackPanel>
+                            <ui:TextBlock Text="Persona desaparecida" FontTypography="Subtitle"/>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <TextBlock Text="Lugar Nacimiento"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0,20,0">
+                                    <TextBlock Text="Escolaridad"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel>
+                                    <ui:TextBlock Text="Sexo"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Genero"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Nacionalidad"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel>
+                                    <ui:TextBlock Text="Religion"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Lengua"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Fecha nacimiento"/>
+                                    <DatePicker Width="150"/>
+                                </StackPanel>
+                                
+                                <StackPanel>
+                                    <ui:TextBlock Text="Ocupacion"/>
+                                    <ComboBox Width="150"/>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,15,0">
+                                    <ui:TextBlock Text="Declaración esp. ausencia"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Accion Urgente"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                
+                                <StackPanel>
+                                    <ui:TextBlock Text="Dictamen"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Habla español"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0,20,0">
+                                    <ui:TextBlock Text="Sabe leer"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                
+                                <StackPanel>
+                                    <ui:TextBlock Text="Sabe escribir"/>
+                                    <ComboBox Width="150">
+                                        <ComboBoxItem Content="Si"/>
+                                        <ComboBoxItem Content="No"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                </WrapPanel>
+                
+                
+            </Expander>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1">
+            <ui:AutoSuggestBox PlaceholderText="Buscar reporte..." Margin="15"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <RadioButton Content="Reportante"/>
+                <RadioButton Content="Desaparecido"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2">
+            <ui:ListView ItemsSource="{Binding Reportes}"
+                         SelectedItem="{Binding ReporteSelected}"
+                         MouseDoubleClick="EventSetter_OnHandler">
+
+                <ui:ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type data2:ReporteResponse}">
+                        <Border Padding="16"
+                                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <ui:TextBlock Grid.Row="0" FontSize="12" HorizontalAlignment="Left">
+                                    <Run Text="{Binding MedioConocimiento.TipoMedio.Nombre}" />
+                                    <Run Text=" - " />
+                                    <Run Text="{Binding MedioConocimiento.Nombre}" />
+                                </ui:TextBlock>
+
+                                <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                                        <ui:TextBlock Text="{Binding TipoReporte.Nombre}" FontWeight="Bold"
+                                                      FontSize="24" />
+                                        <ui:TextBlock Text="{Binding FechaCreacion}" FontSize="12" />
+                                    </StackPanel>
+
+                                    <ui:TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Right"
+                                                  Margin="0 5 0 0">
+                                        <Run Text="{Binding Estado.Nombre}" />
+                                        <Run Text=", " />
+                                        <Run Text="{Binding Estado.AbreviaturaCebv}" />
+                                    </ui:TextBlock>
+                                </Grid>
+
+                                <Separator Grid.Row="2" Height="25" Background="Transparent" BorderThickness="0" />
+
+                                <ui:ListView Grid.Row="3" 
+                                             ItemsSource="{Binding Desaparecidos}"
+                                             SelectedItem="{Binding ElementName=Page, Path=DataContext.DesaparecidoSelected}"
+                                             IsSelected="False"
+                                             MouseDoubleClick="Control_OnMouseDoubleClick">
+                                    <ui:ListView.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type data1:DesaparecidoResponse}">
+                                            <Grid Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Ellipse
+                                                    x:Name="Ellipse"
+                                                    Grid.RowSpan="3"
+                                                    Width="48"
+                                                    Height="48"
+                                                    Margin="6"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Fill="{ui:ThemeResource ControlStrongStrokeColorDefaultBrush}" />
+
+                                                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20">
+                                                    <Run Text="{Binding Persona.Nombre}" FontWeight="Bold" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{Binding Persona.ApellidoPaterno}" FontWeight="Bold" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{Binding Persona.ApellidoMaterno}" FontWeight="Bold" />
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14">
+                                                    <Run Text="{Binding EstatusCebv.Nombre}" />
+                                                    <Run Text=" - " />
+                                                    <Run Text="{Binding EstatusRpdno.Nombre}" FontStyle="Oblique" />
+                                                </TextBlock>
+
+                                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FolioCebv}"
+                                                           FontSize="18" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ui:ListView.ItemTemplate>
+                                </ui:ListView>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
+        </StackPanel>
+    </Grid>
+</Page>
