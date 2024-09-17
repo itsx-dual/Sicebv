@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using Cebv.core.util.navigation;
@@ -35,33 +35,24 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
      */
     private async void LoadAsync()
     {
-        TiposMentones = await CebvNetwork.GetCatalogo("tipos-mentones");
-        TiposIntervenciones = await CebvNetwork.GetCatalogo("tipos-intervenciones-quirurgicas");
-        EnfermedadesPieles = await CebvNetwork.GetCatalogo("tipos-enfermedades-piel");
+        TiposMentones = await CebvNetwork.GetRoute<Catalogo>("tipos-mentones");
+        TiposIntervenciones = await CebvNetwork.GetRoute<Catalogo>("tipos-intervenciones-quirurgicas");
+        EnfermedadesPieles = await CebvNetwork.GetRoute<Catalogo>("tipos-enfermedades-piel");
 
         Reporte = _reporteService.GetReporte();
 
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona.MediaFiliacionComplementaria ??= new();
-
-        DienteOpcion =
-            OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!
-                .TieneAusenciaDental);
-        TratamientoDentalOpcion =
-            OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!
-                .TieneTratamientoDental);
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.MediaFiliacionComplementaria ??= new();
     }
 
     /**
      * Variables de la clase
      */
     // Dientes
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
-    [ObservableProperty] private string _dienteOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _diente = false;
+    [ObservableProperty] private string _diente = No;
 
-    [ObservableProperty] private string _tratamientoDentalOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _tratamientoDental = false;
+    [ObservableProperty] private string _tratamientoDental = No;
 
     // Proyección del mentón
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMentones = new();
@@ -134,21 +125,7 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     [RelayCommand]
     private void OnRemoveEnfermedadPiel(EnfermedadPiel enfermedadPiel)
     {
-        Reporte.Desaparecidos[0].Persona.EnfermedadesPiel.Remove(enfermedadPiel);
-    }
-
-    partial void OnDienteOpcionChanged(string value)
-    {
-        Diente = OpcionesCebv.MappingToBool(value);
-
-        Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!.TieneAusenciaDental = Diente;
-    }
-
-    partial void OnTratamientoDentalOpcionChanged(string value)
-    {
-        TratamientoDental = OpcionesCebv.MappingToBool(value);
-
-        Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria!.TieneTratamientoDental = TratamientoDental;
+        Reporte.Desaparecidos[0].Persona!.EnfermedadesPiel.Remove(enfermedadPiel);
     }
 
     [RelayCommand]

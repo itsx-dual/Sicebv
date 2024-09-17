@@ -103,8 +103,11 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="¿Le gusta su trabajo?" />
-                            <ComboBox SelectedItem="{Binding GustaTrabajoOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedItem="{Binding GustaTrabajo}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.EnfoqueDiferenciado.PertenenciaGrupalEtnica}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 

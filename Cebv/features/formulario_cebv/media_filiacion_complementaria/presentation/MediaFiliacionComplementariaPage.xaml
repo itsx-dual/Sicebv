@@ -43,13 +43,16 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="¿Presenta ausencia de dientes?" />
-                            <ComboBox SelectedItem="{Binding DienteOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedItem="{Binding Diente}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneAusenciaDental}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="400" Margin="0 0 0 15"
-                                Visibility="{Binding Diente,
+                                Visibility="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneAusenciaDental,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Especifique la ausencia dental:" />
                         <ui:TextBox
@@ -61,13 +64,16 @@
                     <WrapPanel>
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="¿Tiene algún tratamiento dental?" />
-                            <ComboBox SelectedItem="{Binding TratamientoDentalOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedItem="{Binding TratamientoDental}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneTratamientoDental}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="400" Margin="0 15 0 0"
-                                Visibility="{Binding TratamientoDental,
+                                Visibility="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneTratamientoDental,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Especifique el tratamiento dental:" />
                         <ui:TextBox

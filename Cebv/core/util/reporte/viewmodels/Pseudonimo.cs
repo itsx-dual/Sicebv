@@ -8,7 +8,7 @@ public partial class Pseudonimo : ObservableObject
 {
     [JsonConstructor]
     public Pseudonimo(
-        int id,
+        int? id,
         int? personaId,
         string? nombre,
         string? apellidoPaterno,

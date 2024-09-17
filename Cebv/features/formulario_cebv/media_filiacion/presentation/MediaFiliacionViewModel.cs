@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -63,25 +63,11 @@ public partial class MediaFiliacionViewModel : ObservableObject
     // Vello facial
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposCejas = new();
 
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
-    [ObservableProperty] private string _bigoteOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _bigote = false;
+    [ObservableProperty] private string _bigote = No;
 
-    partial void OnBigoteOpcionChanged(string value)
-    {
-        if (Reporte.Desaparecidos.Count > 0)
-            Reporte.Desaparecidos[0].Persona.VelloFacial!.TieneBigote = OpcionesCebv.MappingToBool(value);
-    }
-
-    [ObservableProperty] private string _barbaOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _barba = false;
-
-    partial void OnBarbaOpcionChanged(string value)
-    {
-        if (Reporte.Desaparecidos.Count > 0)
-            Reporte.Desaparecidos[0].Persona.VelloFacial!.TieneBarba = OpcionesCebv.MappingToBool(value);
-    }
+    [ObservableProperty] private string _barba = No;
 
     // Nariz
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposNarices = new();
@@ -102,45 +88,38 @@ public partial class MediaFiliacionViewModel : ObservableObject
      */
     private async void LoadAsync()
     {
-        Complexiones = await CebvNetwork.GetCatalogo("complexiones");
-        ColoresPieles = await CebvNetwork.GetCatalogo("colores-piel");
-        FormasCaras = await CebvNetwork.GetCatalogo("formas-cara");
-        ColoresOjos = await CebvNetwork.GetCatalogo("colores-ojos");
-        FormasOjos = await CebvNetwork.GetCatalogo("formas-ojos");
-        TamanosOjos = await CebvNetwork.GetCatalogo("tamanos-ojos");
-        Calvicies = await CebvNetwork.GetCatalogo("tipos-calvicie");
-        ColoresCabellos = await CebvNetwork.GetCatalogo("colores-cabello");
-        TamanosCabellos = await CebvNetwork.GetCatalogo("tamanos-cabello");
-        TiposCabellos = await CebvNetwork.GetCatalogo("tipos-cabello");
-        TiposCejas = await CebvNetwork.GetCatalogo("tipos-cejas");
-        TiposNarices = await CebvNetwork.GetCatalogo("tipos-nariz");
-        TamanosBocas = await CebvNetwork.GetCatalogo("tamanos-boca");
-        TamanosLabios = await CebvNetwork.GetCatalogo("tamanos-labios");
-        TamanosOrejas = await CebvNetwork.GetCatalogo("tamanos-orejas");
-        FormasOrejas = await CebvNetwork.GetCatalogo("formas-orejas");
+        Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
+        ColoresPieles = await CebvNetwork.GetRoute<Catalogo>("colores-piel");
+        FormasCaras = await CebvNetwork.GetRoute<Catalogo>("formas-cara");
+        ColoresOjos = await CebvNetwork.GetRoute<Catalogo>("colores-ojos");
+        FormasOjos = await CebvNetwork.GetRoute<Catalogo>("formas-ojos");
+        TamanosOjos = await CebvNetwork.GetRoute<Catalogo>("tamanos-ojos");
+        Calvicies = await CebvNetwork.GetRoute<Catalogo>("tipos-calvicie");
+        ColoresCabellos = await CebvNetwork.GetRoute<Catalogo>("colores-cabello");
+        TamanosCabellos = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabello");
+        TiposCabellos = await CebvNetwork.GetRoute<Catalogo>("tipos-cabello");
+        TiposCejas = await CebvNetwork.GetRoute<Catalogo>("tipos-cejas");
+        TiposNarices = await CebvNetwork.GetRoute<Catalogo>("tipos-nariz");
+        TamanosBocas = await CebvNetwork.GetRoute<Catalogo>("tamanos-boca");
+        TamanosLabios = await CebvNetwork.GetRoute<Catalogo>("tamanos-labios");
+        TamanosOrejas = await CebvNetwork.GetRoute<Catalogo>("tamanos-orejas");
+        FormasOrejas = await CebvNetwork.GetRoute<Catalogo>("formas-orejas");
 
         Reporte = _reporteService.GetReporte();
 
         var @default = Reporte.Desaparecidos.FirstOrDefault();
 
-        if (@default != null)
-        {
-            
-            @default.Persona ??= new();
-            
-            @default.Persona.Salud ??= new();
-            @default.Persona.Ojos ??= new();
-            @default.Persona.Cabello ??= new();
-            @default.Persona.VelloFacial ??= new();
-            @default.Persona.Nariz ??= new();
-            @default.Persona.Boca ??= new();
-            @default.Persona.Orejas ??= new();
-        }
+        if (@default == null) return;
         
-        if (@default?.Persona?.VelloFacial is null) return;
-
-        BigoteOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona?.VelloFacial!.TieneBigote);
-        BarbaOpcion = OpcionesCebv.MappingToString(Reporte.Desaparecidos[0].Persona?.VelloFacial!.TieneBigote);
+        @default.Persona ??= new();
+            
+        @default.Persona.Salud ??= new();
+        @default.Persona.Ojos ??= new();
+        @default.Persona.Cabello ??= new();
+        @default.Persona.VelloFacial ??= new();
+        @default.Persona.Nariz ??= new();
+        @default.Persona.Boca ??= new();
+        @default.Persona.Orejas ??= new();
     }
 
     [RelayCommand]

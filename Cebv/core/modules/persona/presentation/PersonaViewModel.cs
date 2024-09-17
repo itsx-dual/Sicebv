@@ -24,15 +24,15 @@ public partial class PersonaViewModel : ObservableObject
     
     private async void  LoadCatalogs()
     {
-        Sexos = await CebvNetwork.GetCatalogo("sexos");
-        Generos = await CebvNetwork.GetCatalogo("generos");
-        Religiones = await CebvNetwork.GetCatalogo("religiones");
-        Lenguas = await CebvNetwork.GetCatalogo("lenguas");
-        Nacionalidades = await CebvNetwork.GetCatalogo("nacionalidades");
-        Escolaridades = await CebvNetwork.GetCatalogo("escolaridades");
-        EstatusEscolaridades = await CebvNetwork.GetCatalogo("estatus-escolaridades");
-        EstadosConyugales = await CebvNetwork.GetCatalogo("estados-conyugales");
-        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
+        Sexos = await CebvNetwork.GetRoute<Catalogo>("sexos");
+        Generos = await CebvNetwork.GetRoute<Catalogo>("generos");
+        Religiones = await CebvNetwork.GetRoute<Catalogo>("religiones");
+        Lenguas = await CebvNetwork.GetRoute<Catalogo>("lenguas");
+        Nacionalidades = await CebvNetwork.GetRoute<Catalogo>("nacionalidades");
+        Escolaridades = await CebvNetwork.GetRoute<Catalogo>("escolaridades");
+        EstatusEscolaridades = await CebvNetwork.GetRoute<Catalogo>("estatus-escolaridades");
+        EstadosConyugales = await CebvNetwork.GetRoute<Catalogo>("estados-conyugales");
+        Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
     }
     
     

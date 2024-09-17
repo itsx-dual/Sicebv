@@ -1,9 +1,10 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using static Cebv.core.util.enums.TipoContacto;
 using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,7 +19,8 @@ public partial class DesaparecidoViewModel : ObservableObject
 {
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
 
-    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
+    
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
     private IFormularioCebvNavigationService _navigationService =
@@ -59,17 +61,17 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private bool _tieneRedesSociales;
     [ObservableProperty] private bool _tieneApodos;
 
-    [ObservableProperty] private string? _apodoNombre = string.Empty;
-    [ObservableProperty] private string? _apodoApellidoPaterno = string.Empty;
-    [ObservableProperty] private string? _apodoApellidoMaterno = string.Empty;
-    [ObservableProperty] private string? _noTelefonoMovil = string.Empty;
-    [ObservableProperty] private string? _observacionesMovil = string.Empty;
-    [ObservableProperty] private string? _noTelefonoFijo = string.Empty;
-    [ObservableProperty] private string? _observacionesFijo = string.Empty;
-    [ObservableProperty] private string? _usuarioCorreo = string.Empty;
-    [ObservableProperty] private string? _observacionesCorreo = string.Empty;
-    [ObservableProperty] private string? _usuarioRedSocial = string.Empty;
-    [ObservableProperty] private string? _observacionesRedSocial = string.Empty;
+    [ObservableProperty] private string? _apodoNombre;
+    [ObservableProperty] private string? _apodoApellidoPaterno;
+    [ObservableProperty] private string? _apodoApellidoMaterno;
+    [ObservableProperty] private string? _noTelefonoMovil;
+    [ObservableProperty] private string? _observacionesMovil;
+    [ObservableProperty] private string? _noTelefonoFijo;
+    [ObservableProperty] private string? _observacionesFijo;
+    [ObservableProperty] private string? _usuarioCorreo;
+    [ObservableProperty] private string? _observacionesCorreo;
+    [ObservableProperty] private string? _usuarioRedSocial;
+    [ObservableProperty] private string? _observacionesRedSocial;
 
     [ObservableProperty] private int? _edadAnos;
     [ObservableProperty] private int? _edadMeses;
@@ -138,8 +140,8 @@ public partial class DesaparecidoViewModel : ObservableObject
         TieneApodos = Desaparecido.Persona?.Pseudonimos?.Any() ?? false;
         TieneTelefonosMoviles = Desaparecido.Persona?.Telefonos?.Any(x => (bool)x.EsMovil!) ?? false;
         TieneTelefonosFijos = Desaparecido.Persona?.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
-        TieneCorreos = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Correo Electronico") ?? false;
-        TieneRedesSociales = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == "Red Social") ?? false;
+        TieneCorreos = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == CorreoElectronico) ?? false;
+        TieneRedesSociales = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == RedSoial) ?? false;
 
         DiferenciaFechas(Reporte.Desaparecidos[0].Persona?.FechaNacimiento, DateTime.Now);
     }
@@ -229,19 +231,20 @@ public partial class DesaparecidoViewModel : ObservableObject
     [RelayCommand]
     private void OnAddApodo()
     {
-        if (ApodoNombre?.Length > 0 || ApodoApellidoPaterno?.Length > 0 || ApodoApellidoMaterno?.Length > 0)
+        if (ApodoNombre?.Length <= 0 &&
+            ApodoApellidoPaterno?.Length <= 0 &&
+            ApodoApellidoMaterno?.Length <= 0) return;
+        
+        Desaparecido.Persona?.Pseudonimos?.Add(new Pseudonimo
         {
-            Desaparecido.Persona?.Pseudonimos?.Add(new Pseudonimo
-            {
-                Nombre = ApodoNombre,
-                ApellidoPaterno = ApodoApellidoPaterno,
-                ApellidoMaterno = ApodoApellidoMaterno
-            });
+            Nombre = ApodoNombre,
+            ApellidoPaterno = ApodoApellidoPaterno,
+            ApellidoMaterno = ApodoApellidoMaterno
+        });
 
-            ApodoNombre = string.Empty;
-            ApodoApellidoPaterno = string.Empty;
-            ApodoApellidoMaterno = string.Empty;
-        }
+        ApodoNombre = null;
+        ApodoApellidoPaterno = null;
+        ApodoApellidoMaterno = null;
     }
 
     [RelayCommand]
@@ -258,8 +261,8 @@ public partial class DesaparecidoViewModel : ObservableObject
             Compania = CompaniaTelefonicaSelected
         });
 
-        NoTelefonoMovil = string.Empty;
-        ObservacionesMovil = string.Empty;
+        NoTelefonoMovil = null;
+        ObservacionesMovil = null;
         CompaniaTelefonicaSelected = null;
     }
 
@@ -277,8 +280,8 @@ public partial class DesaparecidoViewModel : ObservableObject
             Compania = null
         });
 
-        NoTelefonoFijo = string.Empty;
-        ObservacionesFijo = string.Empty;
+        NoTelefonoFijo = null;
+        ObservacionesFijo = null;
     }
 
     [RelayCommand]
@@ -318,17 +321,17 @@ public partial class DesaparecidoViewModel : ObservableObject
         {
             Nombre = UsuarioCorreo,
             Observaciones = ObservacionesCorreo,
-            Tipo = "Correo Electronico"
+            Tipo = CorreoElectronico
         });
 
-        UsuarioCorreo = string.Empty;
-        ObservacionesCorreo = string.Empty;
+        UsuarioCorreo = null;
+        ObservacionesCorreo = null;
     }
 
     [RelayCommand]
     private void OnAddRedSocial()
     {
-        if (UsuarioRedSocial?.Length <= 0) return;
+        if (TipoRedSocialSelected is null || UsuarioRedSocial?.Length <= 0) return;
 
         var contactos = Desaparecido.Persona?.Contactos;
         contactos?.Add(new Contacto
@@ -336,11 +339,11 @@ public partial class DesaparecidoViewModel : ObservableObject
             Nombre = UsuarioRedSocial,
             Observaciones = ObservacionesRedSocial,
             TipoRedSocial = TipoRedSocialSelected,
-            Tipo = "Red Social"
+            Tipo = RedSoial
         });
 
-        UsuarioCorreo = string.Empty;
-        ObservacionesCorreo = string.Empty;
+        UsuarioRedSocial = null;
+        ObservacionesRedSocial = null;
         TipoRedSocialSelected = null;
     }
 
@@ -350,15 +353,9 @@ public partial class DesaparecidoViewModel : ObservableObject
     /**
      * Datos sociemográficos de la persona desaparecida.
      */
-    [ObservableProperty] private string _hablaEspanolOpcion = OpcionesCebv.No;
+    [ObservableProperty] private string _hablaEspanol = No;
 
-    [ObservableProperty] private bool? _hablaEspanol;
-
-    [ObservableProperty] private string _sabeLeerOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _sabeLeer;
-
-    [ObservableProperty] private string _sabeEscribirOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _sabeEscribir;
+    [ObservableProperty] private string _sabeLeerEscribir = No;
 
     private void DiferenciaFechas(DateTime? a, DateTime b)
     {
@@ -393,13 +390,4 @@ public partial class DesaparecidoViewModel : ObservableObject
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
-
-    partial void OnHablaEspanolOpcionChanged(string value) =>
-        HablaEspanol = OpcionesCebv.MappingToBool(value);
-
-    partial void OnSabeLeerOpcionChanged(string value) =>
-        SabeLeer = OpcionesCebv.MappingToBool(value);
-
-    partial void OnSabeEscribirOpcionChanged(string value) =>
-        SabeEscribir = OpcionesCebv.MappingToBool(value);
 }

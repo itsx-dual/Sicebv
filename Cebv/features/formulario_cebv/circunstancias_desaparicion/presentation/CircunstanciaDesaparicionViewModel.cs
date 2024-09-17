@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
@@ -47,24 +47,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             !string.IsNullOrEmpty(Reporte.HechosDesaparicion.FechaPercatoCebv))
             FechaAproximada = true;
         
-        AmenazaCambioComportamiento = Reporte.HechosDesaparicion!.AmenazaCambioComportamiento;
-
-        AmenazaCambioComportamientoOpcion = AmenazaCambioComportamiento switch
-        {
-            true => OpcionesCebv.Si,
-            false => OpcionesCebv.No,
-            _ => OpcionesCebv.NoEspecifica
-        };
-
-        DesaparecioAcompanado = Reporte.HechosDesaparicion!.DesaparecioAcompanado;
-
-        DesaparecioAcompanadoOpcion = DesaparecioAcompanado switch
-        {
-            true => OpcionesCebv.Si,
-            false => OpcionesCebv.No,
-            _ => OpcionesCebv.NoEspecifica
-        };
-        
         FoliosPrevios();
     }
 
@@ -88,17 +70,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private UbicacionViewModel _ubicacion = new();
 
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
-    [ObservableProperty] private string? _amenazaCambioComportamientoOpcion;
-    [ObservableProperty] private bool? _amenazaCambioComportamiento = false;
-    [ObservableProperty] private string _amenazaDescripcion = String.Empty;
-
-    partial void OnAmenazaCambioComportamientoOpcionChanged(string value)
-    {
-        AmenazaCambioComportamiento = OpcionesCebv.MappingToBool(value);
-        Reporte.HechosDesaparicion!.AmenazaCambioComportamiento = AmenazaCambioComportamiento;
-    }
+    [ObservableProperty] private string _amenazaCambioComportamiento = No;
 
     // Hipotesis
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
@@ -136,14 +110,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
 
     // Desaparicion asociada
-    [ObservableProperty] private string _desaparecioAcompanadoOpcion;
-    [ObservableProperty] private bool? _desaparecioAcompanado = false;
-
-    partial void OnDesaparecioAcompanadoOpcionChanged(string value)
-    {
-        DesaparecioAcompanado = OpcionesCebv.MappingToBool(value);
-        Reporte.HechosDesaparicion!.DesaparecioAcompanado = DesaparecioAcompanado;
-    }
+    [ObservableProperty] private string _desaparecioAcompanado = No;
 
     /**
      * Expedientes directos e indirectos

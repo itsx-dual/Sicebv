@@ -44,7 +44,10 @@ public partial class Persona : ObservableObject
         Orejas? orejas,
         MediaFiliacionComplementaria? mediaFiliacionComplementaria,
         ObservableCollection<IntervencionQuirurgica> intervencionesQuirurgicas,
-        ObservableCollection<EnfermedadPiel> enfermedadesPiel
+        ObservableCollection<EnfermedadPiel> enfermedadesPiel,
+        ObservableCollection<CondicionSalud> condicionesSalud,
+        EnfoqueDiferenciado? enfoqueDiferenciado,
+        ContextoSocial? contextoSocial
     )
     {
         Id = id;
@@ -82,6 +85,9 @@ public partial class Persona : ObservableObject
         MediaFiliacionComplementaria = mediaFiliacionComplementaria;
         IntervencionesQuirurgicas = intervencionesQuirurgicas;
         EnfermedadesPiel = enfermedadesPiel;
+        CondicionesSalud = condicionesSalud;
+        EnfoqueDiferenciado = enfoqueDiferenciado;
+        ContextoSocial = contextoSocial;
     }
 
     public Persona()
@@ -211,6 +217,18 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty("enfermedades_piel")]
     private ObservableCollection<EnfermedadPiel> _enfermedadesPiel = [];
+    
+    [ObservableProperty, JsonProperty("condiciones_salud")]
+    private ObservableCollection<CondicionSalud> _condicionesSalud = [];
+    
+    [ObservableProperty, JsonProperty("enfoque_diferenciado")]
+    private EnfoqueDiferenciado? _enfoqueDiferenciado;
+    
+    [ObservableProperty, JsonProperty("contexto_social")]
+    private ContextoSocial? _contextoSocial;
+    
+    [ObservableProperty, JsonProperty("enfoques_personales")]
+    private ObservableCollection<EnfoquePersonal> _enfoquesPersonales = [];
 
     // TODO: Añadir ocupaciones
 

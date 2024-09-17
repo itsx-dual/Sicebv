@@ -1,68 +1,132 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
-using Cebv.features.formulario_cebv.condiciones_vulnerabilidad.domain;
+using Cebv.core.domain;
+using static Cebv.core.data.OpcionesCebv;
+using Cebv.core.modules.persona.data;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation;
 
-public class CondicionesSalud
-{
-    public string Condicion { get; set; }
-    public string Tratamiento { get; set; }
-    public string Naturaleza { get; set; }
-
-    public bool PadeceCondicion { get; set; }
-}
-
 public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 {
+    private static IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
+
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private Reporte _reporte = null!;
+
     public CondicionesVulnerabilidadViewModel()
     {
-        CargarCatalogos();
+        LoadAsync();
     }
 
-    [ObservableProperty] private ObservableCollection<CondicionesSalud> _condicionesSalud = new();
-
-    [ObservableProperty] private List<string> _naturalezaOpciones = new()
+    private async void LoadAsync()
     {
-        "CONDICION",
-        "TRATAMIENTO",
-        "NATURALEZA",
-        "Nose"
-    };
+        TiposSangre = await CebvNetwork.GetRoute<Catalogo>("tipos-sangre");
+        EnfoquesDiferenciados = await CebvNetwork.GetRoute<Catalogo>("tipos-enfoque-diferenciado");
+        SituacionesMigratorias = await CebvNetwork.GetRoute<Catalogo>("situaciones-migratorias");
+        CondicionesSalud = await CebvNetwork.GetRoute<Catalogo>("tipos-condiciones-salud");
 
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+        Reporte = _reporteService.GetReporte();
 
-    [ObservableProperty] private string _transitoEstadosUnidosOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _transitoEstadosUnidos = false;
-
-    [ObservableProperty] private ObservableCollection<Catalogo> _situacionesMigratorias = new();
-    [ObservableProperty] private Catalogo _situacionMigratoria = new();
-
-    [ObservableProperty] private string _procesoMigratorioDescripcion = String.Empty;
-
-    [ObservableProperty] private string _pertenenciaGrupalOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _pertenenciaGrupal = false;
-
-    [ObservableProperty] private ObservableCollection<Catalogo> _enfoquesDiferenciados = new();
-    [ObservableProperty] private Catalogo _enfoqueDiferenciado = new();
-
-    [ObservableProperty] private string _caracteristicaPersonal = String.Empty;
-
-    [ObservableProperty] private string _informacionPersonal = String.Empty;
-
-    [ObservableProperty] private bool _estaEmbarazada;
-
-    [ObservableProperty] private int _mesesEmbarazo;
-
-    private async void CargarCatalogos()
-    {
-        TiposSangre = await CondicionVulnerabilidadNetwork.GetTiposSangre();
-        EnfoquesDiferenciados = await CondicionVulnerabilidadNetwork.GetEnfoquesDiferenciados();
-        SituacionesMigratorias = await CondicionVulnerabilidadNetwork.GetSituacionesMigratorias();
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.EnfoqueDiferenciado ??= new EnfoqueDiferenciado();
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.ContextoSocial ??= new ContextoSocial();
     }
 
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
+    /**
+     * Tipo de sangre
+     */
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = new();
-    [ObservableProperty] private Catalogo _tipoSangre = new();
+
+    [ObservableProperty] private ObservableCollection<string> _factoresRhesus = new() { "Positivo", "Negativo" };
+
+    /**
+     * Condiciones de salud
+     */
+    [ObservableProperty] private ObservableCollection<string> _indolesSalud = new() { "Fisica", "Psicologica" };
+
+    [ObservableProperty] private ObservableCollection<Catalogo>? _condicionesSalud;
+
+    [ObservableProperty] private Catalogo? _condicionSalud;
+
+    [ObservableProperty] private string? _indoleSalud;
+    [ObservableProperty] private string? _tratamiento;
+    [ObservableProperty] private string? _observaciones;
+
+    [RelayCommand]
+    private void OnAgregarCondicionSalud()
+    {
+        if (CondicionSalud is null ||
+            IndoleSalud is null ||
+            Tratamiento is null ||
+            Observaciones is null) return;
+        
+        var condicionSalud = new CondicionSalud(null, null, CondicionSalud, IndoleSalud, Tratamiento, Observaciones);
+
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.CondicionesSalud.Add(condicionSalud);
+
+        ClearCondicionSaludForm();
+    }
+
+    [RelayCommand]
+    private void OnRemoverCondicionSalud(CondicionSalud condicionSalud)
+    {
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.CondicionesSalud.Remove(condicionSalud);
+    }
+
+    private void ClearCondicionSaludForm()
+    {
+        CondicionSalud = null;
+        IndoleSalud = null;
+        Tratamiento = null;
+        Observaciones = null;
+    }
+
+    /**
+     * Información migratoria
+     */
+    [ObservableProperty] private string _transitoEstadosUnidos = No;
+
+    [ObservableProperty] private ObservableCollection<Catalogo>? _situacionesMigratorias;
+
+    /**
+     * Enfoque diferenciado
+     */
+    [ObservableProperty] private string _pertenenciaGrupal = No;
+
+    [ObservableProperty] private ObservableCollection<Catalogo>? _enfoquesDiferenciados;
+
+    [ObservableProperty] private Catalogo? _enfoqueDiferenciado;
+
+    [RelayCommand]
+    private void OnAgregarEnfoquePersonal()
+    {
+        if (EnfoqueDiferenciado is null) return;
+
+        var enfoquePersonal = new EnfoquePersonal(null, null, EnfoqueDiferenciado);
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.EnfoquesPersonales.Add(enfoquePersonal);
+        EnfoqueDiferenciado = null;
+    }
+
+    [RelayCommand]
+    private void OnEliminarEnfoquePersonal(EnfoquePersonal enfoquePersonal)
+    {
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.EnfoquesPersonales.Remove(enfoquePersonal);
+    }
+
+    [RelayCommand]
+    private void OnGuardarYSiguente(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
+    }
 }

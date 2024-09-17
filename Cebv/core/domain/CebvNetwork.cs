@@ -5,11 +5,6 @@ using Newtonsoft.Json;
 
 namespace Cebv.core.domain;
 
-class CatalogoCall(ObservableCollection<Catalogo> data)
-{
-    public ObservableCollection<Catalogo> Data = data;
-}
-
 class GenericCall<T>(ObservableCollection<T> data)
 {
     public ObservableCollection<T> Data = data;
@@ -19,11 +14,11 @@ public static class CebvNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
-    public static async Task<ObservableCollection<Catalogo>> GetCatalogo(string endpoint)
+    public static async Task<ObservableCollection<T>> GetRoute<T>(string endpoint)
     {
         var request = await Client.GetAsync($"/api/{endpoint}");
         var response = await request.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<CatalogoCall>(response)?.Data!;
+        return JsonConvert.DeserializeObject<GenericCall<T>>(response)?.Data!;
     }
 
     public static async Task<ObservableCollection<T>> GetByFilter<T>(string endpoint, string filter, string value)

@@ -137,7 +137,7 @@ public partial class Desaparecido : ObservableObject
      * Relaciones de desaparecido
      */
     [ObservableProperty, JsonProperty(PropertyName = "documentos_legales")]
-    private ObservableCollection<DocumentoLegal>? _documentosLegales = new();
+    private ObservableCollection<DocumentoLegal>? _documentosLegales = [];
 
     [ObservableProperty, JsonProperty("folios")]
     private Folio? _folios;

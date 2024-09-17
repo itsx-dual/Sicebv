@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -21,7 +20,7 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Reporte _reporte = null!;
 
     /**
      * Constructor de la clase
@@ -33,78 +32,32 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
 
     private async void LoadAsync()
     {
-        Autoridades = await CebvNetwork.GetCatalogo("autoridades");
-        Particulares = await CebvNetwork.GetCatalogo("particulares");
-        MetodosCaptura = await CebvNetwork.GetCatalogo("metodos-captura");
-        MediosCaptura = await CebvNetwork.GetCatalogo("medios-captura");
-        Sexos = await CebvNetwork.GetCatalogo("sexos");
-        EstatusPerpetradores = await CebvNetwork.GetCatalogo("estatus-perpetradores");
+        Autoridades = await CebvNetwork.GetRoute<Catalogo>("autoridades");
+        Particulares = await CebvNetwork.GetRoute<Catalogo>("particulares");
+        MetodosCaptura = await CebvNetwork.GetRoute<Catalogo>("metodos-captura");
+        MediosCaptura = await CebvNetwork.GetRoute<Catalogo>("medios-captura");
+        Sexos = await CebvNetwork.GetRoute<Catalogo>("sexos");
+        EstatusPerpetradores = await CebvNetwork.GetRoute<Catalogo>("estatus-perpetradores");
 
         Reporte = _reporteService.GetReporte();
 
         Reporte.DesaparicionForzada ??= new DesaparicionForzada();
 
         Reporte.Perpetradores ??= new ObservableCollection<Perpetrador>();
-
-        // Desaparicion por autoridad
-        SufrioDesaparicionForzadaOpcion =
-            MappingToString(Reporte.DesaparicionForzada?.DesaparecioAutoridad ?? false);
-
-        SufrioDesaparicionForzada = MappingToBool(SufrioDesaparicionForzadaOpcion);
-
-        // Desaparicion por particular
-        SufrioDesaparicionParticularOpcion =
-            MappingToString(Reporte.DesaparicionForzada?.DesaparecioParticular ?? false);
-
-        SufrioDesaparicionParticular = MappingToBool(SufrioDesaparicionParticularOpcion);
-
-        // Detencion legal previa
-        DetencionLegalExtorsionOpcion =
-            MappingToString(Reporte.DesaparicionForzada?.DetencionPreviaExtorsion ?? false);
-
-        DetencionLegalExtorsion = MappingToBool(DetencionLegalExtorsionOpcion);
-
-        // Ha sido avistado previamente
-        HaSidoAvistadoOpcion =
-            MappingToString(Reporte.DesaparicionForzada?.HaSidoAvistado ?? false);
-
-        HaSidoAvistado = MappingToBool(HaSidoAvistadoOpcion);
-
-        // Delito de desaparición
-        DelitoDesaparicionOpcion =
-            MappingToString(Reporte.DesaparicionForzada?.DelitosDesaparicion ?? false);
-
-        DelitoDesaparicion = MappingToBool(DelitoDesaparicionOpcion);
     }
 
     /**
      * Variables de la clase
      */
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     // Autoridad
-    [ObservableProperty] private string _sufrioDesaparicionForzadaOpcion;
-    [ObservableProperty] private bool? _sufrioDesaparicionForzada;
-
-    partial void OnSufrioDesaparicionForzadaOpcionChanged(string value)
-    {
-        SufrioDesaparicionForzada = MappingToBool(value);
-        if (Reporte.DesaparicionForzada is not null)
-            Reporte.DesaparicionForzada.DesaparecioAutoridad = SufrioDesaparicionForzada;
-    }
+    [ObservableProperty] private string _sufrioDesaparicionForzada = No;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _autoridades = new();
 
     // Particular
-    [ObservableProperty] private string _sufrioDesaparicionParticularOpcion = No;
-    [ObservableProperty] private bool? _sufrioDesaparicionParticular = false;
-
-    partial void OnSufrioDesaparicionParticularOpcionChanged(string value)
-    {
-        SufrioDesaparicionParticular = MappingToBool(value);
-        if (Reporte.DesaparicionForzada is not null)
-            Reporte.DesaparicionForzada.DesaparecioParticular = SufrioDesaparicionParticular;
-    }
+    [ObservableProperty] private string _sufrioDesaparicionParticular = No;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _particulares = new();
 
@@ -115,27 +68,11 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _mediosCaptura = new();
 
     // Detencion legal previa
-    [ObservableProperty] private string _detencionLegalExtorsionOpcion = No;
-    [ObservableProperty] private bool? _detencionLegalExtorsion = false;
-
-    partial void OnDetencionLegalExtorsionOpcionChanged(string value)
-    {
-        DetencionLegalExtorsion = MappingToBool(value);
-        if (Reporte.DesaparicionForzada is not null)
-            Reporte.DesaparicionForzada.DetencionPreviaExtorsion = DetencionLegalExtorsion;
-    }
+    [ObservableProperty] private string _detencionLegalExtorsion = No;
 
     // Ha sido avistado previamente
-    [ObservableProperty] private string _haSidoAvistadoOpcion = No;
-    [ObservableProperty] private bool? _haSidoAvistado = false;
-
-    partial void OnHaSidoAvistadoOpcionChanged(string value)
-    {
-        HaSidoAvistado = MappingToBool(value);
-        if (Reporte.DesaparicionForzada is not null)
-            Reporte.DesaparicionForzada.HaSidoAvistado = HaSidoAvistado;
-    }
-
+    [ObservableProperty] private string _haSidoAvistado = No;
+   
     /**
      * Logica para perpetradores
      */
@@ -188,19 +125,10 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     /**
      * Información relevante
      */
-    [ObservableProperty] private string _delitoDesaparicionOpcion;
-
-    [ObservableProperty] private bool? _delitoDesaparicion;
-
-    partial void OnDelitoDesaparicionOpcionChanged(string value)
-    {
-        DelitoDesaparicion = MappingToBool(value);
-        if (Reporte.DesaparicionForzada is not null)
-            Reporte.DesaparicionForzada.DelitosDesaparicion = DelitoDesaparicion;
-    }
+    [ObservableProperty] private string _delitoDesaparicion = No;
 
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

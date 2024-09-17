@@ -1,4 +1,4 @@
-using Cebv.core.data;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -6,7 +6,6 @@ using Cebv.features.formulario_cebv.intrumentos_juridicos.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using static Cebv.core.data.OpcionesCebv;
 using DocumentoLegal = Cebv.core.util.reporte.viewmodels.DocumentoLegal;
 
 namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
@@ -61,21 +60,10 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             TipoDocumento = TipoDocumentoLegal.RecomendacionDerechos.ToString(),
             EsOficial = false
         };
-        // Carpeta de investigación.
-        if (CarpetaInvestigacion is not null)
-            CarpetaOpcion = MappingToString(CarpetaInvestigacion.EsOficial);
-
-        // Amparo buscador.
-        if (AmparoBuscador is not null)
-            AmparoOpcion = MappingToString(AmparoBuscador.EsOficial);
-
-        // Recomendación de derechos humanos.
-        if (RecomedacionDerechos is not null)
-            RecomendacionOpcion = MappingToString(RecomedacionDerechos.EsOficial);
     }
 
     // Opciones cebv.
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     // Desaparecido.
     [ObservableProperty] private Desaparecido _desaparecido = new();
@@ -83,45 +71,29 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     /**
      * Carpeta de investigación.
      */
-    [ObservableProperty] private string _carpetaOpcion = No;
+    [ObservableProperty] private string _carpeta = No;
 
     [ObservableProperty] private DocumentoLegal? _carpetaInvestigacion;
-
-    partial void OnCarpetaOpcionChanged(string value)
-    {
-        if (CarpetaInvestigacion is not null) CarpetaInvestigacion.EsOficial = MappingToBool(value);
-    }
 
     /**
      * Amparo buscador.
      */
-    [ObservableProperty] private string _amparoOpcion = No;
+    [ObservableProperty] private string _amparo = No;
 
     [ObservableProperty] private DocumentoLegal? _amparoBuscador;
-
-    partial void OnAmparoOpcionChanged(string value)
-    {
-        if (AmparoBuscador is not null) AmparoBuscador.EsOficial = MappingToBool(value);
-    }
 
     /**
      * Recomendación de derechos humanos.
      */
-    [ObservableProperty] private string _recomendacionOpcion = No;
+    [ObservableProperty] private string _recomendacion = No;
 
     [ObservableProperty] private DocumentoLegal? _recomedacionDerechos;
-
-    partial void OnRecomendacionOpcionChanged(string value)
-    {
-        if (RecomedacionDerechos is not null) RecomedacionDerechos.EsOficial = MappingToBool(value);
-    }
-
 
     /**
      * Comando para guardar y seguir.
      */
     [RelayCommand]
-    public void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         GuardarDocumentosLegales();
         _reporteService.Sync();

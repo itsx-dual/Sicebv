@@ -15,7 +15,7 @@ namespace Cebv.features.formulario_cebv.reportante.presentation;
 
 public partial class ReportanteViewModel : ObservableObject
 {
-    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Reportante _reportante;
     [ObservableProperty] private PersonaViewModel _persona = new();

@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -20,8 +20,8 @@ public partial class ContextoViewModel : ObservableObject
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte;
-    
-    [ObservableProperty] private List<string> _opciones = OpcionesCebv.Opciones;
+
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     public ContextoViewModel()
     {
@@ -30,7 +30,7 @@ public partial class ContextoViewModel : ObservableObject
 
     private async void LoadAsync()
     {
-        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
+        Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
 
         Reporte = _reporteService.GetReporte();
     }
@@ -39,18 +39,14 @@ public partial class ContextoViewModel : ObservableObject
 
 
     // Contexto economico - laboral
-    [ObservableProperty] private string _gustaTrabajoOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _gustaTrabajo = false;
+    [ObservableProperty] private string _gustaTrabajo = No;
 
-    [ObservableProperty] private string _trabajarFueraOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _trabajarFuera = false;
+    [ObservableProperty] private string _trabajarFuera = No;
 
-    [ObservableProperty] private string _violenciaTrabajoOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _violenciaTrabajo = false;
+    [ObservableProperty] private string _violenciaTrabajo = No;
 
-    [ObservableProperty] private string _tieneDeudasOpcion = OpcionesCebv.No;
-    [ObservableProperty] private bool? _tieneDeudas = false;
-    
+    [ObservableProperty] private string _tieneDeudas = No;
+
     /**
      * Comando para guardar y navegar a la siguiente pagina
      */

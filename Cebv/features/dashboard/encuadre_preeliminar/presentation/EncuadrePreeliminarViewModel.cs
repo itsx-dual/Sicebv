@@ -141,7 +141,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
         ZonasEstados = await EncuadrePreeliminarNetwork.GetCatalogo("zonas-estados");
         Estados = await ReportanteNetwork.GetEstados();
-        TiposMedios = await CebvNetwork.GetCatalogo("tipos-medios");
+        TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }

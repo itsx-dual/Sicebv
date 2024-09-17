@@ -9,21 +9,24 @@ public partial class Telefono : ObservableObject
     [JsonConstructor]
     public Telefono(
         int id,
-        int? persona_id,
+        int? personaId,
+        Catalogo? compania,
         string? numero,
         string? observaciones,
-        bool? es_movil,
-        Catalogo? compania)
+        bool? esMovil
+    )
     {
         Id = id;
-        PersonaId = persona_id;
+        PersonaId = personaId;
+        Compania = compania;
         Numero = numero;
         Observaciones = observaciones;
-        EsMovil = es_movil;
-        Compania = compania;
+        EsMovil = esMovil;
     }
 
-    public Telefono() { }
+    public Telefono()
+    {
+    }
 
     public override bool Equals(object? obj)
     {
@@ -38,26 +41,26 @@ public partial class Telefono : ObservableObject
     {
         return Id == telefono.Id &&
                PersonaId == telefono.PersonaId &&
-               Numero ==  telefono.Numero &&
+               Numero == telefono.Numero &&
                Observaciones == telefono.Observaciones &&
                EsMovil == telefono.EsMovil;
     }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")]
-    private int _id;
+    private int? _id;
 
     [ObservableProperty, JsonProperty(PropertyName = "persona_id")]
     private int? _personaId;
-    
+
+    [ObservableProperty, JsonProperty(PropertyName = "compania")]
+    private Catalogo? _compania;
+
     [ObservableProperty, JsonProperty(PropertyName = "numero")]
     private string? _numero;
 
     [ObservableProperty, JsonProperty(PropertyName = "observaciones")]
     private string? _observaciones;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "es_movil")]
     private bool? _esMovil;
-
-    [ObservableProperty, JsonProperty(PropertyName = "compania")]
-    private Catalogo? _compania;
 }

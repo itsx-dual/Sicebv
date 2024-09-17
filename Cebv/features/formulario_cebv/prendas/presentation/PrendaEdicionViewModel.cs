@@ -53,8 +53,8 @@ public partial class PrendaEdicionViewModel : ObservableObject
     
     private async Task CargarCatalogosAsync()
     {
-        GruposPertenencias = await CebvNetwork.GetCatalogo("grupos-pertenencias");
-        Colores = await CebvNetwork.GetCatalogo("colores");
+        GruposPertenencias = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");
+        Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
     }
 
     async partial void OnGrupoPertenenciaChanged(Catalogo? value)

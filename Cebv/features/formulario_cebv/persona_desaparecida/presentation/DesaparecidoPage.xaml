@@ -853,19 +853,21 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
                                 Text="¿Habla español?" />
-                            <ComboBox SelectedValue="{Binding Desaparecido.HablaEspanhol}"
+                            <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      DisplayMemberPath="Key"
-                                      ItemsSource="{Binding Opciones}" />
+                                      SelectedItem="{Binding HablaEspanol}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.HablaEspanhol}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock
                                 Text="¿Sabe leer y escribir?" />
-                            <ComboBox SelectedValue="{Binding Desaparecido.Persona.Estudios.SabeLeerEscribir}"
+                            <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      DisplayMemberPath="Key"
-                                      ItemsSource="{Binding Opciones}" />
+                                      SelectedItem="{Binding SabeLeerEscribir}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.Estudios.SabeLeerEscribir}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
