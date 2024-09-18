@@ -8,6 +8,7 @@ public partial class Hipotesis : ObservableObject
 {
     public Hipotesis(
         int? id,
+        int? reporteId,
         TipoHipotesis? tipoHipotesis,
         Catalogo? sitio,
         Catalogo? area,
@@ -15,6 +16,7 @@ public partial class Hipotesis : ObservableObject
     )
     {
         Id = id;
+        ReporteId = reporteId;
         TipoHipotesis = tipoHipotesis;
         Sitio = sitio;
         Area = area;
@@ -26,8 +28,11 @@ public partial class Hipotesis : ObservableObject
     }
     
 
-    [ObservableProperty, JsonProperty("reporte_id")]
+    [ObservableProperty, JsonProperty("id")]
     private int? _id;
+    
+    [ObservableProperty, JsonProperty("reporte_id")]
+    private int? _reporteId;
 
     [ObservableProperty, JsonProperty("tipo_hipotesis")]
     private TipoHipotesis? _tipoHipotesis;

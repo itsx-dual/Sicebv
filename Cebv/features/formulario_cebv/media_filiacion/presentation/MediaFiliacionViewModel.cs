@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
+using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,77 +13,119 @@ namespace Cebv.features.formulario_cebv.media_filiacion.presentation;
 
 public partial class MediaFiliacionViewModel : ObservableObject
 {
-    // Servicios
-    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private static IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-    private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Desaparecido _desaparecido;
-    [ObservableProperty] private MediaFiliacion _mediaFiliacion;
-    
-    // Catalogos
-    [ObservableProperty] private ObservableCollection<Catalogo> _complexiones = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _coloresPieles = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _formasCaras = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _coloresOjos = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _formasOjos = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosOjos = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _calvicies = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _coloresCabellos = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabellos = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabellos = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposNarices = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosBocas = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosLabios = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosOrejas = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _formasOrejas = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposCejas = [];
-    [ObservableProperty] private ObservableCollection<string> _opciones = ["Si", "No", "No Especifica"]; 
+    private static IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
 
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private Reporte _reporte = null!;
+
+    /**
+     * Constructor de la clase
+     */
     public MediaFiliacionViewModel()
     {
-        InitAsync();
+        LoadAsync();
     }
 
-    private async Task InitAsync()
+    /**
+     * Variables de la clase
+     */
+    // Perfil corporal
+    [ObservableProperty] private float _estatura;
+
+    [ObservableProperty] private float _peso;
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _complexiones = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _coloresPieles = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _formasCaras = new();
+
+    // Ojos
+    [ObservableProperty] private ObservableCollection<Catalogo> _coloresOjos = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _formasOjos = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosOjos = new();
+
+
+    // Cabello
+    [ObservableProperty] private ObservableCollection<Catalogo> _calvicies = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _coloresCabellos = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabellos = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabellos = new();
+
+    // Vello facial
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposCejas = new();
+
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
+
+    [ObservableProperty] private string _bigote = No;
+
+    [ObservableProperty] private string _barba = No;
+
+    // Nariz
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposNarices = new();
+    [ObservableProperty] private Catalogo _tipoNariz = new();
+
+    // Boca
+    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosBocas = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosLabios = new();
+
+    // Orejas
+    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosOrejas = new();
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _formasOrejas = new();
+
+    /**
+     * Peticiones a la API para obtener los catalogos
+     */
+    private async void LoadAsync()
     {
-        await CargarCatalogos();
+        Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
+        ColoresPieles = await CebvNetwork.GetRoute<Catalogo>("colores-piel");
+        FormasCaras = await CebvNetwork.GetRoute<Catalogo>("formas-cara");
+        ColoresOjos = await CebvNetwork.GetRoute<Catalogo>("colores-ojos");
+        FormasOjos = await CebvNetwork.GetRoute<Catalogo>("formas-ojos");
+        TamanosOjos = await CebvNetwork.GetRoute<Catalogo>("tamanos-ojos");
+        Calvicies = await CebvNetwork.GetRoute<Catalogo>("tipos-calvicie");
+        ColoresCabellos = await CebvNetwork.GetRoute<Catalogo>("colores-cabello");
+        TamanosCabellos = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabello");
+        TiposCabellos = await CebvNetwork.GetRoute<Catalogo>("tipos-cabello");
+        TiposCejas = await CebvNetwork.GetRoute<Catalogo>("tipos-cejas");
+        TiposNarices = await CebvNetwork.GetRoute<Catalogo>("tipos-nariz");
+        TamanosBocas = await CebvNetwork.GetRoute<Catalogo>("tamanos-boca");
+        TamanosLabios = await CebvNetwork.GetRoute<Catalogo>("tamanos-labios");
+        TamanosOrejas = await CebvNetwork.GetRoute<Catalogo>("tamanos-orejas");
+        FormasOrejas = await CebvNetwork.GetRoute<Catalogo>("formas-orejas");
+
         Reporte = _reporteService.GetReporte();
 
-        if (!Reporte.Desaparecidos.Any())
-        {
-            Reporte.Desaparecidos.Add(new Desaparecido());
-        }
-        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+        var @default = Reporte.Desaparecidos.FirstOrDefault();
 
-        Desaparecido.Persona.MediaFiliacion ??= new MediaFiliacion();
-        MediaFiliacion = Desaparecido.Persona.MediaFiliacion;
-    }
-
-    private async Task CargarCatalogos()
-    {
-        Complexiones = await CebvNetwork.GetCatalogo("complexiones");
-        ColoresPieles = await CebvNetwork.GetCatalogo("colores-pieles");
-        FormasCaras = await CebvNetwork.GetCatalogo("formas-caras");
-        ColoresOjos = await CebvNetwork.GetCatalogo("colores-ojos");
-        FormasOjos = await CebvNetwork.GetCatalogo("formas-ojos");
-        TamanosOjos = await CebvNetwork.GetCatalogo("tamanos-ojos");
-        Calvicies = await CebvNetwork.GetCatalogo("tipos-calvicies");
-        ColoresCabellos = await CebvNetwork.GetCatalogo("colores-cabellos");
-        TamanosCabellos = await CebvNetwork.GetCatalogo("tamanos-cabellos");
-        TiposCabellos = await CebvNetwork.GetCatalogo("tipos-cabellos");
-        TiposCejas = await CebvNetwork.GetCatalogo("tipos-cejas");
-        TiposNarices = await CebvNetwork.GetCatalogo("tipos-narices");
-        TamanosBocas = await CebvNetwork.GetCatalogo("tamanos-bocas");
-        TamanosOrejas = await CebvNetwork.GetCatalogo("tamanos-orejas");
-        FormasOrejas = await CebvNetwork.GetCatalogo("formas-orejas");
-        TamanosLabios = await CebvNetwork.GetCatalogo("tamanos-labios");
+        if (@default == null) return;
+        
+        @default.Persona ??= new();
+            
+        @default.Persona.Salud ??= new();
+        @default.Persona.Ojos ??= new();
+        @default.Persona.Cabello ??= new();
+        @default.Persona.VelloFacial ??= new();
+        @default.Persona.Nariz ??= new();
+        @default.Persona.Boca ??= new();
+        @default.Persona.Orejas ??= new();
     }
 
     [RelayCommand]
-    private async Task OnGuardarYSiguiente(Type pageType)
+    private void OnGuardarYSiguente(Type pageType)
     {
-        await _reporteService.Sync();
+        _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
 }

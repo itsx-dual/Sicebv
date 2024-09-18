@@ -13,7 +13,6 @@
       d:DesignHeight="Auto"
       mc:Ignorable="d"
       Title="MediaFiliacionPage">
-    
     <Page.DataContext>
         <presentation:MediaFiliacionViewModel/>
     </Page.DataContext>
@@ -41,42 +40,43 @@
                                       Maximum="250"
                                       Minimum="30"
                                       PlaceholderText="Centímetros"
-                                      Value="{Binding MediaFiliacion.Estatura,
-                                          Mode=TwoWay,
-                                          UpdateSourceTrigger=PropertyChanged}"
-                                      SmallChange="1" Tag="Units" />
+                                      SmallChange="1" 
+                                      Value="{Binding Reporte.Desaparecidos[0].Persona.Salud.EstaturaCentimetros}"
+                                      Text="{Binding Reporte.Desaparecidos[0].Persona.Salud.EstaturaCentimetros}"
+                                      Tag="Units"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Peso:" />
-                        <ui:NumberBox MaxDecimalPlaces="0"
-                                      Maximum="250"
-                                      Minimum="30"
+                        <ui:NumberBox Icon="{ui:SymbolIcon Scales24}"
+                                      MaxDecimalPlaces="2"
+                                      Maximum="200"
+                                      Minimum="1"
                                       PlaceholderText="Kilogramos"
-                                      Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso,
-                                          Mode=TwoWay,
-                                          UpdateSourceTrigger=PropertyChanged}"
-                                      SmallChange="1" Tag="Units" />
+                                      SmallChange=".1" 
+                                      Value="{Binding Reporte.Desaparecidos[0].Persona.Salud.PesoKilogramos}"
+                                      Text="{Binding Reporte.Desaparecidos[0].Persona.Salud.PesoKilogramos}"
+                                      Tag="Units"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Complexión:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding MediaFiliacion.Complexion}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Salud.Complexion}"
                                   ItemsSource="{Binding Complexiones}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Color de piel:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding MediaFiliacion.ColorPiel}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Salud.ColorPiel}"
                                   ItemsSource="{Binding ColoresPieles}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200">
                         <ui:TextBlock Text="Forma de la cara:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding MediaFiliacion.FormaCara}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Salud.FormaCara}"
                                   ItemsSource="{Binding FormasCaras}"/>
                     </StackPanel>
                 </WrapPanel>
@@ -89,28 +89,28 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Color de ojos:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.ColorOjos}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Ojos.ColorOjos}"
                                       ItemsSource="{Binding ColoresOjos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Forma de ojos:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.FormaOjos}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Ojos.FormaOjos}"
                                       ItemsSource="{Binding FormasOjos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tamaño de ojos:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.TamanoOjos}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Ojos.TamanoOjos}"
                                       ItemsSource="{Binding TamanosOjos}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
                         <ui:TextBlock Text="Otra especificación de ojos:" />
-                        <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesOjos}"
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Ojos.EspecificacionesOjos}"
                                     TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
 
@@ -124,28 +124,28 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Calvicie:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.Calvicie}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.Calvicie}"
                                       ItemsSource="{Binding Calvicies}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Color de cabello:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.ColorCabello}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.ColorCabello}"
                                       ItemsSource="{Binding ColoresCabellos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tamaño de cabello:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.TamanoCabello}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.TamanoCabello}"
                                       ItemsSource="{Binding TamanosCabellos}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tipo de cabello:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.TipoCabello}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Cabello.TipoCabello}"
                                       ItemsSource="{Binding TiposCabellos}"/>
                         </StackPanel>
 
@@ -153,7 +153,7 @@
 
                     <StackPanel>
                         <ui:TextBlock Text="Cualquier otra especificación del cabello:" />
-                        <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesCabello}"
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Cabello.EspecificacionesCabello}"
                                     TextWrapping="Wrap" AcceptsReturn="True" />
                     </StackPanel>
                 </StackPanel>
@@ -166,42 +166,49 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Cejas:" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding MediaFiliacion.TipoCeja}"
+                                      SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.Cejas}"
                                       ItemsSource="{Binding TiposCejas}"/>
                         </StackPanel>
                         
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación de las cejas:" />
-                            <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesCejas}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.EspecificacionesCejas}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Bigote:" />
-                            <ComboBox SelectedItem="{Binding MediaFiliacion.Bigote}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedItem="{Binding Bigote}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.TieneBigote}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación del bigote:" />
-                            <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesBigote}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.EspescificacionesBigote}" TextWrapping="Wrap" AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Barba:" />
-                            <ComboBox SelectedItem="{Binding MediaFiliacion.Barba}"
-                                      ItemsSource="{Binding Opciones}"/>
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedItem="{Binding Barba}"
+                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.TieneBarba}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación de la barba:" />
-                            <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesBarba}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.VelloFacial.EspecificacionesBarba}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -213,13 +220,15 @@
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Forma de la nariz:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding MediaFiliacion.TipoNariz}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Nariz.TipoNariz}"
                                   ItemsSource="{Binding TiposNarices}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Cualquier otra especificación de la nariz:" />
-                        <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesNariz}" TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Nariz.EspesificacionesNariz}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -230,20 +239,22 @@
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tamaño de boca:" />
                         <ComboBox DisplayMemberPath="Nombre"
-                                  SelectedItem="{Binding MediaFiliacion.TamanoBoca}"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Boca.TamanoBoca}"
                                   ItemsSource="{Binding TamanosBocas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tamaño de labios:" />
-                        <ComboBox SelectedItem="{Binding MediaFiliacion.TamanoLabios}"
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Boca.TamanoLabios}"
                                   ItemsSource="{Binding TamanosLabios}"/>
                     </StackPanel>
                     
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Cualquier otra especificación de la boca:" />
-                        <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesBoca}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Boca.EspecificacionesBoca}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -253,20 +264,23 @@
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tamaño de orejas" />
-                        <ComboBox SelectedItem="{Binding MediaFiliacion.TamanoOrejas}"
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Orejas.TamanoOrejas}"
                                   ItemsSource="{Binding TamanosOrejas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="200" Margin="0 0 25 0">
                         <ui:TextBlock Text="Forma de orejas:" />
-                        <ComboBox SelectedItem="{Binding MediaFiliacion.FormaOrejas}"
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Orejas.FormaOrejas}"
                                   ItemsSource="{Binding FormasOrejas}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="400">
                         <ui:TextBlock Text="Cualquier otra especificación de la oreja:" />
-                        <ui:TextBox Text="{Binding MediaFiliacion.ObservacionesOreja}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" />
+                        <ui:TextBox Text="{Binding Reporte.Desaparecidos[0].Persona.Orejas.EspesificacionesOrejas}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -274,9 +288,9 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarYSiguienteCommand}"
-                   Content="{StaticResource GuardarContinuar}"
+                   Command="{Binding GuardarYSiguenteCommand}"
                    CommandParameter="{x:Type presentation1:MediaFiliacionComplementariaPage}"
+                   Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"

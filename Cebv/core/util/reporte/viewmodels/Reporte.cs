@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Cebv.core.modules.ubicacion.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
@@ -19,23 +18,14 @@ public partial class Reporte : ObservableObject
     public Reporte(
         int id,
         bool? estaTerminado,
-        Catalogo? tipo_reporte,
-        Catalogo? area_atiende,
-        Catalogo? zona_estado,
+        TipoReporte? tipoReporte,
         MedioConocimiento? medioConocimiento,
         Estado? estado,
         TipoHipotesis? hipotesisOficial,
         string? tipoDesaparicion,
-        string? institucionOrigen,
-        DateTime? fechaLocalizacion,
-        bool? declaracionEspecialAusencia,
-        bool? accionUrgente,
-        bool? dictamen,
-        bool? ciNivelFederal,
-        string? otroDerechoHumano,
-        string? sintesisLocalizacion,
-        ObservableCollection<Reportante>? reportantes,
-        ObservableCollection<Desaparecido>? desaparecidos,
+        Catalogo? institucionOrigen,
+        ObservableCollection<Reportante> reportantes,
+        ObservableCollection<Desaparecido> desaparecidos,
         HechosDesaparicionResponse? hechosDesaparicion,
         DateTime? fechaCreacion,
         DateTime? fechaActualizacion,
@@ -45,23 +35,14 @@ public partial class Reporte : ObservableObject
     {
         Id = id;
         EstaTerminado = estaTerminado;
-        TipoReporte = tipo_reporte;
-        AreaAtiende = area_atiende;
-        ZonaEstado = zona_estado;
+        TipoReporte = tipoReporte;
         MedioConocimiento = medioConocimiento;
         Estado = estado;
         HipotesisOficial = hipotesisOficial;
         TipoDesaparicion = tipoDesaparicion;
-        FechaLocalizacion = fechaLocalizacion;
-        DeclaracionEspecialAusencia = declaracionEspecialAusencia;
-        AccionUrgente = accionUrgente;
-        Dictamen = dictamen;
-        CiNivelFederal = ciNivelFederal;
-        OtroDerechoHumano = otroDerechoHumano;
-        SintesisLocalizacion = sintesisLocalizacion;
-        Reportantes = reportantes ?? [];
-        Desaparecidos = desaparecidos ?? [];
-        HechosDesaparicion = hechosDesaparicion ?? new HechosDesaparicionResponse();
+        Reportantes = reportantes;
+        Desaparecidos = desaparecidos;
+        HechosDesaparicion = hechosDesaparicion;
         FechaCreacion = fechaCreacion;
         FechaActualizacion = fechaActualizacion;
         InstitucionOrigen = institucionOrigen;
@@ -81,7 +62,7 @@ public partial class Reporte : ObservableObject
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    private Catalogo? _tipoReporte;
+    private TipoReporte? _tipoReporte;
         
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
     private Catalogo? _areaAtiende;
@@ -101,29 +82,8 @@ public partial class Reporte : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "tipo_desaparicion")]
     private string? _tipoDesaparicion;
 
-    [ObservableProperty, JsonProperty(PropertyName = "fecha_localizacion")]
-    private DateTime? _fechaLocalizacion;
-
-    [ObservableProperty, JsonProperty(PropertyName = "declaracion_especial_ausencia")]
-    private bool? _declaracionEspecialAusencia;
-
-    [ObservableProperty, JsonProperty(PropertyName = "accion_urgente")]
-    private bool? _accionUrgente;
-
-    [ObservableProperty, JsonProperty(PropertyName = "dictamen")]
-    private bool? _dictamen;
-
-    [ObservableProperty, JsonProperty(PropertyName = "ci_nivel_federal")]
-    private bool? _ciNivelFederal;
-
-    [ObservableProperty, JsonProperty(PropertyName = "otro_derecho_humano")]
-    private string? _otroDerechoHumano;
-
-    [ObservableProperty, JsonProperty(PropertyName = "sintesis_localizacion")]
-    private string? _sintesisLocalizacion;
-
     [ObservableProperty, JsonProperty(PropertyName = "institucion_origen")]
-    private string? _institucionOrigen;
+    private Catalogo? _institucionOrigen;
 
     [ObservableProperty, JsonProperty(PropertyName = "reportantes")]
     private ObservableCollection<Reportante> _reportantes = [];
@@ -132,7 +92,7 @@ public partial class Reporte : ObservableObject
     private ObservableCollection<Desaparecido> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechosDesaparicionResponse _hechosDesaparicion = new();
+    private HechosDesaparicionResponse? _hechosDesaparicion = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
     private ObservableCollection<Hipotesis>? _hipotesis = new();

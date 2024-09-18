@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Cebv.core.modules.persona.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -10,76 +11,99 @@ public partial class Persona : ObservableObject
     [JsonConstructor]
     public Persona(
         int? id,
-        Estado? lugar_nacimiento,
         string? nombre,
-        string? apellido_paterno,
-        string? apellido_materno,
-        string? pseudonimo_nombre,
-        string? pseudonimo_apellido_paterno,
-        string? pseudonimo_apellido_materno,
-        DateTime? fecha_nacimiento,
+        string? apellidoPaterno,
+        string? apellidoMaterno,
+        string? apodo,
+        DateTime? fechaNacimiento,
         string? curp,
-        string? observaciones_curp,
+        string? observacionesCurp,
         string? rfc,
-        string? ocupacion,
-        string? nivel_escolaridad,
+        bool? hablaEspanhol,
+        string? especificacionesOcupacion,
         Catalogo? sexo,
         Catalogo? genero,
         Catalogo? religion,
         Catalogo? lengua,
-        Catalogo? escolaridad,
-        Catalogo? estado_conyugal,
-        Catalogo? razon_no_presenta_curp,
-        MediaFiliacion? media_filiacion,
-        ObservableCollection<Apodo>? apodos,
+        Catalogo? razonCurp,
+        Estado? lugarNacimiento,
+        ObservableCollection<Pseudonimo>? pseudonimos,
         ObservableCollection<Catalogo>? nacionalidades,
-        ObservableCollection<Catalogo>? grupos_vulnerables,
+        ObservableCollection<Catalogo>? gruposVulnerables,
         ObservableCollection<Telefono>? telefonos,
-        ObservableCollection<SenaParticular>? senas_particulares,
-        int? numeroPersonasVive   
+        ObservableCollection<Contacto>? contactos,
+        ObservableCollection<SenaParticular> senasParticulares,
+        Estudio? estudios,
+        ContextoFamiliar? contextoFamiliar,
+        Salud? salud,
+        Ojos? ojos,
+        Cabello? cabello,
+        VelloFacial? velloFacial,
+        Nariz? nariz,
+        Boca? boca,
+        Orejas? orejas,
+        MediaFiliacionComplementaria? mediaFiliacionComplementaria,
+        ObservableCollection<IntervencionQuirurgica> intervencionesQuirurgicas,
+        ObservableCollection<EnfermedadPiel> enfermedadesPiel,
+        ObservableCollection<CondicionSalud> condicionesSalud,
+        EnfoqueDiferenciado? enfoqueDiferenciado,
+        ContextoSocial? contextoSocial
     )
     {
         Id = id;
         Nombre = nombre;
-        LugarNacimiento = lugar_nacimiento;
-        ApellidoPaterno = apellido_paterno;
-        ApellidoMaterno = apellido_materno;
-        PseudonimoNombre = pseudonimo_nombre;
-        PseudonimoApellidoPaterno = pseudonimo_apellido_paterno;
-        PseudonimoApellidoMaterno = pseudonimo_apellido_materno;
-        FechaNacimiento = fecha_nacimiento;
+        ApellidoPaterno = apellidoPaterno;
+        ApellidoMaterno = apellidoMaterno;
+        Apodo = apodo;
+        FechaNacimiento = fechaNacimiento;
         Curp = curp;
-        ObservacionesCurp = observaciones_curp;
+        ObservacionesCurp = observacionesCurp;
         Rfc = rfc;
-        Ocupacion = ocupacion;
-        NivelEscolaridad = nivel_escolaridad;
+        HablaEspanhol = hablaEspanhol;
+        EspecificacionesOcupacion = especificacionesOcupacion;
         Sexo = sexo;
         Genero = genero;
-        Apodos = apodos;
-        Nacionalidades = nacionalidades;
         Religion = religion;
         Lengua = lengua;
+        RazonCurp = razonCurp;
+        LugarNacimiento = lugarNacimiento;
+        Pseudonimos = pseudonimos;
+        Nacionalidades = nacionalidades;
         Telefonos = telefonos;
-        Escolaridad = escolaridad;
-        EstadoConyugal = estado_conyugal;
-        RazonNoPresentaCurp = razon_no_presenta_curp;
-        GruposVulnerables = grupos_vulnerables;
-        SenasParticulares = senas_particulares;
-        MediaFiliacion = media_filiacion;
-        NumeroPersonasVive = numeroPersonasVive;
+        Contactos = contactos;
+        GruposVulnerables = gruposVulnerables;
+        SenasParticulares = senasParticulares;
+        Estudios = estudios;
+        ContextoFamiliar = contextoFamiliar;
+        Salud = salud;
+        Ojos = ojos;
+        Cabello = cabello;
+        VelloFacial = velloFacial;
+        Nariz = nariz;
+        Boca = boca;
+        Orejas = orejas;
+        MediaFiliacionComplementaria = mediaFiliacionComplementaria;
+        IntervencionesQuirurgicas = intervencionesQuirurgicas;
+        EnfermedadesPiel = enfermedadesPiel;
+        CondicionesSalud = condicionesSalud;
+        EnfoqueDiferenciado = enfoqueDiferenciado;
+        ContextoSocial = contextoSocial;
     }
 
     public Persona()
     {
     }
 
-    [ObservableProperty, JsonProperty(PropertyName = "id")]
-    private int? _id;
-
+    /**
+     * Nombre completo de la persona.
+     */
     public string NombreCompleto => $"{Nombre} {ApellidoPaterno} {ApellidoMaterno}";
 
-    [ObservableProperty, JsonProperty(PropertyName = "lugar_nacimiento")]
-    private Estado? _lugarNacimiento;
+    /**
+     * Atributos de la clase.
+     */
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
+    private int? _id;
 
     [ObservableProperty, JsonProperty(PropertyName = "nombre")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _nombre;
@@ -92,14 +116,8 @@ public partial class Persona : ObservableObject
     [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoMaterno;
 
-    [ObservableProperty, JsonProperty(PropertyName = "pseudonimo_nombre")]
-    private string? _pseudonimoNombre;
-
-    [ObservableProperty, JsonProperty(PropertyName = "pseudonimo_apellido_paterno")]
-    private string? _pseudonimoApellidoPaterno;
-
-    [ObservableProperty, JsonProperty(PropertyName = "pseudonimo_apellido_materno")]
-    private string? _pseudonimoApellidoMaterno;
+    [ObservableProperty, JsonProperty(PropertyName = "apodo")]
+    private string? _apodo;
 
     [ObservableProperty, JsonProperty(PropertyName = "fecha_nacimiento")]
     private DateTime? _fechaNacimiento;
@@ -113,20 +131,20 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "rfc")]
     private string? _rfc;
 
-    [ObservableProperty, JsonProperty(PropertyName = "ocupacion")]
-    private string? _ocupacion;
+    [ObservableProperty, JsonProperty(PropertyName = "habla_espanhol")]
+    private bool? _hablaEspanhol;
 
+    [ObservableProperty, JsonProperty(PropertyName = "especificaciones_ocupacion")]
+    private string? _especificacionesOcupacion;
+
+    /**
+     * Llaves foráneas.
+     */
     [ObservableProperty, JsonProperty(PropertyName = "sexo")]
     private Catalogo? _sexo;
 
     [ObservableProperty, JsonProperty(PropertyName = "genero")]
     private Catalogo? _genero;
-
-    [ObservableProperty, JsonProperty(PropertyName = "apodos")]
-    private ObservableCollection<Apodo>? _apodos = new();
-
-    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
-    private ObservableCollection<Catalogo>? _nacionalidades = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "religion")]
     private Catalogo? _religion;
@@ -134,20 +152,20 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "lengua")]
     private Catalogo? _lengua;
 
-    [ObservableProperty, JsonProperty(PropertyName = "escolaridad")]
-    private Catalogo? _escolaridad;
+    [ObservableProperty, JsonProperty(PropertyName = "razon_curp")]
+    private Catalogo? _razonCurp;
 
-    [ObservableProperty, JsonProperty(PropertyName = "estado_conyugal")]
-    private Catalogo? _estadoConyugal;
-    
-    [ObservableProperty, JsonProperty(PropertyName = "razon_no_presenta_curp")]
-    private Catalogo? _razonNoPresentaCurp;
+    [ObservableProperty, JsonProperty(PropertyName = "lugar_nacimiento")]
+    private Estado? _lugarNacimiento;
 
-    [ObservableProperty, JsonProperty(PropertyName = "media_filiacion")]
-    private MediaFiliacion? _mediaFiliacion = new();
+    /**
+     * Relaciones.
+     */
+    [ObservableProperty, JsonProperty(PropertyName = "pseudonimos")]
+    private ObservableCollection<Pseudonimo>? _pseudonimos = new();
 
-    [ObservableProperty, JsonProperty(PropertyName = "nivel_escolaridad")]
-    private string? _nivelEscolaridad;
+    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
+    private ObservableCollection<Catalogo>? _nacionalidades = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
     private ObservableCollection<Telefono>? _telefonos = new();
@@ -163,10 +181,59 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "senas_particulares")]
     private ObservableCollection<SenaParticular> _senasParticulares = [];
-    
-    [ObservableProperty, JsonProperty("numero_personas_vive")]
-    private int? _numeroPersonasVive;
 
+    [ObservableProperty, JsonProperty("estudios")]
+    private Estudio? _estudios;
+
+    [ObservableProperty, JsonProperty("contexto_familiar")]
+    private ContextoFamiliar? _contextoFamiliar;
+
+    [ObservableProperty, JsonProperty("salud")]
+    private Salud? _salud;
+
+    [ObservableProperty, JsonProperty("ojos")]
+    private Ojos? _ojos;
+
+    [ObservableProperty, JsonProperty("cabello")]
+    private Cabello? _cabello;
+
+    [ObservableProperty, JsonProperty("vello_facial")]
+    private VelloFacial? _velloFacial;
+
+    [ObservableProperty, JsonProperty("nariz")]
+    private Nariz? _nariz;
+
+    [ObservableProperty, JsonProperty("boca")]
+    private Boca? _boca;
+
+    [ObservableProperty, JsonProperty("orejas")]
+    private Orejas? _orejas;
+
+    [ObservableProperty, JsonProperty("media_filiacion_complementaria")]
+    private MediaFiliacionComplementaria? _mediaFiliacionComplementaria;
+
+    [ObservableProperty, JsonProperty("intervenciones_quirurgicas")]
+    private ObservableCollection<IntervencionQuirurgica> _intervencionesQuirurgicas = [];
+
+    [ObservableProperty, JsonProperty("enfermedades_piel")]
+    private ObservableCollection<EnfermedadPiel> _enfermedadesPiel = [];
+    
+    [ObservableProperty, JsonProperty("condiciones_salud")]
+    private ObservableCollection<CondicionSalud> _condicionesSalud = [];
+    
+    [ObservableProperty, JsonProperty("enfoque_diferenciado")]
+    private EnfoqueDiferenciado? _enfoqueDiferenciado;
+    
+    [ObservableProperty, JsonProperty("contexto_social")]
+    private ContextoSocial? _contextoSocial;
+    
+    [ObservableProperty, JsonProperty("enfoques_personales")]
+    private ObservableCollection<EnfoquePersonal> _enfoquesPersonales = [];
+    
+    [ObservableProperty, JsonProperty("ocupaciones")]
+    private ObservableCollection<OcupacionPersona> _ocupaciones = []; 
+
+    // TODO: Añadir ocupaciones
 
     /**
      * Equals, GetHashCode, ToString

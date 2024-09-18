@@ -17,7 +17,7 @@ public class ReporteNetwork
         var request = await Client.GetAsync("api/reportes");
         var response = await request.Content.ReadAsStringAsync();
         ReportesQueryResponse reportes = JsonSerializer.Deserialize<ReportesQueryResponse>(response)!;
-        return new ObservableCollection<ReporteResponse>(reportes.Data);
+        return new ObservableCollection<ReporteResponse>(reportes.Data!);
     }
     
     public static async Task<ReporteResponse?> GetReporte(string id)
@@ -64,21 +64,6 @@ public class ReporteNetwork
         CatalogosWrapped jsonResponse = JsonSerializer.Deserialize<CatalogosWrapped>(response)!;
 
         return new ObservableCollection<Catalogo>(jsonResponse.Data);
-    }
-    
-    public static async Task<ObservableCollection<Medio>> GetMedios(int? id)
-    {
-        if (id != null)
-        {
-            var request = await Client.GetAsync($"api/medios?search={id}");
-
-            var response = await request.Content.ReadAsStringAsync();
-
-            MediosWrapped jsonResponse = JsonSerializer.Deserialize<MediosWrapped>(response)!;
-            return new ObservableCollection<Medio>(jsonResponse.Data);
-        }
-
-        return null;
     }
 
     public static async Task<Object> GetTiposHipotesis()

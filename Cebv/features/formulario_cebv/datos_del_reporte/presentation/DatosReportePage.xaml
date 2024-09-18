@@ -10,13 +10,12 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      xmlns:data="clr-namespace:Cebv.core.data"
       d:DesignWidth="auto"
       d:DesignHeight="auto"
       Title="PestanaReporteView">
 
     <Page.DataContext>
-        <presentation:DatosReporteViewModel/>
+        <presentation:DatosReporteViewModel />
     </Page.DataContext>
 
     <Grid Margin="10">
@@ -75,7 +74,9 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Institución de origen:" />
-                        <ui:TextBox Text="{Binding Reporte.InstitucionOrigen}" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Reporte.InstitucionOrigen}"
+                                  ItemsSource="{Binding Instituciones}" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -113,6 +114,6 @@
                    HorizontalAlignment="Stretch"
                    Appearance="Primary"
                    Command="{Binding GuardarYSiguenteCommand}"
-                   CommandParameter="{x:Type presentation1:InstrumentoJuridicoPage}"/>
+                   CommandParameter="{x:Type presentation1:InstrumentoJuridicoPage}" />
     </Grid>
 </Page>

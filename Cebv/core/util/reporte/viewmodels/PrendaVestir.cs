@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class PrendaDeVestir : ObservableObject 
+public partial class PrendaVestir : ObservableObject 
 {
     [JsonConstructor]
-    public PrendaDeVestir(int id, string? marca, string? descripcion, Pertenencia? pertenencia, Catalogo? color)
+    public PrendaVestir(int id, string? marca, string? descripcion, Pertenencia? pertenencia, Catalogo? color)
     {
         Id = id;
         Marca = marca;
@@ -22,10 +22,10 @@ public partial class PrendaDeVestir : ObservableObject
         if (ReferenceEquals(obj, null)) return false; // Other object is null
         if (obj.GetType() != GetType()) return false; // Different types
 
-        return Equals((PrendaDeVestir) obj);
+        return Equals((PrendaVestir) obj);
     }
 
-    private bool Equals(PrendaDeVestir prenda)
+    private bool Equals(PrendaVestir prenda)
     {
         return Id == prenda.Id &&
                Descripcion == prenda.Descripcion &&
@@ -34,7 +34,7 @@ public partial class PrendaDeVestir : ObservableObject
                (bool) Color?.Equals(prenda.Color);
     }
 
-    public PrendaDeVestir() { }
+    public PrendaVestir() { }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
     [ObservableProperty, JsonProperty(PropertyName = "desaparecido_id")] private int _desaparecidoId;

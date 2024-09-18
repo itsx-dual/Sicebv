@@ -7,11 +7,11 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class Ocupacion : ObservableObject
 {
     [JsonConstructor]
-    public Ocupacion(int id, string? nombre, Catalogo? tipo_ocupacion)
+    public Ocupacion(int id, string? nombre, Catalogo? tipoOcupacion)
     {
         Id = id;
         Nombre = nombre;
-        TipoOcupacion = tipo_ocupacion;
+        TipoOcupacion = tipoOcupacion;
     }
     
     public override bool Equals(object? obj)
