@@ -37,8 +37,8 @@ public partial class PostEncuadreModalViewModel : ObservableObject
 
     private async Task CargarCatalogos()
     {
-        TiposReportes = await CebvNetwork.GetCatalogo("tipos-reportes");
-        Areas = await CebvNetwork.GetCatalogo("areas");
+        TiposReportes = await CebvNetwork.GetRoute<Catalogo>("tipos-reportes");
+        Areas = await CebvNetwork.GetRoute<Catalogo>("areas");
     }
 
     private async void InitAsync()

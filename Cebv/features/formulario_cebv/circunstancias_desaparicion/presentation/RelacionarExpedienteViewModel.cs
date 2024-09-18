@@ -36,7 +36,7 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
 
     private async void CargarCatalogos()
     {
-        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
+        Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
     }
 
     [RelayCommand]

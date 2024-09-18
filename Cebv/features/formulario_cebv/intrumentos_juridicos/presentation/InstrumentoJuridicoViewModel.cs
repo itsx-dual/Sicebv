@@ -19,7 +19,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     [ObservableProperty] private Desaparecido _desaparecido;
     
     // Catalogos
-    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
     
     // Valores seleccionados
     [ObservableProperty] private bool? _opcionCarpeta;

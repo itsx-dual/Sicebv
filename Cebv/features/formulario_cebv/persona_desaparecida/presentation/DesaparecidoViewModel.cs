@@ -9,7 +9,6 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using static Cebv.core.util.enums.TipoContacto;
 using Cebv.core.util.snackbar;
-using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -101,14 +100,14 @@ public partial class DesaparecidoViewModel : ObservableObject
             ?.Ocupacion?.TipoOcupacion;
 
         TiposOcupaciones = await CebvNetwork.GetRoute<Catalogo>("tipos-ocupaciones");
-        Colectivos = await DesaparecidoNetwork.GetCatalogo("colectivos");
-        RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
-        GruposVulnerables = await DesaparecidoNetwork.GetCatalogo("grupos-vulnerables");
-        CompaniasTelefonicas = await DesaparecidoNetwork.GetCatalogo("companias-telefonicas");
-        TiposRedesSociales = await DesaparecidoNetwork.GetCatalogo("tipos-redes-sociales");
-        Estados = await DesaparecidoNetwork.GetEstados();
-        if (estadoId != null) Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
-        if (municipioId != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
+        Colectivos = await CebvNetwork.GetRoute<Catalogo>("colectivos");
+        RazonesCurp = await CebvNetwork.GetRoute<Catalogo>("razones-curp");
+        GruposVulnerables = await CebvNetwork.GetRoute<Catalogo>("grupos-vulnerables");
+        CompaniasTelefonicas = await CebvNetwork.GetRoute<Catalogo>("companias-telefonicas");
+        TiposRedesSociales = await CebvNetwork.GetRoute<Catalogo>("tipos-redes-sociales");
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");
+        if (estadoId != null) Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", estadoId);
+        if (municipioId != null) Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipioId);
         if (tipoOcupacionPrincipal != null)
         {
             TipoOcupacionPrincipal = tipoOcupacionPrincipal;
@@ -198,13 +197,13 @@ public partial class DesaparecidoViewModel : ObservableObject
     {
         if (value is null) return;
         MunicipioSelected = null;
-        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(value.Id);
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio? value)
     {
         if (value is null) return;
-        Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(value.Id);
+        Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", value.Id);
     }
 
     async partial void OnEsMismoDomicilioReportanteChanged(bool value)
@@ -227,12 +226,12 @@ public partial class DesaparecidoViewModel : ObservableObject
 
                     if (estadoId != null)
                     {
-                        Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
+                        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", estadoId);
                     }
 
                     if (municipioId != null)
                     {
-                        Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
+                        Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("municpios", "municipio_id", municipioId);
                     }
 
                     Desaparecido.Persona.Direcciones[0] = direccionReportante;
