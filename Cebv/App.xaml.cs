@@ -57,6 +57,7 @@ public partial class App : Application
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.TrimmedText));
         EventManager.RegisterClassHandler(typeof(DatePicker), DatePicker.SelectedDateChangedEvent, new EventHandler<SelectionChangedEventArgs>(TextBoxHelper.DatePickerSelectedDateChanged));
+        EventManager.RegisterClassHandler(typeof(ComboBox), ComboBox.PreviewKeyDownEvent, new KeyEventHandler(TextBoxHelper.ComboBox_PreviewKeyDown));
         
         base.OnStartup(e);
     }

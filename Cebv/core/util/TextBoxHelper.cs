@@ -281,4 +281,23 @@ public class TextBoxHelper
 
         textBox.Text = singleSpaceText;
     }
+    
+    public static void ComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        var comboBox = sender as ComboBox;
+        if (comboBox != null)
+        {
+            if (e.Key == Key.Space || e.Key == Key.RightShift)
+            {
+                if (comboBox.IsDropDownOpen)
+                {
+                    comboBox.IsDropDownOpen = false;
+                }
+                else
+                {
+                    comboBox.IsDropDownOpen = true;
+                }
+            }
+        }
+    }
 }
