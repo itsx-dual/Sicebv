@@ -10,9 +10,7 @@ using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
-using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using Cebv.features.formulario_cebv.prendas.domain;
-using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -116,26 +114,26 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         Stopwatch sw = new();
         sw.Start();
-        Sexos = await CebvNetwork.GetCatalogo("sexos");
-        RazonesCurp = await CebvNetwork.GetCatalogo("razones-curp");
-        Generos = await CebvNetwork.GetCatalogo("generos");
-        Parentescos = await CebvNetwork.GetCatalogo("parentescos");
-        Nacionalidades = await CebvNetwork.GetCatalogo("nacionalidades");
-        CompaniasTelefonicas = await CebvNetwork.GetCatalogo("companias-telefonicas");
-        Complexiones = await CebvNetwork.GetCatalogo("complexiones");
-        ColoresPiel = await CebvNetwork.GetCatalogo("colores-pieles");
-        ColoresOjos = await CebvNetwork.GetCatalogo("colores-ojos");
-        ColoresCabello = await CebvNetwork.GetCatalogo("colores-cabellos");
-        TamanosCabello = await CebvNetwork.GetCatalogo("tamanos-cabellos");
-        TiposCabello = await CebvNetwork.GetCatalogo("tipos-cabellos");
-        Vistas = await CebvNetwork.GetCatalogo("vistas");
-        Tipos = await CebvNetwork.GetCatalogo("tipos");
-        Colores = await CebvNetwork.GetCatalogo("colores");
-        GruposPertenencia = await CebvNetwork.GetCatalogo("grupos-pertenencias");
-        RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
-        Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
-        Estados = await InegiNetwork.GetEstados();
-        TiposMedios = await CebvNetwork.GetCatalogo("tipos-medios");
+        Sexos = await CebvNetwork.GetRoute<Catalogo>("sexos");
+        RazonesCurp = await CebvNetwork.GetRoute<Catalogo>("razones-curp");
+        Generos = await CebvNetwork.GetRoute<Catalogo>("generos");
+        Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
+        Nacionalidades = await CebvNetwork.GetRoute<Catalogo>("nacionalidades");
+        CompaniasTelefonicas = await CebvNetwork.GetRoute<Catalogo>("companias-telefonicas");
+        Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
+        ColoresPiel = await CebvNetwork.GetRoute<Catalogo>("colores-pieles");
+        ColoresOjos = await CebvNetwork.GetRoute<Catalogo>("colores-ojos");
+        ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabellos");
+        TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabellos");
+        TiposCabello = await CebvNetwork.GetRoute<Catalogo>("tipos-cabellos");
+        Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
+        Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
+        Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
+        GruposPertenencia = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");
+        RegionesCuerpo = await CebvNetwork.GetRoute<CatalogoColor>("regiones-cuerpo");
+        Lados = await CebvNetwork.GetRoute<CatalogoColor>("lados");
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");;
+        TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
@@ -211,18 +209,18 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     }
 
     async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
-        Medios = await DatosReporteNetwork.GetMedios(value.Id);
+        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medios_id", value.Id.ToString()!);
 
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         if (value == null) return;
-        Municipios = await InegiNetwork.GetMunicipiosDeEstado(value.Id);
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio municipio)
     {
         if (municipio == null) return;
-        Asentamientos = await InegiNetwork.GetAsentamientosDeMunicipio(municipio.Id);
+        Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipio.Id);
     }
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)
@@ -346,8 +344,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (PerteneciaSelected == null) return;
 
-        var prendasDeVestir = Desaparecido.PrendasDeVestir;
-        prendasDeVestir?.Add(new PrendaDeVestir
+        var prendasDeVestir = Desaparecido.PrendasVestir;
+        prendasDeVestir?.Add(new PrendaVestir()
         {
             Marca = CurrentMarca,
             Descripcion = CurrentPrendaDescripcion,
@@ -360,13 +358,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GrupoPerteneciaSelected = null;
         PerteneciaSelected = null;
         ColorSelected = null;
-        HayPrendas = Desaparecido.PrendasDeVestir?.Any() ?? false;
+        HayPrendas = Desaparecido.PrendasVestir?.Any() ?? false;
     }
 
     [RelayCommand]
-    private void OnRemovePrendaDeVestir(PrendaDeVestir prenda)
+    private void OnRemovePrendaDeVestir(PrendaVestir prenda)
     {
-        Desaparecido.PrendasDeVestir?.Remove(prenda);
+        Desaparecido.PrendasVestir?.Remove(prenda);
     }
 
     [RelayCommand]
@@ -480,7 +478,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id, ImagenesDesaparecido.ToList(), ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();

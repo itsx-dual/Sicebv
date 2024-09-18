@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
+using Cebv.core.domain;
 using Cebv.core.modules.persona.presentation;
-using Cebv.core.modules.reportante.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -84,11 +84,11 @@ public partial class ReportanteViewModel : ObservableObject
             reporte.Reportantes[0].Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
 
         // Cargar los catálogos de forma asincrónica usando el método LoadCatalog
-        Colectivos = await LoadCatalog("colectivos");
-        GruposVulnerables = await LoadCatalog("grupos-vulnerables");
-        Estados = await ReportanteNetwork.GetEstados();
-        if (estadoId != null) Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(estadoId);
-        if (municipioId != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipioId);
+        Colectivos = await CebvNetwork.GetRoute<Catalogo>("colectivos");
+        GruposVulnerables = await CebvNetwork.GetRoute<Catalogo>("grupos-vulnerables");
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");
+        if (estadoId != null) Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", estadoId);
+        if (municipioId != null) Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipioId);
 
         Reporte = reporte;
         if (Reporte.Reportantes.Count < 1)
@@ -154,11 +154,11 @@ public partial class ReportanteViewModel : ObservableObject
         Reportante.Persona!.ContextoFamiliar ??= new();
     }
 
-    private async Task<ObservableCollection<Catalogo>> LoadCatalog(string catalogName)
-    {
-        var catalog = await ReportanteNetwork.GetCatalogo(catalogName);
-        return catalog;
-    }
+    //private async Task<ObservableCollection<Catalogo>> LoadCatalog(string catalogName)
+    //{
+    //    var catalog = await ReportanteNetwork.GetCatalogo(catalogName);
+    //    return catalog;
+    //}
 
     private static int? CalculateAge(DateTime? birthDate)
     {
@@ -209,12 +209,12 @@ public partial class ReportanteViewModel : ObservableObject
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         MunicipioSelected = null;
-        Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id);
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio? value)
     {
-        if (value != null) Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(value.Id);
+        if (value != null) Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", value.Id);
     }
 
     [RelayCommand]

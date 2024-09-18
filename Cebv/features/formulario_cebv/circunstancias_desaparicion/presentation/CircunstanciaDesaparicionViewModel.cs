@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Cebv.core.domain;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.presentation;
@@ -8,7 +9,6 @@ using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using Cebv.features.formulario_cebv.folio_expediente.data;
-using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +36,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     private async void LoadAsync()
     {
-        TiposDomicilio = await DesaparecidoNetwork.GetCatalogo("tipos-domicilio");
+        TiposDomicilio = await CebvNetwork.GetRoute<Catalogo>("tipos-domicilio");
         Reporte = _reporteService.GetReporte();
 
         Reporte.HechosDesaparicion ??= new();

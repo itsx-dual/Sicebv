@@ -5,7 +5,6 @@ using Cebv.core.modules.ubicacion.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.datos_del_reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +24,7 @@ public partial class DatosReporteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = [];
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = [];
     [ObservableProperty] private ObservableCollection<Estado> _estados = [];
-    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Ops;
+    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
     
     // Valores seleccionados.
     [ObservableProperty] private Catalogo _tipoMedio;
@@ -39,9 +38,9 @@ public partial class DatosReporteViewModel : ObservableObject
 
     private async Task CargarCatalogos(int tipoMedioId = 1)
     {
-        TiposMedios = await CebvNetwork.GetCatalogo("tipos-medios");
-        Medios = await DatosReporteNetwork.GetMedios(tipoMedioId);
-        Estados = await InegiNetwork.GetEstados();
+        TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
+        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", tipoMedioId.ToString());
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");
     }
     
     private async void LoadAsync()
@@ -61,7 +60,7 @@ public partial class DatosReporteViewModel : ObservableObject
 
     async partial void OnTipoMedioChanged(Catalogo value)
     {
-        Medios = await DatosReporteNetwork.GetMedios(value.Id);
+        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", value.Id.ToString()!);
     }
 
     [RelayCommand]

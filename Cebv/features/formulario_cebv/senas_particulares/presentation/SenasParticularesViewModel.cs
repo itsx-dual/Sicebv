@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,10 +52,10 @@ public partial class SenasParticularesViewModel : ObservableObject
 
     private async Task CargarCatalogos()
     {
-        Vistas = await SenasParticularesNetwork.GetCatalogo("vistas");
-        Tipos = await SenasParticularesNetwork.GetCatalogo("tipos");
-        RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
-        Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
+        Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
+        Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
+        RegionesCuerpo = await CebvNetwork.GetRoute<CatalogoColor>("regiones-cuerpo");
+        Lados = await CebvNetwork.GetRoute<CatalogoColor>("lados");
     }
 
     private async void InitAsync()
