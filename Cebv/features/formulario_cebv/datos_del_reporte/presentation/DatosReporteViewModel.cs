@@ -41,7 +41,7 @@ public partial class DatosReporteViewModel : ObservableObject
     {
         TiposMedios = await CebvNetwork.GetCatalogo("tipos-medios");
         Medios = await DatosReporteNetwork.GetMedios(tipoMedioId);
-        Estados = await UbicacionNetwork.GetEstados();
+        Estados = await InegiNetwork.GetEstados();
     }
     
     private async void LoadAsync()

@@ -46,6 +46,7 @@ public partial class App : Application
         services.AddSingleton<ISnackbarService, SnackbarService>();
         services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
+
             
         return services.BuildServiceProvider();
     }

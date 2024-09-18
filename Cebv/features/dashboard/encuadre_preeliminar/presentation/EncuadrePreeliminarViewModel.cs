@@ -434,7 +434,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
         }
     }
-    
+
+    [RelayCommand]
+    private void OnDeleteDesaparecidoImagen(BitmapImage image)
+    {
+        ImagenesDesaparecido.Remove(image);
+    }
+
     [RelayCommand]
     private void OnOpenSenaParticularImage()
     {
