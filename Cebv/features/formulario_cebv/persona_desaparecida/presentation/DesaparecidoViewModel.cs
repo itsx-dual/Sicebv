@@ -1,6 +1,9 @@
 using System.Collections.ObjectModel;
+using Cebv.core.domain;
+using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
+using static Cebv.core.util.enums.PrioridadOcupacion;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -20,14 +23,14 @@ public partial class DesaparecidoViewModel : ObservableObject
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
-    
+
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Desaparecido _desaparecido;
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = null!;
     [ObservableProperty] private PersonaViewModel _persona = new();
 
     public DesaparecidoViewModel()
@@ -39,10 +42,7 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposRedesSociales = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposOcupaciones = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
-    [ObservableProperty] private ObservableCollection<Ocupacion> _ocupacionesPrincipales = new();
-    [ObservableProperty] private ObservableCollection<Ocupacion> _ocupacionesSecundarias = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
@@ -51,8 +51,6 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _companiaTelefonicaSelected;
     [ObservableProperty] private Catalogo? _tipoRedSocialSelected;
-    [ObservableProperty] private Catalogo? _tipoOcupacionPrincipalSelected;
-    [ObservableProperty] private Catalogo? _tipoOcupacionSecundariaSelected;
 
     [ObservableProperty] private bool _esMismoDomicilioReportante;
     [ObservableProperty] private bool _tieneTelefonosMoviles;
@@ -77,27 +75,32 @@ public partial class DesaparecidoViewModel : ObservableObject
     [ObservableProperty] private int? _edadMeses;
     [ObservableProperty] private int? _edadDias;
 
+    /**
+     * Ocupaciones
+     */
+    [ObservableProperty] private ObservableCollection<Catalogo>? _tiposOcupaciones;
+
+    [ObservableProperty] private Catalogo? _tipoOcupacionPrincipal;
+    [ObservableProperty] private Catalogo? _tipoOcupacionSecundaria;
+
+    [ObservableProperty] private ObservableCollection<Ocupacion>? _ocupacionesPrincipales;
+    [ObservableProperty] private ObservableCollection<Ocupacion>? _ocupacionesSecundarias;
+
+    [ObservableProperty] private OcupacionPersona? _ocupacionPrincipal;
+    [ObservableProperty] private OcupacionPersona? _ocupacionSecundaria;
+
     private async void CargarCatalogos()
     {
         var desaparecido = _reporteService.GetReporte().Desaparecidos.FirstOrDefault();
         var estadoId = desaparecido?.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
         var municipioId = desaparecido?.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
 
-        /*
-        TiposOcupaciones = await DesaparecidoNetwork.GetCatalogo("tipos-ocupaciones");
-        if (desaparecido?.OcupacionPrincipal != null)
-        {
-            TipoOcupacionPrincipalSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == desaparecido.OcupacionPrincipal.TipoOcupacion.Id);
-            OcupacionesPrincipales = await DesaparecidoNetwork.OcupacionesDadoTipo(TipoOcupacionPrincipalSelected.Id);
-        }
+        var tipoOcupacionPrincipal = desaparecido?.Persona?.Ocupaciones.FirstOrDefault(x => x.Prioridad == Principal)
+            ?.Ocupacion?.TipoOcupacion;
+        var tipoOcupacionSecundaria = desaparecido?.Persona?.Ocupaciones.FirstOrDefault(x => x.Prioridad == Secundaria)
+            ?.Ocupacion?.TipoOcupacion;
 
-        if (desaparecido?.OcupacionSecundaria != null)
-        {
-            TipoOcupacionSecundariaSelected = TiposOcupaciones.FirstOrDefault(x=>x.Id == desaparecido.OcupacionSecundaria.TipoOcupacion.Id);
-            OcupacionesSecundarias = await DesaparecidoNetwork.OcupacionesDadoTipo(TipoOcupacionSecundariaSelected.Id);
-        }
-        */
-
+        TiposOcupaciones = await CebvNetwork.GetRoute<Catalogo>("tipos-ocupaciones");
         Colectivos = await DesaparecidoNetwork.GetCatalogo("colectivos");
         RazonesCurp = await DesaparecidoNetwork.GetCatalogo("razones-curp");
         GruposVulnerables = await DesaparecidoNetwork.GetCatalogo("grupos-vulnerables");
@@ -106,8 +109,35 @@ public partial class DesaparecidoViewModel : ObservableObject
         Estados = await DesaparecidoNetwork.GetEstados();
         if (estadoId != null) Municipios = await DesaparecidoNetwork.GetMunicipiosDeEstado(estadoId);
         if (municipioId != null) Asentamientos = await DesaparecidoNetwork.GetAsentamientosDeMunicipio(municipioId);
+        if (tipoOcupacionPrincipal != null)
+        {
+            TipoOcupacionPrincipal = tipoOcupacionPrincipal;
+            OcupacionesPrincipales = await CebvNetwork.GetByFilter<Ocupacion>("ocupaciones", "tipo_ocupacion_id",
+                tipoOcupacionPrincipal.Id.ToString()!);
+        }
+
+        if (tipoOcupacionSecundaria != null)
+        {
+            TipoOcupacionSecundaria = tipoOcupacionSecundaria;
+            OcupacionesSecundarias = await CebvNetwork.GetByFilter<Ocupacion>("ocupaciones", "tipo_ocupacion_id",
+                tipoOcupacionSecundaria.Id.ToString()!);
+        }
 
         Reporte = _reporteService.GetReporte();
+
+        OcupacionPrincipal = Reporte.Desaparecidos[0].Persona!.Ocupaciones.FirstOrDefault(
+            x => x.Prioridad == Principal
+        ) ?? new OcupacionPersona
+        {
+            Prioridad = Principal
+        };
+
+        OcupacionSecundaria = Reporte.Desaparecidos[0].Persona!.Ocupaciones.FirstOrDefault(
+            x => x.Prioridad == Secundaria
+        ) ?? new OcupacionPersona
+        {
+            Prioridad = Secundaria
+        };
 
         if (Reporte.Desaparecidos.Count == 0)
         {
@@ -144,19 +174,25 @@ public partial class DesaparecidoViewModel : ObservableObject
         TieneRedesSociales = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == RedSoial) ?? false;
 
         DiferenciaFechas(Reporte.Desaparecidos[0].Persona?.FechaNacimiento, DateTime.Now);
+
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.ContextoFamiliar ??= new();
+        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.Estudios ??= new();
     }
 
-    async partial void OnTipoOcupacionPrincipalSelectedChanged(Catalogo? value)
+    async partial void OnTipoOcupacionPrincipalChanged(Catalogo? value)
     {
-        if (value is null) return;
-        OcupacionesPrincipales = await DesaparecidoNetwork.OcupacionesDadoTipo(value.Id);
+        if (value?.Id is null or <= 0) return;
+        OcupacionesPrincipales =
+            await CebvNetwork.GetByFilter<Ocupacion>("ocupaciones", "tipo_ocupacion_id", value.Id?.ToString()!);
     }
 
-    async partial void OnTipoOcupacionSecundariaSelectedChanged(Catalogo? value)
+    async partial void OnTipoOcupacionSecundariaChanged(Catalogo? value)
     {
-        if (value is null) return;
-        OcupacionesSecundarias = await DesaparecidoNetwork.OcupacionesDadoTipo(value.Id);
+        if (value?.Id is null or <= 0) return;
+        OcupacionesSecundarias =
+            await CebvNetwork.GetByFilter<Ocupacion>("ocupaciones", "tipo_ocupacion_id", value.Id?.ToString()!);
     }
+
 
     async partial void OnEstadoSelectedChanged(Estado? value)
     {
@@ -234,7 +270,7 @@ public partial class DesaparecidoViewModel : ObservableObject
         if (ApodoNombre?.Length <= 0 &&
             ApodoApellidoPaterno?.Length <= 0 &&
             ApodoApellidoMaterno?.Length <= 0) return;
-        
+
         Desaparecido.Persona?.Pseudonimos?.Add(new Pseudonimo
         {
             Nombre = ApodoNombre,
@@ -378,15 +414,19 @@ public partial class DesaparecidoViewModel : ObservableObject
         }
     }
 
+    private void GuardarOcupaciones()
+    {
+        if (OcupacionPrincipal?.Ocupacion is not null)
+            Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionPrincipal);
+
+        if (OcupacionSecundaria?.Ocupacion != null)
+            Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionSecundaria);
+    }
+
     [RelayCommand]
     private void OnGuardarYContinuar(Type pageType)
     {
-        AddApodoCommand.Execute(null);
-        AddTelefonoMovilCommand.Execute(null);
-        AddTelefonoFijoCommand.Execute(null);
-        AddCorreoCommand.Execute(null);
-        AddRedSocialCommand.Execute(null);
-
+        GuardarOcupaciones();
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

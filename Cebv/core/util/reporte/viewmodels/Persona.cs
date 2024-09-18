@@ -229,6 +229,9 @@ public partial class Persona : ObservableObject
     
     [ObservableProperty, JsonProperty("enfoques_personales")]
     private ObservableCollection<EnfoquePersonal> _enfoquesPersonales = [];
+    
+    [ObservableProperty, JsonProperty("ocupaciones")]
+    private ObservableCollection<OcupacionPersona> _ocupaciones = []; 
 
     // TODO: Añadir ocupaciones
 

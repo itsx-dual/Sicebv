@@ -896,7 +896,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="525" Margin="0 0 25 0">
                             <ui:TextBlock Text="Descripción de la ocupación principal:" />
-                            <ui:TextBox Text="{Binding Desaparecido.DescripcionOcupacionPrincipal}"
+                            <ui:TextBox Text="{Binding OcupacionPrincipal.Observaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
                                         MinHeight="100" />
@@ -906,14 +906,14 @@
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="Código general principal:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding TipoOcupacionPrincipalSelected}"
+                                          SelectedItem="{Binding TipoOcupacionPrincipal}"
                                           ItemsSource="{Binding TiposOcupaciones}" />
                             </StackPanel>
 
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="Código específico principal:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Desaparecido.OcupacionPrincipal}"
+                                          SelectedItem="{Binding OcupacionPrincipal.Ocupacion}"
                                           ItemsSource="{Binding OcupacionesPrincipales}"/>
                             </StackPanel>
                         </StackPanel>
@@ -922,7 +922,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="525" Margin="0 0 25 0">
                             <ui:TextBlock Text="Descripción de la ocupación secundaria" />
-                            <ui:TextBox Text="{Binding Desaparecido.DescripcionOcupacionSecundaria}"
+                            <ui:TextBox Text="{Binding OcupacionSecundaria.Observaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
                                         MinHeight="100" />
@@ -932,14 +932,14 @@
                             <StackPanel Margin="0 0 25 15" MinWidth="250">
                                 <ui:TextBlock Text="Código general secundaria:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding TipoOcupacionSecundariaSelected}"
+                                          SelectedItem="{Binding TipoOcupacionSecundaria}"
                                           ItemsSource="{Binding TiposOcupaciones}" />
                             </StackPanel>
 
                             <StackPanel Margin="0 0 25 0" MinWidth="250">
                                 <ui:TextBlock Text="Código específico secundaria:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Desaparecido.Persona.EspecificacionesOcupacion}"
+                                          SelectedItem="{Binding OcupacionSecundaria.Ocupacion}"
                                           ItemsSource="{Binding OcupacionesSecundarias}" />
                             </StackPanel>
                         </StackPanel>
@@ -947,7 +947,7 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Otras especificaciones de la ocupación:" />
-                        <ui:TextBox Text="{Binding Desaparecido.OtrasEspecificacionesOcupacion}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Desaparecido.Persona.EspecificacionesOcupacion}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>

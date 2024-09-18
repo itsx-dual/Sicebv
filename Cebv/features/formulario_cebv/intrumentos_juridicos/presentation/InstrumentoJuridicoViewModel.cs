@@ -1,8 +1,8 @@
+using Cebv.core.util.enums;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.intrumentos_juridicos.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,32 +32,32 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         Reporte = _reporteService.GetReporte();
 
         // Esta seccion del formulario lidia con cuatro atributos de desaparecido.
-        if (Reporte.Desaparecidos.Count == 0) Reporte.Desaparecidos.Add(Desaparecido);
+        if (Reporte.Desaparecidos.Count <= 0) Reporte.Desaparecidos.Add(Desaparecido);
         else Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
 
-        CarpetaInvestigacion = Reporte.Desaparecidos[0].DocumentosLegales?.FirstOrDefault(
-            x => x.TipoDocumento == TipoDocumentoLegal.CarpetaInvestigacion.ToString()
+        CarpetaInvestigacion = Desaparecido.DocumentosLegales.FirstOrDefault(
+            x => x.TipoDocumento == TipoDocumentoLegal.CarpetaInvestigacion
         ) ?? new DocumentoLegal
         {
-            TipoDocumento = TipoDocumentoLegal.CarpetaInvestigacion.ToString(),
+            TipoDocumento = TipoDocumentoLegal.CarpetaInvestigacion,
             EsOficial = false
         };
 
 
-        AmparoBuscador = Desaparecido.DocumentosLegales?.FirstOrDefault(
-            x => x.TipoDocumento == TipoDocumentoLegal.AmparoBuscador.ToString()
+        AmparoBuscador = Desaparecido.DocumentosLegales.FirstOrDefault(
+            x => x.TipoDocumento == TipoDocumentoLegal.AmparoBuscador
         ) ?? new DocumentoLegal
         {
-            TipoDocumento = TipoDocumentoLegal.AmparoBuscador.ToString(),
+            TipoDocumento = TipoDocumentoLegal.AmparoBuscador,
             EsOficial = false
         };
 
-        RecomedacionDerechos = Desaparecido.DocumentosLegales?.FirstOrDefault(
-            x => x.TipoDocumento == TipoDocumentoLegal.RecomendacionDerechos.ToString()
+        RecomendacionDerechos = Desaparecido.DocumentosLegales.FirstOrDefault(
+            x => x.TipoDocumento == TipoDocumentoLegal.RecomendacionDerechos
         ) ?? new DocumentoLegal
         {
-            TipoDocumento = TipoDocumentoLegal.RecomendacionDerechos.ToString(),
+            TipoDocumento = TipoDocumentoLegal.RecomendacionDerechos,
             EsOficial = false
         };
     }
@@ -87,7 +87,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
      */
     [ObservableProperty] private string _recomendacion = No;
 
-    [ObservableProperty] private DocumentoLegal? _recomedacionDerechos;
+    [ObservableProperty] private DocumentoLegal? _recomendacionDerechos;
 
     /**
      * Comando para guardar y seguir.
@@ -102,13 +102,22 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
 
     private void GuardarDocumentosLegales()
     {
-        if (CarpetaInvestigacion is not null)
-            Reporte.Desaparecidos[0].DocumentosLegales?.Add(CarpetaInvestigacion);
+        // Guardar documentos legales.
+        // Si el documento legal no existe, se agrega a la lista de documentos legales.
+        // Cuando el documento legal no existe su indice es -1.
+        // Si el documento legal existe, se actualiza en la lista de documentos legales.
+        
+        var carpetaIndex = Reporte.Desaparecidos[0].DocumentosLegales.IndexOf(CarpetaInvestigacion!);
+        var amparoIndex = Reporte.Desaparecidos[0].DocumentosLegales.IndexOf(AmparoBuscador!);
+        var recomendacionIndex = Reporte.Desaparecidos[0].DocumentosLegales.IndexOf(RecomendacionDerechos!);
 
-        if (AmparoBuscador is not null)
-            Reporte.Desaparecidos[0].DocumentosLegales?.Add(AmparoBuscador);
+        if (carpetaIndex == -1) Reporte.Desaparecidos[0].DocumentosLegales.Add(CarpetaInvestigacion!);
+        else Reporte.Desaparecidos[0].DocumentosLegales[carpetaIndex] = CarpetaInvestigacion!;
 
-        if (RecomedacionDerechos is not null)
-            Reporte.Desaparecidos[0].DocumentosLegales?.Add(RecomedacionDerechos);
+        if (amparoIndex == -1) Reporte.Desaparecidos[0].DocumentosLegales.Add(AmparoBuscador!);
+        else Reporte.Desaparecidos[0].DocumentosLegales[amparoIndex] = AmparoBuscador!;
+
+        if (recomendacionIndex == -1) Reporte.Desaparecidos[0].DocumentosLegales.Add(RecomendacionDerechos!);
+        else Reporte.Desaparecidos[0].DocumentosLegales[recomendacionIndex] = RecomendacionDerechos!;
     }
 }
