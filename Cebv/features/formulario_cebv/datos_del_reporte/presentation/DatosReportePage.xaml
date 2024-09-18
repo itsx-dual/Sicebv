@@ -35,17 +35,15 @@
             <WrapPanel IsEnabled="False" Margin="10 10 10 25">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="Fecha de inicio:" />
-                    <ui:TextBox
-                        Text="{Binding Reporte.FechaCreacion, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}',
+                    <ui:TextBox Text="{Binding Reporte.FechaCreacion, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}',
                                 ConverterCulture=es_MX}"
-                        IsEnabled="False" />
+                                IsEnabled="False"/>
                 </StackPanel>
 
                 <StackPanel MinWidth="250">
                     <ui:TextBlock Text="Hora de inicio:" />
-                    <ui:TextBox
-                        Text="{Binding Reporte.FechaCreacion, StringFormat='{}{0:hh\\:mm tt}', ConverterCulture=es_MX}"
-                        IsEnabled="False" />
+                    <ui:TextBox Text="{Binding Reporte.FechaCreacion, StringFormat='{}{0:hh\\:mm tt}', ConverterCulture=es_MX}"
+                                IsEnabled="False"/>
                 </StackPanel>
             </WrapPanel>
 
@@ -57,14 +55,14 @@
                         <ui:TextBlock Text="Medio de conocimiento genérico:" />
                         <ComboBox SelectedItem="{Binding TipoMedio}"
                                   ItemsSource="{Binding TiposMedios}"
-                                  DisplayMemberPath="Nombre" />
+                                  DisplayMemberPath="Nombre"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="Medio de conocimiento específico:" />
                         <ComboBox SelectedItem="{Binding Reporte.MedioConocimiento}"
                                   ItemsSource="{Binding Medios}"
-                                  DisplayMemberPath="Nombre" />
+                                  DisplayMemberPath="Nombre"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -90,21 +88,19 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Uso exclusivo de la información para búsqueda e identificación de la persona desaparecida o no localizada." />
-                        <ComboBox DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"
-                                  SelectedItem="{Binding InformacionExclusivaBusqueda}"
-                                  SelectedValue="{Binding Reporte.Reportantes[0].InformacionExclusivaBusqueda}"
-                                  ItemsSource="{Binding OpcionesCebv}" />
+                        <ComboBox SelectedValue="{Binding Reportante.InformacionExclusivaBusqueda}"
+                                  ItemsSource="{Binding Opciones}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Solicita que se haga pública la información de la persona desaparecida o no localizada." />
-                        <ComboBox DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"
-                                  SelectedItem="{Binding PublicacionInformacion}"
-                                  SelectedValue="{Binding Reporte.Reportantes[0].PublicacionBoletin}"
-                                  ItemsSource="{Binding OpcionesCebv}" />
+                        <ComboBox SelectedValue="{Binding Reportante.PublicacionBoletin}"
+                                  ItemsSource="{Binding Opciones}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

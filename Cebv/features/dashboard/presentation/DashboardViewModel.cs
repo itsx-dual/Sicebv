@@ -23,7 +23,6 @@ public partial class DashboardViewModel : ObservableObject
         {
             MenuItemsSource = new object[]
             {
-                new NavigationViewItem("Consultar", SymbolRegular.Library24, typeof(ReportesDesaparicion)),
                 new NavigationViewItem("Capturar reporte", SymbolRegular.Pen24, typeof(FormularioCebvPage)),
             }
         },

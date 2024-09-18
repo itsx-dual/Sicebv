@@ -235,7 +235,7 @@
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="EDAD (DÍAS):" />
+                                <ui:TextBlock Text="Edad (días):" />
                                 <ui:NumberBox
                                     Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                     MaxDecimalPlaces="0"
@@ -250,7 +250,7 @@
                         <ui:TextBlock Text="Edad actual" FontTypography="BodyStrong" Margin="0 25 0 10" />
                         <WrapPanel IsEnabled="False">
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="EDAD (AÑOS):" />
+                                <ui:TextBlock Text="Edad (años):" />
                                 <ui:NumberBox
                                     Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                     MaxDecimalPlaces="0"
@@ -263,7 +263,7 @@
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="EDAD (MESES):" />
+                                <ui:TextBlock Text="Edad (meses):" />
                                 <ui:NumberBox
                                     Icon="{ui:SymbolIcon NumberSymbolSquare24}"
                                     MaxDecimalPlaces="0"
@@ -454,35 +454,35 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Calle:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding Desaparecido.Persona.Direcciones[0].Calle}"
+                                        Text="{Binding DireccionDesaparecido.Calle}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
                             <ui:TextBox ClearButtonEnabled="True" MaxLength="10" 
-                                        Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroExterior}"
+                                        Text="{Binding DireccionDesaparecido.NumeroExterior}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
                             <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                        Text="{Binding Desaparecido.Persona.Direcciones[0].NumeroInterior}"
+                                        Text="{Binding DireccionDesaparecido.NumeroInterior}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Colonia:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding Desaparecido.Persona.Direcciones[0].Colonia}"
+                                        Text="{Binding DireccionDesaparecido.Colonia}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código Postal:" />
                             <ui:TextBox ClearButtonEnabled="True" Tag="Number" MaxLength="5"
-                                        Text="{Binding Desaparecido.Persona.Direcciones[0].CodigoPostal}"
+                                        Text="{Binding DireccionDesaparecido.CodigoPostal}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
                     </WrapPanel>
@@ -517,7 +517,7 @@
                             <ui:TextBlock Text="Localidad:" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Desaparecido.Persona.Direcciones[0].Asentamiento}"
+                                      SelectedItem="{Binding DireccionDesaparecido.Asentamiento}"
                                       ItemsSource="{Binding Asentamientos}"
                                       IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
@@ -526,26 +526,26 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Entre calle 1:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].Calle1}"
+                            <ui:TextBox Text="{Binding DireccionDesaparecido.Calle1}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Entre calle 2:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].Calle2}"
+                            <ui:TextBox Text="{Binding DireccionDesaparecido.Calle2}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tramo Carretero:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].TramoCarretero}"
+                            <ui:TextBox Text="{Binding DireccionDesaparecido.TramoCarretero}"
                                         IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Referencia:" />
-                        <ui:TextBox Text="{Binding Desaparecido.Persona.Direcciones[0].Referencia}"
+                        <ui:TextBox Text="{Binding DireccionDesaparecido.Referencia}"
                                     TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
                                     IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"/>
                     </StackPanel>

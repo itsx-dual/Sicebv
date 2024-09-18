@@ -9,7 +9,7 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="800"
+      d:DesignWidth="Auto"
       d:DesignHeight="Auto"
       Title="PostEncuadreModalPage">
 
@@ -48,6 +48,12 @@
                                           SelectedValuePath="Value"
                                           DisplayMemberPath="Key"
                                           ItemsSource="{Binding TiposDesapariciones}" />
+                            </StackPanel>
+                            
+                            <StackPanel MinWidth="250" Margin="0 0 25 0">
+                                <ui:TextBlock Text="Zona del estado:" />
+                                <ui:TextBox IsEnabled="False"
+                                            Text="{Binding Reporte.ZonaEstado.Nombre}"/>
                             </StackPanel>
                         </WrapPanel>
 

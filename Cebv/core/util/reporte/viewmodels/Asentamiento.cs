@@ -31,8 +31,13 @@ public partial class Asentamiento : ObservableObject
         if (ReferenceEquals(this, obj)) return true; // Same object reference
         if (ReferenceEquals(obj, null)) return false; // Other object is null
         if (obj.GetType() != GetType()) return false; // Different types
-
+        
         return Equals((Asentamiento) obj);
+    }
+    
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, Nombre);
     }
 
     private bool Equals(Asentamiento asentamiento)

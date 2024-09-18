@@ -45,6 +45,11 @@ public partial class Telefono : ObservableObject
                Observaciones == telefono.Observaciones &&
                EsMovil == telefono.EsMovil;
     }
+    
+    public override int GetHashCode() //wao
+    {
+        return HashCode.Combine(Id, PersonaId, Numero, Observaciones, EsMovil, Compania);
+    }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;

@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using Cebv.core.domain.paginated_resource;
 using Cebv.core.util.reporte.viewmodels;
 using Newtonsoft.Json;
 
