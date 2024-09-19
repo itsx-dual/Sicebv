@@ -13,11 +13,11 @@ public partial class FiltroBusquedaView : Page
     
     private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
     {
-        ((ReportesDesaparicionViewModel)DataContext).ReporteClickCommand.Execute(null);
+        ((FiltroBusquedaViewModel)DataContext).ReporteClickCommand.Execute(null);
     }
 
     private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        ((ReportesDesaparicionViewModel)DataContext).DesaparecidoClickCommand.Execute(null);
+        ((FiltroBusquedaViewModel)DataContext).DesaparecidoClickCommand.Execute(null);
     }
 }

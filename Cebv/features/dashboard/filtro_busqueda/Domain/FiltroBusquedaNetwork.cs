@@ -8,23 +8,6 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Cebv.features.dashboard.filtro_busqueda.Domain;
 
-class CatalogoCall(ObservableCollection<Catalogo> data)
-{
-    public ObservableCollection<Catalogo> Data = data;
-}
-
-public static class CatalogosNetwork
-{
-    private static HttpClient Client => CebvClientHandler.SharedClient;
-
-    public static async Task<ObservableCollection<Catalogo>> GetCatalogo(string catalogo)
-    {
-        var request = await Client.GetAsync($"/api/{catalogo}");
-        var response = await request.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<CatalogoCall>(response)?.Data!;
-    }
-}
-
 public class FiltroBusquedaNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;

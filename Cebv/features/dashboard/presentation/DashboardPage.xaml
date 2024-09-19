@@ -97,7 +97,7 @@
                 
                 <ui:NavigationViewItem Content="Filtro de búsqueda"
                                        Icon="{ui:SymbolIcon ClipboardSearch24}"
-                                       TargetPageType="{x:Type presentation4:FiltroBusquedaView}"/>
+                                       TargetPageType="{x:Type presentation5:FiltroBusquedaView}"/>
                 
             </ui:NavigationView.MenuItems>
             

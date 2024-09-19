@@ -97,7 +97,7 @@
                                     <TextBlock Text="Lugar Nacimiento" />
                                     <ComboBox Width="150"
                                               SelectedItem="{Binding LugarNacimientoReportanteSelected.Nombre}" 
-                                              ItemsSource="{Binding LugaresNacimientos}" 
+                                              ItemsSource="{Binding Estados}" 
                                               IsEditable="True"/>
                                 </StackPanel>
                            
@@ -246,7 +246,7 @@
                                     <TextBlock Text="Lugar Nacimiento"/>
                                     <ComboBox Width="150"
                                               SelectedItem="{Binding LugarNacimientoDesaparecidoSelected.Nombre}" 
-                                              ItemsSource="{Binding LugaresNacimientos}" 
+                                              ItemsSource="{Binding Estados}" 
                                               IsEditable="True"/>
                                 </StackPanel>
                                 
@@ -386,7 +386,7 @@
             </StackPanel>
         </StackPanel>
         
-       <!-- <StackPanel Grid.Row="2">
+       <StackPanel Grid.Row="2">
             <ui:ListView ItemsSource="{Binding Reportes}"
                          SelectedItem="{Binding ReporteSelected}"
                          MouseDoubleClick="EventSetter_OnHandler">
@@ -486,6 +486,6 @@
                     </DataTemplate>
                 </ui:ListView.ItemTemplate>
             </ui:ListView>
-        </StackPanel> -->
+       </StackPanel>
     </Grid>
 </Page>
