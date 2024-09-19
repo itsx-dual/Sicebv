@@ -38,7 +38,6 @@ public partial class App : Application
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
-
         services.AddTransient<FormularioCebvViewModel>();
         services.AddTransient<CircunstanciaDesaparicionViewModel>();
         
