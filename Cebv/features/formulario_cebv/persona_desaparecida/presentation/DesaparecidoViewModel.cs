@@ -415,11 +415,17 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     private void GuardarOcupaciones()
     {
-        if (OcupacionPrincipal?.Ocupacion is not null)
-            Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionPrincipal);
-
-        if (OcupacionSecundaria?.Ocupacion != null)
-            Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionSecundaria);
+        var ocupacionPrincipalIndex =
+            Reporte.Desaparecidos[0].Persona!.Ocupaciones.IndexOf(OcupacionPrincipal!);
+        
+        var ocupacionSecundariaIndex =
+            Reporte.Desaparecidos[0].Persona!.Ocupaciones.IndexOf(OcupacionSecundaria!);
+        
+        if (ocupacionPrincipalIndex == -1) Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionPrincipal!);
+        else Reporte.Desaparecidos[0].Persona!.Ocupaciones[ocupacionPrincipalIndex] = OcupacionPrincipal!;
+        
+        if (ocupacionSecundariaIndex == -1) Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionSecundaria!);
+        else Reporte.Desaparecidos[0].Persona!.Ocupaciones[ocupacionSecundariaIndex] = OcupacionSecundaria!;
     }
 
     [RelayCommand]
