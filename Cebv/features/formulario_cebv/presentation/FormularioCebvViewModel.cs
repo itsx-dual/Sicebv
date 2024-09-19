@@ -1,10 +1,8 @@
 using System.ComponentModel;
 using Cebv.core.domain;
-using Cebv.core.modules.reportante.data;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
-using Cebv.features.formulario_cebv.persona_desaparecida.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -13,9 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace Cebv.features.formulario_cebv.presentation;
 
-public partial class FormularioCebvViewModel : ObservableObject, 
-    IRecipient<NombreCompletoMessage>,
-    IRecipient<GuardarBorradorMessage>
+public partial class FormularioCebvViewModel : ObservableObject
 {
     [ObservableProperty] private string _nombreCompleto = string.Empty;
     [ObservableProperty] private bool _puedeGuardar;
@@ -28,23 +24,11 @@ public partial class FormularioCebvViewModel : ObservableObject,
     /**
      * Reportante
      */
-    [ObservableProperty] private ReportanteRequest _reportante = new();
+    //[ObservableProperty] private ReportanteRequest _reportante = new();
 
     public FormularioCebvViewModel()
     {
-        WeakReferenceMessenger.Default.Register<NombreCompletoMessage>(this);
-        WeakReferenceMessenger.Default.Register<GuardarBorradorMessage>(this);
         Reporte = _reporteService.GetReporte();
-    }
-
-    public void Receive(NombreCompletoMessage message)
-    {
-        NombreCompleto = message.Value;
-    }
-
-    public void Receive(GuardarBorradorMessage message)
-    {
-        PuedeGuardar = message.Value;
     }
     
     [RelayCommand]
@@ -61,7 +45,7 @@ public partial class FormularioCebvViewModel : ObservableObject,
                 "",
                 ControlAppearance.Success,
                 new SymbolIcon(SymbolRegular.Alert32),
-                new TimeSpan(0,0, 5));
+                new TimeSpan(0,0,5));
         }
         else
         {

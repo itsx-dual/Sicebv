@@ -9,6 +9,8 @@ namespace Cebv.features.login.presentation;
 
 public partial class LoginViewModel : ObservableObject
 {
+    //[ObservableProperty] private string _username = string.Empty;
+    //[ObservableProperty] private string _password = string.Empty;
     [ObservableProperty] private string _username = "nicolas@cebv.com";
     //[ObservableProperty] private string _username = "jon@cebv.com";
     //[ObservableProperty] private string _username = "tanil@cebv.com";
@@ -34,18 +36,20 @@ public partial class LoginViewModel : ObservableObject
         ErrorVisibility = Visibility.Collapsed;
         var result = await LoginNetwork.Post(Username, Password);
 
-        if (result is TokenWrapped)
+        switch (result)
         {
-            var dashboard = new DashboardWindow();
-            var currentWindow = Application.Current.MainWindow;
-            dashboard.Show();
-            currentWindow?.Close();
-        }
-        else if (result is Error)
-        {
-            ErrorVisibility = Visibility.Visible;
-            ErrorMessage = result.error;
-            IniciandoSesion = false;
+            case TokenWrapped:
+                var dashboard = new DashboardWindow();
+                var currentWindow = Application.Current.MainWindow;
+                dashboard.Show();
+                currentWindow?.Close();
+                break;
+            
+            case Error:
+                ErrorVisibility = Visibility.Visible;
+                ErrorMessage = result.error;
+                IniciandoSesion = false;
+                break;
         }
     }
 }

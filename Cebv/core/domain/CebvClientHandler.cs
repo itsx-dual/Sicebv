@@ -6,7 +6,7 @@ namespace Cebv.core.domain;
 
 public static class CebvClientHandler
 {
-    public static HttpClient SharedClient = new()
+    public static readonly HttpClient SharedClient = new()
     {
         BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("artisan_serve") ?? string.Empty),
 
@@ -14,5 +14,5 @@ public static class CebvClientHandler
         {
             Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
         }
-    };
+    }; 
 }

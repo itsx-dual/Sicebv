@@ -15,7 +15,7 @@
       Title="PestanaReporteView">
 
     <Page.DataContext>
-        <presentation:DatosReporteViewModel/>
+        <presentation:DatosReporteViewModel />
     </Page.DataContext>
 
     <Grid Margin="10">
@@ -74,7 +74,9 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Institución de origen:" />
-                        <ui:TextBox Text="{Binding Reporte.InstitucionOrigen}" />
+                        <ComboBox DisplayMemberPath="Nombre"
+                                  SelectedItem="{Binding Reporte.InstitucionOrigen}"
+                                  ItemsSource="{Binding Instituciones}" />
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -86,9 +88,8 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Uso exclusivo de la información para búsqueda e identificación de la persona desaparecida o no localizada." />
-                        <ComboBox SelectedValue="{Binding Reporte.Reportantes[0].InformacionExclusivaBusqueda}"
-                                  ItemsSource="{Binding InformacionExclusivaBusquedaList}"
-                                  SelectedItem="{Binding InformacionExclusivaBusquedaSelectedKey}"
+                        <ComboBox SelectedValue="{Binding Reportante.InformacionExclusivaBusqueda}"
+                                  ItemsSource="{Binding Opciones}"
                                   DisplayMemberPath="Key"
                                   SelectedValuePath="Value"/>
                     </StackPanel>
@@ -96,9 +97,8 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="Solicita que se haga pública la información de la persona desaparecida o no localizada." />
-                        <ComboBox SelectedValue="{Binding Reporte.Reportantes[0].PublicacionBoletin}"
-                                  ItemsSource="{Binding PublicacionInformacionList}"
-                                  SelectedItem="{Binding PublicacionInformacionSelectedKey}"
+                        <ComboBox SelectedValue="{Binding Reportante.PublicacionBoletin}"
+                                  ItemsSource="{Binding Opciones}"
                                   DisplayMemberPath="Key"
                                   SelectedValuePath="Value"/>
                     </StackPanel>
@@ -114,6 +114,6 @@
                    HorizontalAlignment="Stretch"
                    Appearance="Primary"
                    Command="{Binding GuardarYSiguenteCommand}"
-                   CommandParameter="{x:Type presentation1:InstrumentoJuridicoPage}"/>
+                   CommandParameter="{x:Type presentation1:InstrumentoJuridicoPage}" />
     </Grid>
 </Page>

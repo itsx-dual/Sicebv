@@ -268,12 +268,15 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock
                             Text="¿La persona desaparecida había recibido amenazas o había cambiado su comportamiento o rutina recientemente?" />
-                        <ComboBox SelectedItem="{Binding AmenazaCambioComportamientoOpcion}"
-                                  ItemsSource="{Binding Opciones}" />
+                        <ComboBox DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"
+                                  SelectedItem="{Binding AmenazaCambioComportamiento}"
+                                  SelectedValue="{Binding Reporte.HechosDesaparicion.AmenazaCambioComportamiento}"
+                                  ItemsSource="{Binding OpcionesCebv}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15"
-                                Visibility="{Binding AmenazaCambioComportamiento,
+                                Visibility="{Binding Reporte.HechosDesaparicion.AmenazaCambioComportamiento,
                                 Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación de amenazas:" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenazaCambioComportamiento}"
@@ -381,8 +384,11 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Desapareció con alguien más?:" />
-                            <ComboBox SelectedItem="{Binding DesaparecioAcompanadoOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedItem="{Binding DesaparecioAcompanado}"
+                                      SelectedValue="{Binding Reporte.HechosDesaparicion.DesaparecioAcompanado}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="300">

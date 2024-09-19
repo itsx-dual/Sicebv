@@ -29,7 +29,7 @@ public enum EstadoReporte
     Cargado,
     
     /// <summary>
-    /// El reporte esta en un estado de error en donde la sincorinizacion no fue exitosa.
+    /// El reporte está en un estado de error en donde la sincorinizacion no fue exitosa.
     /// </summary>
     Error,
 }
@@ -48,7 +48,7 @@ public class ReporteService : IReporteService
     {
         var reporte = await ReporteServiceNetwork.Sync(_reporte);
         
-        if (reporte != null)
+        if (reporte is not null)
         {
             _reporte = reporte;
             _estadoActual = EstadoReporte.Guardado;

@@ -3,18 +3,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
-using Cebv.core.modules.reportante.domain;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
-using Cebv.features.dashboard.encuadre_preeliminar.domain;
-using Cebv.features.dashboard.presentation;
-using Cebv.features.formulario_cebv.datos_del_reporte.domain;
-using Cebv.features.formulario_cebv.persona_desaparecida.domain;
+using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using Cebv.features.formulario_cebv.prendas.domain;
-using Cebv.features.formulario_cebv.senas_particulares.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +22,7 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 public partial class EncuadrePreeliminarViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private static IDashboardNavigationService _navigationService =
-        App.Current.Services.GetService<IDashboardNavigationService>()!;
+    private static IDashboardNavigationService _navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
 
     private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
     [ObservableProperty] private Reporte _reporte;
@@ -43,9 +38,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _nacionalidades = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _razonesCurp = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _areas = new();
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _zonasEstados = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
@@ -121,28 +114,26 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         Stopwatch sw = new();
         sw.Start();
-        Sexos = await EncuadrePreeliminarNetwork.GetCatalogo("sexos");
-        Areas = await EncuadrePreeliminarNetwork.GetCatalogo("areas");
-        RazonesCurp = await EncuadrePreeliminarNetwork.GetCatalogo("razones-curp");
-        Generos = await EncuadrePreeliminarNetwork.GetCatalogo("generos");
-        Parentescos = await EncuadrePreeliminarNetwork.GetCatalogo("parentescos");
-        Nacionalidades = await EncuadrePreeliminarNetwork.GetCatalogo("nacionalidades");
-        CompaniasTelefonicas = await EncuadrePreeliminarNetwork.GetCatalogo("companias-telefonicas");
-        Complexiones = await EncuadrePreeliminarNetwork.GetCatalogo("complexiones");
-        ColoresPiel = await EncuadrePreeliminarNetwork.GetCatalogo("colores-pieles");
-        ColoresOjos = await EncuadrePreeliminarNetwork.GetCatalogo("colores-ojos");
-        ColoresCabello = await EncuadrePreeliminarNetwork.GetCatalogo("colores-cabellos");
-        TamanosCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tamanos-cabellos");
-        TiposCabello = await EncuadrePreeliminarNetwork.GetCatalogo("tipos-cabellos");
-        Vistas = await EncuadrePreeliminarNetwork.GetCatalogo("vistas");
-        Tipos = await EncuadrePreeliminarNetwork.GetCatalogo("tipos");
-        Colores = await EncuadrePreeliminarNetwork.GetCatalogo("colores");
-        GruposPertenencia = await EncuadrePreeliminarNetwork.GetCatalogo("grupos-pertenencias");
-        RegionesCuerpo = await SenasParticularesNetwork.GetCatalogoColor("regiones-cuerpo");
-        Lados = await SenasParticularesNetwork.GetCatalogoColor("lados");
-        ZonasEstados = await EncuadrePreeliminarNetwork.GetCatalogo("zonas-estados");
-        Estados = await ReportanteNetwork.GetEstados();
-        TiposMedios = await DatosReporteNetwork.GetTiposMedios();
+        Sexos = await CebvNetwork.GetRoute<Catalogo>("sexos");
+        RazonesCurp = await CebvNetwork.GetRoute<Catalogo>("razones-curp");
+        Generos = await CebvNetwork.GetRoute<Catalogo>("generos");
+        Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
+        Nacionalidades = await CebvNetwork.GetRoute<Catalogo>("nacionalidades");
+        CompaniasTelefonicas = await CebvNetwork.GetRoute<Catalogo>("companias-telefonicas");
+        Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
+        ColoresPiel = await CebvNetwork.GetRoute<Catalogo>("colores-pieles");
+        ColoresOjos = await CebvNetwork.GetRoute<Catalogo>("colores-ojos");
+        ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabellos");
+        TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabellos");
+        TiposCabello = await CebvNetwork.GetRoute<Catalogo>("tipos-cabellos");
+        Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
+        Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
+        Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
+        GruposPertenencia = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");
+        RegionesCuerpo = await CebvNetwork.GetRoute<CatalogoColor>("regiones-cuerpo");
+        Lados = await CebvNetwork.GetRoute<CatalogoColor>("lados");
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");;
+        TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
@@ -180,19 +171,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             Reporte.Desaparecidos.Add(Desaparecido);
         }
     }
-    
-    public bool HaPasadoUnAno(DateTime fecha)
-    {
-        // Calculate the difference in years
-        int yearDifference = DateTime.Now.Year - fecha.Year;
-
-        return yearDifference switch
-        {
-            > 1 => true,
-            1 => DateTime.Now.Month > fecha.Month || (DateTime.Now.Month == fecha.Month && DateTime.Now.Day >= fecha.Day),
-            _ => false
-        };
-    }
 
     private async void InitAsync()
     {
@@ -200,6 +178,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         DefaultValues();
         GetReporteFromService();
         Curp = "";
+        FechaDesaparicion = DateTime.Now;
     }
 
     private void DiferenciaFechas(DateTime? a, DateTime? b)
@@ -230,34 +209,18 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     }
 
     async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
-        Medios = await DatosReporteNetwork.GetMedios(value.Id);
+        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medios_id", value.Id.ToString()!);
 
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         if (value == null) return;
-        Municipios = await ReportanteNetwork.GetMunicipiosDeEstado(value.Id);
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio municipio)
     {
         if (municipio == null) return;
-        Asentamientos = await ReportanteNetwork.GetAsentamientosDeMunicipio(municipio.Id);
-        if (!HaPasadoUnAno(FechaDesaparicion))
-        {
-            Reporte.AreaAtiende = municipio.AreaAtiende;
-        }
-        
-        if (municipio.AreaAtiende is not null)
-        {
-            // Comportamiento indefinido, funcionara siempre y cuando los
-            // ids del endpoint '/api/zonas-estados' y '/api/areas'
-            // coincidan el uno con el otro.
-            Reporte.ZonaEstado = ZonasEstados.FirstOrDefault(zona => zona.Id == municipio.AreaAtiende.Id);
-        }
-        else
-        {
-            Reporte.ZonaEstado = ZonasEstados.FirstOrDefault(zona => zona.Nombre == "No aplica");
-        }
+        Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipio.Id);
     }
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)
@@ -334,11 +297,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         {
             Reporte.HechosDesaparicion.FechaDesaparicion = value;
         }
-
-        if (HaPasadoUnAno(value))
-        {
-            Reporte.AreaAtiende = Areas.FirstOrDefault(area => area.Nombre == "Larga Data");
-        }
     }
 
     [RelayCommand]
@@ -386,8 +344,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (PerteneciaSelected == null) return;
 
-        var prendasDeVestir = Desaparecido.PrendasDeVestir;
-        prendasDeVestir?.Add(new PrendaDeVestir
+        var prendasDeVestir = Desaparecido.PrendasVestir;
+        prendasDeVestir?.Add(new PrendaVestir()
         {
             Marca = CurrentMarca,
             Descripcion = CurrentPrendaDescripcion,
@@ -400,13 +358,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GrupoPerteneciaSelected = null;
         PerteneciaSelected = null;
         ColorSelected = null;
-        HayPrendas = Desaparecido.PrendasDeVestir?.Any() ?? false;
+        HayPrendas = Desaparecido.PrendasVestir?.Any() ?? false;
     }
 
     [RelayCommand]
-    private void OnRemovePrendaDeVestir(PrendaDeVestir prenda)
+    private void OnRemovePrendaDeVestir(PrendaVestir prenda)
     {
-        Desaparecido.PrendasDeVestir?.Remove(prenda);
+        Desaparecido.PrendasVestir?.Remove(prenda);
     }
 
     [RelayCommand]
@@ -474,7 +432,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
         }
     }
-    
+
+    [RelayCommand]
+    private void OnDeleteDesaparecidoImagen(BitmapImage image)
+    {
+        ImagenesDesaparecido.Remove(image);
+    }
+
     [RelayCommand]
     private void OnOpenSenaParticularImage()
     {
@@ -496,7 +460,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
         AddTelefonoMovilDesaparecidoCommand.Execute(null);
-        //AddSenaParticularCommand.Execute(null);
         AddPrendaDeVestirCommand.Execute(null);
 
         var senasParticulares = Desaparecido.Persona.SenasParticulares.ToList();
@@ -507,7 +470,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
                 "Error fatal",
                 "No se pudo actualizar o ingresar la informacion del reporte",
                 ControlAppearance.Danger,
-                new SymbolIcon(SymbolRegular.Warning32),
+                new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 5));
             return;
         }
@@ -515,13 +478,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id, ImagenesDesaparecido.ToList(), ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();
         if (modal.ShowDialog() ?? false)
         {
-            _navigationService.Navigate(typeof(ReportesDesaparicion));
+            _navigationService.Navigate(typeof(ReportesDesaparicionPage));
             _snackBarService.Show(
                 "El reporte ha sido creado exitosamente",
                 "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",

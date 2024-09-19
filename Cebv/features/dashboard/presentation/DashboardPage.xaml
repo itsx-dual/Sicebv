@@ -10,7 +10,8 @@
       xmlns:presentation1="clr-namespace:Cebv.features.dashboard.comunicacion_difusion.presentation"
       xmlns:presentation2="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
       xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
-      xmlns:presentation4="clr-namespace:Cebv.features.dashboard.filtro_busqueda"
+      xmlns:presentation4="clr-namespace:Cebv.features.dashboard.reportes_desaparicion.presentation"
+      xmlns:presentation5="clr-namespace:Cebv.features.dashboard.filtro_busqueda"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -60,7 +61,7 @@
                         <ui:NavigationViewItem
                             Content="Consulta"
                             Icon="{ui:SymbolIcon Library24}"
-                            TargetPageType="{x:Type local:ReportesDesaparicion}"/>
+                            TargetPageType="{x:Type presentation4:ReportesDesaparicionPage}"/>
                         
                         <ui:NavigationViewItem
                             Content="Capturar reporte de desaparición"

@@ -17,14 +17,14 @@ public partial class Catalogo : ObservableObject
 
     public override bool Equals(object? obj)
     {
-        if (ReferenceEquals(this, obj)) return true; // Same object reference
-        if (ReferenceEquals(obj, null)) return false; // Other object is null
-        if (obj.GetType() != GetType()) return false; // Different types
+        if (ReferenceEquals(this, obj)) return true;
+        if (ReferenceEquals(obj, null)) return false;
+        if (obj.GetType() != GetType()) return false;
 
         return Equals((Catalogo) obj);
     }
 
-    public override int GetHashCode()
+    public override int GetHashCode() //wao
     {
         return HashCode.Combine(Id, Nombre);
     }

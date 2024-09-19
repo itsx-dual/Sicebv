@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using Cebv.core.util.reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -43,7 +42,7 @@ public partial class SenaParticular : ObservableObject
     partial void OnImagenChanged(BitmapImage? imagen)
     {
         if (imagen is null) return;
-        EncodedImage = ReporteServiceNetwork.BitmapImageToBase64(imagen);
+        EncodedImage = ImageUtils.BitmapImageToBase64(imagen);
     }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;

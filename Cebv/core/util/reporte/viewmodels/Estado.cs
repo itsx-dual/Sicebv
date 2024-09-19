@@ -10,15 +10,15 @@ public partial class Estado : ObservableObject
     public Estado(
         string id,
         string? nombre,
-        string? abreviatura_inegi,
-        string? abreviatura_cebv,
-        string? municipios_count)
+        string? abreviaturaInegi,
+        string? abreviaturaCebv,
+        string? municipiosCount)
     {
         Id = id;
         Nombre = nombre;
-        AbreviaturaInegi = abreviatura_inegi;
-        AbreviaturaCebv = abreviatura_cebv;
-        MunicipiosCount = municipios_count;
+        AbreviaturaInegi = abreviaturaInegi;
+        AbreviaturaCebv = abreviaturaCebv;
+        MunicipiosCount = municipiosCount;
     }
 
     public override bool Equals(object? obj)
