@@ -28,6 +28,8 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private ReporteResponse _reporteSelected;
     [ObservableProperty] private DesaparecidoResponse _desaparecidoSelected;
     
+    string? _filter = string.Empty;
+    
     // Catalogos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _medios = new();
@@ -64,41 +66,41 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     //[ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias;
     
     // Valores seleccionados
-    [ObservableProperty] private Catalogo _tipoMedioSelected;
-    [ObservableProperty] private Catalogo _medioSelected;
-    [ObservableProperty] private Catalogo _areaSelected;
-    [ObservableProperty] private Estado _estadoSelected;
-    [ObservableProperty] private Catalogo _zonaEstadoSelected;
-    [ObservableProperty] private Catalogo _tipoReporteSelected;
+    [ObservableProperty] private Catalogo? _tipoMedioSelected;
+    [ObservableProperty] private Catalogo? _medioSelected;
+    [ObservableProperty] private Catalogo? _areaSelected;
+    [ObservableProperty] private Estado? _estadoSelected;
+    [ObservableProperty] private Catalogo? _zonaEstadoSelected;
+    [ObservableProperty] private Catalogo? _tipoReporteSelected;
     
-    [ObservableProperty] private Estado _lugarNacimientoReportanteSelected;
-    [ObservableProperty] private Catalogo _escolaridadReportanteSelected;
-    [ObservableProperty] private Catalogo _sexoReportanteSelected;
-    [ObservableProperty] private Catalogo _generoReportanteSelected;
-    [ObservableProperty] private Catalogo _nacionalidadReportanteSelected;
-    [ObservableProperty] private Catalogo _religionReportanteSelected;
-    [ObservableProperty] private Catalogo _lenguaReportanteSelected;
-    [ObservableProperty] private Catalogo _parentescoReportanteSelected;
-    [ObservableProperty] private Catalogo _colectivoReportanteSelected;
-    [ObservableProperty] private Catalogo _estadoConyugalReportanteSelected;
+    [ObservableProperty] private Estado? _lugarNacimientoReportanteSelected;
+    [ObservableProperty] private Catalogo? _escolaridadReportanteSelected;
+    [ObservableProperty] private Catalogo? _sexoReportanteSelected;
+    [ObservableProperty] private Catalogo? _generoReportanteSelected;
+    [ObservableProperty] private Catalogo? _nacionalidadReportanteSelected;
+    [ObservableProperty] private Catalogo? _religionReportanteSelected;
+    [ObservableProperty] private Catalogo? _lenguaReportanteSelected;
+    [ObservableProperty] private Catalogo? _parentescoReportanteSelected;
+    [ObservableProperty] private Catalogo? _colectivoReportanteSelected;
+    [ObservableProperty] private Catalogo? _estadoConyugalReportanteSelected;
     [ObservableProperty] private DateTime? _fechaNacimientoReportante;
-    [ObservableProperty] private Catalogo _tipoOcupacionReportanteSelected;
-    [ObservableProperty] private string _noTelefonoReportante = string.Empty;
+    [ObservableProperty] private Catalogo? _tipoOcupacionReportanteSelected;
+    [ObservableProperty] private string? _noTelefonoReportante = string.Empty;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     
-    [ObservableProperty] private Estado _lugarNacimientoDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _escolaridadDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _sexoDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _generoDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _nacionalidadDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _religionDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _lenguaDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _parentescoDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _colectivoDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _estadoConyugalDesaparecidoSelected;
+    [ObservableProperty] private Estado? _lugarNacimientoDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _escolaridadDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _sexoDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _generoDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _nacionalidadDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _religionDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _lenguaDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _parentescoDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _colectivoDesaparecidoSelected;
+    [ObservableProperty] private Catalogo? _estadoConyugalDesaparecidoSelected;
     [ObservableProperty] private DateTime? _fechaNacimientoDesaparecido;
-    [ObservableProperty] private Catalogo _tipoOcupacionDesaparecidoSelected;
-    [ObservableProperty] private string _noTelefonoDesaparecido = string.Empty;
+    [ObservableProperty] private Catalogo? _tipoOcupacionDesaparecidoSelected;
+    [ObservableProperty] private string? _noTelefonoDesaparecido = string.Empty;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     
     //[ObservableProperty] private Catalogo _vistaSelected;
@@ -173,14 +175,90 @@ public partial class FiltroBusquedaViewModel : ObservableObject
 
     private async Task CargarReportes()
     {
-        /*if (filters == false)
+        AplicandoFiltros();
+        
+        if (_filter != null)
         {
-            Reportes = await FiltroBusquedaNetwork.GetReportes();
+            Reportes = await FiltroBusquedaNetwork.GetReportes(_filter);
         }
         else
         {
-            Reportes = await FiltroBusquedaNetwork.GetReportes(filter);
-        }*/
+            Reportes = await FiltroBusquedaNetwork.GetReportes();
+        }
+    }
+
+    private async Task<string> AplicandoFiltros()
+    {
+        int countFilter = 0;
+        
+        if (TipoReporteSelected != null)
+        {
+            countFilter += 1;
+
+            if (countFilter == 1)
+            {
+                _filter += $"[tipo_reporte_id]={TipoReporteSelected.Id}";
+            }
+            else
+            {
+                _filter += $"&filter[tipo_reporte_id]={TipoReporteSelected.Id}";
+            }
+            
+        }
+        if (AreaSelected != null)
+        {
+            countFilter += 1;
+            
+            if (countFilter == 1)
+            {
+                _filter += $"area_atiende_id={AreaSelected.Id}";
+            }
+            else
+            {
+                _filter += $"&area_atiende_id={AreaSelected.Id}";
+            }
+        }
+        if (MedioSelected != null)
+        {
+            countFilter += 1;
+            
+            if (countFilter == 1)
+            {
+                _filter += $"medio_conocimiento_id={MedioSelected.Id}";
+            }
+            else
+            {
+                _filter += $"&medio_conocimiento_id={MedioSelected.Id}";
+            }
+        }
+        if (EstadoSelected != null)
+        {
+            countFilter += 1;
+            
+            if (countFilter == 1)
+            {
+                _filter += $"estado_id={EstadoSelected.Id}";
+            }
+            else
+            {
+                _filter += $"&estado_id={EstadoSelected.Id}";
+            }
+        }
+        if (ZonaEstadoSelected != null)
+        {
+            countFilter += 1;
+            
+            if (countFilter == 1)
+            {
+                _filter += $"zona_estado_id={ZonaEstadoSelected.Id}";
+            }
+            else
+            {
+                _filter += $"&zona_estado_id={ZonaEstadoSelected.Id}";
+            }
+        }
+
+        return _filter;
     }
 
     [RelayCommand]

@@ -22,7 +22,7 @@ public class FiltroBusquedaNetwork
     
     public static async Task<ObservableCollection<ReporteResponse>> GetReportes(string filter)
     {
-        var request = await Client.GetAsync($"/api/reportes?{filter}");
+        var request = await Client.GetAsync($"/api/reportes?filter{filter}");
         var response = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<ObservableCollection<ReporteResponse>>(response)!;
     }

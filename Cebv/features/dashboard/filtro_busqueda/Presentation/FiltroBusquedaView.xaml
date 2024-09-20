@@ -381,7 +381,7 @@
             <ui:AutoSuggestBox PlaceholderText="Buscar reporte..." Margin="15"/>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <RadioButton Content="Reportante"/>
+                <RadioButton Content="Reportante" />
                 <RadioButton Content="Desaparecido"/>
             </StackPanel>
         </StackPanel>
