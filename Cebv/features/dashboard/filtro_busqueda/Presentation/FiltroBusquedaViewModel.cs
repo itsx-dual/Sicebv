@@ -28,8 +28,6 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private ReporteResponse _reporteSelected;
     [ObservableProperty] private DesaparecidoResponse _desaparecidoSelected;
     
-    string? _filter = string.Empty;
-    
     // Catalogos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _medios = new();
@@ -129,7 +127,6 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     public FiltroBusquedaViewModel()
     {
         CargarCatalogos();
-        CargarReportes();
         
         _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
     }
@@ -173,13 +170,14 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
 
-    private async Task CargarReportes()
+    [RelayCommand]
+    private async Task OnCargarReportes()
     {
-        AplicandoFiltros();
+        var filter = AplicandoFiltros();
         
-        if (_filter != null)
+        if (!string.IsNullOrEmpty(filter))
         {
-            Reportes = await FiltroBusquedaNetwork.GetReportes(_filter);
+            Reportes = await FiltroBusquedaNetwork.GetReportes(filter);
         }
         else
         {
@@ -187,78 +185,33 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         }
     }
 
-    private async Task<string> AplicandoFiltros()
+    private string AplicandoFiltros()
     {
-        int countFilter = 0;
-        
+        var filtros = new List<string>();
+
         if (TipoReporteSelected != null)
         {
-            countFilter += 1;
-
-            if (countFilter == 1)
-            {
-                _filter += $"[tipo_reporte_id]={TipoReporteSelected.Id}";
-            }
-            else
-            {
-                _filter += $"&filter[tipo_reporte_id]={TipoReporteSelected.Id}";
-            }
-            
+            filtros.Add($"tipo_reporte_id={TipoReporteSelected.Id}");
         }
         if (AreaSelected != null)
         {
-            countFilter += 1;
-            
-            if (countFilter == 1)
-            {
-                _filter += $"area_atiende_id={AreaSelected.Id}";
-            }
-            else
-            {
-                _filter += $"&area_atiende_id={AreaSelected.Id}";
-            }
+            filtros.Add($"area_atiende_id={AreaSelected.Id}");
         }
         if (MedioSelected != null)
         {
-            countFilter += 1;
-            
-            if (countFilter == 1)
-            {
-                _filter += $"medio_conocimiento_id={MedioSelected.Id}";
-            }
-            else
-            {
-                _filter += $"&medio_conocimiento_id={MedioSelected.Id}";
-            }
+            filtros.Add($"medio_conocimiento_id={MedioSelected.Id}");
         }
         if (EstadoSelected != null)
         {
-            countFilter += 1;
-            
-            if (countFilter == 1)
-            {
-                _filter += $"estado_id={EstadoSelected.Id}";
-            }
-            else
-            {
-                _filter += $"&estado_id={EstadoSelected.Id}";
-            }
+            filtros.Add($"[estado/nombre]={EstadoSelected.Nombre}");
         }
         if (ZonaEstadoSelected != null)
         {
-            countFilter += 1;
-            
-            if (countFilter == 1)
-            {
-                _filter += $"zona_estado_id={ZonaEstadoSelected.Id}";
-            }
-            else
-            {
-                _filter += $"&zona_estado_id={ZonaEstadoSelected.Id}";
-            }
+            filtros.Add($"zona_estado_id={ZonaEstadoSelected.Id}");
         }
 
-        return _filter;
+        // Unir todos los filtros con '&' si hay más de uno
+        return string.Join("&", filtros);
     }
 
     [RelayCommand]
