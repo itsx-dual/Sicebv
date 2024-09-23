@@ -82,8 +82,7 @@ public partial class ReportanteViewModel : ObservableObject
 
         string? municipioId =
             reporte.Reportantes[0].Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
-
-        // Cargar los catálogos de forma asincrónica usando el método LoadCatalog
+        
         Colectivos = await CebvNetwork.GetRoute<Catalogo>("colectivos");
         GruposVulnerables = await CebvNetwork.GetRoute<Catalogo>("grupos-vulnerables");
         Estados = await CebvNetwork.GetRoute<Estado>("estados");

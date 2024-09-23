@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Runtime.InteropServices.JavaScript;
 using System.Windows.Input;
 using Cebv.app.presentation;
 using Cebv.core.domain;
@@ -28,6 +29,14 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private ReporteResponse _reporteSelected;
     [ObservableProperty] private DesaparecidoResponse _desaparecidoSelected;
     
+    //Variable para busqueda de persona por reportante o desaparecido
+    [ObservableProperty] private bool? _optionSelected;
+    
+    [ObservableProperty] private string? _nombreDesaparecido = string.Empty;
+    [ObservableProperty] private string? _pseudonimoDesaparecido = string.Empty;
+    [ObservableProperty] private string? _nombreReportante = string.Empty;
+    [ObservableProperty] private string? _pseudonimoReportante = string.Empty;
+    
     // Catalogos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _medios = new();
@@ -47,6 +56,9 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _estadosConyugales = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposOcupaciones = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _companiasTelefonicas = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _estatusEscolaridades = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _ocupaciones = new();
+    [ObservableProperty] private ObservableCollection<EstatusPersona> _estatusPersonas = new();
 
     //[ObservableProperty] private ObservableCollection<Catalogo> _complexiones;
     //[ObservableProperty] private ObservableCollection<Catalogo> _coloresPiel;
@@ -85,6 +97,22 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _tipoOcupacionReportanteSelected;
     [ObservableProperty] private string? _noTelefonoReportante = string.Empty;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
+    [ObservableProperty] private bool? _esMovilReportante;
+    [ObservableProperty] private bool? _publicacionRegistroNacional;
+    [ObservableProperty] private bool? _publicacionBoletin;
+    [ObservableProperty] private string? _descripcionExtorsion = string.Empty;
+    [ObservableProperty] private string? _descripcionDondeProviene = string.Empty;
+    [ObservableProperty] private bool? _informacionConsentimiento;
+    [ObservableProperty] private bool? _informacionExclusivaBusqueda;
+    [ObservableProperty] private bool? _informacionRelevante;
+    [ObservableProperty] private string? _participacionBusqueda;
+    [ObservableProperty] private bool? _denunciaAnonima;
+    [ObservableProperty] private string? _curpReportante;
+    [ObservableProperty] private string? _rfcReportante;
+    [ObservableProperty] private int? _numeroPersonasVive;
+    [ObservableProperty] private int? _edadEstimada;
+    [ObservableProperty] private Catalogo? _estatusEscolaridadReportanteSelectede;
+    
     
     [ObservableProperty] private Estado? _lugarNacimientoDesaparecidoSelected;
     [ObservableProperty] private Catalogo? _escolaridadDesaparecidoSelected;
@@ -100,6 +128,40 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _tipoOcupacionDesaparecidoSelected;
     [ObservableProperty] private string? _noTelefonoDesaparecido = string.Empty;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
+    [ObservableProperty] private bool? _esMovilDesaparecido;
+    [ObservableProperty] private DateTime? _fechaNacimiento;
+    [ObservableProperty] private string? _descripcionOcupacionPrincipal = string.Empty;
+    [ObservableProperty] private string? _descripcionOcupacionSecundaria = string.Empty;
+    [ObservableProperty] private bool? _hablaEspañol;
+    [ObservableProperty] private bool? _sabeLeer;
+    [ObservableProperty] private bool? _sabeEscribir;
+    [ObservableProperty] private string? _uocupacionPrincipal = string.Empty;
+    [ObservableProperty] private string? _tipoOcupacion = string.Empty;
+    [ObservableProperty] private bool? _accionUrgente;
+    [ObservableProperty] private bool? _declaracionEspecialAusencia;
+    [ObservableProperty] private bool? _dictamen;
+    [ObservableProperty] private bool? _ciNivelFederal;
+    [ObservableProperty] private Catalogo? _estatusEscolaridadDesaparecidoSelectede;
+    [ObservableProperty] private string? _curpDesaparecido;
+    [ObservableProperty] private string? _rfcDesaparecido;
+    [ObservableProperty] private string? _otroDerechoHumano = string.Empty;
+    [ObservableProperty] private string? _identidadResguardada = string.Empty;
+    [ObservableProperty] private string? _clasificacionPersona = string.Empty;
+    [ObservableProperty] private string? _nombreParejaConyugal = string.Empty;
+    [ObservableProperty] private string? _boletinImgPath = string.Empty;
+    [ObservableProperty] private string? _urlBoletin = string.Empty;
+    
+    [ObservableProperty] private string? _folioCebv = string.Empty;
+    [ObservableProperty] private string? _folioFub = string.Empty;
+    
+    [ObservableProperty] private bool? _victimaExtorsion;
+    [ObservableProperty] private bool? _recibioAmenaza;
+    
+    [ObservableProperty] private DateTime _fechaDesaparicion;
+    [ObservableProperty] private DateTime _fechaDesaparicionAproximada;
+    [ObservableProperty] private DateTime _fechaDesaparicionCebv;
+    [ObservableProperty] private TimeSpan _horaDesaparicion;
+    [ObservableProperty] private string? _hechosDesaparicion;
     
     //[ObservableProperty] private Catalogo _vistaSelected;
     //[ObservableProperty] private Catalogo _tipoSelected;
@@ -116,14 +178,7 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     //[ObservableProperty] private string _currentMarca;
     //[ObservableProperty] private string _currentPrendaDescripcion;
     
-    //[ObservableProperty] private DateTime _fechaDesaparicion = DateTime.Today;
-    //[ObservableProperty] private TimeSpan _horaDesaparicion;
-    //[ObservableProperty] private int _anosDesaparecido;
-    //[ObservableProperty] private int _mesesDesaparecido;
-    //[ObservableProperty] private int _diasDesaparecido;
-    //[ObservableProperty] private ObservableCollection<string> _files = new();
-    //[ObservableProperty] private string _curp;
-
+    
     public FiltroBusquedaViewModel()
     {
         CargarCatalogos();
@@ -166,6 +221,9 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         Colectivos = await CebvNetwork.GetRoute<Catalogo>("colectivos");
         EstadosConyugales = await CebvNetwork.GetRoute<Catalogo>("estados-conyugales");
         TiposOcupaciones = await CebvNetwork.GetRoute<Catalogo>("tipos-ocupaciones");
+        EstatusEscolaridades = await CebvNetwork.GetRoute<Catalogo>("estatus-escolaridades");
+        Ocupaciones = await CebvNetwork.GetRoute<Catalogo>("ocupaciones");
+        EstatusPersonas = await CebvNetwork.GetRoute<EstatusPersona>("estatus-personas");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
@@ -173,7 +231,7 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [RelayCommand]
     private async Task OnCargarReportes()
     {
-        var filter = AplicandoFiltros();
+        var filter = await AplicandoFiltros();
         
         if (!string.IsNullOrEmpty(filter))
         {
@@ -184,34 +242,54 @@ public partial class FiltroBusquedaViewModel : ObservableObject
             Reportes = await FiltroBusquedaNetwork.GetReportes();
         }
     }
-
-    private string AplicandoFiltros()
+    
+    private async Task<string> AplicandoFiltros()
     {
         var filtros = new List<string>();
 
+        if (NombreDesaparecido != null)
+        {
+            filtros.Add($"[nombreCompleto_desaparecido]={NombreDesaparecido}");
+        }
+        if (PseudonimoDesaparecido != null)
+        {
+            filtros.Add($"[pseudonimoCompleto_desaparecido]={PseudonimoDesaparecido}");
+        }
+        if (NombreReportante != null)
+        {
+            filtros.Add($"[nombreCompleto_reportante]={NombreReportante}");
+        }
+        if (PseudonimoReportante != null)
+        {
+            filtros.Add($"[pseudonimoCompleto_reportante]={PseudonimoReportante}");
+        }
         if (TipoReporteSelected != null)
         {
-            filtros.Add($"tipo_reporte_id={TipoReporteSelected.Id}");
+            filtros.Add($"[tipo_reporte_id]={TipoReporteSelected.Id}");
         }
         if (AreaSelected != null)
         {
-            filtros.Add($"area_atiende_id={AreaSelected.Id}");
+            filtros.Add($"[area_atiende_id]={AreaSelected.Id}");
         }
         if (MedioSelected != null)
         {
-            filtros.Add($"medio_conocimiento_id={MedioSelected.Id}");
+            filtros.Add($"[medio_conocimiento_id]={MedioSelected.Id}");
         }
         if (EstadoSelected != null)
         {
-            filtros.Add($"[estado/nombre]={EstadoSelected.Nombre}");
+            filtros.Add($"[estado_id]={EstadoSelected.Id}");
         }
         if (ZonaEstadoSelected != null)
         {
-            filtros.Add($"zona_estado_id={ZonaEstadoSelected.Id}");
+            filtros.Add($"[zona_estado_id]={ZonaEstadoSelected.Id}");
         }
+        
+        return string.Join("&filter", filtros);
+    }
 
-        // Unir todos los filtros con '&' si hay más de uno
-        return string.Join("&", filtros);
+    partial void OnTipoReporteSelectedChanged(Catalogo? value)
+    {
+        Console.WriteLine(value.Id + value.Nombre);
     }
 
     [RelayCommand]

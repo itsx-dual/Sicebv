@@ -50,7 +50,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Estado" />
                                     <ComboBox Width="150" 
-                                              SelectedItem="{Binding EstadoSelected.Nombre}" 
+                                              SelectedItem="{Binding EstadoSelected}" 
                                               ItemsSource="{Binding Estados}" 
                                               IsEditable="True"/>
                                 </StackPanel>
@@ -58,7 +58,7 @@
                                 <StackPanel>
                                     <ui:TextBlock Text="Zona Estado" />
                                     <ComboBox Width="150"  
-                                              SelectedItem="{Binding ZonaEstadoSelected.Nombre}" 
+                                              SelectedItem="{Binding ZonaEstadoSelected}" 
                                               ItemsSource="{Binding ZonasEstados}"
                                               IsEditable="True"/>
                                 </StackPanel>
@@ -68,14 +68,14 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Tipo reporte" />
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding  TipoReporteSelected.Nombre}"
+                                              SelectedItem="{Binding  TipoReporteSelected}"
                                               ItemsSource="{Binding TipoReporte}"/>
                                 </StackPanel>
                             
                                 <StackPanel>
                                     <ui:TextBlock Text="Area Atiende" />
                                     <ComboBox Width="150" 
-                                              SelectedItem="{Binding AreaSelected.Nombre}" 
+                                              SelectedItem="{Binding AreaSelected}" 
                                               ItemsSource="{Binding Areas}" 
                                               IsEditable="True"/>
                                 </StackPanel>
@@ -85,7 +85,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Medio conocimiento"/>
                                     <ComboBox  Width="150"  
-                                               SelectedItem="{Binding MedioSelected.Nombre}" 
+                                               SelectedItem="{Binding MedioSelected}" 
                                                ItemsSource="{Binding Medios}"
                                                IsEditable="True"/>
                                 </StackPanel>
@@ -93,7 +93,7 @@
                                 <StackPanel>
                                     <ui:TextBlock Text="Tipo medio"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding TipoMedioSelected.Nombre}"
+                                              SelectedItem="{Binding TipoMedioSelected}"
                                               ItemsSource="{Binding TiposMedios}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -108,7 +108,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <TextBlock Text="Lugar Nacimiento" />
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding LugarNacimientoReportanteSelected.Nombre}" 
+                                              SelectedItem="{Binding LugarNacimientoReportanteSelected}" 
                                               ItemsSource="{Binding Estados}" 
                                               IsEditable="True"/>
                                 </StackPanel>
@@ -116,14 +116,14 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <TextBlock Text="Escolaridad" />
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding EscolaridadReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding EscolaridadReportanteSelected}"
                                               ItemsSource="{Binding Escolaridades}"/>
                                 </StackPanel>
                            
                                 <StackPanel>
                                     <TextBlock Text="Sexo"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding SexoReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding SexoReportanteSelected}"
                                               ItemsSource="{Binding Sexos}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -132,21 +132,21 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Genero"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding GeneroReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding GeneroReportanteSelected}"
                                               ItemsSource="{Binding Generos}"/>
                                 </StackPanel>
                             
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Nacionalidad"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding NacionalidadReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding NacionalidadReportanteSelected}"
                                               ItemsSource="{Binding Nacionalidades}"/>
                                 </StackPanel>
                             
                                 <StackPanel>
                                     <ui:TextBlock Text="Religion"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding ReligionReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding ReligionReportanteSelected}"
                                               ItemsSource="{Binding Religiones}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -155,21 +155,21 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Lengua"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding LenguaReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding LenguaReportanteSelected}"
                                               ItemsSource="{Binding Lenguas}"/>
                                 </StackPanel>
                             
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Parentesco"/>
                                     <ComboBox Width="150" 
-                                              SelectedItem="{Binding ParentescoReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding ParentescoReportanteSelected}"
                                               ItemsSource="{Binding Parentescos}"/>
                                 </StackPanel>
                             
                                 <StackPanel>
                                     <ui:TextBlock Text="Colectivo"/>
                                     <ComboBox Width="150" 
-                                              SelectedItem="{Binding ColectivoReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding ColectivoReportanteSelected}"
                                               ItemsSource="{Binding Colectivos}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -178,7 +178,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Estado conyugal"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding EstadoConyugalReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding EstadoConyugalReportanteSelected}"
                                               ItemsSource="{Binding EstadosConyugales}"/>
                                 </StackPanel>
                             
@@ -209,7 +209,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Ocupacion"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding TipoOcupacionReportanteSelected.Nombre}"
+                                              SelectedItem="{Binding TipoOcupacionReportanteSelected}"
                                               ItemsSource="{Binding TiposOcupaciones}"/>
                                 </StackPanel>
                             
@@ -257,7 +257,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <TextBlock Text="Lugar Nacimiento"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding LugarNacimientoDesaparecidoSelected.Nombre}" 
+                                              SelectedItem="{Binding LugarNacimientoDesaparecidoSelected}" 
                                               ItemsSource="{Binding Estados}" 
                                               IsEditable="True"/>
                                 </StackPanel>
@@ -265,14 +265,14 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <TextBlock Text="Escolaridad"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding EscolaridadDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding EscolaridadDesaparecidoSelected}"
                                               ItemsSource="{Binding Escolaridades}"/>
                                 </StackPanel>
                                 
                                 <StackPanel>
                                     <ui:TextBlock Text="Sexo"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding SexoDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding SexoDesaparecidoSelected}"
                                               ItemsSource="{Binding Sexos}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -281,21 +281,21 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Genero"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding GeneroDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding GeneroDesaparecidoSelected}"
                                               ItemsSource="{Binding Generos}"/>
                                 </StackPanel>
                                 
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Nacionalidad"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding NacionalidadDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding NacionalidadDesaparecidoSelected}"
                                               ItemsSource="{Binding Nacionalidades}"/>
                                 </StackPanel>
                                 
                                 <StackPanel>
                                     <ui:TextBlock Text="Religion"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding ReligionDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding ReligionDesaparecidoSelected}"
                                               ItemsSource="{Binding Religiones}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -304,7 +304,7 @@
                                 <StackPanel Margin="0,0,20,0">
                                     <ui:TextBlock Text="Lengua"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding LenguaDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding LenguaDesaparecidoSelected}"
                                               ItemsSource="{Binding Lenguas}"/>
                                 </StackPanel>
                                 
@@ -317,7 +317,7 @@
                                 <StackPanel>
                                     <ui:TextBlock Text="Ocupacion"/>
                                     <ComboBox Width="150"
-                                              SelectedItem="{Binding TipoOcupacionDesaparecidoSelected.Nombre}"
+                                              SelectedItem="{Binding TipoOcupacionDesaparecidoSelected}"
                                               ItemsSource="{Binding TiposOcupaciones}"/>
                                 </StackPanel>
                             </StackPanel>
@@ -434,7 +434,7 @@
                     <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
                         <ui:Button Content="Limpiar" Margin="10"/>
                         <ui:Button Content="Buscar" Margin="10"  
-                                   Click="{Binding CargarReportesCommand}"/>
+                                   Command="{Binding CargarReportesCommand}"/>
                     </StackPanel>
                 </Grid>
             </Expander>
@@ -444,8 +444,9 @@
             <ui:AutoSuggestBox PlaceholderText="Buscar reporte..." Margin="15"/>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <RadioButton Content="Reportante" />
-                <RadioButton Content="Desaparecido"/>
+                <RadioButton Content="Reportante" IsChecked="{Binding OptionSelected, Mode=TwoWay}"/>
+                <RadioButton Content="Desaparecido" Command="{Binding OptionSelected, 
+                Converter={StaticResource InverseBooleanConverter}, Mode=TwoWay}"/>
             </StackPanel>
         </StackPanel>
         
