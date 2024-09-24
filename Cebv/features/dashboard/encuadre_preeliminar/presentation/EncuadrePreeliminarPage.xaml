@@ -191,7 +191,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoReportanteCommand}"
                                                    CommandParameter="{Binding}" />
 
                                     </Grid>
@@ -495,8 +495,8 @@
 
                             <StackPanel>
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}" />
+                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -534,33 +534,33 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}"
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
                                             MaxLength="10" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroInterior}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Colonia}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="CÓDIGO POSTAL:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             MaxLength="5"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.CodigoPostal}"
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
                                             Tag="Number" />
                             </StackPanel>
                         </WrapPanel>
@@ -581,43 +581,43 @@
                             <!-- Agregar NO ESPECIFICA -->
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="LOCALIDAD:" />
-                                <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento}"
+                                <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento}"
                                           ItemsSource="{Binding Asentamientos}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Visible">
                                 <ui:TextBlock Text="LONGITUD:" />
                                 <ui:TextBox
-                                    Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento.Longitud}" />
+                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Longitud}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Visibility="Visible">
                                 <ui:TextBlock Text="LATITUD:" />
                                 <ui:TextBox
-                                    Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento.Latitud}" />
+                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Latitud}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle1}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle2}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.TramoCarretero}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Referencia}" />
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -626,14 +626,14 @@
                         <ui:TextBox TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="150"
-                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}"
+                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicionNarracion}"
                                     Tag="Exclude" />
                     </StackPanel>
 
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" Tag="Number"
-                                      Minimum="0" />
+                        <ui:NumberBox Text="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" Tag="Number"
+                                      Minimum="1" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -1025,7 +1025,7 @@
                             <ui:ListView
                                 HorizontalAlignment="Stretch"
                                 MaxHeight="250"
-                                ItemsSource="{Binding Desaparecido.PrendasDeVestir}"
+                                ItemsSource="{Binding Desaparecido.PrendasVestir}"
                                 SelectionMode="Single">
                                 <ui:ListView.ItemTemplate>
                                     <DataTemplate>

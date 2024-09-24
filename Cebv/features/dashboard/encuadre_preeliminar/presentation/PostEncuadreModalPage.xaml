@@ -85,7 +85,7 @@
                                     MaxWidth="400"
                                     MinWidth="250">
                             <ui:TextBlock Text="FOLIO CEBV:" />
-                            <ui:TextBox Text="{Binding Desaparecido.FolioCebv}"
+                            <ui:TextBox Text="{Binding Desaparecido.Folios.FolioCebv}"
                                         PlaceholderText="Sin folio" />
                         </StackPanel>
                     </StackPanel>

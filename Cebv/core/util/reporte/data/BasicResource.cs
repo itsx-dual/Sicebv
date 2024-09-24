@@ -30,4 +30,10 @@ public partial class BasicResource : ObservableObject
 
     [ObservableProperty, JsonProperty("abreviatura")]
     private string? _abreviatura;
+
+
+    public override string ToString()
+    {
+        return $"{Abreviatura} - {Nombre}";
+    }
 }

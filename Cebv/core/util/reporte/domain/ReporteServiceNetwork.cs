@@ -13,7 +13,7 @@ namespace Cebv.core.util.reporte.domain;
 public abstract class ReporteServiceNetwork
 {
     private static HttpClient Client => CebvClientHandler.SharedClient;
-    
+
     public static async Task<Reporte> ShowReporte(int id)
     {
         var request = new HttpRequestMessage
@@ -49,17 +49,17 @@ public abstract class ReporteServiceNetwork
         return JsonConvert.DeserializeObject<PaginatedResource<Reporte>>(json)?.Data!;
     }
 
-    public static async Task<bool> SetFolios(int reporte_id)
+    public static async Task<bool> SetFolios(int reporteId)
     {
-        var response = await Client.GetAsync($"api/reportes/asignar_folio/{reporte_id}");
+        var response = await Client.GetAsync($"api/reportes/asignar_folio/{reporteId}");
         var json = await response.Content.ReadAsStringAsync();
         Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
 
         return response.IsSuccessStatusCode;
     }
 
-    public static async Task SubirFotosDesaparecido(int desaparecido_id, List<BitmapImage> imagenes,
-        BitmapImage? imagen_boletin)
+    public static async Task SubirFotosDesaparecido(int desaparecidoId, List<BitmapImage> imagenes,
+        BitmapImage? imagenBoletin)
     {
         var form = new MultipartFormDataContent();
         var count = 0;
@@ -72,27 +72,27 @@ public abstract class ReporteServiceNetwork
             count++;
         }
 
-        if (imagen_boletin != null)
+        if (imagenBoletin != null)
         {
-            var content = new StreamContent(ImageUtils.BitmapImageToStream(imagen_boletin));
-            var filename = Path.GetFileName(imagen_boletin.UriSource.ToString());
+            var content = new StreamContent(ImageUtils.BitmapImageToStream(imagenBoletin));
+            var filename = Path.GetFileName(imagenBoletin.UriSource.ToString());
             form.Add(content, "boletin", filename);
         }
 
         var request = new HttpRequestMessage
         {
-            RequestUri = new Uri($"/api/desaparecidos/fotos/{desaparecido_id}", UriKind.Relative),
+            RequestUri = new Uri($"/api/desaparecidos/fotos/{desaparecidoId}", UriKind.Relative),
             Method = HttpMethod.Post,
             Content = form
         };
 
-        var response = await Client.SendAsync(request);
+        await Client.SendAsync(request);
     }
 
-    public static async Task<BitmapImage?> GetImage(int sena_id)
+    public static async Task<BitmapImage?> GetImage(int senaId)
     {
-        if (sena_id <= 0) return null;
-        var response = await Client.GetAsync($"/api/senas-particulares/foto/{sena_id}");
+        if (senaId <= 0) return null;
+        var response = await Client.GetAsync($"/api/senas-particulares/foto/{senaId}");
         if (!response.IsSuccessStatusCode) return null;
         var base64 = await response.Content.ReadAsStringAsync();
         return ImageUtils.Base64StringToBitmapImage(base64);

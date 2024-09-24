@@ -22,12 +22,14 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 public partial class EncuadrePreeliminarViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private static IDashboardNavigationService _navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
+
+    private static IDashboardNavigationService _navigationService =
+        App.Current.Services.GetService<IDashboardNavigationService>()!;
 
     private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Reportante _reportante;
-    [ObservableProperty] private Desaparecido _desaparecido;
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Reportante _reportante = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = null!;
 
     // Catalogos y valores predefinidos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
@@ -42,42 +44,42 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _complexiones;
-    [ObservableProperty] private ObservableCollection<Catalogo> _coloresPiel;
-    [ObservableProperty] private ObservableCollection<Catalogo> _coloresOjos;
-    [ObservableProperty] private ObservableCollection<Catalogo> _coloresCabello;
-    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabello;
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabello;
+    [ObservableProperty] private ObservableCollection<Catalogo> _complexiones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _coloresPiel = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _coloresOjos = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _coloresCabello = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabello = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabello = new();
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _vistas;
-    [ObservableProperty] private ObservableCollection<Catalogo> _tipos;
-    [ObservableProperty] private ObservableCollection<CatalogoColor> _lados;
-    [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo;
-    [ObservableProperty] private ObservableCollection<Catalogo> _colores;
-    [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia;
-    [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias;
+    [ObservableProperty] private ObservableCollection<Catalogo> _vistas = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tipos = new();
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _lados = new();
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia = new();
+    [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo _tipoMedioSelected;
-    [ObservableProperty] private Estado _estadoSelected;
-    [ObservableProperty] private Municipio _municipioSelected;
+    [ObservableProperty] private Catalogo? _tipoMedioSelected;
+    [ObservableProperty] private Estado? _estadoSelected;
+    [ObservableProperty] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
-    [ObservableProperty] private Catalogo _vistaSelected;
-    [ObservableProperty] private Catalogo _tipoSelected;
-    [ObservableProperty] private BitmapImage _imagenSenaParticularSelected;
-    [ObservableProperty] private CatalogoColor _regionCuerpoSelected;
-    [ObservableProperty] private CatalogoColor _ladoSelected;
-    [ObservableProperty] private string _colorRegionCuerpo;
-    [ObservableProperty] private string _colorLado;
+    [ObservableProperty] private Catalogo? _vistaSelected;
+    [ObservableProperty] private Catalogo? _tipoSelected;
+    [ObservableProperty] private BitmapImage? _imagenSenaParticularSelected;
+    [ObservableProperty] private CatalogoColor? _regionCuerpoSelected;
+    [ObservableProperty] private CatalogoColor? _ladoSelected;
+    [ObservableProperty] private string? _colorRegionCuerpo;
+    [ObservableProperty] private string? _colorLado;
     [ObservableProperty] private int _cantidad = 1;
-    [ObservableProperty] private string _descripcion;
+    [ObservableProperty] private string? _descripcion;
 
-    [ObservableProperty] private Catalogo _grupoPerteneciaSelected;
-    [ObservableProperty] private Pertenencia _perteneciaSelected;
-    [ObservableProperty] private Catalogo _colorSelected;
-    [ObservableProperty] private string _currentMarca;
-    [ObservableProperty] private string _currentPrendaDescripcion;
+    [ObservableProperty] private Catalogo? _grupoPerteneciaSelected;
+    [ObservableProperty] private Pertenencia? _perteneciaSelected;
+    [ObservableProperty] private Catalogo? _colorSelected;
+    [ObservableProperty] private string? _currentMarca;
+    [ObservableProperty] private string? _currentPrendaDescripcion;
 
     [ObservableProperty] private DateTime _fechaNacimientoDesaparecido = DateTime.Today;
     [ObservableProperty] private DateTime _fechaDesaparicion = DateTime.Today;
@@ -86,7 +88,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private int _mesesDesaparecido;
     [ObservableProperty] private int _diasDesaparecido;
     [ObservableProperty] private ObservableCollection<string> _files = new();
-    [ObservableProperty] private string _curp;
+    [ObservableProperty] private string? _curp;
 
     // Valores para insercion a listas
     [ObservableProperty] private string _noTelefonoReportante = string.Empty;
@@ -102,7 +104,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private bool _hayPrendas;
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage? _imagenBoletin;
-    private Dictionary<string, BitmapImage> _fotosSenas;
     [ObservableProperty] private bool _noHayCurp;
 
     public EncuadrePreeliminarViewModel()
@@ -123,16 +124,16 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
         ColoresPiel = await CebvNetwork.GetRoute<Catalogo>("colores-piel");
         ColoresOjos = await CebvNetwork.GetRoute<Catalogo>("colores-ojos");
-        ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabellos");
-        TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabellos");
-        TiposCabello = await CebvNetwork.GetRoute<Catalogo>("tipos-cabellos");
+        ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabello");
+        TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabello");
+        TiposCabello = await CebvNetwork.GetRoute<Catalogo>("tipos-cabello");
         Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
         Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
         Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
         GruposPertenencia = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");
         RegionesCuerpo = await CebvNetwork.GetRoute<CatalogoColor>("regiones-cuerpo");
         Lados = await CebvNetwork.GetRoute<CatalogoColor>("lados");
-        Estados = await CebvNetwork.GetRoute<Estado>("estados");;
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");
         TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
@@ -155,13 +156,16 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         {
             Reporte.Reportantes.Add(new Reportante());
         }
+
         Reportante = Reporte.Reportantes.First();
-        
+
         if (!Reporte.Desaparecidos.Any())
         {
             Reporte.Desaparecidos.Add(new Desaparecido());
         }
+
         Desaparecido = Reporte.Desaparecidos.First();
+        Reporte.HechosDesaparicion ??= new();
     }
 
     private async void InitAsync()
@@ -187,36 +191,37 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
             DiasDesaparecido += DateTime.DaysInMonth((int)b?.Year!, (int)b?.Month!);
         }
 
-        if (MesesDesaparecido < 0)
-        {
-            AnosDesaparecido--;
-            MesesDesaparecido += 12;
-        }
+        if (MesesDesaparecido >= 0) return;
+        AnosDesaparecido--;
+        MesesDesaparecido += 12;
     }
 
-    partial void OnCurpChanged(string value)
+    partial void OnCurpChanged(string? value)
     {
-        NoHayCurp = value.Length == 0;
-        if (Desaparecido.Persona?.Curp is null) return;
+        NoHayCurp = value?.Length == 0;
+        if (Desaparecido.Persona.Curp is null) return;
         Desaparecido.Persona.Curp = value;
     }
 
-    async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
+    async partial void OnTipoMedioSelectedChanged(Catalogo? value)
+    {
+        if (value is null) return;
         Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", value.Id.ToString()!);
+    }
 
-    async partial void OnEstadoSelectedChanged(Estado value)
+    async partial void OnEstadoSelectedChanged(Estado? value)
     {
         if (value == null) return;
         Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", value.Id);
     }
 
-    async partial void OnMunicipioSelectedChanged(Municipio municipio)
+    async partial void OnMunicipioSelectedChanged(Municipio? value)
     {
-        if (municipio == null) return;
-        Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipio.Id);
+        if (value == null) return;
+        Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", value.Id);
     }
 
-    async partial void OnGrupoPerteneciaSelectedChanged(Catalogo value)
+    async partial void OnGrupoPerteneciaSelectedChanged(Catalogo? value)
     {
         if (value == null) return;
         Pertenencias = await PrendasNetwork.GetPertenencias(value.Id ?? 0);
@@ -246,16 +251,16 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (value)
         {
-            Reporte.HechosDesaparicion.FechaDesaparicion = null;
-            Reporte.HechosDesaparicion.FechaDesaparicionAproximada = FechaDesaparicion;
+            Reporte.HechosDesaparicion!.FechaDesaparicion = null;
+            Reporte.HechosDesaparicion.FechaDesaparicion = FechaDesaparicion;
         }
         else
         {
-            Reporte.HechosDesaparicion.FechaDesaparicion = FechaDesaparicion;
-            Reporte.HechosDesaparicion.FechaDesaparicionAproximada = null;
+            Reporte.HechosDesaparicion!.FechaDesaparicion = FechaDesaparicion;
+            Reporte.HechosDesaparicion.FechaDesaparicion = null;
         }
     }
-    
+
     partial void OnFechaNacimientoDesaparecidoChanged(DateTime value)
     {
         DiferenciaFechas(FechaNacimientoDesaparecido, FechaDesaparicion);
@@ -284,11 +289,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
         if (SeDesconoceFechaExactaHechos)
         {
-            Reporte.HechosDesaparicion.FechaDesaparicionAproximada = value;
+            Reporte.HechosDesaparicion!.FechaDesaparicion = value;
         }
         else
         {
-            Reporte.HechosDesaparicion.FechaDesaparicion = value;
+            Reporte.HechosDesaparicion!.FechaDesaparicion = value;
         }
     }
 
@@ -297,7 +302,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (NoTelefonoReportante.Length <= 0) return;
 
-        var telefonos = Reportante.Persona?.Telefonos;
+        var telefonos = Reportante.Persona.Telefonos;
         telefonos?.Add(new Telefono
         {
             Numero = NoTelefonoReportante,
@@ -309,7 +314,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         NoTelefonoReportante = string.Empty;
         ObservacionesTelefonoReportante = string.Empty;
         CompañiaTelefonicaReportanteSelected = null;
-        ReportanteTieneTelefonos = Reportante.Persona?.Telefonos?.Any() ?? false;
+        ReportanteTieneTelefonos = Reportante.Persona?.Telefonos.Any() ?? false;
     }
 
     [RelayCommand]
@@ -317,8 +322,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         if (NoTelefonoDesaparecido.Length <= 0) return;
 
-        var telefonos = Desaparecido.Persona?.Telefonos;
-        telefonos?.Add(new Telefono
+        var telefonos = Desaparecido.Persona.Telefonos;
+        telefonos.Add(new Telefono
         {
             Numero = NoTelefonoDesaparecido,
             Observaciones = ObservacionesTelefonoDesaparecido,
@@ -329,7 +334,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         NoTelefonoDesaparecido = string.Empty;
         ObservacionesTelefonoDesaparecido = string.Empty;
         CompañiaTelefonicaDesaparecidoSelected = null;
-        DesaparecidoTieneTelefonos = Desaparecido.Persona?.Telefonos?.Any() ?? false;
+        DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
     }
 
     [RelayCommand]
@@ -338,7 +343,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         if (PerteneciaSelected == null) return;
 
         var prendasDeVestir = Desaparecido.PrendasVestir;
-        prendasDeVestir?.Add(new PrendaVestir()
+        prendasDeVestir.Add(new PrendaVestir()
         {
             Marca = CurrentMarca,
             Descripcion = CurrentPrendaDescripcion,
@@ -351,34 +356,34 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GrupoPerteneciaSelected = null;
         PerteneciaSelected = null;
         ColorSelected = null;
-        HayPrendas = Desaparecido.PrendasVestir?.Any() ?? false;
+        HayPrendas = Desaparecido.PrendasVestir.Any();
     }
 
     [RelayCommand]
     private void OnRemovePrendaDeVestir(PrendaVestir prenda)
     {
-        Desaparecido.PrendasVestir?.Remove(prenda);
+        Desaparecido.PrendasVestir.Remove(prenda);
     }
 
     [RelayCommand]
     private void OnRemoveTelefonoReportante(Telefono telefono)
     {
-        Reportante.Persona.Telefonos?.Remove(telefono);
+        Reportante.Persona.Telefonos.Remove(telefono);
     }
 
     [RelayCommand]
     private void OnRemoveTelefonoDesaparecido(Telefono telefono)
     {
-        Desaparecido.Persona.Telefonos?.Remove(telefono);
+        Desaparecido.Persona.Telefonos.Remove(telefono);
     }
 
-    partial void OnColorRegionCuerpoChanged(string value)
+    partial void OnColorRegionCuerpoChanged(string? value)
     {
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
         RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
     }
 
-    partial void OnColorLadoChanged(string value)
+    partial void OnColorLadoChanged(string? value)
     {
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
@@ -406,7 +411,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         var senaParticular = sena as SenaParticular;
         if (senaParticular != null) Desaparecido.Persona.SenasParticulares.Remove(senaParticular);
     }
-    
+
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
     {
@@ -456,7 +461,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         AddPrendaDeVestirCommand.Execute(null);
 
         var senasParticulares = Desaparecido.Persona.SenasParticulares.ToList();
-        
+
         if (await _reporteService.Sync() is null)
         {
             _snackBarService.Show(
@@ -471,7 +476,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(),
+                ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();
