@@ -22,6 +22,7 @@ public partial class DatosReporteViewModel : ObservableObject
     
     // Catalogos.
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = [];
+    [ObservableProperty] private ObservableCollection<Catalogo> _instituciones = [];
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = [];
     [ObservableProperty] private ObservableCollection<Estado> _estados = [];
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
@@ -41,6 +42,7 @@ public partial class DatosReporteViewModel : ObservableObject
         TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
         Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", tipoMedioId.ToString());
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
+        Instituciones = await CebvNetwork.GetRoute<Catalogo>("instituciones");
     }
     
     private async void LoadAsync()

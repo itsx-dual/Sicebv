@@ -80,7 +80,7 @@ public partial class Desaparecido : ObservableObject
     private string? _identidadResguardada;
 
     [ObservableProperty, JsonProperty("persona")]
-    private Persona? _persona;
+    private Persona _persona = new();
 
     [ObservableProperty, JsonProperty("estatus_rpdno")]
     private BasicResource? _estatusRpdno;

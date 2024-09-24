@@ -121,7 +121,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         Nacionalidades = await CebvNetwork.GetRoute<Catalogo>("nacionalidades");
         CompaniasTelefonicas = await CebvNetwork.GetRoute<Catalogo>("companias-telefonicas");
         Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
-        ColoresPiel = await CebvNetwork.GetRoute<Catalogo>("colores-pieles");
+        ColoresPiel = await CebvNetwork.GetRoute<Catalogo>("colores-piel");
         ColoresOjos = await CebvNetwork.GetRoute<Catalogo>("colores-ojos");
         ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabellos");
         TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabellos");
@@ -151,25 +151,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     {
         Reporte = _reporteService.GetReporte();
 
-        if (Reporte.Reportantes.Any())
+        if (!Reporte.Reportantes.Any())
         {
-            Reportante = Reporte.Reportantes.First();
+            Reporte.Reportantes.Add(new Reportante());
         }
-        else
+        Reportante = Reporte.Reportantes.First();
+        
+        if (!Reporte.Desaparecidos.Any())
         {
-            Reportante = new Reportante();
-            Reporte.Reportantes.Add(Reportante);
+            Reporte.Desaparecidos.Add(new Desaparecido());
         }
-
-        if (Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = Reporte.Desaparecidos.First();
-        }
-        else
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
+        Desaparecido = Reporte.Desaparecidos.First();
     }
 
     private async void InitAsync()
@@ -205,16 +197,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     partial void OnCurpChanged(string value)
     {
         NoHayCurp = value.Length == 0;
+        if (Desaparecido.Persona?.Curp is null) return;
         Desaparecido.Persona.Curp = value;
     }
 
     async partial void OnTipoMedioSelectedChanged(Catalogo value) =>
-        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medios_id", value.Id.ToString()!);
+        Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", value.Id.ToString()!);
 
     async partial void OnEstadoSelectedChanged(Estado value)
     {
         if (value == null) return;
-        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", value.Id);
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio municipio)

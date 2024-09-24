@@ -168,10 +168,10 @@ public partial class Persona : ObservableObject
     private ObservableCollection<Catalogo>? _nacionalidades = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
-    private ObservableCollection<Telefono>? _telefonos = new();
+    private ObservableCollection<Telefono> _telefonos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "contactos")]
-    private ObservableCollection<Contacto>? _contactos = new();
+    private ObservableCollection<Contacto> _contactos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "direcciones")]
     private ObservableCollection<Direccion>? _direcciones = new();

@@ -32,7 +32,7 @@
                BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="IsReadOnly" Value="False" />
             <Setter Property="IsEditable" Value="True" />
-            <EventSetter Event="LostFocus" Handler="ComboBox_LostFocus" />
+            <EventSetter Event="LostFocus" Handler="Search" />
         </Style>
 
         <util:VisibilityConverter x:Key="VisibilityConverter" />
@@ -253,7 +253,8 @@
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDateFormat="Short"
-                                            SelectedDate="{Binding FechaNacimientoDesaparecido}" />
+                                            SelectedDate="{Binding FechaNacimientoDesaparecido}"
+                                            PreviewTextInput="UIElement_OnPreviewTextInput"/>
 
                             </StackPanel>
                         </WrapPanel>
@@ -648,7 +649,7 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Centímetros"
-                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Estatura,
+                                          Value="{Binding Desaparecido.Persona.Salud.EstaturaCentimetros,
                                           Mode=TwoWay,
                                           UpdateSourceTrigger=PropertyChanged}"
                                           SmallChange="1" Tag="Units" />
@@ -660,7 +661,7 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Kilogramos"
-                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso,
+                                          Value="{Binding Desaparecido.Persona.Salud.PesoKilogramos,
                                           Mode=TwoWay,
                                           UpdateSourceTrigger=PropertyChanged}"
                                           SmallChange="1" Tag="Units" />
@@ -669,19 +670,19 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPLEXIÓN:" />
                             <ComboBox ItemsSource="{Binding Complexiones}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.Complexion}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Salud.Complexion}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE PIEL:" />
                             <ComboBox ItemsSource="{Binding ColoresPiel}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorPiel}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Salud.ColorPiel}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE OJOS:" />
                             <ComboBox ItemsSource="{Binding ColoresOjos}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorOjos}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Ojos.ColorOjos}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -689,19 +690,19 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR CABELLO:" />
                             <ComboBox ItemsSource="{Binding ColoresCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorCabello}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Cabello.ColorCabello}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TAMAÑO CABELLO:" />
                             <ComboBox ItemsSource="{Binding TamanosCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TamanoCabello}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Cabello.TamanoCabello}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TIPO CABELLO:" />
                             <ComboBox ItemsSource="{Binding TiposCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TipoCabello}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Cabello.TipoCabello}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -771,7 +772,6 @@
                                             <ui:TextBlock Text="Región del cuerpo:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-
                                                       SelectedValue="{Binding RegionCuerpoSelected}"
                                                       ItemsSource="{Binding RegionesCuerpo}" />
 
@@ -779,7 +779,6 @@
                                             <ui:TextBlock Text="Vista:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-
                                                       SelectedValue="{Binding VistaSelected}"
                                                       ItemsSource="{Binding Vistas}" />
 
@@ -789,7 +788,6 @@
                                             <ui:TextBlock Text="Lado:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-
                                                       SelectedValue="{Binding LadoSelected}"
                                                       ItemsSource="{Binding Lados}" />
 
@@ -1129,10 +1127,21 @@
                                           Height="200"
                                           Stretch="UniformToFill">
                                     <ui:Image.ContextMenu>
-                                        <ui:MenuItem Header="Borrar foto"
-                                                     Command="{Binding ElementName=Page, Path=DataContext.DeleteDesaparecidoImagenCommand}"
-                                                     CommandParameter="{Binding}"/>
+                                        <ContextMenu>
+                                            <ui:MenuItem Header="Eliminar imagen"
+                                                         Command="{Binding Source={x:Reference Name=Page}, 
+                                                         Path=DataContext.DeleteDesaparecidoImagenCommand}"
+                                                         CommandParameter="{Binding}"
+                                                         Icon="{ui:SymbolIcon Delete24}">
+                                            </ui:MenuItem>
+                                        </ContextMenu>
                                     </ui:Image.ContextMenu>
+                                    <ui:Image.InputBindings>
+                                        <KeyBinding CommandParameter="{Binding}"
+                                                    Command="{Binding Source={x:Reference Name=Page},
+                                                    Path=DataContext.DeleteDesaparecidoImagenCommand}"
+                                                    Key="Delete"/>
+                                    </ui:Image.InputBindings>
                                 </ui:Image>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>

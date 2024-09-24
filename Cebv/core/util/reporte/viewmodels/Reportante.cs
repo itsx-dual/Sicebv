@@ -58,7 +58,7 @@ public partial class Reportante : ObservableObject
     private int? _reporteId;
 
     [ObservableProperty, JsonProperty(PropertyName = "persona")]
-    private Persona? _persona;
+    private Persona _persona = new();
 
     [ObservableProperty, JsonProperty(PropertyName = "colectivo")]
     private Catalogo? _colectivo;
