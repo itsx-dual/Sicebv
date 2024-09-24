@@ -36,14 +36,14 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel MinWidth="300" Margin="0 0 25 15">
                         <ui:TextBlock Text="Tipo sanguíneo:" />
-                        <ComboBox SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Salud.TipoSangre }"
+                        <ComboBox SelectedItem="{Binding Desaparecido.Persona.Salud.TipoSangre }"
                                   ItemsSource="{Binding TiposSangre}" />
                     </StackPanel>
 
                     <!-- TODO: Corregir lo siguiente dentro del ViewModel -->
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="Factor Rhesus:" />
-                        <ComboBox SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.Salud.FactorRhesus}"
+                        <ComboBox SelectedItem="{Binding Desaparecido.Persona.Salud.FactorRhesus}"
                                   ItemsSource="{Binding FactoresRhesus}" />
                     </StackPanel>
                 </StackPanel>
@@ -99,7 +99,7 @@
                         </ui:CardExpander.Header>
                         <ui:ListView VerticalAlignment="Stretch"
                                      HorizontalAlignment="Stretch"
-                                     ItemsSource="{Binding Reporte.Desaparecidos[0].Persona.CondicionesSalud}"
+                                     ItemsSource="{Binding Desaparecido.Persona.CondicionesSalud}"
                                      SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
@@ -161,8 +161,7 @@
                             <ui:TextBlock Text="¿Se encuentra en tránsito a Estados Unidos de Norte América?:" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      SelectedItem="{Binding TransitoEstadosUnidos}"
-                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.ContextoSocial.EstaTransitoEstadosUnidos}"
+                                      SelectedValue="{Binding Desaparecido.Persona.ContextoSocial.EstaTransitoEstadosUnidos}"
                                       ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
@@ -170,7 +169,7 @@
                             <ui:TextBlock
                                 Text="Si no va en tránsito a Estados Unidos de Norteamérica, la persona es:" />
                             <ComboBox
-                                SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.ContextoSocial.SituacionMigratoria}"
+                                SelectedItem="{Binding Desaparecido.Persona.ContextoSocial.SituacionMigratoria}"
                                 ItemsSource="{Binding SituacionesMigratorias}" />
                         </StackPanel>
                     </WrapPanel>
@@ -179,7 +178,7 @@
                         <ui:TextBlock
                             Text="Especifique el proceso de regularización migratoria que se encuentra:" />
                         <ui:TextBox
-                            Text="{Binding Reporte.Desaparecidos[0].Persona.ContextoSocial.DescripcionProcesoMigratorio}"
+                            Text="{Binding Desaparecido.Persona.ContextoSocial.DescripcionProcesoMigratorio}"
                             TextWrapping="Wrap"
                             AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
@@ -196,8 +195,7 @@
                             <ui:TextBlock Text="Pertenencia grupal o étnica" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      SelectedItem="{Binding PertenenciaGrupal}"
-                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.EnfoqueDiferenciado.PertenenciaGrupalEtnica}"
+                                      SelectedValue="{Binding Desaparecido.Persona.EnfoqueDiferenciado.PertenenciaGrupalEtnica}"
                                       ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
@@ -223,7 +221,7 @@
                         </ui:CardExpander.Header>
                         <ui:ListView HorizontalAlignment="Stretch"
                                      MaxHeight="250"
-                                     ItemsSource="{Binding Reporte.Desaparecidos[0].Persona.EnfoquesPersonales}"
+                                     ItemsSource="{Binding Desaparecido.Persona.EnfoquesPersonales}"
                                      SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
@@ -329,7 +327,7 @@
                             <ui:TextBlock
                                 Text="Característica personal que pudiera colocar a la persona en mayor vulnerabilidad" />
                             <ui:TextBox
-                                Text="{Binding Reporte.Desaparecidos[0].Persona.EnfoqueDiferenciado.DescripcionVulnerabilidad}"
+                                Text="{Binding Desaparecido.Persona.EnfoqueDiferenciado.DescripcionVulnerabilidad}"
                                 TextWrapping="Wrap"
                                 AcceptsReturn="True"
                                 MinHeight="100" />
@@ -339,7 +337,7 @@
                             <ui:TextBlock
                                 Text="Información personal adicional que se considere relevante para la búsqueda y localización de la persona" />
                             <ui:TextBox
-                                Text="{Binding Reporte.Desaparecidos[0].Persona.EnfoqueDiferenciado.InformacionRelevanteBusqueda}"
+                                Text="{Binding Desaparecido.Persona.EnfoqueDiferenciado.InformacionRelevanteBusqueda}"
                                 TextWrapping="Wrap"
                                 AcceptsReturn="True"
                                 MinHeight="100" />
@@ -353,15 +351,15 @@
                 <WrapPanel Margin="10">
                     <CheckBox Content="¿Está embarazada?"
                               Margin="10"
-                              IsChecked="{Binding EstaEmbarazada}" />
+                              IsChecked="{Binding Desaparecido.Persona.Embarazo.EstaEmbarazada}" />
 
                     <ui:NumberBox Maximum="9"
                                   Minimum="0"
                                   Width="300"
                                   PlaceholderText="Meses de embarazo"
-                                  Value="{Binding MesesEmbarazo}"
+                                  Text="{Binding Desaparecido.Persona.Embarazo.Meses}"
                                   Margin="5"
-                                  IsEnabled="{Binding EstaEmbarazada}"
+                                  IsEnabled="{Binding Desaparecido.Persona.Embarazo.EstaEmbarazada}"
                                   Tag="Number" />
                 </WrapPanel>
             </Border>

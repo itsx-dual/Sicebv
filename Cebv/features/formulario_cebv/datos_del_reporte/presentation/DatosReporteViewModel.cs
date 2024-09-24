@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.domain;
-using Cebv.core.modules.ubicacion.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;

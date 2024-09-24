@@ -47,7 +47,10 @@ public partial class Persona : ObservableObject
         ObservableCollection<EnfermedadPiel> enfermedadesPiel,
         ObservableCollection<CondicionSalud> condicionesSalud,
         EnfoqueDiferenciado? enfoqueDiferenciado,
-        ContextoSocial? contextoSocial
+        ContextoSocial? contextoSocial,
+        ObservableCollection<EnfoquePersonal> enfoquesPersonales,
+        ObservableCollection<OcupacionPersona> ocupaciones,
+        Embarazo? embarazo
     )
     {
         Id = id;
@@ -88,6 +91,9 @@ public partial class Persona : ObservableObject
         CondicionesSalud = condicionesSalud;
         EnfoqueDiferenciado = enfoqueDiferenciado;
         ContextoSocial = contextoSocial;
+        EnfoquesPersonales = enfoquesPersonales;
+        Ocupaciones = ocupaciones;
+        Embarazo = embarazo;
     }
 
     public Persona()
@@ -232,6 +238,9 @@ public partial class Persona : ObservableObject
     
     [ObservableProperty, JsonProperty("ocupaciones")]
     private ObservableCollection<OcupacionPersona> _ocupaciones = []; 
+    
+    [ObservableProperty, JsonProperty("embarazo")]
+    private Embarazo? _embarazo;
 
     // TODO: Añadir ocupaciones
 
