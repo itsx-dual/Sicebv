@@ -17,19 +17,18 @@ public partial class DatosReporteViewModel : ObservableObject
     // Referente a servicios.
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Reportante _reportante;
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Reportante _reportante = null!;
     
     // Catalogos.
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = [];
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = [];
     [ObservableProperty] private ObservableCollection<Estado> _estados = [];
+    [ObservableProperty] private ObservableCollection<Catalogo> _instituciones = [];
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
     
     // Valores seleccionados.
-    [ObservableProperty] private Catalogo _tipoMedio;
-    [ObservableProperty] private string _informacionExclusivaBusquedaSelectedKey = "No";
-    [ObservableProperty] private string _publicacionInformacionSelectedKey = "No";
+    [ObservableProperty] private Catalogo _tipoMedio = null!;
     
     public DatosReporteViewModel()
     {
@@ -41,6 +40,7 @@ public partial class DatosReporteViewModel : ObservableObject
         TiposMedios = await CebvNetwork.GetRoute<Catalogo>("tipos-medios");
         Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", tipoMedioId.ToString());
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
+        Instituciones = await CebvNetwork.GetRoute<Catalogo>("instituciones");
     }
     
     private async void LoadAsync()
@@ -55,6 +55,7 @@ public partial class DatosReporteViewModel : ObservableObject
         {
             Reporte.Reportantes.Add(new Reportante());
         }
+        
         Reportante = Reporte.Reportantes.FirstOrDefault()!;
     }
 
@@ -64,7 +65,7 @@ public partial class DatosReporteViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
