@@ -3,6 +3,7 @@ using Cebv.core.domain;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.modules.ubicacion.presentation;
+using static Cebv.core.util.enums.EtapaHipotesis;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -24,7 +25,10 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = null!;
+    [ObservableProperty] private Hipotesis? _hipotesisPrimaria;
+    [ObservableProperty] private Hipotesis? _hipotesisSecundaria;
 
     /**
      * Constructor de la clase.
@@ -32,33 +36,49 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     public CircunstanciaDesaparicionViewModel()
     {
         LoadAsync();
+        Reporte = _reporteService.GetReporte();
+
+        Reporte.HechosDesaparicion ??= new();
+
+        HipotesisPrimaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == InicialPrimaria);
+        HipotesisSecundaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == InicialSecundaria);
+
+        EnsureHipotesisExists(ref _hipotesisPrimaria, InicialPrimaria);
+        EnsureHipotesisExists(ref _hipotesisSecundaria, InicialSecundaria);
     }
 
     private async void LoadAsync()
     {
         TiposDomicilio = await CebvNetwork.GetRoute<Catalogo>("tipos-domicilio");
-        Reporte = _reporteService.GetReporte();
 
-        Reporte.HechosDesaparicion ??= new();
-
-        SyncHipotesis();
-
-        if (!string.IsNullOrEmpty(Reporte.HechosDesaparicion!.FechaDesaparicionCebv) ||
-            !string.IsNullOrEmpty(Reporte.HechosDesaparicion.FechaPercatoCebv))
-            FechaAproximada = true;
-        
         FoliosPrevios();
+    }
+
+    private void EnsureHipotesisExists(ref Hipotesis? hipotesis, string etapa)
+    {
+        if (hipotesis is not null) return;
+
+        var nuevaHipotesis = new Hipotesis { Etapa = etapa };
+
+        hipotesis = nuevaHipotesis;
+
+        Reporte.Hipotesis.Add(hipotesis);
     }
 
     private async void FoliosPrevios()
     {
-        if (Reporte.Desaparecidos.Count == 0) return;
-        
-        var persona = Reporte.Desaparecidos[0].Persona;
+        if (!Reporte.Desaparecidos.Any())
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
 
-        if (persona.Id is null) return;
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
-        Folios = await CircunstanciaDesaparicionNetwork.GetFoliosPrevios(persona.Id);
+        if (Desaparecido.Persona?.Id is null) return;
+
+        // TODO: Eliminar esto y hacerlo generico
+        Folios = await CircunstanciaDesaparicionNetwork.GetFoliosPrevios(Desaparecido.Persona.Id);
     }
 
     [ObservableProperty] private ObservableCollection<Folio> _folios = new();
@@ -66,59 +86,22 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     /**
      * Variables de la clase
      */
-    [ObservableProperty] private bool _fechaAproximada;
-
     [ObservableProperty] private UbicacionViewModel _ubicacion = new();
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
-    [ObservableProperty] private string _amenazaCambioComportamiento = No;
-
     // Hipotesis
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
-    [ObservableProperty] private Catalogo? _sitio;
-    [ObservableProperty] private Catalogo? _area;
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
-
-    partial void OnSitioChanged(Catalogo? value)
-    {
-        Reporte.Hipotesis![0].Sitio = value;
-        Reporte.Hipotesis![1].Sitio = value;
-    }
-
-    partial void OnAreaChanged(Catalogo? value)
-    {
-        Reporte.Hipotesis![0].Area = value;
-        Reporte.Hipotesis![1].Area = value;
-    }
-
-
-    private void SyncHipotesis()
-    {
-        Reporte.Hipotesis ??= new();
-
-        if (Reporte.Hipotesis is not null && Reporte.Hipotesis.Count > 0)
-        {
-            Area = Reporte.Hipotesis![0].Area;
-            Sitio = Reporte.Hipotesis![0].Sitio;
-            return;
-        }
-
-        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
-        Reporte.Hipotesis!.Add(new Hipotesis { Etapa = EtapaHipotesis.Inicial.ToString() });
-    }
-
-
-    // Desaparicion asociada
-    [ObservableProperty] private string _desaparecioAcompanado = No;
 
     /**
      * Expedientes directos e indirectos
      */
     [ObservableProperty] private string? _nombre;
+
     [ObservableProperty] private string? _primerApellido;
     [ObservableProperty] private string? _segundoApellido;
-    
+
     [ObservableProperty] private ObservableCollection<Persona> _personas = new();
 
     /**
@@ -133,7 +116,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
             SegundoApellido
         );
     }
-    
+
     [RelayCommand]
     private void AddExpediente(Persona persona)
     {

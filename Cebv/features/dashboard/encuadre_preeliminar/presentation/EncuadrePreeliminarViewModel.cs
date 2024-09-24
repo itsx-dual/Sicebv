@@ -254,12 +254,12 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         if (value)
         {
             Reporte.HechosDesaparicion.FechaDesaparicion = null;
-            Reporte.HechosDesaparicion.FechaDesaparicionAproximada = FechaDesaparicion;
+            Reporte.HechosDesaparicion.FechaDesaparicion = FechaDesaparicion;
         }
         else
         {
             Reporte.HechosDesaparicion.FechaDesaparicion = FechaDesaparicion;
-            Reporte.HechosDesaparicion.FechaDesaparicionAproximada = null;
+            Reporte.HechosDesaparicion.FechaDesaparicion = null;
         }
     }
     
@@ -291,7 +291,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
         if (SeDesconoceFechaExactaHechos)
         {
-            Reporte.HechosDesaparicion.FechaDesaparicionAproximada = value;
+            Reporte.HechosDesaparicion.FechaDesaparicion = value;
         }
         else
         {

@@ -6,20 +6,17 @@ namespace Cebv.core.util.reporte.viewmodels;
 [JsonObject(MemberSerialization.OptIn)]
 public partial class Hipotesis : ObservableObject
 {
+    [JsonConstructor]
     public Hipotesis(
         int? id,
         int? reporteId,
         TipoHipotesis? tipoHipotesis,
-        Catalogo? sitio,
-        Catalogo? area,
         string? etapa
     )
     {
         Id = id;
         ReporteId = reporteId;
         TipoHipotesis = tipoHipotesis;
-        Sitio = sitio;
-        Area = area;
         Etapa = etapa;
     }
 
@@ -37,17 +34,6 @@ public partial class Hipotesis : ObservableObject
     [ObservableProperty, JsonProperty("tipo_hipotesis")]
     private TipoHipotesis? _tipoHipotesis;
 
-    [ObservableProperty, JsonProperty("sitio")]
-    private Catalogo? _sitio;
-
-    [ObservableProperty, JsonProperty("area_asigna_sitio")]
-    private Catalogo? _area;
-
     [ObservableProperty, JsonProperty("etapa")]
     private string? _etapa;
-}
-
-public enum EtapaHipotesis {
-    Inicial,
-    Final
 }

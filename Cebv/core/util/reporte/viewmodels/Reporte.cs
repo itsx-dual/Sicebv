@@ -26,12 +26,12 @@ public partial class Reporte : ObservableObject
         Catalogo? institucionOrigen,
         ObservableCollection<Reportante> reportantes,
         ObservableCollection<Desaparecido> desaparecidos,
-        HechosDesaparicionResponse? hechosDesaparicion,
+        HechosDesaparicion? hechosDesaparicion,
         DateTime? fechaCreacion,
         DateTime? fechaActualizacion,
         ObservableCollection<Expediente>? expedientes,
         DesaparicionForzada? desaparicionForzada
-        )
+    )
     {
         Id = id;
         EstaTerminado = estaTerminado;
@@ -63,7 +63,7 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
     private TipoReporte? _tipoReporte;
-        
+
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
     private Catalogo? _areaAtiende;
 
@@ -72,7 +72,7 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
     private Estado? _estado;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "zona_estado")]
     private Catalogo? _zonaEstado;
 
@@ -92,10 +92,10 @@ public partial class Reporte : ObservableObject
     private ObservableCollection<Desaparecido> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechosDesaparicionResponse? _hechosDesaparicion = new();
+    private HechosDesaparicion? _hechosDesaparicion;
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
-    private ObservableCollection<Hipotesis>? _hipotesis = new();
+    private ObservableCollection<Hipotesis> _hipotesis = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "fecha_creacion")]
     private DateTime? _fechaCreacion;
@@ -108,13 +108,13 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty("folios")]
     private ObservableCollection<FolioPretty>? _folios = new();
-    
+
     [ObservableProperty, JsonProperty("expedientes")]
-    private ObservableCollection<Expediente>? _expedientes= new();
-    
+    private ObservableCollection<Expediente>? _expedientes = new();
+
     [ObservableProperty, JsonProperty("desaparicion_forzada")]
     private DesaparicionForzada? _desaparicionForzada = new();
-    
+
     [ObservableProperty, JsonProperty("perpetradores")]
     private ObservableCollection<Perpetrador>? _perpetradores = new();
 }
