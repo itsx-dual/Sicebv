@@ -123,59 +123,58 @@ public partial class DesaparecidoViewModel : ObservableObject
         }
 
         Reporte = _reporteService.GetReporte();
+        
+        if (!Reporte.Desaparecidos.Any())
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
 
-        OcupacionPrincipal = Reporte.Desaparecidos[0].Persona!.Ocupaciones.FirstOrDefault(
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        OcupacionPrincipal = Desaparecido.Persona.Ocupaciones.FirstOrDefault(
             x => x.Prioridad == Principal
         ) ?? new OcupacionPersona
         {
             Prioridad = Principal
         };
 
-        OcupacionSecundaria = Reporte.Desaparecidos[0].Persona!.Ocupaciones.FirstOrDefault(
+        OcupacionSecundaria = Desaparecido.Persona.Ocupaciones.FirstOrDefault(
             x => x.Prioridad == Secundaria
         ) ?? new OcupacionPersona
         {
             Prioridad = Secundaria
         };
 
-        if (Reporte.Desaparecidos.Count == 0)
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
-        else
-        {
-            Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
-        }
-
-        if (Desaparecido.Persona?.Nacionalidades?.Count == 0)
+        if (Desaparecido.Persona.Nacionalidades?.Count == 0)
         {
             Desaparecido.Persona.Nacionalidades.Add(new Catalogo());
         }
 
-        if (Desaparecido.Persona?.Direcciones != null && (bool)Desaparecido.Persona?.Direcciones?.Any())
+        if (Desaparecido.Persona.Direcciones != null && (bool)Desaparecido.Persona.Direcciones?.Any())
         {
-            Desaparecido.Persona?.Direcciones?.Add(new Direccion());
+            Desaparecido.Persona.Direcciones?.Add(new Direccion());
         }
         else
         {
-            EsMismoDomicilioReportante = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?
-                .Equals(Reporte.Reportantes.FirstOrDefault()?.Persona?.Direcciones?.FirstOrDefault()) ?? false;
+            EsMismoDomicilioReportante = Desaparecido.Persona.Direcciones?.FirstOrDefault()?
+                .Equals(Reporte.Reportantes.FirstOrDefault()?.Persona.Direcciones?.FirstOrDefault()) ?? false;
 
-            EstadoSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
-            MunicipioSelected = Desaparecido.Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
+            EstadoSelected = Desaparecido.Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
+            MunicipioSelected = Desaparecido.Persona.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio!;
         }
 
-        TieneApodos = Desaparecido.Persona?.Pseudonimos?.Any() ?? false;
-        TieneTelefonosMoviles = Desaparecido.Persona?.Telefonos?.Any(x => (bool)x.EsMovil!) ?? false;
-        TieneTelefonosFijos = Desaparecido.Persona?.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
-        TieneCorreos = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == CorreoElectronico) ?? false;
-        TieneRedesSociales = Desaparecido.Persona?.Contactos?.Any(x => x.Tipo == RedSoial) ?? false;
+        TieneApodos = Desaparecido.Persona.Pseudonimos?.Any() ?? false;
+        TieneTelefonosMoviles = Desaparecido.Persona.Telefonos?.Any(x => (bool)x.EsMovil!) ?? false;
+        TieneTelefonosFijos = Desaparecido.Persona.Telefonos?.Any(x => (bool)!x.EsMovil!) ?? false;
+        TieneCorreos = Desaparecido.Persona.Contactos?.Any(x => x.Tipo == CorreoElectronico) ?? false;
+        TieneRedesSociales = Desaparecido.Persona.Contactos?.Any(x => x.Tipo == RedSoial) ?? false;
 
-        DiferenciaFechas(Reporte.Desaparecidos[0].Persona?.FechaNacimiento, DateTime.Now);
+        DiferenciaFechas(Desaparecido.Persona.FechaNacimiento, DateTime.Now);
 
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.ContextoFamiliar ??= new();
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.Estudios ??= new();
+        Desaparecido.Persona.ContextoFamiliar ??= new();
+        Desaparecido.Persona.Estudios ??= new();
+        Desaparecido.Persona.ContextoEconomico ??= new();
     }
 
     async partial void OnTipoOcupacionPrincipalChanged(Catalogo? value)
@@ -416,16 +415,16 @@ public partial class DesaparecidoViewModel : ObservableObject
     private void GuardarOcupaciones()
     {
         var ocupacionPrincipalIndex =
-            Reporte.Desaparecidos[0].Persona!.Ocupaciones.IndexOf(OcupacionPrincipal!);
+            Desaparecido.Persona!.Ocupaciones.IndexOf(OcupacionPrincipal!);
         
         var ocupacionSecundariaIndex =
-            Reporte.Desaparecidos[0].Persona!.Ocupaciones.IndexOf(OcupacionSecundaria!);
+            Desaparecido.Persona!.Ocupaciones.IndexOf(OcupacionSecundaria!);
         
-        if (ocupacionPrincipalIndex == -1) Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionPrincipal!);
-        else Reporte.Desaparecidos[0].Persona!.Ocupaciones[ocupacionPrincipalIndex] = OcupacionPrincipal!;
+        if (ocupacionPrincipalIndex == -1) Desaparecido.Persona!.Ocupaciones.Add(OcupacionPrincipal!);
+        else Desaparecido.Persona!.Ocupaciones[ocupacionPrincipalIndex] = OcupacionPrincipal!;
         
-        if (ocupacionSecundariaIndex == -1) Reporte.Desaparecidos[0].Persona!.Ocupaciones.Add(OcupacionSecundaria!);
-        else Reporte.Desaparecidos[0].Persona!.Ocupaciones[ocupacionSecundariaIndex] = OcupacionSecundaria!;
+        if (ocupacionSecundariaIndex == -1) Desaparecido.Persona!.Ocupaciones.Add(OcupacionSecundaria!);
+        else Desaparecido.Persona!.Ocupaciones[ocupacionSecundariaIndex] = OcupacionSecundaria!;
     }
 
     [RelayCommand]

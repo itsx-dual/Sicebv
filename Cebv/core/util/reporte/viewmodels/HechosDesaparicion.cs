@@ -71,7 +71,7 @@ public partial class HechosDesaparicion : ObservableObject
     private int? _reporteId;
 
     [ObservableProperty, JsonProperty("direccion")]
-    private Direccion? _direccion;
+    private Direccion _direccion = new();
 
     [ObservableProperty, JsonProperty("sitio")]
     private Catalogo? _sitio;

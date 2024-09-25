@@ -178,29 +178,29 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Calle:" />
-                                <ui:TextBox Text="{Binding Ubicacion.Calle}" ClearButtonEnabled="True" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Exterior:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}"
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
                                             ClearButtonEnabled="True" MaxLength="10"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Interior:" />
-                                <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" ClearButtonEnabled="True"
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}" ClearButtonEnabled="True"
                                             MaxLength="10"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Colonia:" />
-                                <ui:TextBox Text="{Binding Ubicacion.Colonia}" ClearButtonEnabled="True" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}" ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="Código postal:" />
-                                <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}"
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
                                             ClearButtonEnabled="True" Tag="Number" MaxLength="5"/>
                             </StackPanel>
                         </WrapPanel>
@@ -210,23 +210,23 @@
                                 <ui:TextBlock Text="Estado:" />
                                 <!-- TODO: Requerido -->
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Ubicacion.Estado}"
-                                          ItemsSource="{Binding Ubicacion.Estados}" />
+                                          SelectedItem="{Binding EstadoSelected}"
+                                          ItemsSource="{Binding Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <!-- TODO: Requerido -->
                                 <ui:TextBlock Text="Municipio:" />
-                                <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
-                                          ItemsSource="{Binding Ubicacion.Municipios}" />
+                                <ComboBox SelectedItem="{Binding MunicipioSelected}"
+                                          ItemsSource="{Binding Municipios}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Localidad:" />
                                 <ComboBox IsEditable="True"
                                           DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Ubicacion.Asentamiento}"
-                                          ItemsSource="{Binding Ubicacion.Asentamientos}" />
+                                          SelectedItem="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento}"
+                                          ItemsSource="{Binding Asentamientos}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -247,23 +247,23 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Entre calle 1:" />
-                                <ui:TextBox Text="{Binding Ubicacion.EntreCalle1}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Entre calle 2:" />
-                                <ui:TextBox Text="{Binding Ubicacion.EntreCalle2}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Tramo carretero:" />
-                                <ui:TextBox Text="{Binding Ubicacion.TramoCarretero}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Referencia:" />
-                            <ui:TextBox Text="{Binding Ubicacion.Referencia}"
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
                                         MinHeight="100" />

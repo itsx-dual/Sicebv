@@ -1,14 +1,13 @@
 using System.Collections.ObjectModel;
+using Cebv.core.domain;
+using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.ubicacion.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.folio_expediente.data;
-using Cebv.features.formulario_cebv.folio_expediente.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Catalogo = Cebv.core.data.Catalogo;
 using Estado = Cebv.core.modules.ubicacion.data.Estado;
 
 namespace Cebv.features.formulario_cebv.folio_expediente.presentation;
@@ -57,7 +56,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<string> _zonaCentro = new();
     [ObservableProperty] private ObservableCollection<string> _zonaSur = new();
     
-    [ObservableProperty] private FolioPretty _folio = new();
+    [ObservableProperty] private Folio _folio = new();
 
     partial void OnTipoDesaparicionChanged(string value)
     {
@@ -70,15 +69,15 @@ public partial class FolioExpedienteViewModel : ObservableObject
      */
     private async void CargarCatalogos()
     {
-        TiposReportes = await FolioExpedienteNetwork.GetTiposReportes();
-        Areas = await FolioExpedienteNetwork.GetAreas();
+        TiposReportes = await CebvNetwork.GetRoute<Catalogo>("tipos-reportes");
+        Areas = await CebvNetwork.GetRoute<Catalogo>("areas");
     }
     
 
     [RelayCommand]
     private async Task SetFolio()
     { 
-        await FolioExpedienteNetwork.SetFolio(Reporte.Id);
+       // await FolioExpedienteNetwork.SetFolio(Reporte.Id);
     }
 
     /**

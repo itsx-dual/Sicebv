@@ -4,6 +4,7 @@ using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.contexto.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,8 +20,8 @@ public partial class ContextoViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte;
-
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = null!;
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     public ContextoViewModel()
@@ -31,21 +32,112 @@ public partial class ContextoViewModel : ObservableObject
     private async void LoadAsync()
     {
         Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
+        Pasatiempos = await CebvNetwork.GetRoute<Catalogo>("pasatiempos");
+        Clubes = await CebvNetwork.GetRoute<Catalogo>("clubes");
+        TiposRedesSociales = await CebvNetwork.GetRoute<Catalogo>("tipos-redes-sociales");
 
         Reporte = _reporteService.GetReporte();
+
+        if (!Reporte.Desaparecidos.Any())
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
+
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        Desaparecido.Persona.ContextoFamiliar ??= new();
+        Desaparecido.Persona.ContextoEconomico ??= new();
     }
 
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _pasatiempos = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _clubes = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposRedesSociales = new();
 
+    [ObservableProperty] private Familiar _familiar = new();
 
-    // Contexto economico - laboral
-    [ObservableProperty] private string _gustaTrabajo = No;
+    [ObservableProperty] private Catalogo? _pasatiempo;
+    [ObservableProperty] private Catalogo? _club;
+    [ObservableProperty] private Amistad _amistad = new();
 
-    [ObservableProperty] private string _trabajarFuera = No;
+    /**
+     * Familiares
+     */
+    [RelayCommand]
+    private void OnGuardarFamiliar()
+    {
+        if (Familiar.Nombre is null) return;
 
-    [ObservableProperty] private string _violenciaTrabajo = No;
+        Desaparecido.Persona.Familiares.Add(Familiar);
 
-    [ObservableProperty] private string _tieneDeudas = No;
+        Familiar = new();
+    }
+
+    [RelayCommand]
+    private void OnEliminarFamiliar(Familiar familiar)
+    {
+        Desaparecido.Persona.Familiares.Remove(familiar);
+    }
+
+    /**
+     * Pasatiempos
+     */
+    [RelayCommand]
+    private void OnGuardarPasatiempo()
+    {
+        if (Pasatiempo is null) return;
+
+        var pasatiempo = new PasatiempoPersona(null, null, Pasatiempo);
+
+        Desaparecido.Persona.Pasatiempos.Add(pasatiempo);
+
+        Pasatiempo = null;
+    }
+
+    [RelayCommand]
+    private void OnEliminarPasatiempo(PasatiempoPersona pasatiempo)
+    {
+        Desaparecido.Persona.Pasatiempos.Remove(pasatiempo);
+    }
+
+    /**
+     * Clubes
+     */
+    [RelayCommand]
+    private void OnGuardarClub()
+    {
+        if (Club is null) return;
+
+        var club = new ClubPersona(null, null, Club);
+
+        Desaparecido.Persona.Clubes.Add(club);
+
+        Club = null;
+    }
+
+    [RelayCommand]
+    private void OnEliminarClub(ClubPersona club)
+    {
+        Desaparecido.Persona.Clubes.Remove(club);
+    }
+
+    [RelayCommand]
+    private void OnGuardarAmistad()
+    {
+        if (Amistad.Nombre is null) return;
+
+        Desaparecido.Persona.Amistades.Add(Amistad);
+
+        Amistad = new();
+    }
+
+    [RelayCommand]
+    private void OnEliminarAmistad(Amistad amistad)
+    {
+        Desaparecido.Persona.Amistades.Remove(amistad);
+    }
+
 
     /**
      * Comando para guardar y navegar a la siguiente pagina

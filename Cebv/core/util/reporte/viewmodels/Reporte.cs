@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
-using Cebv.features.formulario_cebv.folio_expediente.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -29,8 +28,10 @@ public partial class Reporte : ObservableObject
         HechosDesaparicion? hechosDesaparicion,
         DateTime? fechaCreacion,
         DateTime? fechaActualizacion,
-        ObservableCollection<Expediente>? expedientes,
-        DesaparicionForzada? desaparicionForzada
+        ControlOgpi? controlOgpi,
+        ObservableCollection<Expediente> expedientes,
+        DesaparicionForzada? desaparicionForzada,
+        ObservableCollection<Perpetrador> perpetradores
     )
     {
         Id = id;
@@ -46,8 +47,10 @@ public partial class Reporte : ObservableObject
         FechaCreacion = fechaCreacion;
         FechaActualizacion = fechaActualizacion;
         InstitucionOrigen = institucionOrigen;
+        ControlOgpi = controlOgpi;
         Expedientes = expedientes;
         DesaparicionForzada = desaparicionForzada;
+        Perpetradores = perpetradores;
     }
 
     public Reporte()
@@ -106,15 +109,12 @@ public partial class Reporte : ObservableObject
     [ObservableProperty, JsonProperty("control_ogpi")]
     private ControlOgpi? _controlOgpi;
 
-    [ObservableProperty, JsonProperty("folios")]
-    private ObservableCollection<FolioPretty>? _folios = new();
-
     [ObservableProperty, JsonProperty("expedientes")]
-    private ObservableCollection<Expediente>? _expedientes = new();
+    private ObservableCollection<Expediente> _expedientes = [];
 
     [ObservableProperty, JsonProperty("desaparicion_forzada")]
-    private DesaparicionForzada? _desaparicionForzada = new();
+    private DesaparicionForzada? _desaparicionForzada;
 
     [ObservableProperty, JsonProperty("perpetradores")]
-    private ObservableCollection<Perpetrador>? _perpetradores = new();
+    private ObservableCollection<Perpetrador> _perpetradores = [];
 }

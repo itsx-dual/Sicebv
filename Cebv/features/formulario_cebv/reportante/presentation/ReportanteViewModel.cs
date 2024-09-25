@@ -75,8 +75,6 @@ public partial class ReportanteViewModel : ObservableObject
             Reportante = reporte.Reportantes[0];
         }
 
-        Reportante.Persona ??= new Persona();
-
         var estadoId =
             reporte.Reportantes[0].Persona?.Direcciones?.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
 

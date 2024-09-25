@@ -23,4 +23,11 @@ public static class CebvNetwork
         var response = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PaginatedResource<ObservableCollection<T>>>(response)!.Data;
     }
+    
+    public static async Task<ObservableCollection<T>> GetById<T>(string endpoint, string id)
+    {
+        var request = await Client.GetAsync($"/api/{endpoint}/{id}");
+        var response = await request.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<PaginatedResource<ObservableCollection<T>>>(response)!.Data;
+    }
 }
