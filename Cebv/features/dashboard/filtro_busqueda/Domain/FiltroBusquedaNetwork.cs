@@ -4,6 +4,7 @@ using Cebv.core.domain;
 using Cebv.core.modules.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Cebv.features.dashboard.filtro_busqueda.Domain;
@@ -20,10 +21,13 @@ public class FiltroBusquedaNetwork
         return new ObservableCollection<ReporteResponse>(reportes.Data);
     }
     
-    public static async Task<ObservableCollection<ReporteResponse>> GetReportes(string filter)
+    public static async Task<ObservableCollection<ReporteResponse>> GetReportes(string filtros)
     {
-        var request = await Client.GetAsync($"api/reportes?filter{filter}");
+        var request = await Client.GetAsync($"api/reportes{filtros}");
         var response = await request.Content.ReadAsStringAsync();
+        
+        Console.WriteLine($"Response: {JObject.Parse(response).ToString(Formatting.Indented)}");
+        
         ReportesQueryResponse reportes = JsonSerializer.Deserialize<ReportesQueryResponse>(response)!;
         return new ObservableCollection<ReporteResponse>(reportes.Data);
     }

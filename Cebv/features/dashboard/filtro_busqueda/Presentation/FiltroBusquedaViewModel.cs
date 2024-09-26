@@ -267,7 +267,7 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [RelayCommand]
     private async Task OnCargarReportes()
     {
-        var filter = await AplicandoFiltros();
+        var filter = AplicandoFiltros();
         
         if (!string.IsNullOrEmpty(filter))
         {
@@ -416,464 +416,141 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         Descripcion = null;
     }
     
-    private async Task<string> AplicandoFiltros()
+    private string AplicandoFiltros()
     {
-        var filtros = new List<string>();
-        
-        if (PseudonimoDesaparecido != null)
-        {
-            filtros.Add($"[pseudonimoCompleto_desaparecido]={PseudonimoDesaparecido}");
-        }
-        if (PseudonimoReportante != null)
-        {
-            filtros.Add($"[pseudonimoCompleto_reportante]={PseudonimoReportante}");
-        }
-        if (TipoReporteSelected != null)
-        {
-            filtros.Add($"[tipo_reporte_id]={TipoReporteSelected.Id}");
-        }
-        if (AreaSelected != null)
-        {
-            filtros.Add($"[area_atiende_id]={AreaSelected.Id}");
-        }
-        if (TipoMedioSelected != null)
-        {
-            filtros.Add($"[tipo_medio_id]={TipoMedioSelected.Id}");
-        }
-        if (MedioSelected != null)
-        {
-            filtros.Add($"[medio_conocimiento_id]={MedioSelected.Id}");
-        }
-        if (EstadoSelected != null)
-        {
-            filtros.Add($"[estado_id]={EstadoSelected.Id}");
-        }
-        if (ZonaEstadoSelected != null)
-        {
-            filtros.Add($"[zona_estado_id]={ZonaEstadoSelected.Id}");
-        }
-        if (LugarNacimientoReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/lugar_nacimiento_id]={LugarNacimientoReportanteSelected.Id}");
-        }
-        if (EscolaridadReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/escolaridad_id]={EscolaridadReportanteSelected.Id}");
-        }
-        if (SexoReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/sexo_id]={SexoReportanteSelected.Id}");
-        }
-        if (GeneroReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/genero_id]={GeneroReportanteSelected.Id}");
-        }
-        if (NacionalidadReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/nacionalidad_id]={NacionalidadReportanteSelected.Id}");
-        }
-        if (ReligionReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/religion_id]={ReligionReportanteSelected.Id}");
-        }
-        if (LenguaReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/lengua_id]={LenguaReportanteSelected.Id}");
-        }
-        if (ParentescoReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/parentesco_id]={ParentescoReportanteSelected.Id}");
-        }
-        if (ColectivoReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/colectivo_id]={ColectivoReportanteSelected.Id}");
-        }
-        if (EstadoConyugalReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/estado_conyugal_id]={EstadoConyugalReportanteSelected.Id}");
-        }
-        if (PublicacionRegistroNacional != null)
-        {
-            filtros.Add($"[publicacion_registro_nacional]={PublicacionRegistroNacional}");
-        }
-        if (PublicacionBoletin != null)
-        {
-            filtros.Add($"[publicacion_boletin]={PublicacionBoletin}");
-        }
-        if (DescripcionExtorsion != null)
-        {
-            filtros.Add($"[descripcion_extorsion]={DescripcionExtorsion}");
-        }
-        if (DescripcionDondeProviene != null)
-        {
-            filtros.Add($"[descripcion_donde_proviene]={DescripcionDondeProviene}");
-        }
-        if (NoTelefonoReportante != null)
-        {
-            filtros.Add($"[reportante/telefono]={NoTelefonoReportante}");
-        }
-        if (CompañiaTelefonicaReportanteSelected != null)
-        {
-            filtros.Add($"[reportante/telefono/compania_id]={CompañiaTelefonicaReportanteSelected.Id}");
-        }
-        if (EsMovilReportante != null)
-        {
-            filtros.Add($"[reportante/telefono/es_movil]={EsMovilReportante}");
-        }
-        if (InformacionConsentimiento != null)
-        {
-            filtros.Add($"[informacion_consentimiento]={InformacionConsentimiento}");
-        }
-        if (InformacionExclusivaBusqueda != null)
-        {
-            filtros.Add($"[informacion_exclusiva_busqueda]={InformacionExclusivaBusqueda}");
-        }
-        if (InformacionRelevante != null)
-        {
-            filtros.Add($"[informacion_relevante]={InformacionRelevante}");
-        }
-        if (FechaNacimientoReportante != null)
-        {
-            filtros.Add($"[reportante/fecha_nacimiento]={FechaNacimientoReportante}");
-        }
-        if (DenunciaAnonima != null)
-        {
-            filtros.Add($"[reportante/denuncia_anonima]={DenunciaAnonima}");
-        }
-        if (CurpReportante != null)
-        {
-            filtros.Add($"[reportante/curp]={CurpReportante}");
-        }
-        if (PertenenciaColectivo != null)
-        {
-            filtros.Add($"[reportante/pertenencia_colectivo]={PertenenciaColectivo}");
-        }
-        if (RfcReportante != null)
-        {
-            filtros.Add($"[reportante/rfc]={RfcReportante}");
-        }
-        if (EdadEstimada != null)
-        {
-            filtros.Add($"[edad_estimada]={EdadEstimada}");
-        }
-        if (EstatusEscolaridadReportanteSelectede != null)
-        {
-            filtros.Add($"[reportante/nivel_escolaridad]={EstatusEscolaridadReportanteSelectede.Nombre}");
-        }
-        if (NumeroPersonasVive != null)
-        {
-            filtros.Add($"[reportante/numero_personas_vive]={NumeroPersonasVive}");
-        }
-        if (LugarNacimientoDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/lugar_nacimiento_id]={LugarNacimientoDesaparecidoSelected.Id}");
-        }
-        if (EscolaridadDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/escolaridad_id]={EscolaridadDesaparecidoSelected.Id}");
-        }
-        if (SexoDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/sexo_id]={SexoDesaparecidoSelected.Id}");
-        }
-        if (GeneroDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/genero_id]={GeneroDesaparecidoSelected.Id}");
-        }
-        if (NacionalidadDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/nacionalidad_id]={NacionalidadDesaparecidoSelected.Id}");
-        }
-        if (ReligionDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/religion_id]={ReligionDesaparecidoSelected.Id}");
-        }
-        if (LenguaDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/lengua_id]={LenguaDesaparecidoSelected.Id}");
-        }
-        if (FechaNacimientoDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/fecha_nacimiento]={FechaNacimientoDesaparecido}");
-        }
-        if (FechaNacimientoAproximadaDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/fecha_nacimiento_aproximada]={FechaNacimientoAproximadaDesaparecido}");
-        }
-        if (FechaNacimientoCebvDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/fecha_nacimiento_cebv]={FechaNacimientoCebvDesaparecido}");
-        }
-        if (DescripcionOcupacionPrincipal != null)
-        {
-            filtros.Add($"[desaparecido/descripcion_ocupacion_principal]={DescripcionOcupacionPrincipal}");
-        }
-        if (DescripcionOcupacionSecundaria != null)
-        {
-            filtros.Add($"[desaparecido/descripcion_ocupacion_secundaria]={DescripcionOcupacionSecundaria}");
-        }
-        if (NoTelefonoDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/telefono]={NoTelefonoDesaparecido}");
-        }
-        if (CompañiaTelefonicaDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/telefono/compania_id]={CompañiaTelefonicaDesaparecidoSelected.Id}");
-        }
-        if (EsMovilDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/telefono/es_movil]={EsMovilDesaparecido}");
-        }
-        if (EdadAnos != null)
-        {
-            filtros.Add($"[desaparecido/edad_anos]={EdadAnos}");
-        }
-        if (EdadMeses != null)
-        {
-            filtros.Add($"[desaparecido/edad_meses]={EdadMeses}");
-        }
-        if (EdadDias != null)
-        {
-            filtros.Add($"[desaparecido/edad_dias]={EdadDias}");
-        }
-        if (HablaEspañol != null)
-        {
-            filtros.Add($"[desaparecido/habla_espanhol]={HablaEspañol}");
-        }
-        if (SabeLeer != null)
-        {
-            filtros.Add($"[desaparecido/sabe_leer]={SabeLeer}");
-        }
-        if (SabeEscribir != null)
-        {
-            filtros.Add($"[desaparecido/sabe_escribir]={SabeEscribir}");
-        }
-        if (EstatusRpdno != null)
-        {
-            filtros.Add($"[estatus_rpdno_id]={EstatusRpdno.Id}");
-        }
-        if (EstatusCebv != null)
-        {
-            filtros.Add($"[estatus_cebv_id]={EstatusCebv.Id}");
-        }
-        if (OcupacionPrincipal != null)
-        {
-            filtros.Add($"[desaparecido/ocupacion_principal_id]={OcupacionPrincipal.Id}");
-        }
-        if (TipoOcupacionPrincipalDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/ocupacion_principal/tipo_ocupacion_id]={TipoOcupacionPrincipalDesaparecidoSelected.Id}");
-        }
-        if (OcupacionSecundaria != null)
-        {
-            filtros.Add($"[desaparecido/ocupacion_secundaria_id]={OcupacionSecundaria.Id}");
-        }
-        if (TipoOcupacionSecundariaDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/ocupacion_secundaria/tipo_ocupacion_id]={TipoOcupacionSecundariaDesaparecidoSelected.Id}");
-        }
-        if (AccionUrgente != null)
-        {
-            filtros.Add($"[desaparecido/accion_urgente]={AccionUrgente}");
-        }
-        if (DeclaracionEspecialAusencia != null)
-        {
-            filtros.Add($"[desaparecido/declaracion_especial_ausencia]={DeclaracionEspecialAusencia}");
-        }
-        if (Dictamen != null)
-        {
-            filtros.Add($"[desaparecido/dictamen]={Dictamen}");
-        }
-        if (CiNivelFederal != null)
-        {
-            filtros.Add($"[desaparecido/ci_nivel_federal]={CiNivelFederal}");
-        }
-        if (EstatusEscolaridadDesaparecidoSelected != null)
-        {
-            filtros.Add($"[desaparecido/nivel_escolaridad]={EstatusEscolaridadDesaparecidoSelected.Nombre}");
-        }
-        if (CurpDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/curp]={CurpDesaparecido}");
-        }
-        if (RfcDesaparecido != null)
-        {
-            filtros.Add($"[desaparecido/rfc]={RfcDesaparecido}");
-        }
-        if (OtroDerechoHumano != null)
-        {
-            filtros.Add($"[desaparecido/otro_derecho_humano]={OtroDerechoHumano}");
-        }
-        if (IdentidadResguardada != null)
-        {
-            filtros.Add($"[desaparecido/identidad_resguardada]={IdentidadResguardada}");
-        }
-        if (ClasificacionPersona != null)
-        {
-            filtros.Add($"[desaparecido/clasificacion_persona]={ClasificacionPersona}");
-        }
-        if (NombreParejaConyugal != null)
-        {
-            filtros.Add($"[desaparecido/nombre_pareja_conyugue]={NombreParejaConyugal}");
-        }
-        if (UrlBoletin != null)
-        {
-            filtros.Add($"[desaparecido/url_boletin]={UrlBoletin}");
-        }
-        if (BoletinImgPath != null)
-        {
-            filtros.Add($"[desaparecido/boletin_img_path]={BoletinImgPath}");
-        }
-        if (FolioCebv != null)
-        {
-            filtros.Add($"[folio_cebv]={FolioCebv}");
-        }
-        if (FolioFub != null)
-        {
-            filtros.Add($"[folio_fub]={FolioFub}");
-        }
-        if (FechaDesaparicion != null)
-        {
-            filtros.Add($"[hechoDesaparicion/fecha_desaparicion]={FechaDesaparicion}");
-        }
-        if (FechaDesaparicionAproximada != null)
-        {
-            filtros.Add($"[hechoDesaparicion/fecha_desaparicion_aproximada]={FechaDesaparicionAproximada}");
-        }
-        if (FechaDesaparicionCebv != null)
-        {
-            filtros.Add($"[hechoDesaparicion/fecha_desaparicion_cebv]={FechaDesaparicionCebv}");
-        }
-        if (HoraDesaparicion != null)
-        {
-            filtros.Add($"[hechoDesaparicion/hora_desaparicion]={HoraDesaparicion}");
-        }
-        if (HechosDesaparicion != null)
-        {
-            filtros.Add($"[hechoDesaparicion/hechos_desaparicion]={HechosDesaparicion}");
-        }
-        if (FechaPercato != null)
-        {
-            filtros.Add($"[hechoDesaparicion/fecha_percato]={FechaPercato}");
-        }
-        if (FechaPercatoCebv != null)
-        {
-            filtros.Add($"[hechoDesaparicion/fecha_percato_cebv]={FechaPercatoCebv}");
-        }
-        if (HoraPercato != null)
-        {
-            filtros.Add($"[hechoDesaparicion/hora_percato]={HoraPercato}");
-        }
-        if (AmenazaCambioComportamiento != null)
-        {
-            filtros.Add($"[hechoDesaparicion/amenaza_cambio_comportamiento]={AmenazaCambioComportamiento}");
-        }
-        if (DescripcionAmenazaCambioComportamiento != null)
-        {
-            filtros.Add($"[hechoDesaparicion/descripcion/amenaza_cambio_comportamiento]={DescripcionAmenazaCambioComportamiento}");
-        }
-        if (SituacionPrevia != null)
-        {
-            filtros.Add($"[hechoDesaparicion/situacion_previa]={SituacionPrevia}");
-        }
-        if (AclaracionesFechasHechos != null)
-        {
-            filtros.Add($"[hechoDesaparicion/aclaraciones_fechas_hechos]={AclaracionesFechasHechos}");
-        }
-        if (HechoDesaparicionInformacionRelevante != null)
-        {
-            filtros.Add($"[hechoDesaparicion/informacion_relevante]={HechoDesaparicionInformacionRelevante}");
-        }
-        if (SintesisDesaparicion != null)
-        {
-            filtros.Add($"[hechoDesaparicion/sintesis_desaparicion]={SintesisDesaparicion}");
-        }
-        if (PersonaMismoEvento != null)
-        {
-            filtros.Add($"[hechoDesaparicion/personas_mismo_evento]={PersonaMismoEvento}");
-        }
-        if (ContadorDesapariciones != null)
-        {
-            filtros.Add($"[hechoDesaparicion/contador_desapariciones]={ContadorDesapariciones}");
-        }
-        if (HipotesisOficialSelected != null)
-        {
-            filtros.Add($"[hipotesis_oficial_id]={HipotesisOficialSelected.Id}");
-        }
-        if (HipotesisOficialCircunstanciaSelected != null)
-        {
-            filtros.Add($"[hipotesis_oficial_circunstancia_id]={HipotesisOficialCircunstanciaSelected.Id}");
-        }
-        if (HipotesisOficialDescripcion != null)
-        {
-            filtros.Add($"[hipotesis_oficial_descripcion]={HipotesisOficialDescripcion}");
-        }
-        if (Estatura != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/estatura]={Estatura}");
-        }
-        if (Peso != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/peso]={Peso}");
-        }
-        if (ComplexionSelected != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/complexion_id]={ComplexionSelected.Id}");
-        }
-        if (ColorPielSelected != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/color_piel_id]={ColorPielSelected.Id}");
-        }
-        if (ColorOjosSelected != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/color_ojos_id]={ColorOjosSelected.Id}");
-        }
-        if (ColorCabelloSelected != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/color_cabello_id]={ColorCabelloSelected.Id}");
-        }
-        if (TamanioCabelloSelected != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/tamano_cabello_id]={TamanioCabelloSelected.Id}");
-        }
-        if (TipoCabelloSelected != null)
-        {
-            filtros.Add($"[desaparecido/media_filiacion/tipo_cabello_id]={TipoCabelloSelected.Id}");
-        }
-        if (RegionCuerpoSelected != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/region_cuerpo_id]={RegionCuerpoSelected.Id}");
-        }
-        if (ColorRegionCuerpo != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/region_cuerpo/color]={ColorRegionCuerpo}");
-        }
-        if (VistaSelected != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/vista_id]={VistaSelected.Id}");
-        }
-        if (LadoSelected != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/lado_id]={LadoSelected.Id}");
-        }
-        if (ColorLado != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/lado/color]={ColorLado}");
-        }
-        if (TipoSelected != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/tipo_id]={TipoSelected.Id}");
-        }
-        if (Cantidad != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/cantidad]={Cantidad}");
-        }
-        if (Descripcion != null)
-        {
-            filtros.Add($"[desaparecido/senas_particulares/descripcion]={Descripcion}");
+        var dic = new Dictionary<string, dynamic>
+        {
+            {"pseudonimoCompleto_desaparecido", PseudonimoDesaparecido},
+            {"pseudonimoCompleto_reportante", PseudonimoReportante},
+            {"tipo_reporte_id", TipoReporteSelected.Id},
+            {"area_atiende_id", AreaSelected.Id},
+            {"tipo_medio_id", TipoMedioSelected.Id},
+            {"medio_conocimiento_id", MedioSelected.Id},
+            {"estado_id", EstadoSelected.Id},
+            {"zona_estado_id", ZonaEstadoSelected.Id},
+            {"reportante/lugar_nacimiento_id", LugarNacimientoReportanteSelected.Id},
+            {"reportante/escolaridad_id", EscolaridadReportanteSelected.Id},
+            {"reportante/sexo_id", SexoReportanteSelected.Id},
+            {"reportante/genero_id", GeneroReportanteSelected.Id},
+            {"reportante/nacionalidad_id", NacionalidadReportanteSelected.Id},
+            {"reportante/religion_id", ReligionReportanteSelected.Id},
+            {"reportante/lengua_id", LenguaReportanteSelected.Id},
+            {"reportante/parentesco_id", ParentescoReportanteSelected.Id},
+            {"reportante/colectivo_id", ColectivoReportanteSelected.Id},
+            {"reportante/estado_conyugal_id", EstadoConyugalReportanteSelected.Id},
+            {"publicacion_registro_nacional", PublicacionRegistroNacional},
+            {"publicacion_boletin", PublicacionBoletin},
+            {"descripcion_extorsion", DescripcionExtorsion},
+            {"descripcion_donde_proviene", DescripcionDondeProviene},
+            {"reportante/telefono", NoTelefonoReportante},
+            {"reportante/telefono/compania_id", CompañiaTelefonicaReportanteSelected.Id},
+            {"reportante/telefono/es_movil", EsMovilReportante},
+            {"informacion_consentimiento", InformacionConsentimiento},
+            {"informacion_exclusiva_busqueda", InformacionExclusivaBusqueda},
+            {"informacion_relevante", InformacionRelevante},
+            {"reportante/fecha_nacimiento", FechaNacimientoReportante},
+            {"reportante/denuncia_anonima", DenunciaAnonima},
+            {"reportante/curp", CurpReportante},
+            {"reportante/pertenencia_colectivo", PertenenciaColectivo},
+            {"reportante/rfc", RfcReportante},
+            {"edad_estimada", EdadEstimada},
+            {"reportante/nivel_escolaridad", EstatusEscolaridadReportanteSelectede.Nombre},
+            {"reportante/numero_personas_vive", NumeroPersonasVive},
+            {"desaparecido/lugar_nacimiento_id", LugarNacimientoDesaparecidoSelected.Id},
+            {"desaparecido/escolaridad_id", EscolaridadDesaparecidoSelected.Id},
+            {"desaparecido/sexo_id", SexoDesaparecidoSelected.Id},
+            {"desaparecido/genero_id", GeneroDesaparecidoSelected.Id},
+            {"desaparecido/nacionalidad_id", NacionalidadDesaparecidoSelected.Id},
+            {"desaparecido/religion_id", ReligionDesaparecidoSelected.Id},
+            {"desaparecido/lengua_id", LenguaDesaparecidoSelected.Id},
+            {"desaparecido/fecha_nacimiento", FechaNacimientoDesaparecido},
+            {"desaparecido/fecha_nacimiento_aproximada", FechaNacimientoAproximadaDesaparecido},
+            {"desaparecido/fecha_nacimiento_cebv", FechaNacimientoCebvDesaparecido},
+            {"desaparecido/descripcion_ocupacion_principal", DescripcionOcupacionPrincipal},
+            {"desaparecido/descripcion_ocupacion_secundaria", DescripcionOcupacionSecundaria},
+            {"desaparecido/telefono", NoTelefonoDesaparecido},
+            {"desaparecido/telefono/compania_id", CompañiaTelefonicaDesaparecidoSelected.Id},
+            {"desaparecido/telefono/es_movil", EsMovilDesaparecido},
+            {"desaparecido/edad_anos", EdadAnos},
+            {"desaparecido/edad_meses", EdadMeses},
+            {"desaparecido/edad_dias", EdadDias},
+            {"desaparecido/habla_espanhol", HablaEspañol},
+            {"desaparecido/sabe_leer", SabeLeer},
+            {"desaparecido/sabe_escribir", SabeEscribir},
+            {"estatus_rpdno_id", EstatusRpdno.Id},
+            {"estatus_cebv_id", EstatusCebv.Id},
+            {"desaparecido/ocupacion_principal_id", OcupacionPrincipal.Id},
+            {"desaparecido/ocupacion_principal/tipo_ocupacion_id", TipoOcupacionPrincipalDesaparecidoSelected.Id},
+            {"desaparecido/ocupacion_secundaria_id", OcupacionSecundaria.Id},
+            {"desaparecido/ocupacion_secundaria/tipo_ocupacion_id", TipoOcupacionSecundariaDesaparecidoSelected.Id},
+            {"desaparecido/accion_urgente", AccionUrgente},
+            {"desaparecido/declaracion_especial_ausencia", DeclaracionEspecialAusencia},
+            {"desaparecido/dictamen", Dictamen},
+            {"desaparecido/ci_nivel_federal", CiNivelFederal},
+            {"desaparecido/nivel_escolaridad", EstatusEscolaridadDesaparecidoSelected.Nombre},
+            {"desaparecido/curp", CurpDesaparecido},
+            {"desaparecido/rfc", RfcDesaparecido},
+            {"desaparecido/otro_derecho_humano", OtroDerechoHumano},
+            {"desaparecido/identidad_resguardada", IdentidadResguardada},
+            {"desaparecido/clasificacion_persona", ClasificacionPersona},
+            {"desaparecido/nombre_pareja_conyugue", NombreParejaConyugal},
+            {"desaparecido/url_boletin", UrlBoletin},
+            {"desaparecido/boletin_img_path", BoletinImgPath},
+            {"folio_cebv", FolioCebv},
+            {"folio_fub", FolioFub},
+            {"hechoDesaparicion/fecha_desaparicion", FechaDesaparicion},
+            {"hechoDesaparicion/fecha_desaparicion_aproximada", FechaDesaparicionAproximada},
+            {"hechoDesaparicion/fecha_desaparicion_cebv", FechaDesaparicionCebv},
+            {"hechoDesaparicion/hora_desaparicion", HoraDesaparicion},
+            {"hechoDesaparicion/hechos_desaparicion", HechosDesaparicion},
+            {"hechoDesaparicion/fecha_percato", FechaPercato},
+            {"hechoDesaparicion/fecha_percato_cebv", FechaPercatoCebv},
+            {"hechoDesaparicion/hora_percato", HoraPercato},
+            {"hechoDesaparicion/amenaza_cambio_comportamiento", AmenazaCambioComportamiento},
+            {"hechoDesaparicion/descripcion/amenaza_cambio_comportamiento", DescripcionAmenazaCambioComportamiento},
+            {"hechoDesaparicion/situacion_previa", SituacionPrevia},
+            {"hechoDesaparicion/aclaraciones_fechas_hechos", AclaracionesFechasHechos},
+            {"hechoDesaparicion/informacion_relevante", HechoDesaparicionInformacionRelevante},
+            {"hechoDesaparicion/sintesis_desaparicion", SintesisDesaparicion},
+            {"hechoDesaparicion/personas_mismo_evento", PersonaMismoEvento},
+            {"hechoDesaparicion/contador_desapariciones", ContadorDesapariciones},
+            {"hipotesis_oficial_id", HipotesisOficialSelected.Id},
+            {"hipotesis_oficial_circunstancia_id", HipotesisOficialCircunstanciaSelected.Id},
+            {"hipotesis_oficial_descripcion", HipotesisOficialDescripcion},
+            {"desaparecido/media_filiacion/estatura", Estatura},
+            {"desaparecido/media_filiacion/peso", Peso},
+            {"desaparecido/media_filiacion/complexion_id", ComplexionSelected.Id},
+            {"desaparecido/media_filiacion/color_piel_id", ColorPielSelected.Id},
+            {"desaparecido/media_filiacion/color_ojos_id", ColorOjosSelected.Id},
+            {"desaparecido/media_filiacion/color_cabello_id", ColorCabelloSelected.Id},
+            {"desaparecido/media_filiacion/tamano_cabello_id", TamanioCabelloSelected.Id},
+            {"desaparecido/media_filiacion/tipo_cabello_id", TipoCabelloSelected.Id},
+            {"desaparecido/senas_particulares/region_cuerpo_id", RegionCuerpoSelected.Id},
+            {"desaparecido/senas_particulares/region_cuerpo/color", ColorRegionCuerpo},
+            {"desaparecido/senas_particulares/vista_id", VistaSelected.Id},
+            {"desaparecido/senas_particulares/lado_id", LadoSelected.Id},
+            {"desaparecido/senas_particulares/lado/color", ColorLado},
+            {"desaparecido/senas_particulares/tipo_id", TipoSelected.Id},
+            {"desaparecido/senas_particulares/cantidad", Cantidad},
+            {"desaparecido/senas_particulares/descripcion", Descripcion},
+        };
+
+        var filtrosValidos = new List<string>();
+        var first = true;
+
+        foreach (var filtro in dic)
+        {
+            if (filtro.Value is null) continue;
+            if (first)
+            {
+                filtrosValidos.Add($"?filter[{filtro.Key}]={ (filtro.Value is string ? filtro.Value : filtro.Value.ToString()) }");
+                first = false;
+                continue;
+            }
+            filtrosValidos.Add($"&filter[{filtro.Key}]={ (filtro.Value is string ? filtro.Value : filtro.Value.ToString()) }");
         }
         
-        return string.Join("&filter", filtros);
+        return string.Join("", filtrosValidos);
     }
 
     partial void OnTipoReporteSelectedChanged(Catalogo? value)
