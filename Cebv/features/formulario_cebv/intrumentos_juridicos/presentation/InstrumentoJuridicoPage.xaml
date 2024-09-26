@@ -117,34 +117,34 @@
                         <ui:TextBlock Text="Específica si hay o existe recomendación de derechos humanos (DH)" />
                         <ComboBox DisplayMemberPath="Key"
                                   SelectedValuePath="Value"
-                                  SelectedValue="{Binding RecomedacionDerechosHumanos.EsOficial}"
+                                  SelectedValue="{Binding RecomedacionDerechos.EsOficial}"
                                   ItemsSource="{Binding OpcionesCebv}" />
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
-                               Visibility="{Binding RecomedacionDerechosHumanos.EsOficial,
+                               Visibility="{Binding RecomedacionDerechos.EsOficial,
                                Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de recomendación derechos humanos:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NumeroDocumento}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NumeroDocumento}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la recomendación derechos humanos:"
                                           FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.DondeRadica}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.DondeRadica}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechosHumanos.NombreServidorPublico}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NombreServidorPublico}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="Fecha de recepción recomendación DH:" />
                             <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
-                                        SelectedDate="{Binding RecomedacionDerechosHumanos.FechaRecepcion}" />
+                                        SelectedDate="{Binding RecomedacionDerechos.FechaRecepcion}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

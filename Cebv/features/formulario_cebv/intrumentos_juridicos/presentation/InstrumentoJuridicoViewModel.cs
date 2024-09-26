@@ -1,3 +1,4 @@
+using static Cebv.core.util.CollectionsHelper;
 using Cebv.core.util.enums;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.util.navigation;
@@ -23,22 +24,23 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
-    // Valores seleccionados
+    /// <summary>
+    /// Clase instancia para acceder a los parametros de los diferentes documentos legales.
+    /// </summary>
+    [ObservableProperty] private DocumentoLegal _p = new();
+
     [ObservableProperty] private DocumentoLegal? _carpetaInvestigacion;
 
     [ObservableProperty] private DocumentoLegal? _amparoBuscador;
 
-    [ObservableProperty] private DocumentoLegal? _recomedacionDerechosHumanos;
+    [ObservableProperty] private DocumentoLegal? _recomedacionDerechos;
 
     public InstrumentoJuridicoViewModel()
     {
         Reporte = _reporteService.GetReporte();
 
         if (!Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
+            Reporte.Desaparecidos.Add(new Desaparecido());
 
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
@@ -48,24 +50,12 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         AmparoBuscador = Desaparecido.DocumentosLegales.FirstOrDefault(
             x => x.TipoDocumento == TipoDocumentoLegal.AmparoBuscador);
 
-        RecomedacionDerechosHumanos = Desaparecido.DocumentosLegales.FirstOrDefault(
+        RecomedacionDerechos = Desaparecido.DocumentosLegales.FirstOrDefault(
             x => x.TipoDocumento == TipoDocumentoLegal.RecomendacionDerechos);
 
-        EnsureDocumentExists(ref _carpetaInvestigacion, TipoDocumentoLegal.CarpetaInvestigacion);
-        EnsureDocumentExists(ref _amparoBuscador, TipoDocumentoLegal.AmparoBuscador);
-        EnsureDocumentExists(ref _recomedacionDerechosHumanos, TipoDocumentoLegal.RecomendacionDerechos);
-    }
-
-    private void EnsureDocumentExists(ref DocumentoLegal? document, string documentType, bool? officialness = false)
-    {
-        if (document is not null) return;
-
-        var newDocument = new DocumentoLegal
-            { TipoDocumento = documentType, EsOficial = officialness };
-
-        document = newDocument;
-
-        Desaparecido.DocumentosLegales.Add(document);
+        EnsureObjectExists(ref _carpetaInvestigacion, Desaparecido.DocumentosLegales, P.ParametrosCarpeta);
+        EnsureObjectExists(ref _amparoBuscador, Desaparecido.DocumentosLegales, P.ParametrosAmparo);
+        EnsureObjectExists(ref _recomedacionDerechos, Desaparecido.DocumentosLegales, P.ParametrosRecomendacion);
     }
 
     [RelayCommand]
