@@ -20,12 +20,12 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Desaparecido _desaparecido;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     /// <summary>
-    /// Clase instancia para acceder a los parametros de los diferentes documentos legales.
+    /// Clase instanciada para acceder a los parametros por defecto.
     /// </summary>
     [ObservableProperty] private DocumentoLegal _p = new();
 
@@ -40,7 +40,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         Reporte = _reporteService.GetReporte();
 
         if (!Reporte.Desaparecidos.Any())
-            Reporte.Desaparecidos.Add(new Desaparecido());
+            Reporte.Desaparecidos.Add(Desaparecido);
 
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 

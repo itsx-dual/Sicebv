@@ -16,16 +16,20 @@ public static class CollectionsHelper
     public static void EnsureObjectExists<T>(
         ref T? obj,
         ObservableCollection<T> collection,
-        Dictionary<string, object> parameters) where T : class, new()
+        Dictionary<string, object>? parameters = null
+    ) where T : class, new()
     {
         if (obj is not null) return;
 
         obj = new T();
 
-        foreach (var (key, value) in parameters)
+        if (parameters is not null)
         {
-            var prop = obj.GetType().GetProperty(key);
-            prop?.SetValue(obj, value);
+            foreach (var (key, value) in parameters)
+            {
+                var prop = obj.GetType().GetProperty(key);
+                prop?.SetValue(obj, value);
+            }
         }
 
         collection.Add(obj);

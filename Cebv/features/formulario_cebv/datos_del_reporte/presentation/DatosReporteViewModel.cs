@@ -30,7 +30,7 @@ public partial class DatosReporteViewModel : ObservableObject
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
 
     // Valores seleccionados.
-    [ObservableProperty] private Catalogo _tipoMedio = new();
+    [ObservableProperty] private Catalogo? _tipoMedio;
 
     public DatosReporteViewModel()
     {
@@ -59,8 +59,9 @@ public partial class DatosReporteViewModel : ObservableObject
         Reportante = Reporte.Reportantes.FirstOrDefault()!;
     }
 
-    async partial void OnTipoMedioChanged(Catalogo value)
+    async partial void OnTipoMedioChanged(Catalogo? value)
     {
+        if (value?.Id is null) return;
         Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", value.Id.ToString()!);
     }
 

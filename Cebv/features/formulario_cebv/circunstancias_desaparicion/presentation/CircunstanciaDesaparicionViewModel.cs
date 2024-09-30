@@ -25,7 +25,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
-    [ObservableProperty] private Desaparecido _desaparecido = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
     [ObservableProperty] private Hipotesis? _hipotesisPrimaria;
     [ObservableProperty] private Hipotesis? _hipotesisSecundaria;
 
@@ -49,18 +49,12 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     public CircunstanciaDesaparicionViewModel()
     {
         LoadAsync();
+        
         Reporte = _reporteService.GetReporte();
-
-        if (!Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
-
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
         Reporte.HechosDesaparicion ??= new();
-
 
         HipotesisPrimaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == InicialPrimaria);
         HipotesisSecundaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == InicialSecundaria);
@@ -73,8 +67,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         TiposDomicilio = await CebvNetwork.GetRoute<Catalogo>("tipos-domicilio");
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
+        
         var reporte = _reporteService.GetReporte();
-
+        
         // Lugar de los hechos
         var estadoId =
             reporte.HechosDesaparicion?.Direccion.Asentamiento?.Municipio?.Estado?.Id;

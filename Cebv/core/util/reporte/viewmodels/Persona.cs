@@ -27,11 +27,11 @@ public partial class Persona : ObservableObject
         Catalogo? lengua,
         Catalogo? razonCurp,
         Estado? lugarNacimiento,
-        ObservableCollection<Pseudonimo>? pseudonimos,
-        ObservableCollection<Catalogo>? nacionalidades,
-        ObservableCollection<Catalogo>? gruposVulnerables,
-        ObservableCollection<Telefono>? telefonos,
-        ObservableCollection<Contacto>? contactos,
+        ObservableCollection<Pseudonimo> pseudonimos,
+        ObservableCollection<Catalogo> nacionalidades,
+        ObservableCollection<Catalogo> gruposVulnerables,
+        ObservableCollection<Telefono> telefonos,
+        ObservableCollection<Contacto> contactos,
         ObservableCollection<SenaParticular> senasParticulares,
         Estudio? estudios,
         ContextoFamiliar? contextoFamiliar,
@@ -55,8 +55,9 @@ public partial class Persona : ObservableObject
         ContextoEconomico? contextoEconomico,
         ObservableCollection<PasatiempoPersona> pasatiempos,
         ObservableCollection<ClubPersona> clubes,
-        ObservableCollection<Amistad> amistades
-    )
+        ObservableCollection<Amistad> amistades,
+        ObservableCollection<Direccion> direcciones
+        )
     {
         Id = id;
         Nombre = nombre;
@@ -103,6 +104,7 @@ public partial class Persona : ObservableObject
         Pasatiempos = pasatiempos;
         Clubes = clubes;
         Amistades = amistades;
+        Direcciones = direcciones;
     }
 
     public Persona()
@@ -174,22 +176,22 @@ public partial class Persona : ObservableObject
      * Relaciones.
      */
     [ObservableProperty, JsonProperty(PropertyName = "pseudonimos")]
-    private ObservableCollection<Pseudonimo>? _pseudonimos = new();
+    private ObservableCollection<Pseudonimo> _pseudonimos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
-    private ObservableCollection<Catalogo>? _nacionalidades = new();
+    private ObservableCollection<Catalogo> _nacionalidades = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
-    private ObservableCollection<Telefono>? _telefonos = new();
+    private ObservableCollection<Telefono> _telefonos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "contactos")]
-    private ObservableCollection<Contacto>? _contactos = new();
+    private ObservableCollection<Contacto> _contactos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "direcciones")]
-    private ObservableCollection<Direccion>? _direcciones = new();
+    private ObservableCollection<Direccion> _direcciones = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "grupos_vulnerables")]
-    private ObservableCollection<Catalogo>? _gruposVulnerables = new();
+    private ObservableCollection<Catalogo> _gruposVulnerables = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "senas_particulares")]
     private ObservableCollection<SenaParticular> _senasParticulares = [];

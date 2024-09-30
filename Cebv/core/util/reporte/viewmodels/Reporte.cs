@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.features.formulario_cebv.datos_complementarios.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -31,7 +32,8 @@ public partial class Reporte : ObservableObject
         ControlOgpi? controlOgpi,
         ObservableCollection<Expediente> expedientes,
         DesaparicionForzada? desaparicionForzada,
-        ObservableCollection<Perpetrador> perpetradores
+        ObservableCollection<Perpetrador> perpetradores,
+        DatoComplementario? datoComplementario
     )
     {
         Id = id;
@@ -51,6 +53,7 @@ public partial class Reporte : ObservableObject
         Expedientes = expedientes;
         DesaparicionForzada = desaparicionForzada;
         Perpetradores = perpetradores;
+        DatoComplementario = datoComplementario;
     }
 
     public Reporte()
@@ -117,4 +120,7 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty("perpetradores")]
     private ObservableCollection<Perpetrador> _perpetradores = [];
+
+    [ObservableProperty, JsonProperty("dato_complementario")]
+    private DatoComplementario? _datoComplementario;
 }
