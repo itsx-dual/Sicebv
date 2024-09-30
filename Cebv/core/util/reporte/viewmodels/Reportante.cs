@@ -7,7 +7,8 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class Reportante : ObservableObject
 {
     [JsonConstructor]
-    public Reportante(int? id,
+    public Reportante(
+        int? id,
         int? reporteId,
         Persona persona,
         Catalogo? parentesco,
@@ -17,12 +18,15 @@ public partial class Reportante : ObservableObject
         bool? informacionExclusivaBusqueda,
         bool? publicacionRegistroNacional,
         bool? publicacionBoletin,
-        bool? pertenenciaColectivo,
-        string? participacionBusquedas,
-        string? descripcionExtorsion,
-        string? descripcionDondeProviene,
         string? informacionRelevante,
-        int? edadEstimada,
+        bool? pertenenciaColectivo,
+        bool? participacionPreviaBusquedas,
+        string? descripcionParticipacionBusquedas,
+        bool? victimaExtorsionFraude,
+        string? descripcionExtorsionFraude,
+        bool? recibioAmenazas,
+        string? descripcionOrigenAmenazas,
+        int? edadEstimadaAnhos,
         DateTime? createdAt,
         DateTime? updatedAt
     )
@@ -37,12 +41,15 @@ public partial class Reportante : ObservableObject
         InformacionExclusivaBusqueda = informacionExclusivaBusqueda;
         PublicacionRegistroNacional = publicacionRegistroNacional;
         PublicacionBoletin = publicacionBoletin;
-        PertenenciaColectivo = pertenenciaColectivo;
         InformacionRelevante = informacionRelevante;
-        ParticipacionBusquedas = participacionBusquedas;
-        DescripcionExtorsion = descripcionExtorsion;
-        DescripcionDondeProviene = descripcionDondeProviene;
-        EdadEstimada = edadEstimada;
+        PertenenciaColectivo = pertenenciaColectivo;
+        ParticipacionPreviaBusquedas = participacionPreviaBusquedas;
+        DescripcionParticipacionBusquedas = descripcionParticipacionBusquedas;
+        VictimaExtorsionFraude = victimaExtorsionFraude;
+        DescripcionExtorsionFraude = descripcionExtorsionFraude;
+        RecibioAmenazas = recibioAmenazas;
+        DescripcionOrigenAmenazas = descripcionOrigenAmenazas;
+        EdadEstimadaAnhos = edadEstimadaAnhos;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
@@ -51,57 +58,66 @@ public partial class Reportante : ObservableObject
     {
     }
 
-    [ObservableProperty, JsonProperty(PropertyName = "id")]
+    [ObservableProperty, JsonProperty("id")]
     private int? _id;
 
-    [ObservableProperty, JsonProperty(PropertyName = "reporte_id")]
+    [ObservableProperty, JsonProperty("reporte_id")]
     private int? _reporteId;
 
-    [ObservableProperty, JsonProperty(PropertyName = "persona")]
+    [ObservableProperty, JsonProperty("persona")]
     private Persona _persona = new();
 
-    [ObservableProperty, JsonProperty(PropertyName = "colectivo")]
-    private Catalogo? _colectivo;
-
-    [ObservableProperty, JsonProperty(PropertyName = "pertenencia_colectivo")]
-    private bool? _pertenenciaColectivo;
-
-    [ObservableProperty, JsonProperty(PropertyName = "parentesco")]
+    [ObservableProperty, JsonProperty("parentesco")]
     private Catalogo? _parentesco;
 
-    [ObservableProperty, JsonProperty(PropertyName = "denuncia_anonima")]
+    [ObservableProperty, JsonProperty("colectivo")]
+    private Catalogo? _colectivo;
+
+    [ObservableProperty, JsonProperty("denuncia_anonima")]
     private bool _denunciaAnonima;
 
-    [ObservableProperty, JsonProperty(PropertyName = "informacion_consentimiento")]
+    [ObservableProperty, JsonProperty("informacion_consentimiento")]
     private bool? _informacionConsentimiento;
 
-    [ObservableProperty, JsonProperty(PropertyName = "informacion_exclusiva_busqueda")]
+    [ObservableProperty, JsonProperty("informacion_exclusiva_busqueda")]
     private bool? _informacionExclusivaBusqueda;
 
-    [ObservableProperty, JsonProperty(PropertyName = "publicacion_registro_nacional")]
+    [ObservableProperty, JsonProperty("publicacion_registro_nacional")]
     private bool? _publicacionRegistroNacional;
 
-    [ObservableProperty, JsonProperty(PropertyName = "publicacion_boletin")]
+    [ObservableProperty, JsonProperty("publicacion_boletin")]
     private bool? _publicacionBoletin;
 
-    [ObservableProperty, JsonProperty(PropertyName = "informacion_relevante")]
+    [ObservableProperty, JsonProperty("informacion_relevante")]
     private string? _informacionRelevante;
 
-    [ObservableProperty, JsonProperty(PropertyName = "participacion_busquedas")]
-    private string? _participacionBusquedas;
+    [ObservableProperty, JsonProperty("pertenencia_colectivo")]
+    private bool? _pertenenciaColectivo;
 
-    [ObservableProperty, JsonProperty(PropertyName = "descripcion_extorsion")]
-    private string? _descripcionExtorsion;
+    [ObservableProperty, JsonProperty("participacion_previa_busquedas")]
+    private bool? _participacionPreviaBusquedas;
 
-    [ObservableProperty, JsonProperty(PropertyName = "descripcion_donde_proviene")]
-    private string? _descripcionDondeProviene;
+    [ObservableProperty, JsonProperty("descripcion_participacion_busquedas")]
+    private string? _descripcionParticipacionBusquedas;
 
-    [ObservableProperty, JsonProperty(PropertyName = "edad_estimada")]
-    private int? _edadEstimada;
+    [ObservableProperty, JsonProperty("victima_extorsion_fraude")]
+    private bool? _victimaExtorsionFraude;
 
-    [ObservableProperty, JsonProperty(PropertyName = "created_at")]
+    [ObservableProperty, JsonProperty("descripcion_extorsion_fraude")]
+    private string? _descripcionExtorsionFraude;
+
+    [ObservableProperty, JsonProperty("recibio_amenazas")]
+    private bool? _recibioAmenazas;
+
+    [ObservableProperty, JsonProperty("descripcion_origen_amenazas")]
+    private string? _descripcionOrigenAmenazas;
+
+    [ObservableProperty, JsonProperty("edad_estimada_anhos")]
+    private int? _edadEstimadaAnhos;
+
+    [ObservableProperty, JsonProperty("created_at")]
     private DateTime? _createdAt;
 
-    [ObservableProperty, JsonProperty(PropertyName = "updated_at")]
+    [ObservableProperty, JsonProperty("updated_at")]
     private DateTime? _updatedAt;
 }

@@ -39,8 +39,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     {
         Reporte = _reporteService.GetReporte();
 
-        if (!Reporte.Desaparecidos.Any())
-            Reporte.Desaparecidos.Add(Desaparecido);
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
 
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 

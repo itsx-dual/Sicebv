@@ -143,7 +143,7 @@
                                           Tag="Number" />
                         </StackPanel>
                     </WrapPanel>
-    
+
                     <!-- Nacionalidad -->
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -581,19 +581,19 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="¿Ha realizado búsquedas con anterioridad?" />
-                            <ComboBox SelectedValue="{Binding ParticipoBusqueda}"
+                            <ComboBox SelectedValue="{Binding Reportante.ParticipacionPreviaBusquedas}"
                                       DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      ItemsSource="{Binding Opciones}" />
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel Margin="0 0 0 15"
-                                Visibility="{Binding ParticipoBusqueda,
+                                Visibility="{Binding Reportante.ParticipacionPreviaBusquedas,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="¿En dónde?" />
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
-                                    Text="{Binding Reportante.ParticipacionBusquedas}" />
+                                    Text="{Binding Reportante.DescripcionParticipacionBusquedas}" />
                     </StackPanel>
 
                     <WrapPanel>
@@ -602,7 +602,7 @@
                             <ComboBox SelectedValue="{Binding Reportante.PertenenciaColectivo}"
                                       DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      ItemsSource="{Binding Opciones}" />
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -623,68 +623,41 @@
                     <WrapPanel>
                         <StackPanel MinWidth="300" Margin="0 0 0 15">
                             <ui:TextBlock Text="¿Ha sido víctima de extorsión o fraude?" />
-                            <ComboBox SelectedValue="{Binding VictimaExtorsion}"
+                            <ComboBox SelectedValue="{Binding Reportante.VictimaExtorsionFraude}"
                                       DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      ItemsSource="{Binding Opciones}" />
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel Margin="0 0 0 15"
-                                Visibility="{Binding VictimaExtorsion,
+                                Visibility="{Binding Reportante.VictimaExtorsionFraude,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación:" />
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
-                                    Text="{Binding Reportante.DescripcionExtorsion}" />
+                                    Text="{Binding Reportante.DescripcionExtorsionFraude}" />
                     </StackPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="300" Margin="0 0 0 15">
                             <ui:TextBlock Text="¿Ha recibido amenazas?" />
-                            <ComboBox SelectedValue="{Binding RecibioAmenaza}"
+                            <ComboBox SelectedValue="{Binding Reportante.RecibioAmenazas}"
                                       DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      ItemsSource="{Binding Opciones}" />
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel
-                        Visibility="{Binding RecibioAmenaza,
+                        Visibility="{Binding Reportante.RecibioAmenazas,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="¿Sabe de dónde proviene?" />
                         <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
-                                    Text="{Binding Reportante.DescripcionDondeProviene}" />
+                                    Text="{Binding Reportante.DescripcionOrigenAmenazas}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
         </StackPanel>
-
-        <!--<StackPanel Grid.Row="1" Margin="10"
-                    Visibility="{Binding Reportante.DenunciaAnonima,
-                    Converter={StaticResource VisibilityConverter2}}">
-            <ui:TextBlock Text="Datos de identificación de la persona" FontTypography="Title" Margin="10" />
-            
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <StackPanel>
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre(s):" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" 
-                                        Tag="Letter"/>
-                            <ui:TextBlock Text="Teléfono móvil:" />
-                            <ui:TextBox Text="{Binding NoTelefonoMovil}" 
-                                        Tag="Number"
-                                        MaxLength="10"/>
-                        </StackPanel>
-
-                        <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesMovil}" />
-                        </StackPanel>
-                    </WrapPanel>
-                </StackPanel>
-            </Border>
-        </StackPanel-->
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"

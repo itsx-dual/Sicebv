@@ -33,8 +33,8 @@ public partial class DatosLocalizacionViewModel : ObservableObject
 
     // Hipotesis
     [ObservableProperty] private ObservableCollection<TipoHipotesis> _tiposHipotesis = new();
-    [ObservableProperty] private TipoHipotesis _tipoHipotesisUno;
-    [ObservableProperty] private TipoHipotesis _tipoHipotesisDos;
+    [ObservableProperty] private TipoHipotesis _tipoHipotesisUno = new();
+    [ObservableProperty] private TipoHipotesis _tipoHipotesisDos = new();
 
     [ObservableProperty] private ObservableCollection<Catalogo> _sitios = new();
     [ObservableProperty] private Catalogo _sitio = new();

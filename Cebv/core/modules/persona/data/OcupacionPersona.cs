@@ -1,6 +1,7 @@
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using static Cebv.core.util.enums.PrioridadOcupacion;
 
 namespace Cebv.core.modules.persona.data;
 
@@ -41,4 +42,18 @@ public partial class OcupacionPersona : ObservableObject
 
     [ObservableProperty, JsonProperty("observaciones")]
     private string? _observaciones;
+
+    // --------------------------------------------------------------
+    // Parametros por defecto de los diferentes prioirdades de ocupacion
+    // --------------------------------------------------------------
+
+    public readonly Dictionary<string, object> ParametrosPrincipal = new()
+    {
+        { nameof(Prioridad), Principal },
+    };
+
+    public readonly Dictionary<string, object> ParametrosSecundaria = new()
+    {
+        { nameof(Prioridad), Secundaria },
+    };
 }

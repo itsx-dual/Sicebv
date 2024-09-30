@@ -18,11 +18,22 @@ public partial class TipoHipotesis : ObservableObject
         Descripcion = descripcion;
         Circunstancia = circunstancia;
     }
-    
-    [ObservableProperty, JsonProperty(PropertyName = "id")] int? _id;
-    [ObservableProperty, JsonProperty(PropertyName = "abreviatura")] string? _abreviatura;
-    [ObservableProperty, JsonProperty(PropertyName = "descripcion")] string? _descripcion;
-    [ObservableProperty, JsonProperty(PropertyName = "circunstancia")] Catalogo? _circunstancia;
+
+    public TipoHipotesis()
+    {
+    }
+
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
+    int? _id;
+
+    [ObservableProperty, JsonProperty(PropertyName = "abreviatura")]
+    string? _abreviatura;
+
+    [ObservableProperty, JsonProperty(PropertyName = "descripcion")]
+    string? _descripcion;
+
+    [ObservableProperty, JsonProperty(PropertyName = "circunstancia")]
+    Catalogo? _circunstancia;
 
     public override bool Equals(object? obj)
     {
@@ -30,14 +41,14 @@ public partial class TipoHipotesis : ObservableObject
         if (ReferenceEquals(obj, null)) return false; // Other object is null
         if (obj.GetType() != GetType()) return false; // Different types
 
-        return Equals((TipoHipotesis) obj);
+        return Equals((TipoHipotesis)obj);
     }
 
     public override int GetHashCode()
     {
         return HashCode.Combine(Id, Abreviatura, Descripcion, Circunstancia);
     }
-    
+
     private bool Equals(TipoHipotesis hipotesis)
     {
         return Id == hipotesis.Id &&

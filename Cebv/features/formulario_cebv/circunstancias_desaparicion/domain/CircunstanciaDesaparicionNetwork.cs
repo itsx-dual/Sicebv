@@ -43,20 +43,6 @@ public class CircunstanciaDesaparicionNetwork
         return jsonResponse.Data;
     }
 
-    public static async Task<ObservableCollection<Persona>> BuscarPersona(string? nombre, string? apellidoPaterno,
-        string? apellidoMaterno)
-    {
-        var request = await Client.GetAsync($"api/personas?filter[nombre]={nombre}" +
-                                            $"&filter[apellido_paterno]={apellidoPaterno}" +
-                                            $"&filter[apellido_materno]={apellidoMaterno}");
-
-        var response = await request.Content.ReadAsStringAsync();
-
-        PersonasWrappedResponse jsonResponse = JsonSerializer.Deserialize<PersonasWrappedResponse>(response)!;
-
-        return jsonResponse.Data!;
-    }
-
     public static async Task<ObservableCollection<Persona>> SearchPersona(
         string? nombre,
         string? apellidoPaterno,

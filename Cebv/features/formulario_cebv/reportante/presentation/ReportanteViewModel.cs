@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
@@ -8,23 +7,25 @@ using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using static Cebv.core.data.OpcionesCebv;
 using static Cebv.core.util.CollectionsHelper;
+using static Cebv.core.util.enums.TipoContacto;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.reportante.presentation;
 
 public partial class ReportanteViewModel : ObservableObject
 {
-    [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Reportante _reportante = new();
     [ObservableProperty] private PersonaViewModel _persona = new();
     [ObservableProperty] private Direccion? _direccion;
 
-    private IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
@@ -52,9 +53,6 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private bool _tieneTelefonosFijos;
     [ObservableProperty] private bool _tieneCorreos;
     [ObservableProperty] private bool _tienePertenenciasGrupales;
-    [ObservableProperty] private bool? _participoBusqueda;
-    [ObservableProperty] private bool? _victimaExtorsion;
-    [ObservableProperty] private bool? _recibioAmenaza;
 
     public ReportanteViewModel()
     {
@@ -64,7 +62,15 @@ public partial class ReportanteViewModel : ObservableObject
         if (!Reporte.Reportantes.Any()) Reporte.Reportantes.Add(Reportante);
         Reportante = Reporte.Reportantes.FirstOrDefault()!;
 
+        Direccion = Reportante.Persona.Direcciones.FirstOrDefault();
         EnsureObjectExists(ref _direccion, Reportante.Persona.Direcciones);
+
+        EdadAproxmida = CalculateAge(Reportante.Persona.FechaNacimiento);
+
+        TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
+        TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
+        TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == CorreoElectronico);
+        TienePertenenciasGrupales = Reportante.Persona.GruposVulnerables.Any();
 
         Reportante.Persona.Estudios ??= new();
         Reportante.Persona.ContextoFamiliar ??= new();
@@ -76,59 +82,25 @@ public partial class ReportanteViewModel : ObservableObject
         GruposVulnerables = await CebvNetwork.GetRoute<Catalogo>("grupos-vulnerables");
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
 
-        var reporte = _reporteService.GetReporte();
+        var reportante = _reporteService.GetReporte().Reportantes.FirstOrDefault();
 
-        var estadoId =
-            Reportante.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio?.Estado?.Id;
+        var est =
+            reportante?.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio?.Estado;
 
-        var municipioId =
-            Reportante.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio?.Id;
+        var mpio =
+            reportante?.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio;
 
-        if (estadoId is not null)
-            Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", estadoId);
-        if (municipioId is not null)
-            Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipioId);
-
-        Reporte = reporte;
-
-        if (!Reportante.Persona.Direcciones.Any()) Reportante.Persona.Direcciones.Add(new Direccion());
-        else
+        if (est is not null)
         {
-            EstadoSelected = Reportante.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio?.Estado!;
-            MunicipioSelected = Reportante.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio!;
+            EstadoSelected = est;
+            Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", est.Id);
         }
 
-        if (reporte.Reportantes.FirstOrDefault()?.ParticipacionBusquedas == null)
+        if (mpio is not null)
         {
-            ParticipoBusqueda = null;
+            MunicipioSelected = mpio;
+            Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", mpio.Id);
         }
-        else ParticipoBusqueda = reporte.Reportantes.FirstOrDefault()?.ParticipacionBusquedas != String.Empty;
-
-        if (reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion == null)
-        {
-            VictimaExtorsion = null;
-        }
-        else VictimaExtorsion = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
-
-        if (reporte.Reportantes.FirstOrDefault()?.DescripcionDondeProviene == null)
-        {
-            RecibioAmenaza = null;
-        }
-        else RecibioAmenaza = reporte.Reportantes.FirstOrDefault()?.DescripcionExtorsion != String.Empty;
-
-        EdadAproxmida = CalculateAge(reporte.Reportantes.FirstOrDefault()?.Persona.FechaNacimiento);
-
-        if (Reportante.Persona.Telefonos is { Count: > 0 })
-        {
-            TieneTelefonosMoviles = Reportante.Persona.Telefonos.Any(x => (bool)x.EsMovil!);
-            TieneTelefonosFijos = Reportante.Persona.Telefonos.Any(x => (bool)!x.EsMovil!);
-        }
-
-        if (Reportante.Persona?.Contactos is { Count: > 0 })
-            TieneCorreos = Reportante.Persona.Contactos.Any(x => x.Tipo == "Correo Electronico");
-
-        if (Reportante.Persona?.GruposVulnerables is { Count: > 0 })
-            TienePertenenciasGrupales = (bool)Reportante.Persona.GruposVulnerables.Any();
     }
 
     private static int? CalculateAge(DateTime? birthDate)
@@ -144,37 +116,7 @@ public partial class ReportanteViewModel : ObservableObject
 
     partial void OnEdadAproxmidaChanged(int? value)
     {
-        if (Reporte.Reportantes.Count > 1) Reportante.EdadEstimada = value;
-    }
-
-    partial void OnParticipoBusquedaChanged(bool? value)
-    {
-        Reportante.ParticipacionBusquedas = value switch
-        {
-            false => "",
-            null => null,
-            _ => Reportante.ParticipacionBusquedas
-        };
-    }
-
-    partial void OnVictimaExtorsionChanged(bool? value)
-    {
-        Reportante.DescripcionExtorsion = value switch
-        {
-            false => "",
-            null => null,
-            _ => Reportante.DescripcionExtorsion
-        };
-    }
-
-    partial void OnRecibioAmenazaChanged(bool? value)
-    {
-        Reportante.DescripcionDondeProviene = value switch
-        {
-            false => "",
-            null => null,
-            _ => Reportante.DescripcionDondeProviene
-        };
+        if (Reporte.Reportantes.Count > 1) Reportante.EdadEstimadaAnhos = value;
     }
 
     async partial void OnEstadoSelectedChanged(Estado? value)
