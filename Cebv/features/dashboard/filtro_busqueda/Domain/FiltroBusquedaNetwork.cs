@@ -25,9 +25,6 @@ public class FiltroBusquedaNetwork
     {
         var request = await Client.GetAsync($"api/reportes{filtros}");
         var response = await request.Content.ReadAsStringAsync();
-        
-        Console.WriteLine($"Response: {JObject.Parse(response).ToString(Formatting.Indented)}");
-        
         ReportesQueryResponse reportes = JsonSerializer.Deserialize<ReportesQueryResponse>(response)!;
         return new ObservableCollection<ReporteResponse>(reportes.Data);
     }
