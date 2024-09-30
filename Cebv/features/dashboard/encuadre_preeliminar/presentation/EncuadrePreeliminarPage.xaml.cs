@@ -18,8 +18,8 @@ public partial class EncuadrePreeliminarPage : Page
     
     private void TelefonosMoviles_OnFilter(object sender, FilterEventArgs e)
     {
-        var item = e.Item as Telefono;
-        e.Accepted = (bool) item?.EsMovil!;
+        if (e.Item is not Telefono telefono) return;
+        e.Accepted = telefono.EsMovil ?? false;
     }
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -87,8 +87,8 @@ public partial class EncuadrePreeliminarPage : Page
     {
         var grid = sender as Grid;
     }
-
-    private void ComboBox_LostFocus(object sender, RoutedEventArgs e)
+    
+    public void Search(object sender, RoutedEventArgs e)
     {
         if (sender is not ComboBox comboBox) return;
         if (!comboBox.Items.Cast<dynamic>().Any()) return;
@@ -99,5 +99,11 @@ public partial class EncuadrePreeliminarPage : Page
         else comboBox.SelectedItem = comboBox.Items.Cast<dynamic>().FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
                                      comboBox.Items.Cast<dynamic>().FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
                                      comboBox.Items.Cast<dynamic>().First();
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        if (sender is not DatePicker datePicker) return;
+        
     }
 }

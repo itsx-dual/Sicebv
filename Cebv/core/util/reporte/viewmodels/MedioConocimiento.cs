@@ -32,6 +32,11 @@ public partial class MedioConocimiento : ObservableObject
                Nombre == medio.Nombre;
     }
 
+    public override string ToString()
+    {
+        return Nombre ?? $"El elemento {Id} no tiene nombre.";
+    }
+
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
     
