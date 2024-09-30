@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using Cebv.core.util.reporte.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
+using Cebv.features.formulario_cebv.datos_complementarios.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
-using Cebv.features.formulario_cebv.folio_expediente.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -19,7 +18,7 @@ public partial class Reporte : ObservableObject
     public Reporte(
         int id,
         bool? estaTerminado,
-        BasicResource? tipoReporte,
+        TipoReporte? tipoReporte,
         MedioConocimiento? medioConocimiento,
         Estado? estado,
         TipoHipotesis? hipotesisOficial,
@@ -30,9 +29,12 @@ public partial class Reporte : ObservableObject
         HechosDesaparicion? hechosDesaparicion,
         DateTime? fechaCreacion,
         DateTime? fechaActualizacion,
-        ObservableCollection<Expediente>? expedientes,
-        DesaparicionForzada? desaparicionForzada
-        )
+        ControlOgpi? controlOgpi,
+        ObservableCollection<Expediente> expedientes,
+        DesaparicionForzada? desaparicionForzada,
+        ObservableCollection<Perpetrador> perpetradores,
+        DatoComplementario? datoComplementario
+    )
     {
         Id = id;
         EstaTerminado = estaTerminado;
@@ -47,8 +49,11 @@ public partial class Reporte : ObservableObject
         FechaCreacion = fechaCreacion;
         FechaActualizacion = fechaActualizacion;
         InstitucionOrigen = institucionOrigen;
+        ControlOgpi = controlOgpi;
         Expedientes = expedientes;
         DesaparicionForzada = desaparicionForzada;
+        Perpetradores = perpetradores;
+        DatoComplementario = datoComplementario;
     }
 
     public Reporte()
@@ -63,8 +68,8 @@ public partial class Reporte : ObservableObject
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    private BasicResource? _tipoReporte;
-        
+    private TipoReporte? _tipoReporte;
+
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
     private Catalogo? _areaAtiende;
 
@@ -73,7 +78,7 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
     private Estado? _estado;
-    
+
     [ObservableProperty, JsonProperty(PropertyName = "zona_estado")]
     private Catalogo? _zonaEstado;
 
@@ -93,10 +98,10 @@ public partial class Reporte : ObservableObject
     private ObservableCollection<Desaparecido> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "hechos_desaparicion")]
-    private HechosDesaparicion? _hechosDesaparicion = new();
+    private HechosDesaparicion? _hechosDesaparicion;
 
     [ObservableProperty, JsonProperty(PropertyName = "hipotesis")]
-    private ObservableCollection<Hipotesis>? _hipotesis = new();
+    private ObservableCollection<Hipotesis> _hipotesis = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "fecha_creacion")]
     private DateTime? _fechaCreacion;
@@ -107,15 +112,15 @@ public partial class Reporte : ObservableObject
     [ObservableProperty, JsonProperty("control_ogpi")]
     private ControlOgpi? _controlOgpi;
 
-    [ObservableProperty, JsonProperty("folios")]
-    private ObservableCollection<FolioPretty>? _folios = new();
-    
     [ObservableProperty, JsonProperty("expedientes")]
-    private ObservableCollection<Expediente>? _expedientes= new();
-    
+    private ObservableCollection<Expediente> _expedientes = [];
+
     [ObservableProperty, JsonProperty("desaparicion_forzada")]
-    private DesaparicionForzada? _desaparicionForzada = new();
-    
+    private DesaparicionForzada? _desaparicionForzada;
+
     [ObservableProperty, JsonProperty("perpetradores")]
-    private ObservableCollection<Perpetrador>? _perpetradores = new();
+    private ObservableCollection<Perpetrador> _perpetradores = [];
+
+    [ObservableProperty, JsonProperty("dato_complementario")]
+    private DatoComplementario? _datoComplementario;
 }

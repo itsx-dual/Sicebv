@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using static Cebv.core.util.enums.TipoDocumentoLegal;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
@@ -76,4 +77,26 @@ public partial class DocumentoLegal : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "desaparecido_id")]
     private string? _desaparecidoId;
+
+    // --------------------------------------------------------------
+    // Parametros por defecto de los diferentes tipos de documentos
+    // --------------------------------------------------------------
+
+    public readonly Dictionary<string, object> ParametrosCarpeta = new()
+    {
+        { nameof(TipoDocumento), CarpetaInvestigacion },
+        { nameof(EsOficial), false }
+    };
+
+    public readonly Dictionary<string, object> ParametrosAmparo = new()
+    {
+        { nameof(TipoDocumento), AmparoBuscador },
+        { nameof(EsOficial), false }
+    };
+
+    public readonly Dictionary<string, object> ParametrosRecomendacion = new()
+    {
+        { nameof(TipoDocumento), RecomendacionDerechos },
+        { nameof(EsOficial), false }
+    };
 }

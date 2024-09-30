@@ -10,7 +10,8 @@ namespace Cebv.features.formulario_cebv.control_ogpi.presentation;
 
 public partial class ControlOgpiViewModel : ObservableObject
 {
-    [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = null!;
 
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -22,9 +23,18 @@ public partial class ControlOgpiViewModel : ObservableObject
         LoadAsync();
     }
 
-    private async Task LoadAsync()
+    private async void LoadAsync()
     {
         Reporte = _reporteService.GetReporte();
+
+        if (!Reporte.Desaparecidos.Any())
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
+
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
         await CargarCatalogos();
     }
 
@@ -39,10 +49,9 @@ public partial class ControlOgpiViewModel : ObservableObject
     [RelayCommand]
     private async Task AsignarFolio()
     {
-        if (Reporte.Folios is null ||
-            Reporte.Folios.Count <= 0) return;
+        if (Desaparecido.Folios is null) return;
 
-        var folio = Reporte.Folios[0];
+        var folio = Desaparecido.Folios;
 
         await ControlOgpiNetwork.SetFolioFub(folio);
     }

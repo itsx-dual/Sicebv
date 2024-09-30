@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.domain;
-using Cebv.core.modules.ubicacion.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -16,22 +15,24 @@ public partial class DatosReporteViewModel : ObservableObject
 {
     // Referente a servicios.
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Reportante _reportante;
-    
+
+    private IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Reportante _reportante = null!;
+
     // Catalogos.
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = [];
     [ObservableProperty] private ObservableCollection<Catalogo> _instituciones = [];
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = [];
     [ObservableProperty] private ObservableCollection<Estado> _estados = [];
+    [ObservableProperty] private ObservableCollection<Catalogo> _instituciones = [];
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
-    
+
     // Valores seleccionados.
-    [ObservableProperty] private Catalogo _tipoMedio;
-    [ObservableProperty] private string _informacionExclusivaBusquedaSelectedKey = "No";
-    [ObservableProperty] private string _publicacionInformacionSelectedKey = "No";
-    
+    [ObservableProperty] private Catalogo? _tipoMedio;
+
     public DatosReporteViewModel()
     {
         LoadAsync();
@@ -44,29 +45,29 @@ public partial class DatosReporteViewModel : ObservableObject
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
         Instituciones = await CebvNetwork.GetRoute<Catalogo>("instituciones");
     }
-    
+
     private async void LoadAsync()
     {
         var reporte = _reporteService.GetReporte();
         await CargarCatalogos(reporte.MedioConocimiento?.TipoMedio.Id ?? 1);
-        
+
         Reporte = reporte;
         TipoMedio = Reporte.MedioConocimiento?.TipoMedio!;
 
         if (!Reporte.Reportantes.Any())
-        {
             Reporte.Reportantes.Add(new Reportante());
-        }
+        
         Reportante = Reporte.Reportantes.FirstOrDefault()!;
     }
 
-    async partial void OnTipoMedioChanged(Catalogo value)
+    async partial void OnTipoMedioChanged(Catalogo? value)
     {
+        if (value?.Id is null) return;
         Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", value.Id.ToString()!);
     }
 
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

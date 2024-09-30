@@ -947,7 +947,7 @@
 
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Otras especificaciones de la ocupación:" />
-                        <ui:TextBox Text="{Binding Desaparecido.Persona.EspecificacionesOcupacion}" TextWrapping="Wrap"
+                        <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.OtrasEspecificacionesOcupacion}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
                     </StackPanel>

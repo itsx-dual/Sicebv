@@ -1,12 +1,10 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
-using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.folio_expediente.data;
 using Newtonsoft.Json;
-using Catalogo = Cebv.core.data.Catalogo;
+using Folio = Cebv.core.modules.desaparecido.data.Folio;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Cebv.features.formulario_cebv.control_ogpi.domain;
@@ -27,7 +25,7 @@ public class ControlOgpiNetwork
         return JsonConvert.DeserializeObject<EstatusPersonaCall>(response)?.Data!;
     }
 
-    public static async Task SetFolioFub(FolioPretty folio)
+    public static async Task SetFolioFub(Folio folio)
     {
         HttpRequestMessage folioRequest = new()
         {

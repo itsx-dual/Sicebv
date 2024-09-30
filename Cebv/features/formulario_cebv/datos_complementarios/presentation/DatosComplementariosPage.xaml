@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.folio_expediente.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -12,6 +14,11 @@
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Title="DatosComplementariosPage">
+    
+    <Page.DataContext>
+        <presentation:DatoComplementarioViewModel />
+    </Page.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -29,73 +36,72 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Calle:" />
-                            <ui:TextBox Text="{Binding Ubicacion.Calle}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroExterior}" MaxLength="10"/>
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.NumeroExterior}" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox Text="{Binding Ubicacion.NumeroInterior}" MaxLength="10"/>
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.NumeroInterior}" MaxLength="10"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Colonia:" />
-                            <ui:TextBox Text="{Binding Ubicacion.Colonia}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Colonia}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código postal:" />
-                            <ui:TextBox Text="{Binding Ubicacion.CodigoPostal}" Tag="Number" MaxLength="5"/>
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.CodigoPostal}" Tag="Number" MaxLength="5"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Estado:" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Ubicacion.Estado}"
-                                      ItemsSource="{Binding Ubicacion.Estados}" />
+                            <ComboBox SelectedItem="{Binding EstadoSelected}"
+                                      ItemsSource="{Binding Estados}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Municipio:" />
-                            <ComboBox SelectedItem="{Binding Ubicacion.Municipio}"
-                                      ItemsSource="{Binding Ubicacion.Municipios}" />
+                            <ComboBox SelectedItem="{Binding MunicipioSelected}"
+                                      ItemsSource="{Binding Municipios}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Localidad:" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Ubicacion.Asentamiento}"
-                                      ItemsSource="{Binding Ubicacion.Asentamientos}" />
+                                      SelectedItem="{Binding Reporte.DatoComplementario.Direccion.Asentamiento}"
+                                      ItemsSource="{Binding Asentamientos}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Entre calle 1:" />
-                            <ui:TextBox Text="{Binding Ubicacion.EntreCalle1}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle1}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Entre calle 2:" />
-                            <ui:TextBox Text="{Binding Ubicacion.EntreCalle2}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle2}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tramo carretero:" />
-                            <ui:TextBox Text="{Binding Ubicacion.TramoCarretero}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.TramoCarretero}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Referencia:" />
-                        <ui:TextBox Text="{Binding Ubicacion.Referencia}" />
+                        <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Referencia}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -103,6 +109,8 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarYSiguienteCommand}"
+                   CommandParameter="{x:Type presentation1:FolioExpedientePage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"

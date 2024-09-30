@@ -113,7 +113,7 @@
                    Margin="10"
                    HorizontalAlignment="Stretch"
                    Appearance="Primary"
-                   Command="{Binding GuardarYSiguenteCommand}"
+                   Command="{Binding GuardarYSiguienteCommand}"
                    CommandParameter="{x:Type presentation1:InstrumentoJuridicoPage}" />
     </Grid>
 </Page>

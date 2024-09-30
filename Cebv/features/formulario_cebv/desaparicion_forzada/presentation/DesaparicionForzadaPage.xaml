@@ -51,7 +51,8 @@
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15"
-                               Visibility="{Binding Reporte.DesaparicionForzada.DesaparecioAutoridad ,Converter={StaticResource VisibilityConverter2} }">
+                               Visibility="{Binding Reporte.DesaparicionForzada.DesaparecioAutoridad,
+                               Converter={StaticResource VisibilityConverter2} }">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Autoridad:" />
                             <ComboBox DisplayMemberPath="Nombre"
@@ -129,12 +130,14 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Existió detención legal previa o extorsión?" />
-                            <ComboBox SelectedItem="{Binding DetencionLegalExtorsionOpcion}"
-                                      ItemsSource="{Binding Opciones}" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedValue="{Binding Reporte.DesaparicionForzada.DetencionPreviaExtorsion}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="400"
-                                    Visibility="{Binding DetencionLegalExtorsion,
+                                    Visibility="{Binding Reporte.DesaparicionForzada.DetencionPreviaExtorsion,
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="Observaciones de la detención legal o extorsión:" />
                             <ui:TextBox
@@ -299,7 +302,9 @@
                                       ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="400">
+                        <StackPanel MinWidth="400"
+                                    Visibility="{Binding Reporte.DesaparicionForzada.DelitosDesaparicion,
+                                    Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="Especifique cuáles:" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionDelitosDesaparicion}"
                                         TextWrapping="Wrap"

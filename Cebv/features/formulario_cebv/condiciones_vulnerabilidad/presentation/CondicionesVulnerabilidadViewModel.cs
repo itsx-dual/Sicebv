@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using Cebv.core.domain;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.data;
+using static Cebv.core.util.enums.FactorRhesus;
+using static Cebv.core.util.enums.IndoleSalud;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -21,6 +23,7 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = null!;
 
     public CondicionesVulnerabilidadViewModel()
     {
@@ -35,9 +38,17 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
         CondicionesSalud = await CebvNetwork.GetRoute<Catalogo>("tipos-condiciones-salud");
 
         Reporte = _reporteService.GetReporte();
+        if (!Reporte.Desaparecidos.Any())
+        {
+            Desaparecido = new Desaparecido();
+            Reporte.Desaparecidos.Add(Desaparecido);
+        }
 
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.EnfoqueDiferenciado ??= new EnfoqueDiferenciado();
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.ContextoSocial ??= new ContextoSocial();
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        Desaparecido.Persona!.EnfoqueDiferenciado ??= new();
+        Desaparecido.Persona!.ContextoSocial ??= new();
+        Desaparecido.Persona!.Embarazo ??= new();
     }
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
@@ -45,14 +56,14 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     /**
      * Tipo de sangre
      */
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = [];
 
-    [ObservableProperty] private ObservableCollection<string> _factoresRhesus = new() { "Positivo", "Negativo" };
+    [ObservableProperty] private ObservableCollection<string> _factoresRhesus = new() { Positivo, Negativo };
 
     /**
      * Condiciones de salud
      */
-    [ObservableProperty] private ObservableCollection<string> _indolesSalud = new() { "Fisica", "Psicologica" };
+    [ObservableProperty] private ObservableCollection<string> _indolesSalud = new() { Fisica, Psicologica };
 
     [ObservableProperty] private ObservableCollection<Catalogo>? _condicionesSalud;
 
@@ -69,7 +80,7 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
             IndoleSalud is null ||
             Tratamiento is null ||
             Observaciones is null) return;
-        
+
         var condicionSalud = new CondicionSalud(null, null, CondicionSalud, IndoleSalud, Tratamiento, Observaciones);
 
         Reporte.Desaparecidos.FirstOrDefault()!.Persona!.CondicionesSalud.Add(condicionSalud);
@@ -94,15 +105,11 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     /**
      * Información migratoria
      */
-    [ObservableProperty] private string _transitoEstadosUnidos = No;
-
     [ObservableProperty] private ObservableCollection<Catalogo>? _situacionesMigratorias;
 
     /**
      * Enfoque diferenciado
      */
-    [ObservableProperty] private string _pertenenciaGrupal = No;
-
     [ObservableProperty] private ObservableCollection<Catalogo>? _enfoquesDiferenciados;
 
     [ObservableProperty] private Catalogo? _enfoqueDiferenciado;

@@ -14,14 +14,14 @@ public partial class Desaparecido : ObservableObject
         int? id,
         int? reporteId,
         string? identidadResguardada,
-        Persona? persona,
+        Persona persona,
         BasicResource? estatusRpdno,
         BasicResource? estatusCebv,
         string? clasificacionPersona,
-        bool? declaracionEspecialAusencia,
-        bool? accionUrgente,
-        bool? dictamen,
-        bool? ciNivelFederal,
+        bool declaracionEspecialAusencia,
+        bool accionUrgente,
+        bool dictamen,
+        bool ciNivelFederal,
         string? otroDerechoHumano,
         DateTime? fechaNacimientoAproximada,
         string? fechaNacimientoCebv,
@@ -32,7 +32,7 @@ public partial class Desaparecido : ObservableObject
         string? urlBoletin,
         DateTime? createdAt,
         DateTime? updatedAt,
-        ObservableCollection<DocumentoLegal>? documentosLegales,
+        ObservableCollection<DocumentoLegal> documentosLegales,
         Folio? folios,
         ObservableCollection<PrendaVestir> prendasVestir
     )
@@ -92,16 +92,16 @@ public partial class Desaparecido : ObservableObject
     private string? _clasificacionPersona;
 
     [ObservableProperty, JsonProperty("declaracion_especial_ausencia")]
-    private bool? _declaracionEspecialAusencia;
+    private bool _declaracionEspecialAusencia;
 
     [ObservableProperty, JsonProperty("accion_urgente")]
-    private bool? _accionUrgente;
+    private bool _accionUrgente;
 
     [ObservableProperty, JsonProperty("dictamen")]
-    private bool? _dictamen;
+    private bool _dictamen;
 
     [ObservableProperty, JsonProperty("ci_nivel_federal")]
-    private bool? _ciNivelFederal;
+    private bool _ciNivelFederal;
 
     [ObservableProperty, JsonProperty("otro_derecho_humano")]
     private string? _otroDerechoHumano;

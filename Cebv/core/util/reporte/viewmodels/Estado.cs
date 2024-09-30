@@ -21,6 +21,10 @@ public partial class Estado : ObservableObject
         MunicipiosCount = municipiosCount;
     }
 
+    public Estado()
+    {
+    }
+
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(this, obj)) return true; // Same object reference

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.core.modules.persona.data;
+using Cebv.features.formulario_cebv.contexto.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -20,18 +21,17 @@ public partial class Persona : ObservableObject
         string? observacionesCurp,
         string? rfc,
         bool? hablaEspanhol,
-        string? especificacionesOcupacion,
         Catalogo? sexo,
         Catalogo? genero,
         Catalogo? religion,
         Catalogo? lengua,
         Catalogo? razonCurp,
         Estado? lugarNacimiento,
-        ObservableCollection<Pseudonimo>? pseudonimos,
-        ObservableCollection<Catalogo>? nacionalidades,
-        ObservableCollection<Catalogo>? gruposVulnerables,
-        ObservableCollection<Telefono>? telefonos,
-        ObservableCollection<Contacto>? contactos,
+        ObservableCollection<Pseudonimo> pseudonimos,
+        ObservableCollection<Catalogo> nacionalidades,
+        ObservableCollection<Catalogo> gruposVulnerables,
+        ObservableCollection<Telefono> telefonos,
+        ObservableCollection<Contacto> contactos,
         ObservableCollection<SenaParticular> senasParticulares,
         Estudio? estudios,
         ContextoFamiliar? contextoFamiliar,
@@ -47,8 +47,17 @@ public partial class Persona : ObservableObject
         ObservableCollection<EnfermedadPiel> enfermedadesPiel,
         ObservableCollection<CondicionSalud> condicionesSalud,
         EnfoqueDiferenciado? enfoqueDiferenciado,
-        ContextoSocial? contextoSocial
-    )
+        ContextoSocial? contextoSocial,
+        ObservableCollection<EnfoquePersonal> enfoquesPersonales,
+        ObservableCollection<OcupacionPersona> ocupaciones,
+        Embarazo? embarazo,
+        ObservableCollection<Familiar> familiares,
+        ContextoEconomico? contextoEconomico,
+        ObservableCollection<PasatiempoPersona> pasatiempos,
+        ObservableCollection<ClubPersona> clubes,
+        ObservableCollection<Amistad> amistades,
+        ObservableCollection<Direccion> direcciones
+        )
     {
         Id = id;
         Nombre = nombre;
@@ -60,7 +69,6 @@ public partial class Persona : ObservableObject
         ObservacionesCurp = observacionesCurp;
         Rfc = rfc;
         HablaEspanhol = hablaEspanhol;
-        EspecificacionesOcupacion = especificacionesOcupacion;
         Sexo = sexo;
         Genero = genero;
         Religion = religion;
@@ -88,6 +96,15 @@ public partial class Persona : ObservableObject
         CondicionesSalud = condicionesSalud;
         EnfoqueDiferenciado = enfoqueDiferenciado;
         ContextoSocial = contextoSocial;
+        EnfoquesPersonales = enfoquesPersonales;
+        Ocupaciones = ocupaciones;
+        Embarazo = embarazo;
+        Familiares = familiares;
+        ContextoEconomico = contextoEconomico;
+        Pasatiempos = pasatiempos;
+        Clubes = clubes;
+        Amistades = amistades;
+        Direcciones = direcciones;
     }
 
     public Persona()
@@ -134,9 +151,6 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "habla_espanhol")]
     private bool? _hablaEspanhol;
 
-    [ObservableProperty, JsonProperty(PropertyName = "especificaciones_ocupacion")]
-    private string? _especificacionesOcupacion;
-
     /**
      * Llaves foráneas.
      */
@@ -162,10 +176,10 @@ public partial class Persona : ObservableObject
      * Relaciones.
      */
     [ObservableProperty, JsonProperty(PropertyName = "pseudonimos")]
-    private ObservableCollection<Pseudonimo>? _pseudonimos = new();
+    private ObservableCollection<Pseudonimo> _pseudonimos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
-    private ObservableCollection<Catalogo>? _nacionalidades = new();
+    private ObservableCollection<Catalogo> _nacionalidades = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
     private ObservableCollection<Telefono> _telefonos = [];
@@ -174,10 +188,10 @@ public partial class Persona : ObservableObject
     private ObservableCollection<Contacto> _contactos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "direcciones")]
-    private ObservableCollection<Direccion>? _direcciones = new();
+    private ObservableCollection<Direccion> _direcciones = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "grupos_vulnerables")]
-    private ObservableCollection<Catalogo>? _gruposVulnerables = new();
+    private ObservableCollection<Catalogo> _gruposVulnerables = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "senas_particulares")]
     private ObservableCollection<SenaParticular> _senasParticulares = [];
@@ -217,23 +231,39 @@ public partial class Persona : ObservableObject
 
     [ObservableProperty, JsonProperty("enfermedades_piel")]
     private ObservableCollection<EnfermedadPiel> _enfermedadesPiel = [];
-    
+
     [ObservableProperty, JsonProperty("condiciones_salud")]
     private ObservableCollection<CondicionSalud> _condicionesSalud = [];
-    
+
     [ObservableProperty, JsonProperty("enfoque_diferenciado")]
     private EnfoqueDiferenciado? _enfoqueDiferenciado;
-    
+
     [ObservableProperty, JsonProperty("contexto_social")]
     private ContextoSocial? _contextoSocial;
-    
+
     [ObservableProperty, JsonProperty("enfoques_personales")]
     private ObservableCollection<EnfoquePersonal> _enfoquesPersonales = [];
-    
-    [ObservableProperty, JsonProperty("ocupaciones")]
-    private ObservableCollection<OcupacionPersona> _ocupaciones = []; 
 
-    // TODO: Añadir ocupaciones
+    [ObservableProperty, JsonProperty("ocupaciones")]
+    private ObservableCollection<OcupacionPersona> _ocupaciones = [];
+
+    [ObservableProperty, JsonProperty("embarazo")]
+    private Embarazo? _embarazo;
+
+    [ObservableProperty, JsonProperty("familiares")]
+    private ObservableCollection<Familiar> _familiares = [];
+
+    [ObservableProperty, JsonProperty("contexto_economico")]
+    private ContextoEconomico? _contextoEconomico;
+
+    [ObservableProperty, JsonProperty("pasatiempos")]
+    private ObservableCollection<PasatiempoPersona> _pasatiempos = [];
+
+    [ObservableProperty, JsonProperty("clubes")]
+    private ObservableCollection<ClubPersona> _clubes = [];
+
+    [ObservableProperty, JsonProperty("amistades")]
+    private ObservableCollection<Amistad> _amistades = [];
 
     /**
      * Equals, GetHashCode, ToString

@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -63,7 +62,7 @@ public partial class DesaparicionForzada : ObservableObject
     private int? _reporteId;
 
     [ObservableProperty, JsonProperty("desaparecio_autoridad")]
-    private bool? _desaparecioAutoridad;
+    private bool? _desaparecioAutoridad = false;
 
     [ObservableProperty, JsonProperty("autoridad")]
     private Catalogo? _autoridad;
@@ -72,7 +71,7 @@ public partial class DesaparicionForzada : ObservableObject
     private string? _descripcionAutoridad;
 
     [ObservableProperty, JsonProperty("desaparecio_particular")]
-    private bool? _desaparecioParticular;
+    private bool? _desaparecioParticular = false;
 
     [ObservableProperty, JsonProperty("particular")]
     private Catalogo? _particular;
@@ -93,19 +92,19 @@ public partial class DesaparicionForzada : ObservableObject
     private string? _descripcionMedioCaptura;
 
     [ObservableProperty, JsonProperty("detencion_previa_extorsion")]
-    private bool? _detencionPreviaExtorsion;
+    private bool? _detencionPreviaExtorsion = false;
 
     [ObservableProperty, JsonProperty("descripcion_detencion_previa_extorsion")]
     private string? _descripcionDetencionPreviaExtorsion;
 
     [ObservableProperty, JsonProperty("ha_sido_avistado")]
-    private bool? _haSidoAvistado;
+    private bool? _haSidoAvistado = false;
 
     [ObservableProperty, JsonProperty("donde_ha_sido_avistado")]
     private string? _dondeHaSidoAvistado;
 
     [ObservableProperty, JsonProperty("delitos_desaparicion")]
-    private bool? _delitosDesaparicion;
+    private bool? _delitosDesaparicion = false;
 
     [ObservableProperty, JsonProperty("descripcion_delitos_desaparicion")]
     private string? _descripcionDelitosDesaparicion;

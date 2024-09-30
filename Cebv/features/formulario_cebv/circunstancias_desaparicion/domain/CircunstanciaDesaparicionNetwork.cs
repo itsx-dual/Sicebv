@@ -4,7 +4,6 @@ using Cebv.core.data;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
-using Cebv.features.formulario_cebv.folio_expediente.data;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Persona = Cebv.core.util.reporte.viewmodels.Persona;
@@ -69,20 +68,5 @@ public class CircunstanciaDesaparicionNetwork
                                             $"&filter[apellido_materno]={apellidoMaterno}");
         var response = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PersonaCall>(response)?.Data!;
-    }
-
-    public static async Task<ObservableCollection<Folio>> GetFoliosPrevios(int? personaId)
-    {
-        if (personaId is null) return new();
-
-        var consultarFolio = await Client.GetAsync($"api/personas/{personaId}/folios");
-
-        var response = await consultarFolio.Content.ReadAsStringAsync();
-
-        Console.WriteLine(response);
-
-        FoliosWrapped jsonResponse = JsonSerializer.Deserialize<FoliosWrapped>(response)!;
-
-        return jsonResponse.Data;
     }
 }

@@ -9,7 +9,7 @@ public partial class Reportante : ObservableObject
     [JsonConstructor]
     public Reportante(int? id,
         int? reporteId,
-        Persona? persona,
+        Persona persona,
         Catalogo? parentesco,
         Catalogo? colectivo,
         bool denunciaAnonima,
