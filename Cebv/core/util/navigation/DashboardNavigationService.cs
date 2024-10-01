@@ -1,7 +1,4 @@
-using System.CodeDom;
-using System.Runtime.CompilerServices;
 using Cebv.core.util.reporte;
-using Cebv.features.dashboard.presentation;
 using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -9,9 +6,9 @@ using Wpf.Ui.Controls;
 namespace Cebv.core.util.navigation;
 // TODO: Este codigo esta copiado de lepoco/wpfui, aun debe ser adaptado a nuestro proyecto.
 
-public partial class DashboardNavigationService : IDashboardNavigationService
+public class DashboardNavigationService : IDashboardNavigationService
 {
-        /// <summary>
+    /// <summary>
     /// Locally attached service provider.
     /// </summary>
     private readonly IServiceProvider _serviceProvider;
@@ -22,7 +19,7 @@ public partial class DashboardNavigationService : IDashboardNavigationService
     private IPageService? _pageService;
 
     private IReporteService? _reporteService = App.Current.Services.GetService<IReporteService>();
-    private IDashboardNavigationService _dashboardNavigationServiceImplementation;
+    private IDashboardNavigationService? _dashboardNavigationServiceImplementation;
 
     /// <summary>
     /// Gets or sets the control representing navigation.
@@ -81,10 +78,10 @@ public partial class DashboardNavigationService : IDashboardNavigationService
     }
 
     /// <inheritdoc />
-    public bool Navigate(Type pageType, object? dataContext, Type caller = null)
+    public bool Navigate(Type pageType, object? dataContext, Type? caller)
     {
         ThrowIfNavigationControlIsNull();
-        
+
         return NavigationControl!.Navigate(pageType, dataContext);
     }
 
@@ -96,7 +93,7 @@ public partial class DashboardNavigationService : IDashboardNavigationService
         return NavigationControl!.Navigate(pageTag);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="Navigate(System.Type)" />
     public bool Navigate(string pageTag, object? dataContext)
     {
         ThrowIfNavigationControlIsNull();

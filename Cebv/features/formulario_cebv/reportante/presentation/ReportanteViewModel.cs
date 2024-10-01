@@ -16,17 +16,17 @@ namespace Cebv.features.formulario_cebv.reportante.presentation;
 
 public partial class ReportanteViewModel : ObservableObject
 {
-    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
-    [ObservableProperty] private Reporte _reporte = null!;
-    [ObservableProperty] private Reportante _reportante = new();
-    [ObservableProperty] private PersonaViewModel _persona = new();
-    [ObservableProperty] private Direccion? _direccion;
-
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Reportante _reportante = new();
+    [ObservableProperty] private PersonaViewModel _persona = new();
+    [ObservableProperty] private Direccion? _direccion;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposVulnerables = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _colectivos = new();
@@ -38,14 +38,14 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _grupoVulnerableSelected;
 
-    [ObservableProperty] private string _noTelefonoMovil = string.Empty;
-    [ObservableProperty] private string _observacionesMovil = string.Empty;
+    [ObservableProperty] private string? _noTelefonoMovil;
+    [ObservableProperty] private string? _observacionesMovil;
 
-    [ObservableProperty] private string _noTelefonoFijo = string.Empty;
-    [ObservableProperty] private string _observacionesFijo = string.Empty;
+    [ObservableProperty] private string? _noTelefonoFijo;
+    [ObservableProperty] private string? _observacionesFijo;
 
-    [ObservableProperty] private string _nombreContacto = string.Empty;
-    [ObservableProperty] private string _observacionesContacto = string.Empty;
+    [ObservableProperty] private string? _nombreContacto;
+    [ObservableProperty] private string? _observacionesContacto;
 
     [ObservableProperty] private int? _edadAproxmida;
 
@@ -134,10 +134,9 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     private void OnAddTelefonoMovil()
     {
-        if (NoTelefonoMovil.Length <= 0) return;
+        if (NoTelefonoMovil is null) return;
 
-        var telefonos = Reporte.Reportantes[0].Persona.Telefonos;
-        telefonos.Add(new Telefono
+        Reportante.Persona.Telefonos.Add(new Telefono
         {
             Numero = NoTelefonoMovil,
             Observaciones = ObservacionesMovil,
@@ -152,10 +151,9 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     private void OnAddTelefonoFijo()
     {
-        if (NoTelefonoFijo.Length <= 0) return;
+        if (NoTelefonoFijo is null) return;
 
-        var telefonos = Reporte.Reportantes[0].Persona.Telefonos;
-        telefonos.Add(new Telefono
+        Reportante.Persona.Telefonos.Add(new Telefono
         {
             Numero = NoTelefonoFijo,
             Observaciones = ObservacionesFijo,
@@ -163,55 +161,43 @@ public partial class ReportanteViewModel : ObservableObject
             Compania = null
         });
 
-        NoTelefonoFijo = string.Empty;
-        ObservacionesFijo = string.Empty;
+        NoTelefonoFijo = null;
+        ObservacionesFijo = null;
     }
 
     [RelayCommand]
     private void OnAddContacto()
     {
-        if (NombreContacto.Length <= 0) return;
-
-        var contactos = Reporte.Reportantes[0].Persona.Contactos;
-        contactos.Add(new Contacto
+        if (NombreContacto is null) return;
+        
+        Reportante.Persona.Contactos.Add(new Contacto
         {
             Nombre = NombreContacto,
             Observaciones = ObservacionesContacto,
-            Tipo = "Correo Electronico"
+            Tipo = CorreoElectronico
         });
 
-        NombreContacto = string.Empty;
-        ObservacionesContacto = string.Empty;
+        NombreContacto = null;
+        ObservacionesContacto = null;
     }
 
     [RelayCommand]
     private void OnAddGrupoVulnerabilidad()
     {
-        var gruposVulnerables = Reporte.Reportantes[0].Persona.GruposVulnerables;
-        if (GrupoVulnerableSelected != null) gruposVulnerables.Add(GrupoVulnerableSelected);
+        if (GrupoVulnerableSelected is null) return;
+        Reportante.Persona.GruposVulnerables.Add(GrupoVulnerableSelected);
         GrupoVulnerableSelected = null;
     }
 
     [RelayCommand]
-    private void OnRemoveGrupoVulnerabilidad(Catalogo catalogo)
-    {
-        var gruposVulnerables = Reporte.Reportantes[0].Persona.GruposVulnerables;
-        gruposVulnerables.Remove(catalogo);
-    }
+    private void OnRemoveGrupoVulnerabilidad(Catalogo catalogo) =>
+        Reportante.Persona.GruposVulnerables.Remove(catalogo);
 
     [RelayCommand]
-    private void OnEliminarTelefono(Telefono telefono)
-    {
-        var telefonos = Reporte.Reportantes[0].Persona.Telefonos;
-        telefonos.Remove(telefono);
-    }
+    private void OnEliminarTelefono(Telefono telefono) => Reportante.Persona.Telefonos.Remove(telefono);
 
     [RelayCommand]
-    private void OnEliminarContacto(Contacto contacto)
-    {
-        var contactos = Reporte.Reportantes[0].Persona.Contactos;
-        contactos.Remove(contacto);
-    }
+    private void OnEliminarContacto(Contacto contacto) => Reportante.Persona.Contactos.Remove(contacto);
 
     [RelayCommand]
     private void OnGuardarYSiguiente(Type pageType)

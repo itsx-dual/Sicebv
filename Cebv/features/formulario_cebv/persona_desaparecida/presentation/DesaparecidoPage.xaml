@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.persona_desaparecida.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.media_filiacion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -21,10 +20,6 @@
     </Page.DataContext>
 
     <Page.Resources>
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
-        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
-        <util:BooleanNegation x:Key="BooleanNegation" />
-
         <CollectionViewSource x:Key="TelefonosMoviles"
                               Filter="TelefonosMoviles_OnFilter"
                               Source="{Binding Desaparecido.Persona.Telefonos}" />
@@ -198,7 +193,7 @@
                     <!-- Fecha exacta -->
                     <StackPanel Margin="0 15 0 15"
                                 Visibility="{Binding FechaAproximada,
-                                    Converter={StaticResource VisibilityConverter}}">
+                                Converter={StaticResource VisibilityConverter}}">
                         <WrapPanel>
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="Fecha de nacimiento específica:" />
@@ -293,7 +288,7 @@
                     <!-- Fecha aproximada -->
                     <StackPanel Margin="0 15 0 15"
                                 Visibility="{Binding FechaAproximada,
-                                    Converter={StaticResource VisibilityConverter2}}">
+                                Converter={StaticResource VisibilityConverter2}}">
                         <WrapPanel>
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de nacimiento aproximada:" />

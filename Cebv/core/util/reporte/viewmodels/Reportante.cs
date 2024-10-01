@@ -77,37 +77,37 @@ public partial class Reportante : ObservableObject
     private bool _denunciaAnonima;
 
     [ObservableProperty, JsonProperty("informacion_consentimiento")]
-    private bool? _informacionConsentimiento;
+    private bool? _informacionConsentimiento = false;
 
     [ObservableProperty, JsonProperty("informacion_exclusiva_busqueda")]
-    private bool? _informacionExclusivaBusqueda;
+    private bool? _informacionExclusivaBusqueda = false;
 
     [ObservableProperty, JsonProperty("publicacion_registro_nacional")]
-    private bool? _publicacionRegistroNacional;
+    private bool? _publicacionRegistroNacional = false;
 
     [ObservableProperty, JsonProperty("publicacion_boletin")]
-    private bool? _publicacionBoletin;
+    private bool? _publicacionBoletin = false;
 
     [ObservableProperty, JsonProperty("informacion_relevante")]
     private string? _informacionRelevante;
 
     [ObservableProperty, JsonProperty("pertenencia_colectivo")]
-    private bool? _pertenenciaColectivo;
+    private bool? _pertenenciaColectivo = false;
 
     [ObservableProperty, JsonProperty("participacion_previa_busquedas")]
-    private bool? _participacionPreviaBusquedas;
+    private bool? _participacionPreviaBusquedas = false;
 
     [ObservableProperty, JsonProperty("descripcion_participacion_busquedas")]
     private string? _descripcionParticipacionBusquedas;
 
     [ObservableProperty, JsonProperty("victima_extorsion_fraude")]
-    private bool? _victimaExtorsionFraude;
+    private bool? _victimaExtorsionFraude = false;
 
     [ObservableProperty, JsonProperty("descripcion_extorsion_fraude")]
     private string? _descripcionExtorsionFraude;
 
     [ObservableProperty, JsonProperty("recibio_amenazas")]
-    private bool? _recibioAmenazas;
+    private bool? _recibioAmenazas = false;
 
     [ObservableProperty, JsonProperty("descripcion_origen_amenazas")]
     private string? _descripcionOrigenAmenazas;

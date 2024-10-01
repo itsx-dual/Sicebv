@@ -11,14 +11,13 @@ public partial class Estado : ObservableObject
         string id,
         string? nombre,
         string? abreviaturaInegi,
-        string? abreviaturaCebv,
-        string? municipiosCount)
+        string? abreviaturaCebv
+    )
     {
         Id = id;
         Nombre = nombre;
         AbreviaturaInegi = abreviaturaInegi;
         AbreviaturaCebv = abreviaturaCebv;
-        MunicipiosCount = municipiosCount;
     }
 
     public Estado()
@@ -31,7 +30,7 @@ public partial class Estado : ObservableObject
         if (ReferenceEquals(obj, null)) return false; // Other object is null
         if (obj.GetType() != this.GetType()) return false; // Different types
 
-        return Equals((Estado) obj);
+        return Equals((Estado)obj);
     }
 
     private bool Equals(Estado estado)
@@ -39,8 +38,7 @@ public partial class Estado : ObservableObject
         return Id == estado.Id &&
                Nombre == estado.Nombre &&
                AbreviaturaInegi == estado.AbreviaturaInegi &&
-               AbreviaturaCebv == estado.AbreviaturaCebv &&
-               MunicipiosCount == estado.MunicipiosCount;
+               AbreviaturaCebv == estado.AbreviaturaCebv;
     }
 
     public override string ToString()
@@ -59,7 +57,4 @@ public partial class Estado : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "abreviatura_cebv")]
     private string? _abreviaturaCebv;
-
-    [ObservableProperty, JsonProperty(PropertyName = "municipios_count")]
-    private string? _municipiosCount;
 }

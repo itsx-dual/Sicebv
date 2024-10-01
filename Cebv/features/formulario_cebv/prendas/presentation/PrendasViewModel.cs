@@ -3,27 +3,23 @@ using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.prendas.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cebv.features.formulario_cebv.prendas.presentation;
 
-public enum PrendasUiState
-{
-    Normal,
-    Editar
-}
-
 public partial class PrendasViewModel : ObservableObject
 {
-    private static IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private static IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     [ObservableProperty] private PrendasUiState _uiState;
 
@@ -35,6 +31,9 @@ public partial class PrendasViewModel : ObservableObject
         LoadAsync();
         UiState = PrendasUiState.Normal;
         Reporte = _reporteService.GetReporte();
+
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
+        Desaparecido = Desaparecido;
     }
 
     /**
@@ -51,7 +50,7 @@ public partial class PrendasViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _color;
 
     [ObservableProperty] private string? _marca;
-    [ObservableProperty] private string _descripcion = string.Empty;
+    [ObservableProperty] private string? _descripcion;
 
     // Lista de prendas
     [ObservableProperty] private PrendaVestir? _prendaEditada;
@@ -69,8 +68,8 @@ public partial class PrendasViewModel : ObservableObject
     {
         if (value?.Id is null) return;
 
-        Pertenencias =
-            await CebvNetwork.GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
+        Pertenencias = await CebvNetwork
+            .GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
     }
 
     /**
@@ -82,10 +81,10 @@ public partial class PrendasViewModel : ObservableObject
         if (GrupoPertenencia is null ||
             Pertenencia is null ||
             Color is null ||
-            Descripcion == string.Empty)
+            Descripcion is null)
             return;
 
-        Reporte.Desaparecidos[0].PrendasVestir.Add(new PrendaVestir
+        Desaparecido.PrendasVestir.Add(new PrendaVestir
         {
             Pertenencia = Pertenencia,
             Color = Color!,
@@ -99,11 +98,11 @@ public partial class PrendasViewModel : ObservableObject
     [RelayCommand]
     private void EditPrenda(PrendaVestir prenda)
     {
-        var index = Reporte.Desaparecidos.FirstOrDefault()?.PrendasVestir.IndexOf(prenda);
-        
-        if (index is null) return;
-        
-        var prendaEdicionViewModel = new PrendaEdicionViewModel(prenda, index.Value);
+        var index = Desaparecido.PrendasVestir.IndexOf(prenda);
+
+        if (index == -1) return;
+
+        var prendaEdicionViewModel = new PrendaEdicionViewModel(prenda, index);
 
         // Suscribirse al evento de guardado
         prendaEdicionViewModel.PrendaGuardada += OnPrendaGuardada;
@@ -124,12 +123,11 @@ public partial class PrendasViewModel : ObservableObject
     {
         if (sender is not PrendaEdicionViewModel vm) return;
 
-        Reporte.Desaparecidos.FirstOrDefault()!.PrendasVestir[vm.Index] = prenda;
+        Desaparecido.PrendasVestir[vm.Index] = prenda;
     }
 
     [RelayCommand]
-    private void RemovePrenda(PrendaVestir prenda) =>
-        Reporte.Desaparecidos.FirstOrDefault()!.PrendasVestir.Remove(prenda);
+    private void RemovePrenda(PrendaVestir prenda) => Desaparecido.PrendasVestir.Remove(prenda);
 
 
     /**
@@ -177,7 +175,9 @@ public partial class PrendasViewModel : ObservableObject
     {
         if (PrendaEditada is null) return;
 
-        var index = Reporte.Desaparecidos.FirstOrDefault()!.PrendasVestir.IndexOf(PrendaEditada);
+        var index = Desaparecido.PrendasVestir.IndexOf(PrendaEditada);
+        
+        if (index == -1) return;
 
         var prendaEditada = new PrendaVestir
         {
@@ -187,7 +187,7 @@ public partial class PrendasViewModel : ObservableObject
             Descripcion = Descripcion
         };
 
-        Reporte.Desaparecidos.FirstOrDefault()!.PrendasVestir[index] = prendaEditada;
+        Desaparecido.PrendasVestir[index] = prendaEditada;
 
         LimpiarCampos();
         PrendaEditada = null;
@@ -200,12 +200,11 @@ public partial class PrendasViewModel : ObservableObject
         Pertenencia = null;
         Color = null;
         Marca = null;
-        Descripcion = string.Empty;
+        Descripcion = null;
     }
-
-
+    
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

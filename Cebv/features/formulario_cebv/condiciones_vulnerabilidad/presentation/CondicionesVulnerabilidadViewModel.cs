@@ -16,39 +16,34 @@ namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation;
 
 public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 {
-    private static IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
-    [ObservableProperty] private Desaparecido _desaparecido = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     public CondicionesVulnerabilidadViewModel()
     {
-        LoadAsync();
+        InitAsync();
+
+        Reporte = _reporteService.GetReporte();
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
+        Desaparecido = Desaparecido;
+
+        Desaparecido.Persona.EnfoqueDiferenciado ??= new();
+        Desaparecido.Persona.ContextoSocial ??= new();
+        Desaparecido.Persona.Embarazo ??= new();
     }
 
-    private async void LoadAsync()
+    private async void InitAsync()
     {
         TiposSangre = await CebvNetwork.GetRoute<Catalogo>("tipos-sangre");
         EnfoquesDiferenciados = await CebvNetwork.GetRoute<Catalogo>("tipos-enfoque-diferenciado");
         SituacionesMigratorias = await CebvNetwork.GetRoute<Catalogo>("situaciones-migratorias");
         CondicionesSalud = await CebvNetwork.GetRoute<Catalogo>("tipos-condiciones-salud");
-
-        Reporte = _reporteService.GetReporte();
-        if (!Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
-
-        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
-
-        Desaparecido.Persona!.EnfoqueDiferenciado ??= new();
-        Desaparecido.Persona!.ContextoSocial ??= new();
-        Desaparecido.Persona!.Embarazo ??= new();
     }
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
@@ -58,12 +53,12 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = [];
 
-    [ObservableProperty] private ObservableCollection<string> _factoresRhesus = new() { Positivo, Negativo };
+    [ObservableProperty] private ObservableCollection<string> _factoresRhesus = [Positivo, Negativo];
 
     /**
      * Condiciones de salud
      */
-    [ObservableProperty] private ObservableCollection<string> _indolesSalud = new() { Fisica, Psicologica };
+    [ObservableProperty] private ObservableCollection<string> _indolesSalud = [Fisica, Psicologica];
 
     [ObservableProperty] private ObservableCollection<Catalogo>? _condicionesSalud;
 
@@ -83,7 +78,7 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 
         var condicionSalud = new CondicionSalud(null, null, CondicionSalud, IndoleSalud, Tratamiento, Observaciones);
 
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.CondicionesSalud.Add(condicionSalud);
+        Desaparecido.Persona.CondicionesSalud.Add(condicionSalud);
 
         ClearCondicionSaludForm();
     }
@@ -91,7 +86,7 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     [RelayCommand]
     private void OnRemoverCondicionSalud(CondicionSalud condicionSalud)
     {
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.CondicionesSalud.Remove(condicionSalud);
+        Desaparecido.Persona.CondicionesSalud.Remove(condicionSalud);
     }
 
     private void ClearCondicionSaludForm()
@@ -120,18 +115,18 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
         if (EnfoqueDiferenciado is null) return;
 
         var enfoquePersonal = new EnfoquePersonal(null, null, EnfoqueDiferenciado);
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.EnfoquesPersonales.Add(enfoquePersonal);
+        Desaparecido.Persona.EnfoquesPersonales.Add(enfoquePersonal);
         EnfoqueDiferenciado = null;
     }
 
     [RelayCommand]
     private void OnEliminarEnfoquePersonal(EnfoquePersonal enfoquePersonal)
     {
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.EnfoquesPersonales.Remove(enfoquePersonal);
+        Desaparecido.Persona.EnfoquesPersonales.Remove(enfoquePersonal);
     }
 
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

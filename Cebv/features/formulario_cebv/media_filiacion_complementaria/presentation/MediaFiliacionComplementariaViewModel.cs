@@ -14,34 +14,38 @@ namespace Cebv.features.formulario_cebv.media_filiacion_complementaria.presentat
 
 public partial class MediaFiliacionComplementariaViewModel : ObservableObject
 {
-    private static IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     /**
      * Constructor de la clase
      */
     public MediaFiliacionComplementariaViewModel()
     {
-        LoadAsync();
+        InitAsync();
+
+        Reporte = _reporteService.GetReporte();
+
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        Desaparecido.Persona.MediaFiliacionComplementaria ??= new();
     }
 
     /**
      * Peticiones a la API para cargar los catálogos
      */
-    private async void LoadAsync()
+    private async void InitAsync()
     {
         TiposMentones = await CebvNetwork.GetRoute<Catalogo>("tipos-mentones");
         TiposIntervenciones = await CebvNetwork.GetRoute<Catalogo>("tipos-intervenciones-quirurgicas");
         EnfermedadesPieles = await CebvNetwork.GetRoute<Catalogo>("tipos-enfermedades-piel");
-
-        Reporte = _reporteService.GetReporte();
-
-        Reporte.Desaparecidos.FirstOrDefault()!.Persona!.MediaFiliacionComplementaria ??= new();
     }
 
     /**
@@ -50,17 +54,13 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     // Dientes
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
-    [ObservableProperty] private string _diente = No;
-
-    [ObservableProperty] private string _tratamientoDental = No;
-
     // Proyección del mentón
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMentones = new();
 
     // Intervenciones quirúrgicas
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposIntervenciones = new();
     [ObservableProperty] private Catalogo? _tipoIntervencion;
-    [ObservableProperty] private string _tipoIntervencionDescripcion = string.Empty;
+    [ObservableProperty] private string? _tipoIntervencionDescripcion;
 
     /**
      * Comandos para agregar y eliminar intervenciones quirúrgicas
@@ -70,33 +70,25 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     {
         if (TipoIntervencion is null) return;
 
-        //Se entiende @var i como un objeto de tipo IntervencionQuirurgica
-        if (Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas.Any(i =>
+        if (Desaparecido.Persona.IntervencionesQuirurgicas.Any(i =>
                 i.TipoIntervencionQuirurgica?.Id == TipoIntervencion.Id)) return;
 
-        Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas.Add(
-            new()
-            {
-                TipoIntervencionQuirurgica = TipoIntervencion,
-                Descripcion = TipoIntervencionDescripcion
-            }
+        Desaparecido.Persona.IntervencionesQuirurgicas.Add(new()
+            { TipoIntervencionQuirurgica = TipoIntervencion, Descripcion = TipoIntervencionDescripcion }
         );
 
         TipoIntervencion = null;
-        TipoIntervencionDescripcion = string.Empty;
+        TipoIntervencionDescripcion = null;
     }
 
     [RelayCommand]
-    private void OnRemoveIntervencionQuirurgica(IntervencionQuirurgica intervencionQuirurgica)
-    {
-        Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas.Remove(intervencionQuirurgica);
-    }
+    private void OnRemoveIntervencionQuirurgica(IntervencionQuirurgica intervencionQuirurgica) =>
+        Desaparecido.Persona.IntervencionesQuirurgicas.Remove(intervencionQuirurgica);
 
     // Enfermedades en la piel
     [ObservableProperty] private ObservableCollection<Catalogo> _enfermedadesPieles = new();
     [ObservableProperty] private Catalogo? _enfermedadPiel;
-    [ObservableProperty] private string _enfermedadPielDescripcion = string.Empty;
-
+    [ObservableProperty] private string? _enfermedadPielDescripcion;
 
     /**
      * Comandos para agregar o eliminar enfermedades en la piel
@@ -107,29 +99,23 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
         if (EnfermedadPiel is null) return;
 
         //Se entiende @var i como un objeto de tipo EnfermedadPiel
-        if (Reporte.Desaparecidos[0].Persona.EnfermedadesPiel.Any(i =>
+        if (Desaparecido.Persona.EnfermedadesPiel.Any(i =>
                 i.TipoEnfermedadPiel?.Id == EnfermedadPiel.Id)) return;
 
-        Reporte.Desaparecidos[0].Persona.EnfermedadesPiel.Add(
-            new()
-            {
-                TipoEnfermedadPiel = EnfermedadPiel,
-                Descripcion = EnfermedadPielDescripcion
-            }
+        Desaparecido.Persona.EnfermedadesPiel.Add(new()
+            { TipoEnfermedadPiel = EnfermedadPiel, Descripcion = EnfermedadPielDescripcion }
         );
 
         EnfermedadPiel = null;
-        EnfermedadPielDescripcion = string.Empty;
+        EnfermedadPielDescripcion = null;
     }
 
     [RelayCommand]
-    private void OnRemoveEnfermedadPiel(EnfermedadPiel enfermedadPiel)
-    {
-        Reporte.Desaparecidos[0].Persona!.EnfermedadesPiel.Remove(enfermedadPiel);
-    }
-
+    private void OnRemoveEnfermedadPiel(EnfermedadPiel enfermedadPiel) =>
+        Desaparecido.Persona.EnfermedadesPiel.Remove(enfermedadPiel);
+    
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private void OnGuardarYSiguiente(Type pageType)
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

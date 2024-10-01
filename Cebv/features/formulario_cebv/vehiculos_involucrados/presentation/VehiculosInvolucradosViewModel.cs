@@ -1,86 +1,90 @@
 using System.Collections.ObjectModel;
 using System.IO;
-using Cebv.core.data;
-using Cebv.features.formulario_cebv.vehiculos_involucrados.domain;
+using Cebv.core.domain;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.vehiculos_involucrados.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 
 namespace Cebv.features.formulario_cebv.vehiculos_involucrados.presentation;
 
 public partial class VehiculosInvolucradosViewModel : ObservableObject
 {
+    private readonly IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
+
+    private readonly IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Vehiculo _vehiculo = new();
+
     /**
      * Constructor de la clase
      */
     public VehiculosInvolucradosViewModel()
     {
-        CargarCatalogos();
+        InitAsync();
+
+        Reporte = _reporteService.GetReporte();
+    }
+
+    private async void InitAsync()
+    {
+        Relaciones = await CebvNetwork.GetRoute<Catalogo>("relaciones-vehiculos");
+        Marcas = await CebvNetwork.GetRoute<Catalogo>("marcas-vehiculos");
+        Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
+        TiposVehiculos = await CebvNetwork.GetRoute<Catalogo>("tipos-vehiculos");
+        UsosVehiculos = await CebvNetwork.GetRoute<Catalogo>("usos-vehiculos");
+    }
+
+    // Path de las imagenes seleccionadas
+    [ObservableProperty] private string[]? _openedFilePath = [];
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _relaciones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _marcas = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposVehiculos = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _usosVehiculos = new();
+
+    [RelayCommand]
+    private void OnAddVehiculo()
+    {
+        if (Vehiculo.RelacionVehiculo is null) return;
+        Reporte.Vehiculos.Add(Vehiculo);
+        Vehiculo = new();
     }
     
-    /**
-     * Path de las imagenes seleccionadas
-     */
-    [ObservableProperty]
-    private string[]? _openedFilePath = [];
-    
-    /**
-     * Variables de la clase
-     */
-    [ObservableProperty] private ObservableCollection<Catalogo> _relaciones = new();
-    [ObservableProperty] private Catalogo _relacion = new();
-    
-    [ObservableProperty] private ObservableCollection<Catalogo> _marcas = new();
-    [ObservableProperty] private Catalogo _marca = new();
-    [ObservableProperty] private string _submarca = String.Empty;
-    
-    [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
-    [ObservableProperty] private Catalogo _color = new();
-    
-    [ObservableProperty] private string _placa = String.Empty;
-    [ObservableProperty] private string _modelo = String.Empty;
-    [ObservableProperty] private string _numeroSerie = String.Empty;
-    [ObservableProperty] private string _numeroMotor = String.Empty;
-    [ObservableProperty] private string _numeroPermiso = String.Empty;
-    
-    [ObservableProperty] private ObservableCollection<Catalogo> _tiposVehiculos = new();
-    [ObservableProperty] private Catalogo _tipoVehiculo = new();
-    
-    [ObservableProperty] private ObservableCollection<Catalogo> _usosVehiculos = new();
-    [ObservableProperty] private Catalogo _usoVehiculo = new();
-    
-    [ObservableProperty] private string _senasParticulares = String.Empty;
+    [RelayCommand]
+    private void OnRemoveVehiculo(Vehiculo vehiculo)
+    {
+        Reporte.Vehiculos.Remove(vehiculo);
+    }
 
-    
     [RelayCommand]
     private void OnOpenFile()
     {
-        OpenFileDialog openFileDialog =
-            new()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                Multiselect = true
-            };
-
-        if (openFileDialog.ShowDialog() != true)
+        OpenFileDialog openFileDialog = new()
         {
-            return;
-        }
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+            Multiselect = true
+        };
 
-        if (!File.Exists(openFileDialog.FileName))
-        {
-            return;
-        }
+        if (openFileDialog.ShowDialog() is not true) return;
+
+        if (!File.Exists(openFileDialog.FileName)) return;
 
         OpenedFilePath = openFileDialog.FileNames;
     }
-    
-    private async void CargarCatalogos()
+
+    [RelayCommand]
+    private void OnGuardarYSiguiente(Type pageType)
     {
-        Relaciones = await VehiculosNetwork.GetRelacionesVehiculos();
-        Marcas = await VehiculosNetwork.GetMarcasVehiculos();
-        Colores = await VehiculosNetwork.GetColores();
-        TiposVehiculos = await VehiculosNetwork.GetTiposVehiculos();
-        UsosVehiculos = await VehiculosNetwork.GetUsosVehiculos();
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

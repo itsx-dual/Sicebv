@@ -14,9 +14,10 @@ namespace Cebv.features.formulario_cebv.intrumentos_juridicos.presentation;
 public partial class InstrumentoJuridicoViewModel : ObservableObject
 {
     // Referente a servicios
-    private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private readonly IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte;

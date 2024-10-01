@@ -45,18 +45,17 @@
                             <ui:TextBlock Text="¿Presenta ausencia de dientes?" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      SelectedItem="{Binding Diente}"
-                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneAusenciaDental}"
+                                      SelectedValue="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneAusenciaDental}"
                                       ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="400" Margin="0 0 0 15"
-                                Visibility="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneAusenciaDental,
+                                Visibility="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneAusenciaDental,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Especifique la ausencia dental:" />
                         <ui:TextBox
-                            Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.DescripcionAusenciaDental}"
+                            Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.DescripcionAusenciaDental}"
                             TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
 
@@ -66,18 +65,17 @@
                             <ui:TextBlock Text="¿Tiene algún tratamiento dental?" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
-                                      SelectedItem="{Binding TratamientoDental}"
-                                      SelectedValue="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneTratamientoDental}"
+                                      SelectedValue="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneTratamientoDental}"
                                       ItemsSource="{Binding OpcionesCebv}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="400" Margin="0 15 0 0"
-                                Visibility="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TieneTratamientoDental,
+                                Visibility="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneTratamientoDental,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Especifique el tratamiento dental:" />
                         <ui:TextBox
-                            Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.DescripcionTratamientoDental}"
+                            Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.DescripcionTratamientoDental}"
                             TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
@@ -90,7 +88,7 @@
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Tipo de mentón:" />
                             <ComboBox
-                                SelectedItem="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.TipoMenton}"
+                                SelectedItem="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TipoMenton}"
                                 ItemsSource="{Binding TiposMentones}" />
                         </StackPanel>
                     </WrapPanel>
@@ -98,7 +96,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Cualquier otra especificación del mentón:" />
                         <ui:TextBox
-                            Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.EspecificacionesMenton}"
+                            Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.EspecificacionesMenton}"
                             TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
@@ -139,7 +137,7 @@
 
                         <ui:ListView HorizontalAlignment="Stretch"
                                      MaxHeight="250"
-                                     ItemsSource="{Binding Reporte.Desaparecidos[0].Persona.IntervencionesQuirurgicas}"
+                                     ItemsSource="{Binding Desaparecido.Persona.IntervencionesQuirurgicas}"
                                      SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
@@ -203,18 +201,18 @@
                                        Icon="{ui:SymbolIcon Add24}"
                                        VerticalAlignment="Stretch"
                                        Appearance="Primary"
-                                       Command="{Binding AddEnfermedadPielCommand}"/>
+                                       Command="{Binding AddEnfermedadPielCommand}" />
                         </StackPanel>
                     </WrapPanel>
-                    
-                     <ui:CardExpander Icon="{ui:SymbolIcon Pill16}" Margin="0 0 0 15">
+
+                    <ui:CardExpander Icon="{ui:SymbolIcon Pill16}" Margin="0 0 0 15">
                         <ui:CardExpander.Header>
                             <ui:TextBlock Text="Enfermedades en la piel" FontTypography="Subtitle" />
                         </ui:CardExpander.Header>
-                        
+
                         <ui:ListView HorizontalAlignment="Stretch"
                                      MaxHeight="250"
-                                     ItemsSource="{Binding Reporte.Desaparecidos[0].Persona.EnfermedadesPiel}"
+                                     ItemsSource="{Binding Desaparecido.Persona.EnfermedadesPiel}"
                                      SelectionMode="Single">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
@@ -245,7 +243,7 @@
                                                    MinWidth="50"
                                                    Margin="5"
                                                    Command="{Binding DataContext.RemoveEnfermedadPielCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   CommandParameter="{Binding}"/>
+                                                   CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -259,7 +257,7 @@
                 <StackPanel MinWidth="400" Margin="5">
                     <ui:TextBlock Text="Observaciones:" />
                     <ui:TextBox
-                        Text="{Binding Reporte.Desaparecidos[0].Persona.MediaFiliacionComplementaria.ObservacionesGenerales}"
+                        Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.ObservacionesGenerales}"
                         TextWrapping="Wrap" AcceptsReturn="True"
                         MinHeight="100" />
                 </StackPanel>
@@ -268,7 +266,7 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarYSiguenteCommand}"
+                   Command="{Binding GuardarYSiguienteCommand}"
                    CommandParameter="{x:Type presentation1:PrendasPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"

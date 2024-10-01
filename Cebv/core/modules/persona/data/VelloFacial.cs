@@ -46,13 +46,13 @@ public partial class VelloFacial : ObservableObject
     private string? _especificacionesCejas;
 
     [ObservableProperty, JsonProperty("tiene_bigote")]
-    private bool? _tieneBigote;
+    private bool? _tieneBigote = false;
 
     [ObservableProperty, JsonProperty("especificaciones_bigote")]
     private string? _espescificacionesBigote;
 
     [ObservableProperty, JsonProperty("tiene_barba")]
-    private bool? _tieneBarba;
+    private bool? _tieneBarba = false;
 
     [ObservableProperty, JsonProperty("especificaciones_barba")]
     private string? _especificacionesBarba;

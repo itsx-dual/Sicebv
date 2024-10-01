@@ -54,15 +54,13 @@
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="Medio de conocimiento genérico:" />
                         <ComboBox SelectedItem="{Binding TipoMedio}"
-                                  ItemsSource="{Binding TiposMedios}"
-                                  DisplayMemberPath="Nombre"/>
+                                  ItemsSource="{Binding TiposMedios}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
                         <ui:TextBlock Text="Medio de conocimiento específico:" />
                         <ComboBox SelectedItem="{Binding Reporte.MedioConocimiento}"
-                                  ItemsSource="{Binding Medios}"
-                                  DisplayMemberPath="Nombre"/>
+                                  ItemsSource="{Binding Medios}"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">

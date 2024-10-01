@@ -13,61 +13,57 @@ namespace Cebv.features.formulario_cebv.media_filiacion.presentation;
 
 public partial class MediaFiliacionViewModel : ObservableObject
 {
-    private static IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     /**
      * Constructor de la clase
      */
     public MediaFiliacionViewModel()
     {
-        LoadAsync();
+        IniAsync();
+
+        Reporte = _reporteService.GetReporte();
+
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
+        Desaparecido = Reporte.Desaparecidos.First();
+
+
+        Desaparecido.Persona.Salud ??= new();
+        Desaparecido.Persona.Ojos ??= new();
+        Desaparecido.Persona.Cabello ??= new();
+        Desaparecido.Persona.VelloFacial ??= new();
+        Desaparecido.Persona.Nariz ??= new();
+        Desaparecido.Persona.Boca ??= new();
+        Desaparecido.Persona.Orejas ??= new();
     }
 
-    /**
-     * Variables de la clase
-     */
     // Perfil corporal
-    [ObservableProperty] private float _estatura;
-
-    [ObservableProperty] private float _peso;
-
     [ObservableProperty] private ObservableCollection<Catalogo> _complexiones = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _coloresPieles = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _formasCaras = new();
 
     // Ojos
     [ObservableProperty] private ObservableCollection<Catalogo> _coloresOjos = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _formasOjos = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosOjos = new();
 
 
     // Cabello
     [ObservableProperty] private ObservableCollection<Catalogo> _calvicies = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _coloresCabellos = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabellos = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabellos = new();
 
     // Vello facial
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposCejas = new();
-
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
-
-    [ObservableProperty] private string _bigote = No;
-
-    [ObservableProperty] private string _barba = No;
 
     // Nariz
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposNarices = new();
@@ -75,18 +71,16 @@ public partial class MediaFiliacionViewModel : ObservableObject
 
     // Boca
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosBocas = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosLabios = new();
 
     // Orejas
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosOrejas = new();
-
     [ObservableProperty] private ObservableCollection<Catalogo> _formasOrejas = new();
 
     /**
      * Peticiones a la API para obtener los catalogos
      */
-    private async void LoadAsync()
+    private async void IniAsync()
     {
         Complexiones = await CebvNetwork.GetRoute<Catalogo>("complexiones");
         ColoresPieles = await CebvNetwork.GetRoute<Catalogo>("colores-piel");
@@ -104,22 +98,6 @@ public partial class MediaFiliacionViewModel : ObservableObject
         TamanosLabios = await CebvNetwork.GetRoute<Catalogo>("tamanos-labios");
         TamanosOrejas = await CebvNetwork.GetRoute<Catalogo>("tamanos-orejas");
         FormasOrejas = await CebvNetwork.GetRoute<Catalogo>("formas-orejas");
-
-        Reporte = _reporteService.GetReporte();
-
-        var @default = Reporte.Desaparecidos.FirstOrDefault();
-
-        if (@default == null) return;
-        
-        @default.Persona ??= new();
-            
-        @default.Persona.Salud ??= new();
-        @default.Persona.Ojos ??= new();
-        @default.Persona.Cabello ??= new();
-        @default.Persona.VelloFacial ??= new();
-        @default.Persona.Nariz ??= new();
-        @default.Persona.Boca ??= new();
-        @default.Persona.Orejas ??= new();
     }
 
     [RelayCommand]

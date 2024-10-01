@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
       xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
@@ -22,9 +21,6 @@
     </Page.DataContext>
 
     <Page.Resources>
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
-        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
-
         <CollectionViewSource x:Key="ExpedientesDirectos"
                               Filter="ExpedientesDirectos_OnFilter"
                               Source="{Binding Reporte.Expedientes}" />
