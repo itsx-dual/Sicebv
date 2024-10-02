@@ -1,63 +1,89 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using Cebv.core.domain;
 using Cebv.core.modules.hipotesis.presentation;
-using Cebv.core.modules.ubicacion.domain;
+using Cebv.core.util.navigation;
+using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
-using Cebv.features.formulario_cebv.control_ogpi.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
-using Catalogo = Cebv.core.data.Catalogo;
-using Estado = Cebv.core.modules.ubicacion.data.Estado;
-using Municipio = Cebv.core.modules.ubicacion.data.Municipio;
+using static Cebv.core.data.OpcionesCebv;
+using static Cebv.core.util.CollectionsHelper;
+using static Cebv.core.util.enums.EtapaHipotesis;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
 public partial class DatosLocalizacionViewModel : ObservableObject
 {
-    /**
-     * Constructor
-     */
-    public DatosLocalizacionViewModel() => CargarCatalogos();
+    private readonly IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
 
-    /**
-     * Localización
-     */
-    [ObservableProperty] private bool _localizadaConVida;
+    private readonly IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
+    [ObservableProperty] private Hipotesis _p = new();
+    [ObservableProperty] private Hipotesis? _hipotesisPrimaria;
+    [ObservableProperty] private Hipotesis? _hipotesisSecundaria;
+    [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     [ObservableProperty] private ObservableCollection<Estado> _estados = new();
-    [ObservableProperty] private Estado _estado = new();
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
-    [ObservableProperty] private Municipio _municipio = new();
+    [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
-    // Hipotesis
-    [ObservableProperty] private ObservableCollection<TipoHipotesis> _tiposHipotesis = new();
-    [ObservableProperty] private TipoHipotesis _tipoHipotesisUno;
-    [ObservableProperty] private TipoHipotesis _tipoHipotesisDos;
+    [ObservableProperty] private Estado? _estadoSelected;
+    [ObservableProperty] private Municipio? _municipioSelected;
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _sitios = new();
-    [ObservableProperty] private Catalogo _sitio = new();
-
-    [ObservableProperty] private string _areaCodifica = String.Empty;
-    
-    [ObservableProperty] private ObservableCollection<EstatusPersona> _estatusPersonas = new();
-    [ObservableProperty] private Catalogo _estatusPersona = new();
-    
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
 
-
-    private async void CargarCatalogos()
+    public DatosLocalizacionViewModel()
     {
-        //Estados = await UbicacionNetwork.GetEstados();
-        TiposHipotesis = await CircunstanciaDesaparicionNetwork.GetTiposHipotesis();
-        Sitios = await CircunstanciaDesaparicionNetwork.GetSitios();
-        EstatusPersonas = await ControlOgpiNetwork.GetEstatusPersonas();
+        InitAsync();
 
+        Reporte = _reporteService.GetReporte();
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        Desaparecido.Localizacion ??= new();
+        
+        HipotesisPrimaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == FinalPrimaria);
+        HipotesisSecundaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == FinalSecundaria);
+        
+        EnsureObjectExists(ref _hipotesisPrimaria, Reporte.Hipotesis, P.ParametrosFinalPrimaria);
+        EnsureObjectExists(ref _hipotesisSecundaria, Reporte.Hipotesis, P.ParametrosFinalSecundaria);
+
+        _localizadoVivo = Desaparecido.EstatusPreliminar?.Id == 3;
     }
 
-    //async partial void OnEstadoChanged(Estado value) =>
-    //    Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
+    private async void InitAsync()
+    {
+        EstatusPersonas = await CebvNetwork.GetRoute<BasicResource>("estatus-personas");
+        Estados = await CebvNetwork.GetRoute<Estado>("estados");
+
+        var reporte = _reporteService.GetReporte();
+
+        var mpio = reporte.Desaparecidos.FirstOrDefault()?.Localizacion?.MunicipioLocalizacion;
+
+        if (mpio is not null)
+        {
+            Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", mpio.Estado?.Id!);
+            MunicipioSelected = mpio;
+        }
+    }
+
+    [ObservableProperty] private ObservableCollection<BasicResource> _estatusPersonas = new();
+    [ObservableProperty] private bool _localizadoVivo;
+
+    async partial void OnEstadoSelectedChanged(Estado? value)
+    {
+        if (value?.Id is null) return;
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", value.Id);
+    }
 
 
     /**
@@ -138,5 +164,12 @@ public partial class DatosLocalizacionViewModel : ObservableObject
         }
 
         OpenedIdentificacionOficialPath = openFileDialog.FileNames;
+    }
+
+    [RelayCommand]
+    private void OnGuardarYSiguente(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }

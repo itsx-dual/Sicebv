@@ -3,6 +3,8 @@ using Cebv.core.util.reporte.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_complementarios.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
+using Cebv.features.formulario_cebv.folio_expediente.data;
+using Cebv.features.formulario_cebv.vehiculos_involucrados.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -34,7 +36,9 @@ public partial class Reporte : ObservableObject
         ObservableCollection<Expediente> expedientes,
         DesaparicionForzada? desaparicionForzada,
         ObservableCollection<Perpetrador> perpetradores,
-        DatoComplementario? datoComplementario
+        DatoComplementario? datoComplementario,
+        ObservableCollection<Vehiculo> vehiculos,
+        ExpedienteFisico? expedienteFisico
     )
     {
         Id = id;
@@ -55,6 +59,8 @@ public partial class Reporte : ObservableObject
         DesaparicionForzada = desaparicionForzada;
         Perpetradores = perpetradores;
         DatoComplementario = datoComplementario;
+        Vehiculos = vehiculos;
+        ExpedienteFisico = expedienteFisico;
     }
 
     public Reporte()
@@ -124,4 +130,10 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty("dato_complementario")]
     private DatoComplementario? _datoComplementario;
+
+    [ObservableProperty, JsonProperty("vehiculos")]
+    private ObservableCollection<Vehiculo> _vehiculos = [];
+
+    [ObservableProperty, JsonProperty("expediente_fisico")]
+    private ExpedienteFisico? _expedienteFisico;
 }

@@ -12,20 +12,22 @@ using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using static Cebv.core.util.CollectionsHelper;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
 public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 {
-    private IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
+    [ObservableProperty] private Hipotesis _p = new();
     [ObservableProperty] private Hipotesis? _hipotesisPrimaria;
     [ObservableProperty] private Hipotesis? _hipotesisSecundaria;
 
@@ -48,59 +50,47 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
      */
     public CircunstanciaDesaparicionViewModel()
     {
-        LoadAsync();
-        
+        InitAsync();
+
         Reporte = _reporteService.GetReporte();
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
-        Reporte.HechosDesaparicion ??= new();
-
         HipotesisPrimaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == InicialPrimaria);
         HipotesisSecundaria = Reporte.Hipotesis.FirstOrDefault(x => x.Etapa == InicialSecundaria);
 
-        EnsureHipotesisExists(ref _hipotesisPrimaria, InicialPrimaria);
-        EnsureHipotesisExists(ref _hipotesisSecundaria, InicialSecundaria);
+        EnsureObjectExists(ref _hipotesisPrimaria, Reporte.Hipotesis, P.ParametrosInicialPrimaria);
+        EnsureObjectExists(ref _hipotesisSecundaria, Reporte.Hipotesis, _p.ParametrosInicialSecundaria);
+
+        Reporte.HechosDesaparicion ??= new();
     }
 
-    private async void LoadAsync()
+    private async void InitAsync()
     {
         TiposDomicilio = await CebvNetwork.GetRoute<Catalogo>("tipos-domicilio");
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
-        
-        var reporte = _reporteService.GetReporte();
-        
-        // Lugar de los hechos
-        var estadoId =
-            reporte.HechosDesaparicion?.Direccion.Asentamiento?.Municipio?.Estado?.Id;
 
-        var municipioId =
-            reporte.HechosDesaparicion?.Direccion.Asentamiento?.Municipio?.Id;
+        var reportante = _reporteService.GetReporte().Reportantes.FirstOrDefault();
 
-        if (estadoId is not null)
+        var est =
+            reportante?.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio?.Estado;
+
+        var mpio =
+            reportante?.Persona.Direcciones.FirstOrDefault()?.Asentamiento?.Municipio;
+
+        if (est is not null)
         {
-            EstadoSelected = Estados.FirstOrDefault(x => x.Id == estadoId);
-            Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", estadoId);
+            EstadoSelected = est;
+            Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", est.Id);
         }
 
-        if (municipioId != null)
+        if (mpio is not null)
         {
-            MunicipioSelected = Municipios.FirstOrDefault(x => x.Id == municipioId);
-            Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipioId);
+            MunicipioSelected = mpio;
+            Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", mpio.Id);
         }
 
         FoliosPrevios();
-    }
-
-    private void EnsureHipotesisExists(ref Hipotesis? hipotesis, string etapa)
-    {
-        if (hipotesis is not null) return;
-
-        var nuevaHipotesis = new Hipotesis { Etapa = etapa };
-
-        hipotesis = nuevaHipotesis;
-
-        Reporte.Hipotesis.Add(hipotesis);
     }
 
     private async void FoliosPrevios()
@@ -175,11 +165,8 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void RemoveExpediente(Expediente expediente)
-    {
-        Reporte.Expedientes.Remove(expediente);
-    }
-
+    private void RemoveExpediente(Expediente expediente) => Reporte.Expedientes.Remove(expediente);
+    
     /**
      * Lógica de guardado
      */

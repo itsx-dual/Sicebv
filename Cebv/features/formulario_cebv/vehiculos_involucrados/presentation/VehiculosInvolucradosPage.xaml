@@ -6,6 +6,7 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.vehiculos_involucrados.presentation"
       xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -47,174 +48,228 @@
             </ui:CardExpander>
 
             <ui:TextBlock Text="Datos del vehículo involucrado" FontTypography="Subtitle" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}">
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-
-                    <WrapPanel Grid.Row="0">
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="Relacion con la persona &#x0a;Desaparecida o no localizada:"
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 15">
+                <StackPanel>
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="Relacion con la persona desaparecida o no localizada:"
                                           FontTypography="Caption" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Relacion}"
+                            <ComboBox SelectedItem="{Binding Vehiculo.RelacionVehiculo}"
                                       ItemsSource="{Binding Relaciones}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200" Margin="0,14,0,0">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Marca:" FontTypography="Caption" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Marca}"
+                            <ComboBox SelectedItem="{Binding Vehiculo.MarcaVehiculo}"
                                       ItemsSource="{Binding Marcas}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200" Margin="0,14,0,0">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Submarca:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Submarca}" />
+                            <ui:TextBox Text="{Binding Vehiculo.Submarca}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200" Margin="0,14,0,0">
+                        <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Color:" FontTypography="Caption" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding Color}"
+                            <ComboBox SelectedItem="{Binding Vehiculo.Color}"
                                       ItemsSource="{Binding Colores}" />
                         </StackPanel>
                     </WrapPanel>
 
 
-                    <WrapPanel Grid.Row="1" Margin="0,14,0,0">
-                        <StackPanel MinWidth="200">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Placa:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Placa}" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
+                            <ui:TextBox Text="{Binding Vehiculo.Placa}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Modelo (Año):" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Modelo}" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
+                            <ui:TextBox Text="{Binding Vehiculo.Modelo}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de Serie:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NumeroSerie}" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
+                            <ui:TextBox Text="{Binding Vehiculo.NumeroSerie}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-
-                        <StackPanel MinWidth="200">
+                        <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Número de Motor:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NumeroMotor}" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
+                            <ui:TextBox Text="{Binding Vehiculo.NumeroMotor}" />
                         </StackPanel>
                     </WrapPanel>
 
 
-                    <WrapPanel Grid.Row="2">
-                        <StackPanel MinWidth="200">
+                    <WrapPanel Margin="0 0 0 15">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Número de Permiso:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding NumeroPermiso}" />
-                            <ui:TextBlock Text="Error"
-                                          FontTypography="Caption"
-                                          Visibility="Hidden" />
+                            <ui:TextBox Text="{Binding Vehiculo.NumeroPermiso}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200">
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Tipo Vehículo:" FontTypography="Caption" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding TipoVehiculo}"
+                            <ComboBox SelectedItem="{Binding Vehiculo.TipoVehiculo}"
                                       ItemsSource="{Binding TiposVehiculos}" />
                         </StackPanel>
 
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel MinWidth="200">
+                        <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Uso Vehículo:" FontTypography="Caption" />
-                            <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding UsoVehiculo}"
+                            <ComboBox SelectedItem="{Binding Vehiculo.UsoVehiculo}"
                                       ItemsSource="{Binding UsosVehiculos}" />
                         </StackPanel>
-
-                        <Separator Width="25" Background="Transparent" BorderThickness="0" />
-
                     </WrapPanel>
 
-                    <StackPanel Grid.Row="3">
-                        <StackPanel>
-                            <ui:TextBlock Text="Señas Particulares:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding SenasParticulares}" />
-                        </StackPanel>
-
-                        <Separator Height="25" Background="Transparent" BorderThickness="0" />
-
-                        <StackPanel>
-                            <ui:TextBlock Text="Fotografías:" FontTypography="Caption" />
-                            <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                                       Command="{Binding OpenFileCommand}"
-                                       Content="Añadir imágenes"
-                                       Margin="5" />
-                        </StackPanel>
+                    <StackPanel>
+                        <ui:TextBlock Text="Señas Particulares:" FontTypography="Caption" />
+                        <ui:TextBox Text="{Binding Vehiculo.Descripcion}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True"
+                                    MinHeight="100" />
                     </StackPanel>
 
-                    <WrapPanel Grid.Row="4"
-                               x:Name="Imagenes"
+                    <Separator Height="25" Background="Transparent" BorderThickness="0" />
+
+                    <StackPanel>
+                        <ui:TextBlock Text="Fotografías:" FontTypography="Caption" />
+                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                                   Command="{Binding OpenFileCommand}"
+                                   Content="Añadir imágenes"
+                                   Margin="5" />
+                    </StackPanel>
+
+                    <WrapPanel x:Name="Imagenes" Margin="0 0 0 15"
                                DataContext="{Binding ElementName=Page, Path=DataContext.OpenedFilePath}"
                                DataContextChanged="Imagenes_OnDataContextChanged" />
 
-                    <WrapPanel Grid.Row="5" Margin="0,14,0,0">
-                        <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="Estatus del Vehículo:" FontTypography="Caption" />
+                    <StackPanel>
+                        <ui:TextBlock Text="Estatus del Vehículo:" FontTypography="Caption" />
+                        <ui:ToggleSwitch OffContent="No Localizado"
+                                         OnContent="Localizado"
+                                         IsChecked="{Binding Vehiculo.Localizado}"
+                                         Margin="5" />
+                    </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton Content="Localizado" />
-                                <RadioButton Content="No localizado" />
-                            </StackPanel>
-                        </StackPanel>
-
-                    </WrapPanel>
-
-                </Grid>
+                    <ui:Button Command="{Binding AddVehiculoCommand}"
+                               Content="Agregar vehículo"
+                               Icon="{ui:SymbolIcon Add24}"
+                               Margin="5"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary" />
+                </StackPanel>
             </Border>
-        </StackPanel>
 
+            <ui:CardExpander Icon="{ui:SymbolIcon VehicleCar24}" Margin="0 0 0 15">
+                <ui:CardExpander.Header>
+                    <ui:TextBlock Text="Vehículos" FontTypography="Subtitle" />
+                </ui:CardExpander.Header>
+
+                <ui:ListView HorizontalAlignment="Stretch"
+                             MaxHeight="400"
+                             ItemsSource="{Binding Reporte.Vehiculos}"
+                             SelectionMode="Single">
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ui:CardControl
+                                    Margin="5 5 60 5"
+                                    Padding="10"
+                                    Icon="{ui:SymbolIcon VehicleCar24}"
+                                    HorizontalAlignment="Stretch">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:TextBlock Appearance="Secondary"
+                                                              Text="{Binding Submarca, StringFormat='SM: {0}'}"
+                                                              Margin="0 0 10 0" />
+                                                <ui:TextBlock
+                                                    Appearance="Secondary"
+                                                    Text="{Binding Modelo, StringFormat='MD: {0}'}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:TextBlock Margin="0 0 10 0"
+                                                              FontTypography="Subtitle"
+                                                              Text="{Binding MarcaVehiculo.Nombre, StringFormat='MC: {0}'}"
+                                                              TextWrapping="Wrap" />
+                                                <ui:TextBlock FontTypography="Subtitle"
+                                                              Text="{Binding Color.Nombre, StringFormat='CL: {0}'}"
+                                                              TextWrapping="Wrap" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ui:TextBlock Appearance="Secondary"
+                                                              Text="{Binding TipoVehiculo.Nombre, StringFormat='TP: {0}'}"
+                                                              TextWrapping="Wrap"
+                                                              Margin="0 0 10 0" />
+                                                <ui:TextBlock Appearance="Secondary"
+                                                              Text="{Binding UsoVehiculo.Nombre, StringFormat='US: {0}'}"
+                                                              TextWrapping="Wrap" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <ui:TextBlock Appearance="Secondary"
+                                                          Text="{Binding RelacionVehiculo.Nombre, StringFormat='RL: {0}'}"
+                                                          TextWrapping="Wrap"
+                                                          Margin="0 0 10 0" />
+                                            <ui:TextBlock Appearance="Secondary"
+                                                          Text="{Binding Localizado, StringFormat='LC: {0}'}"
+                                                          TextWrapping="Wrap"
+                                                          Margin="0 0 10 0" />
+                                            <ui:TextBlock Appearance="Secondary"
+                                                          Text="{Binding NumeroPermiso, StringFormat='NP: {0}'}"
+                                                          TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                        <ui:TextBlock Grid.Row="1"
+                                                      Appearance="Primary"
+                                                      Text="{Binding Descripcion}"
+                                                      TextWrapping="Wrap"
+                                                      Margin="10" />
+
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                            <ui:TextBlock Appearance="Secondary"
+                                                          Text="{Binding Placa, StringFormat='PC: {0}'}"
+                                                          TextWrapping="Wrap"
+                                                          Margin="0 0 10 0"
+                                                          FontWeight="DemiBold" />
+                                            <ui:TextBlock Appearance="Secondary"
+                                                          Text="{Binding NumeroSerie, StringFormat='NS: {0}'}"
+                                                          TextWrapping="Wrap"
+                                                          Margin="0 0 10 0" />
+                                            <ui:TextBlock Appearance="Secondary"
+                                                          Text="{Binding NumeroMotor, StringFormat='NM: {0}'}"
+                                                          TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Grid>
+                                </ui:CardControl>
+
+                                <ui:Button VerticalAlignment="Stretch"
+                                           Appearance="Danger"
+                                           HorizontalAlignment="Right"
+                                           Icon="{ui:SymbolIcon Delete24}"
+                                           MinWidth="50"
+                                           Margin="5"
+                                           Command="{Binding ElementName=Page, Path=DataContext.RemoveVehiculoCommand}"
+                                           CommandParameter="{Binding}" />
+
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </ui:CardExpander>
+        </StackPanel>
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
+                   Command="{Binding GuardarYSiguienteCommand}"
+                   CommandParameter="{x:Type presentation1:DatosComplementariosPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"

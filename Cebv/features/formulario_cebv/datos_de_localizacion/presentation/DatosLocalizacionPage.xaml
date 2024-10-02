@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.control_ogpi.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -14,11 +14,6 @@
       mc:Ignorable="d"
       Name="Page"
       Title="DatosDeLocalizacionPage">
-
-    <Page.Resources>
-        <util:VisibilityConverter x:Key="VisibilityConverter" />
-        <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
-    </Page.Resources>
 
     <Page.DataContext>
         <presentation:DatosLocalizacionViewModel />
@@ -42,111 +37,129 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
-                        <ui:ToggleSwitch OnContent="¿La persona desaparecida fue localizada con vida? No"
-                                         OffContent="¿La persona desaparecida fue localizada con vida? Sí"
-                                         IsChecked="{Binding LocalizadaConVida}" />
+                        <ui:ToggleSwitch x:Name="ToggleSwitchLocalizadoVivo"
+                                         OnContent="¿La persona desaparecida fue localizada con vida? Sí"
+                                         OffContent="¿La persona desaparecida fue localizada con vida? No"
+                                         IsChecked="{Binding LocalizadoVivo}"
+                                         IsEnabled="False" />
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Estatus preliminar: *" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      ItemsSource="{Binding EstatusPersonas}"/>
+                                      SelectedItem="{Binding Desaparecido.EstatusPreliminar}"
+                                      ItemsSource="{Binding EstatusPersonas}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" IsEnabled="False">
                             <ui:TextBlock Text="Fecha de estatus preliminar:" />
-                            <DatePicker SelectedDateFormat="Short" />
+                            <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusPreliminar}" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Fecha de localización: *" />
-                            <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                            <DatePicker SelectedDate="{Binding Desaparecido.Localizacion.FechaLocalizacion}"
+                                        IsTodayHighlighted="True" />
                         </StackPanel>
                     </WrapPanel>
 
                     <!-- Localizado con vida -->
                     <StackPanel Margin="0 0 0 15"
-                                Visibility="{Binding LocalizadaConVida,
-                                Converter={StaticResource VisibilityConverter}}">
+                                Visibility="{Binding LocalizadoVivo,
+                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Localizada con vida" FontTypography="Subtitle" Margin="0 25 0 25" />
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Estatus formalizado:" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          ItemsSource="{Binding EstatusPersonas}"/>
+                                          SelectedItem="{Binding Desaparecido.EstatusFormalizado}"
+                                          ItemsSource="{Binding EstatusPersonas}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de formalización del estatus:" />
-                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                                <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusFormalizado}"
+                                            IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
                                 <ui:TextBlock Text="Fecha de actualización en sistema:" />
-                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                                <DatePicker SelectedDate="{Binding Desaparecido.FechaCapturaEstatusFormalizado}"
+                                            IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="Síntesis de localización: *" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Exclude"/>
+                            <ui:TextBox Text="{Binding Desaparecido.Localizacion.SintesisLocalizacion}"
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
                                 Text="Describa brevemente la condición psicofísica en que fue localizada la persona" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                            <ui:TextBox Text="{Binding Desaparecido.Localizacion.DescripcionCondicionPersona}"
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
                         </StackPanel>
                     </StackPanel>
 
                     <!-- Localizado sin vida -->
                     <StackPanel Margin="0 0 0 15"
-                                Visibility="{Binding LocalizadaConVida,
-                                Converter={StaticResource VisibilityConverter2}}">
+                                Visibility="{Binding LocalizadoVivo,
+                                Converter={StaticResource VisibilityConverter}}">
                         <ui:TextBlock Text="Localizada sin vida" FontTypography="Subtitle" Margin="0 25 0 25" />
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Estatus formalizado:" />
-                                <ComboBox />
+                                <ComboBox DisplayMemberPath="Nombre"
+                                          SelectedItem="{Binding Desaparecido.EstatusFormalizado}"
+                                          ItemsSource="{Binding EstatusPersonas}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de formalización del estatus:" />
-                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                                <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusFormalizado}"
+                                            IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
                                 <ui:TextBlock Text="Fecha de actualización en sistema:" />
-                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                                <DatePicker SelectedDate="{Binding Desaparecido.FechaCapturaEstatusFormalizado}"
+                                            IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha del hallazgo:" />
-                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                                <DatePicker SelectedDate="{Binding Desaparecido.Localizacion.FechaHallazgo}"
+                                            IsTodayHighlighted="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300">
                                 <ui:TextBlock Text="Fecha de identificación por parte del familiar:" />
-                                <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True" />
+                                <DatePicker
+                                    SelectedDate="{Binding Desaparecido.Localizacion.FechaIdentificacionFamiliar}"
+                                    IsTodayHighlighted="True" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="Síntesis de localización:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                            <ui:TextBox Text="{Binding Desaparecido.Localizacion.SintesisLocalizacion}"
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
                                 Text="Describa las causas de fallecimiento:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                            <ui:TextBox Text="{Binding Desaparecido.Localizacion.DescripcionCausasFallecimiento}"
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
                         </StackPanel>
                     </StackPanel>
 
@@ -158,13 +171,13 @@
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Estado: *" />
                                 <ComboBox DisplayMemberPath="Nombre"
-                                          SelectedItem="{Binding Estado}"
+                                          SelectedItem="{Binding EstadoSelected}"
                                           ItemsSource="{Binding Estados}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Municipio: *" />
-                                <ComboBox SelectedItem="{Binding Municipio}"
+                                <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.MunicipioLocalizacion}"
                                           ItemsSource="{Binding Municipios}" />
                             </StackPanel>
                         </WrapPanel>
@@ -178,13 +191,13 @@
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Hipótesis de localización (OGPI) 1:" />
-                            <ComboBox 
+                            <ComboBox SelectedItem="{Binding HipotesisPrimaria.TipoHipotesis}"
                                       ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
                             <ui:TextBlock Text="Circunstancia final 1:" />
-                            <ui:TextBox Text="{Binding TipoHipotesisUno.CircunstanciaId}"
+                            <ui:TextBox Text="{Binding HipotesisPrimaria.TipoHipotesis.Circunstancia.Id}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </WrapPanel>
@@ -192,13 +205,13 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Hipótesis de localización (OGPI) 2:" />
-                            <ComboBox 
+                            <ComboBox SelectedItem="{Binding HipotesisSecundaria.TipoHipotesis}"
                                       ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
                             <ui:TextBlock Text="Circunstancia final 2:" />
-                            <ui:TextBox Text="{Binding TipoHipotesisDos.CircunstanciaId}"
+                            <ui:TextBox Text="{Binding HipotesisSecundaria.TipoHipotesis.Circunstancia.Id}"
                                         HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </WrapPanel>
@@ -206,24 +219,27 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Sitio final:" />
-                            <ComboBox DisplayMemberPath="Nombre"
+                            <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.Sitio}"
                                       ItemsSource="{Binding Hipotesis.Sitios}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Área que codifica:" />
-                            <ui:TextBox Text="{Binding AreaCodifica}" />
+                            <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.Area}"
+                                      ItemsSource="{Binding Hipotesis.Areas}" />
                         </StackPanel>
-                        
+
                         <StackPanel MinWidth="300">
                             <ui:TextBlock Text="Hipótesis DEB:" />
-                            <ComboBox />
+                            <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.HipotesisDeb}"
+                                      ItemsSource="{Binding Hipotesis.HipotesisInmediata}" />
                         </StackPanel>
                     </WrapPanel>
-                    
+
                     <StackPanel>
-                        <ui:TextBlock Text="Observaciones sobre la actualización de estatus:"/>
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"/>
+                        <ui:TextBlock Text="Observaciones sobre la actualización de estatus:" />
+                        <ui:TextBox Text="{Binding Desaparecido.ObservacionesActualizacionEstatus}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -239,7 +255,7 @@
                                        Content="Añadir informe de localización"
                                        Margin="5" />
                         </StackPanel>
-                        
+
                     </StackPanel>
 
                     <StackPanel>
@@ -281,6 +297,8 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
+                   Command="{Binding GuardarYSiguenteCommand}"
+                   CommandParameter="{x:Type presentation1:ControlOgpiPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
                    Margin="10"

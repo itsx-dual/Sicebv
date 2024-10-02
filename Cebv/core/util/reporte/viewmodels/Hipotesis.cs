@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using static Cebv.core.util.enums.EtapaHipotesis;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
@@ -36,4 +37,28 @@ public partial class Hipotesis : ObservableObject
 
     [ObservableProperty, JsonProperty("etapa")]
     private string? _etapa;
+    
+    // --------------------------------------------------------------
+    // Parametros por defecto de los diferentes tipos de hipotesis
+    // --------------------------------------------------------------
+    
+    public readonly Dictionary<string, object> ParametrosInicialPrimaria = new()
+    {
+        { nameof(Etapa), InicialPrimaria }
+    };
+    
+    public readonly Dictionary<string, object> ParametrosInicialSecundaria = new()
+    {
+        { nameof(Etapa), InicialSecundaria }
+    };
+    
+    public readonly Dictionary<string, object> ParametrosFinalPrimaria = new()
+    {
+        { nameof(Etapa), FinalPrimaria }
+    };
+    
+    public readonly Dictionary<string, object> ParametrosFinalSecundaria = new()
+    {
+        { nameof(Etapa), FinalSecundaria }
+    };
 }

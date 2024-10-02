@@ -30,10 +30,30 @@ public partial class BasicResource : ObservableObject
 
     [ObservableProperty, JsonProperty("abreviatura")]
     private string? _abreviatura;
+    
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(this, obj)) return true;
+        if (ReferenceEquals(obj, null)) return false;
+        if (obj.GetType() != GetType()) return false;
 
+        return Equals((BasicResource) obj);
+    }
+
+    public override int GetHashCode() //wao
+    {
+        return HashCode.Combine(Id, Nombre, Abreviatura);
+    }
+
+    private bool Equals(BasicResource basicResource)
+    {
+        return Id == basicResource.Id &&
+               Nombre == basicResource.Nombre &&
+               Abreviatura == basicResource.Abreviatura;
+    }
 
     public override string ToString()
     {
-        return $"{Abreviatura} - {Nombre}";
+        return $"{Nombre}";
     }
 }

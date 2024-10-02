@@ -1,7 +1,8 @@
 using System.Collections.ObjectModel;
+using Cebv.core.domain;
 using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.features.formulario_cebv.control_ogpi.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,14 +11,12 @@ namespace Cebv.features.formulario_cebv.control_ogpi.presentation;
 
 public partial class ControlOgpiViewModel : ObservableObject
 {
+    private static IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
+
     [ObservableProperty] private Reporte _reporte = null!;
-    [ObservableProperty] private Desaparecido _desaparecido = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
-    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-
-    /**
-     * Constructor de la clase
-     */
     public ControlOgpiViewModel()
     {
         LoadAsync();
@@ -25,41 +24,22 @@ public partial class ControlOgpiViewModel : ObservableObject
 
     private async void LoadAsync()
     {
+        EstatusPersonas = await CebvNetwork.GetRoute<BasicResource>("estatus-personas");
         Reporte = _reporteService.GetReporte();
 
-        if (!Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
 
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
-        await CargarCatalogos();
+        Reporte.ControlOgpi ??= new();
     }
 
-    [ObservableProperty] private ObservableCollection<EstatusPersona> _estatusPersonas = new();
+    [ObservableProperty] private ObservableCollection<BasicResource> _estatusPersonas = new();
 
-    /**
-     * Método que carga los catálogos
-     */
-    private async Task CargarCatalogos() =>
-        EstatusPersonas = await ControlOgpiNetwork.GetEstatusPersonas();
-
-    [RelayCommand]
-    private async Task AsignarFolio()
-    {
-        if (Desaparecido.Folios is null) return;
-
-        var folio = Desaparecido.Folios;
-
-        await ControlOgpiNetwork.SetFolioFub(folio);
-    }
 
     [RelayCommand]
     private void Guardar()
     {
-        _ = AsignarFolio();
         _reporteService.Sync();
     }
 }

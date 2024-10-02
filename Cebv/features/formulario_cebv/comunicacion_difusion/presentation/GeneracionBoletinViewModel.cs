@@ -1,8 +1,10 @@
+using System.Collections.ObjectModel;
 using System.IO;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
+using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,71 +14,73 @@ namespace Cebv.features.formulario_cebv.comunicacion_difusion.presentation;
 
 public partial class GeneracionBoletinViewModel : ObservableObject
 {
-    private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private static IDashboardNavigationService _navigationService =
-        App.Current.Services.GetService<IDashboardNavigationService>()!;
+    private readonly IReporteService _reporteService =
+        App.Current.Services.GetService<IReporteService>()!;
 
-    private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
+    private readonly IFormularioCebvNavigationService _navigationService =
+        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
     [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Reportante _reportante;
-    [ObservableProperty] private Desaparecido _desaparecido;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     public GeneracionBoletinViewModel()
     {
-        GetReporteFromService();
-    }
-    
-    private void GetReporteFromService()
-    {
+        InitAsync();
+
         Reporte = _reporteService.GetReporte();
 
-        if (Reporte.Reportantes.Any())
-        {
-            Reportante = Reporte.Reportantes.First();
-        }
-        else
-        {
-            Reportante = new Reportante();
-            Reporte.Reportantes.Add(Reportante);
-        }
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
 
-        if (Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = Reporte.Desaparecidos.First();
-        }
-        else
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+        
+        EsMayorEdad = CalcularEdad();
     }
+
+    private async void InitAsync()
+    {
+        TiposBoletines = await CebvNetwork.GetRoute<Catalogo>("tipos-boletines");
+        EstatusPersonas = await CebvNetwork.GetRoute<BasicResource>("estatus-personas");
+    }
+
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposBoletines = new();
+    [ObservableProperty] private Catalogo _tipoBoletin = new();
+    [ObservableProperty] private ObservableCollection<BasicResource> _estatusPersonas = new();
+    [ObservableProperty] private BasicResource _estatusPersona = new();
     
+    [ObservableProperty] private bool _esMayorEdad;
+    
+    private bool CalcularEdad()
+    {
+        if (Desaparecido.Persona.FechaNacimiento is null) return false;
+
+        return Desaparecido.Persona.FechaNacimiento.Value.AddYears(18) <= DateTime.Now;
+    }
+
     /**
      * Path de las imagenes seleccionadas
      */
-    [ObservableProperty]
-    private string[]? _openedFilePath = [];
-    
+    [ObservableProperty] private string[]? _openedFilePath = [];
+
     [RelayCommand]
     private void OnOpenFile()
     {
-        OpenFileDialog openFileDialog =
-            new()
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                Multiselect = true
-            };
-
-        if (openFileDialog.ShowDialog() != true)
+        OpenFileDialog openFileDialog = new()
         {
-            return;
-        }
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+            Multiselect = true
+        };
 
-        if (!File.Exists(openFileDialog.FileName))
-        {
-            return;
-        }
+        if (openFileDialog.ShowDialog() is not true) return;
+
+        if (!File.Exists(openFileDialog.FileName)) return;
 
         OpenedFilePath = openFileDialog.FileNames;
+    }
+
+    [RelayCommand]
+    private void OnGuardarYSiguiente(Type pageType)
+    {
+        _reporteService.Sync();
+        _navigationService.Navigate(pageType);
     }
 }
