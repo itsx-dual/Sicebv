@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
+using Cebv.core.modules.persona.data;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
@@ -166,6 +167,15 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
         Desaparecido = Reporte.Desaparecidos.First();
         Reporte.HechosDesaparicion ??= new();
+        
+        Desaparecido.Persona.Salud ??= new();
+        Desaparecido.Persona.Ojos ??= new();
+        Desaparecido.Persona.Cabello ??= new();
+        Desaparecido.Persona.VelloFacial ??= new();
+        Desaparecido.Persona.Nariz ??= new();
+        Desaparecido.Persona.Boca ??= new();
+        Desaparecido.Persona.Orejas ??= new();
+        Desaparecido.Persona.MediaFiliacionComplementaria ??= new();
     }
 
     private async void InitAsync()
