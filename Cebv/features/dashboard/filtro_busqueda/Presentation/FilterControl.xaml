@@ -79,7 +79,7 @@
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Tipo reporte" />
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding  TipoReporteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding TipoReporte}"/>
                             </StackPanel>
@@ -95,7 +95,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Medio conocimiento"/>
-                                <ComboBox  Width="225"  
+                                <ComboBox Width="225"  
                                            SelectedItem="{Binding MedioSelected, Mode=TwoWay}" 
                                            ItemsSource="{Binding Medios}"
                                            IsEditable="True"/>
@@ -103,7 +103,7 @@
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Tipo medio"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding TipoMedioSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding TiposMedios}"/>
                             </StackPanel>
@@ -180,63 +180,63 @@
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Escolaridad" />
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding EscolaridadReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Escolaridades}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Nivel escolaridad"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding EstatusEscolaridadReportanteSelectede, Mode=TwoWay}"
                                           ItemsSource="{Binding EstatusEscolaridades}"/>
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Sexo"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding SexoReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Sexos}"/>
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Genero"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding GeneroReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Generos}"/>
                             </StackPanel>
                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Nacionalidad"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding NacionalidadReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Nacionalidades}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Religion"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding ReligionReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Religiones}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Lengua"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding LenguaReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Lenguas}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Parentesco"/>
-                                <ComboBox Width="225" 
+                                <ComboBox IsEditable="True" Width="225" 
                                           SelectedItem="{Binding ParentescoReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Parentescos}"/>
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Estado conyugal"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding EstadoConyugalReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding EstadosConyugales}"/>
                             </StackPanel>
@@ -249,7 +249,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Ocupacion"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding TipoOcupacionReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding TiposOcupaciones}"/>
                             </StackPanel>
@@ -262,14 +262,14 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Compañia"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding CompañiaTelefonicaReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding CompaniasTelefonicas}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="¿Es movil?" />
-                                <ComboBox Width="225" SelectedValue="{Binding EsMovilReportante, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedValue="{Binding EsMovilReportante, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -277,7 +277,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Pub. Registro Nacional"/>
-                                <ComboBox Width="225" SelectedValue="{Binding PublicacionRegistroNacional, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedValue="{Binding PublicacionRegistroNacional, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -285,7 +285,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Publicacion Boletin"/>
-                                <ComboBox Width="225" SelectedValue="{Binding PublicacionBoletin, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedValue="{Binding PublicacionBoletin, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -293,7 +293,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Informacion Consentimiento"/>
-                                <ComboBox Width="225" SelectedValue="{Binding InformacionConsentimiento, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedValue="{Binding InformacionConsentimiento, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -301,7 +301,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Informacion Exclusiva Busqueda"/>
-                                <ComboBox Width="225" SelectedValue="{Binding InformacionExclusivaBusqueda, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedValue="{Binding InformacionExclusivaBusqueda, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -309,14 +309,14 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Colectivo busqueda"/>
-                                <ComboBox Width="225" 
+                                <ComboBox IsEditable="True" Width="225" 
                                           SelectedItem="{Binding ColectivoReportanteSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Colectivos}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Denuncia Anonima" />
-                                <ComboBox Width="225" SelectedValue="{Binding DenunciaAnonima, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedValue="{Binding DenunciaAnonima, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -431,49 +431,49 @@
                                  
                              <StackPanel Margin="0,8,20,0">
                                  <TextBlock Text="Escolaridad"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding EscolaridadDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding Escolaridades}"/>
                              </StackPanel>
                              
                                 <StackPanel Margin="0,8,20,0">
                                     <ui:TextBlock Text="Nivel escolaridad"/>
-                                    <ComboBox Width="225"
+                                    <ComboBox IsEditable="True" Width="225"
                                             SelectedItem="{Binding EstatusEscolaridadDesaparecidoSelected, Mode=TwoWay}"
                                             ItemsSource="{Binding EstatusEscolaridades}"/>
                                 </StackPanel>
                                  
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Sexo"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding SexoDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding Sexos}"/>
                              </StackPanel>
                                  
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Genero"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding GeneroDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding Generos}"/>
                              </StackPanel>
                                  
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Nacionalidad"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding NacionalidadDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding Nacionalidades}"/>
                              </StackPanel>
                                  
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Religion"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding ReligionDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding Religiones}"/>
                              </StackPanel>
                                 
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Lengua"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding LenguaDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding Lenguas}"/>
                              </StackPanel>
@@ -504,14 +504,14 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Compañia"/>
-                                    <ComboBox Width="225"
+                                    <ComboBox IsEditable="True" Width="225"
                                             SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected, Mode=TwoWay}"
                                             ItemsSource="{Binding CompaniasTelefonicas}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="¿Es movil?"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedValue="{Binding EsMovilDesaparecido, Mode=TwoWay}"
                                            DisplayMemberPath="Key"
                                            SelectedValuePath="Value"
@@ -541,7 +541,7 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Habla español"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedValue="{Binding HablaEspañol, Mode=TwoWay}"
                                            DisplayMemberPath="Key"
                                            SelectedValuePath="Value"
@@ -550,7 +550,7 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Sabe leer"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                      SelectedValue="{Binding SabeLeer, Mode=TwoWay}"
                                      DisplayMemberPath="Key"
                                      SelectedValuePath="Value"
@@ -559,7 +559,7 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Sabe escribir"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                      SelectedValue="{Binding SabeEscribir, Mode=TwoWay}"
                                      DisplayMemberPath="Key"
                                      SelectedValuePath="Value"
@@ -568,28 +568,28 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Ocupacion Principañ"/>
-                                    <ComboBox Width="225"
+                                    <ComboBox IsEditable="True" Width="225"
                                         SelectedItem="{Binding OcupacionPrincipal, Mode=TwoWay}"
                                         ItemsSource="{Binding Ocupaciones}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Tipo ocupacion"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding TipoOcupacionPrincipalDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding TiposOcupaciones}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Ocupacion Secundaria"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding OcupacionSecundaria, Mode=TwoWay}"
                                            ItemsSource="{Binding Ocupaciones}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Tipo ocupacion"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedItem="{Binding TipoOcupacionSecundariaDesaparecidoSelected, Mode=TwoWay}"
                                            ItemsSource="{Binding TiposOcupaciones}"/>
                              </StackPanel>
@@ -608,7 +608,7 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Accion Urgente"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedValue="{Binding AccionUrgente, Mode=TwoWay}"
                                            DisplayMemberPath="Key"
                                            SelectedValuePath="Value"
@@ -617,7 +617,7 @@
                              
                              <StackPanel Margin="0,0,15,0">
                                  <ui:TextBlock Text="Declaración esp. ausencia"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedValue="{Binding DeclaracionEspecialAusencia, Mode=TwoWay}"
                                            DisplayMemberPath="Key"
                                            SelectedValuePath="Value"
@@ -626,7 +626,7 @@
                                  
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Dictamen"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedValue="{Binding Dictamen, Mode=TwoWay}"
                                            DisplayMemberPath="Key"
                                            SelectedValuePath="Value"
@@ -635,7 +635,7 @@
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="CI Nivel Federal"/>
-                                 <ComboBox Width="225"
+                                 <ComboBox IsEditable="True" Width="225"
                                            SelectedValue="{Binding CiNivelFederal, Mode=TwoWay}"
                                            DisplayMemberPath="Key"
                                            SelectedValuePath="Value"
@@ -742,7 +742,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Amenaza"/>
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedValue="{Binding AmenazaCambioComportamiento, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
@@ -798,13 +798,13 @@
                         <WrapPanel>
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Hipotesis ofical"/>
-                                <ComboBox Width="225" SelectedItem="{Binding HipotesisOficialSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding HipotesisOficialSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding HipotesisOficial}"/>
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Circunstancia"/>
-                                <ComboBox Width="225" SelectedItem="{Binding HipotesisOficialCircunstanciaSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding HipotesisOficialCircunstanciaSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding HipotesisOficialCircunstancia}"/>
                             </StackPanel>
                         </WrapPanel>
@@ -835,37 +835,37 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Complexion"/>
-                                <ComboBox Width="225" SelectedItem="{Binding ComplexionSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding ComplexionSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Complexiones}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Color piel"/>
-                                <ComboBox Width="225" SelectedItem="{Binding ColorPielSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding ColorPielSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding ColoresPiel}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Color ojos"/>
-                                <ComboBox Width="225" SelectedItem="{Binding ColorOjosSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding ColorOjosSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding ColoresOjos}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Color cabello"/>
-                                <ComboBox Width="225" SelectedItem="{Binding ColorCabelloSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding ColorCabelloSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding ColoresCabello}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Tamaño cabello"/>
-                                <ComboBox Width="225" SelectedItem="{Binding TamanioCabelloSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding TamanioCabelloSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding TamanosCabello}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,0,0">
                                 <ui:TextBlock Text="Tipo cabello"/>
-                                <ComboBox Width="225" SelectedItem="{Binding TipoCabelloSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding TipoCabelloSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding TiposCabello}"/>
                             </StackPanel>
                         </WrapPanel>
@@ -891,7 +891,7 @@
                                         <!-- Region cuerpo -->
                                         <ui:TextBlock Text="Región del cuerpo:"
                                                       Margin="10,10,0,0" />
-                                        <ComboBox Margin="5,0,5,0"
+                                        <ComboBox IsEditable="True" Margin="5,0,5,0"
                                                                                    
                                                   SelectedValue="{Binding RegionCuerpoSelected, Mode=TwoWay}"
                                                   ItemsSource="{Binding RegionesCuerpo}" />
@@ -900,7 +900,7 @@
                                         <!-- Vista -->
                                         <ui:TextBlock Text="Vista:"
                                                       Margin="10,10,0,0" />
-                                        <ComboBox Margin="5,0,5,0"
+                                        <ComboBox IsEditable="True" Margin="5,0,5,0"
                                                                                    
                                                   SelectedValue="{Binding VistaSelected, Mode=TwoWay}"
                                                   ItemsSource="{Binding Vistas}" />
@@ -909,7 +909,7 @@
                                     <StackPanel Grid.Column="1">
                                         <ui:TextBlock Text="Lado:"
                                                               Margin="10,10,0,0" />
-                                        <ComboBox Margin="5,0,5,0"
+                                        <ComboBox IsEditable="True" Margin="5,0,5,0"
                                                                                   
                                                   SelectedValue="{Binding LadoSelected, Mode=TwoWay}"
                                                   ItemsSource="{Binding Lados}" />
@@ -927,7 +927,7 @@
                                                                                
                                 <ui:TextBlock Text="Tipo de seña:"
                                               Margin="10,10,0,0" />
-                                <ComboBox Margin="5,0,5,0"
+                                <ComboBox IsEditable="True" Margin="5,0,5,0"
                                                                            
                                           SelectedValue="{Binding TipoSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Tipos}" />
@@ -970,7 +970,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Color"/>
-                                <ComboBox Width="225" SelectedItem="{Binding ColorVehiculoSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding ColorVehiculoSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Colores}"/>
                             </StackPanel>
                             
@@ -1028,7 +1028,7 @@
                             
                             <StackPanel Margin="0,8,0,0">
                                 <ui:TextBlock Text="Vehiculo localizado"/>
-                                <ComboBox SelectedValue="{Binding Localizado, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" SelectedValue="{Binding Localizado, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
                                           SelectedValuePath="Value"
                                           ItemsSource="{Binding Opciones}"/>
@@ -1048,13 +1048,13 @@
                         <WrapPanel Orientation="Horizontal">
                             <StackPanel Margin="0 8 20 0">
                                 <ui:TextBlock Text="Grupo pertenencia:" />
-                                <ComboBox Width="225" SelectedItem="{Binding GrupoPerteneciaSelected, Mode=TwoWay}"
+                                <ComboBox IsEditable="True" Width="225" SelectedItem="{Binding GrupoPerteneciaSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding GruposPertenencia}" />
                             </StackPanel>
                             
                             <StackPanel Margin="0 8 20 0">
                                 <ui:TextBlock Text="Pertenencia:" />
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding PerteneciaSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Pertenencias}" />
                             </StackPanel>
@@ -1067,7 +1067,7 @@
                             
                             <StackPanel Margin="0,8,0,0">
                                 <ui:TextBlock Text="Color:*" />
-                                <ComboBox Width="225"
+                                <ComboBox IsEditable="True" Width="225"
                                           SelectedItem="{Binding ColorPertenenciaSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding Colores}" />
                             </StackPanel>
