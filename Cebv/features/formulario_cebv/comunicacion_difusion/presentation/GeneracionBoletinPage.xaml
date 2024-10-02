@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.comunicacion_difusion.presentation"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.datos_de_localizacion.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -137,17 +138,20 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Señas Particulares para el Boletín:" />
 
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox Text="{Binding Desaparecido.SenasParticularesBoletin}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
 
-                    <ui:ToggleSwitch Name="MenorToggleSwitch"
-                                     OnContent="¿Es menor de Edad? Sí"
-                                     OffContent="¿Es menor de Edad? No"
-                                     Margin="0 0 0 25" />
+                    <ui:ToggleSwitch OnContent="¿Es mayor de edad? Sí"
+                                     OffContent="¿Es mayor de edad? No"
+                                     Margin="0 0 0 15"
+                                     IsEnabled="False"
+                                     IsChecked="{Binding EsMayorEdad}" />
 
-                    <StackPanel Margin="0 0 0 15" IsEnabled="{Binding ElementName=MenorToggleSwitch, Path=IsChecked}">
+                    <StackPanel Margin="0 0 0 15" IsEnabled="{Binding EsMayorEdad}">
                         <ui:TextBlock Text="Información Adicional:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                        <ui:TextBox Text="{Binding Desaparecido.InformacionAdicionalBoletin}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -157,19 +161,14 @@
                 <WrapPanel>
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
                         <ui:TextBlock Text="Tipo de Boletín:" />
-                        <ComboBox>
-                            <ComboBoxItem Content="Búsqueda Inmediata" />
-                            <ComboBoxItem Content="Larga Data" />
-                            <ComboBoxItem Content="Uso Interno" />
-                        </ComboBox>
+                        <ComboBox SelectedItem="{Binding TipoBoletin}"
+                                  ItemsSource="{Binding TiposBoletines}" />
                     </StackPanel>
 
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
                         <ui:TextBlock Text="Estatus de la Persona Desaparecida:" />
-                        <ComboBox>
-                            <ComboBoxItem Content="Desaparecida" />
-                            <ComboBoxItem Content="Localizada" />
-                        </ComboBox>
+                        <ComboBox SelectedItem="{Binding EstatusPersona}"
+                                  ItemsSource="{Binding EstatusPersonas}" />
                     </StackPanel>
 
                     <ui:Button Margin="0 15 0 0"
@@ -184,10 +183,12 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarReporteCommand}"
-                   Content="{StaticResource Continuar}"
+                   Content="{StaticResource GuardarContinuar}"
+                   Icon="{ui:SymbolIcon Save24}"
                    Margin="10"
                    HorizontalAlignment="Stretch"
-                   Appearance="Primary" />
+                   Appearance="Primary"
+                   Command="{Binding GuardarYSiguienteCommand}"
+                   CommandParameter="{x:Type presentation1:DatosLocalizacionPage}" />
     </Grid>
 </Page>

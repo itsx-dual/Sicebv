@@ -14,19 +14,27 @@ namespace Cebv.features.formulario_cebv.contexto.presentation;
 
 public partial class ContextoViewModel : ObservableObject
 {
-    private IReporteService _reporteService =
+    private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
-    private IFormularioCebvNavigationService _navigationService =
+    private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
-    [ObservableProperty] private Desaparecido _desaparecido = null!;
+    [ObservableProperty] private Desaparecido _desaparecido = new();
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
     public ContextoViewModel()
     {
         LoadAsync();
+        
+        Reporte = _reporteService.GetReporte();
+
+        if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
+        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        Desaparecido.Persona.ContextoFamiliar ??= new();
+        Desaparecido.Persona.ContextoEconomico ??= new();
     }
 
     private async void LoadAsync()
@@ -35,19 +43,6 @@ public partial class ContextoViewModel : ObservableObject
         Pasatiempos = await CebvNetwork.GetRoute<Catalogo>("pasatiempos");
         Clubes = await CebvNetwork.GetRoute<Catalogo>("clubes");
         TiposRedesSociales = await CebvNetwork.GetRoute<Catalogo>("tipos-redes-sociales");
-
-        Reporte = _reporteService.GetReporte();
-
-        if (!Reporte.Desaparecidos.Any())
-        {
-            Desaparecido = new Desaparecido();
-            Reporte.Desaparecidos.Add(Desaparecido);
-        }
-
-        Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
-
-        Desaparecido.Persona.ContextoFamiliar ??= new();
-        Desaparecido.Persona.ContextoEconomico ??= new();
     }
 
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();

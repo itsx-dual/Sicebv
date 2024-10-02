@@ -7,29 +7,41 @@ public class DesaparecidoCompactResource
 {
     [JsonConstructor]
     public DesaparecidoCompactResource(
-            int id,
-            string? nombre,
-            string? apellido_paterno,
-            string? apellido_materno,
-            string? estatus_cebv,
-            string? estatus_rnpdno,
-            string? folio_cebv
-        )
+        int id,
+        string? nombre,
+        string? apellidoPaterno,
+        string? apellidoMaterno,
+        string? estatusPreliminar,
+        string? estatusFormalizado,
+        string? folioCebv
+    )
     {
         Id = id;
         Nombre = nombre;
-        ApellidoPaterno = apellido_paterno;
-        ApellidoMaterno = apellido_materno;
-        EstatusCebv = estatus_cebv;
-        EstatusRnpdno = estatus_rnpdno;
-        FolioCebv = folio_cebv;
+        ApellidoPaterno = apellidoPaterno;
+        ApellidoMaterno = apellidoMaterno;
+        EstatusPreliminar = estatusPreliminar;
+        EstatusFormalizado = estatusFormalizado;
+        FolioCebv = folioCebv;
     }
-    
+
     [JsonProperty(PropertyName = "id")] public int Id { get; set; }
-    [JsonProperty(PropertyName = "nombre")] public string? Nombre { get; set; }
-    [JsonProperty(PropertyName = "apellido_paterno")] public string? ApellidoPaterno { get; set; }
-    [JsonProperty(PropertyName = "apellido_materno")] public string? ApellidoMaterno { get; set; }
-    [JsonProperty(PropertyName = "estatus_cebv")] public string? EstatusCebv { get; set; }
-    [JsonProperty(PropertyName = "estatus_rnpdno")] public string? EstatusRnpdno { get; set; }
-    [JsonProperty(PropertyName = "folio_cebv")] public string? FolioCebv { get; set; }
+
+    [JsonProperty(PropertyName = "nombre")]
+    public string? Nombre { get; set; }
+
+    [JsonProperty(PropertyName = "apellido_paterno")]
+    public string? ApellidoPaterno { get; set; }
+
+    [JsonProperty(PropertyName = "apellido_materno")]
+    public string? ApellidoMaterno { get; set; }
+
+    [JsonProperty(PropertyName = "estatus_preliminar")]
+    public string? EstatusPreliminar { get; set; }
+
+    [JsonProperty(PropertyName = "estatus_formalizado")]
+    public string? EstatusFormalizado { get; set; }
+
+    [JsonProperty(PropertyName = "folio_cebv")]
+    public string? FolioCebv { get; set; }
 }

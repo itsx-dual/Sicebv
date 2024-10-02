@@ -17,11 +17,12 @@ public partial class DatoComplementarioViewModel : ObservableObject
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte = null!;
+    [ObservableProperty] private Reporte _reporte = new();
 
     public DatoComplementarioViewModel()
     {
         InitAsync();
+        
         Reporte = _reporteService.GetReporte();
 
         Reporte.DatoComplementario ??= new();
@@ -41,14 +42,14 @@ public partial class DatoComplementarioViewModel : ObservableObject
 
         if (estadoId is not null)
         {
-            EstadoSelected = Estados.FirstOrDefault(x => x.Id == estadoId);
             Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", estadoId);
+            EstadoSelected = Estados.FirstOrDefault(x => x.Id == estadoId);
         }
 
         if (municipioId is null) return;
         {
-            MunicipioSelected = Municipios.FirstOrDefault(x => x.Id == municipioId)!;
             Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", municipioId);
+            MunicipioSelected = Municipios.FirstOrDefault(x => x.Id == municipioId)!;
         }
     }
 

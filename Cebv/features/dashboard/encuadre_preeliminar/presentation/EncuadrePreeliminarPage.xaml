@@ -1112,7 +1112,8 @@
                     <ui:ListView x:Name="Imagenes"
                                  ItemsSource="{Binding ImagenesDesaparecido}"
                                  SelectedItem="{Binding ImagenBoletin}"
-                                 SelectedIndex="0">
+                                 SelectedIndex="0"
+                                 KeyDown="Imagenes_OnKeyDown">
                         <ui:ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Width="Auto" />
@@ -1127,6 +1128,10 @@
                                           Height="200"
                                           Stretch="UniformToFill">
                                     <ui:Image.ContextMenu>
+                                        <!-- 
+                                        Keydown event manejado en code behind.
+                                        Este hace uso de MVVM.
+                                        -->
                                         <ContextMenu>
                                             <ui:MenuItem Header="Eliminar imagen"
                                                          Command="{Binding Source={x:Reference Name=Page}, 
@@ -1136,12 +1141,6 @@
                                             </ui:MenuItem>
                                         </ContextMenu>
                                     </ui:Image.ContextMenu>
-                                    <ui:Image.InputBindings>
-                                        <KeyBinding CommandParameter="{Binding}"
-                                                    Command="{Binding Source={x:Reference Name=Page},
-                                                    Path=DataContext.DeleteDesaparecidoImagenCommand}"
-                                                    Key="Delete"/>
-                                    </ui:Image.InputBindings>
                                 </ui:Image>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
