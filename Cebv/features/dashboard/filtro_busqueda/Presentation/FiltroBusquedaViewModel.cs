@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.data;
 using Cebv.core.domain;
@@ -13,6 +14,7 @@ using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.filtro_busqueda.Data;
 using Cebv.features.dashboard.filtro_busqueda.Domain;
 using Cebv.features.formulario_cebv.presentation;
+using Cebv.features.formulario_cebv.senas_particulares.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,10 +35,10 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private DesaparecidoResponse _desaparecidoSelected;
     
     //Variable para busqueda de persona por reportante o desaparecido
-    [ObservableProperty] private string? _nombreDesaparecido = string.Empty;
-    [ObservableProperty] private string? _pseudonimoDesaparecido = string.Empty;
-    [ObservableProperty] private string? _nombreReportante = string.Empty;
-    [ObservableProperty] private string? _pseudonimoReportante = string.Empty;
+    [ObservableProperty] private string? _nombreCompletoDesaparecido = string.Empty;
+    [ObservableProperty] private string? _pseudonimoCompletoDesaparecido = string.Empty;
+    [ObservableProperty] private string? _nombreCompletoReportante = string.Empty;
+    [ObservableProperty] private string? _pseudonimoCompletoReportante = string.Empty;
     [ObservableProperty] private bool? _buscarPorReportante;
     [ObservableProperty] private bool? _buscarPorDesaparecido;
     [ObservableProperty] private string? _nombre;
@@ -74,11 +76,19 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabello = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabello = new();
 
-    [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _regionesCuerpo = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _vistas = new();
-    [ObservableProperty] private ObservableCollection<CatalogoColor> _lados = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _lados = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tipos = new();
+    
+    [ObservableProperty] private ObservableCollection<Catalogo> _relaciones = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _marcas = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tiposVehiculos = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _usosVehiculos = new();
+    
+    [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia = new();
+    [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
     //Valroes de los filtros
     [ObservableProperty] private Catalogo? _tipoMedioSelected;
@@ -88,6 +98,12 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _zonaEstadoSelected;
     [ObservableProperty] private Catalogo? _tipoReporteSelected;
     
+    [ObservableProperty] private string? _nombreReportante;
+    [ObservableProperty] private string? _apellidoPaternoReportante;
+    [ObservableProperty] private string? _apellidoMaternoReportante;
+    [ObservableProperty] private string? _pseudonimoNombreReportante;
+    [ObservableProperty] private string? _pseudonimoApellidoPaternoReportante;
+    [ObservableProperty] private string? _pseudonimoApellidoMaternoReportante;
     [ObservableProperty] private Estado? _lugarNacimientoReportanteSelected;
     [ObservableProperty] private Catalogo? _escolaridadReportanteSelected;
     [ObservableProperty] private Catalogo? _sexoReportanteSelected;
@@ -119,6 +135,12 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private int? _edadEstimada;
     [ObservableProperty] private Catalogo? _estatusEscolaridadReportanteSelectede;
     
+    [ObservableProperty] private string? _nombreDesaparecido;
+    [ObservableProperty] private string? _apellidoPaternoDesaparecido;
+    [ObservableProperty] private string? _apellidoMaternoDesaparecido;
+    [ObservableProperty] private string? _pseudonimoNombreDesaparecido;
+    [ObservableProperty] private string? _pseudonimoApellidoPaternoDesaparecido;
+    [ObservableProperty] private string? _pseudonimoApellidoMaternoDesaparecido;
     [ObservableProperty] private Estado? _lugarNacimientoDesaparecidoSelected;
     [ObservableProperty] private Catalogo? _escolaridadDesaparecidoSelected;
     [ObservableProperty] private Catalogo? _sexoDesaparecidoSelected;
@@ -196,20 +218,40 @@ public partial class FiltroBusquedaViewModel : ObservableObject
     [ObservableProperty] private Catalogo? _tamanioCabelloSelected;
     [ObservableProperty] private Catalogo? _tipoCabelloSelected;
     
-    [ObservableProperty] private CatalogoColor? _regionCuerpoSelected;
+    [ObservableProperty] private Catalogo? _regionCuerpoSelected;
     [ObservableProperty] private string? _colorRegionCuerpo;
     [ObservableProperty] private Catalogo? _vistaSelected;
-    [ObservableProperty] private CatalogoColor? _ladoSelected;
+    [ObservableProperty] private Catalogo? _ladoSelected;
     [ObservableProperty] private string? _colorLado;
     [ObservableProperty] private Catalogo? _tipoSelected;
     [ObservableProperty] private int? _cantidad;
     [ObservableProperty] private string? _descripcion;
     
-    //[ObservableProperty] private Catalogo _grupoPerteneciaSelected;
-    //[ObservableProperty] private Pertenencia _perteneciaSelected;
-    //[ObservableProperty] private Catalogo _colorSelected;
-    //[ObservableProperty] private string _currentMarca;
-    //[ObservableProperty] private string _currentPrendaDescripcion;
+    [ObservableProperty] private Catalogo? _relacionSelected;
+    [ObservableProperty] private Catalogo? _marcaSelected;
+    [ObservableProperty] private string? _submarca = string.Empty;
+    [ObservableProperty] private Catalogo? _colorVehiculoSelected;
+    [ObservableProperty] private string? _placa = string.Empty;
+    [ObservableProperty] private string? _modelo = string.Empty;
+    [ObservableProperty] private string? _numeroSerie = string.Empty;
+    [ObservableProperty] private string? _numeroMotor = string.Empty;
+    [ObservableProperty] private string? _numeroPermiso = string.Empty;
+    [ObservableProperty] private Catalogo? _tipoVehiculoSelected;
+    [ObservableProperty] private Catalogo? _usoVehiculoSelected;
+    [ObservableProperty] private string? _senasParticularesVehiculo = string.Empty;
+    [ObservableProperty] private bool? _localizado;
+    
+    [ObservableProperty] private Catalogo? _grupoPerteneciaSelected;
+    [ObservableProperty] private Pertenencia? _perteneciaSelected;
+    [ObservableProperty] private Catalogo? _colorPertenenciaSelected;
+    [ObservableProperty] private string? _currentMarca = string.Empty;
+    [ObservableProperty] private string? _currentPrendaDescripcion = string.Empty;
+    
+    [ObservableProperty] private string? _tipoDocumento = string.Empty;
+    [ObservableProperty] private string? _numeroDocumento = string.Empty;
+    [ObservableProperty] private string? _dondeRadica = string.Empty;
+    [ObservableProperty] private string? _nombreServidorPublico = string.Empty;
+    [ObservableProperty] private DateTime? _fechaRecepcion;
     
     public FiltroBusquedaViewModel()
     {
@@ -237,9 +279,10 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
         Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
         Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
-        //GruposPertenencia = await CebvNetwork.GetRoute("grupos-pertenencias");
-        RegionesCuerpo = await CebvNetwork.GetRoute<CatalogoColor>("regiones-cuerpo");
-        Lados = await CebvNetwork.GetRoute<CatalogoColor>("lados");
+        GruposPertenencia = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");
+        Pertenencias = await CebvNetwork.GetRoute<Pertenencia>("pertenencias");
+        RegionesCuerpo = await CebvNetwork.GetRoute<Catalogo>("regiones-cuerpo");
+        Lados = await CebvNetwork.GetRoute<Catalogo>("lados");
         ZonasEstados = await CebvNetwork.GetRoute<Catalogo>("zonas-estados");
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
         TipoReporte = await CebvNetwork.GetRoute<Catalogo>("tipos-reportes");
@@ -257,7 +300,10 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         EstatusPersonas = await CebvNetwork.GetRoute<EstatusPersona>("estatus-personas");
         HipotesisOficial = await CebvNetwork.GetRoute<Catalogo>("tipos-hipotesis");
         HipotesisOficialCircunstancia = await CebvNetwork.GetRoute<Catalogo>("circunstancias");
-        
+        Relaciones = await CebvNetwork.GetRoute<Catalogo>("relaciones-vehiculos");
+        Marcas = await CebvNetwork.GetRoute<Catalogo>("marcas-vehiculos");
+        TiposVehiculos = await CebvNetwork.GetRoute<Catalogo>("tipos-vehiculos");
+        UsosVehiculos = await CebvNetwork.GetRoute<Catalogo>("usos-vehiculos");
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
@@ -309,9 +355,31 @@ public partial class FiltroBusquedaViewModel : ObservableObject
         {
             filter = $"[nombreCompleto_desaparecido]={Nombre}";
         }
-        if (BuscarPorDesaparecido.GetValueOrDefault() && !string.IsNullOrEmpty(Nombre))
+        else if (BuscarPorDesaparecido.GetValueOrDefault() && !string.IsNullOrEmpty(Nombre))
         {
             filter = $"[nombreCompleto_reportante]={Nombre}";
+        }
+        else if (!BuscarPorReportante.GetValueOrDefault() && !BuscarPorDesaparecido.GetValueOrDefault())
+        {
+            _snackbarService.Show(
+                "No hay opcion seleccionada.", 
+                "Por favor selecciona una opcion para realizar la busqueda",
+                ControlAppearance.Caution,
+                new SymbolIcon(SymbolRegular.Alert32),
+                new TimeSpan(0,0, 5));
+            
+            return;
+        }
+        else if (string.IsNullOrEmpty(Nombre))
+        {
+            _snackbarService.Show(
+                "No hay valor de busqueda.", 
+                "Por favor ongrese un nombre para realizar la busqueda",
+                ControlAppearance.Caution,
+                new SymbolIcon(SymbolRegular.Alert32),
+                new TimeSpan(0,0, 5));
+            
+            return;
         }
         
         Reportes = await FiltroBusquedaNetwork.GetReportes(filter);
@@ -327,10 +395,7 @@ public partial class FiltroBusquedaViewModel : ObservableObject
             if (property.PropertyType == typeof(ObservableCollection<Catalogo>) || property.PropertyType 
                 == typeof(ObservableCollection<Estado>) || property.PropertyType 
                 == typeof(ObservableCollection<CatalogoColor>) || property.PropertyType 
-                == typeof(ObservableCollection<EstatusPersona>))
-            {
-                continue;
-            } 
+                == typeof(ObservableCollection<EstatusPersona>)) continue;
             
             if (property.PropertyType == typeof(string))
             {

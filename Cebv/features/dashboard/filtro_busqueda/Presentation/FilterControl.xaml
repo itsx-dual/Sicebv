@@ -18,7 +18,7 @@
     </UserControl.DataContext>-->
     
     <Grid>
-        <Expander Header="FILTROS" IsExpanded="True">
+        <Expander Header="FILTROS" IsExpanded="False">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -26,21 +26,40 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 
-                <ui:NavigationView  PaneDisplayMode="Top" IsBackButtonVisible="Auto" Margin="0" 
-                                    x:Name="NavigationViewControl" IsPaneToggleVisible="False">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <ui:NavigationView  PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" Margin="0" 
+                                    IsPaneToggleVisible="False">
                     <ui:NavigationView.MenuItems>
-                        <ui:NavigationViewItem Content="Filtros generales" Tag="General" Click="NavigationViewItem_Click"/>
-                        <ui:NavigationViewItem Content="Persona Reportante" Tag="Reportante" Click="NavigationViewItem_Click"/>
-                        <ui:NavigationViewItem Content="Persona Desaparecida" Tag="Desaparecido" Click="NavigationViewItem_Click"/>
-                        <ui:NavigationViewItem Content="Hechos Desaparicion" Tag="Hechos" Click="NavigationViewItem_Click"/>
-                        <ui:NavigationViewItem Content="Hipotesis Oficial" Tag="Hipotesis" Click="NavigationViewItem_Click"/>
-                        <ui:NavigationViewItem Content="Media Filiacion" Tag="Media filiacion" Click="NavigationViewItem_Click"/>
-                        <ui:NavigationViewItem Content="Señas Particulares" Tag="Señas particulares" Click="NavigationViewItem_Click"/>
+                        <ui:NavigationViewItem Content="Filtros generales" Tag="General" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon Home24}"/>
+                        <ui:NavigationViewItem Content="Persona Reportante" Tag="Reportante" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon PersonCall24}"/>
+                        <ui:NavigationViewItem Content="Persona Desaparecida" Tag="Desaparecido" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon PersonBoard24}"/>
+                        <ui:NavigationViewItem Content="Media Filiacion" Tag="Media filiacion" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon PersonInfo20}"/>
+                        <ui:NavigationViewItem Content="Señas Particulares" Tag="Señas particulares" 
+                                               Click="NavigationViewItem_Click" Icon="{ui:SymbolIcon Accessibility24}"/>
+                        <ui:NavigationViewItem Content="Hechos Desaparicion" Tag="Hechos" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon Map24}"/>
+                        <ui:NavigationViewItem Content="Vehiculos Involucrados" Tag="Vehiculos" Click="NavigationViewItem_Click" 
+                                               Icon="{ui:SymbolIcon VehicleCar28}"/>
+                        <ui:NavigationViewItem Content="Hipotesis Oficial" Tag="Hipotesis" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon Location24}"/>
+                        <ui:NavigationViewItem Content="Prendas" Tag="Prendas" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon PersonTag24}"/>
+                        <ui:NavigationViewItem Content="Documentos legales" Tag="Documentos" Click="NavigationViewItem_Click"
+                                               Icon="{ui:SymbolIcon TableEdit24}"/>
                     </ui:NavigationView.MenuItems>
                 </ui:NavigationView>
+                </ScrollViewer>
             
                 <Grid Grid.Row="1">
                     <Grid x:Name="FiltrosGenerales" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <WrapPanel>
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Estado" />
@@ -100,23 +119,57 @@
                                 <ui:TextBox Width="225" 
                                             Text="{Binding FolioFub, Mode=TwoWay}"/>
                             </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Pseudonimo Reportante"/>
-                                <ui:TextBox Width="225" 
-                                            Text="{Binding PseudonimoReportante, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,0,0">
-                                <ui:TextBlock Text="Pseudonimo"/>
-                                <ui:TextBox Width="225" 
-                                            Text="{Binding PseudonimoDesaparecido, Mode=TwoWay}"/>
-                            </StackPanel>
                         </WrapPanel>
                     </Grid>
                     
                     <Grid x:Name="Reportante" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <WrapPanel>
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Pseudonimo Completo"/>
+                                <ui:TextBox Width="265" 
+                                            Text="{Binding PseudonimoCompletoReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Pseudonimo Nombre(s)"/>
+                                <ui:TextBox Width="225" 
+                                            Text="{Binding PseudonimoNombreReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Pseudonimo Apellido Paterno"/>
+                                <ui:TextBox Width="225" 
+                                            Text="{Binding PseudonimoApellidoPaternoReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Pseudonimo Apellido Materno"/>
+                                <ui:TextBox Width="225" 
+                                            Text="{Binding PseudonimoApellidoMaternoReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Nombre(s)"/>
+                                <ui:TextBox Width="225" 
+                                            Text="{Binding NombreReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Apellido Paterno"/>
+                                <ui:TextBox Width="225" 
+                                            Text="{Binding ApellidoPaternoReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Apellido Materno"/>
+                                <ui:TextBox Width="225" 
+                                            Text="{Binding ApellidoMaternoReportante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Lugar Nacimiento" />
                                 <ComboBox Width="225"
@@ -182,13 +235,6 @@
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Colectivo"/>
-                                <ComboBox Width="225" 
-                                          SelectedItem="{Binding ColectivoReportanteSelected, Mode=TwoWay}"
-                                          ItemsSource="{Binding Colectivos}"/>
-                            </StackPanel>
-                                
-                            <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Estado conyugal"/>
                                 <ComboBox Width="225"
                                           SelectedItem="{Binding EstadoConyugalReportanteSelected, Mode=TwoWay}"
@@ -197,7 +243,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Fecha Nacimiento"/>
-                                <DatePicker Width="225"
+                                <DatePicker Width="225" SelectedDateFormat="Short" IsTodayHighlighted="True"
                                             SelectedDate="{Binding FechaNacimientoReportante, Mode=TwoWay}"/>
                             </StackPanel>
                             
@@ -210,7 +256,7 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Telefono"/>
-                                <ui:TextBox Width="225" 
+                                <ui:TextBox Width="225" MaxLength="10" Tag="Number"
                                             Text="{Binding NoTelefonoReportante, Mode=TwoWay}"/>
                             </StackPanel>
                             
@@ -246,18 +292,6 @@
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Descripcion Extorsion"/>
-                                <ui:TextBox Width="225" 
-                                            Text="{Binding DescripcionExtorsion, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Descripcion proveniencia"/>
-                                <TextBox Width="225"
-                                         Text="{Binding DescripcionDondeProviene, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Informacion Consentimiento"/>
                                 <ComboBox Width="225" SelectedValue="{Binding InformacionConsentimiento, Mode=TwoWay}"
                                           DisplayMemberPath="Key"
@@ -274,15 +308,10 @@
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Informacion Relevante"/>
-                                <ui:TextBox Width="225" 
-                                            Text="{Binding InformacionRelevante, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Participacion Busqueda"/>
-                                <ui:TextBox Width="225"
-                                            Text="{Binding ParticipacionBusqueda, Mode=TwoWay}"/>
+                                <ui:TextBlock Text="Colectivo busqueda"/>
+                                <ComboBox Width="225" 
+                                          SelectedItem="{Binding ColectivoReportanteSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Colectivos}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
@@ -295,32 +324,103 @@
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="CURP"/>
-                                <ui:TextBox Width="225"
+                                <ui:TextBox Width="225" MaxLength="18"
                                             Text="{Binding CurpReportante, Mode=TwoWay}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="RFC"/>
-                                <ui:TextBox Width="225"
+                                <ui:TextBox Width="225" MaxLength="13"
                                             Text="{Binding RfcReportante, Mode=TwoWay}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="personas con las que vive"/>
-                                <ui:TextBox Width="225"
+                                <ui:TextBlock Text="No. Personas con las que vive"/>
+                                <ui:NumberBox Width="225" Tag="Number" MaxDecimalPlaces="0" Maximum="120" Minimum="0"
                                             Text="{Binding NumeroPersonasVive, Mode=TwoWay}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,0,0">
                                 <ui:TextBlock Text="Edad Estimada"/>
-                                <ui:TextBox Width="225"
+                                <ui:NumberBox Width="225" Tag="Number" MaxDecimalPlaces="0" Maximum="120" Minimum="0"
                                             Text="{Binding EdadEstimada, Mode=TwoWay}"/>
+                            </StackPanel>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal" Grid.Row="1">
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Descripcion Extorsion"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding DescripcionExtorsion, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Descripcion proveniencia"/>
+                                <TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                         Text="{Binding DescripcionDondeProviene, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,5,20,0">
+                                <ui:TextBlock Text="Descripcion participacion &#x0a;busqueda"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding ParticipacionBusqueda, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,0,0">
+                                <ui:TextBlock Text="Informacion Relevante"/>
+                                <ui:TextBox Width="260"  Height="112" TextWrapping="Wrap"
+                                            Text="{Binding InformacionRelevante, Mode=TwoWay}"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
                     
                     <Grid x:Name="Desaparecido" Visibility="Collapsed">
-                         <WrapPanel>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <WrapPanel>
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Pseudonimo Completo"/>
+                                 <ui:TextBox Width="265" 
+                                             Text="{Binding PseudonimoCompletoDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>
+                             
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Pseudonimo Nombre(s)"/>
+                                 <ui:TextBox Width="225" 
+                                             Text="{Binding PseudonimoNombreDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>   
+                             
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Pseudonimo Apellido Paterno"/>
+                                 <ui:TextBox Width="225" 
+                                             Text="{Binding PseudonimoApellidoPaternoDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>
+                             
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Pseudonimo Apellido Materno"/>
+                                 <ui:TextBox Width="225" 
+                                             Text="{Binding PseudonimoApellidoMaternoDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>
+                             
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Nombre(s)"/>
+                                 <ui:TextBox Width="225" 
+                                             Text="{Binding NombreDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>
+                             
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Apellido Paterno"/>
+                                 <ui:TextBox Width="225" 
+                                             Text="{Binding ApellidoPaternoDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>
+                             
+                             <StackPanel Margin="0,8,20,0">
+                                 <ui:TextBlock Text="Apellido Materno"/>
+                                 <ui:TextBox Width="225" 
+                                             Text="{Binding ApellidoMaternoDesaparecido, Mode=TwoWay}"/>
+                             </StackPanel>
+                             
                              <StackPanel Margin="0,8,20,0">
                                  <TextBlock Text="Lugar Nacimiento"/>
                                  <ComboBox Width="225"
@@ -379,26 +479,26 @@
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="Fecha nacimiento"/>
-                                 <DatePicker Width="225"
+                                 <ui:TextBlock Text="Fecha nacimiento especifica"/>
+                                 <DatePicker Width="225" IsTodayHighlighted="True" SelectedDateFormat="Short"
                                              SelectedDate="{Binding FechaNacimientoDesaparecido, Mode=TwoWay}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Fecha Nacimiento Aproximada"/>
-                                    <DatePicker Width="225"
+                                    <DatePicker Width="225" IsTodayHighlighted="True" SelectedDateFormat="Short"
                                                 SelectedDate="{Binding FechaNacimientoAproximadaDesaparecido, Mode=TwoWay}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Fecha Nacimiento CEBV"/>
-                                    <DatePicker Width="225"
+                                    <DatePicker Width="225" IsTodayHighlighted="True" SelectedDateFormat="Short"
                                                 SelectedDate="{Binding FechaNacimientoCebvDesaparecido, Mode=TwoWay}"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Telefono"/>
-                                 <ui:TextBox Width="225"
+                                 <ui:TextBox Width="225" Tag="Number" MaxLength="10"
                                              Text="{Binding NoTelefonoDesaparecido, Mode=TwoWay}"/>
                              </StackPanel>
                              
@@ -419,18 +519,24 @@
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="Edad (Años)"/>
-                                 <ui:TextBox Width="225" Text="{Binding EdadAnos, Mode=TwoWay}"/>
+                                 <ui:TextBlock Text="Edad (Años)"/> 
+                                 <ui:NumberBox Width="225" Text="{Binding EdadAnos, Mode=TwoWay}"
+                                               Icon="{ui:SymbolIcon NumberSymbolSquare24}" MaxDecimalPlaces="0" Maximum="120"
+                                               Minimum="0" PlaceholderText="Años" SmallChange="1" Tag="Number"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Edad (Meses)"/>
-                                 <ui:TextBox Width="225" Text="{Binding EdadMeses, Mode=TwoWay}"/>
+                                 <ui:NumberBox Width="225" Text="{Binding EdadMeses, Mode=TwoWay}"
+                                               Icon="{ui:SymbolIcon NumberSymbolSquare24}" MaxDecimalPlaces="0" Maximum="12"
+                                               Minimum="0" PlaceholderText="Meses" SmallChange="1" Tag="Number"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Edad (Dias)"/>
-                                 <ui:TextBox Width="225" Text="{Binding EdadDias, Mode=TwoWay}"/>
+                                 <ui:NumberBox Width="225" Text="{Binding EdadDias, Mode=TwoWay}"
+                                               Icon="{ui:SymbolIcon NumberSymbolSquare24}" MaxDecimalPlaces="0" Maximum="31"
+                                               Minimum="0" PlaceholderText="Días" SmallChange="1" Tag="Number"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
@@ -475,11 +581,6 @@
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="Descripcion Ocupacion principal"/>
-                                 <ui:TextBox Width="225" Text="{Binding DescripcionOcupacionPrincipal, Mode=TwoWay}"/>
-                             </StackPanel>
-                             
-                             <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Ocupacion Secundaria"/>
                                  <ComboBox Width="225"
                                            SelectedItem="{Binding OcupacionSecundaria, Mode=TwoWay}"
@@ -494,18 +595,15 @@
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="Descripcion Ocupacion secundaria"/>
-                                 <ui:TextBox Width="225" Text="{Binding DescripcionOcupacionSecundaria, Mode=TwoWay}"/>
-                             </StackPanel>
-                             
-                             <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="CURP"/>
-                                 <ui:TextBox Width="225" Text="{Binding CurpDesaparecido, Mode=TwoWay}"/>
+                                 <ui:TextBox Width="225" Text="{Binding CurpDesaparecido, 
+                                 Mode=TwoWay}" MaxLength="18"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="RFC"/>
-                                 <ui:TextBox Width="225" Text="{Binding RfcDesaparecido, Mode=TwoWay}"/>
+                                 <ui:TextBlock Text="RFC"/> 
+                                 <ui:TextBox Width="225" Text="{Binding RfcDesaparecido, Mode=TwoWay}"
+                                             MaxLength="13"/>
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
@@ -545,21 +643,6 @@
                              </StackPanel>
                              
                              <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="Otro derecho humanol"/>
-                                 <ui:TextBox Width="225" Text="{Binding OtroDerechoHumano, Mode=TwoWay}"/>
-                             </StackPanel>
-                             
-                             <StackPanel Margin="0,8,20,0">
-                                 <ui:TextBlock Text="Identidad resguardada"/>
-                                 <ui:TextBox Width="225" Text="{Binding OtroDerechoHumano, Mode=TwoWay}"/>
-                             </StackPanel>
-                             
-                             <StackPanel Margin="0,8,0,0">
-                                 <ui:TextBlock Text="Clasificacion Persona"/>
-                                 <ui:TextBox Width="225" Text="{Binding ClasificacionPersona, Mode=TwoWay}"/>
-                             </StackPanel>
-                             
-                             <StackPanel Margin="0,8,20,0">
                                  <ui:TextBlock Text="Nombre pareja conyugal"/>
                                  <ui:TextBox Width="225" Text="{Binding NombreParejaConyugal, Mode=TwoWay}"/>
                              </StackPanel>
@@ -574,49 +657,86 @@
                                  <ui:TextBox Width="225" Text="{Binding BoletinImgPath, Mode=TwoWay}"/>
                              </StackPanel>
                          </WrapPanel>
+                        <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Descripcion Ocupacion principal"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding DescripcionOcupacionPrincipal, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Descripcion Ocupacion secundaria"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap" 
+                                            Text="{Binding DescripcionOcupacionSecundaria, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Otro derecho humanol"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap" 
+                                            Text="{Binding OtroDerechoHumano, Mode=TwoWay}"/>
+                            </StackPanel>
+                             
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Clasificacion Persona"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap" 
+                                            Text="{Binding ClasificacionPersona, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,0,0">
+                                <ui:TextBlock Text="Identidad resguardada"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap" 
+                                            Text="{Binding OtroDerechoHumano, Mode=TwoWay}"/>
+                            </StackPanel>
+                        </WrapPanel>
                      </Grid>
         
                     <Grid x:Name="HechosDesaparicion" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <WrapPanel>
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Fecha desaparicion"/>
-                                <DatePicker Width="225" 
+                                <DatePicker Width="225"  IsTodayHighlighted="True" SelectedDateFormat="Short"
                                             SelectedDate="{Binding FechaDesaparicion, Mode=TwoWay}"/>
                             </StackPanel>
                                     
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Fecha desaparicion aproximada"/>
-                                <DatePicker Width="225" 
-                                            SelectedDate="{Binding FechaDesaparicionAproximada, Mode=TwoWay}"/>
+                                <DatePicker Width="225" IsTodayHighlighted="True" SelectedDateFormat="Short"
+                                            SelectedDate="{Binding FechaDesaparicionAproximada, 
+                                            Mode=TwoWay}"/>
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Fecha desaparicion Cebv"/>
-                                <DatePicker Width="225" 
-                                            SelectedDate="{Binding FechaDesaparicionCebv, Mode=TwoWay}"/>
+                                <DatePicker Width="225"  IsTodayHighlighted="True" SelectedDateFormat="Short"
+                                            SelectedDate="{Binding FechaDesaparicionCebv, 
+                                            Mode=TwoWay}"/>
                             </StackPanel>
                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Hora desaparicion"/>
-                                <ui:TextBox Width="225" 
+                                <ui:TextBox Width="225" Icon="{ui:SymbolIcon Clock24}" Tag="Time"
                                             Text="{Binding HoraDesaparicion, Mode=TwoWay}"/>
                             </StackPanel>
                                     
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Fecha percato"/>
-                                <DatePicker Width="225" 
+                                <DatePicker Width="225"  IsTodayHighlighted="True" SelectedDateFormat="Short" 
                                             SelectedDate="{Binding FechaPercato, Mode=TwoWay}"/>
                             </StackPanel>
                                     
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Fecha percato CebV"/>
-                                <DatePicker Width="225"
+                                <DatePicker Width="225"  IsTodayHighlighted="True" SelectedDateFormat="Short"
                                             SelectedDate="{Binding FechaPercatoCebv, Mode=TwoWay}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Hora percato"/>
-                                <ui:TextBox Width="225"
+                                <ui:TextBox Width="225" Icon="{ui:SymbolIcon Clock24}" Tag="Time"
                                             Text="{Binding HoraPercato, Mode=TwoWay}"/>
                             </StackPanel>
                             
@@ -630,45 +750,46 @@
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Descripcion amenazao"/>
-                                <ui:TextBox Width="225"
-                                            Text="{Binding DescripcionAmenazaCambioComportamiento, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Situacion previa"/>
-                                <ui:TextBox Width="225"
-                                            Text="{Binding SituacionPrevia, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="informacion relevante"/>
-                                <ui:TextBox Width="225"
-                                            Text="{Binding InformacionRelevante, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
-                                <ui:TextBlock Text="Sintesis desaparicion"/>
-                                <ui:TextBox Width="225"
-                                            Text="{Binding SintesisDesaparicion, Mode=TwoWay}"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Personas mismo evento"/>
-                                <ui:TextBox Width="225"
+                                <ui:NumberBox Width="225" Tag="Number" Minimum="0"
                                             Text="{Binding PersonaMismoEvento, Mode=TwoWay}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Numero desapariciones previas"/>
-                                <ui:TextBox Width="225"
+                                <ui:NumberBox Width="225" Tag="Number" Minimum="0"
                                             Text="{Binding ContadorDesapariciones, Mode=TwoWay}"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,0,0">
                                 <ui:TextBlock Text="Hechos Desaparicion"/>
-                                <ui:TextBox Width="225"
+                                <ui:TextBox Width="225" Tag="Exclude" 
                                             Text="{Binding HechosDesaparicion, Mode=TwoWay}"/>
+                            </StackPanel>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal" Grid.Row="1">
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Descripcion amenazao"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding DescripcionAmenazaCambioComportamiento, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Situacion previa"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding SituacionPrevia, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="informacion relevante"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding InformacionRelevante, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,0,0">
+                                <ui:TextBlock Text="Sintesis desaparicion"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap"
+                                            Text="{Binding SintesisDesaparicion, Mode=TwoWay}"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -686,24 +807,30 @@
                                 <ComboBox Width="225" SelectedItem="{Binding HipotesisOficialCircunstanciaSelected, Mode=TwoWay}"
                                           ItemsSource="{Binding HipotesisOficialCircunstancia}"/>
                             </StackPanel>
-                            
+                        </WrapPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <StackPanel Margin="0,8,0,0">
                                 <ui:TextBlock Text="Descripcion"/>
-                                <ui:TextBox Width="225" Text="{Binding HipotesisOficialDescripcion, Mode=TwoWay}"/>
+                                <ui:TextBox Width="260" Height="112" TextWrapping="Wrap" 
+                                            Text="{Binding HipotesisOficialDescripcion, Mode=TwoWay}"/>
                             </StackPanel>
-                        </WrapPanel>
+                        </StackPanel>
                     </Grid>
                     
                     <Grid x:Name="MediaFiliacion" Visibility="Collapsed">
                         <WrapPanel>
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Estatura"/>
-                                <ui:TextBox Width="225" Text="{Binding Estatura, Mode=TwoWay}"/>
+                                <ui:NumberBox Width="225" Text="{Binding Estatura, Mode=TwoWay}"
+                                              MaxDecimalPlaces="0" Maximum="250" Minimum="30" PlaceholderText="Centímetros"
+                                              SmallChange="1" Tag="Units" Icon="{ui:SymbolIcon Ruler24}"/>
                             </StackPanel>
                                 
                             <StackPanel Margin="0,8,20,0">
                                 <ui:TextBlock Text="Peso"/>
-                                <ui:TextBox Width="225" Text="{Binding Peso, Mode=TwoWay}"/>
+                                <ui:NumberBox Width="225" Text="{Binding Peso, Mode=TwoWay}"
+                                              MaxDecimalPlaces="0" Maximum="250" Minimum="30" PlaceholderText="Kilogramos"
+                                              SmallChange="1" Tag="Units"  />
                             </StackPanel>
                             
                             <StackPanel Margin="0,8,20,0">
@@ -745,42 +872,256 @@
                     </Grid>
                     
                     <Grid x:Name="SeñasParticulares" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0"
+                              Grid.ColumnSpan="3">
+                            <StackPanel>
+                                <!-- Tipo de seña -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                                                               
+                                    <StackPanel>
+                                        <!-- Region cuerpo -->
+                                        <ui:TextBlock Text="Región del cuerpo:"
+                                                      Margin="10,10,0,0" />
+                                        <ComboBox Margin="5,0,5,0"
+                                                                                   
+                                                  SelectedValue="{Binding RegionCuerpoSelected, Mode=TwoWay}"
+                                                  ItemsSource="{Binding RegionesCuerpo}" />
+                                                                               
+                                        
+                                        <!-- Vista -->
+                                        <ui:TextBlock Text="Vista:"
+                                                      Margin="10,10,0,0" />
+                                        <ComboBox Margin="5,0,5,0"
+                                                                                   
+                                                  SelectedValue="{Binding VistaSelected, Mode=TwoWay}"
+                                                  ItemsSource="{Binding Vistas}" />
+                                    </StackPanel>
+                                                                     
+                                    <StackPanel Grid.Column="1">
+                                        <ui:TextBlock Text="Lado:"
+                                                              Margin="10,10,0,0" />
+                                        <ComboBox Margin="5,0,5,0"
+                                                                                  
+                                                  SelectedValue="{Binding LadoSelected, Mode=TwoWay}"
+                                                  ItemsSource="{Binding Lados}" />
+                                                                               
+                                        <!-- Cantidad -->
+                                        <ui:TextBlock Text="Cantidad:"
+                                                      Margin="10,10,0,0" />
+                                        <ui:NumberBox Margin="5,0,5,0"
+                                                      Value="{Binding Cantidad,
+                                                      Mode=TwoWay,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                                      Tag="Number" Minimum="1" />
+                                    </StackPanel>
+                                </Grid>
+                                                                               
+                                <ui:TextBlock Text="Tipo de seña:"
+                                              Margin="10,10,0,0" />
+                                <ComboBox Margin="5,0,5,0"
+                                                                           
+                                          SelectedValue="{Binding TipoSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Tipos}" />
+                                                                               
+                                                                               
+                                <!-- Descripcion -->
+                                <ui:TextBlock Text="Descripción:"
+                                              Margin="10,10,0,0" />
+                                <TextBox Margin="10"
+                                         VerticalAlignment="Stretch"
+                                         Height="100"
+                                         Text="{Binding Descripcion, Mode=TwoWay}"
+                                         TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Grid>         
+                    </Grid>
+                    
+                    <Grid x:Name="VehiculosInvolucrados" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <WrapPanel>
-                            <ui:TextBlock Text="Pendiente" HorizontalAlignment="Center" FontTypography="Subtitle"/>
-                            
-                            <!--<StackPanel Margin="0,0820,0">
-                                <ui:TextBlock Text="Region cuerpo"/>
-                                <ui:TextBox Width="225" Text="{Binding Cicatrices}"/>
-                            </StackPanel>
-                                
-                            <StackPanel Margin="0,0820,0">
-                                <ui:TextBlock Text="Tatuajes"/>
-                                <ui:TextBox Width="225" Text="{Binding Tatuajes}"/>
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Relacion con la persona &#x0a;Desaparecida o no localizada:"/>
+                                <ComboBox Width="225" SelectedItem="{Binding RelacionSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Relaciones}" IsEditable="True"/>
                             </StackPanel>
                             
-                            <StackPanel Margin="0,0820,0">
-                                <ui:TextBlock Text="Piercings"/>
-                                <ui:TextBox Width="225" Text="{Binding Piercings}"/>
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Marca"/>
+                                <ComboBox Width="225" SelectedItem="{Binding MarcaSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Marcas}" IsEditable="True"/>
                             </StackPanel>
                             
-                            <StackPanel Margin="0,0820,0">
-                                <ui:TextBlock Text="Protesis"/>
-                                <ui:TextBox Width="225" Text="{Binding Protesis}"/>
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Submarca"/>
+                                <ui:TextBox Width="225" Text="{Binding Submarca, Mode=TwoWay}"/>
                             </StackPanel>
                             
-                            <StackPanel Margin="0,0820,0">
-                                <ui:TextBlock Text="Otra señas"/>
-                                <ui:TextBox Width="225" Text="{Binding OtraSenas}"/>
-                            </StackPanel>-->
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Color"/>
+                                <ComboBox Width="225" SelectedItem="{Binding ColorVehiculoSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Colores}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Placa"/>
+                                <ui:TextBox Width="225" Text="{Binding Placa, Mode=TwoWay}"/>
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Modelo (Año)"/>
+                                <ui:TextBox Width="225" Text="{Binding Modelo, Mode=TwoWay}"/>
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Numero de serie"/>
+                                <ui:TextBox Width="225" Text="{Binding NumeroSerie, Mode=TwoWay}"/>
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Numero de motor"/>
+                                <ui:TextBox Width="225" Text="{Binding NumeroMotor, Mode=TwoWay}"/>
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Númeroo de permiso"/>
+                                <ui:TextBox Width="225" Text="{Binding NumeroPermiso, Mode=TwoWay}"/>
+                                <ui:TextBlock Text="Error"
+                                              FontTypography="Caption"
+                                              Visibility="Hidden" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Tipo Vehiculo"/>
+                                <ComboBox Width="225" SelectedItem="{Binding TipoVehiculoSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding TiposVehiculos}" IsEditable="True"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Uso vehiculo"/>
+                                <ComboBox Width="225" SelectedItem="{Binding UsoVehiculoSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding UsosVehiculos}" IsEditable="True"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,0,0">
+                                <ui:TextBlock Text="Vehiculo localizado"/>
+                                <ComboBox SelectedValue="{Binding Localizado, Mode=TwoWay}"
+                                          DisplayMemberPath="Key"
+                                          SelectedValuePath="Value"
+                                          ItemsSource="{Binding Opciones}"/>
+                            </StackPanel>
+                        </WrapPanel>
+                        <StackPanel Grid.Row="1" Margin="0,8,0,0" Orientation="Vertical" HorizontalAlignment="Center">
+                            <ui:TextBlock Text="Señas particulares"/>
+                            <ui:TextBox Width="800" Height="110" Text="{Binding SenasParticularesVehiculo, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Grid x:Name="PrendasVestir" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <WrapPanel Orientation="Horizontal">
+                            <StackPanel Margin="0 8 20 0">
+                                <ui:TextBlock Text="Grupo pertenencia:" />
+                                <ComboBox Width="225" SelectedItem="{Binding GrupoPerteneciaSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding GruposPertenencia}" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 8 20 0">
+                                <ui:TextBlock Text="Pertenencia:" />
+                                <ComboBox Width="225"
+                                          SelectedItem="{Binding PerteneciaSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Pertenencias}" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 8 20 0">
+                                <ui:TextBlock Text="Marca:" />
+                                <ui:TextBox Width="225"
+                                    Text="{Binding CurrentMarca, Mode=TwoWay}" />
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0,8,0,0">
+                                <ui:TextBlock Text="Color:*" />
+                                <ComboBox Width="225"
+                                          SelectedItem="{Binding ColorPertenenciaSelected, Mode=TwoWay}"
+                                          ItemsSource="{Binding Colores}" />
+                            </StackPanel>
+                        </WrapPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Margin="0 8 0 0">
+                                <ui:TextBlock Text="Descripción:" />
+                                <ui:TextBox Width="800" Height="110" TextWrapping="Wrap"
+                                            Text="{Binding CurrentPrendaDescripcion, Mode=TwoWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Grid x:Name="DocumentosLegale" Visibility="Collapsed">
+                        <WrapPanel Orientation="Horizontal">
+                            <StackPanel Margin="0,8,20,0">
+                                <ui:TextBlock Text="Tipo documento"/>
+                                <ui:TextBox Width="225"
+                                            Text="{Binding TipoDocumento, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 8 20 0">
+                                <ui:TextBlock Text="Numero documento"/>
+                                <ui:TextBox Width="225"
+                                            Text="{Binding NumeroDocumento, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 8 20 0">
+                                <ui:TextBlock Text="Donde radica"/>
+                                <ui:TextBox Width="225"
+                                            Text="{Binding DondeRadica, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 8 20 0">
+                                <ui:TextBlock Text="Nombre Servidor publico"/>
+                                <ui:TextBox Width="225"
+                                            Text="{Binding NombreServidorPublico, Mode=TwoWay}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 8 0 0">
+                                <ui:TextBlock Text="Fecha recepcion"/>
+                                <DatePicker Width="225"
+                                            SelectedDate="{Binding FechaRecepcion, Mode=TwoWay}"/>
+                            </StackPanel>
                         </WrapPanel>
                     </Grid>
                 </Grid>
                 
                 <Grid Grid.Row="2" HorizontalAlignment="Center">
                     <WrapPanel Orientation="Horizontal">
-                        <ui:Button Content="Limpiar" Margin="10"
+                        <ui:Button Content="Limpiar" Margin="10" Appearance="Primary" 
+                                   Icon="{ui:SymbolIcon TextClearFormatting16}" 
                                    Command="{Binding CleanCommand}"/>
-                        <ui:Button Content="Buscar" Margin="10"  
+                        <ui:Button Content="Buscar" Margin="10"  Appearance="Primary" Icon="{ui:SymbolIcon Search20}"
                                    Command="{Binding CargarReportesCommand}"/>
                     </WrapPanel>
                 </Grid>
