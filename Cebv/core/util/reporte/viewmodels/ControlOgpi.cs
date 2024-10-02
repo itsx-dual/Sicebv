@@ -1,3 +1,4 @@
+using Cebv.core.util.reporte.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -10,6 +11,9 @@ public partial class ControlOgpi : ObservableObject
     public ControlOgpi(
         int? id,
         int? reporteId,
+        BasicResource? estatusRndpno,
+        string? folioFub,
+        string? autoridadIngresaFub,
         DateTime? fechaCodificacion,
         string? nombreCodificador,
         string? observaciones,
@@ -18,6 +22,9 @@ public partial class ControlOgpi : ObservableObject
     {
         Id = id;
         ReporteId = reporteId;
+        EstatusRndpno = estatusRndpno;
+        FolioFub = folioFub;
+        AutoridadIngresaFub = autoridadIngresaFub;
         FechaCodificacion = fechaCodificacion;
         NombreCodificador = nombreCodificador;
         Observaciones = observaciones;
@@ -33,6 +40,15 @@ public partial class ControlOgpi : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "reporte_id")]
     private int? _reporteId;
+
+    [ObservableProperty, JsonProperty("estatus_rndpno")]
+    private BasicResource? _estatusRndpno;
+
+    [ObservableProperty, JsonProperty("folio_fub")]
+    private string? _folioFub;
+
+    [ObservableProperty, JsonProperty("autoridad_ingresa_fub")]
+    private string? _autoridadIngresaFub;
 
     [ObservableProperty, JsonProperty(PropertyName = "fecha_codificacion")]
     private DateTime? _fechaCodificacion;

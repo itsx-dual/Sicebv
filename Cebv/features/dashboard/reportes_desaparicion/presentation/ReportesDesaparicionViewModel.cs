@@ -26,7 +26,7 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
         InitAsync();
     }
 
-    private async Task InitAsync()
+    private async void InitAsync()
     {
         var reportes =  await ReportesDesaparicionNetwork.GetReportes(PaginaActual);
         TotalPaginas = reportes.Meta.LastPage ?? 0;

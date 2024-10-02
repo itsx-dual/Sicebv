@@ -9,15 +9,15 @@ public partial class UserAdmin : ObservableObject
     [JsonConstructor]
     public UserAdmin(
         int? id,
-        string? name,
         string? email,
-        string? status
+        string? status,
+        string? nombreCompleto
     )
     {
         Id = id;
-        Name = name;
         Email = email;
         Status = status;
+        NombreCompleto = nombreCompleto;
     }
 
     public UserAdmin()
@@ -27,12 +27,17 @@ public partial class UserAdmin : ObservableObject
     [ObservableProperty, JsonProperty("id")]
     private int? _id;
 
-    [ObservableProperty, JsonProperty("name")]
-    private string? _name;
-
     [ObservableProperty, JsonProperty("email")]
     private string? _email;
 
     [ObservableProperty, JsonProperty("status")]
     private string? _status;
+
+    [ObservableProperty, JsonProperty("nombre_completo")]
+    private string? _nombreCompleto;
+
+    public override string ToString()
+    {
+        return $"{NombreCompleto}";
+    }
 }

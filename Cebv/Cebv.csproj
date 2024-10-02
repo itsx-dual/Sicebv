@@ -90,6 +90,7 @@
 
     <ItemGroup>
       <Folder Include="core\modules\hipotesis\data\" />
+      <Folder Include="features\formulario_cebv\control_ogpi\domain\" />
       <Folder Include="features\formulario_cebv\intrumentos_juridicos\data\" />
       <Folder Include="features\formulario_cebv\presentation\data\" />
       <Folder Include="features\formulario_cebv\presentation\domain\" />

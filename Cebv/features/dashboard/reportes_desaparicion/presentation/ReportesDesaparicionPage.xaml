@@ -96,7 +96,6 @@
 
                             <ui:ListView Grid.Row="3"
                                          ItemsSource="{Binding Desaparecidos}"
-                                         SelectedItem="{Binding ElementName=Page, Path=DataContext.DesaparecidoSelected}"
                                          IsSelected="False">
                                 <ui:ListView.ItemTemplate>
                                     <DataTemplate>
@@ -133,9 +132,9 @@
                                             </ui:TextBlock>
 
                                             <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14">
-                                                <Run Text="{Binding EstatusCebv}" />
+                                                <Run Text="{Binding EstatusPreliminar}" />
                                                 <Run Text=" - " />
-                                                <Run Text="{Binding EstatusRnpdno}" FontStyle="Oblique" />
+                                                <Run Text="{Binding EstatusFormalizado}" FontStyle="Oblique" />
                                             </TextBlock>
 
                                             <TextBlock Grid.Row="2"

@@ -51,4 +51,14 @@ public partial class Hipotesis : ObservableObject
     {
         { nameof(Etapa), InicialSecundaria }
     };
+    
+    public readonly Dictionary<string, object> ParametrosFinalPrimaria = new()
+    {
+        { nameof(Etapa), FinalPrimaria }
+    };
+    
+    public readonly Dictionary<string, object> ParametrosFinalSecundaria = new()
+    {
+        { nameof(Etapa), FinalSecundaria }
+    };
 }

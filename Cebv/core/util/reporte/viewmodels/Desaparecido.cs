@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.reporte.data;
+using Cebv.features.formulario_cebv.datos_de_localizacion.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -15,8 +16,8 @@ public partial class Desaparecido : ObservableObject
         int? reporteId,
         string? identidadResguardada,
         Persona persona,
-        BasicResource? estatusRpdno,
-        BasicResource? estatusCebv,
+        BasicResource? estatusPreliminar,
+        BasicResource? estatusFormalizado,
         string? clasificacionPersona,
         bool declaracionEspecialAusencia,
         bool accionUrgente,
@@ -29,20 +30,27 @@ public partial class Desaparecido : ObservableObject
         int? edadMomentoDesaparicionAnos,
         int? edadMomentoDesaparicionMeses,
         int? edadMomentoDesaparicionDias,
+        string? senasParticularesBoletin,
+        string? informacionAdicionalBoletin,
         string? urlBoletin,
+        DateOnly? fechaEstatusPreliminar,
+        DateOnly? fechaEstatusFormalizado,
+        DateOnly? fechaCapturaEstatusFormalizado,
+        string? observacionesActualizacionEstatus,
         DateTime? createdAt,
         DateTime? updatedAt,
         ObservableCollection<DocumentoLegal> documentosLegales,
         Folio? folios,
-        ObservableCollection<PrendaVestir> prendasVestir
+        ObservableCollection<PrendaVestir> prendasVestir,
+        Localizacion? localizacion
     )
     {
         Id = id;
         ReporteId = reporteId;
         IdentidadResguardada = identidadResguardada;
         Persona = persona;
-        EstatusRpdno = estatusRpdno;
-        EstatusCebv = estatusCebv;
+        EstatusPreliminar = estatusPreliminar;
+        EstatusFormalizado = estatusFormalizado;
         ClasificacionPersona = clasificacionPersona;
         DeclaracionEspecialAusencia = declaracionEspecialAusencia;
         AccionUrgente = accionUrgente;
@@ -55,12 +63,18 @@ public partial class Desaparecido : ObservableObject
         EdadMomentoDesaparicionAnos = edadMomentoDesaparicionAnos;
         EdadMomentoDesaparicionMeses = edadMomentoDesaparicionMeses;
         EdadMomentoDesaparicionDias = edadMomentoDesaparicionDias;
+        SenasParticularesBoletin = senasParticularesBoletin;
+        InformacionAdicionalBoletin = informacionAdicionalBoletin;
         UrlBoletin = urlBoletin;
+        FechaEstatusPreliminar = fechaEstatusPreliminar;
+        FechaEstatusFormalizado = fechaEstatusFormalizado;
+        FechaCapturaEstatusFormalizado = fechaCapturaEstatusFormalizado;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         DocumentosLegales = documentosLegales;
         Folios = folios;
         PrendasVestir = prendasVestir;
+        Localizacion = localizacion;
     }
 
     public Desaparecido()
@@ -82,11 +96,11 @@ public partial class Desaparecido : ObservableObject
     [ObservableProperty, JsonProperty("persona")]
     private Persona _persona = new();
 
-    [ObservableProperty, JsonProperty("estatus_rpdno")]
-    private BasicResource? _estatusRpdno;
+    [ObservableProperty, JsonProperty("estatus_preliminar")]
+    private BasicResource? _estatusPreliminar;
 
-    [ObservableProperty, JsonProperty("estatus_cebv")]
-    private BasicResource? _estatusCebv;
+    [ObservableProperty, JsonProperty("estatus_formalizado")]
+    private BasicResource? _estatusFormalizado;
 
     [ObservableProperty, JsonProperty("clasificacion_persona")]
     private string? _clasificacionPersona;
@@ -127,6 +141,24 @@ public partial class Desaparecido : ObservableObject
     [ObservableProperty, JsonProperty("url_boletin")]
     private string? _urlBoletin;
 
+    [ObservableProperty, JsonProperty("senas_particulares_boletin")]
+    private string? _senasParticularesBoletin;
+
+    [ObservableProperty, JsonProperty("informacion_adicional_boletin")]
+    private string? _informacionAdicionalBoletin;
+
+    [ObservableProperty, JsonProperty("fecha_estatus_preliminar")]
+    private DateOnly? _fechaEstatusPreliminar;
+
+    [ObservableProperty, JsonProperty("fecha_estatus_formalizado")]
+    private DateOnly? _fechaEstatusFormalizado;
+
+    [ObservableProperty, JsonProperty("fecha_captura_estatus_formalizado")]
+    private DateOnly? _fechaCapturaEstatusFormalizado;
+
+    [ObservableProperty, JsonProperty("observaciones_actualizacion_estatus")]
+    private string? _observacionesActualizacionEstatus;
+
     [ObservableProperty, JsonProperty("created_at")]
     private DateTime? _createdAt;
 
@@ -144,4 +176,7 @@ public partial class Desaparecido : ObservableObject
 
     [ObservableProperty, JsonProperty("prendas_vestir")]
     private ObservableCollection<PrendaVestir> _prendasVestir = [];
+
+    [ObservableProperty, JsonProperty("localizacion")]
+    private Localizacion? _localizacion;
 }
