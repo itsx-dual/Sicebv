@@ -36,6 +36,28 @@ public partial class UserAdmin : ObservableObject
     [ObservableProperty, JsonProperty("nombre_completo")]
     private string? _nombreCompleto;
 
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(this, obj)) return true;
+        if (ReferenceEquals(obj, null)) return false;
+        if (obj.GetType() != GetType()) return false;
+
+        return Equals((UserAdmin)obj);
+    }
+
+    public override int GetHashCode() //wao
+    {
+        return HashCode.Combine(Id, Email, Status, NombreCompleto);
+    }
+
+    private bool Equals(UserAdmin userAdmin)
+    {
+        return Id == userAdmin.Id &&
+               Email == userAdmin.Email &&
+               Status == userAdmin.Status &&
+               NombreCompleto == userAdmin.NombreCompleto;
+    }
+
     public override string ToString()
     {
         return $"{NombreCompleto}";

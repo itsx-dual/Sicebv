@@ -43,7 +43,7 @@ public partial class ExpedienteFisico : ObservableObject
     [ObservableProperty, JsonProperty("area_receptora")]
     private Catalogo? _areaReceptora;
 
-    [ObservableProperty, JsonProperty("solicitante_expediente_id")]
+    [ObservableProperty, JsonProperty("solicitante_expediente")]
     private UserAdmin? _solicitanteExpediente;
 
     [ObservableProperty, JsonProperty("fecha_cambio_area")]
