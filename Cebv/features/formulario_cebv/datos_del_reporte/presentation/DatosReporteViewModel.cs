@@ -27,7 +27,6 @@ public partial class DatosReporteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Catalogo> _instituciones = [];
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = [];
     [ObservableProperty] private ObservableCollection<Estado> _estados = [];
-    [ObservableProperty] private ObservableCollection<Catalogo> _instituciones = [];
     [ObservableProperty] private Dictionary<string, bool?> _opciones = OpcionesCebv.Opciones;
 
     // Valores seleccionados.

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Cebv.core.util.reporte.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_complementarios.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
@@ -18,7 +19,7 @@ public partial class Reporte : ObservableObject
     public Reporte(
         int id,
         bool? estaTerminado,
-        TipoReporte? tipoReporte,
+        BasicResource? tipoReporte,
         MedioConocimiento? medioConocimiento,
         Estado? estado,
         TipoHipotesis? hipotesisOficial,
@@ -68,7 +69,7 @@ public partial class Reporte : ObservableObject
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    private TipoReporte? _tipoReporte;
+    private BasicResource? _tipoReporte;
 
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
     private Catalogo? _areaAtiende;
