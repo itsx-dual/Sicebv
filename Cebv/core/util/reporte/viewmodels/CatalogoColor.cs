@@ -32,6 +32,11 @@ public partial class CatalogoColor : ObservableObject
                Color == catalogo.Color;
     }
 
+    public override string ToString()
+    {
+        return Nombre ?? $"ERROR: {Id}";
+    }
+
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int? _id;
     [ObservableProperty, JsonProperty(PropertyName = "nombre")] private string? _nombre;
     [ObservableProperty, JsonProperty(PropertyName = "color")] private string? _color;

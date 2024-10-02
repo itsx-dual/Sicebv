@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Cebv.core.util.reporte.viewmodels;
 using Image = Wpf.Ui.Controls.Image;
+using ListView = Wpf.Ui.Controls.ListView;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
@@ -18,8 +19,8 @@ public partial class EncuadrePreeliminarPage : Page
     
     private void TelefonosMoviles_OnFilter(object sender, FilterEventArgs e)
     {
-        var item = e.Item as Telefono;
-        e.Accepted = (bool) item?.EsMovil!;
+        if (e.Item is not Telefono telefono) return;
+        e.Accepted = telefono.EsMovil ?? false;
     }
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
@@ -53,51 +54,37 @@ public partial class EncuadrePreeliminarPage : Page
         // Return the pixel color as a Color object
         return Color.FromRgb(pixelColor[2], pixelColor[1], pixelColor[0]);
     }
-
-    private void Imagenes_OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-    {
-        if (DataContext == null) return;
-        if (Imagenes == null) return;
-        
-        //Imagenes.Children.Clear();
-        
-        Console.WriteLine("DataContext Changed");
-        
-        var archivos = ((EncuadrePreeliminarViewModel)DataContext).Files;
-        if (archivos == null) return;
-
-        foreach (var imagen in archivos)
-        {
-            Image wpfuiImage = new()
-            {
-                Source = new BitmapImage(new Uri(imagen)),
-                CornerRadius = new CornerRadius(8),
-                Margin = new Thickness(5),
-                ClipToBounds = true,
-                Width = 300,
-                Height = 300,
-                Stretch = Stretch.UniformToFill
-            };
-
-            //Imagenes.Children.Add(wpfuiImage);
-        }
-    }
-
-    private void Grid_OnSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        var grid = sender as Grid;
-    }
-
-    private void ComboBox_LostFocus(object sender, RoutedEventArgs e)
+    
+    public void Search(object sender, RoutedEventArgs e)
     {
         if (sender is not ComboBox comboBox) return;
-        if (!comboBox.Items.Cast<dynamic>().Any()) return;
+        var items = comboBox.Items.Cast<dynamic>(); 
+        if (!items.Any()) return;
         
-        var esValido = comboBox.Items.Cast<dynamic>().Any(x => x.ToString() == comboBox.Text);
+        var esValido = items.Any(x => x.ToString() == comboBox.Text);
 
-        if (esValido) comboBox.SelectedItem = comboBox.Items.Cast<dynamic>().First(item => item.ToString() == comboBox.Text);
-        else comboBox.SelectedItem = comboBox.Items.Cast<dynamic>().FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
-                                     comboBox.Items.Cast<dynamic>().FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
-                                     comboBox.Items.Cast<dynamic>().First();
+        if (esValido) comboBox.SelectedItem = items.First(x => x.ToString() == comboBox.Text);
+        else comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
+                                     items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
+                                     items.First();
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        if (sender is not DatePicker datePicker) return;
+        
+    }
+
+    private void Imagenes_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (sender is not ListView listview) return;
+        if (listview.DataContext is not EncuadrePreeliminarViewModel dataContext) return;
+        if (!listview.Items.Cast<dynamic>().Any()) return;
+
+        if (e.Key == Key.Delete)
+        {
+            // Trato de respetar MVVM lo mas posible.
+            dataContext.DeleteDesaparecidoImagenCommand.Execute(listview.SelectedItem);
+        }
     }
 }

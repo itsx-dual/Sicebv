@@ -32,7 +32,7 @@
                BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="IsReadOnly" Value="False" />
             <Setter Property="IsEditable" Value="True" />
-            <EventSetter Event="LostFocus" Handler="ComboBox_LostFocus" />
+            <EventSetter Event="LostFocus" Handler="Search" />
         </Style>
 
         <util:VisibilityConverter x:Key="VisibilityConverter" />
@@ -191,7 +191,7 @@
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
-                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoReportanteCommand}"
                                                    CommandParameter="{Binding}" />
 
                                     </Grid>
@@ -253,7 +253,8 @@
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDateFormat="Short"
-                                            SelectedDate="{Binding FechaNacimientoDesaparecido}" />
+                                            SelectedDate="{Binding FechaNacimientoDesaparecido}"
+                                            PreviewTextInput="UIElement_OnPreviewTextInput"/>
 
                             </StackPanel>
                         </WrapPanel>
@@ -494,8 +495,8 @@
 
                             <StackPanel>
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}" />
+                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -533,33 +534,33 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroExterior}"
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
                                             MaxLength="10" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.NumeroInterior}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Colonia}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="CÓDIGO POSTAL:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             MaxLength="5"
-                                            Text="{Binding Reporte.HechosDesaparicion.LugarHechos.CodigoPostal}"
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
                                             Tag="Number" />
                             </StackPanel>
                         </WrapPanel>
@@ -580,43 +581,43 @@
                             <!-- Agregar NO ESPECIFICA -->
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="LOCALIDAD:" />
-                                <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento}"
+                                <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento}"
                                           ItemsSource="{Binding Asentamientos}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Visible">
                                 <ui:TextBlock Text="LONGITUD:" />
                                 <ui:TextBox
-                                    Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento.Longitud}" />
+                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Longitud}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Visibility="Visible">
                                 <ui:TextBlock Text="LATITUD:" />
                                 <ui:TextBox
-                                    Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Asentamiento.Latitud}" />
+                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Latitud}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle1}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Calle2}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.TramoCarretero}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.LugarHechos.Referencia}" />
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -625,14 +626,14 @@
                         <ui:TextBox TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="150"
-                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicion}"
+                                    Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicionNarracion}"
                                     Tag="Exclude" />
                     </StackPanel>
 
                     <StackPanel MinWidth="300">
                         <ui:TextBlock Text="N° DE PERSONAS EN EL MISMO EVENTO" />
-                        <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" Tag="Number"
-                                      Minimum="0" />
+                        <ui:NumberBox Text="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" Tag="Number"
+                                      Minimum="1" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -648,7 +649,7 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Centímetros"
-                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Estatura,
+                                          Value="{Binding Desaparecido.Persona.Salud.EstaturaCentimetros,
                                           Mode=TwoWay,
                                           UpdateSourceTrigger=PropertyChanged}"
                                           SmallChange="1" Tag="Units" />
@@ -660,7 +661,7 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Kilogramos"
-                                          Value="{Binding Desaparecido.Persona.MediaFiliacion.Peso,
+                                          Value="{Binding Desaparecido.Persona.Salud.PesoKilogramos,
                                           Mode=TwoWay,
                                           UpdateSourceTrigger=PropertyChanged}"
                                           SmallChange="1" Tag="Units" />
@@ -669,19 +670,19 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPLEXIÓN:" />
                             <ComboBox ItemsSource="{Binding Complexiones}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.Complexion}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Salud.Complexion}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE PIEL:" />
                             <ComboBox ItemsSource="{Binding ColoresPiel}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorPiel}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Salud.ColorPiel}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR DE OJOS:" />
                             <ComboBox ItemsSource="{Binding ColoresOjos}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorOjos}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Ojos.ColorOjos}" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -689,19 +690,19 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="COLOR CABELLO:" />
                             <ComboBox ItemsSource="{Binding ColoresCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.ColorCabello}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Cabello.ColorCabello}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TAMAÑO CABELLO:" />
                             <ComboBox ItemsSource="{Binding TamanosCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TamanoCabello}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Cabello.TamanoCabello}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="TIPO CABELLO:" />
                             <ComboBox ItemsSource="{Binding TiposCabello}"
-                                      SelectedItem="{Binding Desaparecido.Persona.MediaFiliacion.TipoCabello}" />
+                                      SelectedItem="{Binding Desaparecido.Persona.Cabello.TipoCabello}" />
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -771,7 +772,6 @@
                                             <ui:TextBlock Text="Región del cuerpo:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-
                                                       SelectedValue="{Binding RegionCuerpoSelected}"
                                                       ItemsSource="{Binding RegionesCuerpo}" />
 
@@ -779,7 +779,6 @@
                                             <ui:TextBlock Text="Vista:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-
                                                       SelectedValue="{Binding VistaSelected}"
                                                       ItemsSource="{Binding Vistas}" />
 
@@ -789,7 +788,6 @@
                                             <ui:TextBlock Text="Lado:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-
                                                       SelectedValue="{Binding LadoSelected}"
                                                       ItemsSource="{Binding Lados}" />
 
@@ -1027,7 +1025,7 @@
                             <ui:ListView
                                 HorizontalAlignment="Stretch"
                                 MaxHeight="250"
-                                ItemsSource="{Binding Desaparecido.PrendasDeVestir}"
+                                ItemsSource="{Binding Desaparecido.PrendasVestir}"
                                 SelectionMode="Single">
                                 <ui:ListView.ItemTemplate>
                                     <DataTemplate>
@@ -1114,7 +1112,8 @@
                     <ui:ListView x:Name="Imagenes"
                                  ItemsSource="{Binding ImagenesDesaparecido}"
                                  SelectedItem="{Binding ImagenBoletin}"
-                                 SelectedIndex="0">
+                                 SelectedIndex="0"
+                                 KeyDown="Imagenes_OnKeyDown">
                         <ui:ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Width="Auto" />
@@ -1129,9 +1128,18 @@
                                           Height="200"
                                           Stretch="UniformToFill">
                                     <ui:Image.ContextMenu>
-                                        <ui:MenuItem Header="Borrar foto"
-                                                     Command="{Binding ElementName=Page, Path=DataContext.DeleteDesaparecidoImagenCommand}"
-                                                     CommandParameter="{Binding}"/>
+                                        <!-- 
+                                        Keydown event manejado en code behind.
+                                        Este hace uso de MVVM.
+                                        -->
+                                        <ContextMenu>
+                                            <ui:MenuItem Header="Eliminar imagen"
+                                                         Command="{Binding Source={x:Reference Name=Page}, 
+                                                         Path=DataContext.DeleteDesaparecidoImagenCommand}"
+                                                         CommandParameter="{Binding}"
+                                                         Icon="{ui:SymbolIcon Delete24}">
+                                            </ui:MenuItem>
+                                        </ContextMenu>
                                     </ui:Image.ContextMenu>
                                 </ui:Image>
                             </DataTemplate>
