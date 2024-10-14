@@ -200,6 +200,146 @@ public class TextBoxHelper
         }
     }
     
+    public static void ValidateCoherentText(object sender, RoutedEventArgs e)
+    {
+        TextBox textBox = (sender as TextBox)!;
+
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        {
+            return;
+        }
+        
+        string inputText = textBox.Text.ToLower();
+
+        // Criterio 1: Validar que la longitud de cada palabra no sea extremadamente corta o larga
+        string[] words = inputText.Split(' ');
+        foreach (var word in words)
+        {
+            if (word.Length < 1 || word.Length > 15)
+            {
+                _snackbarService.Show(
+                    "Texto incoherente",
+                    $"La palabra \"{word}\" parece ser inválida por su longitud.",
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                return;
+            }
+        }
+
+        // Criterio 2: Validar la frecuencia de letras repetidas en una palabra
+        foreach (var word in words)
+        {
+            var letterGroups = word.GroupBy(c => c).Where(g => g.Count() > 3); // Letras repetidas más de 3 veces
+            if (letterGroups.Any())
+            {
+                _snackbarService.Show(
+                    "Texto incoherente",
+                    $"La palabra \"{word}\" tiene letras repetidas de forma inusual.",
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                return;
+            }
+        }
+        
+        textBox.BorderBrush = SystemColors.ControlDarkBrush;
+    }
+    
+    public static void ValidateCoherentName(object sender, RoutedEventArgs e) 
+    { 
+        TextBox textBox = (sender as TextBox)!;
+
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude") 
+        { 
+            return; 
+        }
+        
+        string inputText = textBox.Text.ToLower();
+        
+        // Criterio 1: Validar longitud de cada nombre (parte del nombre)
+        string[] names = inputText.Split(new char[] { ' ', '-', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var name in names)
+        {
+            // Longitud típica de un nombre propio
+            if (name.Length < 2 || name.Length > 20)
+            {
+                _snackbarService.Show(
+                    "Nombre incoherente",
+                    $"El nombre \"{name}\" parece inválido por su longitud.",
+                    ControlAppearance.Dark,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                return;
+            }
+        }
+        
+        // Criterio 2: Validar frecuencia de letras repetidas en un nombre
+        foreach (var name in names)
+        {
+            var letterGroups = name.GroupBy(c => c).Where(g => g.Count() > 2); // Letras repetidas más de 2 veces
+            if (letterGroups.Any())
+            {
+                _snackbarService.Show(
+                    "Nombre incoherente",
+                    $"El nombre \"{name}\" tiene letras repetidas de forma inusual.",
+                    ControlAppearance.Dark,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                return;
+            }
+        }
+        
+        // Criterio 3: Validar solo caracteres permitidos (letras, espacios, guiones, apóstrofes)
+        if (!Regex.IsMatch(inputText, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚ '-]+$"))
+        {
+            _snackbarService.Show(
+                "Nombre inválido",
+                "El nombre contiene caracteres no permitidos. Solo se permiten letras, guiones y apóstrofes.",
+                ControlAppearance.Dark,
+                new SymbolIcon(SymbolRegular.Warning20),
+                new TimeSpan(0, 0, 5));
+
+            textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+            return;
+        }
+        textBox.BorderBrush = SystemColors.ControlDarkBrush; 
+    }
+    
+    public static void ValidateUserName(object sender, RoutedEventArgs e)
+    {
+        TextBox textBox = (sender as TextBox)!;
+
+        string userNamePattern = @"^[a-zA-Z0-9](?!.*[_.]{2})[a-zA-Z0-9._]+[a-zA-Z0-9]$";
+
+        if (!Regex.IsMatch(textBox.Text, userNamePattern) || textBox.Text.Length < 3 || textBox.Text.Length > 30)
+        {
+            _snackbarService.Show(
+                "Nombre de usuario no válido",
+                "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.",
+                ControlAppearance.Dark,
+                new SymbolIcon(SymbolRegular.Warning20),
+                new TimeSpan(0, 0, 5));
+
+            e.Handled = true;
+            textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+        }
+        else
+        {
+            textBox.BorderBrush = SystemColors.ControlDarkBrush;
+        }
+    }
+    
     /// <summary>
     /// Evento que se dispara cuando un TextBox pierde el foco,
     /// elimina los espacios finales e iniciales y
@@ -272,6 +412,9 @@ public class TextBoxHelper
                 textBox.BorderBrush = SystemColors.ControlDarkBrush;
             }
         }
+        
+        ValidateCoherentText(sender, e);
+        ValidateCoherentName(sender, e);
 
         // Eliminar espacios finales e iniciales
         string trimmedText = textBox.Text.Trim();
