@@ -1,9 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
@@ -60,9 +62,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo? _tipoMedioSelected;
+    [ObservableProperty] private Catalogo _tipoMedioSelected;
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    [ObservableProperty] private Municipio _municipioSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private Catalogo? _vistaSelected;
@@ -92,9 +94,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
     // Valores para insercion a listas
     [ObservableProperty] private string _noTelefonoReportante = string.Empty;
-    [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
+    [ObservableProperty] private string? _observacionesTelefonoReportante = string.Empty;
     [ObservableProperty] private string _noTelefonoDesaparecido = string.Empty;
-    [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
+    [ObservableProperty] private string? _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
     [ObservableProperty] private bool _seDesconoceFechaNacimientoDesaparecido;
@@ -450,6 +452,24 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         if (openFileDialog.ShowDialog() == false) return;
         if (!File.Exists(openFileDialog.FileName)) return;
         ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
+    }
+
+    private bool VerificacionCamposObligatorios()
+    {
+        if (string.IsNullOrWhiteSpace(Reportante.Persona.Nombre) || string.IsNullOrWhiteSpace(Reportante.Persona.ApellidoPaterno) ||
+            string.IsNullOrWhiteSpace(Desaparecido.Persona.Nombre) || string.IsNullOrWhiteSpace(Desaparecido.Persona.ApellidoPaterno) 
+            || Desaparecido.Persona.Nacionalidades.Count == 0 || string.IsNullOrWhiteSpace(Reporte.HechosDesaparicion?.HechosDesaparicionNarracion) 
+            || Reporte.MedioConocimiento is null)
+        {
+            return false;
+        }
+
+        if (!PropertyValidator.ValidarPropiedades(this))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     [RelayCommand]
