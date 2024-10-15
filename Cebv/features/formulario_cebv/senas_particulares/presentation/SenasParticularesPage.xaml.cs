@@ -16,15 +16,15 @@ public partial class SenasParticularesPage : Page
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (this.DataContext != null) 
-        {
-            Point posicion = e.GetPosition(RegionCuerpoImage);
-            Color colorRegionCuerpo = this.GetPixelColor(RegionCuerpoImage, posicion);
-            Color colorLado = this.GetPixelColor(LadoImage, posicion);
+        if (this.DataContext == null) return;
+        
+        Point posicion = e.GetPosition(RegionCuerpoImage);
+        Color colorRegionCuerpo = this.GetPixelColor(RegionCuerpoImage, posicion);
+        Color colorLado = this.GetPixelColor(LadoImage, posicion);
 
-            ((SenasParticularesViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
-            ((SenasParticularesViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
-        }
+        // No me da un color rgb (#RRGGBB), da un ARGB (#TTRRGGBB)
+        ((SenasParticularesViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
+        ((SenasParticularesViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
     }
     
     private Color GetPixelColor(Image image, Point position)

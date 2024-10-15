@@ -2,10 +2,11 @@ using System.Windows;
 using System.Windows.Controls;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
-using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
+using ISnackbarService = Cebv.core.util.snackbar.ISnackbarService;
 
 namespace Cebv.features.dashboard.presentation;
 
@@ -14,7 +15,7 @@ public partial class DashboardPage : Page
     private bool _isUserClosedPane;
     private bool _isPaneOpenedOrClosedFromCode;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    
+    private IContentDialogService _contentDialogService = App.Current.Services.GetService<IContentDialogService>()!;
     
     public DashboardPage()
     {
@@ -24,6 +25,7 @@ public partial class DashboardPage : Page
         
         navigationService.SetNavigationControl(MainNavigationView);
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+        _contentDialogService.SetContentPresenter(ContentPresenter);
     }
 
     private void DashboardPage_OnLoaded(object sender, RoutedEventArgs e)
