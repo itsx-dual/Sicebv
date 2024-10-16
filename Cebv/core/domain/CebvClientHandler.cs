@@ -8,11 +8,11 @@ public static class CebvClientHandler
 {
     public static readonly HttpClient SharedClient = new()
     {
-        BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("aws") ?? string.Empty),
+        BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("Localhost") ?? string.Empty),
 
         DefaultRequestHeaders =
         {
             Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
         }
     }; 
-}
+} 

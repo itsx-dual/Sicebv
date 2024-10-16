@@ -11,6 +11,8 @@
       xmlns:presentation2="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
       xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.dashboard.reportes_desaparicion.presentation"
+      xmlns:presentation5="clr-namespace:Cebv.features.settings"
+
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -104,8 +106,13 @@
             
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem
+                    Content="Configuración"
+                    Icon="{ui:SymbolIcon Settings48}"
+                    TargetPageType="{x:Type presentation5:SettingsPage}"/>
+                <ui:NavigationViewItem
                     Content="Cerrar sesión"
                     Icon="{ui:SymbolIcon ArrowExit20}"/>
+                
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
     </Grid>
