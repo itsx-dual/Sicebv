@@ -130,7 +130,7 @@
                                  VerticalAlignment="Stretch"
                                  Height="100"
                                  Text="{Binding Descripcion}"
-                                 TextWrapping="Wrap" />
+                                 TextWrapping="Wrap" Tag="Text"/>
 
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"

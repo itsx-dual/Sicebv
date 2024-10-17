@@ -111,7 +111,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Folios.User.NombreCompleto}" IsEnabled="False" />
+                            <ui:TextBox Text="{Binding Desaparecido.Folios.User.NombreCompleto}" IsEnabled="False" Tag="Name"/>
                         </StackPanel>
 
 
@@ -179,7 +179,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Observaciones:" />
                         <TextBox Text="{Binding Reporte.ExpedienteFisico.Observaciones}"
-                                 TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                 TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

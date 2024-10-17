@@ -18,13 +18,18 @@ public class TextBoxHelper
     /// </summary>
     /// <param name="depObj"></param>
     /// <returns></returns>   
-    private static bool IsDatePicker(DependencyObject depObj)
+    private static bool IsControl(DependencyObject depObj)
     {
         while (depObj != null)
         {
             if (depObj is DatePicker)
             {
                 return true;
+            }
+
+            if (depObj is ComboBox)
+            {
+                return false;
             }
             depObj = VisualTreeHelper.GetParent(depObj);
         }
@@ -66,8 +71,8 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
         
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
+        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || textBox.Tag?.ToString() == "UserName")
         {
             return;
         }
@@ -99,8 +104,8 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
         string pattern;
 
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
+        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
         }
@@ -155,6 +160,10 @@ public class TextBoxHelper
                 // Patrón para permitir letras, números y caracteres especiales de correo electrónico
                 pattern = @"[^a-zA-ZñÑ0-9@._-]";
                 break;
+            case "UserName":
+                // Patrón para UserName
+                pattern = @"^[a-zA-Z0-9@\-_. ]{3,}$";
+                break;
             default:
                 // Patrón para permitir letras y la Ñ
                 pattern = @"[^A-ZÑ0-9,]";
@@ -177,8 +186,8 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
         
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
+        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
         }
@@ -204,138 +213,52 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
 
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
+        if (IsControl(textBox))
         {
             return;
         }
-        
-        string inputText = textBox.Text.ToLower();
 
-        // Criterio 1: Validar que la longitud de cada palabra no sea extremadamente corta o larga
-        string[] words = inputText.Split(' ');
-        foreach (var word in words)
+        if (textBox?.Tag?.ToString() == "Text" || textBox?.Tag?.ToString() == "Exclude")
         {
-            if (word.Length < 1 || word.Length > 15)
+            string inputText = textBox.Text.ToLower();
+
+            // Criterio 1: Validar que la longitud de cada palabra no sea extremadamente corta o larga
+            string[] words = inputText.Split(' ');
+            foreach (var word in words)
             {
-                _snackbarService.Show(
-                    "Texto incoherente",
-                    $"La palabra \"{word}\" parece ser inválida por su longitud.",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
+                if (word.Length < 1 || word.Length > 15)
+                {
+                    _snackbarService.Show(
+                        "Texto incoherente",
+                        $"La palabra \"{word}\" parece ser inválida por su longitud.",
+                        ControlAppearance.Caution,
+                        new SymbolIcon(SymbolRegular.Warning20),
+                        new TimeSpan(0, 0, 5));
 
-                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                return;
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                    return;
+                }
             }
-        }
 
-        // Criterio 2: Validar la frecuencia de letras repetidas en una palabra
-        foreach (var word in words)
-        {
-            var letterGroups = word.GroupBy(c => c).Where(g => g.Count() > 3); // Letras repetidas más de 3 veces
-            if (letterGroups.Any())
+            // Criterio 2: Validar la frecuencia de letras repetidas en una palabra
+            foreach (var word in words)
             {
-                _snackbarService.Show(
-                    "Texto incoherente",
-                    $"La palabra \"{word}\" tiene letras repetidas de forma inusual.",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
+                var letterGroups = word.GroupBy(c => c).Where(g => g.Count() > 4);
+                if (letterGroups.Any())
+                {
+                    _snackbarService.Show(
+                        "Texto incoherente",
+                        $"La palabra \"{word}\" tiene letras repetidas de forma inusual.",
+                        ControlAppearance.Caution,
+                        new SymbolIcon(SymbolRegular.Warning20),
+                        new TimeSpan(0, 0, 5));
 
-                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                return;
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                    return;
+                }
             }
-        }
         
-        textBox.BorderBrush = SystemColors.ControlDarkBrush;
-    }
-    
-    public static void ValidateCoherentName(object sender, RoutedEventArgs e) 
-    { 
-        TextBox textBox = (sender as TextBox)!;
-
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude") 
-        { 
-            return; 
-        }
-        
-        string inputText = textBox.Text.ToLower();
-        
-        // Criterio 1: Validar longitud de cada nombre (parte del nombre)
-        string[] names = inputText.Split(new char[] { ' ', '-', '\'' }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (var name in names)
-        {
-            // Longitud típica de un nombre propio
-            if (name.Length < 2 || name.Length > 20)
-            {
-                _snackbarService.Show(
-                    "Nombre incoherente",
-                    $"El nombre \"{name}\" parece inválido por su longitud.",
-                    ControlAppearance.Dark,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
-
-                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                return;
-            }
-        }
-        
-        // Criterio 2: Validar frecuencia de letras repetidas en un nombre
-        foreach (var name in names)
-        {
-            var letterGroups = name.GroupBy(c => c).Where(g => g.Count() > 2); // Letras repetidas más de 2 veces
-            if (letterGroups.Any())
-            {
-                _snackbarService.Show(
-                    "Nombre incoherente",
-                    $"El nombre \"{name}\" tiene letras repetidas de forma inusual.",
-                    ControlAppearance.Dark,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
-
-                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
-                return;
-            }
-        }
-        
-        // Criterio 3: Validar solo caracteres permitidos (letras, espacios, guiones, apóstrofes)
-        if (!Regex.IsMatch(inputText, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚ '-]+$"))
-        {
-            _snackbarService.Show(
-                "Nombre inválido",
-                "El nombre contiene caracteres no permitidos. Solo se permiten letras, guiones y apóstrofes.",
-                ControlAppearance.Dark,
-                new SymbolIcon(SymbolRegular.Warning20),
-                new TimeSpan(0, 0, 5));
-
-            textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
-            return;
-        }
-        textBox.BorderBrush = SystemColors.ControlDarkBrush; 
-    }
-    
-    public static void ValidateUserName(object sender, RoutedEventArgs e)
-    {
-        TextBox textBox = (sender as TextBox)!;
-
-        string userNamePattern = @"^[a-zA-Z0-9](?!.*[_.]{2})[a-zA-Z0-9._]+[a-zA-Z0-9]$";
-
-        if (!Regex.IsMatch(textBox.Text, userNamePattern) || textBox.Text.Length < 3 || textBox.Text.Length > 30)
-        {
-            _snackbarService.Show(
-                "Nombre de usuario no válido",
-                "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.",
-                ControlAppearance.Dark,
-                new SymbolIcon(SymbolRegular.Warning20),
-                new TimeSpan(0, 0, 5));
-
-            e.Handled = true;
-            textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
-        }
-        else
-        {
             textBox.BorderBrush = SystemColors.ControlDarkBrush;
         }
     }
@@ -351,8 +274,8 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
         
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
+        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude")
         {
             return;
         }
@@ -371,11 +294,10 @@ public class TextBoxHelper
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
-            else
-            {
-                textBox.BorderBrush = SystemColors.ControlDarkBrush;
-            }
-        }else if (textBox?.Tag?.ToString() == "Date")
+            else textBox.BorderBrush = SystemColors.ControlDarkBrush;
+        }
+        
+        if (textBox?.Tag?.ToString() == "Date")
         {
             if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
             {
@@ -389,11 +311,10 @@ public class TextBoxHelper
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
-            else
-            {
-                textBox.BorderBrush = SystemColors.ControlDarkBrush;
-            }
-        }else if (textBox?.Tag?.ToString() == "Mail")
+            else textBox.BorderBrush = SystemColors.ControlDarkBrush;
+        }
+        
+        if (textBox?.Tag?.ToString() == "Mail")
         {
             if (!Regex.IsMatch(textBox.Text, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
             {
@@ -407,14 +328,84 @@ public class TextBoxHelper
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
-            else
-            {
-                textBox.BorderBrush = SystemColors.ControlDarkBrush;
-            }
+            else textBox.BorderBrush = SystemColors.ControlDarkBrush;
         }
-        
+
+        if (textBox?.Tag?.ToString() == "UserName")
+        {
+            if (!Regex.IsMatch(textBox.Text, @"^[a-zA-Z0-9@\-_. ]{3,}$") || textBox.Text.Length < 3 || textBox.Text.Length > 30)
+            {
+                _snackbarService.Show(
+                    "Nombre de usuario no válido",
+                    "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, " +
+                    "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.",
+                    ControlAppearance.Primary,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                e.Handled = true;
+                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+            }
+            else textBox.BorderBrush = SystemColors.ControlDarkBrush;
+        }
+
+        if (textBox?.Tag?.ToString() == "Name" || textBox?.Tag?.ToString() == "Letter")
+        {
+            string inputText = textBox.Text.ToLower();
+            
+            // Criterio 1: Validar longitud de cada nombre (parte del nombre)
+            string[] names = inputText.Split(new char[] { ' ', '-', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            foreach (var name in names)
+            {
+                if (name.Length < 2 || name.Length > 20)
+                {
+                    _snackbarService.Show(
+                        "Nombre incoherente",
+                        $"El nombre \"{name}\" parece inválido por su longitud.",
+                        ControlAppearance.Primary,
+                        new SymbolIcon(SymbolRegular.Warning20),
+                        new TimeSpan(0, 0, 5));
+
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                    return;
+                }
+            }
+            
+            // Criterio 2: Validar frecuencia de letras repetidas en un nombre
+            foreach (var name in names)
+            {
+                var letterGroups = name.GroupBy(c => c).Where(g => g.Count() > 4);
+                if (letterGroups.Any())
+                {
+                    _snackbarService.Show(
+                        "Nombre incoherente",
+                        $"El nombre \"{name}\" tiene letras repetidas de forma inusual.",
+                        ControlAppearance.Primary,
+                        new SymbolIcon(SymbolRegular.Warning20),
+                        new TimeSpan(0, 0, 5));
+
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                    return;
+                }
+            }
+            
+            if (!Regex.IsMatch(inputText, @"^[a-zA-ZñÑ]+$"))
+            {
+                _snackbarService.Show(
+                    "Nombre inválido",
+                    "El nombre contiene caracteres no permitidos.",
+                    ControlAppearance.Primary,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                textBox.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                return;
+            }
+            textBox.BorderBrush = SystemColors.ControlDarkBrush; 
+        }
+
         ValidateCoherentText(sender, e);
-        ValidateCoherentName(sender, e);
 
         // Eliminar espacios finales e iniciales
         string trimmedText = textBox.Text.Trim();

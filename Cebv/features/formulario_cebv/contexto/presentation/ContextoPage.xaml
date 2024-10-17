@@ -53,7 +53,7 @@
                             <WrapPanel>
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Nombre del pariente:" />
-                                    <ui:TextBox Text="{Binding Familiar.Nombre}" />
+                                    <ui:TextBox Text="{Binding Familiar.Nombre}" Tag="Name"/>
                                 </StackPanel>
 
                                 <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -77,7 +77,7 @@
                                 <StackPanel MinWidth="300" Margin="0 0 0 15">
                                     <ui:TextBlock Text="Observaciones:" />
                                     <ui:TextBox Text="{Binding Familiar.Observaciones}" MinHeight="100"
-                                                TextWrapping="Wrap" AcceptsReturn="True" />
+                                                TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                                 </StackPanel>
 
                             </StackPanel>
@@ -166,7 +166,7 @@
                         <StackPanel MinWidth="335" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Dónde trabaja?" />
                             <TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.DondeTrabaja}"
-                                     TextWrapping="Wrap" />
+                                     TextWrapping="Wrap" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -199,7 +199,7 @@
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿A dónde desea irse?" />
                             <TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.UbicacionTrabajoForaneo}"
-                                     TextWrapping="Wrap" />
+                                     TextWrapping="Wrap" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -216,7 +216,7 @@
                                     Visibility="{Binding Desaparecido.Persona.ContextoEconomico.ViolenciaLaboral,
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿Por parte de quién?" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.ViolentadorLaboral}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.ViolentadorLaboral}" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -244,7 +244,7 @@
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿A quién le debe?" />
                             <TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.DeudaCon}"
-                                     TextWrapping="Wrap" />
+                                     TextWrapping="Wrap" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -258,12 +258,12 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Nivel:" />
-                                <ui:TextBox />
+                                <ui:TextBox Tag="Text"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Institución:" />
-                                <ui:TextBox />
+                                <ui:TextBox Tag="Text"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -388,17 +388,17 @@
                         <WrapPanel Margin="10">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Nombre:" />
-                                <ui:TextBox Text="{Binding Amistad.Nombre}" />
+                                <ui:TextBox Text="{Binding Amistad.Nombre}" Tag="Name"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Apellido Paterno:" />
-                                <ui:TextBox Text="{Binding Amistad.ApellidoPaterno}" />
+                                <ui:TextBox Text="{Binding Amistad.ApellidoPaterno}" Tag="Name"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Apellido Materno:" />
-                                <ui:TextBox Text="{Binding Amistad.ApellidoMaterno}" />
+                                <ui:TextBox Text="{Binding Amistad.ApellidoMaterno}" Tag="Name"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -410,7 +410,7 @@
                         <WrapPanel Margin="10">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Teléfono:" />
-                                <ui:TextBox Text="{Binding Amistad.Telefono}" MaxLength="10" />
+                                <ui:TextBox Text="{Binding Amistad.Telefono}" MaxLength="10" Tag="Number"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -421,7 +421,7 @@
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Usuario de redes:" />
-                                <ui:TextBox Text="{Binding Amistad.UsuarioRedSocial}" />
+                                <ui:TextBox Text="{Binding Amistad.UsuarioRedSocial}" Tag="UserName"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">

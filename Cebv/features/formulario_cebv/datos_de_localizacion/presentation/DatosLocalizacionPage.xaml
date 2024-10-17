@@ -96,14 +96,14 @@
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="Síntesis de localización: *" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.SintesisLocalizacion}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
                                 Text="Describa brevemente la condición psicofísica en que fue localizada la persona" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.DescripcionCondicionPersona}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" Tag="Text"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -152,14 +152,14 @@
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="Síntesis de localización:" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.SintesisLocalizacion}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel>
                             <ui:TextBlock
                                 Text="Describa las causas de fallecimiento:" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.DescripcionCausasFallecimiento}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" Tag="Text"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -239,7 +239,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Observaciones sobre la actualización de estatus:" />
                         <ui:TextBox Text="{Binding Desaparecido.ObservacionesActualizacionEstatus}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

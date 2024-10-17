@@ -1,19 +1,25 @@
 using System.Collections.ObjectModel;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.contexto.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.contexto.presentation;
 
 public partial class ContextoViewModel : ObservableObject
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 

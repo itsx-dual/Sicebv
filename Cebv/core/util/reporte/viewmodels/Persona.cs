@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.modules.persona.data;
 using Cebv.features.formulario_cebv.contexto.data;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,7 +8,7 @@ using Newtonsoft.Json;
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Persona : ObservableObject
+public partial class Persona : ObservableValidator
 {
     [JsonConstructor]
     public Persona(
@@ -123,14 +124,16 @@ public partial class Persona : ObservableObject
     private int? _id;
 
     [ObservableProperty, JsonProperty(PropertyName = "nombre")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [Required(ErrorMessage = "Campo Obligatorio")] [MinLength(2)]
     private string? _nombre;
 
-    [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [Required(ErrorMessage = "Campo Obligatorio")] [MinLength(2)]
     private string? _apellidoPaterno;
 
+    
     [ObservableProperty, JsonProperty(PropertyName = "apellido_materno")]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
     private string? _apellidoMaterno;
 
     [ObservableProperty, JsonProperty(PropertyName = "apodo")]
@@ -178,7 +181,7 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "pseudonimos")]
     private ObservableCollection<Pseudonimo> _pseudonimos = [];
 
-    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
+    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")] [Required(ErrorMessage = "Campo Obligatorio")]
     private ObservableCollection<Catalogo> _nacionalidades = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
@@ -288,5 +291,10 @@ public partial class Persona : ObservableObject
                Nombre == persona.Nombre &&
                ApellidoPaterno == persona.ApellidoPaterno &&
                ApellidoMaterno == persona.ApellidoMaterno;
+    }
+    
+    public void Validar()
+    {
+        ValidateAllProperties();
     }
 }

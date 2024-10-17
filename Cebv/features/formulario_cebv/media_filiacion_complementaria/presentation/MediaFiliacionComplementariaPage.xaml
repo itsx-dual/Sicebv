@@ -56,7 +56,7 @@
                         <ui:TextBlock Text="Especifique la ausencia dental:" />
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.DescripcionAusenciaDental}"
-                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
 
 
@@ -76,7 +76,7 @@
                         <ui:TextBlock Text="Especifique el tratamiento dental:" />
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.DescripcionTratamientoDental}"
-                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -97,7 +97,7 @@
                         <ui:TextBlock Text="Cualquier otra especificación del mentón:" />
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.EspecificacionesMenton}"
-                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -119,7 +119,7 @@
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
                                 <ui:TextBlock Text="Especificación de la intervención quirúrgica:" />
                                 <ui:TextBox Text="{Binding TipoIntervencionDescripcion}" TextWrapping="Wrap"
-                                            AcceptsReturn="True" />
+                                            AcceptsReturn="True" Tag="Text"/>
                             </StackPanel>
 
                             <ui:Button Margin="0 15 0 0"
@@ -194,7 +194,7 @@
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
                                 <ui:TextBlock Text="Especificación de la enfermedad en la piel:" />
                                 <ui:TextBox Text="{Binding EnfermedadPielDescripcion}" TextWrapping="Wrap"
-                                            AcceptsReturn="True" />
+                                            AcceptsReturn="True" Tag="Text"/>
                             </StackPanel>
 
                             <ui:Button Margin="0 15 0 0"
@@ -259,7 +259,7 @@
                     <ui:TextBox
                         Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.ObservacionesGenerales}"
                         TextWrapping="Wrap" AcceptsReturn="True"
-                        MinHeight="100" />
+                        MinHeight="100" Tag="Text"/>
                 </StackPanel>
             </Border>
         </StackPanel>

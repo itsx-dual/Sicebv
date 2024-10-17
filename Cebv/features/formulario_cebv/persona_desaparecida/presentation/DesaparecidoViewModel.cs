@@ -24,6 +24,9 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
 
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -377,9 +380,27 @@ public partial class DesaparecidoViewModel : ObservableObject
         }
     }
 
+    private bool VerificacionCamposObligatorios()
+    {
+        Desaparecido.Persona.Validar();
+        
+        return true;
+    }
+
     [RelayCommand]
     private void OnGuardarYContinuar(Type pageType)
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 7));
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

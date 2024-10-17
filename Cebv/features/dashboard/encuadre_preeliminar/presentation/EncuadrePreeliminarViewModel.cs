@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -21,7 +22,7 @@ using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
-public partial class EncuadrePreeliminarViewModel : ObservableObject
+public partial class EncuadrePreeliminarViewModel : ObservableValidator
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -32,6 +33,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Reportante _reportante = null!;
     [ObservableProperty] private Desaparecido _desaparecido = null!;
+    [ObservableProperty] private HechosDesaparicion _hechosDesaparicion = null!;
+    [ObservableProperty] private Persona _persona = null!;
 
     // Catalogos y valores predefinidos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
@@ -62,9 +65,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo _tipoMedioSelected;
+    [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private Catalogo? _tipoMedioSelected;
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio _municipioSelected;
+    [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private Catalogo? _vistaSelected;
@@ -93,10 +96,10 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private string? _curp;
 
     // Valores para insercion a listas
-    [ObservableProperty] private string _noTelefonoReportante = string.Empty;
-    [ObservableProperty] private string? _observacionesTelefonoReportante = string.Empty;
-    [ObservableProperty] private string _noTelefonoDesaparecido = string.Empty;
-    [ObservableProperty] private string? _observacionesTelefonoDesaparecido = string.Empty;
+    [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private string _noTelefonoReportante = string.Empty;
+    [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
+    [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private string _noTelefonoDesaparecido = string.Empty;
+    [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
     [ObservableProperty] private bool _seDesconoceFechaNacimientoDesaparecido;
@@ -456,25 +459,31 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
     private bool VerificacionCamposObligatorios()
     {
-        if (string.IsNullOrWhiteSpace(Reportante.Persona.Nombre) || string.IsNullOrWhiteSpace(Reportante.Persona.ApellidoPaterno) ||
-            string.IsNullOrWhiteSpace(Desaparecido.Persona.Nombre) || string.IsNullOrWhiteSpace(Desaparecido.Persona.ApellidoPaterno) 
-            || Desaparecido.Persona.Nacionalidades.Count == 0 || string.IsNullOrWhiteSpace(Reporte.HechosDesaparicion?.HechosDesaparicionNarracion) 
-            || Reporte.MedioConocimiento is null)
-        {
-            return false;
-        }
-
-        if (!PropertyValidator.ValidarPropiedades(this))
-        {
-            return false;
-        }
-
-        return true;
+        ClearErrors();
+        ValidateAllProperties();
+        Reportante.Persona.Validar();
+        Desaparecido.Persona.Validar();
+        Reporte.HechosDesaparicion?.Validar(); 
+        Reporte.Validar("MedioConocimiento");
+        
+        return !HasErrors && !Reportante.Persona.HasErrors && !Desaparecido.Persona.HasErrors && 
+               !Reporte.HechosDesaparicion.HasErrors && !Reporte.HasErrors;
     }
 
     [RelayCommand]
     private async void OnGuardarReporte()
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 7));
+            return;
+        }
+        
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
         AddTelefonoMovilDesaparecidoCommand.Execute(null);

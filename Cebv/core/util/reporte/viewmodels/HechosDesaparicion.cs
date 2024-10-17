@@ -1,10 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class HechosDesaparicion : ObservableObject
+public partial class HechosDesaparicion : ObservableValidator
 {
     [JsonConstructor]
     public HechosDesaparicion(
@@ -83,9 +84,11 @@ public partial class HechosDesaparicion : ObservableObject
     private bool _fechaDesaparicionDesconocida;
 
     [ObservableProperty, JsonProperty("fecha_desaparicion")]
+    [CustomValidation(typeof(HechosDesaparicion), nameof(ValidateFechas))]
     private DateTime? _fechaDesaparicion;
 
-    [ObservableProperty, JsonProperty("fecha_desaparicion_cebv")]
+    [ObservableProperty, JsonProperty("fecha_desaparicion_cebv")] 
+    [CustomValidation(typeof(HechosDesaparicion), nameof(ValidateFechas))]
     private string? _fechaDesaparicionCebv;
 
     [ObservableProperty, JsonProperty("hora_desaparicion")]
@@ -118,7 +121,7 @@ public partial class HechosDesaparicion : ObservableObject
     [ObservableProperty, JsonProperty("informacion_relevante")]
     private string? _informacionRelevante;
 
-    [ObservableProperty, JsonProperty("hechos_desaparicion")]
+    [ObservableProperty, JsonProperty("hechos_desaparicion")] [Required(ErrorMessage = "Campo Obligatorio")] [MinLength(2)]
     private string? _hechosDesaparicionNarracion;
 
     [ObservableProperty, JsonProperty("sintesis_desaparicion")]
@@ -145,5 +148,22 @@ public partial class HechosDesaparicion : ObservableObject
     partial void OnPersonasMismoEventoChanged(int? value)
     {
         if (value is < 1 or null) PersonasMismoEvento = 1;
+    }
+    
+    public static ValidationResult? ValidateFechas(object? value, ValidationContext context)
+    {
+        var instance = (HechosDesaparicion)context.ObjectInstance;
+
+        if (!instance.FechaDesaparicion.HasValue && string.IsNullOrWhiteSpace(instance.FechaDesaparicionCebv))
+        {
+            return new ValidationResult("Debes llenar al menos una de las dos fechas.");
+        }
+
+        return ValidationResult.Success;
+    }
+    
+    public void Validar()
+    {
+        ValidateAllProperties();
     }
 }

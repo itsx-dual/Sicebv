@@ -189,7 +189,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesMovil}" />
+                            <ui:TextBox Text="{Binding ObservacionesMovil}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -261,7 +261,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesFijo}" />
+                            <ui:TextBox Text="{Binding ObservacionesFijo}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -327,7 +327,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesContacto}" />
+                            <ui:TextBox Text="{Binding ObservacionesContacto}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -477,7 +477,7 @@
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Referenia:" />
                         <ui:TextBox Text="{Binding Reportante.Persona.Direcciones[0].Referencia}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -566,7 +566,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Información relevante que quiera añadir:" />
                         <ui:TextBox Text="{Binding Reportante.InformacionRelevante}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -588,7 +588,7 @@
                                 Visibility="{Binding Reportante.ParticipacionPreviaBusquedas,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="¿En dónde?" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"
                                     Text="{Binding Reportante.DescripcionParticipacionBusquedas}" />
                     </StackPanel>
 
@@ -608,7 +608,7 @@
                         <ui:TextBlock Text="Nombre del colectivo:" />
                         <ComboBox DisplayMemberPath="Nombre"
                                   SelectedValue="{Binding Reportante.Colectivo}"
-                                  ItemsSource="{Binding Colectivos}" />
+                                  ItemsSource="{Binding Colectivos}" Tag="Name"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -630,7 +630,7 @@
                                 Visibility="{Binding Reportante.VictimaExtorsionFraude,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="Descripción de la situación:" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"
                                     Text="{Binding Reportante.DescripcionExtorsionFraude}" />
                     </StackPanel>
 
@@ -648,7 +648,7 @@
                         Visibility="{Binding Reportante.RecibioAmenazas,
                                Converter={StaticResource VisibilityConverter2}}">
                         <ui:TextBlock Text="¿Sabe de dónde proviene?" />
-                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                        <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"
                                     Text="{Binding Reportante.DescripcionOrigenAmenazas}" />
                     </StackPanel>
                 </StackPanel>

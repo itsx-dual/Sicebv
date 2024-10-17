@@ -124,7 +124,7 @@
                         <ui:TextBox Text="{Binding Vehiculo.Descripcion}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" Tag="Text"/>
                     </StackPanel>
 
                     <Separator Height="25" Background="Transparent" BorderThickness="0" />

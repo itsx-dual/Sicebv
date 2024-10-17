@@ -1,17 +1,23 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.prendas.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 
 namespace Cebv.features.formulario_cebv.prendas.presentation;
 
-public partial class PrendasViewModel : ObservableObject
+public partial class PrendasViewModel : ObservableValidator
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -41,16 +47,16 @@ public partial class PrendasViewModel : ObservableObject
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencias = new();
 
-    [ObservableProperty] private Catalogo? _grupoPertenencia;
+    [ObservableProperty] [Required(ErrorMessage = "Campo Requerido")] private Catalogo? _grupoPertenencia;
 
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
-    [ObservableProperty] private Pertenencia? _pertenencia;
+    [ObservableProperty] [Required(ErrorMessage = "Campo Requerido")] private Pertenencia? _pertenencia;
 
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
-    [ObservableProperty] private Catalogo? _color;
+    [ObservableProperty] [Required(ErrorMessage = "Campo Requerido")] private Catalogo? _color;
 
     [ObservableProperty] private string? _marca;
-    [ObservableProperty] private string? _descripcion;
+    [ObservableProperty] [Required(ErrorMessage = "Campo Requerido")] private string? _descripcion;
 
     // Lista de prendas
     [ObservableProperty] private PrendaVestir? _prendaEditada;
@@ -202,10 +208,29 @@ public partial class PrendasViewModel : ObservableObject
         Marca = null;
         Descripcion = null;
     }
+
+    private bool VerificacionCamposObligatorios()
+    {
+        ClearErrors();
+        ValidateAllProperties();
+        
+        return !HasErrors;
+    }
     
     [RelayCommand]
     private void OnGuardarYSiguiente(Type pageType)
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 7));
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

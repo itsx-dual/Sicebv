@@ -88,7 +88,7 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -151,7 +151,7 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100"  Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -262,7 +262,7 @@
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100" />
+                                        MinHeight="100" Tag="Text"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -287,7 +287,7 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenazaCambioComportamiento}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" Tag="Text"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -301,7 +301,7 @@
                             Text="Descripción de la situación previa o anote los folios en el campo siguiente si ya ha estado registrada:" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SituacionPrevia}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" Tag="Text"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -333,7 +333,7 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SintesisDesaparicion}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="150" />
+                                    MinHeight="150"  Tag="Text"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -412,19 +412,19 @@
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre(s):" />
                             <ui:TextBox Text="{Binding Nombre}"
-                                        Tag="Exclude" />
+                                        Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Primer apellido:" />
                             <ui:TextBox Text="{Binding PrimerApellido}"
-                                        Tag="Exclude" />
+                                        Tag="Name" />
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="Segundo apellido: " />
                             <ui:TextBox Text="{Binding SegundoApellido}"
-                                        Tag="Exclude" />
+                                        Tag="Name" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Search24}"

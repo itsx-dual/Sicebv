@@ -63,7 +63,7 @@
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Describa la situación:" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionAutoridad}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -91,7 +91,7 @@
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Describa la situación:" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionParticular}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -107,7 +107,7 @@
                             <ui:TextBlock Text="Observaciones del método de captura:" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionMetodoCaptura}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -123,7 +123,7 @@
                             <ui:TextBlock Text="Observaciones del medio de captura:" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionMedioCaptura}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -143,7 +143,7 @@
                             <ui:TextBox
                                 Text="{Binding Reporte.DesaparicionForzada.DescripcionDetencionPreviaExtorsion}"
                                 TextWrapping="Wrap"
-                                AcceptsReturn="True" />
+                                AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -187,7 +187,7 @@
                             <WrapPanel Margin="0 0 0 15">
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
                                     <ui:TextBlock Text="Nombre(s) / apodo(s)" />
-                                    <ui:TextBox Text="{Binding Nombre}" />
+                                    <ui:TextBox Text="{Binding Nombre}" Tag="Name"/>
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -210,7 +210,7 @@
                                 <StackPanel MinWidth="300" Margin="0 0 10 0">
                                     <ui:TextBlock Text="Descripción:" />
                                     <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap"
-                                                AcceptsReturn="True" />
+                                                AcceptsReturn="True" Tag="Text"/>
                                 </StackPanel>
                             </WrapPanel>
                         </StackPanel>
@@ -284,7 +284,7 @@
                         <ui:TextBlock Text="Descripción del grupo perpetrador" />
                         <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionGrupoPerpetrador}"
                                     TextWrapping="Wrap"
-                                    AcceptsReturn="True" />
+                                    AcceptsReturn="True" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -308,7 +308,7 @@
                             <ui:TextBlock Text="Especifique cuáles:" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionDelitosDesaparicion}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

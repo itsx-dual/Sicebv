@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.reporte.data;
 using Cebv.features.formulario_cebv.datos_de_localizacion.data;
@@ -8,7 +9,7 @@ using Newtonsoft.Json;
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Desaparecido : ObservableObject
+public partial class Desaparecido : ObservableValidator
 {
     [JsonConstructor]
     public Desaparecido(
@@ -96,7 +97,7 @@ public partial class Desaparecido : ObservableObject
     [ObservableProperty, JsonProperty("persona")]
     private Persona _persona = new();
 
-    [ObservableProperty, JsonProperty("estatus_preliminar")]
+    [ObservableProperty, JsonProperty("estatus_preliminar")] [Required(ErrorMessage = "Campo requerido")]
     private BasicResource? _estatusPreliminar;
 
     [ObservableProperty, JsonProperty("estatus_formalizado")]
@@ -179,4 +180,9 @@ public partial class Desaparecido : ObservableObject
 
     [ObservableProperty, JsonProperty("localizacion")]
     private Localizacion? _localizacion;
+    
+    public void Validar()
+    {
+        ValidateAllProperties();
+    }
 }

@@ -305,7 +305,7 @@
 
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="Observaciones sobre la fecha:" />
-                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -430,7 +430,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Observaciones del CURP:" />
                         <ui:TextBox Text="{Binding Desaparecido.Persona.ObservacionesCurp}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -541,7 +541,7 @@
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Referencia:" />
                         <ui:TextBox Text="{Binding Direccion.Referencia}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" Tag="Text"
                                     IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}" />
                     </StackPanel>
                 </StackPanel>
@@ -567,7 +567,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesMovil}" />
+                            <ui:TextBox Text="{Binding ObservacionesMovil}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -639,7 +639,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesFijo}" />
+                            <ui:TextBox Text="{Binding ObservacionesFijo}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -704,7 +704,7 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesCorreo}" />
+                            <ui:TextBox Text="{Binding ObservacionesCorreo}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -770,12 +770,12 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Usuario:" />
-                            <ui:TextBox Text="{Binding UsuarioRedSocial}" Tag="Exclude" />
+                            <ui:TextBox Text="{Binding UsuarioRedSocial}" Tag="UserName" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesRedSocial}" />
+                            <ui:TextBox Text="{Binding ObservacionesRedSocial}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -892,7 +892,7 @@
                             <ui:TextBox Text="{Binding OcupacionPrincipal.Observaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100" />
+                                        MinHeight="100" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel>
@@ -918,7 +918,7 @@
                             <ui:TextBox Text="{Binding OcupacionSecundaria.Observaciones}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100" />
+                                        MinHeight="100" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel>
@@ -944,7 +944,7 @@
                             Text="{Binding Desaparecido.Persona.ContextoEconomico.OtrasEspecificacionesOcupacion}"
                             TextWrapping="Wrap"
                             AcceptsReturn="True"
-                            MinHeight="100" />
+                            MinHeight="100" Tag="Text"/>
                     </StackPanel>
 
                     <WrapPanel>

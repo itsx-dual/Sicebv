@@ -101,7 +101,7 @@
 
                     <StackPanel MinWidth="250">
                         <ui:TextBlock Text="Referencia:" />
-                        <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Referencia}" />
+                        <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Referencia}" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

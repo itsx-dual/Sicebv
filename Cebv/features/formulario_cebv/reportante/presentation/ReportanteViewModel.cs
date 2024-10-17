@@ -1,12 +1,15 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using static Cebv.core.data.OpcionesCebv;
 using static Cebv.core.util.CollectionsHelper;
 using static Cebv.core.util.enums.TipoContacto;
@@ -14,8 +17,11 @@ using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.reportante.presentation;
 
-public partial class ReportanteViewModel : ObservableObject
+public partial class ReportanteViewModel : ObservableValidator
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -35,7 +41,7 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    [ObservableProperty] [Required(ErrorMessage = "Campo requerido")] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _grupoVulnerableSelected;
 
     [ObservableProperty] private string? _noTelefonoMovil;
@@ -199,9 +205,34 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     private void OnEliminarContacto(Contacto contacto) => Reportante.Persona.Contactos.Remove(contacto);
 
+    private bool VerificacionCamposObligatorios()
+    {
+        if (!Reportante.DenunciaAnonima)
+        {
+            ClearErrors();
+            ValidateAllProperties();
+            Reportante.Persona.Validar();
+        
+            return !HasErrors && !Reportante.Persona.HasErrors;
+        }
+        
+        return true;
+    }
+    
     [RelayCommand]
     private void OnGuardarYSiguiente(Type pageType)
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Form28),
+                new TimeSpan(0, 0, 7));
+            return;
+        }
+        
         // Si hay algo en los campos de telefonos, se agregan antes de sincronizar,
         // este es el comportamiento que la CEBV espera.
         AddTelefonoMovilCommand.Execute(null);
@@ -212,4 +243,4 @@ public partial class ReportanteViewModel : ObservableObject
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
-};
+}

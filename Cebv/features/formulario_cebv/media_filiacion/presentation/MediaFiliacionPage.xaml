@@ -111,7 +111,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Otra especificación de ojos:" />
                         <ui:TextBox Text="{Binding Desaparecido.Persona.Ojos.EspecificacionesOjos}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -154,7 +154,7 @@
                     <StackPanel>
                         <ui:TextBlock Text="Cualquier otra especificación del cabello:" />
                         <ui:TextBox Text="{Binding Desaparecido.Persona.Cabello.EspecificacionesCabello}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -174,7 +174,7 @@
                             <ui:TextBlock Text="Cualquier otra especificación de las cejas:" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.VelloFacial.EspecificacionesCejas}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -189,7 +189,8 @@
 
                         <StackPanel MinWidth="400">
                             <ui:TextBlock Text="Cualquier otra especificación del bigote:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.VelloFacial.EspescificacionesBigote}" TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.VelloFacial.EspescificacionesBigote}" 
+                                        TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -206,7 +207,7 @@
                             <ui:TextBlock Text="Cualquier otra especificación de la barba:" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.VelloFacial.EspecificacionesBarba}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -226,7 +227,7 @@
                         <ui:TextBlock Text="Cualquier otra especificación de la nariz:" />
                         <ui:TextBox Text="{Binding Desaparecido.Persona.Nariz.EspesificacionesNariz}"
                                     TextWrapping="Wrap"
-                                    AcceptsReturn="True" />
+                                    AcceptsReturn="True" Tag="Text"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -252,7 +253,7 @@
                         <ui:TextBlock Text="Cualquier otra especificación de la boca:" />
                         <ui:TextBox Text="{Binding Desaparecido.Persona.Boca.EspecificacionesBoca}"
                                     TextWrapping="Wrap"
-                                    AcceptsReturn="True" />
+                                    AcceptsReturn="True" Tag="Text"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -278,7 +279,7 @@
                         <ui:TextBlock Text="Cualquier otra especificación de la oreja:" />
                         <ui:TextBox Text="{Binding Desaparecido.Persona.Orejas.EspesificacionesOrejas}"
                                     TextWrapping="Wrap"
-                                    AcceptsReturn="True" />
+                                    AcceptsReturn="True" Tag="Text"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>

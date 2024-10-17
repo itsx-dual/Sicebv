@@ -2,20 +2,26 @@ using System.Collections.ObjectModel;
 using Cebv.core.domain;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.data;
+using Cebv.core.util;
 using static Cebv.core.util.enums.FactorRhesus;
 using static Cebv.core.util.enums.IndoleSalud;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation;
 
 public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!; 
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 

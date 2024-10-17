@@ -52,12 +52,12 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding CarpetaInvestigacion.DondeRadica}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.DondeRadica}" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NombreServidorPublico}" />
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NombreServidorPublico}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -92,12 +92,12 @@
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica el amparo buscador:" />
-                            <ui:TextBox Text="{Binding AmparoBuscador.DondeRadica}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.DondeRadica}" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del juez:" />
-                            <ui:TextBox Text="{Binding AmparoBuscador.NombreServidorPublico}" />
+                            <ui:TextBox Text="{Binding AmparoBuscador.NombreServidorPublico}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
@@ -133,12 +133,12 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Dónde radica la recomendación derechos humanos:"
                                           FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechos.DondeRadica}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.DondeRadica}" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechos.NombreServidorPublico}" />
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NombreServidorPublico}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Cebv.core.domain;
 using Cebv.core.modules.hipotesis.presentation;
@@ -6,18 +7,23 @@ using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using Wpf.Ui.Controls;
 using static Cebv.core.data.OpcionesCebv;
 using static Cebv.core.util.CollectionsHelper;
 using static Cebv.core.util.enums.EtapaHipotesis;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
-public partial class DatosLocalizacionViewModel : ObservableObject
+public partial class DatosLocalizacionViewModel : ObservableValidator
 {
+    private readonly ISnackbarService _snackbarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -35,7 +41,7 @@ public partial class DatosLocalizacionViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
-    [ObservableProperty] private Estado? _estadoSelected;
+    [ObservableProperty] [Required(ErrorMessage = "Campo Obligatorio")] private Estado? _estadoSelected;
     [ObservableProperty] private Municipio? _municipioSelected;
 
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
@@ -166,9 +172,29 @@ public partial class DatosLocalizacionViewModel : ObservableObject
         OpenedIdentificacionOficialPath = openFileDialog.FileNames;
     }
 
+    private bool VerificacionCamposObligatorios()
+    {
+        ClearErrors();
+        ValidateAllProperties();
+        Desaparecido.Validar();
+        Desaparecido.Localizacion?.Validar();
+        
+        return !Desaparecido.HasErrors;
+    }
+
     [RelayCommand]
     private void OnGuardarYSiguente(Type pageType)
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackbarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 7));
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -6,7 +7,7 @@ using Newtonsoft.Json;
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.data;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Localizacion : ObservableObject
+public partial class Localizacion : ObservableValidator
 {
     [JsonConstructor]
     public Localizacion(
@@ -54,13 +55,13 @@ public partial class Localizacion : ObservableObject
     [ObservableProperty, JsonProperty("area")]
     private Catalogo? _area;
 
-    [ObservableProperty, JsonProperty("municipio_localizacion")]
+    [ObservableProperty, JsonProperty("municipio_localizacion")] [Required(ErrorMessage = "Campo Obligatorio")]
     private Municipio? _municipioLocalizacion;
 
     [ObservableProperty, JsonProperty("hipotesis_deb")]
     private BasicResource? _hipotesisDeb;
 
-    [ObservableProperty, JsonProperty("fecha_localizacion")]
+    [ObservableProperty, JsonProperty("fecha_localizacion")] [Required(ErrorMessage = "Campo Obligatorio")]
     private DateTime? _fechaLocalizacion;
 
     [ObservableProperty, JsonProperty("fecha_hallazgo")]
@@ -69,7 +70,7 @@ public partial class Localizacion : ObservableObject
     [ObservableProperty, JsonProperty("fecha_identificacion_familiar")]
     private DateTime? _fechaIdentificacionFamiliar;
 
-    [ObservableProperty, JsonProperty("sintesis_localizacion")]
+    [ObservableProperty, JsonProperty("sintesis_localizacion")] [Required(ErrorMessage = "Campo Obligatorio")] [MinLength(2)]
     private string? _sintesisLocalizacion;
 
     [ObservableProperty, JsonProperty("descripcion_condicion_persona")]
@@ -77,4 +78,9 @@ public partial class Localizacion : ObservableObject
 
     [ObservableProperty, JsonProperty("descripcion_causas_fallecimiento")]
     private string? _descripcionCausasFallecimiento;
+
+    public void Validar()  
+    {
+        ValidateAllProperties();
+    }
 }

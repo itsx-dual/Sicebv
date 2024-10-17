@@ -7,17 +7,22 @@ using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.login.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using static Cebv.core.util.enums.TipoDesaparicion;
 
 namespace Cebv.features.formulario_cebv.folio_expediente.presentation;
 
 public partial class FolioExpedienteViewModel : ObservableObject
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -87,10 +92,27 @@ public partial class FolioExpedienteViewModel : ObservableObject
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
     }
 
-
+    private bool VerificacionCamposObligatorios()
+    {
+        Reporte.Validar("TipoReporte");
+        
+        return !Reporte.HasErrors;
+    }
+    
     [RelayCommand]
     private void OnGuardarYSiguiente(Type pageType)
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 7));
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

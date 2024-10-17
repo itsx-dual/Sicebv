@@ -37,8 +37,11 @@
                         <StackPanel Margin="0 0 0 15">
                             <ui:TextBlock Text="Grupo pertenencia:*" />
                             <ComboBox DisplayMemberPath="Nombre"
-                                      SelectedItem="{Binding GrupoPertenencia }"
+                                      SelectedItem="{Binding GrupoPertenencia, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                                       ItemsSource="{Binding GruposPertenencias}" />
+                            <!-- TODO: Si saben como se aplican estas, pasen explicacion xd -->
+                            <!--TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource PreviousData}}" 
+                                       Foreground="Red" FontSize="12" Margin="5,0,0,0" Visibility="Hidden"/-->
                         </StackPanel>
 
                         <StackPanel Margin="0 0 0 15">
@@ -67,7 +70,7 @@
                             <ui:TextBox Text="{Binding Descripcion}"
                                         TextWrapping="Wrap"
                                         MinHeight="100"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                         
                         <!-- Botones de edición -->

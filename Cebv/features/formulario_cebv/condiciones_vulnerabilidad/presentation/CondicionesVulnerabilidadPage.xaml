@@ -74,12 +74,12 @@
 
                             <StackPanel Margin="0 0 25 0" MinWidth="300">
                                 <ui:TextBlock Text="Tratamiento:" />
-                                <ui:TextBox Text="{Binding Tratamiento}" TextWrapping="Wrap" />
+                                <ui:TextBox Text="{Binding Tratamiento}" TextWrapping="Wrap"/>
                             </StackPanel>
 
                             <StackPanel Margin="0 0 15 0" MinWidth="300">
                                 <ui:TextBlock Text="Observaciones:" />
-                                <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True" />
+                                <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -180,7 +180,7 @@
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.ContextoSocial.DescripcionProcesoMigratorio}"
                             TextWrapping="Wrap"
-                            AcceptsReturn="True" MinHeight="100" />
+                            AcceptsReturn="True" MinHeight="100" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -265,7 +265,7 @@
                                 Text="{Binding Desaparecido.Persona.EnfoqueDiferenciado.DescripcionVulnerabilidad}"
                                 TextWrapping="Wrap"
                                 AcceptsReturn="True"
-                                MinHeight="100" />
+                                MinHeight="100" Tag="Text"/>
                         </StackPanel>
 
                         <StackPanel>
@@ -275,7 +275,7 @@
                                 Text="{Binding Desaparecido.Persona.EnfoqueDiferenciado.InformacionRelevanteBusqueda}"
                                 TextWrapping="Wrap"
                                 AcceptsReturn="True"
-                                MinHeight="100" />
+                                MinHeight="100" Tag="Text"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

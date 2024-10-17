@@ -103,17 +103,17 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}" Tag="Name"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -143,7 +143,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding ObservacionesTelefonoReportante}" />
+                                        Text="{Binding ObservacionesTelefonoReportante}" Tag="Text" />
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -210,17 +210,17 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}" Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}" Tag="Name"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -322,7 +322,7 @@
 
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA:" />
-                                <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}" />
+                                <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}" Tag="Text"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -401,7 +401,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding ObservacionesTelefonoDesaparecido}" />
+                                        Text="{Binding ObservacionesTelefonoDesaparecido}" Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -525,7 +525,7 @@
 
                         <StackPanel>
                             <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Text"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -617,7 +617,7 @@
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}" />
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}" Tag="Text"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -818,7 +818,7 @@
                                              VerticalAlignment="Stretch"
                                              Height="100"
                                              Text="{Binding Descripcion}"
-                                             TextWrapping="Wrap" />
+                                             TextWrapping="Wrap"  Tag="Text"/>
 
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Right"
@@ -978,7 +978,7 @@
                                         <ui:TextBox Text="{Binding CurrentPrendaDescripcion}"
                                                     TextWrapping="Wrap"
                                                     MinHeight="100"
-                                                    AcceptsReturn="True" />
+                                                    AcceptsReturn="True" Tag="Text"/>
                                     </StackPanel>
 
                                     <!-- Botones de edición -->

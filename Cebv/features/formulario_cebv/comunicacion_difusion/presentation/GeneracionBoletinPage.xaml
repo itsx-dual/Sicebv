@@ -139,7 +139,7 @@
                         <ui:TextBlock Text="Señas Particulares para el Boletín:" />
 
                         <ui:TextBox Text="{Binding Desaparecido.SenasParticularesBoletin}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Text"/>
                     </StackPanel>
 
                     <ui:ToggleSwitch OnContent="¿Es mayor de edad? Sí"
@@ -151,7 +151,7 @@
                     <StackPanel Margin="0 0 0 15" IsEnabled="{Binding EsMayorEdad}">
                         <ui:TextBlock Text="Información Adicional:" />
                         <ui:TextBox Text="{Binding Desaparecido.InformacionAdicionalBoletin}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" Tag="Text"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
