@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
 using Cebv.core.util;
+using Cebv.core.modules.persona.data;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
@@ -33,8 +34,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Reportante _reportante = null!;
     [ObservableProperty] private Desaparecido _desaparecido = null!;
-    [ObservableProperty] private HechosDesaparicion _hechosDesaparicion = null!;
-    [ObservableProperty] private Persona _persona = null!;
 
     // Catalogos y valores predefinidos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
@@ -171,6 +170,15 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
         Desaparecido = Reporte.Desaparecidos.First();
         Reporte.HechosDesaparicion ??= new();
+        
+        Desaparecido.Persona.Salud ??= new();
+        Desaparecido.Persona.Ojos ??= new();
+        Desaparecido.Persona.Cabello ??= new();
+        Desaparecido.Persona.VelloFacial ??= new();
+        Desaparecido.Persona.Nariz ??= new();
+        Desaparecido.Persona.Boca ??= new();
+        Desaparecido.Persona.Orejas ??= new();
+        Desaparecido.Persona.MediaFiliacionComplementaria ??= new();
     }
 
     private async void InitAsync()

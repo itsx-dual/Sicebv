@@ -4,10 +4,12 @@ using System.Windows.Input;
 using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
-using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
+using ISnackbarService = Cebv.core.util.snackbar.ISnackbarService;
+using SnackbarService = Cebv.core.util.snackbar.SnackbarService;
 
 namespace Cebv;
 
@@ -46,6 +48,7 @@ public partial class App : Application
         services.AddSingleton<ISnackbarService, SnackbarService>();
         services.AddSingleton<IDashboardNavigationService, DashboardNavigationService>();
         services.AddSingleton<IFormularioCebvNavigationService, FormularioCebvNavigationService>();
+        services.AddSingleton<IContentDialogService, ContentDialogService>();
 
             
         return services.BuildServiceProvider();
