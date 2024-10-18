@@ -130,6 +130,42 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     {
         Desaparecido.Persona.EnfoquesPersonales.Remove(enfoquePersonal);
     }
+    
+    private async Task<bool> EnlistarCampos()
+    {
+        bool _confirmacion;
+        
+        var lists = new List<object>
+        {
+            this,
+            Desaparecido.Persona.Salud,
+            Desaparecido.Persona.ContextoSocial,
+            Desaparecido.Persona.EnfoqueDiferenciado,
+            Desaparecido.Persona,
+            Desaparecido.Persona.Embarazo
+        };
+
+        var emptyElements = new List<string>();
+        
+        foreach (var list in lists)
+        {
+            var elements = ListEmptyElements.EnlistarElementosVacios(list);
+            emptyElements.AddRange(elements);
+        }
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            _confirmacion = dialogo.Confirmacion;
+        }
+        else _confirmacion = true;
+
+        return _confirmacion;
+    }
 
     [RelayCommand]
     private void OnGuardarYSiguiente(Type pageType)

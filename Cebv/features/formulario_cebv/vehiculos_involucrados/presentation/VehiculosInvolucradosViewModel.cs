@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Reflection;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -19,6 +21,8 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
 
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    private ShowDialog _showDialog;
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Vehiculo _vehiculo = new();
@@ -81,9 +85,33 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
         OpenedFilePath = openFileDialog.FileNames;
     }
 
-    [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task<bool> EnlistarCampos()
     {
+        bool _confirmacion;
+        
+        Vehiculo vehiculo = Vehiculo;
+        List<string> emptyElements = ListEmptyElements.EnlistarElementosVacios(vehiculo);
+
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            _confirmacion = dialogo.Confirmacion;
+        }
+        else _confirmacion = true;
+
+        return _confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    { 
+        if (!await EnlistarCampos())
+            return;
+      
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

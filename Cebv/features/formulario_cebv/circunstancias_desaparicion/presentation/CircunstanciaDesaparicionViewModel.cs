@@ -1,9 +1,11 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.hipotesis.presentation;
+using Cebv.core.util;
 using static Cebv.core.util.enums.EtapaHipotesis;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -182,11 +184,36 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
         return !HasErrors && !Reporte.HechosDesaparicion.HasErrors;
     }
     
+    private async Task<bool> EnlistarCampos()
+    {
+        bool _confirmacion;
+        
+        var emptyElementsViewModel = ListEmptyElements.EnlistarElementosVacios(this);
+        
+        HechosDesaparicion? hechos = Reporte.HechosDesaparicion;
+        List<string> emptyElements = ListEmptyElements.EnlistarElementosVacios(hechos);
+        
+        emptyElements.AddRange(emptyElementsViewModel);
+
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            _confirmacion = dialogo.Confirmacion;
+        }
+        else _confirmacion = true;
+
+        return _confirmacion;
+    }
+    
     /**
      * Lógica de guardado
      */
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private async Task OnGuardarYSiguente(Type pageType)
     {
         if (!VerificacionCamposObligatorios())
         {
@@ -197,7 +224,10 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 7));
             return;
-        }
+        } 
+        
+        if (!await EnlistarCampos())
+            return;
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Cebv.features.dashboard.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -12,17 +11,6 @@
       Title="Inicio"
       d:DesignWidth="800"
       d:DesignHeight="600">
-    
-    <Page.DataContext>
-        <local:InicioViewModel />
-    </Page.DataContext>
-    
-    <Page.Resources>
-        <StackPanel x:Key="Test">
-            <ui:Button Content="Joder si jalo"/>
-            <TextBlock Text="Ya no se que escribir"/>
-        </StackPanel>
-    </Page.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,11 +22,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <ui:Button Content="Boton"
-                   Command="{Binding ShowContentDialogCommand}"
-                   CommandParameter="{StaticResource Test}"/>
-
-        
         <Border
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -46,14 +29,14 @@
             Margin="8"
             Background="Gray"
             CornerRadius="8" />
-        <!--
+        
         <Border
             Grid.Row="0"
             Grid.Column="0"
             Margin="8"
             Background="Aquamarine"
             CornerRadius="8" />
-            -->
+            
         <Border
             Grid.Row="1"
             Grid.Column="0"
