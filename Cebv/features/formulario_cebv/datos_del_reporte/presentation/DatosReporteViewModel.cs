@@ -34,7 +34,9 @@ public partial class DatosReporteViewModel : ObservableObject
         Estados = await CebvNetwork.GetRoute<Estado>("estados");
         Instituciones = await CebvNetwork.GetRoute<Catalogo>("instituciones");
 
-        var tipoMedio = _reporteService.GetReporte().MedioConocimiento?.TipoMedio;
+        var reporte = _reporteService.GetReporte();
+        
+        var tipoMedio = reporte.MedioConocimiento?.TipoMedio;
 
         if (tipoMedio is not null)
         {

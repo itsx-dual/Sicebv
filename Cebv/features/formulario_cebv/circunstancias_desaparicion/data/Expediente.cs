@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -17,14 +19,16 @@ public partial class Expediente : ObservableObject
     public Expediente(
         int? id,
         string? tipo,
-        Persona? persona,
-        Catalogo? parentesco
+        Catalogo? parentesco,
+        ReporteHechos reporteUno,
+        ReporteHechos reporteDos
     )
     {
-        Id = id;
-        Tipo = tipo;
-        Persona = persona;
-        Parentesco = parentesco;
+        _id = id;
+        _tipo = tipo;
+        _parentesco = parentesco;
+        _reporteUno = reporteUno;
+        _reporteDos = reporteDos;
     }
 
     public Expediente()
@@ -37,9 +41,12 @@ public partial class Expediente : ObservableObject
     [ObservableProperty, JsonProperty("tipo")]
     private string? _tipo;
 
-    [ObservableProperty, JsonProperty("persona")]
-    private Persona? _persona;
-
     [ObservableProperty, JsonProperty("parentesco")]
     private Catalogo? _parentesco;
+
+    [ObservableProperty, JsonProperty("reporte_uno")]
+    private ReporteHechos _reporteUno = new();
+
+    [ObservableProperty, JsonProperty("reporte_dos")]
+    private ReporteHechos _reporteDos = new();
 }

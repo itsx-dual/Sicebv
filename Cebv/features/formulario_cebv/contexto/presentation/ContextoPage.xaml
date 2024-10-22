@@ -275,6 +275,11 @@
 
                     <!-- Pasatiempos -->
                     <ui:TextBlock Text="Pasatiempos" FontTypography="Subtitle" Margin="5" />
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="Descripción de pasatiempos" />
+                        <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoSocial.DescripcionPasatiempos}"
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                    </StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 15 0">
                             <ui:TextBlock Text="Pasatiempos:" />
@@ -329,58 +334,12 @@
 
                     <!--  Clubes -->
                     <ui:TextBlock Text="Clubes u Organizaciones" FontTypography="Subtitle" Margin="5" />
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="300" Margin="0 0 15 0">
-                            <ui:TextBlock Text="Clubes u organizaciones a las que pertenece" />
-                            <ComboBox SelectedItem="{Binding Club}"
-                                      ItemsSource="{Binding Clubes}" />
-                        </StackPanel>
-
-                        <ui:Button Icon="{ui:SymbolIcon Add24}"
-                                   Margin="0 15 0 0"
-                                   Appearance="Primary"
-                                   VerticalAlignment="Stretch"
-                                   Command="{Binding GuardarClubCommand}" />
-                    </WrapPanel>
-
-                    <ui:CardExpander Icon="{ui:SymbolIcon HomeMore24}" Margin="0 0 0 15">
-                        <ui:CardExpander.Header>
-                            <ui:TextBlock Text="Clubes" FontTypography="Subtitle" />
-                        </ui:CardExpander.Header>
-                        <ui:ListView
-                            HorizontalAlignment="Stretch"
-                            MaxHeight="250"
-                            ItemsSource="{Binding Desaparecido.Persona.Clubes}"
-                            SelectionMode="Single">
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <ui:CardControl
-                                            Margin="5 5 60 5"
-                                            Padding="10"
-                                            Icon="{ui:SymbolIcon HomeMore24}"
-                                            HorizontalAlignment="Stretch">
-                                            <ui:CardControl.Header>
-                                                <ui:TextBlock
-                                                    FontTypography="BodyStrong"
-                                                    Text="{Binding Club.Nombre}"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </ui:CardControl.Header>
-                                        </ui:CardControl>
-
-                                        <ui:Button VerticalAlignment="Stretch"
-                                                   Appearance="Danger"
-                                                   HorizontalAlignment="Right"
-                                                   Icon="{ui:SymbolIcon Delete24}"
-                                                   MinWidth="50"
-                                                   Margin="5"
-                                                   Command="{Binding ElementName=ContextoPageName, Path=DataContext.EliminarClubCommand}"
-                                                   CommandParameter="{Binding}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                    </ui:CardExpander>
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="Descripción de clubes u organizaciones" />
+                        <ui:TextBox
+                            Text="{Binding Desaparecido.Persona.ContextoSocial.DescripcionClubesOrganizaciones}"
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                    </StackPanel>
 
                     <!-- Amistades -->
                     <ui:TextBlock Text="Amistades" FontTypography="Subtitle" Margin="5" />
@@ -468,7 +427,7 @@
                                                         FontTypography="BodyStrong"
                                                         Text="{Binding ApellidoPaterno}"
                                                         TextWrapping="WrapWithOverflow"
-                                                        Margin="0 0 10 0"/>
+                                                        Margin="0 0 10 0" />
 
                                                     <ui:TextBlock
                                                         FontTypography="BodyStrong"
@@ -482,24 +441,24 @@
                                                         Appearance="Secondary"
                                                         Text="{Binding TipoRedSocial.Nombre }"
                                                         TextWrapping="WrapWithOverflow"
-                                                        Margin="0 0 10 0"/>
-                                                    
+                                                        Margin="0 0 10 0" />
+
                                                     <ui:TextBlock
                                                         Appearance="Secondary"
                                                         Text="{Binding UsuarioRedSocial }"
                                                         TextWrapping="WrapWithOverflow" />
                                                 </StackPanel>
-                                                
+
                                                 <ui:TextBlock
                                                     Appearance="Secondary"
                                                     Text="{Binding Telefono }"
                                                     TextWrapping="WrapWithOverflow" />
-                                                
+
                                                 <ui:TextBlock
                                                     Appearance="Secondary"
                                                     Text="{Binding ObservacionesRedSocial }"
                                                     TextWrapping="WrapWithOverflow" />
-                                                
+
                                             </StackPanel>
                                         </ui:CardControl>
 

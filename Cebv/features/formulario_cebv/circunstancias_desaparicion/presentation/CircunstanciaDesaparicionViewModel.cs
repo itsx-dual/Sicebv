@@ -7,8 +7,9 @@ using static Cebv.core.util.enums.EtapaHipotesis;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.dashboard.presentation;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
-using Cebv.features.formulario_cebv.circunstancias_desaparicion.domain;
+using Cebv.features.formulario_cebv.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    private static IDashboardNavigationService _dashboardNavigationService =
+        App.Current.Services.GetService<IDashboardNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
@@ -44,6 +48,8 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
+
+    [ObservableProperty] private ExpedientePretty _expedienteSelected = new();
 
     /**
      * Constructor de la clase.
@@ -80,14 +86,14 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
         if (est is not null)
         {
-            EstadoSelected = est;
             Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", est.Id);
+            EstadoSelected = est;
         }
 
         if (mpio is not null)
         {
-            MunicipioSelected = mpio;
             Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", mpio.Id);
+            MunicipioSelected = mpio;
         }
 
         FoliosPrevios();
@@ -107,8 +113,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private string? _primerApellido;
     [ObservableProperty] private string? _segundoApellido;
+    [ObservableProperty] private ObservableCollection<HechosDesaparicion> _hechosDesaparicion = new();
+    [ObservableProperty] private ObservableCollection<Expediente> _temporal = new();
 
-    [ObservableProperty] private ObservableCollection<Persona> _personas = new();
 
     async partial void OnEstadoSelectedChanged(Estado? value)
     {
@@ -122,25 +129,28 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", value.Id);
     }
 
-    /**
-     * Logica para la relación de los expedientes.
-     */
+
     [RelayCommand]
-    private async Task BuscarPersona()
+    private async Task BuscharHechos()
     {
-        Personas = await CircunstanciaDesaparicionNetwork.SearchPersona(
-            Nombre,
-            PrimerApellido,
-            SegundoApellido
-        );
+        HechosDesaparicion = await CebvNetwork.GetRoute<HechosDesaparicion>
+            ($"filtrar-hechos?nombre={Nombre}&apellidoPaterno={PrimerApellido}&apellidoMaterno={SegundoApellido}");
     }
 
     [RelayCommand]
-    private void AddExpediente(Persona persona)
+    private void ClearPersona()
     {
-        if (Reporte.Expedientes.Any(p => p.Persona?.Id == persona.Id)) return;
+        Nombre = null;
+        PrimerApellido = null;
+        SegundoApellido = null;
+    }
 
-        var viewModel = new RelacionarExpedienteViewModel(persona);
+    [RelayCommand]
+    private void AddExpediente(HechosDesaparicion item)
+    {
+        if (item.ReporteId == Reporte.Id) return;
+
+        var viewModel = new RelacionarExpedienteViewModel(Reporte.Id, item);
 
         // Suscribirse al evento de guardado
         viewModel.GuardarExpediente += OnExpedienteGuardado;
@@ -162,11 +172,21 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         if (sender is not RelacionarExpedienteViewModel) return;
 
         Reporte.Expedientes.Add(expediente);
+        Reporte.SincronizarExpedientes();
     }
 
     [RelayCommand]
-    private void RemoveExpediente(Expediente expediente) => Reporte.Expedientes.Remove(expediente);
-    
+    private void RemoveExpediente(ExpedientePretty expediente)
+    {
+        var itemToRemove = Reporte.Expedientes.FirstOrDefault(i => i.Id == expediente.Id);
+
+        if (itemToRemove != null)
+        {
+            Reporte.Expedientes.Remove(itemToRemove);
+            Reporte.SincronizarExpedientes();
+        }
+    }
+
     /**
      * Lógica de guardado
      */
@@ -175,5 +195,19 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     {
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
+    }
+
+    [RelayCommand]
+    private async Task OnReporteClick()
+    {
+        if (ExpedienteSelected.Reporte?.Id is null) return;
+
+        _dashboardNavigationService.Navigate(typeof(LoadingPage));
+        Console.WriteLine(ExpedienteSelected.Reporte.Id);
+        Reporte = await _reporteService.Reload(ExpedienteSelected.Reporte.Id.Value);
+        _reporteService.SetStatusReporte(EstadoReporte.Cargado);
+        Console.WriteLine($"Reporte {Reporte.Id} cargado");
+        _dashboardNavigationService.Navigate(typeof(FormularioCebvPage));
+        _dashboardNavigationService.ClearNavigationStack();
     }
 }
