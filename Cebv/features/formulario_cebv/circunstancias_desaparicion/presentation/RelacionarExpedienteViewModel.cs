@@ -11,9 +11,10 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
 {
     public event EventHandler<Expediente>? GuardarExpediente;
 
-    public Persona Persona { get; set; }
+    private HechosDesaparicion Item { get; }
+    private int ReporteId { get; }
 
-    public RelacionarExpedienteViewModel(Persona persona)
+    public RelacionarExpedienteViewModel(int reporteId, HechosDesaparicion item)
     {
         TiposExpedientes =
         [
@@ -22,7 +23,8 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
         ];
 
         CargarCatalogos();
-        Persona = persona;
+        ReporteId = reporteId;
+        Item = item;
     }
 
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
@@ -42,8 +44,9 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarExpediente()
     {
+        Expediente.ReporteUno!.Id = ReporteId;
+        Expediente.ReporteDos!.Id = Item.ReporteId;
         Expediente.Tipo = TipoExp;
-        Expediente.Persona = Persona;
         Expediente.Parentesco = Parentesco;
 
         GuardarExpediente?.Invoke(this, Expediente);

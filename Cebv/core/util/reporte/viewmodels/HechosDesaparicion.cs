@@ -8,9 +8,9 @@ public partial class HechosDesaparicion : ObservableObject
 {
     [JsonConstructor]
     public HechosDesaparicion(
-        int? id,
-        int? reporteId,
-        Direccion? direccion,
+        int id,
+        int reporteId,
+        Direccion direccion,
         Catalogo? sitio,
         Catalogo? areaAsignaSitio,
         bool fechaDesaparicionDesconocida,
@@ -65,10 +65,10 @@ public partial class HechosDesaparicion : ObservableObject
     }
 
     [ObservableProperty, JsonProperty("id")]
-    private int? _id;
+    private int _id;
 
     [ObservableProperty, JsonProperty("reporte_id")]
-    private int? _reporteId;
+    private int _reporteId;
 
     [ObservableProperty, JsonProperty("direccion")]
     private Direccion _direccion = new();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.modules.persona.data;
 using Cebv.features.formulario_cebv.contexto.data;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,7 +8,7 @@ using Newtonsoft.Json;
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Persona : ObservableObject
+public partial class Persona : ObservableValidator
 {
     [JsonConstructor]
     public Persona(
@@ -54,10 +55,9 @@ public partial class Persona : ObservableObject
         ObservableCollection<Familiar> familiares,
         ContextoEconomico? contextoEconomico,
         ObservableCollection<PasatiempoPersona> pasatiempos,
-        ObservableCollection<ClubPersona> clubes,
         ObservableCollection<Amistad> amistades,
         ObservableCollection<Direccion> direcciones
-        )
+    )
     {
         Id = id;
         Nombre = nombre;
@@ -102,7 +102,6 @@ public partial class Persona : ObservableObject
         Familiares = familiares;
         ContextoEconomico = contextoEconomico;
         Pasatiempos = pasatiempos;
-        Clubes = clubes;
         Amistades = amistades;
         Direcciones = direcciones;
     }
@@ -122,17 +121,24 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
 
-    [ObservableProperty, JsonProperty(PropertyName = "nombre")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    // TODO: Comprobar que funciona en español.
+    [Required(ErrorMessage = "El campo nombre es obligatorio.")]
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _nombre;
 
+    [Required(ErrorMessage = "El campo apellido paterno es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")]
     [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoPaterno;
 
+    [Required(ErrorMessage = "El campo apellido materno es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "apellido_materno")]
     [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     private string? _apellidoMaterno;
 
+    [Required(ErrorMessage = "El campo apodo es obligatorio")]
+    [StringLength(5)]
     [ObservableProperty, JsonProperty(PropertyName = "apodo")]
     private string? _apodo;
 
@@ -259,9 +265,6 @@ public partial class Persona : ObservableObject
     [ObservableProperty, JsonProperty("pasatiempos")]
     private ObservableCollection<PasatiempoPersona> _pasatiempos = [];
 
-    [ObservableProperty, JsonProperty("clubes")]
-    private ObservableCollection<ClubPersona> _clubes = [];
-
     [ObservableProperty, JsonProperty("amistades")]
     private ObservableCollection<Amistad> _amistades = [];
 
@@ -288,5 +291,10 @@ public partial class Persona : ObservableObject
                Nombre == persona.Nombre &&
                ApellidoPaterno == persona.ApellidoPaterno &&
                ApellidoMaterno == persona.ApellidoMaterno;
+    }
+
+    public void ValidateAll()
+    {
+        ValidateAllProperties();
     }
 }

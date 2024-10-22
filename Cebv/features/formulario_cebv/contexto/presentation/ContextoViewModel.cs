@@ -41,19 +41,16 @@ public partial class ContextoViewModel : ObservableObject
     {
         Parentescos = await CebvNetwork.GetRoute<Catalogo>("parentescos");
         Pasatiempos = await CebvNetwork.GetRoute<Catalogo>("pasatiempos");
-        Clubes = await CebvNetwork.GetRoute<Catalogo>("clubes");
         TiposRedesSociales = await CebvNetwork.GetRoute<Catalogo>("tipos-redes-sociales");
     }
 
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _pasatiempos = new();
-    [ObservableProperty] private ObservableCollection<Catalogo> _clubes = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposRedesSociales = new();
 
     [ObservableProperty] private Familiar _familiar = new();
 
     [ObservableProperty] private Catalogo? _pasatiempo;
-    [ObservableProperty] private Catalogo? _club;
     [ObservableProperty] private Amistad _amistad = new();
 
     /**
@@ -94,27 +91,6 @@ public partial class ContextoViewModel : ObservableObject
     private void OnEliminarPasatiempo(PasatiempoPersona pasatiempo)
     {
         Desaparecido.Persona.Pasatiempos.Remove(pasatiempo);
-    }
-
-    /**
-     * Clubes
-     */
-    [RelayCommand]
-    private void OnGuardarClub()
-    {
-        if (Club is null) return;
-
-        var club = new ClubPersona(null, null, Club);
-
-        Desaparecido.Persona.Clubes.Add(club);
-
-        Club = null;
-    }
-
-    [RelayCommand]
-    private void OnEliminarClub(ClubPersona club)
-    {
-        Desaparecido.Persona.Clubes.Remove(club);
     }
 
     [RelayCommand]

@@ -13,7 +13,9 @@ public partial class ContextoSocial : ObservableObject
         int? personaId,
         Catalogo? situacionMigratoria,
         bool? estaTransitoEstadosUnidos,
-        string? descripcionProcesoMigratorio
+        string? descripcionProcesoMigratorio,
+        string? descripcionPasatiempos,
+        string? descripcionClubesOrganizaciones
     )
     {
         Id = id;
@@ -21,6 +23,8 @@ public partial class ContextoSocial : ObservableObject
         SituacionMigratoria = situacionMigratoria;
         EstaTransitoEstadosUnidos = estaTransitoEstadosUnidos;
         DescripcionProcesoMigratorio = descripcionProcesoMigratorio;
+        DescripcionPasatiempos = descripcionPasatiempos;
+        DescripcionClubesOrganizaciones = descripcionClubesOrganizaciones;
     }
 
     public ContextoSocial()
@@ -42,4 +46,10 @@ public partial class ContextoSocial : ObservableObject
 
     [ObservableProperty, JsonProperty("descripcion_proceso_migratorio")]
     private string? _descripcionProcesoMigratorio;
+
+    [ObservableProperty, JsonProperty("descripcion_pasatiempos")]
+    private string? _descripcionPasatiempos;
+
+    [ObservableProperty, JsonProperty("descripcion_clubes_organizaciones")]
+    private string? _descripcionClubesOrganizaciones;
 }

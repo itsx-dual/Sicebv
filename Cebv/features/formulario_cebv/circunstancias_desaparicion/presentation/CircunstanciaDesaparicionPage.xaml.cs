@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using Cebv.core.util;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 
@@ -35,13 +36,18 @@ public partial class CircunstanciaDesaparicionPage : Page
 
     private void ExpedientesDirectos_OnFilter(object sender, FilterEventArgs e)
     {
-        var item = e.Item as Expediente;
+        var item = e.Item as ExpedientePretty;
         e.Accepted = item?.Tipo == TipoExpediente.Directo.ToString();
     }
 
     private void ExpedientesIndirectos_OnFilter(object sender, FilterEventArgs e)
     {
-        var item = e.Item as Expediente;
+        var item = e.Item as ExpedientePretty;
         e.Accepted = item?.Tipo == TipoExpediente.Indirecto.ToString();
+    }
+
+    private void OnNavigateToRelatedReport(object sender, MouseButtonEventArgs e)
+    {
+        ((CircunstanciaDesaparicionViewModel)DataContext).ReporteClickCommand.Execute(null);
     }
 }

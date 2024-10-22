@@ -41,6 +41,23 @@ public partial class DocumentoLegal : ObservableObject
         return Equals((DocumentoLegal)obj);
     }
 
+    public override int GetHashCode()
+    {
+        var hashCode = new HashCode();
+        hashCode.Add(Id);
+        hashCode.Add(EsOficial);
+        hashCode.Add(TipoDocumento);
+        hashCode.Add(NumeroDocumento);
+        hashCode.Add(DondeRadica);
+        hashCode.Add(NombreServidorPublico);
+        hashCode.Add(FechaRecepcion);
+        hashCode.Add(DesaparecidoId);
+        hashCode.Add(ParametrosCarpeta);
+        hashCode.Add(ParametrosAmparo);
+        hashCode.Add(ParametrosRecomendacion);
+        return hashCode.ToHashCode();
+    }
+
     private bool Equals(DocumentoLegal documento)
     {
         return Id == documento.Id &&
