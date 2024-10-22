@@ -9,10 +9,10 @@ namespace Cebv.features.login.presentation;
 
 public partial class LoginViewModel : ObservableObject
 {
-    [ObservableProperty] private string _username = string.Empty;
-    [ObservableProperty] private string _password = string.Empty;
-    //[ObservableProperty] private string _username = "tanil@cebv.com";
-    //[ObservableProperty] private string _password = "password";
+    //[ObservableProperty] private string _username = string.Empty;
+    //[ObservableProperty] private string _password = string.Empty;
+    [ObservableProperty] private string _username = "tanil@cebv.com";
+    [ObservableProperty] private string _password = "password";
 
     [ObservableProperty] private string _errorMessage = String.Empty;
     [ObservableProperty] private Visibility _errorVisibility = Visibility.Collapsed;

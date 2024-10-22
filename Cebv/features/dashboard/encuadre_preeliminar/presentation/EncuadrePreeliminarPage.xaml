@@ -33,6 +33,7 @@
             <Setter Property="IsReadOnly" Value="False" />
             <Setter Property="IsEditable" Value="True" />
             <EventSetter Event="LostFocus" Handler="Search" />
+            <EventSetter Event="PreviewKeyDown" Handler="EventSetter_OnHandler"/>
         </Style>
 
         <util:VisibilityConverter x:Key="VisibilityConverter" />

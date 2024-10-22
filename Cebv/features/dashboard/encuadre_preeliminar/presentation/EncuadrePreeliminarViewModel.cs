@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -19,7 +20,7 @@ using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
-public partial class EncuadrePreeliminarViewModel : ObservableObject
+public partial class EncuadrePreeliminarViewModel : ObservableValidator
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -93,7 +94,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     // Valores para insercion a listas
     [ObservableProperty] private string _noTelefonoReportante = string.Empty;
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
-    [ObservableProperty] private string _noTelefonoDesaparecido = string.Empty;
+
+    [ObservableProperty]
+    [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
+    private string _noTelefonoDesaparecido = string.Empty;
+
     [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
@@ -223,8 +228,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo? value)
     {
-        if (value == null) return;
-        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id ?? 0);
+        if (value == null ) return;
+        Pertenencias = await CebvNetwork.GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
     }
 
     partial void OnSeDesconoceFechaNacimientoDesaparecidoChanged(bool value)
