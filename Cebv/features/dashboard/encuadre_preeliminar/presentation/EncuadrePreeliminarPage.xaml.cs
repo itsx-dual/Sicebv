@@ -87,4 +87,13 @@ public partial class EncuadrePreeliminarPage : Page
             dataContext.DeleteDesaparecidoImagenCommand.Execute(listview.SelectedItem);
         }
     }
+
+    private void EventSetter_OnHandler(object sender, KeyEventArgs e)
+    {
+        if (sender is not ComboBox comboBox) return;
+        if (e.Key != Key.Space || comboBox.Text is not ("" or " ")) return;
+        
+        comboBox.Text = string.Empty;
+        comboBox.IsDropDownOpen = true;
+    }
 }
