@@ -6,8 +6,8 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
-      xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
       xmlns:data1="clr-namespace:Cebv.features.formulario_cebv.circunstancias_desaparicion.data"
+      xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -23,11 +23,11 @@
     <Page.Resources>
         <CollectionViewSource x:Key="ExpedientesDirectos"
                               Filter="ExpedientesDirectos_OnFilter"
-                              Source="{Binding Reporte.Expedientes}" />
+                              Source="{Binding Reporte.ExpedientesFiltered}" />
 
         <CollectionViewSource x:Key="ExpedientesIndirectos"
                               Filter="ExpedientesIndirectos_OnFilter"
-                              Source="{Binding Reporte.Expedientes}" />
+                              Source="{Binding Reporte.ExpedientesFiltered}" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -56,7 +56,8 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha desaparición:" />
-                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
+                            <DatePicker SelectedDateFormat="Short"
+                                        SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -71,7 +72,8 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
                             <ui:TextBlock Text="Fecha de percato:" />
-                            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
+                            <DatePicker SelectedDateFormat="Short"
+                                        SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
@@ -174,30 +176,33 @@
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Calle:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" ClearButtonEnabled="True" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}"
+                                            ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Exterior:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
-                                            ClearButtonEnabled="True" MaxLength="10"/>
+                                            ClearButtonEnabled="True" MaxLength="10" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Interior:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}" ClearButtonEnabled="True"
-                                            MaxLength="10"/>
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
+                                            ClearButtonEnabled="True"
+                                            MaxLength="10" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Colonia:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}" ClearButtonEnabled="True" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}"
+                                            ClearButtonEnabled="True" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="Código postal:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
-                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5"/>
+                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -293,7 +298,7 @@
                     <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" />
                         <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}"
-                                      Tag="Number"/>
+                                      Tag="Number" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -302,12 +307,6 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SituacionPrevia}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100" />
-                    </StackPanel>
-
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Folios previos:" />
-                        <ListBox DisplayMemberPath="FolioCebv"
-                                 ItemsSource="{Binding Folios}" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
@@ -328,14 +327,27 @@
                                     Tag="Exclude" />
                     </StackPanel>
 
-                    <StackPanel>
+                    <StackPanel Margin="0 0 0 15">
                         <ui:TextBlock Text="Síntesis de los hechos de desaparición:" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SintesisDesaparicion}"
-                                    TextWrapping="Wrap"
-                                    AcceptsReturn="True"
-                                    MinHeight="150" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
                     </StackPanel>
 
+                    <WrapPanel>
+                        <StackPanel MinWidth="300" Margin="0 0 25 0">
+                            <ui:TextBlock Text="¿Desapareció con alguien más?:" />
+                            <ComboBox DisplayMemberPath="Key"
+                                      SelectedValuePath="Value"
+                                      SelectedValue="{Binding Reporte.HechosDesaparicion.DesaparecioAcompanado}"
+                                      ItemsSource="{Binding OpcionesCebv}" />
+                        </StackPanel>
+
+                        <StackPanel MinWidth="300">
+                            <ui:TextBlock Text="N° de personas en el mismo evento:" />
+                            <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
+                                          Tag="Number" />
+                        </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
 
@@ -392,21 +404,11 @@
             <ui:TextBlock Text="Desaparición asociada" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel>
-                    <WrapPanel Margin="0 0 0 15">
-                        <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Desapareció con alguien más?:" />
-                            <ComboBox DisplayMemberPath="Key"
-                                      SelectedValuePath="Value"
-                                      SelectedValue="{Binding Reporte.HechosDesaparicion.DesaparecioAcompanado}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
-                        </StackPanel>
-
-                        <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="N° de personas en el mismo evento:" />
-                            <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
-                                          Tag="Number"/>
-                        </StackPanel>
-                    </WrapPanel>
+                    <StackPanel Margin="0 0 0 15">
+                        <ui:TextBlock Text="Folios previos:" />
+                        <ListBox DisplayMemberPath="FolioCebv"
+                                 ItemsSource="{Binding Folios}" />
+                    </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -421,61 +423,87 @@
                                         Tag="Exclude" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="200" Margin="0 0 25 0">
+                        <StackPanel MinWidth="200" Margin="0 0 15 0">
                             <ui:TextBlock Text="Segundo apellido: " />
                             <ui:TextBox Text="{Binding SegundoApellido}"
                                         Tag="Exclude" />
                         </StackPanel>
 
+                        <ui:Button Icon="{ui:SymbolIcon Eraser24}"
+                                   Appearance="Secondary"
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding ClearPersonaCommand}"
+                                   Margin="0 10 10 0" />
+
                         <ui:Button Icon="{ui:SymbolIcon Search24}"
                                    Appearance="Primary"
-                                   VerticalContentAlignment="Stretch"
-                                   Command="{Binding BuscarPersonaCommand}"
-                                   Margin="0 15 0 0" />
+                                   VerticalAlignment="Stretch"
+                                   Command="{Binding BuscharHechosCommand}"
+                                   Margin="0 10 0 0" />
                     </WrapPanel>
 
                     <!-- TODO: Clarificar que las personas que aparecen son para relacionar con expedientes directos-->
                     <ui:ListView
                         HorizontalAlignment="Stretch"
                         MaxHeight="400"
-                        ItemsSource="{Binding Personas, Mode=TwoWay}"
+                        ItemsSource="{Binding HechosDesaparicion}"
                         SelectionMode="Single">
+                        <ui:ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Grid.IsSharedSizeScope="True" Name="StackPanel" />
+                            </ItemsPanelTemplate>
+                        </ui:ListView.ItemsPanel>
                         <ui:ListView.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewmodels:Persona}">
-                                <Grid>
-                                    <ui:CardControl
-                                        Margin="5 5 60 5"
-                                        Padding="10"
-                                        Icon="{ui:SymbolIcon Person24}"
-                                        HorizontalAlignment="Stretch">
-                                        <ui:CardControl.Header>
-                                            <StackPanel>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <ui:TextBlock
-                                                        FontTypography="Subtitle"
-                                                        Appearance="Primary"
-                                                        Margin="0 0 10 0"
-                                                        Text="{Binding Nombre}"
-                                                        TextWrapping="WrapWithOverflow" />
+                            <DataTemplate DataType="{x:Type viewmodels:HechosDesaparicion}">
+                                <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                                    <ui:TextBlock
-                                                        FontTypography="Subtitle"
-                                                        Appearance="Secondary"
-                                                        Text="{Binding ApellidoPaterno}"
-                                                        TextWrapping="WrapWithOverflow"
-                                                        Margin="0 0 10 0" />
+                                    <ui:CardControl Grid.Column="1"
+                                                    Margin="3"
+                                                    Padding="5"
+                                                    HorizontalAlignment="Stretch">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
 
-                                                    <ui:TextBlock
-                                                        FontTypography="Subtitle"
-                                                        Appearance="Secondary"
-                                                        Text="{Binding ApellidoMaterno}"
-                                                        TextWrapping="WrapWithOverflow" />
-                                                </StackPanel>
+                                            <ui:ListView Grid.Column="0"
+                                                         DisplayMemberPath="Nombre"
+                                                         ItemsSource="{Binding Desaparecidos}" />
+
+                                            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="5">
+                                                <ui:TextBlock
+                                                    Text="{Binding Direccion.Calle, StringFormat='Calle: {0}'}"
+                                                    FontTypography="BodyStrong" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Direccion.Asentamiento.Nombre,StringFormat='Asentamiento: {0}'}" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Direccion.Asentamiento.Municipio.Nombre, StringFormat='Municipio: {0}'}" />
+                                                <ui:TextBlock
+                                                    Text="{Binding Direccion.Asentamiento.Municipio.Estado.Nombre, StringFormat='Estado: {0}'}" />
                                             </StackPanel>
-                                        </ui:CardControl.Header>
+
+                                            <DockPanel Grid.Column="2"
+                                                       HorizontalAlignment="Stretch">
+                                                <ui:TextBlock Text="Hechos de desaparición:"
+                                                              FontTypography="BodyStrong"
+                                                              DockPanel.Dock="Top"
+                                                              HorizontalAlignment="Left" />
+
+                                                <ui:TextBlock Text="{Binding HechosDesaparicionNarracion}"
+                                                              HorizontalAlignment="Left"
+                                                              Margin="5"
+                                                              TextWrapping="Wrap" />
+                                            </DockPanel>
+                                        </Grid>
                                     </ui:CardControl>
 
-                                    <ui:Button VerticalAlignment="Stretch"
+                                    <ui:Button Grid.Column="1" VerticalAlignment="Stretch"
                                                Appearance="Primary"
                                                HorizontalAlignment="Right"
                                                Icon="{ui:SymbolIcon Add24}"
@@ -503,48 +531,43 @@
                         <ui:ListView HorizontalAlignment="Stretch"
                                      MaxHeight="250"
                                      ItemsSource="{Binding Source={StaticResource ExpedientesDirectos}}"
-                                     SelectionMode="Single">
+                                     SelectionMode="Single"
+                                     SelectedItem="{Binding ExpedienteSelected}"
+                                     MouseDoubleClick="OnNavigateToRelatedReport">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data1:Expediente}">
+                                <DataTemplate DataType="{x:Type data1:ExpedientePretty}">
                                     <Grid>
-                                        <ui:CardControl
-                                            Margin="5 5 60 5"
-                                            Padding="10"
-                                            Icon="{ui:SymbolIcon Person24}"
-                                            HorizontalAlignment="Stretch">
-                                            <ui:CardControl.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <ui:TextBlock
-                                                        Margin="0 0 10 0"
-                                                        FontTypography="Subtitle"
-                                                        Text="{Binding Persona.Nombre}"
-                                                        TextWrapping="Wrap" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
 
-                                                    <ui:TextBlock
-                                                        Margin="0 0 10 0"
-                                                        Appearance="Secondary"
-                                                        FontTypography="Subtitle"
-                                                        Text="{Binding Persona.ApellidoPaterno}"
-                                                        TextWrapping="Wrap" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="5">
+                                            <ui:TextBlock Text="{Binding Reporte.Id}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle, StringFormat='Calle: {0}'}"
+                                                FontTypography="BodyStrong" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Nombre,StringFormat='Asentamiento: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Municipio.Nombre, StringFormat='Municipio: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Municipio.Estado.Nombre, StringFormat='Estado: {0}'}" />
+                                        </StackPanel>
 
-                                                    <ui:TextBlock
-                                                        Appearance="Secondary"
-                                                        FontTypography="Subtitle"
-                                                        Text="{Binding Persona.ApellidoMaterno}"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
-
-                                            </ui:CardControl.Header>
-                                            <StackPanel>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <ui:ListView Grid.Column="0"
+                                                         DisplayMemberPath="Nombre"
+                                                         ItemsSource="{Binding Reporte.HechosDesaparicion.Desaparecidos}" />
+                                            <StackPanel Grid.Column="1">
                                                 <ui:TextBlock
                                                     Appearance="Tertiary"
-                                                    Text="{Binding Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
-                                                    TextWrapping="Wrap"
-                                                    Margin="4" />
-
-                                                <ui:TextBlock
-                                                    Appearance="Tertiary"
-                                                    Text="{Binding Persona.Curp}"
+                                                    Text="{Binding Tipo}"
                                                     TextWrapping="Wrap"
                                                     Margin="4" />
 
@@ -554,10 +577,11 @@
                                                     TextWrapping="Wrap"
                                                     Margin="4" />
                                             </StackPanel>
-                                        </ui:CardControl>
+                                        </Grid>
 
                                         <!-- Botones de visualización -->
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button Grid.Column="2"
+                                                   VerticalAlignment="Stretch"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"
@@ -589,48 +613,44 @@
                             HorizontalAlignment="Stretch"
                             MaxHeight="250"
                             ItemsSource="{Binding Source={StaticResource ExpedientesIndirectos}}"
-                            SelectionMode="Single">
+                            SelectionMode="Single"
+                            SelectedItem="{Binding ExpedienteSelected}"
+                            MouseDoubleClick="OnNavigateToRelatedReport">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data1:Expediente}">
+                                <DataTemplate DataType="{x:Type data1:ExpedientePretty}">
                                     <Grid>
-                                        <ui:CardControl
-                                            Margin="5 5 60 5"
-                                            Padding="10"
-                                            Icon="{ui:SymbolIcon Person24}"
-                                            HorizontalAlignment="Stretch">
-                                            <ui:CardControl.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <ui:TextBlock
-                                                        Margin="0 0 10 0"
-                                                        FontTypography="Subtitle"
-                                                        Text="{Binding Persona.Nombre}"
-                                                        TextWrapping="Wrap" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
 
-                                                    <ui:TextBlock
-                                                        Margin="0 0 10 0"
-                                                        Appearance="Secondary"
-                                                        FontTypography="Subtitle"
-                                                        Text="{Binding Persona.ApellidoPaterno}"
-                                                        TextWrapping="Wrap" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="5">
+                                            <ui:TextBlock Text="{Binding Reporte.Id}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle, StringFormat='Calle: {0}'}"
+                                                FontTypography="BodyStrong" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Nombre,StringFormat='Asentamiento: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Municipio.Nombre, StringFormat='Municipio: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Municipio.Estado.Nombre, StringFormat='Estado: {0}'}" />
+                                        </StackPanel>
 
-                                                    <ui:TextBlock
-                                                        Appearance="Secondary"
-                                                        FontTypography="Subtitle"
-                                                        Text="{Binding Persona.ApellidoMaterno}"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <ui:ListView Grid.Column="0"
+                                                         DisplayMemberPath="Nombre"
+                                                         ItemsSource="{Binding Reporte.HechosDesaparicion.Desaparecidos}" />
 
-                                            </ui:CardControl.Header>
-                                            <StackPanel>
+                                            <StackPanel Grid.Column="1">
                                                 <ui:TextBlock
                                                     Appearance="Tertiary"
-                                                    Text="{Binding Persona.FechaNacimiento, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
-                                                    TextWrapping="Wrap"
-                                                    Margin="4" />
-
-                                                <ui:TextBlock
-                                                    Appearance="Tertiary"
-                                                    Text="{Binding Persona.Curp}"
+                                                    Text="{Binding Tipo}"
                                                     TextWrapping="Wrap"
                                                     Margin="4" />
 
@@ -640,10 +660,11 @@
                                                     TextWrapping="Wrap"
                                                     Margin="4" />
                                             </StackPanel>
-                                        </ui:CardControl>
+                                        </Grid>
 
                                         <!-- Botones de visualización -->
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button Grid.Column="1"
+                                                   VerticalAlignment="Stretch"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"
@@ -658,7 +679,6 @@
                     </ui:CardExpander>
                 </StackPanel>
             </Border>
-
         </StackPanel>
 
         <!-- Footer -->

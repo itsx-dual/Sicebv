@@ -108,6 +108,13 @@ public class DashboardNavigationService : IDashboardNavigationService
 
         return NavigationControl!.GoBack();
     }
+    
+    public void ClearNavigationStack()
+    {
+        ThrowIfNavigationControlIsNull();
+
+        NavigationControl!.ClearJournal();
+    }
 
     /// <inheritdoc />
     public bool NavigateWithHierarchy(Type pageType)
