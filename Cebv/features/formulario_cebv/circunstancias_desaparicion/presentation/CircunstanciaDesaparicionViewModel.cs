@@ -49,7 +49,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
 
-    [ObservableProperty] private ObservableCollection<ExpedientePretty> _expedientes = new();
     [ObservableProperty] private ExpedientePretty _expedienteSelected = new();
 
     /**
@@ -70,20 +69,6 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         EnsureObjectExists(ref _hipotesisSecundaria, Reporte.Hipotesis, _p.ParametrosInicialSecundaria);
 
         Reporte.HechosDesaparicion ??= new();
-
-        if (!Reporte.Expedientes.Any()) return;
-
-        foreach (var item in Reporte.Expedientes)
-        {
-            if (item.ReporteUno is not null && item.ReporteUno.Id != Reporte.Id)
-            {
-                Expedientes.Add(new ExpedientePretty(item.Tipo, item.Parentesco, item.ReporteUno));
-            }
-            else if (item.ReporteDos is not null && item.ReporteDos.Id != Reporte.Id)
-            {
-                Expedientes.Add(new ExpedientePretty(item.Tipo, item.Parentesco, item.ReporteDos));
-            }
-        }
     }
 
     private async void InitAsync()
@@ -101,14 +86,14 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
         if (est is not null)
         {
-            EstadoSelected = est;
             Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", est.Id);
+            EstadoSelected = est;
         }
 
         if (mpio is not null)
         {
-            MunicipioSelected = mpio;
             Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", mpio.Id);
+            MunicipioSelected = mpio;
         }
 
         FoliosPrevios();
@@ -163,7 +148,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [RelayCommand]
     private void AddExpediente(HechosDesaparicion item)
     {
-        if (Reporte.Expedientes.Any(p => p.Id == item.ReporteId)) return;
+        if (item.ReporteId == Reporte.Id) return;
 
         var viewModel = new RelacionarExpedienteViewModel(Reporte.Id, item);
 
@@ -187,10 +172,20 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         if (sender is not RelacionarExpedienteViewModel) return;
 
         Reporte.Expedientes.Add(expediente);
+        Reporte.SincronizarExpedientes();
     }
 
     [RelayCommand]
-    private void RemoveExpediente(ExpedientePretty expediente) => Console.WriteLine("Hola mundo");
+    private void RemoveExpediente(ExpedientePretty expediente)
+    {
+        var itemToRemove = Reporte.Expedientes.FirstOrDefault(i => i.Id == expediente.Id);
+
+        if (itemToRemove != null)
+        {
+            Reporte.Expedientes.Remove(itemToRemove);
+            Reporte.SincronizarExpedientes();
+        }
+    }
 
     /**
      * Lógica de guardado
@@ -206,8 +201,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     private async Task OnReporteClick()
     {
         if (ExpedienteSelected.Reporte?.Id is null) return;
-        
+
         _dashboardNavigationService.Navigate(typeof(LoadingPage));
+        Console.WriteLine(ExpedienteSelected.Reporte.Id);
         Reporte = await _reporteService.Reload(ExpedienteSelected.Reporte.Id.Value);
         _reporteService.SetStatusReporte(EstadoReporte.Cargado);
         Console.WriteLine($"Reporte {Reporte.Id} cargado");

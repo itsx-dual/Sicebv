@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -129,6 +130,9 @@ public partial class HechosDesaparicion : ObservableObject
 
     [ObservableProperty, JsonProperty("personas_mismo_evento")]
     private int? _personasMismoEvento = 1;
+
+    [ObservableProperty, JsonProperty("desaparecidos")]
+    private ObservableCollection<Catalogo> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty("created_at")]
     private DateTime? _createdAt;

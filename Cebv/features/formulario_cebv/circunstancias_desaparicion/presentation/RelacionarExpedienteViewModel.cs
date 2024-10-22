@@ -44,8 +44,9 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarExpediente()
     {
-        Expediente.ReporteUno!.Id = ReporteId;
-        Expediente.ReporteDos!.Id = Item.ReporteId;
+        if (string.IsNullOrEmpty(TipoExp) || Parentesco.Id is null) return;
+        Expediente.ReporteUno.Id = ReporteId;
+        Expediente.ReporteDos.Id = Item.ReporteId;
         Expediente.Tipo = TipoExp;
         Expediente.Parentesco = Parentesco;
 

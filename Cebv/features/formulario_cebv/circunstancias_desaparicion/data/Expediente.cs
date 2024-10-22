@@ -20,8 +20,8 @@ public partial class Expediente : ObservableObject
         int? id,
         string? tipo,
         Catalogo? parentesco,
-        ReporteHechos? reporteUno,
-        ReporteHechos? reporteDos
+        ReporteHechos reporteUno,
+        ReporteHechos reporteDos
     )
     {
         _id = id;
@@ -45,8 +45,8 @@ public partial class Expediente : ObservableObject
     private Catalogo? _parentesco;
 
     [ObservableProperty, JsonProperty("reporte_uno")]
-    private ReporteHechos? _reporteUno;
+    private ReporteHechos _reporteUno = new();
 
     [ObservableProperty, JsonProperty("reporte_dos")]
-    private ReporteHechos? _reporteDos;
+    private ReporteHechos _reporteDos = new();
 }
