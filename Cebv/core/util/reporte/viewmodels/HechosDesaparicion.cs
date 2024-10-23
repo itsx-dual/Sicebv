@@ -9,9 +9,9 @@ public partial class HechosDesaparicion : ObservableValidator
 {
     [JsonConstructor]
     public HechosDesaparicion(
-        int? id,
-        int? reporteId,
-        Direccion? direccion,
+        int id,
+        int reporteId,
+        Direccion direccion,
         Catalogo? sitio,
         Catalogo? areaAsignaSitio,
         bool fechaDesaparicionDesconocida,
@@ -66,10 +66,10 @@ public partial class HechosDesaparicion : ObservableValidator
     }
 
     [ObservableProperty, JsonProperty("id")]
-    private int? _id;
+    private int _id;
 
     [ObservableProperty, JsonProperty("reporte_id")]
-    private int? _reporteId;
+    private int _reporteId;
 
     [ObservableProperty, JsonProperty("direccion")]
     private Direccion _direccion = new();
@@ -132,6 +132,9 @@ public partial class HechosDesaparicion : ObservableValidator
 
     [ObservableProperty, JsonProperty("personas_mismo_evento")]
     private int? _personasMismoEvento = 1;
+
+    [ObservableProperty, JsonProperty("desaparecidos")]
+    private ObservableCollection<Catalogo> _desaparecidos = [];
 
     [ObservableProperty, JsonProperty("created_at")]
     private DateTime? _createdAt;

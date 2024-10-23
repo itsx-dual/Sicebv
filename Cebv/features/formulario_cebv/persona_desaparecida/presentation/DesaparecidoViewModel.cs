@@ -18,7 +18,7 @@ using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
-public partial class DesaparecidoViewModel : ObservableObject
+public partial class DesaparecidoViewModel : ObservableValidator
 {
     private static readonly ISnackbarService SnackbarService = App.Current.Services.GetService<ISnackbarService>()!;
 
@@ -390,6 +390,14 @@ public partial class DesaparecidoViewModel : ObservableObject
     [RelayCommand]
     private void OnGuardarYContinuar(Type pageType)
     {
+        Desaparecido.Persona.ValidateAll();
+
+        if (Desaparecido.Persona.HasErrors)
+        {
+            ShowErrors();
+            return;
+        }
+
         if (!VerificacionCamposObligatorios())
         {
             _snackBarService.Show(
@@ -403,5 +411,14 @@ public partial class DesaparecidoViewModel : ObservableObject
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
+    }
+
+    // TODO: Mejorar logica creando un componente por default
+    [RelayCommand]
+    private void ShowErrors()
+    {
+        string message = string.Join(Environment.NewLine, Desaparecido.Persona.GetErrors().Select(e => e.ErrorMessage));
+
+        SnackbarService.Show("Validation errors", message, ControlAppearance.Danger, null, TimeSpan.FromSeconds(10));
     }
 }

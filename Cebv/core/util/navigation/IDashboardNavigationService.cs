@@ -13,6 +13,9 @@ public interface IDashboardNavigationService
     /// <returns><see langword="true"/> if the operation succeeds. <see langword="false"/> otherwise.</returns>
     bool Navigate(Type pageType);
 
+    /// Clears the navigation stack, effectively resetting the navigation history.
+    void ClearNavigationStack();
+
     /// <summary>
     /// Lets you navigate to the selected page based on it's type, Should be used with <see cref="IPageService"/>.
     /// </summary>

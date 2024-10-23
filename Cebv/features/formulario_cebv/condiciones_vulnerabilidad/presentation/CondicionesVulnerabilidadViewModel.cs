@@ -3,6 +3,7 @@ using Cebv.core.domain;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.data;
 using Cebv.core.util;
+using Cebv.core.util.enums;
 using static Cebv.core.util.enums.FactorRhesus;
 using static Cebv.core.util.enums.IndoleSalud;
 using Cebv.core.util.navigation;
@@ -59,7 +60,8 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposSangre = [];
 
-    [ObservableProperty] private ObservableCollection<string> _factoresRhesus = [Positivo, Negativo];
+    [ObservableProperty]
+    private ObservableCollection<string> _factoresRhesus = [Positivo, Negativo, FactorRhesus.NoEspecifica];
 
     /**
      * Condiciones de salud

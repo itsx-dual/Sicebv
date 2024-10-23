@@ -99,6 +99,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private string _noTelefonoReportante = string.Empty;
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
     [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private string _noTelefonoDesaparecido = string.Empty;
+
+    [ObservableProperty]
+    [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
+    private string _noTelefonoDesaparecido = string.Empty;
+
     [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
@@ -228,8 +233,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo? value)
     {
-        if (value == null) return;
-        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id ?? 0);
+        if (value == null ) return;
+        Pertenencias = await CebvNetwork.GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
     }
 
     partial void OnSeDesconoceFechaNacimientoDesaparecidoChanged(bool value)
