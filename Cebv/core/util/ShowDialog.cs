@@ -10,7 +10,7 @@ public partial class ShowDialog : ObservableObject
 {
     private IContentDialogService _dialogService = App.Current.Services.GetService<IContentDialogService>()!;
 
-    [ObservableProperty] private bool _confirmacion;
+    [ObservableProperty] private string _confirmacion = string.Empty;
     
     [RelayCommand]
     private async Task OnShowContentDialog(List<string> emptyElements)
@@ -20,8 +20,8 @@ public partial class ShowDialog : ObservableObject
             {
                 Title = "¿Esta seguro de guardar?",
                 Content = "Los siguientes campos estan vacios, ¿esta seguro de guardar?\n" + string.Join("\n", emptyElements),
-                PrimaryButtonText = "Guardar Y Continuar",
-                SecondaryButtonText = "Don't Save",
+                PrimaryButtonText = "Guardar",
+                SecondaryButtonText = "No guardar",
                 CloseButtonText = "Cancelar"
             },
             new CancellationToken()
@@ -29,9 +29,9 @@ public partial class ShowDialog : ObservableObject
         
         Confirmacion = result switch
         {
-            ContentDialogResult.Primary => true,
-            ContentDialogResult.Secondary => false,
-            _ => false
+            ContentDialogResult.Primary => "Guardar",
+            ContentDialogResult.Secondary => "No guardar",
+            _ => "Cancelar"
         };
     }
 }

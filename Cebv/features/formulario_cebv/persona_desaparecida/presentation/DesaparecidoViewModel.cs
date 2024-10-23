@@ -10,6 +10,7 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using static Cebv.core.util.enums.TipoContacto;
 using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.persona_desaparecida.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -191,6 +192,8 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     // Información de nacimiento
     [ObservableProperty] private bool _fechaAproximada;
+    
+    private bool cancelar = true;
 
     async partial void OnTipoOcupacionPrincipalChanged(Catalogo? value)
     {
@@ -390,9 +393,9 @@ public partial class DesaparecidoViewModel : ObservableObject
 
     private async Task<bool> EnlistarCamposVacios()
     {
-        bool confirmacion;
+        bool confirmacion = false;
 
-        var properties = ListEmptyElements.GetDesaparecido(Desaparecido, this, Direccion,
+        var properties = PersonaDesaparecidaDictionary.GetDesaparecido(Desaparecido, this, Direccion,
             Pseudonimo, OcupacionPrincipal, OcupacionSecundaria);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
 
@@ -402,7 +405,15 @@ public partial class DesaparecidoViewModel : ObservableObject
 
             await dialog.ShowContentDialogCommand.ExecuteAsync(emptyElements);
 
-            confirmacion = dialog.Confirmacion;
+            if (dialog.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialog.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
         }
         else confirmacion = true;
 
@@ -424,7 +435,13 @@ public partial class DesaparecidoViewModel : ObservableObject
         }
 
         if (!await EnlistarCamposVacios())
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+            }
             return;
+        }
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

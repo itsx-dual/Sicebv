@@ -26,6 +26,8 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Vehiculo _vehiculo = new();
+    
+    private bool cancelar = true;
 
     /**
      * Constructor de la clase
@@ -87,10 +89,10 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
 
     private async Task<bool> EnlistarCampos()
     {
-        bool confirmacion;
+        bool confirmacion = false;
         
-        Vehiculo vehiculo = Vehiculo;
-        List<string> emptyElements = ListEmptyElements.EnlistarElementosVacios(vehiculo);
+        var properties = VehiculosInvolucradosDictionary.GetVehiculosInvolucrados(Vehiculo);
+        List<string> emptyElements = ListEmptyElements.GetEmptyElements(properties);
 
         if (emptyElements.Count > 0)
         {
@@ -99,7 +101,8 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            confirmacion = dialogo.Confirmacion;
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return cancelar = false;
         }
         else confirmacion = true;
 
@@ -110,7 +113,11 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
     private async Task OnGuardarYSiguiente(Type pageType)
     { 
         if (!await EnlistarCampos())
+        {
+            if (!cancelar) _navigationService.Navigate(pageType);
+            
             return;
+        }
       
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

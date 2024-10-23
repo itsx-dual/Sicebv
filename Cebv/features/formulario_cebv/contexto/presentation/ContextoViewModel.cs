@@ -30,6 +30,8 @@ public partial class ContextoViewModel : ObservableObject
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
+    
+    private bool cancelar = true;
 
     public ContextoViewModel()
     {
@@ -142,9 +144,9 @@ public partial class ContextoViewModel : ObservableObject
 
     private async Task<bool> EnlistarCampos()
     {
-        bool confirmacion;
+        bool confirmacion = false;
 
-        var properties = ListEmptyElements.GetContexto(Reporte, Familiar, Desaparecido, this, Amistad);
+        var properties = ContextoDictionary.GetContexto(Reporte, Familiar, Desaparecido, this, Amistad);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
         
         if (emptyElements.Count > 0)
@@ -154,7 +156,15 @@ public partial class ContextoViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            confirmacion = dialogo.Confirmacion;
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
         }
         else confirmacion = true;
 
@@ -169,7 +179,13 @@ public partial class ContextoViewModel : ObservableObject
     private async Task OnGuardarYSiguente(Type pageType)
     {
         if (!await EnlistarCampos())
-            return;
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+                return;
+            }
+        }
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

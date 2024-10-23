@@ -123,7 +123,8 @@ public partial class Persona : ObservableValidator
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
 
-    [ObservableProperty, JsonProperty(PropertyName = "nombre")] [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [ObservableProperty, JsonProperty(PropertyName = "nombre")]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
     [Required(ErrorMessage = "Campo Obligatorio")] [MinLength(2)]
     private string? _nombre;
 

@@ -13,6 +13,7 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.dashboard.encuadre_preeliminar.Data;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using Cebv.features.formulario_cebv.prendas.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -34,6 +35,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Reportante _reportante = null!;
     [ObservableProperty] private Desaparecido _desaparecido = null!;
+    
+    private bool cancelar = true;
 
     // Catalogos y valores predefinidos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
@@ -477,6 +480,35 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         return !HasErrors && !Reportante.Persona.HasErrors && !Desaparecido.Persona.HasErrors && 
                !Reporte.HechosDesaparicion.HasErrors && !Reporte.HasErrors;
     }
+    
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion = false;
+
+        var properties = EncuadrePreeliminarDictionary.GetEncuadrePreliminarDictionary(this, Reporte, Reportante, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
 
     [RelayCommand]
     private async void OnGuardarReporte()
@@ -491,6 +523,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
                 new TimeSpan(0, 0, 7));
             return;
         }
+
+        if (!await EnlistarCampos())
+            return;
         
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);

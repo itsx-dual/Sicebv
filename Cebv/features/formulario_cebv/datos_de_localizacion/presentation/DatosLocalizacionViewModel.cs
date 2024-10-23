@@ -9,6 +9,7 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.datos_de_localizacion.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,8 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
 
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    
+    private bool cancelar = true;
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
@@ -185,9 +188,9 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
     
     private async Task<bool> EnlistarCampos()
     {
-        bool confirmacion;
+        bool confirmacion = false;
 
-        var properties = ListEmptyElements.GetDatosLocalizacion(this, Desaparecido, HipotesisPrimaria, HipotesisSecundaria);
+        var properties = DatosLocalizacionDictionary.GetDatosLocalizacion(this, Desaparecido, HipotesisPrimaria, HipotesisSecundaria);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
         
         if (emptyElements.Count > 0)
@@ -197,7 +200,15 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            confirmacion = dialogo.Confirmacion;
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
         }
         else confirmacion = true;
 
@@ -218,7 +229,13 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
         }
         
         if (!await EnlistarCampos())
-            return;
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+                return;
+            }
+        }
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

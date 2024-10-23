@@ -35,6 +35,8 @@ public partial class FolioExpedienteViewModel : ObservableObject
 
     [ObservableProperty]
     private Dictionary<string, string> _tiposDesapariciones = new() { { Unica, U }, { Multiple, M } };
+    
+    private bool cancelar = true;
 
     public FolioExpedienteViewModel()
     {
@@ -102,9 +104,9 @@ public partial class FolioExpedienteViewModel : ObservableObject
     
     private async Task<bool> EnlistarCampos()
     {
-        bool confirmacion;
+        bool confirmacion = false;
 
-        var properties = ListEmptyElements.GetFolioExpediente(Reporte, Desaparecido);
+        var properties = FolioExpedienteDictionary.GetFolioExpediente(Reporte, Desaparecido);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
         
         if (emptyElements.Count > 0)
@@ -114,7 +116,15 @@ public partial class FolioExpedienteViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            confirmacion = dialogo.Confirmacion;
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
         }
         else confirmacion = true;
 
@@ -136,7 +146,13 @@ public partial class FolioExpedienteViewModel : ObservableObject
         }
 
         if (!await EnlistarCampos())  
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+            }
             return;
+        }
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

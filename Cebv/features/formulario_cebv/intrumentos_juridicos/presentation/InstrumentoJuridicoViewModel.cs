@@ -25,6 +25,8 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     [ObservableProperty] private Desaparecido _desaparecido = new();
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
+    
+    private bool cancelar = true;
 
     /// <summary>
     /// Clase instanciada para acceder a los parametros por defecto.
@@ -61,7 +63,7 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     
     private async Task<bool> EnlistarCampos()
     {
-        bool confirmacion;
+        bool confirmacion = false;
 
         var properties = ListEmptyElements.GetInstrumentoJuridico(CarpetaInvestigacion, AmparoBuscador, RecomedacionDerechos, Desaparecido);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
@@ -73,7 +75,8 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            confirmacion = dialogo.Confirmacion;
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return cancelar = false;
         }
         else confirmacion = true;
 
@@ -84,7 +87,11 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
     private async Task OnGuardarYSiguiente(Type pageType)
     {
         if (!await EnlistarCampos())
+        {
+            if (!cancelar) _navigationService.Navigate(pageType);
+            
             return;
+        }
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

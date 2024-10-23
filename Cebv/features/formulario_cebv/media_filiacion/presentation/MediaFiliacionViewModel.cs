@@ -5,6 +5,7 @@ using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.media_filiacion.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,8 @@ public partial class MediaFiliacionViewModel : ObservableObject
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
+    
+    private bool cancelar = true;
 
     /**
      * Constructor de la clase
@@ -103,9 +106,9 @@ public partial class MediaFiliacionViewModel : ObservableObject
     
     private async Task<bool> EnlistarCampos()
     {
-        bool confirmacion;
+        bool confirmacion = false;
 
-        var properties = ListEmptyElements.GetMediaFiliacion(Desaparecido);
+        var properties = MediaFiliacionDictionary.GetMediaFiliacion(Desaparecido);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
         
         if (emptyElements.Count > 0)
@@ -115,7 +118,15 @@ public partial class MediaFiliacionViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            confirmacion = dialogo.Confirmacion;
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
         }
         else confirmacion = true;
 
@@ -126,7 +137,13 @@ public partial class MediaFiliacionViewModel : ObservableObject
     private async Task OnGuardarYSiguente(Type pageType)
     {
         if (!await EnlistarCampos())
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+            }
             return;
+        }
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
