@@ -188,12 +188,8 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
     {
         bool _confirmacion;
         
-        var emptyElementsViewModel = ListEmptyElements.EnlistarElementosVacios(this);
-        
-        HechosDesaparicion? hechos = Reporte.HechosDesaparicion;
-        List<string> emptyElements = ListEmptyElements.EnlistarElementosVacios(hechos);
-        
-        emptyElements.AddRange(emptyElementsViewModel);
+        var properties = ListEmptyElements.GetCircunstanciaDesaparicion(Reporte, this, HipotesisPrimaria, HipotesisSecundaria);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
 
         if (emptyElements.Count > 0)
         {

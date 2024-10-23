@@ -19,7 +19,7 @@ public partial class ShowDialog : ObservableObject
             new ContentDialog()
             {
                 Title = "¿Esta seguro de guardar?",
-                Content = "Los siguientes campos estan vacios, ¿esta seguro de guardar?" + string.Join("\n", emptyElements),
+                Content = "Los siguientes campos estan vacios, ¿esta seguro de guardar?\n" + string.Join("\n", emptyElements),
                 PrimaryButtonText = "Guardar Y Continuar",
                 SecondaryButtonText = "Don't Save",
                 CloseButtonText = "Cancelar"

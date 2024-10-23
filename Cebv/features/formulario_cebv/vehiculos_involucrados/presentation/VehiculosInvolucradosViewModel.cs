@@ -87,7 +87,7 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
 
     private async Task<bool> EnlistarCampos()
     {
-        bool _confirmacion;
+        bool confirmacion;
         
         Vehiculo vehiculo = Vehiculo;
         List<string> emptyElements = ListEmptyElements.EnlistarElementosVacios(vehiculo);
@@ -99,11 +99,11 @@ public partial class VehiculosInvolucradosViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            _confirmacion = dialogo.Confirmacion;
+            confirmacion = dialogo.Confirmacion;
         }
-        else _confirmacion = true;
+        else confirmacion = true;
 
-        return _confirmacion;
+        return confirmacion;
     }
     
     [RelayCommand]

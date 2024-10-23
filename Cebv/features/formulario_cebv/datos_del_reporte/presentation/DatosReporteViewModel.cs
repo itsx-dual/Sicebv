@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using Cebv.core.data;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -65,10 +66,34 @@ public partial class DatosReporteViewModel : ObservableObject
         if (value?.Id is null) return;
         Medios = await CebvNetwork.GetByFilter<MedioConocimiento>("medios", "tipo_medio_id", value.Id.ToString()!);
     }
+    
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion;
+
+        var properties = ListEmptyElements.GetDatosReporte(Reporte, this, Reportante);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            confirmacion = dialogo.Confirmacion;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
 
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
+        if (!await EnlistarCampos())
+            return;
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

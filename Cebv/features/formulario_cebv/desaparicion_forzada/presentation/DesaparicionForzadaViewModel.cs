@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -120,16 +121,39 @@ public partial class DesaparicionForzadaViewModel : ObservableObject
     {
         Reporte.Perpetradores?.Remove(perpetrador);
     }
-
-
+    
     /**
      * Información relevante
      */
     [ObservableProperty] private string _delitoDesaparicion = No;
 
-    [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion;
+
+        var properties = ListEmptyElements.GetDesaparicionForzada(Reporte, this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            confirmacion = dialogo.Confirmacion;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    {
+        if (!await EnlistarCampos())
+            return;
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

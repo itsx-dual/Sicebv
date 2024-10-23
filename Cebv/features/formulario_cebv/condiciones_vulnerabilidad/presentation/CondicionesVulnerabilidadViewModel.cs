@@ -133,25 +133,10 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     
     private async Task<bool> EnlistarCampos()
     {
-        bool _confirmacion;
-        
-        var lists = new List<object>
-        {
-            this,
-            Desaparecido.Persona.Salud,
-            Desaparecido.Persona.ContextoSocial,
-            Desaparecido.Persona.EnfoqueDiferenciado,
-            Desaparecido.Persona,
-            Desaparecido.Persona.Embarazo
-        };
+        bool confirmacion;
 
-        var emptyElements = new List<string>();
-        
-        foreach (var list in lists)
-        {
-            var elements = ListEmptyElements.EnlistarElementosVacios(list);
-            emptyElements.AddRange(elements);
-        }
+        var properties = ListEmptyElements.GetCondicionesVulneravilidad(Desaparecido, this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
         
         if (emptyElements.Count > 0)
         {
@@ -160,16 +145,19 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
             
-            _confirmacion = dialogo.Confirmacion;
+            confirmacion = dialogo.Confirmacion;
         }
-        else _confirmacion = true;
+        else confirmacion = true;
 
-        return _confirmacion;
+        return confirmacion;
     }
 
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
+        if (!await EnlistarCampos())
+            return;
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

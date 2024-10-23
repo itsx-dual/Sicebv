@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
@@ -35,11 +36,34 @@ public partial class ControlOgpiViewModel : ObservableObject
     }
 
     [ObservableProperty] private ObservableCollection<BasicResource> _estatusPersonas = new();
-
-
-    [RelayCommand]
-    private void Guardar()
+    
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion;
+
+        var properties = ListEmptyElements.GetControlOgpi(Reporte);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            confirmacion = dialogo.Confirmacion;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task Guardar()
+    {
+        if (!await EnlistarCampos())
+            return;
+        
         _reporteService.Sync();
     }
 }

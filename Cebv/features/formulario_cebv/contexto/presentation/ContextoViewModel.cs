@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
+using Cebv.core.modules.persona.data;
 using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -139,13 +140,37 @@ public partial class ContextoViewModel : ObservableObject
         Desaparecido.Persona.Amistades.Remove(amistad);
     }
 
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion;
+
+        var properties = ListEmptyElements.GetContexto(Reporte, Familiar, Desaparecido, this, Amistad);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            confirmacion = dialogo.Confirmacion;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
 
     /**
      * Comando para guardar y navegar a la siguiente pagina
      */
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private async Task OnGuardarYSiguente(Type pageType)
     {
+        if (!await EnlistarCampos())
+            return;
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

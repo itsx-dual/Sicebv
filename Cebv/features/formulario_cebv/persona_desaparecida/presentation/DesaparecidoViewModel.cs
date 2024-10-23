@@ -3,6 +3,7 @@ using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
+using Cebv.core.util;
 using static Cebv.core.util.enums.PrioridadOcupacion;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -387,8 +388,29 @@ public partial class DesaparecidoViewModel : ObservableObject
         return true;
     }
 
+    private async Task<bool> EnlistarCamposVacios()
+    {
+        bool confirmacion;
+
+        var properties = ListEmptyElements.GetDesaparecido(Desaparecido, this, Direccion,
+            Pseudonimo, OcupacionPrincipal, OcupacionSecundaria);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+
+        if (emptyElements.Count > 0)
+        {
+            var dialog = new ShowDialog();
+
+            await dialog.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+
+            confirmacion = dialog.Confirmacion;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+
     [RelayCommand]
-    private void OnGuardarYContinuar(Type pageType)
+    private async Task OnGuardarYContinuar(Type pageType)
     {
         if (!VerificacionCamposObligatorios())
         {
@@ -400,6 +422,9 @@ public partial class DesaparecidoViewModel : ObservableObject
                 new TimeSpan(0, 0, 7));
             return;
         }
+
+        if (!await EnlistarCamposVacios())
+            return;
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Cebv.core.domain;
 using Cebv.core.modules.hipotesis.presentation;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
@@ -181,9 +182,30 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
         
         return !Desaparecido.HasErrors;
     }
+    
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion;
+
+        var properties = ListEmptyElements.GetDatosLocalizacion(this, Desaparecido, HipotesisPrimaria, HipotesisSecundaria);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            confirmacion = dialogo.Confirmacion;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
 
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private async Task OnGuardarYSiguente(Type pageType)
     {
         if (!VerificacionCamposObligatorios())
         {
@@ -194,6 +216,9 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 7));
         }
+        
+        if (!await EnlistarCampos())
+            return;
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
