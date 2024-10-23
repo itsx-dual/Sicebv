@@ -27,7 +27,6 @@ public class ContextoDictionary
             {"Monto aproximado deuda", desaparecido.Persona.ContextoEconomico?.MontoDeuda},
             {"A quien le debe", desaparecido.Persona.ContextoEconomico?.DeudaCon},
             {"Pasatiempo", contexto.Pasatiempos},
-            {"Clubes u organiacion a las que pertenece", contexto.Club},
             {"Amistad - Nombew", amistad.Nombre},
             {"Amistad - Apellido paterno", amistad.ApellidoPaterno},
             {"Amistad - Apellido materno", amistad.ApellidoMaterno},

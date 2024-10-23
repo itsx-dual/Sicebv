@@ -28,7 +28,7 @@ public class PersonaDesaparecidaDictionary
             {"Edad Meses", desaparecidoViewModel.EdadMeses },
             {"Edad Dias", desaparecidoViewModel.EdadDias },
             {"Lugar de nacimiento", desaparecido.Persona.LugarNacimiento },
-            {"Nacionalidad", desaparecido.Persona.Nacionalidades[0] },
+            {"Nacionalidad", desaparecido.Persona.Nacionalidades},
             {"RFC", desaparecido.Persona.Rfc },
             {"CURP", desaparecido.Persona.Curp },
             {"Observaciones CURP", desaparecido.Persona.ObservacionesCurp },

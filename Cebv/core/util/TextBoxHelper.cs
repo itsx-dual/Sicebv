@@ -227,11 +227,11 @@ public class TextBoxHelper
             string[] words = inputText.Split(' ');
             foreach (var word in words)
             {
-                if (word.Length < 1 || word.Length > 15)
+                if (word.Length < 1 || word.Length > 6)
                 {
                     _snackbarService.Show(
-                        "Texto incoherente",
-                        $"La palabra \"{word}\" parece ser inválida por su longitud.",
+                        "Texto largo o corto",
+                        $"La palabra \"{word}\" parece ser inusual por su longitud.",
                         ControlAppearance.Caution,
                         new SymbolIcon(SymbolRegular.Warning20),
                         new TimeSpan(0, 0, 5));
@@ -244,11 +244,11 @@ public class TextBoxHelper
             // Criterio 2: Validar la frecuencia de letras repetidas en una palabra
             foreach (var word in words)
             {
-                var letterGroups = word.GroupBy(c => c).Where(g => g.Count() > 4);
+                var letterGroups = word.GroupBy(c => c).Where(g => g.Count() > 3);
                 if (letterGroups.Any())
                 {
                     _snackbarService.Show(
-                        "Texto incoherente",
+                        "Texto inusual",
                         $"La palabra \"{word}\" tiene letras repetidas de forma inusual.",
                         ControlAppearance.Caution,
                         new SymbolIcon(SymbolRegular.Warning20),
@@ -339,7 +339,7 @@ public class TextBoxHelper
                     "Nombre de usuario no válido",
                     "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, " +
                     "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.",
-                    ControlAppearance.Primary,
+                    ControlAppearance.Dark,
                     new SymbolIcon(SymbolRegular.Warning20),
                     new TimeSpan(0, 0, 5));
 
@@ -358,12 +358,12 @@ public class TextBoxHelper
             
             foreach (var name in names)
             {
-                if (name.Length < 2 || name.Length > 20)
+                if (name.Length < 2 || name.Length > 7)
                 {
                     _snackbarService.Show(
-                        "Nombre incoherente",
-                        $"El nombre \"{name}\" parece inválido por su longitud.",
-                        ControlAppearance.Primary,
+                        "Nombre muy largo o muy corto",
+                        $"El nombre \"{name}\" parece inusual por su longitud.",
+                        ControlAppearance.Dark,
                         new SymbolIcon(SymbolRegular.Warning20),
                         new TimeSpan(0, 0, 5));
 
@@ -379,9 +379,9 @@ public class TextBoxHelper
                 if (letterGroups.Any())
                 {
                     _snackbarService.Show(
-                        "Nombre incoherente",
+                        "Nombre inusual",
                         $"El nombre \"{name}\" tiene letras repetidas de forma inusual.",
-                        ControlAppearance.Primary,
+                        ControlAppearance.Dark,
                         new SymbolIcon(SymbolRegular.Warning20),
                         new TimeSpan(0, 0, 5));
 
@@ -395,7 +395,7 @@ public class TextBoxHelper
                 _snackbarService.Show(
                     "Nombre inválido",
                     "El nombre contiene caracteres no permitidos.",
-                    ControlAppearance.Primary,
+                    ControlAppearance.Dark,
                     new SymbolIcon(SymbolRegular.Warning20),
                     new TimeSpan(0, 0, 5));
 

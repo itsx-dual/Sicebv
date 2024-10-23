@@ -100,7 +100,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     // Valores para insercion a listas
     [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private string _noTelefonoReportante = string.Empty;
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
-    [ObservableProperty] [Required(ErrorMessage = "Campo obligatorio")] private string _noTelefonoDesaparecido = string.Empty;
 
     [ObservableProperty]
     [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
@@ -516,7 +515,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    private async void OnGuardarReporte()
+    private async Task OnGuardarReporte()
     {
         if (!VerificacionCamposObligatorios())
         {

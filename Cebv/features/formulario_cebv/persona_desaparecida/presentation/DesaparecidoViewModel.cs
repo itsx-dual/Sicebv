@@ -423,22 +423,16 @@ public partial class DesaparecidoViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarYContinuar(Type pageType)
     {
-        Desaparecido.Persona.ValidateAll();
-
-        if (Desaparecido.Persona.HasErrors)
-        {
-            ShowErrors();
-            return;
-        }
-
         if (!VerificacionCamposObligatorios())
         {
+            string message = string.Join(Environment.NewLine, Desaparecido.Persona.GetErrors().Select(e => e.ErrorMessage));
+            
             _snackBarService.Show(
                 "Error en los campos",
-                "Por favor, revise los campos obligatorios y corrija los errores.",
+                "Los campos marcados con * son obligatorios:\n"+ message,
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
-                new TimeSpan(0, 0, 7));
+                new TimeSpan(0, 0, 10));
             return;
         }
 
@@ -453,14 +447,5 @@ public partial class DesaparecidoViewModel : ObservableValidator
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
-    }
-
-    // TODO: Mejorar logica creando un componente por default
-    [RelayCommand]
-    private void ShowErrors()
-    {
-        string message = string.Join(Environment.NewLine, Desaparecido.Persona.GetErrors().Select(e => e.ErrorMessage));
-
-        SnackbarService.Show("Validation errors", message, ControlAppearance.Danger, null, TimeSpan.FromSeconds(10));
     }
 }

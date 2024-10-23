@@ -184,7 +184,7 @@ public partial class Persona : ObservableValidator
     [ObservableProperty, JsonProperty(PropertyName = "pseudonimos")]
     private ObservableCollection<Pseudonimo> _pseudonimos = [];
 
-    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")] [Required(ErrorMessage = "Campo Obligatorio")]
+    [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")] [Required(ErrorMessage = "Nacionalidad obligatoria")]
     private ObservableCollection<Catalogo> _nacionalidades = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
@@ -291,11 +291,6 @@ public partial class Persona : ObservableValidator
                Nombre == persona.Nombre &&
                ApellidoPaterno == persona.ApellidoPaterno &&
                ApellidoMaterno == persona.ApellidoMaterno;
-    }
-
-    public void ValidateAll()
-    {
-        ValidateAllProperties();
     }
     
     public void Validar()
