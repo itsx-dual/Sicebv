@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.senas_particulares.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +38,8 @@ public partial class SenasParticularesViewModel : ObservableObject
     // Propiedades para insercion a lista
     [ObservableProperty] private int _cantidad = 1;
     [ObservableProperty] private string _descripcion;
+    
+    private bool cancelar = true;
 
     public SenasParticularesViewModel()
     {
@@ -112,10 +116,38 @@ public partial class SenasParticularesViewModel : ObservableObject
         var senaParticular = sena as SenaParticular;
         if (senaParticular != null) Desaparecido.Persona.SenasParticulares.Remove(senaParticular);
     }
-
-    [RelayCommand]
-    private void OnGuardarYContinuar(Type pageType)
+    
+    private async Task<bool> EnlistarCamposVacios()
     {
+        bool confirmacion = false;
+
+        var properties = SenasParticularesDictionary.GetSenaParticular(this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+
+        if (emptyElements.Count > 0)
+        {
+            var dialog = new ShowDialog();
+
+            await dialog.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+
+            if (dialog.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialog.Confirmacion == "No guardar") return cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarYContinuar(Type pageType)
+    {
+        if (!await EnlistarCamposVacios())
+        {
+            if (!cancelar) _navigationService.Navigate(pageType);
+            
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

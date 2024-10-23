@@ -54,7 +54,7 @@
                               x:Name="LadoImage"
                               CornerRadius="8"
                               Stretch="Uniform" />
-
+                    
                     <ui:Image Source="/core/resources/images/senas/RegionCuerpoColorMejorado.png"
                               x:Name="RegionCuerpoImage"
                               CornerRadius="8"

@@ -3,6 +3,7 @@ using System.Windows;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.sistema.data;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
@@ -34,6 +35,8 @@ public partial class FolioExpedienteViewModel : ObservableObject
 
     [ObservableProperty]
     private Dictionary<string, string> _tiposDesapariciones = new() { { Unica, U }, { Multiple, M } };
+    
+    private bool cancelar = true;
 
     public FolioExpedienteViewModel()
     {
@@ -99,8 +102,37 @@ public partial class FolioExpedienteViewModel : ObservableObject
         return !Reporte.HasErrors;
     }
     
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion = false;
+
+        var properties = FolioExpedienteDictionary.GetFolioExpediente(Reporte, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
         if (!VerificacionCamposObligatorios())
         {
@@ -110,6 +142,15 @@ public partial class FolioExpedienteViewModel : ObservableObject
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 7));
+            return;
+        }
+
+        if (!await EnlistarCampos())  
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+            }
             return;
         }
         

@@ -3,12 +3,14 @@ using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
+using Cebv.core.util;
 using static Cebv.core.util.enums.PrioridadOcupacion;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using static Cebv.core.util.enums.TipoContacto;
 using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.persona_desaparecida.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -190,6 +192,8 @@ public partial class DesaparecidoViewModel : ObservableValidator
 
     // Información de nacimiento
     [ObservableProperty] private bool _fechaAproximada;
+    
+    private bool cancelar = true;
 
     async partial void OnTipoOcupacionPrincipalChanged(Catalogo? value)
     {
@@ -387,8 +391,37 @@ public partial class DesaparecidoViewModel : ObservableValidator
         return true;
     }
 
+    private async Task<bool> EnlistarCamposVacios()
+    {
+        bool confirmacion = false;
+
+        var properties = PersonaDesaparecidaDictionary.GetDesaparecido(Desaparecido, this, Direccion,
+            Pseudonimo, OcupacionPrincipal, OcupacionSecundaria);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+
+        if (emptyElements.Count > 0)
+        {
+            var dialog = new ShowDialog();
+
+            await dialog.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+
+            if (dialog.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialog.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+
     [RelayCommand]
-    private void OnGuardarYContinuar(Type pageType)
+    private async Task OnGuardarYContinuar(Type pageType)
     {
         Desaparecido.Persona.ValidateAll();
 
@@ -406,6 +439,15 @@ public partial class DesaparecidoViewModel : ObservableValidator
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 7));
+            return;
+        }
+
+        if (!await EnlistarCamposVacios())
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+            }
             return;
         }
         

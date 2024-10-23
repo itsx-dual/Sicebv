@@ -5,6 +5,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using Image = Wpf.Ui.Controls.Image;
 using ListView = Wpf.Ui.Controls.ListView;
 
@@ -12,6 +15,8 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
 public partial class EncuadrePreeliminarPage : Page
 {
+    private ISnackbarService _notification = App.Current.Services.GetService<ISnackbarService>()!;
+    
     public EncuadrePreeliminarPage()
     {
         InitializeComponent();
@@ -63,10 +68,33 @@ public partial class EncuadrePreeliminarPage : Page
         
         var esValido = items.Any(x => x.ToString() == comboBox.Text);
 
-        if (esValido) comboBox.SelectedItem = items.First(x => x.ToString() == comboBox.Text);
-        else comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
-                                     items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
-                                     items.First();
+        if (esValido)
+        {
+            comboBox.SelectedItem = items.First(x => x.ToString() == comboBox.Text);
+        }
+        else
+        {
+            comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase));
+
+            if (comboBox.SelectedItem is not null) return;
+            if (items.Any(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)))
+            {
+                comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase));
+                _notification.Show("No se encontro el elemento.",
+                    $"El valor: \"{comboBox.Text}\" no se encuentra en la lista de elementos seleccionables, se uso el valor de \"No especifica\" por defecto.",
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.TextBulletListSquareWarning24),
+                    TimeSpan.FromSeconds(3));
+            }
+            
+            if (comboBox.SelectedItem is not null) return;
+            _notification.Show("Se escribio un valor invalido.",
+                $"El valor: \"{comboBox.Text}\" no se encuentra en la lista de elementos seleccionables",
+                ControlAppearance.Secondary,
+                new SymbolIcon(SymbolRegular.TextBulletListSquareWarning24),
+                TimeSpan.FromSeconds(3));
+            comboBox.Text = null;
+        }
     }
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)

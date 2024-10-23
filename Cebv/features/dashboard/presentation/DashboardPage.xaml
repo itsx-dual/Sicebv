@@ -21,9 +21,11 @@
       Loaded="DashboardPage_OnLoaded"
       SizeChanged="DashboardPage_OnSizeChanged"
       Title="DashboardPage">
+      
     <Page.DataContext>
         <local:DashboardViewModel/>
     </Page.DataContext>
+    
     <Grid>
         <ui:TitleBar x:Name="Titulo" 
                      Title="{StaticResource DashboardTitle}"
@@ -116,7 +118,6 @@
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
         
-        <ContentPresenter x:Name="ContentPresenter"
-                          Loaded="ContentPresenter_OnLoaded"/>
+        <ContentPresenter x:Name="ContentPresenter"/>
     </Grid>
 </Page>

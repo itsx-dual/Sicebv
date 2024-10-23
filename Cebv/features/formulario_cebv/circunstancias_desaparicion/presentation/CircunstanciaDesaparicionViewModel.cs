@@ -4,6 +4,7 @@ using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.hipotesis.presentation;
+using Cebv.core.util;
 using static Cebv.core.util.enums.EtapaHipotesis;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -54,6 +55,8 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
 
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
+    
+    private bool cancelar = true;
 
     [ObservableProperty] private ExpedientePretty _expedienteSelected = new();
 
@@ -202,11 +205,33 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
         return !HasErrors && !Reporte.HechosDesaparicion.HasErrors;
     }
     
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion = false;
+        
+        var properties = CircunstanciaDesaparicionDictionary.GetCircunstanciaDesaparicion(Reporte, this, HipotesisPrimaria, HipotesisSecundaria);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
     /**
      * Lógica de guardado
      */
     [RelayCommand]
-    private void OnGuardarYSiguente(Type pageType)
+    private async Task OnGuardarYSiguente(Type pageType)
     {
         if (!VerificacionCamposObligatorios())
         {
@@ -216,6 +241,13 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 7));
+            return;
+        }
+
+        if (!await EnlistarCampos())
+        {
+            if (!cancelar) _navigationService.Navigate(pageType);
+            
             return;
         }
         

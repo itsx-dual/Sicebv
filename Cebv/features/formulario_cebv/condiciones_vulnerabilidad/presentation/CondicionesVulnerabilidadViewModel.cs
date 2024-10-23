@@ -10,10 +10,10 @@ using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.condiciones_vulnerabilidad.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui.Controls;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.condiciones_vulnerabilidad.presentation;
@@ -28,6 +28,8 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
 
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    
+    private bool cancelar = true;
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
@@ -132,10 +134,48 @@ public partial class CondicionesVulnerabilidadViewModel : ObservableObject
     {
         Desaparecido.Persona.EnfoquesPersonales.Remove(enfoquePersonal);
     }
+    
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion = false;
+
+        var properties = CondicionesVulnerabilidadDictionary.GetCondicionesVulneravilidad(Desaparecido, this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
 
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
+        if (!await EnlistarCampos())
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+                return;
+            }
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

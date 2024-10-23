@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.datos_complementarios.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,8 @@ public partial class DatoComplementarioViewModel : ObservableObject
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte = new();
+    
+    private bool cancelar = true;
 
     public DatoComplementarioViewModel()
     {
@@ -72,9 +76,47 @@ public partial class DatoComplementarioViewModel : ObservableObject
         Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", value.Id);
     }
 
-    [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion = false;
+
+        var properties = DatosComplementariosDictionary.GetDatosComplementarios(Reporte, this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar")
+            {
+                confirmacion = true;
+            }
+            else if (dialogo.Confirmacion == "No guardar")
+            {
+                cancelar = false;
+                return cancelar;
+            }
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    {
+        if (!await EnlistarCampos())
+        {
+            if (!cancelar)
+            {
+                _navigationService.Navigate(pageType);
+                return;
+            }
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

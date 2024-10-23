@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -28,6 +29,8 @@ public partial class PrendasViewModel : ObservableValidator
     [ObservableProperty] private Desaparecido _desaparecido = new();
 
     [ObservableProperty] private PrendasUiState _uiState;
+    
+    private bool cancelar = true;
 
     /**
      * Constructor de la clase
@@ -216,9 +219,30 @@ public partial class PrendasViewModel : ObservableValidator
         
         return !HasErrors;
     }
+
+    private async Task<bool> EnlistarCamposVacios()
+    {
+        bool confirmacion = false;
+
+        var properties = PrendasDictionary.GetPrendas(this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialog = new ShowDialog();
+
+            await dialog.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+
+            if (dialog.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialog.Confirmacion == "No guardar") return cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
     
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
         if (!VerificacionCamposObligatorios())
         {
@@ -228,6 +252,13 @@ public partial class PrendasViewModel : ObservableValidator
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 7));
+            return;
+        }
+
+        if (!await EnlistarCamposVacios())
+        {
+            if (!cancelar) _navigationService.Navigate(pageType);
+            
             return;
         }
         
