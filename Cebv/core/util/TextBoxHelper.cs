@@ -12,6 +12,8 @@ namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
+  
+
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
@@ -63,7 +65,7 @@ public class TextBoxHelper
     /// <param name="sender"></param>
     /// <param name="e"></param>
     public static void UpperCaseText(object sender, TextChangedEventArgs e)
-    {
+    { 
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
@@ -175,6 +177,8 @@ public class TextBoxHelper
     /// <param name="e"></param>
     public static void AutoCompleted(object sender, TextChangedEventArgs e)
     {
+      
+
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
@@ -207,78 +211,155 @@ public class TextBoxHelper
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public static void TrimmedText(object sender, RoutedEventArgs e)
+    public static void ValidText(object sender, RoutedEventArgs e)
     {
+        int _contadorerrores=0;
+        string error = String.Empty;
+        List<string> errores = new List<string>();
         TextBox textBox = (sender as TextBox)!;
-        
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+        if (textBox.Text != "")
         {
-            return;
+            // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+            if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+            {
+                return;
+            }
+
+            if (textBox?.Tag?.ToString() == "Time")
+            {
+                if (!Regex.IsMatch(textBox.Text, @"^([0-1][0-9]|2[0-3]):([0-5][0-9])$"))
+                {
+                    error = "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    _contadorerrores++;
+                }
+                else
+                {
+                    //Resetea el borde al que esta por defecto por wpf UI
+                    textBox.ClearValue(Border.BorderBrushProperty);
+                    _contadorerrores--;
+
+                }
+            }
+
+            if (textBox?.Tag?.ToString() == "Date")
+            {
+                if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
+                {
+
+                    error = "Por favor ingrese formato valido: \"DD/MM/AAAA\" \nEjemplo: \"31/12/2021\"";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    _contadorerrores++;
+
+                }
+                else
+                {
+                    textBox.ClearValue(Border.BorderBrushProperty);
+                    _contadorerrores--;
+
+                }
+            }
+
+            if (textBox?.Tag?.ToString() == "Mail")
+            {
+                if (!Regex.IsMatch(textBox.Text, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+                {
+                    error = "Por favor ingrese un correo electrónico valido.";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    _contadorerrores++;
+
+                }
+                else
+                {
+                    textBox.ClearValue(Border.BorderBrushProperty);
+                    _contadorerrores--;
+
+                }
+            }
+
+            if (textBox?.Tag?.ToString() == "Phone")
+            {
+                if (textBox.Text.Length < 8 || textBox.Text.Length > 10 || !Regex.IsMatch(textBox.Text, @"^[0-9]+$"))
+                {
+                    error = "El numero de telefono tiene errores.";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    _contadorerrores++;
+
+                }
+                else
+                {
+                    textBox.ClearValue(Border.BorderBrushProperty);
+                    _contadorerrores--;//hacer caso omiso de estas aberraciones luego las quito
+
+                }
+            }
+
+            if (textBox?.Tag?.ToString() == "CURP")
+            {
+                if (textBox.Text.Length != 18 || !Regex.IsMatch(textBox.Text, "^[A-Za-z0-9]+$"))
+                {
+                    error = "El CURP no tiene el formato correcto";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    _contadorerrores++;
+
+                }
+                else
+                {
+                    textBox.ClearValue(Border.BorderBrushProperty);
+                    _contadorerrores--;
+
+                }
+            }
+
+            if (textBox?.Tag?.ToString() == "CodigoPostal")
+            {
+                if (textBox.Text.Length != 5 || !Regex.IsMatch(textBox.Text, "^[0-9]+$"))
+                {
+                    error = "El Código Postal no tiene el formato correcto";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    _contadorerrores++;
+
+                }
+                else
+                {
+                    textBox.ClearValue(Border.BorderBrushProperty);
+                    _contadorerrores--;
+
+                }
+            }
+            //Cambie las tag de telefono de number a phone, se requiere reasignar tags mas especificas a cada caso
+
+
+
+            // Eliminar espacios finales e iniciales
+            string trimmedText = textBox.Text.Trim();
+
+            // Reemplazar múltiples espacios consecutivos con un solo espacio
+            string singleSpaceText = Regex.Replace(trimmedText, @"\s+", " ");
+
+            textBox.Text = singleSpaceText;
+            if (_contadorerrores > 0)
+            {
+                string mensaje = errores.Aggregate(string.Empty, (current, s) => current + (s + Environment.NewLine));
+
+                _snackbarService.Show(
+                    "Formato no valido",
+                    mensaje,
+                    ControlAppearance.Caution,
+                    new SymbolIcon(SymbolRegular.Warning20),
+                    new TimeSpan(0, 0, 5));
+
+                e.Handled = true;
+                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+            }
+        }else{                    textBox.ClearValue(Border.BorderBrushProperty);
         }
-
-        if (textBox?.Tag?.ToString() == "Time")
-        {
-            if (!Regex.IsMatch(textBox.Text, @"^([0-1][0-9]|2[0-3]):([0-5][0-9])$"))
-            {
-                _snackbarService.Show(
-                    "Formato no valido",
-                    "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
-                
-                e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-            }
-            else
-            {
-                textBox.BorderBrush = SystemColors.ControlDarkBrush;
-            }
-        }else if (textBox?.Tag?.ToString() == "Date")
-        {
-            if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
-            {
-                _snackbarService.Show(
-                    "Formato no valido",
-                    "Por favor ingrese formato valido: \"DD/MM/AAAA\" \nEjemplo: \"31/12/2021\"",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
-                
-                e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-            }
-            else
-            {
-                textBox.BorderBrush = SystemColors.ControlDarkBrush;
-            }
-        }else if (textBox?.Tag?.ToString() == "Mail")
-        {
-            if (!Regex.IsMatch(textBox.Text, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
-            {
-                _snackbarService.Show(
-                    "Formato no valido",
-                    "Por favor ingrese un correo electrónico valido",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
-                
-                e.Handled = true;
-                textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-            }
-            else
-            {
-                textBox.BorderBrush = SystemColors.ControlDarkBrush;
-            }
-        }
-
-        // Eliminar espacios finales e iniciales
-        string trimmedText = textBox.Text.Trim();
-
-        // Reemplazar múltiples espacios consecutivos con un solo espacio
-        string singleSpaceText = Regex.Replace(trimmedText, @"\s+", " ");
-
-        textBox.Text = singleSpaceText;
     }
+    
 }

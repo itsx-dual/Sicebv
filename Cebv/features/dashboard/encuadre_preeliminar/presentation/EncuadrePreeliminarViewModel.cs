@@ -110,10 +110,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage? _imagenBoletin;
     [ObservableProperty] private bool _noHayCurp;
-
+    
     public EncuadrePreeliminarViewModel()
     {
         InitAsync();
+        
     }
 
     private async Task CargarCatalogos()
@@ -180,6 +181,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         GetReporteFromService();
         Curp = "";
         FechaDesaparicion = DateTime.Now;
+        Desaparecido.Persona.Salud ??= new();
+        Desaparecido.Persona.Ojos ??= new();
+        Desaparecido.Persona.Cabello ??= new();
+        Desaparecido.Persona.VelloFacial ??= new();
+        Desaparecido.Persona.Nariz ??= new();
+        Desaparecido.Persona.Boca ??= new();
+        Desaparecido.Persona.Orejas ??= new();
     }
 
     private void DiferenciaFechas(DateTime? a, DateTime? b)
