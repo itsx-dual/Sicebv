@@ -104,17 +104,20 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.Nombre}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
-                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}" />
+                            <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}"
+                                        Tag="Exclude"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -138,13 +141,14 @@
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding NoTelefonoReportante}"
                                         MaxLength="10"
-                                        Tag="Number" />
+                                        Tag="Phone" /><!--Cambiado para tener uno especifico -->
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding ObservacionesTelefonoReportante}" />
+                                        Text="{Binding ObservacionesTelefonoReportante}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -211,17 +215,20 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}"
+                                        Tag="Exclude"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -271,7 +278,8 @@
                                               Minimum="0"
                                               Value="{Binding AnosDesaparecido}"
                                               PlaceholderText="Años"
-                                              SmallChange="1" />
+                                              SmallChange="1" 
+                                              Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -283,7 +291,8 @@
                                     Minimum="0"
                                     Value="{Binding MesesDesaparecido}"
                                     PlaceholderText="Meses"
-                                    SmallChange="1" />
+                                    SmallChange="1" 
+                                    Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -295,7 +304,8 @@
                                     Minimum="0"
                                     Value="{Binding DiasDesaparecido}"
                                     PlaceholderText="Días"
-                                    SmallChange="1" />
+                                    SmallChange="1"
+                                    Tag="Exclude"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -318,12 +328,13 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO CEBV:" />
                                 <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
-                                            MaxLength="12" />
+                                            MaxLength="12" Tag="Exclude" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA:" />
-                                <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}" />
+                                <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}" 
+                                            Tag="Exclude"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -374,7 +385,7 @@
                         <StackPanel MinWidth="250" Margin="0,0,25,0">
                             <ui:TextBlock Text="CURP:" />
                             <ui:TextBox Text="{Binding Curp}"
-                                        MaxLength="18" />
+                                        MaxLength="18" Tag="CURP"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250"
@@ -390,7 +401,7 @@
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding NoTelefonoDesaparecido}"
                                         MaxLength="10"
-                                        Tag="Number" />
+                                        Tag="Phone" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -402,7 +413,8 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding ObservacionesTelefonoDesaparecido}" />
+                                        Text="{Binding ObservacionesTelefonoDesaparecido}"
+                                        Tag="Exclude"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -497,7 +509,8 @@
                             <StackPanel>
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
                                 <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
-                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"/>
+                                            Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
+                                            Tag="Exclude"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -515,7 +528,7 @@
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
                                 <ui:TextBlock Text="FECHA DESAPARICIÓN CEBV:" />
                                 <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
-                                            MaxLength="12" />
+                                            MaxLength="12" Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -526,7 +539,7 @@
 
                         <StackPanel>
                             <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Exclude" />
                         </StackPanel>
                     </StackPanel>
 
@@ -535,26 +548,28 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
-                                            MaxLength="10" />
+                                            MaxLength="10" Tag="Exclude" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
+                                            Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}" />
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}"
+                                            Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -562,7 +577,7 @@
                                 <ui:TextBox ClearButtonEnabled="True"
                                             MaxLength="5"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
-                                            Tag="Number" />
+                                            Tag="CodigoPostal" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -589,36 +604,42 @@
                             <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0" Visibility="Visible">
                                 <ui:TextBlock Text="LONGITUD:" />
                                 <ui:TextBox
-                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Longitud}" />
+                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Longitud}"
+                                    Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Visibility="Visible">
                                 <ui:TextBlock Text="LATITUD:" />
                                 <ui:TextBox
-                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Latitud}" />
+                                    Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Latitud}"
+                                    Tag="Exclude"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}"
+                                            Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}"
+                                            Tag="Exclude"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}"
+                                            Tag="Exclude"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}" />
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}"
+                                        Tag="Exclude"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -662,6 +683,7 @@
                                           Maximum="250"
                                           Minimum="30"
                                           PlaceholderText="Kilogramos"
+                                          Text="{Binding Desaparecido.Persona.Salud.PesoKilogramos}"
                                           Value="{Binding Desaparecido.Persona.Salud.PesoKilogramos,
                                           Mode=TwoWay,
                                           UpdateSourceTrigger=PropertyChanged}"
@@ -819,7 +841,8 @@
                                              VerticalAlignment="Stretch"
                                              Height="100"
                                              Text="{Binding Descripcion}"
-                                             TextWrapping="Wrap" />
+                                             TextWrapping="Wrap"
+                                             Tag="Exclude"/>
 
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Right"
@@ -971,7 +994,8 @@
                                 <StackPanel Margin="5">
                                     <StackPanel Margin="0 0 0 15">
                                         <ui:TextBlock Text="Marca:" />
-                                        <ui:TextBox Text="{Binding CurrentMarca}" />
+                                        <ui:TextBox Text="{Binding CurrentMarca}"
+                                                    Tag="Exclude"/>
                                     </StackPanel>
 
                                     <StackPanel>
@@ -979,7 +1003,8 @@
                                         <ui:TextBox Text="{Binding CurrentPrendaDescripcion}"
                                                     TextWrapping="Wrap"
                                                     MinHeight="100"
-                                                    AcceptsReturn="True" />
+                                                    AcceptsReturn="True" 
+                                                    Tag="Exclude"/>
                                     </StackPanel>
 
                                     <!-- Botones de edición -->

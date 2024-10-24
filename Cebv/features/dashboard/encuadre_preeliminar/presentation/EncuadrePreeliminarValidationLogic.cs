@@ -7,7 +7,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 {
     partial void OnNoTelefonoDesaparecidoChanged(string value)
     {
-        ValidateProperty(value, nameof(NoTelefonoDesaparecido));
+       /* ValidateProperty(value, nameof(NoTelefonoDesaparecido));
         var errors = GetErrors(nameof(NoTelefonoDesaparecido));
         if (errors.Count() == 0) return;
         
@@ -16,7 +16,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
             message,
             ControlAppearance.Caution,
             new SymbolIcon(SymbolRegular.Warning28),
-            new TimeSpan(0,0,5));
+            new TimeSpan(0,0,5));*/
     }
     
     
