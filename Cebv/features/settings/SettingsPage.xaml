@@ -1,0 +1,94 @@
+<Page x:Class="Cebv.features.settings.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Cebv.features.settings"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="auto"
+      d:DesignHeight="auto"
+      mc:Ignorable="d"
+      Title="SettingsPage" Height="auto" Width="auto">
+
+    <Page.DataContext>
+        <local:SettingsViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.ColumnSpan="5" Grid.Row="0" Margin="10,30,10,0">
+            <ui:TextBlock
+                MaxHeight="70"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                Text="Configuración"
+                FontTypography="Title" />
+            <ui:TextBlock
+                Margin="0,15,10,5"
+                MaxHeight="70"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                Text="Apariencia"
+                FontTypography="Subtitle" />
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" MaxHeight="70" Style="{StaticResource CebvBorder}"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <ui:Button
+                            BorderBrush="Transparent "
+                            Background="Transparent"
+                            Icon="{ui:SymbolIcon Color20}"
+                            FontSize="30" />
+                    </StackPanel>
+
+                    <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Center">
+                        <ui:TextBlock
+                            Text="Tema de la aplicación"
+                            FontSize="17"
+                            FontTypography="Caption"
+                            Margin="70,0,0,0" />
+                        <ui:TextBlock
+                            Text="Seleccione el tema que se mostrará"
+                            FontSize="14"
+                            FontTypography="Caption"
+                            Margin="70,0,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                Margin="0,0,10,0">
+                        <ComboBox ItemsSource="{Binding Items}"
+                                  SelectedValue="{Binding AppTheme}"
+                                  DisplayMemberPath="Value"
+                                  SelectedValuePath="Key"
+                                  MinWidth="190">
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

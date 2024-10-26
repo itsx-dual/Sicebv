@@ -8,6 +8,7 @@ using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 using Cebv.features.formulario_cebv.presentation;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Appearance;
 
 namespace Cebv;
 
@@ -20,6 +21,7 @@ public partial class App : Application
     {
         Services = ConfigureServices();
         InitializeComponent();
+        ApplicationThemeManager.ApplySystemTheme();
     }
 
     /// <summary>
