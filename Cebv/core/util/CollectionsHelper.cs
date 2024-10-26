@@ -34,4 +34,13 @@ public static class CollectionsHelper
 
         collection.Add(obj);
     }
+
+    public static void SetObjectDefaultValues<T>(T obj, Dictionary<string, object> parameters)
+    {
+        foreach (var (key, value) in parameters)
+        {
+            var prop = obj?.GetType().GetProperty(key);
+            prop?.SetValue(obj, value);
+        }
+    }
 }

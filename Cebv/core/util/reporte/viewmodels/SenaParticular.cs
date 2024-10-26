@@ -11,38 +11,38 @@ public partial class SenaParticular : ObservableObject
     [JsonConstructor]
     public SenaParticular(
         int id,
-        int? persona_id,
+        int? personaId,
         int? cantidad,
         string? descripcion,
         string? foto,
-        CatalogoColor? region_cuerpo,
-        Catalogo? vista,
+        CatalogoColor? regionCuerpo,
+        CatalogoColor? vista,
         CatalogoColor? lado,
         Catalogo? tipo
     )
     {
         Id = id;
-        PersonaId = persona_id;
+        PersonaId = personaId;
         Cantidad = cantidad;
         Descripcion = descripcion;
         Foto = foto; 
-        RegionCuerpo = region_cuerpo;
+        RegionCuerpo = regionCuerpo;
         Vista = vista;
         Lado = lado;
         Tipo = tipo;
     }
     public SenaParticular() { }
     
-    async partial void OnFotoChanged(string? ruta)
+    async partial void OnFotoChanged(string? value)
     {
-        if (ruta is null || ruta == "") return;
-        Imagen = await ReporteServiceNetwork.GetImage(this.Id);
+        if (value is null || value == "") return;
+        Imagen = await ReporteServiceNetwork.GetImage(Id);
     }
 
-    partial void OnImagenChanged(BitmapImage? imagen)
+    partial void OnImagenChanged(BitmapImage? value)
     {
-        if (imagen is null) return;
-        EncodedImage = ImageUtils.BitmapImageToBase64(imagen);
+        if (value is null) return;
+        EncodedImage = ImageUtils.BitmapImageToBase64(value);
     }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
@@ -51,7 +51,7 @@ public partial class SenaParticular : ObservableObject
     [ObservableProperty, JsonProperty(PropertyName = "descripcion")] private string? _descripcion;
     [ObservableProperty, JsonProperty(PropertyName = "foto")] private string? _foto;
     [ObservableProperty, JsonProperty(PropertyName = "region_cuerpo")] private CatalogoColor? _regionCuerpo;
-    [ObservableProperty, JsonProperty(PropertyName = "vista")] private Catalogo? _vista;
+    [ObservableProperty, JsonProperty(PropertyName = "vista")] private CatalogoColor? _vista;
     [ObservableProperty, JsonProperty(PropertyName = "lado")] private CatalogoColor? _lado;
     [ObservableProperty, JsonProperty(PropertyName = "tipo")] private Catalogo? _tipo;
     [ObservableProperty, JsonProperty(PropertyName = "encoded_image")] private string? _encodedImage;

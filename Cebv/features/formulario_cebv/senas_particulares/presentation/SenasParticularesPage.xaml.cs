@@ -16,15 +16,17 @@ public partial class SenasParticularesPage : Page
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (this.DataContext != null) 
-        {
-            Point posicion = e.GetPosition(RegionCuerpoImage);
-            Color colorRegionCuerpo = this.GetPixelColor(RegionCuerpoImage, posicion);
-            Color colorLado = this.GetPixelColor(LadoImage, posicion);
+        if (this.DataContext == null) return;
+        
+        Point posicion = e.GetPosition(RegionV2);
 
-            ((SenasParticularesViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
-            ((SenasParticularesViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
-        }
+        Color colorVista = this.GetPixelColor(VistaV2, posicion);
+        Color colorLado = this.GetPixelColor(LadoV2, posicion);
+        Color colorRegionCuerpo = this.GetPixelColor(RegionV2, posicion);
+
+        ((SenasParticularesViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
+        ((SenasParticularesViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
+        ((SenasParticularesViewModel) DataContext).ColorVista = colorVista.ToString().Substring(3);
     }
     
     private Color GetPixelColor(Image image, Point position)
@@ -44,10 +46,5 @@ public partial class SenasParticularesPage : Page
 
         // Return the pixel color as a Color object
         return Color.FromRgb(pixelColor[2], pixelColor[1], pixelColor[0]);
-    }
-
-    private void VerificarInt(object sender, TextCompositionEventArgs e)
-    {
-        //throw new NotImplementedException();
     }
 }

@@ -30,46 +30,99 @@
         <ui:TextBlock Grid.Row="0" Text="{StaticResource SenasParticularesTitle}" FontTypography="TitleLarge" />
 
         <StackPanel Grid.Row="1" Margin="10">
+
+            <Grid Margin="10"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  MaxHeight="500">
+
+                <ui:Image Source="/core/resources/images/senas_v2/lado_image_v2.png"
+                          x:Name="LadoV2"
+                          CornerRadius="10"
+                          Stretch="Uniform" />
+
+                <ui:Image Source="/core/resources/images/senas_v2/vista_image_v2.png"
+                          x:Name="VistaV2"
+                          CornerRadius="10"
+                          Stretch="Uniform" />
+
+                <ui:Image Source="/core/resources/images/senas_v2/region_image_v2.png"
+                          x:Name="RegionV2"
+                          MouseDown="Image_MouseDown"
+                          CornerRadius="10"
+                          BorderBrush="Black"
+                          Stretch="Uniform" />
+            </Grid>
+
+            <UniformGrid Margin="10" Columns="2" >
+                <StackPanel Margin="0 0 25 10" VerticalAlignment="Center">
+                    <ui:TextBlock Text="Región del cuerpo:" />
+                    <ComboBox SelectedValue="{Binding RegionCuerpoSelected}"
+                              ItemsSource="{Binding RegionesCuerpo}" />
+                </StackPanel>
+
+                <StackPanel MinWidth="300">
+                    <ui:TextBlock Text="Lado:" />
+                    <ComboBox SelectedValue="{Binding LadoSelected}"
+                              ItemsSource="{Binding Lados}" />
+                </StackPanel>
+                
+                <StackPanel CanVerticallyScroll="False" Margin="0 0 25 0">
+                    <ui:TextBlock Text="Vista:" />
+                    <ComboBox SelectedValue="{Binding VistaSelected}"
+                              ItemsSource="{Binding Vistas}" />
+                </StackPanel>
+                
+                <StackPanel CanVerticallyScroll="False">
+                    <ui:TextBlock Text="Cantidad:" />
+                    <ui:NumberBox Value="{Binding Cantidad}"
+                                  Tag="Number" Minimum="1" />
+                </StackPanel>
+            </UniformGrid>
+            
+            <StackPanel Margin="10 0 10 10">
+                <ui:TextBlock Text="Tipo de seña:" />
+                <ComboBox SelectedValue="{Binding TipoSelected}"
+                          ItemsSource="{Binding Tipos}" />
+            </StackPanel>
+
+            <StackPanel Margin="10 0 10 0">
+                <ui:TextBlock Text="Descripción:" />
+                <TextBox VerticalAlignment="Stretch"
+                         MinHeight="100"
+                         Text="{Binding Descripcion}"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="10">
+                <ui:Button Content="Eliminar"
+                           Margin="5,0,0,0"
+                           Icon="{ui:SymbolIcon Delete24}"
+                           Appearance="Danger" />
+                <ui:Button Content="Subir imagen"
+                           Margin="5,0,0,0"
+                           Icon="{ui:SymbolIcon ArrowUpload24}" />
+                <ui:Button Content="Agregar registro"
+                           Margin="5,0,0,0"
+                           Command="{Binding AddSenaParticularCommand}"
+                           Icon="{ui:SymbolIcon Add24}" />
+            </StackPanel>
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.2*" />
-                    <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.2*" />
-                    <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0"
-                      Grid.Column="0"
-                      Margin="10"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Center"
-                      MaxWidth="500">
-
-                    <ui:Image Source="/core/resources/images/senas/Cuerpo MapingSide.png"
-                              x:Name="LadoImage"
-                              CornerRadius="8"
-                              Stretch="Uniform" />
-
-                    <ui:Image Source="/core/resources/images/senas/RegionCuerpoColorMejorado.png"
-                              x:Name="RegionCuerpoImage"
-                              CornerRadius="8"
-                              Stretch="Uniform" />
-
-                    <ui:Image Source="/core/resources/images/senas/CuerpoUNIXMejorado.png"
-                              MouseDown="Image_MouseDown"
-                              CornerRadius="8"
-                              BorderBrush="#000000"
-                              Stretch="Uniform" />
-                </Grid>
-
-                <Grid Grid.Row="0"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2">
+                      Grid.Column="0">
                     <StackPanel>
                         <!-- Tipo de seña -->
                         <Grid>
@@ -80,75 +133,17 @@
 
                             <StackPanel>
                                 <!-- Region cuerpo -->
-                                <ui:TextBlock Text="Región del cuerpo:"
-                                              Margin="10,10,0,0" />
-                                <ComboBox Margin="5,0,5,0"
-                                          DisplayMemberPath="Nombre"
-                                          SelectedValue="{Binding RegionCuerpoSelected}"
-                                          ItemsSource="{Binding RegionesCuerpo}" />
 
                                 <!-- Vista -->
-                                <ui:TextBlock Text="Vista:"
-                                              Margin="10,10,0,0" />
-                                <ComboBox Margin="5,0,5,0"
-                                          DisplayMemberPath="Nombre"
-                                          SelectedValue="{Binding VistaSelected}"
-                                          ItemsSource="{Binding Vistas}" />
+
 
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1">
-                                <ui:TextBlock Text="Lado:"
-                                              Margin="10,10,0,0" />
-                                <ComboBox Margin="5,0,5,0"
-                                          DisplayMemberPath="Nombre"
-                                          SelectedValue="{Binding LadoSelected}"
-                                          ItemsSource="{Binding Lados}" />
-
-                                <!-- Cantidad -->
-                                <ui:TextBlock Text="Cantidad:"
-                                              Margin="10,10,0,0" />
-                                <ui:NumberBox Margin="5,0,5,0"
-                                              Value="{Binding Cantidad}"
-                                              Tag="Number" Minimum="1" />
-
-                            </StackPanel>
                         </Grid>
 
-                        <ui:TextBlock Text="Tipo de seña:"
-                                      Margin="10,10,0,0" />
-                        <ComboBox Margin="5,0,5,0"
-                                  DisplayMemberPath="Nombre"
-                                  SelectedValue="{Binding TipoSelected}"
-                                  ItemsSource="{Binding Tipos}" />
-
-
-                        <!-- Descripcion -->
-                        <ui:TextBlock Text="Descripción:"
-                                      Margin="10,10,0,0" />
-                        <TextBox Margin="10"
-                                 VerticalAlignment="Stretch"
-                                 Height="100"
-                                 Text="{Binding Descripcion}"
-                                 TextWrapping="Wrap" />
-
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Right"
-                                    Margin="10">
-                            <ui:Button Content="Eliminar"
-                                       Margin="5,0,0,0"
-                                       Icon="{ui:SymbolIcon Delete24}"
-                                       Appearance="Danger" />
-                            <ui:Button Content="Subir imagen"
-                                       Margin="5,0,0,0"
-                                       Icon="{ui:SymbolIcon ArrowUpload24}" />
-                            <ui:Button Content="Agregar registro"
-                                       Margin="5,0,0,0"
-                                       Command="{Binding AddSenaParticularCommand}"
-                                       Icon="{ui:SymbolIcon Add24}" />
-                        </StackPanel>
                     </StackPanel>
                 </Grid>
+
                 <ui:CardExpander Grid.Row="1"
                                  Grid.Column="0"
                                  Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
