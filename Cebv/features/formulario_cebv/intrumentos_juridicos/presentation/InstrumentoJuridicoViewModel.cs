@@ -1,3 +1,4 @@
+using Cebv.core.util;
 using static Cebv.core.util.CollectionsHelper;
 using Cebv.core.util.enums;
 using static Cebv.core.data.OpcionesCebv;
@@ -58,9 +59,40 @@ public partial class InstrumentoJuridicoViewModel : ObservableObject
         EnsureObjectExists(ref _recomedacionDerechos, Desaparecido.DocumentosLegales, P.ParametrosRecomendacion);
     }
 
-    [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion = false;
+
+        var properties = ListEmptyElements.GetInstrumentoJuridico(CarpetaInvestigacion, AmparoBuscador, 
+            RecomedacionDerechos, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    {
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) _navigationService.Navigate(pageType);
+                
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

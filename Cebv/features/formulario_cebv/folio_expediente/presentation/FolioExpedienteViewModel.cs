@@ -3,10 +3,12 @@ using System.Windows;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.sistema.data;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.login.data;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -87,10 +89,39 @@ public partial class FolioExpedienteViewModel : ObservableObject
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
     }
 
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion = false;
+
+        var properties = FolioExpedienteDictionary.GetFolioExpediente(Reporte, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
 
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) _navigationService.Navigate(pageType);
+                
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

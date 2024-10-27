@@ -481,7 +481,7 @@
 
         <!-- Footer -->
         <ui:Button Grid.Row="2"
-                   Command="{Binding GuardarYSiguenteCommand}"
+                   Command="{Binding GuardarYSiguienteCommand}"
                    CommandParameter="{x:Type presentation:VehiculosInvolucradosPage}"
                    Content="{StaticResource GuardarContinuar}"
                    Icon="{ui:SymbolIcon Save24}"
