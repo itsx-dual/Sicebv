@@ -92,6 +92,14 @@
       <Resource Include="core\resources\images\senas_v2\region_image_v2.png" />
       <None Remove="core\resources\images\senas_v2\vista_image_v2.png" />
       <Resource Include="core\resources\images\senas_v2\vista_image_v2.png" />
+      <None Remove="core\resources\images\senasv3\LadoV3.png" />
+      <Resource Include="core\resources\images\senasv3\LadoV3.png" />
+      <None Remove="core\resources\images\senasv3\MascaraV3-100.jpg" />
+      <Resource Include="core\resources\images\senasv3\MascaraV3-100.jpg" />
+      <None Remove="core\resources\images\senasv3\RegionV3.png" />
+      <Resource Include="core\resources\images\senasv3\RegionV3.png" />
+      <None Remove="core\resources\images\senasv3\VistaV3.png" />
+      <Resource Include="core\resources\images\senasv3\VistaV3.png" />
     </ItemGroup>
 
     <ItemGroup>

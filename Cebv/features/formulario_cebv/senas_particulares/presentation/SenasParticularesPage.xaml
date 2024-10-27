@@ -33,21 +33,26 @@
 
             <Grid Margin="10"
                   HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  MaxHeight="500">
+                  VerticalAlignment="Center">
 
-                <ui:Image Source="/core/resources/images/senas_v2/lado_image_v2.png"
-                          x:Name="LadoV2"
+                <ui:Image Source="/core/resources/images/senasv3/VistaV3.png"
+                          x:Name="Vista"
                           CornerRadius="10"
                           Stretch="Uniform" />
-
-                <ui:Image Source="/core/resources/images/senas_v2/vista_image_v2.png"
-                          x:Name="VistaV2"
+                
+                <ui:Image Source="/core/resources/images/senasv3/LadoV3.png"
+                          x:Name="Lado"
                           CornerRadius="10"
                           Stretch="Uniform" />
-
-                <ui:Image Source="/core/resources/images/senas_v2/region_image_v2.png"
-                          x:Name="RegionV2"
+                
+                <ui:Image Source="/core/resources/images/senasv3/RegionV3.png"
+                          x:Name="Region"
+                          CornerRadius="10"
+                          BorderBrush="Black"
+                          Stretch="Uniform" />
+                          
+                <ui:Image Source="/core/resources/images/senasv3/MascaraV3-100.jpg"
+                          x:Name="Mascara"
                           MouseDown="Image_MouseDown"
                           CornerRadius="10"
                           BorderBrush="Black"
