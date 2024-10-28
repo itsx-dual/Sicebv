@@ -472,17 +472,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
     
-    private void InitializeFieldsIfNeeded()
+    /*private void InitializeFieldsIfNeeded()
     {
        if (Desaparecido is null) Desaparecido.Persona.Nombre ??= string.Empty ;
        if (Reportante is null) Reportante = new Reportante();
        if (Reporte is null) Reporte = new Reporte();
        if (Reporte.HechosDesaparicion is null) Reporte.HechosDesaparicion = new HechosDesaparicion();
-    }
+    }*/
     
     private bool VerificacionCamposObligatorios()
     {
-        InitializeFieldsIfNeeded();
+        //InitializeFieldsIfNeeded();
         
         ClearErrors();
         ValidateAllProperties();

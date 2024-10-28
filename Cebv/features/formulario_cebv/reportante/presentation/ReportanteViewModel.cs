@@ -192,7 +192,7 @@ public partial class ReportanteViewModel : ObservableObject
     {
         bool confirmacion = false;
 
-        var properties = ReportanteDictionary.GetReportante(Reportante, Reporte, this); 
+        var properties = ReportanteDictionary.GetReportante(Reportante, Reporte, this, TelefonoMovil); 
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
         
         if (emptyElements.Count > 0)
