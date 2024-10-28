@@ -12,12 +12,22 @@
       d:DesignWidth="1000"
       d:DesignHeight="auto"
       mc:Ignorable="d"
-      Name="GeneracionBoletin"
+      Name="Page"
       Title="GeneracionBoletinPage">
 
     <Page.DataContext>
         <presentation:GeneracionBoletinViewModel />
     </Page.DataContext>
+    
+    <Page.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+    </Page.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -29,19 +39,49 @@
 
         <StackPanel Grid.Row="1" Margin="10">
             <ui:TextBlock Text="Fotografías de la persona desaparecida" FontTypography="Title" Margin="10" />
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
-                <StackPanel>
-                    <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Fotografías:" />
-                        <ui:Button Icon="{ui:SymbolIcon Attach24}"
-                                   Command="{Binding OpenFileCommand}"
-                                   Content="Añadir imágenes"
-                                   Margin="5" />
-                    </StackPanel>
+            <Border Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <ui:Button Icon="{ui:SymbolIcon Attach24}"
+                               Content="Añadir imagenes"
+                               Command="{Binding OpenDesaparecidoImagesCommand}"
+                               Margin="0 0 0 25" />
 
-                    <WrapPanel x:Name="Imagenes"
-                               DataContext="{Binding ElementName=GeneracionBoletin, Path=DataContext.OpenedFilePath}"
-                               DataContextChanged="Imagenes_OnDataContextChanged" />
+                    <ui:ListView x:Name="Imagenes"
+                                 ItemsSource="{Binding ImagenesDesaparecido}"
+                                 SelectedItem="{Binding ImagenBoletin}"
+                                 SelectedIndex="0"
+                                 KeyDown="Imagenes_OnKeyDown">
+                        <ui:ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Width="Auto" />
+                            </ItemsPanelTemplate>
+                        </ui:ListView.ItemsPanel>
+
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ui:Image Source="{Binding}"
+                                          CornerRadius="8"
+                                          Width="200"
+                                          Height="200"
+                                          Stretch="UniformToFill">
+                                    <ui:Image.ContextMenu>
+                                        <!-- 
+                                        Keydown event manejado en code behind.
+                                        Este hace uso de MVVM.
+                                        -->
+                                        <ContextMenu>
+                                            <ui:MenuItem Header="Eliminar imagen"
+                                                         Command="{Binding Source={x:Reference Name=Page}, 
+                                                         Path=DataContext.DeleteDesaparecidoImagenCommand}"
+                                                         CommandParameter="{Binding}"
+                                                         Icon="{ui:SymbolIcon Delete24}">
+                                            </ui:MenuItem>
+                                        </ContextMenu>
+                                    </ui:Image.ContextMenu>
+                                </ui:Image>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
                 </StackPanel>
             </Border>
 
@@ -63,7 +103,6 @@
 
                     <ui:ListView.ItemTemplate>
                         <DataTemplate>
-                            <!-- Me da vergüenza la cantidad de tiempo que gaste en las siguientes dos lineas: -->
                             <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}"
                                   Margin="-5">
                                 <Grid.ColumnDefinitions>
@@ -173,6 +212,7 @@
 
                     <ui:Button Margin="0 15 0 0"
                                Content="Generar"
+                               Command="{Binding GenerarBoletinCommand}"
                                Icon="{ui:SymbolIcon Save24}"
                                VerticalAlignment="Stretch"
                                Appearance="Primary" />

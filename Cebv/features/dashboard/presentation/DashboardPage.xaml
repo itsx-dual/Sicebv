@@ -115,5 +115,8 @@
                 
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
+        
+        <ContentPresenter x:Name="ContentPresenter"
+                          Loaded="ContentPresenter_OnLoaded"/>
     </Grid>
 </Page>

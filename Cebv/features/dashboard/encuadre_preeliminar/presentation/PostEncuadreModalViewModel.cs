@@ -10,6 +10,7 @@ using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
@@ -77,17 +78,16 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     [RelayCommand]
     private void OnGenerarBoletinBusquedaInmediata()
     {
-        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
+        if (Desaparecido.Id is null or < 1) return;
         var webview =
-            new WebView2Window($"reportes/boletines/{Desaparecido.Id}?senas={HttpUtility.UrlEncode(SenasParticulares)}",
-                "Boletin de busqueda inmediata");
+            new  WebView2Window($"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}", "Boletin de busqueda inmediata");
         webview.Show();
     }
 
     [RelayCommand]
     private void OnGenerarFichaDeDatos()
     {
-        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
+        if (Desaparecido.Id is null or < 1) return;
         var webview =
             new WebView2Window($"reportes/reportes-preliminares/{Desaparecido.Id}", "Ficha de datos resumida");
         webview.Show();
@@ -96,8 +96,8 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     [RelayCommand]
     private void GetInformeInicio()
     {
-        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
-        var webview = new WebView2Window($"reportes/informes-inicios/{Desaparecido.Id}", "Informe de inicio");
+        if (Desaparecido.Id is null or < 1) return;
+        var webview = new WebView2Window($"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}", "Informe de inicio");
         webview.Show();
     }
 

@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
@@ -16,10 +18,11 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using Wpf.Ui.Controls;
+using Color = System.Windows.Media.Color;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
-public partial class EncuadrePreeliminarViewModel : ObservableObject
+public partial class EncuadrePreeliminarViewModel : ObservableValidator
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -93,7 +96,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     // Valores para insercion a listas
     [ObservableProperty] private string _noTelefonoReportante = string.Empty;
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
-    [ObservableProperty] private string _noTelefonoDesaparecido = string.Empty;
+
+    [ObservableProperty]
+    [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
+    private string _noTelefonoDesaparecido = string.Empty;
+
     [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
@@ -105,10 +112,11 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage? _imagenBoletin;
     [ObservableProperty] private bool _noHayCurp;
-
+    
     public EncuadrePreeliminarViewModel()
     {
         InitAsync();
+        
     }
 
     private async Task CargarCatalogos()
@@ -175,6 +183,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GetReporteFromService();
         Curp = "";
         FechaDesaparicion = DateTime.Now;
+        Desaparecido.Persona.Salud ??= new();
+        Desaparecido.Persona.Ojos ??= new();
+        Desaparecido.Persona.Cabello ??= new();
+        Desaparecido.Persona.VelloFacial ??= new();
+        Desaparecido.Persona.Nariz ??= new();
+        Desaparecido.Persona.Boca ??= new();
+        Desaparecido.Persona.Orejas ??= new();
     }
 
     private void DiferenciaFechas(DateTime? a, DateTime? b)
@@ -223,8 +238,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
 
     async partial void OnGrupoPerteneciaSelectedChanged(Catalogo? value)
     {
-        if (value == null) return;
-        Pertenencias = await PrendasNetwork.GetPertenencias(value.Id ?? 0);
+        if (value == null ) return;
+        Pertenencias = await CebvNetwork.GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
     }
 
     partial void OnSeDesconoceFechaNacimientoDesaparecidoChanged(bool value)
@@ -432,10 +447,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnDeleteDesaparecidoImagen(BitmapImage image)
-    {
-        ImagenesDesaparecido.Remove(image);
-    }
+    private void OnDeleteDesaparecidoImagen(BitmapImage image) => ImagenesDesaparecido.Remove(image);
 
     [RelayCommand]
     private void OnOpenSenaParticularImage()
@@ -476,20 +488,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableObject
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(),
-                ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();
-        if (modal.ShowDialog() ?? false)
-        {
-            _navigationService.Navigate(typeof(ReportesDesaparicionPage));
-            _snackBarService.Show(
-                "El reporte ha sido creado exitosamente",
-                "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
-                ControlAppearance.Success,
-                new SymbolIcon(SymbolRegular.Checkmark32),
-                new TimeSpan(0, 0, 5));
-        }
+        if (!(modal.ShowDialog() ?? false)) return;
+        _navigationService.Navigate(typeof(ReportesDesaparicionPage));
+        _snackBarService.Show(
+            "El reporte ha sido creado exitosamente",
+            "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
+            ControlAppearance.Success,
+            new SymbolIcon(SymbolRegular.Checkmark32),
+            new TimeSpan(0, 0, 5));
     }
 }
