@@ -54,7 +54,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabello = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabello = new();
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _vistas = new();
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _vistas = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tipos = new();
     [ObservableProperty] private ObservableCollection<CatalogoColor> _lados = new();
     [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo = new();
@@ -68,7 +68,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
-    [ObservableProperty] private Catalogo? _vistaSelected;
+    [ObservableProperty] private CatalogoColor? _vistaSelected;
     [ObservableProperty] private Catalogo? _tipoSelected;
     [ObservableProperty] private BitmapImage? _imagenSenaParticularSelected;
     [ObservableProperty] private CatalogoColor? _regionCuerpoSelected;
@@ -135,7 +135,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabello");
         TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabello");
         TiposCabello = await CebvNetwork.GetRoute<Catalogo>("tipos-cabello");
-        Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
+        Vistas = await CebvNetwork.GetRoute<CatalogoColor>("vistas");
         Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
         Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
         GruposPertenencia = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");

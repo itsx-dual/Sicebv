@@ -61,18 +61,6 @@ public partial class Reporte : ObservableObject
         DatoComplementario = datoComplementario;
         Vehiculos = vehiculos;
         ExpedienteFisico = expedienteFisico;
-
-        foreach (var item in _expedientes)
-        {
-            if (item.ReporteUno.Id is not null && item.ReporteUno.Id != Id)
-            {
-                _expedientesFiltered.Add(new ExpedientePretty(item.Id, item.Tipo, item.Parentesco, item.ReporteUno));
-            }
-            else if (item.ReporteDos.Id is not null && item.ReporteDos.Id != Id)
-            {
-                _expedientesFiltered.Add(new ExpedientePretty(item.Id, item.Tipo, item.Parentesco, item.ReporteDos));
-            }
-        }
     }
 
     public Reporte()
@@ -148,25 +136,4 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty("expediente_fisico")]
     private ExpedienteFisico? _expedienteFisico;
-
-    [ObservableProperty] private ObservableCollection<ExpedientePretty> _expedientesFiltered = [];
-
-    partial void OnExpedientesChanged(ObservableCollection<Expediente> value) => SincronizarExpedientes();
-
-    public void SincronizarExpedientes()
-    {
-        if (Expedientes.Any()) return;
-
-        foreach (var item in Expedientes)
-        {
-            if (item.ReporteUno.Id is not null && item.ReporteUno.Id != Id)
-            {
-                _expedientesFiltered.Add(new ExpedientePretty(item.Id, item.Tipo, item.Parentesco, item.ReporteUno));
-            }
-            else if (item.ReporteDos.Id is not null && item.ReporteDos.Id != Id)
-            {
-                _expedientesFiltered.Add(new ExpedientePretty(item.Id, item.Tipo, item.Parentesco, item.ReporteDos));
-            }
-        }
-    }
 }

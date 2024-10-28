@@ -1,16 +1,8 @@
-using System.Collections.ObjectModel;
-using Cebv.core.modules.desaparecido.data;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
-
-public enum TipoExpediente
-{
-    Directo,
-    Indirecto
-}
 
 [JsonObject(MemberSerialization.OptIn)]
 public partial class Expediente : ObservableObject
@@ -20,15 +12,15 @@ public partial class Expediente : ObservableObject
         int? id,
         string? tipo,
         Catalogo? parentesco,
-        ReporteHechos reporteUno,
-        ReporteHechos reporteDos
+        int? reporteUnoId,
+        ReporteHechos reporte
     )
     {
         _id = id;
         _tipo = tipo;
         _parentesco = parentesco;
-        _reporteUno = reporteUno;
-        _reporteDos = reporteDos;
+        _reporteUnoId = reporteUnoId;
+        _reporte = reporte;
     }
 
     public Expediente()
@@ -44,9 +36,9 @@ public partial class Expediente : ObservableObject
     [ObservableProperty, JsonProperty("parentesco")]
     private Catalogo? _parentesco;
 
-    [ObservableProperty, JsonProperty("reporte_uno")]
-    private ReporteHechos _reporteUno = new();
+    [ObservableProperty, JsonProperty("reporte_uno_id")]
+    private int? _reporteUnoId;
 
-    [ObservableProperty, JsonProperty("reporte_dos")]
-    private ReporteHechos _reporteDos = new();
+    [ObservableProperty, JsonProperty("reporte")]
+    private ReporteHechos _reporte = new();
 }
