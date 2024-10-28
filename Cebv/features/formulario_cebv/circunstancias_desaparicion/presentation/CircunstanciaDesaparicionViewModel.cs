@@ -49,8 +49,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
+    
+    [ObservableProperty] private Expediente _expedienteSelected = new();
 
-    [ObservableProperty] private ExpedientePretty _expedienteSelected = new();
 
     /**
      * Constructor de la clase.
@@ -150,8 +151,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     private void AddExpediente(HechosDesaparicion item)
     {
         if (item.ReporteId == Reporte.Id) return;
+        if (Reporte.Expedientes.FirstOrDefault(i => i.Reporte.Id == item.Id) is null) return;
 
-        var viewModel = new RelacionarExpedienteViewModel(Reporte.Id, item);
+        var viewModel = new RelacionarExpedienteViewModel(Desaparecido.Persona.NombreCompleto, item);
 
         // Suscribirse al evento de guardado
         viewModel.GuardarExpediente += OnExpedienteGuardado;
@@ -173,18 +175,16 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         if (sender is not RelacionarExpedienteViewModel) return;
 
         Reporte.Expedientes.Add(expediente);
-        Reporte.SincronizarExpedientes();
     }
 
     [RelayCommand]
-    private void RemoveExpediente(ExpedientePretty expediente)
+    private void RemoveExpediente(Expediente expediente)
     {
         var itemToRemove = Reporte.Expedientes.FirstOrDefault(i => i.Id == expediente.Id);
 
-        if (itemToRemove != null)
+        if (itemToRemove is not null)
         {
             Reporte.Expedientes.Remove(itemToRemove);
-            Reporte.SincronizarExpedientes();
         }
     }
     
@@ -231,7 +231,7 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [RelayCommand]
     private async Task OnReporteClick()
     {
-        if (ExpedienteSelected.Reporte?.Id is null) return;
+        if (ExpedienteSelected.Reporte.Id is null) return;
 
         _dashboardNavigationService.Navigate(typeof(LoadingPage));
         Console.WriteLine(ExpedienteSelected.Reporte.Id);

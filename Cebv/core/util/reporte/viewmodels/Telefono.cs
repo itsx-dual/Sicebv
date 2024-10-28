@@ -45,7 +45,7 @@ public partial class Telefono : ObservableObject
                Observaciones == telefono.Observaciones &&
                EsMovil == telefono.EsMovil;
     }
-    
+
     public override int GetHashCode() //wao
     {
         return HashCode.Combine(Id, PersonaId, Numero, Observaciones, EsMovil, Compania);
@@ -68,4 +68,17 @@ public partial class Telefono : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "es_movil")]
     private bool? _esMovil;
+
+    // --------------------------------------------------------------
+    // Parametros por defecto de los diferentes tipos de documentos
+    // --------------------------------------------------------------
+    public readonly Dictionary<string, object> TelefonoMovilDefault = new()
+    {
+        { nameof(EsMovil), true },
+    };
+    
+    public readonly Dictionary<string, object> TelefonoFijoDefault = new()
+    {
+        { nameof(EsMovil), false },
+    };
 }

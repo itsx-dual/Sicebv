@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using static Cebv.core.data.OpcionesCebv;
 using static Cebv.core.util.CollectionsHelper;
 using static Cebv.core.util.enums.TipoContacto;
+using static Cebv.core.util.UiState;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.reportante.presentation;
@@ -23,6 +25,8 @@ public partial class ReportanteViewModel : ObservableObject
 
     private readonly IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
+    [ObservableProperty] private UiState _uiState;
 
     [ObservableProperty] private Dictionary<string, bool?> _opcionesCebv = Opciones;
     [ObservableProperty] private Reporte _reporte = null!;
@@ -40,9 +44,6 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _grupoVulnerableSelected;
 
-    [ObservableProperty] private string? _noTelefonoMovil;
-    [ObservableProperty] private string? _observacionesMovil;
-
     [ObservableProperty] private string? _noTelefonoFijo;
     [ObservableProperty] private string? _observacionesFijo;
 
@@ -58,6 +59,7 @@ public partial class ReportanteViewModel : ObservableObject
 
     public ReportanteViewModel()
     {
+        UiState = Edit;
         InitAsync();
 
         Reporte = _reporteService.GetReporte();
@@ -132,23 +134,7 @@ public partial class ReportanteViewModel : ObservableObject
         if (value is null) return;
         Asentamientos = await CebvNetwork.GetByFilter<Asentamiento>("asentamientos", "municipio_id", value.Id);
     }
-
-    [RelayCommand]
-    private void OnAddTelefonoMovil()
-    {
-        if (NoTelefonoMovil is null) return;
-
-        Reportante.Persona.Telefonos.Add(new Telefono
-        {
-            Numero = NoTelefonoMovil,
-            Observaciones = ObservacionesMovil,
-            EsMovil = true,
-            Compania = null
-        });
-
-        NoTelefonoMovil = string.Empty;
-        ObservacionesMovil = string.Empty;
-    }
+    
 
     [RelayCommand]
     private void OnAddTelefonoFijo()
@@ -171,7 +157,7 @@ public partial class ReportanteViewModel : ObservableObject
     private void OnAddContacto()
     {
         if (NombreContacto is null) return;
-        
+
         Reportante.Persona.Contactos.Add(new Contacto
         {
             Nombre = NombreContacto,

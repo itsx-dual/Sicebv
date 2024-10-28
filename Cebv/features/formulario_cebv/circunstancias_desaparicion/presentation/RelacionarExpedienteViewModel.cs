@@ -4,6 +4,7 @@ using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using static Cebv.core.util.enums.TipoExpediente;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
@@ -11,20 +12,16 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
 {
     public event EventHandler<Expediente>? GuardarExpediente;
 
-    private HechosDesaparicion Item { get; }
-    private int ReporteId { get; }
+    public HechosDesaparicion Item { get; }
+    public String NombreDesaparecido { get; }
 
-    public RelacionarExpedienteViewModel(int reporteId, HechosDesaparicion item)
+    public RelacionarExpedienteViewModel(string nombre, HechosDesaparicion item)
     {
-        TiposExpedientes =
-        [
-            TipoExpediente.Directo.ToString(),
-            TipoExpediente.Indirecto.ToString()
-        ];
+        TiposExpedientes = [Directo, Indirecto];
 
         CargarCatalogos();
-        ReporteId = reporteId;
         Item = item;
+        NombreDesaparecido = nombre;
     }
 
     [ObservableProperty] private ObservableCollection<Catalogo> _parentescos = new();
@@ -32,7 +29,7 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
 
     [ObservableProperty] private ObservableCollection<string> _tiposExpedientes;
     [ObservableProperty] private string _tipoExp = String.Empty;
-    
+
     [ObservableProperty] private Expediente _expediente = new();
 
 
@@ -45,8 +42,7 @@ public partial class RelacionarExpedienteViewModel : ObservableObject
     private void OnGuardarExpediente()
     {
         if (string.IsNullOrEmpty(TipoExp) || Parentesco.Id is null) return;
-        Expediente.ReporteUno.Id = ReporteId;
-        Expediente.ReporteDos.Id = Item.ReporteId;
+        Expediente.Reporte.Id = Item.ReporteId;
         Expediente.Tipo = TipoExp;
         Expediente.Parentesco = Parentesco;
 

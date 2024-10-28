@@ -1,9 +1,12 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Media.Imaging;
+using Cebv.app.presentation;
 using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
+using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -14,11 +17,8 @@ namespace Cebv.features.formulario_cebv.comunicacion_difusion.presentation;
 
 public partial class GeneracionBoletinViewModel : ObservableObject
 {
-    private readonly IReporteService _reporteService =
-        App.Current.Services.GetService<IReporteService>()!;
-
-    private readonly IFormularioCebvNavigationService _navigationService =
-        App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+    private readonly IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
+    private readonly IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido = new();
@@ -26,13 +26,9 @@ public partial class GeneracionBoletinViewModel : ObservableObject
     public GeneracionBoletinViewModel()
     {
         InitAsync();
-
         Reporte = _reporteService.GetReporte();
-
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
-
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
-        
         EsMayorEdad = CalcularEdad();
     }
 
@@ -59,28 +55,50 @@ public partial class GeneracionBoletinViewModel : ObservableObject
     /**
      * Path de las imagenes seleccionadas
      */
-    [ObservableProperty] private string[]? _openedFilePath = [];
+    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = new();
+    [ObservableProperty] private BitmapImage _imagenBoletin;
 
     [RelayCommand]
-    private void OnOpenFile()
+    private void OnOpenDesaparecidoImages()
     {
         OpenFileDialog openFileDialog = new()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-            Multiselect = true
+            Multiselect = true,
+            Filter = "Imagenes|*.jpg;*.jpeg;*.png;*.webp"
         };
 
-        if (openFileDialog.ShowDialog() is not true) return;
-
+        if (openFileDialog.ShowDialog() == false) return;
         if (!File.Exists(openFileDialog.FileName)) return;
 
-        OpenedFilePath = openFileDialog.FileNames;
+        foreach (var file in openFileDialog.FileNames)
+        {
+            ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
+        }
     }
 
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private void OnDeleteDesaparecidoImagen(BitmapImage image)
+    { 
+        ImagenesDesaparecido.Remove(image);   
+    }
+
+    [RelayCommand]
+    private void OnGenerarBoletin()
     {
-        _reporteService.Sync();
+        var url = string.Empty;
+        if (TipoBoletin.Nombre == "Búsqueda Inmediata") url = $"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}";
+        if (url == string.Empty) return;
+        
+        var webview = new WebView2Window(url, "Boletin de búsqueda inmediata");
+        webview.Show();
+    }
+
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    {
+        if (ImagenesDesaparecido.Count > 0) await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        await _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
 }

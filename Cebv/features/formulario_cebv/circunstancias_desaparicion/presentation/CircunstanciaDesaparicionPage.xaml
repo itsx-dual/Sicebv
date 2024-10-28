@@ -23,11 +23,11 @@
     <Page.Resources>
         <CollectionViewSource x:Key="ExpedientesDirectos"
                               Filter="ExpedientesDirectos_OnFilter"
-                              Source="{Binding Reporte.ExpedientesFiltered}" />
+                              Source="{Binding Reporte.Expedientes}" />
 
         <CollectionViewSource x:Key="ExpedientesIndirectos"
                               Filter="ExpedientesIndirectos_OnFilter"
-                              Source="{Binding Reporte.ExpedientesFiltered}" />
+                              Source="{Binding Reporte.Expedientes}" />
     </Page.Resources>
 
     <Grid Margin="10">
@@ -535,7 +535,7 @@
                                      SelectedItem="{Binding ExpedienteSelected}"
                                      MouseDoubleClick="OnNavigateToRelatedReport">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data1:ExpedientePretty}">
+                                <DataTemplate DataType="{x:Type data1:Expediente}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -543,7 +543,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
 
-                                        <StackPanel HorizontalAlignment="Left" Margin="5">
+                                        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="5">
                                             <ui:TextBlock Text="{Binding Reporte.Id}" />
                                             <ui:TextBlock
                                                 Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle, StringFormat='Calle: {0}'}"
@@ -617,7 +617,7 @@
                             SelectedItem="{Binding ExpedienteSelected}"
                             MouseDoubleClick="OnNavigateToRelatedReport">
                             <ui:ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type data1:ExpedientePretty}">
+                                <DataTemplate DataType="{x:Type data1:Expediente}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -625,7 +625,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
 
-                                        <StackPanel HorizontalAlignment="Left" Margin="5">
+                                        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="5">
                                             <ui:TextBlock Text="{Binding Reporte.Id}" />
                                             <ui:TextBlock
                                                 Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle, StringFormat='Calle: {0}'}"

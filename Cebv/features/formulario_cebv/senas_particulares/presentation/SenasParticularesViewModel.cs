@@ -18,26 +18,27 @@ public partial class SenasParticularesViewModel : ObservableObject
     private IFormularioCebvNavigationService _navigationService =
         App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
 
-    [ObservableProperty] private Reporte _reporte;
-    [ObservableProperty] private Desaparecido _desaparecido;
+    [ObservableProperty] private Reporte _reporte = new();
+    [ObservableProperty] private Desaparecido _desaparecido = new();
 
     // Catalogos
-    [ObservableProperty] private ObservableCollection<Catalogo> _vistas;
-    [ObservableProperty] private ObservableCollection<Catalogo> _tipos;
-    [ObservableProperty] private ObservableCollection<CatalogoColor> _lados;
-    [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo;
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _vistas = new();
+    [ObservableProperty] private ObservableCollection<Catalogo> _tipos = new();
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _lados = new();
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo = new();
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo _vistaSelected;
-    [ObservableProperty] private Catalogo _tipoSelected;
-    [ObservableProperty] private CatalogoColor _regionCuerpoSelected;
-    [ObservableProperty] private CatalogoColor _ladoSelected;
-    [ObservableProperty] private string _colorRegionCuerpo;
-    [ObservableProperty] private string _colorLado;
+    [ObservableProperty] private Catalogo _tipoSelected = new();
+    [ObservableProperty] private CatalogoColor _regionCuerpoSelected = new();
+    [ObservableProperty] private CatalogoColor _ladoSelected = new();
+    [ObservableProperty] private CatalogoColor _vistaSelected = new();
+    [ObservableProperty] private string _colorRegionCuerpo = string.Empty;
+    [ObservableProperty] private string _colorLado = string.Empty;
+    [ObservableProperty] private string _colorVista = string.Empty;
 
     // Propiedades para insercion a lista
     [ObservableProperty] private int _cantidad = 1;
-    [ObservableProperty] private string _descripcion;
+    [ObservableProperty] private string _descripcion = string.Empty;
 
     public SenasParticularesViewModel()
     {
@@ -48,13 +49,14 @@ public partial class SenasParticularesViewModel : ObservableObject
     {
         ColorRegionCuerpo = "3F48CC";
         ColorLado = "6C7156";
+        VistaSelected = Vistas.First(e => e.Nombre == "NO ESPECIFICA");
         Descripcion = "";
         Cantidad = 1;
     }
 
     private async Task CargarCatalogos()
     {
-        Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
+        Vistas = await CebvNetwork.GetRoute<CatalogoColor>("vistas");
         Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
         RegionesCuerpo = await CebvNetwork.GetRoute<CatalogoColor>("regiones-cuerpo");
         Lados = await CebvNetwork.GetRoute<CatalogoColor>("lados");
@@ -79,7 +81,7 @@ public partial class SenasParticularesViewModel : ObservableObject
 
     partial void OnColorRegionCuerpoChanged(string value)
     {
-        if (value is null) return;
+        if (value.Length < 1) return;
 
         // TODO: Aqui hay un error
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
@@ -88,10 +90,18 @@ public partial class SenasParticularesViewModel : ObservableObject
 
     partial void OnColorLadoChanged(string value)
     {
-        if (value is null) return;
-        
+        if (value.Length < 1) return;
+
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
+    }
+
+    partial void OnColorVistaChanged(string value)
+    {
+        if (value.Length < 1) return;
+
+        var vista = Vistas.FirstOrDefault(e => e.Color == value);
+        VistaSelected = vista ?? Vistas.First(e => e.Nombre == "NO ESPECIFICA");
     }
 
     [RelayCommand]

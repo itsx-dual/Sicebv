@@ -182,14 +182,14 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono móvil:" />
-                            <ui:TextBox Text="{Binding NoTelefonoMovil}"
+                            <ui:TextBox Text="{Binding TelefonoMovil.Numero}"
                                         Tag="Number"
                                         MaxLength="10" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Observaciones:" />
-                            <ui:TextBox Text="{Binding ObservacionesMovil}" />
+                            <ui:TextBox Text="{Binding TelefonoMovil.Observaciones}" />
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Add24}"
@@ -212,6 +212,12 @@
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        
                                         <ui:CardControl
                                             Margin="5 5 60 5"
                                             Padding="10"
@@ -236,7 +242,16 @@
                                             </StackPanel>
                                         </ui:CardControl>
 
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button Grid.Column="1" VerticalAlignment="Stretch"
+                                                   Appearance="Primary"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Edit24}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                                   CommandParameter="{Binding}" />
+                                        
+                                        <ui:Button Grid.Column="2" VerticalAlignment="Stretch"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"

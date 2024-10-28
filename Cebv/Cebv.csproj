@@ -74,9 +74,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="core\resources\images\icon_cebv.png" />
-      <Resource Include="core\resources\images\logo.png" />
-      <Resource Include="core\resources\images\logo_letras.png" />
+      <Resource Include="core\resources\images\app\icon_cebv.png" />
+      <Resource Include="core\resources\images\app\logo.png" />
+      <Resource Include="core\resources\images\app\logo_letras.png" />
       <Resource Include="core\resources\images\senas\azul.png" />
       <Resource Include="core\resources\images\senas\Cuerpo MapingSide.png" />
       <Resource Include="core\resources\images\senas\CuerpoUNIXMejorado.png" />
@@ -86,6 +86,20 @@
       <Resource Include="core\resources\images\senas\RegionCuerpoColorMejorado.png" />
       <None Remove="core\resources\placeholder.jpg" />
       <Resource Include="core\resources\placeholder.jpg" />
+      <None Remove="core\resources\images\senas_v2\lado_image_v2.png" />
+      <Resource Include="core\resources\images\senas_v2\lado_image_v2.png" />
+      <None Remove="core\resources\images\senas_v2\region_image_v2.png" />
+      <Resource Include="core\resources\images\senas_v2\region_image_v2.png" />
+      <None Remove="core\resources\images\senas_v2\vista_image_v2.png" />
+      <Resource Include="core\resources\images\senas_v2\vista_image_v2.png" />
+      <None Remove="core\resources\images\senasv3\LadoV3.png" />
+      <Resource Include="core\resources\images\senasv3\LadoV3.png" />
+      <None Remove="core\resources\images\senasv3\MascaraV3-100.jpg" />
+      <Resource Include="core\resources\images\senasv3\MascaraV3-100.jpg" />
+      <None Remove="core\resources\images\senasv3\RegionV3.png" />
+      <Resource Include="core\resources\images\senasv3\RegionV3.png" />
+      <None Remove="core\resources\images\senasv3\VistaV3.png" />
+      <Resource Include="core\resources\images\senasv3\VistaV3.png" />
     </ItemGroup>
 
     <ItemGroup>

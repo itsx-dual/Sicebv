@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
@@ -19,6 +20,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using Wpf.Ui.Controls;
+using Color = System.Windows.Media.Color;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
@@ -54,7 +56,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Catalogo> _tamanosCabello = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposCabello = new();
 
-    [ObservableProperty] private ObservableCollection<Catalogo> _vistas = new();
+    [ObservableProperty] private ObservableCollection<CatalogoColor> _vistas = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tipos = new();
     [ObservableProperty] private ObservableCollection<CatalogoColor> _lados = new();
     [ObservableProperty] private ObservableCollection<CatalogoColor> _regionesCuerpo = new();
@@ -68,7 +70,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private Municipio? _municipioSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
-    [ObservableProperty] private Catalogo? _vistaSelected;
+    [ObservableProperty] private CatalogoColor? _vistaSelected;
     [ObservableProperty] private Catalogo? _tipoSelected;
     [ObservableProperty] private BitmapImage? _imagenSenaParticularSelected;
     [ObservableProperty] private CatalogoColor? _regionCuerpoSelected;
@@ -140,7 +142,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         ColoresCabello = await CebvNetwork.GetRoute<Catalogo>("colores-cabello");
         TamanosCabello = await CebvNetwork.GetRoute<Catalogo>("tamanos-cabello");
         TiposCabello = await CebvNetwork.GetRoute<Catalogo>("tipos-cabello");
-        Vistas = await CebvNetwork.GetRoute<Catalogo>("vistas");
+        Vistas = await CebvNetwork.GetRoute<CatalogoColor>("vistas");
         Tipos = await CebvNetwork.GetRoute<Catalogo>("tipos");
         Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
         GruposPertenencia = await CebvNetwork.GetRoute<Catalogo>("grupos-pertenencias");
@@ -453,10 +455,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    private void OnDeleteDesaparecidoImagen(BitmapImage image)
-    {
-        ImagenesDesaparecido.Remove(image);
-    }
+    private void OnDeleteDesaparecidoImagen(BitmapImage image) => ImagenesDesaparecido.Remove(image);
 
     [RelayCommand]
     private void OnOpenSenaParticularImage()
@@ -560,20 +559,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(),
-                ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();
-        if (modal.ShowDialog() ?? false)
-        {
-            _navigationService.Navigate(typeof(ReportesDesaparicionPage));
-            _snackBarService.Show(
-                "El reporte ha sido creado exitosamente",
-                "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
-                ControlAppearance.Success,
-                new SymbolIcon(SymbolRegular.Checkmark32),
-                new TimeSpan(0, 0, 5));
-        }
+        if (!(modal.ShowDialog() ?? false)) return;
+        _navigationService.Navigate(typeof(ReportesDesaparicionPage));
+        _snackBarService.Show(
+            "El reporte ha sido creado exitosamente",
+            "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
+            ControlAppearance.Success,
+            new SymbolIcon(SymbolRegular.Checkmark32),
+            new TimeSpan(0, 0, 5));
     }
 }

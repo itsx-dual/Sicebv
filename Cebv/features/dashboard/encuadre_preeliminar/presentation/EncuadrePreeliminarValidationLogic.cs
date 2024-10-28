@@ -11,13 +11,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         var errors = GetErrors(nameof(NoTelefonoDesaparecido));
         if (errors.Count() == 0) return;
         
+        // Se concatenan todos los errores en un solo mensaje de texto:
         var message = errors.Aggregate(string.Empty, (current, error) => current + (error.ErrorMessage + Environment.NewLine));
+        
         _snackBarService.Show("El numero de telefono tiene errores.",
             message,
             ControlAppearance.Caution,
             new SymbolIcon(SymbolRegular.Warning28),
             new TimeSpan(0,0,5));*/
     }
-    
-    
 }
