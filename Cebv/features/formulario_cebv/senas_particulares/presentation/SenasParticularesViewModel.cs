@@ -78,17 +78,15 @@ public partial class SenasParticularesViewModel : ObservableObject
     partial void OnColorRegionCuerpoChanged(string value)
     {
         if (value is null) return;
-
-        var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
-        RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+        RegionCuerpoSelected = RegionesCuerpo.FirstOrDefault(e => e.Color == value) ??
+                               RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
     }
 
     partial void OnColorLadoChanged(string value)
     {
         if (value is null) return;
-        
-        var lado = Lados.FirstOrDefault(e => e.Color == value);
-        LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
+        LadoSelected = Lados.FirstOrDefault(e => e.Color == value) ??
+                       Lados.First(e => e.Nombre == "NO ESPECIFICA");
     }
 
     [RelayCommand]
