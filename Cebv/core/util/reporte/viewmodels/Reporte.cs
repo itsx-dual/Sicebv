@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.util.reporte.data;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_complementarios.data;
@@ -15,7 +16,7 @@ namespace Cebv.core.util.reporte.viewmodels;
 /// "/api/reportes"
 /// </summary>
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Reporte : ObservableObject
+public partial class Reporte : ObservableValidator
 {
     [JsonConstructor]
     public Reporte(
@@ -87,12 +88,14 @@ public partial class Reporte : ObservableObject
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
+    [Required(ErrorMessage = "El campo tipo reporte es bligatorio")]
     private BasicResource? _tipoReporte;
 
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
     private Catalogo? _areaAtiende;
 
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
+    [Required(ErrorMessage = "El campo medio conocimiento es obligatorio")]
     private MedioConocimiento? _medioConocimiento;
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
@@ -167,6 +170,16 @@ public partial class Reporte : ObservableObject
             {
                 _expedientesFiltered.Add(new ExpedientePretty(item.Id, item.Tipo, item.Parentesco, item.ReporteDos));
             }
+        }
+    }
+    
+    public void Validar(string propertyName)
+    {
+        var property = GetType().GetProperty(propertyName);
+        if (property != null)
+        {
+            var value = property.GetValue(this);
+            ValidateProperty(value, propertyName);
         }
     }
 }

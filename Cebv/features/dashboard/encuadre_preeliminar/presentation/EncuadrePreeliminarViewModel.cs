@@ -94,13 +94,18 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private string? _curp;
 
     // Valores para insercion a listas
-    [ObservableProperty] private string _noTelefonoReportante = string.Empty;
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
+    private string _noTelefonoReportante = string.Empty;
+    
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
 
-    [ObservableProperty]
-    [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
     private string _noTelefonoDesaparecido = string.Empty;
-
+    
     [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
@@ -394,6 +399,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
     partial void OnColorRegionCuerpoChanged(string? value)
     {
+        // TODO: hay un error aca tambien
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
         RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
     }
@@ -466,6 +472,32 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         if (!File.Exists(openFileDialog.FileName)) return;
         ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
+    
+    private void InitializeFieldsIfNeeded()
+    {
+       if (Desaparecido is null) Desaparecido.Persona.Nombre ??= string.Empty ;
+       if (Reportante is null) Reportante = new Reportante();
+       if (Reporte is null) Reporte = new Reporte();
+       if (Reporte.HechosDesaparicion is null) Reporte.HechosDesaparicion = new HechosDesaparicion();
+    }
+    
+    private bool VerificacionCamposObligatorios()
+    {
+        InitializeFieldsIfNeeded();
+        
+        ClearErrors();
+        ValidateAllProperties();
+        Reportante?.Persona.Validar();
+        Desaparecido?.Persona.Validar();
+        Reporte?.HechosDesaparicion?.Validar(); 
+        Reporte?.Validar("MedioConocimiento");
+        
+        return !HasErrors &&
+               !Reportante.Persona.HasErrors &&
+               !Desaparecido.Persona.HasErrors &&
+               !Reporte.HechosDesaparicion.HasErrors &&
+               !Reporte.HasErrors;
+    }
 
     private bool _cancelar = true;
     private async Task<bool> EnlistarCampos()
@@ -493,6 +525,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarReporte()
     {
+        if (!VerificacionCamposObligatorios())
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los errores.",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 7));
+            return;
+        }
+        
         if (!await EnlistarCampos())
             return;
         

@@ -406,7 +406,7 @@ public partial class DesaparecidoViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarYContinuar(Type pageType)
     {
-        Desaparecido.Persona.ValidateAll();
+        Desaparecido.Persona.Validar();
 
         if (Desaparecido.Persona.HasErrors)
         {
