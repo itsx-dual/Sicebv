@@ -3,6 +3,7 @@ using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
+using Cebv.core.util;
 using static Cebv.core.util.enums.PrioridadOcupacion;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -354,6 +355,14 @@ public partial class DesaparecidoViewModel : ObservableValidator
 
     [RelayCommand]
     private void OnEliminarContacto(Contacto contacto) => Desaparecido.Persona.Contactos.Remove(contacto);
+    
+    [RelayCommand]
+    private async Task OnEditarTelefono(Telefono telefono)
+    {
+        var showEditList = new ShowDialogEditList();
+        
+        await showEditList.ShowContentDialogCommand.ExecuteAsync(telefono);
+    }
 
 
     private void DiferenciaFechas(DateTime? a, DateTime b)

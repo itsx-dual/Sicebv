@@ -11,15 +11,105 @@
       d:DesignWidth="1000"
       d:DesignHeight="1000"
       mc:Ignorable="d"
+      Name="Page"
       Title="TestingPage">
     <Page.DataContext>
         <local:TestingViewModel/>
     </Page.DataContext>
+    
+    <Page.Resources>
+        <CollectionViewSource x:Key="TelefonosMoviles"
+                              Filter="TelefonosMoviles_OnFilter"
+                              Source="{Binding Desaparecido.Persona.Telefonos}" />
+    </Page.Resources>
+    
     <Grid>
-        <StackPanel HorizontalAlignment="Left">
-            <ui:TimePicker ClockIdentifier="Clock12Hour"
-                           Time="{Binding Time}"
-                           SelectedTime="{Binding Time}"/>
-        </StackPanel>
+       <WrapPanel Margin="15">
+           <StackPanel MinWidth="250" Margin="0 0 25 0">
+               <ui:TextBlock Text="Teléfono móvil:" />
+               <ui:TextBox Text="{Binding NoTelefonoMovil}" Tag="Number"
+                           MaxLength="10" />
+           </StackPanel>
+
+           <StackPanel MinWidth="250" Margin="0 0 25 0">
+               <ui:TextBlock Text="Compañía:" />
+               <ComboBox DisplayMemberPath="Nombre"
+                         SelectedItem="{Binding CompaniaTelefonicaSelected}"
+                         ItemsSource="{Binding CompaniasTelefonicas}" />
+           </StackPanel>
+
+           <StackPanel MinWidth="250" Margin="0 0 25 0">
+               <ui:TextBlock Text="Observaciones:" />
+               <ui:TextBox Text="{Binding ObservacionesMovil}" />
+           </StackPanel>
+
+           <ui:Button Icon="{ui:SymbolIcon Add24}"
+                      Appearance="Primary"
+                      Margin="0 15 0 0"
+                      VerticalAlignment="Stretch"
+                      Command="{Binding AddTelefonoMovilCommand}" />
+       </WrapPanel>
+        
+        <ui:CardExpander Icon="{ui:SymbolIcon BookContacts24}" Margin="0 0 0 15"
+                         IsExpanded="{Binding TieneTelefonosMoviles}">
+             <ui:CardExpander.Header>
+                 <ui:TextBlock Text="Teléfonos móviles" FontTypography="Subtitle" />
+             </ui:CardExpander.Header>
+             <ui:ListView
+                 HorizontalAlignment="Stretch"
+                 MaxHeight="250"
+                 ItemsSource="{Binding Source={StaticResource TelefonosMoviles}}"
+                 SelectionMode="Single">
+                 <ui:ListView.ItemTemplate>
+                     <DataTemplate>
+                         <Grid>
+                             <ui:CardControl
+                                 Margin="5 5 60 5"
+                                 Padding="10"
+                                 Icon="{ui:SymbolIcon Phone24}"
+                                 HorizontalAlignment="Stretch">
+                                 <ui:CardControl.Header>
+                                     <StackPanel>
+                                         <ui:TextBlock
+                                             Appearance="Secondary"
+                                             Text="{Binding Compania.Nombre}"
+                                             TextWrapping="WrapWithOverflow" />
+
+                                         <ui:TextBlock
+                                             FontTypography="BodyStrong"
+                                             Text="{Binding Numero}"
+                                             TextWrapping="WrapWithOverflow" />
+                                     </StackPanel>
+                                 </ui:CardControl.Header>
+                                 <StackPanel>
+                                     <ui:TextBlock
+                                         Appearance="Secondary"
+                                         Text="{Binding Observaciones}"
+                                         TextWrapping="WrapWithOverflow" />
+                                 </StackPanel>
+                             </ui:CardControl>
+
+                             <ui:Button VerticalAlignment="Bottom"
+                                        Appearance="Danger"
+                                        HorizontalAlignment="Right"
+                                        Icon="{ui:SymbolIcon Delete24}"
+                                        MinWidth="50"
+                                        Margin="5"
+                                        Command="{Binding ElementName=Page, Path=DataContext.EliminarTelefonoCommand}"
+                                        CommandParameter="{Binding}" />
+                             
+                             <ui:Button VerticalAlignment="Top"
+                                        Appearance="Success"
+                                        HorizontalAlignment="Right"
+                                        Icon="{ui:SymbolIcon Edit16}"
+                                        MinWidth="50"
+                                        Margin="5"
+                                        Command="{Binding ElementName=Page, Path=DataContext.EditarTelefonoCommand}"
+                                        CommandParameter="{Binding}" />
+                         </Grid>
+                     </DataTemplate>
+                 </ui:ListView.ItemTemplate>
+             </ui:ListView>
+         </ui:CardExpander>
     </Grid>
 </Page>

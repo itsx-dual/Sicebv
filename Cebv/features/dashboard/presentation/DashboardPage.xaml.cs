@@ -15,7 +15,7 @@ public partial class DashboardPage : Page
     private bool _isUserClosedPane;
     private bool _isPaneOpenedOrClosedFromCode;
     private IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    
+    private IContentDialogService _contentDialogService = App.Current.Services.GetService<IContentDialogService>()!;
     
     public DashboardPage()
     {
@@ -25,6 +25,7 @@ public partial class DashboardPage : Page
         
         navigationService.SetNavigationControl(MainNavigationView);
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+        _contentDialogService.SetContentPresenter(ContentPresenter);
     }
 
     private void DashboardPage_OnLoaded(object sender, RoutedEventArgs e)

@@ -12,6 +12,7 @@
       xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.dashboard.reportes_desaparicion.presentation"
       xmlns:presentation5="clr-namespace:Cebv.features.settings"
+      xmlns:presentation6="clr-namespace:Cebv.features.formulario_cebv.testing.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -96,6 +97,10 @@
                                        Icon="{ui:SymbolIcon Mail24}"
                                        TargetPageType="{x:Type presentation1:ComunicacionDifusionPage}"/>
                 
+                <ui:NavigationViewItem Content="{StaticResource TestTitle}"
+                                       Icon="{ui:SymbolIcon Edit16}"
+                                       TargetPageType="{x:Type presentation6:TestingPage}"/>
+                
             </ui:NavigationView.MenuItems>
             
             <ui:NavigationView.ContentOverlay>
@@ -116,7 +121,6 @@
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
         
-        <ContentPresenter x:Name="ContentPresenter"
-                          Loaded="ContentPresenter_OnLoaded"/>
+        <ContentPresenter x:Name="ContentPresenter"/>
     </Grid>
 </Page>
