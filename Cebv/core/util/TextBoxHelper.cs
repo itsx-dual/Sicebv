@@ -220,7 +220,7 @@ public class TextBoxHelper
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-            if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude")
+            if (IsDatePicker(textBox) || textBox.Tag?.ToString() == "Exclude"||textBox.Tag?.ToString() == "Upper")
             {
                 return;
             }
@@ -334,7 +334,7 @@ public class TextBoxHelper
                 }
             }
             //Cambie las tag de telefono de number a phone, se requiere reasignar tags mas especificas a cada caso
-
+            
 
 
             // Eliminar espacios finales e iniciales
@@ -353,13 +353,19 @@ public class TextBoxHelper
                     mensaje,
                     ControlAppearance.Caution,
                     new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
+                    new TimeSpan(0, 0, 20)); //Cambio de 5 a 20 segundos,petición del john :D
 
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
         }else{                    textBox.ClearValue(Border.BorderBrushProperty);
         }
+
+        
+
+
+
+
     }
     
 }
