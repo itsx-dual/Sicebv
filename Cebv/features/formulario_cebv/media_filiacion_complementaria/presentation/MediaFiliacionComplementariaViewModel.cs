@@ -2,9 +2,11 @@ using System.Collections.ObjectModel;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.features.formulario_cebv.media_filiacion_complementaria.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -114,9 +116,40 @@ public partial class MediaFiliacionComplementariaViewModel : ObservableObject
     private void OnRemoveEnfermedadPiel(EnfermedadPiel enfermedadPiel) =>
         Desaparecido.Persona.EnfermedadesPiel.Remove(enfermedadPiel);
     
-    [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion = false;
+
+        var properties = MediaFiliacionComplementariaDictionary.GetMediaFiliacionComplementaria(
+            Desaparecido, this);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    {
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) _navigationService.Navigate(pageType);
+                
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

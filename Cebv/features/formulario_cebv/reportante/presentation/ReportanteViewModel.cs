@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.presentation;
@@ -6,9 +7,12 @@ using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.reportante.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using static Cebv.core.data.OpcionesCebv;
 using static Cebv.core.util.CollectionsHelper;
 using static Cebv.core.util.enums.TipoContacto;
@@ -17,8 +21,11 @@ using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.reportante.presentation;
 
-public partial class ReportanteViewModel : ObservableObject
+public partial class ReportanteViewModel : ObservableValidator
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -40,7 +47,11 @@ public partial class ReportanteViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es requerido")]
+    private Municipio? _municipioSelected;
+    
     [ObservableProperty] private Catalogo? _grupoVulnerableSelected;
 
     [ObservableProperty] private string? _noTelefonoFijo;
@@ -186,9 +197,55 @@ public partial class ReportanteViewModel : ObservableObject
     [RelayCommand]
     private void OnEliminarContacto(Contacto contacto) => Reportante.Persona.Contactos.Remove(contacto);
 
-    [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion = false;
+
+        var properties = ReportanteDictionary.GetReportante(Reportante, Reporte, this, TelefonoMovil); 
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    public void Validate() => ValidateAllProperties();
+    
+    [RelayCommand]
+    private async Task OnGuardarYSiguiente(Type pageType)
+    {
+        if (!ReportanteDictionary.ValidateReportante(this, Reportante))
+        {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> 
+                { this, Reportante.Persona });
+            
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) _navigationService.Navigate(pageType);
+                
+            return;
+        }
+        
         // Si hay algo en los campos de telefonos, se agregan antes de sincronizar,
         // este es el comportamiento que la CEBV espera.
         AddTelefonoMovilCommand.Execute(null);
