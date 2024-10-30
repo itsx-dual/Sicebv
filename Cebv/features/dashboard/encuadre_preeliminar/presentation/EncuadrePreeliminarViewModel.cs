@@ -13,6 +13,7 @@ using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.encuadre_preeliminar.Data;
+using Cebv.features.dashboard.encuadre_preeliminar.presentation.ListasEditables;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using Cebv.features.formulario_cebv.prendas.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -407,6 +408,74 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     private void OnRemoveTelefonoDesaparecido(Telefono telefono)
     {
         Desaparecido.Persona.Telefonos.Remove(telefono);
+    }
+    
+    string _visibiliity = string.Empty;
+    
+    [RelayCommand]
+    private async Task OnEditarTelefonoReportante(Telefono telefono)
+    {
+        var showEditList = new ShowDialogEditList();
+
+        // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
+        var dialogContent = new EditTelefono(_visibiliity = "Reportante")
+        {
+            DataContext = this
+        };
+
+        await showEditList.ShowContentDialogCommand.ExecuteAsync(dialogContent);
+
+        if (showEditList.Confirmacion)
+        {
+            Reportante.Persona.Telefonos.Remove(telefono);
+
+            var telefonos = Reportante.Persona.Telefonos;
+            telefonos?.Add(new Telefono
+            {
+                Numero = NoTelefonoReportante,
+                Observaciones = ObservacionesTelefonoReportante,
+                EsMovil = true,
+                Compania = CompañiaTelefonicaReportanteSelected
+            });
+
+            NoTelefonoReportante = string.Empty;
+            ObservacionesTelefonoReportante = string.Empty;
+            CompañiaTelefonicaReportanteSelected = null;
+            ReportanteTieneTelefonos = Reportante.Persona?.Telefonos.Any() ?? false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task OnEditarTelefonoDesaparecido(Telefono telefono)
+    {
+        var showEditList = new ShowDialogEditList();
+
+        // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
+        var dialogContent = new EditTelefono(_visibiliity = "Desaparecido")
+        {
+            DataContext = this
+        };
+
+        await showEditList.ShowContentDialogCommand.ExecuteAsync(dialogContent);
+
+        if (showEditList.Confirmacion)
+        {
+            Desaparecido.Persona.Telefonos.Remove(telefono);
+
+            var telefonos = Desaparecido.Persona.Telefonos;
+            telefonos.Add(new Telefono
+            {
+                Numero = NoTelefonoDesaparecido,
+                Observaciones = ObservacionesTelefonoDesaparecido,
+                EsMovil = true,
+                Compania = CompañiaTelefonicaDesaparecidoSelected
+            });
+
+            NoTelefonoDesaparecido = string.Empty;
+            ObservacionesTelefonoDesaparecido = string.Empty;
+            CompañiaTelefonicaDesaparecidoSelected = null;
+            DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
+        }
     }
 
     /*partial void OnColorRegionCuerpoChanged(string? value)
