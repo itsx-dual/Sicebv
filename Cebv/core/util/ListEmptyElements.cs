@@ -1,4 +1,5 @@
 using Cebv.core.util.reporte.viewmodels;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Cebv.core.util;
 
@@ -38,5 +39,14 @@ public class ListEmptyElements
             .Where(kv => kv.Value is null || string.IsNullOrWhiteSpace(kv.Value.ToString()) || (kv.Value is int intValue && intValue == 0))
             .Select(kv => kv.Key)
             .ToList();
+    }
+    
+    // Método que recibe una colección de ObservableValidator y obtiene los mensajes de error
+    public static string GetAllValidationMessages(IEnumerable<ObservableValidator> validators)
+    {
+        return string.Join(Environment.NewLine, 
+            validators
+                .Where(v => v != null) 
+                .SelectMany(v => v.GetErrors().Select(e => e.ErrorMessage)));
     }
 }

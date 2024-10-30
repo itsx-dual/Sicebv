@@ -34,4 +34,15 @@ public class DatosLocalizacionDictionary
             {"Observaciones sobre la actualización de estatus", desaparecido.ObservacionesActualizacionEstatus},
         };
     }
+    
+    public static bool ValidateDatosLocalizacion(DatosLocalizacionViewModel datosLocalizacion, Desaparecido desaparecido)
+    {
+        datosLocalizacion?.Validate();
+        desaparecido?.Validar();
+        desaparecido?.Localizacion?.Validar();
+        
+        return !(datosLocalizacion?.HasErrors ?? true) && 
+               !(desaparecido?.HasErrors ?? true) &&
+               !(desaparecido?.Localizacion?.HasErrors ?? true);
+    }
 }

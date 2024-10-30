@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Cebv.core.domain;
 using Cebv.core.modules.hipotesis.presentation;
@@ -7,19 +8,24 @@ using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.datos_de_localizacion.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using Wpf.Ui.Controls;
 using static Cebv.core.data.OpcionesCebv;
 using static Cebv.core.util.CollectionsHelper;
 using static Cebv.core.util.enums.EtapaHipotesis;
 
 namespace Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
-public partial class DatosLocalizacionViewModel : ObservableObject
+public partial class DatosLocalizacionViewModel : ObservableValidator
 {
+    private readonly ISnackbarService _snackbarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -37,7 +43,10 @@ public partial class DatosLocalizacionViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
-    [ObservableProperty] private Estado? _estadoSelected;
+    [ObservableProperty]
+    [Required(ErrorMessage = "El campo Estado es requerido")]
+    private Estado? _estadoSelected;
+    
     [ObservableProperty] private Municipio? _municipioSelected;
 
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
@@ -191,9 +200,25 @@ public partial class DatosLocalizacionViewModel : ObservableObject
         return confirmacion;
     }
     
+    public void Validate() => ValidateAllProperties();
+    
     [RelayCommand]
     private async Task OnGuardarYSiguente(Type pageType)
     {
+        if (!DatosLocalizacionDictionary.ValidateDatosLocalizacion(this ,Desaparecido))
+        {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> 
+                { this, Desaparecido, Desaparecido.Localizacion });
+            
+            _snackbarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
         if (!await EnlistarCampos())
         {
             if (!_cancelar) _navigationService.Navigate(pageType);

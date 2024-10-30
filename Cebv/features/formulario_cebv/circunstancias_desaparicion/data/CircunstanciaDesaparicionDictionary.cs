@@ -49,4 +49,13 @@ public class CircunstanciaDesaparicionDictionary
             {"Expedientes", reporte.Expedientes.Count}
         };
     }
+    
+    public static bool ValidateCircunstanciaDesaparicion(Reporte reporte, CircunstanciaDesaparicionViewModel circunstancia)
+    {
+        circunstancia?.Validate();
+        reporte?.HechosDesaparicion?.Validar(); 
+        
+        return !(circunstancia?.HasErrors ?? true) && 
+               !(reporte?.HechosDesaparicion?.HasErrors ?? true);
+    }
 }

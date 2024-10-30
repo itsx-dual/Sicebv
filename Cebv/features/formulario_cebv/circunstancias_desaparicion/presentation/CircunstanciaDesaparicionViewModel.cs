@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using static Cebv.core.data.OpcionesCebv;
@@ -8,18 +9,20 @@ using static Cebv.core.util.enums.EtapaHipotesis;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.presentation;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using static Cebv.core.util.CollectionsHelper;
 using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
-public partial class CircunstanciaDesaparicionViewModel : ObservableObject
+public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
 {
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
@@ -29,6 +32,9 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
 
     private static IDashboardNavigationService _dashboardNavigationService =
         App.Current.Services.GetService<IDashboardNavigationService>()!;
+    
+    private static ISnackbarService _snackBarService = 
+        App.Current.Services.GetService<ISnackbarService>()!;
 
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Desaparecido _desaparecido = new();
@@ -44,8 +50,13 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Municipio> _municipios = new();
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
-    [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    [ObservableProperty]
+    [Required(ErrorMessage = "El campo Estado es requerido")]
+    private Estado? _estadoSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es requerido")]
+    private Municipio? _municipioSelected;
 
     [ObservableProperty] private HipotesisViewModel _hipotesis = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposDomicilio = new();
@@ -211,12 +222,27 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableObject
         return confirmacion;
     }
 
+    public void Validate() => ValidateAllProperties();
+
     /**
      * Lógica de guardado
      */
     [RelayCommand]
     private async Task OnGuardarYSiguente(Type pageType)
     {
+        if (!CircunstanciaDesaparicionDictionary.ValidateCircunstanciaDesaparicion(Reporte, this))
+        {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> { this, Reporte.HechosDesaparicion });
+            
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
         if (!await EnlistarCampos())
         {
             if (!_cancelar) _navigationService.Navigate(pageType);

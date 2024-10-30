@@ -26,4 +26,11 @@ public class FolioExpedienteDictionary
             {"Observaciones", reporte.ExpedienteFisico?.Observaciones}
         };
     }
+    
+    public static bool ValidateFolioExpediente(Reporte reporte)
+    {
+        reporte.Validar("TipoReporte");
+        
+        return !(reporte?.HasErrors ?? true);
+    }
 }

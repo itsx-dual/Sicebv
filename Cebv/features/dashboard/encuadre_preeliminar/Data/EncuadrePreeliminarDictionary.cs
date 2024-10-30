@@ -77,4 +77,20 @@ public class EncuadrePreeliminarDictionary
             {"Descripcion prenda", encuadre.CurrentPrendaDescripcion},
         };
     }
+
+    public static bool ValidateEncuadre(EncuadrePreeliminarViewModel encuadre, Reporte reporte,
+        Reportante reportante, Desaparecido desaparecido)
+    {
+        encuadre.Validate();
+        reportante?.Persona?.Validar();
+        desaparecido?.Persona?.Validar();
+        reporte?.HechosDesaparicion?.Validar();
+        reporte?.Validar("MedioConocimiento");
+        
+        return !(encuadre?.HasErrors ?? true) && 
+               !(reportante?.Persona?.HasErrors ?? true) &&
+               !(desaparecido?.Persona?.HasErrors ?? true) &&
+               !(reporte?.HechosDesaparicion?.HasErrors ?? true) &&
+               !(reporte?.HasErrors ?? true);
+    }
 }

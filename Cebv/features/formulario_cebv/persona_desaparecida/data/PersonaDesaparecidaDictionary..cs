@@ -71,4 +71,13 @@ public class PersonaDesaparecidaDictionary
             {"Estado civil", desaparecido.Persona.ContextoFamiliar?.NombreParejaConyugue }
         };
     }
+    
+    public static bool ValidateDesaparecido(DesaparecidoViewModel desaparecidoViewModel, Desaparecido desaparecido)
+    {
+        desaparecidoViewModel?.Validate();
+        desaparecido?.Persona?.Validar();
+        
+        return !(desaparecidoViewModel?.HasErrors ?? true) &&
+            !(desaparecido?.Persona?.HasErrors ?? true);
+    }
 }

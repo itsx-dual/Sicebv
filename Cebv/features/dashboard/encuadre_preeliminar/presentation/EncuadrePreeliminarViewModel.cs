@@ -65,9 +65,16 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo? _tipoMedioSelected;
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Tipo de medio es obligatorio")]
+    private Catalogo? _tipoMedioSelected;
+    
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es obligatorio")]
+    private Municipio? _municipioSelected;
+    
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private CatalogoColor? _vistaSelected;
@@ -188,6 +195,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         await CargarCatalogos();
         DefaultValues();
         GetReporteFromService();
+        //Desaparecido.Persona = new();
+        //Reportante.Persona = new();
+        //Reporte.HechosDesaparicion = new();
         Curp = "";
         FechaDesaparicion = DateTime.Now;
         Desaparecido.Persona.Salud ??= new();
@@ -399,18 +409,18 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         Desaparecido.Persona.Telefonos.Remove(telefono);
     }
 
-    partial void OnColorRegionCuerpoChanged(string? value)
+    /*partial void OnColorRegionCuerpoChanged(string? value)
     {
         // TODO: hay un error aca tambien
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
         RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
-    }
+    }*/
 
-    partial void OnColorLadoChanged(string? value)
+    /*partial void OnColorLadoChanged(string? value)
     {
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
-    }
+    }*/
 
     [RelayCommand]
     private void OnAddSenaParticular()
@@ -471,32 +481,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         if (!File.Exists(openFileDialog.FileName)) return;
         ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
-    
-    /*private void InitializeFieldsIfNeeded()
-    {
-       if (Desaparecido is null) Desaparecido.Persona.Nombre ??= string.Empty ;
-       if (Reportante is null) Reportante = new Reportante();
-       if (Reporte is null) Reporte = new Reporte();
-       if (Reporte.HechosDesaparicion is null) Reporte.HechosDesaparicion = new HechosDesaparicion();
-    }*/
-    
-    private bool VerificacionCamposObligatorios()
-    {
-        //InitializeFieldsIfNeeded();
-        
-        ClearErrors();
-        ValidateAllProperties();
-        Reportante?.Persona.Validar();
-        Desaparecido?.Persona.Validar();
-        Reporte?.HechosDesaparicion?.Validar(); 
-        Reporte?.Validar("MedioConocimiento");
-        
-        return !HasErrors &&
-               !Reportante.Persona.HasErrors &&
-               !Desaparecido.Persona.HasErrors &&
-               !Reporte.HechosDesaparicion.HasErrors &&
-               !Reporte.HasErrors;
-    }
+
+    public void Validate() => ValidateAllProperties();
 
     private bool _cancelar = true;
     private async Task<bool> EnlistarCampos()
@@ -524,14 +510,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarReporte()
     {
-        if (!VerificacionCamposObligatorios())
+        if (!EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido))
         {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator>
+            { this, Reportante.Persona, Desaparecido.Persona, Reporte.HechosDesaparicion, Reporte });
+            
             _snackBarService.Show(
                 "Error en los campos",
-                "Por favor, revise los campos obligatorios y corrija los errores.",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
-                new TimeSpan(0, 0, 7));
+                new TimeSpan(0, 0, 10));
             return;
         }
         

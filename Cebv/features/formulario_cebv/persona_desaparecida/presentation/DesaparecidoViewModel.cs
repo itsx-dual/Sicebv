@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
@@ -147,7 +148,11 @@ public partial class DesaparecidoViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es requerido")]
+    private Municipio? _municipioSelected;
+    
     [ObservableProperty] private Catalogo? _companiaTelefonicaSelected;
     [ObservableProperty] private Catalogo? _tipoRedSocialSelected;
 
@@ -403,14 +408,21 @@ public partial class DesaparecidoViewModel : ObservableValidator
         return confirmacion;
     }
     
+    public void Validate() => ValidateAllProperties();
+    
     [RelayCommand]
     private async Task OnGuardarYContinuar(Type pageType)
     {
-        Desaparecido.Persona.Validar();
-
-        if (Desaparecido.Persona.HasErrors)
+        if (!PersonaDesaparecidaDictionary.ValidateDesaparecido(this, Desaparecido))
         {
-            ShowErrors();
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> { this, Desaparecido.Persona });
+            
+            SnackbarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
             return;
         }
 
@@ -423,14 +435,5 @@ public partial class DesaparecidoViewModel : ObservableValidator
         
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
-    }
-
-    // TODO: Mejorar logica creando un componente por default
-    [RelayCommand]
-    private void ShowErrors()
-    {
-        string message = string.Join(Environment.NewLine, Desaparecido.Persona.GetErrors().Select(e => e.ErrorMessage));
-
-        SnackbarService.Show("Validation errors", message, ControlAppearance.Danger, null, TimeSpan.FromSeconds(10));
     }
 }

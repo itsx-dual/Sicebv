@@ -62,4 +62,18 @@ public class ReportanteDictionary
             { "Nombre pareja conyugal", reportante.Persona.ContextoFamiliar?.NombreParejaConyugue }
         };
     }
+    
+    public static bool ValidateReportante(ReportanteViewModel reportanteViewModel, Reportante reportante)
+    {
+        if (!reportante.DenunciaAnonima)
+        {
+            reportanteViewModel?.Validate();
+            reportante?.Persona?.Validar();
+        
+            return !(reportanteViewModel?.HasErrors ?? true) && 
+                   !(reportante?.Persona?.HasErrors ?? true);
+        }
+        
+        return true;
+    }
 }
