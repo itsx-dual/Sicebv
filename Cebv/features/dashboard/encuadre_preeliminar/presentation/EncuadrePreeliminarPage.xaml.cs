@@ -4,7 +4,11 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using Image = Wpf.Ui.Controls.Image;
 using ListView = Wpf.Ui.Controls.ListView;
 
@@ -12,11 +16,13 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
 public partial class EncuadrePreeliminarPage : Page
 {
+    private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
+
     public EncuadrePreeliminarPage()
     {
         InitializeComponent();
     }
-    
+
     private void TelefonosMoviles_OnFilter(object sender, FilterEventArgs e)
     {
         if (e.Item is not Telefono telefono) return;
@@ -25,25 +31,27 @@ public partial class EncuadrePreeliminarPage : Page
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (this.DataContext != null) 
+        if (this.DataContext != null)
         {
             Point posicion = e.GetPosition(RegionCuerpoImage);
             Color colorRegionCuerpo = this.GetPixelColor(RegionCuerpoImage, posicion);
             Color colorLado = this.GetPixelColor(LadoImage, posicion);
 
-            ((EncuadrePreeliminarViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
-            ((EncuadrePreeliminarViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
+            ((EncuadrePreeliminarViewModel)DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
+            ((EncuadrePreeliminarViewModel)DataContext).ColorLado = colorLado.ToString().Substring(3);
         }
     }
-    
+
     private Color GetPixelColor(Image image, Point position)
     {
         // Create a RenderTargetBitmap of the same size as the Image
-        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)image.ActualWidth, (int)image.ActualHeight, 96, 96, PixelFormats.Default);
+        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)image.ActualWidth, (int)image.ActualHeight,
+            96, 96, PixelFormats.Default);
         renderTargetBitmap.Render(image);
 
         // Create a CroppedBitmap to get the pixel color at the specified position
-        CroppedBitmap croppedBitmap = new CroppedBitmap(renderTargetBitmap, new Int32Rect((int)position.X, (int)position.Y, 1, 1));
+        CroppedBitmap croppedBitmap =
+            new CroppedBitmap(renderTargetBitmap, new Int32Rect((int)position.X, (int)position.Y, 1, 1));
 
         // Create a byte array to hold the pixel color
         byte[] pixelColor = new byte[4];
@@ -54,19 +62,43 @@ public partial class EncuadrePreeliminarPage : Page
         // Return the pixel color as a Color object
         return Color.FromRgb(pixelColor[2], pixelColor[1], pixelColor[0]);
     }
-    
+
     public void Search(object sender, RoutedEventArgs e)
     {
         if (sender is not ComboBox comboBox) return;
-        var items = comboBox.Items.Cast<dynamic>(); 
+        var items = comboBox.Items.Cast<dynamic>();
         if (!items.Any()) return;
-        
-        var esValido = items.Any(x => x.ToString() == comboBox.Text);
 
-        if (esValido) comboBox.SelectedItem = items.First(x => x.ToString() == comboBox.Text);
-        else comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
-                                     items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
-                                     items.First();
+        var esValido = items.Any(x => x.ToString() == comboBox.Text);
+        if (comboBox.Text != "")
+        {
+            if (esValido)
+            {
+                comboBox.SelectedItem = items.First(x => x.ToString() == comboBox.Text);
+                comboBox.ClearValue(Border.BorderBrushProperty);
+                return;
+            }
+            /*else comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
+                                         items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
+
+                                        items.First();*/
+            //Lo dejo por si lo quieren como estaba antes, pero mande la feature de sabático.
+
+            _snackbarService.Show(
+                "Formato no valido",
+                "Lo escrito no coincide con ninguna de las opciones del catálogo",
+                ControlAppearance.Caution,
+                new SymbolIcon(SymbolRegular.Warning20),
+                new TimeSpan(0, 0, 20)); //Cambio de 5 a 20 segundos,petición del john :D
+
+            e.Handled = true;
+            comboBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+        }
+        else
+        {comboBox.ClearValue(Border.BorderBrushProperty);}
+
+        
+
     }
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)

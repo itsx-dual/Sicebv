@@ -290,7 +290,7 @@ public class TextBoxHelper
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-            if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude"|| textBox.Tag?.ToString() == "Text" ) return;
+            if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude"|| textBox.Tag?.ToString() == "Text" ||textBox.Tag?.ToString() == "Upper") return;
 
             if (textBox.Tag?.ToString() == "Time")
             {
@@ -447,7 +447,7 @@ public class TextBoxHelper
                     mensaje,
                     ControlAppearance.Caution,
                     new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 5));
+                    new TimeSpan(0, 0, 20)); //Cambio de 5 a 20 segundos,petición del john :D
 
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
