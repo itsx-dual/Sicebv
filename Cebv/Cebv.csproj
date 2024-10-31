@@ -111,4 +111,8 @@
       <Folder Include="features\formulario_cebv\presentation\domain\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Cebv_h0giiqkj_wpftmp.csproj" />
+    </ItemGroup>
+
 </Project>
