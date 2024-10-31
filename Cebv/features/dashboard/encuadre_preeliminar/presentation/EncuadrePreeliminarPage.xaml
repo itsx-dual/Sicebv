@@ -518,7 +518,8 @@
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
                                 <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
                                             Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
-                                            Tag="exclude"/> <!--Si se quiere poner en mayusculas,usar tag "Upper" -->
+                                            Tag="Upper"/> 
+                                <!--Si se quiere poner en mayusculas,usar tag "Upper" -->
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -1158,7 +1159,7 @@
 
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
-                                <ui:Image Source="{Binding}"
+                                <ui:Image Source="{Binding }"
                                           CornerRadius="8"
                                           Width="200"
                                           Height="200"

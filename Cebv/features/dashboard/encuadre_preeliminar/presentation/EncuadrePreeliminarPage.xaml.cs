@@ -4,6 +4,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Microsoft.Extensions.DependencyInjection;
@@ -81,20 +82,18 @@ public partial class EncuadrePreeliminarPage : Page
                                          items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
 
                                         items.First();*/
-            else
-            {
-                _snackbarService.Show(
-                    "Formato no valido",
-                    "Lo escrito no coincide con ninguna de las opciones del catálogo",
-                    ControlAppearance.Caution,
-                    new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 20)); //Cambio de 5 a 20 segundos,petición del john :D
-            }
+            //Lo dejo por si lo quieren como estaba antes, pero mande la feature de sabático.
+
+            _snackbarService.Show(
+                "Formato no valido",
+                "Lo escrito no coincide con ninguna de las opciones del catálogo",
+                ControlAppearance.Caution,
+                new SymbolIcon(SymbolRegular.Warning20),
+                new TimeSpan(0, 0, 20)); //Cambio de 5 a 20 segundos,petición del john :D
 
             e.Handled = true;
             comboBox.BorderBrush = new SolidColorBrush(Colors.Orange);
         }
-        //Lo dejo por si lo quieren como estaba antes, pero mande la feature de sabático.
         else
         {comboBox.ClearValue(Border.BorderBrushProperty);}
 

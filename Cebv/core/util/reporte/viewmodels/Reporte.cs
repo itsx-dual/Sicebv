@@ -136,4 +136,6 @@ public partial class Reporte : ObservableObject
 
     [ObservableProperty, JsonProperty("expediente_fisico")]
     private ExpedienteFisico? _expedienteFisico;
+    
+    
 }
