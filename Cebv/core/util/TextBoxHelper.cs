@@ -14,12 +14,22 @@ public class TextBoxHelper
 {
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
     /// <summary>
-    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
+    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker o un ComboBox.
     /// </summary>
     /// <param name="depObj"></param>
     /// <returns></returns>   
-    private static bool IsControl(DependencyObject depObj)
+    private static bool IsControl(DependencyObject depObj, bool _combo)
     {
+        if (_combo)
+        {
+            while (depObj != null)
+            {
+                if (depObj is DatePicker) return true;
+                
+                depObj = VisualTreeHelper.GetParent(depObj);
+            }
+        }
+        
         while (depObj != null)
         {
             if (depObj is DatePicker) return true;
@@ -62,7 +72,7 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || 
+        if (IsControl(textBox, true) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || 
             textBox.Tag?.ToString() == "UserName") return;
         
         // Convertir el texto a mayúsculas
@@ -93,7 +103,7 @@ public class TextBoxHelper
         string pattern;
 
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude") return;
+        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude") return;
         
         switch (textBox.Tag?.ToString())
         {
@@ -169,7 +179,7 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude") return;
+        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude") return;
         
         if (textBox.Tag?.ToString() == "Date")
         {
@@ -192,7 +202,7 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
 
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox)) return;
+        if (IsControl(textBox, false)) return;
 
         if (textBox.Tag?.ToString() == "Text" || textBox?.Tag?.ToString() == "Exclude")
         {
@@ -286,11 +296,12 @@ public class TextBoxHelper
         List<string> errores = new List<string>();
         
         TextBox textBox = (sender as TextBox)!;
-        
+
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-            if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude"|| textBox.Tag?.ToString() == "Text" ||textBox.Tag?.ToString() == "Upper") return;
+            if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Text" 
+                ||textBox.Tag?.ToString() == "Upper") return;
 
             if (textBox.Tag?.ToString() == "Time")
             {
