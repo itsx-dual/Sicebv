@@ -3,21 +3,28 @@ using System.Windows;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.sistema.data;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.login.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Controls;
 using static Cebv.core.util.enums.TipoDesaparicion;
 
 namespace Cebv.features.formulario_cebv.folio_expediente.presentation;
 
 public partial class FolioExpedienteViewModel : ObservableObject
 {
+    private readonly ISnackbarService _snackBarService =
+        App.Current.Services.GetService<ISnackbarService>()!;
+    
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -87,10 +94,51 @@ public partial class FolioExpedienteViewModel : ObservableObject
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
     }
 
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
+    {
+        bool confirmacion = false;
+
+        var properties = FolioExpedienteDictionary.GetFolioExpediente(Reporte, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
 
     [RelayCommand]
-    private void OnGuardarYSiguiente(Type pageType)
+    private async Task OnGuardarYSiguiente(Type pageType)
     {
+        if (!FolioExpedienteDictionary.ValidateFolioExpediente(Reporte))
+        {
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n " +
+                "El campo Tipo de Reporte es obligatorio",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) _navigationService.Navigate(pageType);
+                
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }

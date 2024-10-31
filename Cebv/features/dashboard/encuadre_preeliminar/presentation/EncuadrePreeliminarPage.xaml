@@ -196,7 +196,7 @@
                                             </StackPanel>
                                         </ui:CardControl>
 
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button VerticalAlignment="Bottom"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"
@@ -204,7 +204,15 @@
                                                    Margin="5"
                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoReportanteCommand}"
                                                    CommandParameter="{Binding}" />
-
+                             
+                                        <ui:Button VerticalAlignment="Top"
+                                                   Appearance="Success"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Edit16}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EditarTelefonoReportanteCommand}"
+                                                   CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -468,13 +476,22 @@
                                             </StackPanel>
                                         </ui:CardControl>
 
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button VerticalAlignment="Bottom"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoDesaparecidoCommand}"
+                                                   CommandParameter="{Binding}" />
+                                        
+                                        <ui:Button VerticalAlignment="Top"
+                                                   Appearance="Success"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Edit16}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EditarTelefonoDesaparecidoCommand}"
                                                    CommandParameter="{Binding}" />
 
                                     </Grid>

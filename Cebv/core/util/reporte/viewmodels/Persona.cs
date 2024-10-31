@@ -120,25 +120,26 @@ public partial class Persona : ObservableValidator
      */
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
-
-    // TODO: Comprobar que funciona en español.
+    
     [Required(ErrorMessage = "El campo nombre es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "nombre")]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
+    [MinLength(2, ErrorMessage = "El campo nombre debe tener al menos 2 caracteres.")]
     private string? _nombre;
 
     [Required(ErrorMessage = "El campo apellido paterno es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
+    [MinLength(2, ErrorMessage = "El campo apellido paterno debe tener al menos 2 caracteres.")]
     private string? _apellidoPaterno;
 
     [Required(ErrorMessage = "El campo apellido materno es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "apellido_materno")]
-    [NotifyPropertyChangedFor(nameof(NombreCompleto))]
+    [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
+    [MinLength(2, ErrorMessage = "El campo apellido materno debe tener al menos 2 caracteres.")]
     private string? _apellidoMaterno;
 
     [Required(ErrorMessage = "El campo apodo es obligatorio")]
-    [StringLength(5)]
     [ObservableProperty, JsonProperty(PropertyName = "apodo")]
     private string? _apodo;
 
@@ -185,6 +186,7 @@ public partial class Persona : ObservableValidator
     private ObservableCollection<Pseudonimo> _pseudonimos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "nacionalidades")]
+    [Required(ErrorMessage = "El campo nacionalidad es obligatoria")]
     private ObservableCollection<Catalogo> _nacionalidades = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
@@ -293,7 +295,7 @@ public partial class Persona : ObservableValidator
                ApellidoMaterno == persona.ApellidoMaterno;
     }
 
-    public void ValidateAll()
+    public void Validar()
     {
         ValidateAllProperties();
     }
