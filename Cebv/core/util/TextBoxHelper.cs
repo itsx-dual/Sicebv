@@ -300,8 +300,7 @@ public class TextBoxHelper
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-            if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Text" 
-                ||textBox.Tag?.ToString() == "Upper") return;
+            if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Text") return;
 
             if (textBox.Tag?.ToString() == "Time")
             {
