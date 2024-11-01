@@ -131,6 +131,28 @@ public class TextBoxHelper
                     return;
                 }
                 break;
+            case "Phone":
+                // Patrón para permitir solo números
+                pattern = @"[^0-9]";
+          
+                // No permitir números negativos
+                if (textBox.Text.Contains("-") || e.Text == "-")
+                {
+                    e.Handled = true;
+                    return;
+                }
+                break;
+            case "CodigoPostal":
+                // Patrón para permitir solo números
+                pattern = @"[^0-9]";
+          
+                // No permitir números negativos
+                if (textBox.Text.Contains("-") || e.Text == "-")
+                {
+                    e.Handled = true;
+                    return;
+                }
+                break;
             case "Letter":
                 // Patrón para permitir solo letras
                 pattern = @"[^A-ZÑ.]";
