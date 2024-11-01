@@ -41,7 +41,7 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 
     private async void RescatarFotos()
     {
-       ObservableCollection<string> fotosDesaparecidoCodificadas = await ReporteServiceNetwork.GetImagenesDesaparecidos(30);//30 test
+       ObservableCollection<string> fotosDesaparecidoCodificadas = await ReporteServiceNetwork.GetImagenesDesaparecidos(Desaparecido.Id);//30 para probar
        foreach (var foto in fotosDesaparecidoCodificadas)
        {
             ImagenesDesaparecido.Add(convertBase64ToBitmap(foto)); 
