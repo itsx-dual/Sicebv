@@ -64,7 +64,7 @@ public partial class App : Application
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidText));
         EventManager.RegisterClassHandler(typeof(DatePicker), DatePicker.SelectedDateChangedEvent, new EventHandler<SelectionChangedEventArgs>(TextBoxHelper.DatePickerSelectedDateChanged));
         EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidateCoherentText));
-        
+
         base.OnStartup(e);
     }
 }
