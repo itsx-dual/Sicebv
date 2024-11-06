@@ -1,3 +1,4 @@
+using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.reportante.presentation;
 
@@ -63,17 +64,20 @@ public class ReportanteDictionary
         };
     }
     
-    public static bool ValidateReportante(ReportanteViewModel reportanteViewModel, Reportante reportante)
+    public static Validaciones ValidateReportante(ReportanteViewModel reportanteViewModel, Reportante reportante)
     {
+        if (reportante is null) return Validaciones.HayInstanciasNulas;
+        
         if (!reportante.DenunciaAnonima)
         {
             reportanteViewModel?.Validate();
             reportante?.Persona?.Validar();
         
-            return !(reportanteViewModel?.HasErrors ?? true) && 
-                   !(reportante?.Persona?.HasErrors ?? true);
+            var HayErrores = !reportanteViewModel.HasErrors && !reportante.Persona.HasErrors;
+            
+            return !HayErrores ? Validaciones.ExistenErrores : Validaciones.NoExisteError;
         }
         
-        return true;
+        return Validaciones.NoExisteError;
     }
 }

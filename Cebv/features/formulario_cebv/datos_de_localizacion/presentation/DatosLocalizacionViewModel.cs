@@ -4,6 +4,7 @@ using System.IO;
 using Cebv.core.domain;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.util;
+using Cebv.core.util.enums;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
@@ -205,7 +206,7 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarYSiguente(Type pageType)
     {
-        if (!DatosLocalizacionDictionary.ValidateDatosLocalizacion(this ,Desaparecido))
+        if (DatosLocalizacionDictionary.ValidateDatosLocalizacion(this ,Desaparecido) == Validaciones.ExistenErrores)
         {
             string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> 
                 { this, Desaparecido, Desaparecido.Localizacion });
@@ -213,6 +214,17 @@ public partial class DatosLocalizacionViewModel : ObservableValidator
             _snackbarService.Show(
                 "Error en los campos",
                 "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+
+        if (DatosLocalizacionDictionary.ValidateDatosLocalizacion(this ,Desaparecido) == Validaciones.HayInstanciasNulas)
+        {
+            _snackbarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 10));

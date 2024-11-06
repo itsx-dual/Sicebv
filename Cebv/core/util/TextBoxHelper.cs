@@ -14,12 +14,22 @@ public class TextBoxHelper
 {
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
     /// <summary>
-    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
+    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker o un ComboBox.
     /// </summary>
     /// <param name="depObj"></param>
     /// <returns></returns>   
-    private static bool IsControl(DependencyObject depObj)
+    private static bool IsControl(DependencyObject depObj, bool _combo)
     {
+        if (_combo)
+        {
+            while (depObj != null)
+            {
+                if (depObj is DatePicker) return true;
+                
+                depObj = VisualTreeHelper.GetParent(depObj);
+            }
+        }
+        
         while (depObj != null)
         {
             if (depObj is DatePicker) return true;
@@ -62,8 +72,8 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || 
-            textBox.Tag?.ToString() == "UserName") return;
+        if (IsControl(textBox, true) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || 
+            textBox.Tag?.ToString() == "UserName" || textBox.Tag?.ToString() == "Login" || textBox.Tag?.ToString() == "TextNotUpper") return;
         
         // Convertir el texto a mayúsculas
         if (textBox != null)
@@ -93,7 +103,7 @@ public class TextBoxHelper
         string pattern;
 
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude") return;
+        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Login") return;
         
         switch (textBox.Tag?.ToString())
         {
@@ -169,7 +179,7 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude") return;
+        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Login") return;
         
         if (textBox.Tag?.ToString() == "Date")
         {
@@ -192,9 +202,9 @@ public class TextBoxHelper
         TextBox textBox = (sender as TextBox)!;
 
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox)) return;
+        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Login") return;
 
-        if (textBox.Tag?.ToString() == "Text" || textBox?.Tag?.ToString() == "Exclude")
+        if (textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "TextNotUpper")
         {
             string inputText = textBox.Text.ToLower();
 
@@ -202,7 +212,7 @@ public class TextBoxHelper
             string[] words = inputText.Split(' ');
             foreach (var word in words)
             {
-                if (word.Length < 1 || word.Length > 7)
+                if (word.Length > 7) //Retire el minimo para que no se considere como error
                 {
                     _snackbarService.Show(
                         "Texto inusual",
@@ -286,11 +296,12 @@ public class TextBoxHelper
         List<string> errores = new List<string>();
         
         TextBox textBox = (sender as TextBox)!;
-        
+
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-            if (IsControl(textBox) || textBox.Tag?.ToString() == "Exclude"|| textBox.Tag?.ToString() == "Text" ) return;
+            if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Text"
+                || textBox.Tag?.ToString() == "Login") return;
 
             if (textBox.Tag?.ToString() == "Time")
             {

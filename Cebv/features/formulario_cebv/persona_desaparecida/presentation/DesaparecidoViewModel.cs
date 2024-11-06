@@ -5,6 +5,7 @@ using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
 using Cebv.core.util;
+using Cebv.core.util.enums;
 using static Cebv.core.util.enums.PrioridadOcupacion;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -413,13 +414,24 @@ public partial class DesaparecidoViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarYContinuar(Type pageType)
     {
-        if (!PersonaDesaparecidaDictionary.ValidateDesaparecido(this, Desaparecido))
+        if (PersonaDesaparecidaDictionary.ValidateDesaparecido(this, Desaparecido) == Validaciones.ExistenErrores)
         {
             string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> { this, Desaparecido.Persona });
             
             SnackbarService.Show(
                 "Error en los campos",
                 "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (PersonaDesaparecidaDictionary.ValidateDesaparecido(this, Desaparecido) == Validaciones.HayInstanciasNulas)
+        {
+            SnackbarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 10));
