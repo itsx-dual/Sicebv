@@ -1,8 +1,5 @@
-﻿using System.Buffers.Text;
-using System.Collections.ObjectModel;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Windows.Media.Imaging;
 using Cebv.core.domain;
@@ -15,7 +12,6 @@ namespace Cebv.core.util.reporte.domain;
 
 public abstract class ReporteServiceNetwork
 {
-    private static ObservableCollection<string> _fotosDesaparecido = new();
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
     public static async Task<Reporte> ShowReporte(int id)
@@ -71,7 +67,7 @@ public abstract class ReporteServiceNetwork
         {
             var content = new StreamContent(ImageUtils.BitmapImageToStream(imagen));
             var filename = Path.GetFileName(imagen.UriSource.ToString());
-            
+
             form.Add(content, $"file_{count + 1}", filename);
             count++;
         }
@@ -92,26 +88,6 @@ public abstract class ReporteServiceNetwork
 
         await Client.SendAsync(request);
     }
-
-    public static async Task<ObservableCollection<string>> GetImagenesDesaparecidos(int? desaparecido_id)
-    {
-        Console.WriteLine("Test1");
-        if (desaparecido_id == null || desaparecido_id <= 0) return null;
-        Console.WriteLine("Test2");
-        var response = await Client.GetAsync($"/api/desaparecidos/fotos/{desaparecido_id}");
-        Console.WriteLine("Test3"); 
-        if (!response.IsSuccessStatusCode) return null;
-        Console.WriteLine("Test4");
-        var responseContent = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(responseContent);
-
-        _fotosDesaparecido = JsonConvert.DeserializeObject<ObservableCollection<string>>(responseContent);
-        return _fotosDesaparecido;
-    }
-
-
-
-
 
     public static async Task<BitmapImage?> GetImage(int senaId)
     {

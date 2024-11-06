@@ -1,7 +1,5 @@
-using System.Buffers.Text;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
@@ -21,20 +19,16 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 {
     private readonly IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private readonly IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
+
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido = new();
-    /**
-     * Path de las imagenes seleccionadas
-     */
-    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = new();
-    [ObservableProperty] private BitmapImage _imagenBoletin;
+
     public GeneracionBoletinViewModel()
     {
-        
+        InitAsync();
         Reporte = _reporteService.GetReporte();
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
-         
         EsMayorEdad = CalcularEdad();
         InitAsync();
     }
@@ -66,8 +60,6 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 
     private async void InitAsync()
     {
-
-        RescatarFotos();
         TiposBoletines = await CebvNetwork.GetRoute<Catalogo>("tipos-boletines");
         EstatusPersonas = await CebvNetwork.GetRoute<BasicResource>("estatus-personas");
     }
@@ -86,7 +78,11 @@ public partial class GeneracionBoletinViewModel : ObservableObject
         return Desaparecido.Persona.FechaNacimiento.Value.AddYears(18) <= DateTime.Now;
     }
 
-    
+    /**
+     * Path de las imagenes seleccionadas
+     */
+    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = new();
+    [ObservableProperty] private BitmapImage _imagenBoletin;
 
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
@@ -104,7 +100,6 @@ public partial class GeneracionBoletinViewModel : ObservableObject
         foreach (var file in openFileDialog.FileNames)
         {
             ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
-            Console.WriteLine($"Imagen: {file}");
         }
     }
 
