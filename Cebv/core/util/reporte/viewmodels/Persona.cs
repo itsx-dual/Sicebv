@@ -138,8 +138,7 @@ public partial class Persona : ObservableValidator
     [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
     [MinLength(2, ErrorMessage = "El campo apellido materno debe tener al menos 2 caracteres.")]
     private string? _apellidoMaterno;
-
-    [Required(ErrorMessage = "El campo apodo es obligatorio")]
+    
     [ObservableProperty, JsonProperty(PropertyName = "apodo")]
     private string? _apodo;
 

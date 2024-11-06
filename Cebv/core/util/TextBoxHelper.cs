@@ -73,7 +73,7 @@ public class TextBoxHelper
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
         if (IsControl(textBox, true) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || 
-            textBox.Tag?.ToString() == "UserName" || textBox.Tag?.ToString() == "Login") return;
+            textBox.Tag?.ToString() == "UserName" || textBox.Tag?.ToString() == "Login" || textBox.Tag?.ToString() == "TextNotUpper") return;
         
         // Convertir el texto a mayúsculas
         if (textBox != null)
@@ -204,7 +204,7 @@ public class TextBoxHelper
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
         if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Login") return;
 
-        if (textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "Exclude")
+        if (textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "TextNotUpper")
         {
             string inputText = textBox.Text.ToLower();
 
@@ -212,7 +212,7 @@ public class TextBoxHelper
             string[] words = inputText.Split(' ');
             foreach (var word in words)
             {
-                if (word.Length < 1 || word.Length > 7)
+                if (word.Length > 7) //Retire el minimo para que no se considere como error
                 {
                     _snackbarService.Show(
                         "Texto inusual",

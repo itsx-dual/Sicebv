@@ -1,3 +1,4 @@
+using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 
 namespace Cebv.features.formulario_cebv.folio_expediente.data;
@@ -27,10 +28,15 @@ public class FolioExpedienteDictionary
         };
     }
     
-    public static bool ValidateFolioExpediente(Reporte reporte)
+    public static Validaciones ValidateFolioExpediente(Reporte reporte)
     {
+        // Verificar si las propiedades no son null antes de validarlas
+        if (reporte is null) return Validaciones.HayInstanciasNulas;
+        
         reporte.Validar("TipoReporte");
         
-        return !(reporte?.HasErrors ?? true);
+        var HayErrores = !reporte.HasErrors;
+        
+        return !HayErrores ? Validaciones.ExistenErrores : Validaciones.NoExisteError;
     }
 }
