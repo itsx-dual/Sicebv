@@ -6,11 +6,15 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
+using Cebv.core.util;
+using Cebv.core.util.enums;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.dashboard.encuadre_preeliminar.Data;
+using Cebv.features.dashboard.encuadre_preeliminar.presentation.ListasEditables;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using Cebv.features.formulario_cebv.prendas.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -63,9 +67,16 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo? _tipoMedioSelected;
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Tipo de medio es obligatorio")]
+    private Catalogo? _tipoMedioSelected;
+    
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es obligatorio")]
+    private Municipio? _municipioSelected;
+    
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private CatalogoColor? _vistaSelected;
@@ -94,13 +105,18 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private string? _curp;
 
     // Valores para insercion a listas
-    [ObservableProperty] private string _noTelefonoReportante = string.Empty;
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
+    private string _noTelefonoReportante = string.Empty;
+    
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
 
-    [ObservableProperty]
-    [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
     private string _noTelefonoDesaparecido = string.Empty;
-
+    
     [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
@@ -181,6 +197,9 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         await CargarCatalogos();
         DefaultValues();
         GetReporteFromService();
+        //Desaparecido.Persona = new();
+        //Reportante.Persona = new();
+        //Reporte.HechosDesaparicion = new();
         Curp = "";
         FechaDesaparicion = DateTime.Now;
         Desaparecido.Persona.Salud ??= new();
@@ -391,18 +410,69 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     {
         Desaparecido.Persona.Telefonos.Remove(telefono);
     }
-
-    partial void OnColorRegionCuerpoChanged(string? value)
+    
+    string _visibiliity;
+    
+    [RelayCommand]
+    private Task OnEditarTelefonoReportante(Telefono telefono) => EditarTelefono(telefono, "Reportante");
+    
+    [RelayCommand]
+    private Task OnEditarTelefonoDesaparecido(Telefono telefono) => EditarTelefono(telefono, "Desaparecido");
+    
+    private async Task EditarTelefono(Telefono telefono, string tipo)
     {
-        var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
-        RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+        var showEditList = new ShowDialogEditList();
+
+        // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
+        var dialogContent = new EditTelefono(_visibiliity = tipo)
+        {
+            DataContext = this
+        };
+
+        await showEditList.ShowContentDialogCommand.ExecuteAsync(dialogContent);
+
+        if (showEditList.Confirmacion)
+        {
+            var telefonos = tipo == "Reportante" ? Reportante.Persona.Telefonos : Desaparecido.Persona.Telefonos;
+            telefonos.Remove(telefono);
+
+            telefonos.Add(new Telefono
+            {
+                Numero = tipo == "Reportante" ? NoTelefonoReportante : NoTelefonoDesaparecido,
+                Observaciones = tipo == "Reportante" ? ObservacionesTelefonoReportante : ObservacionesTelefonoDesaparecido,
+                EsMovil = true,
+                Compania = tipo == "Reportante" ? CompañiaTelefonicaReportanteSelected : CompañiaTelefonicaDesaparecidoSelected
+            });
+
+            if (tipo == "Reportante")
+            {
+                NoTelefonoReportante = string.Empty;
+                ObservacionesTelefonoReportante = string.Empty;
+                CompañiaTelefonicaReportanteSelected = null;
+                ReportanteTieneTelefonos = Reportante.Persona?.Telefonos.Any() ?? false;
+            }
+            else
+            {
+                NoTelefonoDesaparecido = string.Empty;
+                ObservacionesTelefonoDesaparecido = string.Empty;
+                CompañiaTelefonicaDesaparecidoSelected = null;
+                DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
+            }
+        }
     }
 
-    partial void OnColorLadoChanged(string? value)
+    /*partial void OnColorRegionCuerpoChanged(string? value)
+    {
+        // TODO: hay un error aca tambien
+        var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
+        RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+    }*/
+
+    /*partial void OnColorLadoChanged(string? value)
     {
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
-    }
+    }*/
 
     [RelayCommand]
     private void OnAddSenaParticular()
@@ -464,9 +534,62 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
 
-    [RelayCommand]
-    private async void OnGuardarReporte()
+    public void Validate() => ValidateAllProperties();
+
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion = false;
+
+        var properties = EncuadrePreeliminarDictionary.GetEncuadrePreliminarDictionary(this, Reporte, Reportante, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarReporte()
+    {
+        if (EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido) == Validaciones.ExistenErrores)
+        {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator>
+            { this, Reportante.Persona, Desaparecido.Persona, Reporte.HechosDesaparicion, Reporte });
+            
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido) == Validaciones.HayInstanciasNulas)
+        {
+            _snackBarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (!await EnlistarCampos())
+            return;
+        
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
         AddTelefonoMovilDesaparecidoCommand.Execute(null);

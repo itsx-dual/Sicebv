@@ -12,11 +12,9 @@ namespace Cebv.core.util;
 
 public class TextBoxHelper
 {
-  
-
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
     /// <summary>
-    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker.
+    /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker o un ComboBox.
     /// </summary>
     /// <param name="depObj"></param>
     /// <returns></returns>   
@@ -52,20 +50,15 @@ public class TextBoxHelper
     {
         DatePicker datePicker = sender as DatePicker;
         // Verificar si el DatePicker tiene el Tag "Exclude"
-        if (datePicker.Tag?.ToString() == "Exclude")
-        {
-            return;
-        }
+        if (datePicker?.Tag?.ToString() == "Exclude") return;
 
         if (datePicker != null)
         {
             datePicker.DisplayDateEnd = DateTime.Now;
             datePicker.SelectedDateChanged -= DatePickerSelectedDateChanged;
 
-            if (datePicker.SelectedDate.HasValue && datePicker.SelectedDate.Value > DateTime.Now)
-            {
+            if (datePicker.SelectedDate.HasValue && datePicker.SelectedDate.Value > DateTime.Now) 
                 datePicker.SelectedDate = DateTime.Now;
-            }
         }
     }
 
@@ -200,10 +193,7 @@ public class TextBoxHelper
                 break;
         }
 
-        if (Regex.IsMatch(e.Text.ToUpper(), pattern))
-        {
-            e.Handled = true;
-        }
+        if (Regex.IsMatch(e.Text.ToUpper(), pattern)) e.Handled = true;
     }
     
     /// <summary>
@@ -214,8 +204,6 @@ public class TextBoxHelper
     /// <param name="e"></param>
     public static void AutoCompleted(object sender, TextChangedEventArgs e)
     {
-      
-
         TextBox textBox = (sender as TextBox)!;
         
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
@@ -224,7 +212,7 @@ public class TextBoxHelper
             return;
         }
         
-        if (textBox?.Tag?.ToString() == "Date")
+        if (textBox.Tag?.ToString() == "Date")
         {
             if ((textBox.Text.Length == 2 || textBox.Text.Length == 5) && !textBox.Text.EndsWith("/"))
             {
@@ -240,12 +228,14 @@ public class TextBoxHelper
             }
         }
     }
+
     public static void ValidateCoherentText(object sender, RoutedEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
 
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
         if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Login") return;
+
 
         if (textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "Exclude")
         {
@@ -334,20 +324,23 @@ public class TextBoxHelper
     /// <param name="e"></param>
     public static void ValidText(object sender, RoutedEventArgs e)
     {
-        int _contadorerrores=0;
+        int contadorerrores=0;
         string error = String.Empty;
         List<string> errores = new List<string>();
+        
         TextBox textBox = (sender as TextBox)!;
+
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
+
             if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude"||textBox.Tag?.ToString() == "Upper"
                 || textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "Login")
             {
                 return;
             }
 
-            if (textBox?.Tag?.ToString() == "Time")
+            if (textBox.Tag?.ToString() == "Time")
             {
                 if (!Regex.IsMatch(textBox.Text, @"^([0-1][0-9]|2[0-3]):([0-5][0-9])$"))
                 {
@@ -360,8 +353,8 @@ public class TextBoxHelper
                 {
                     //Resetea el borde al que esta por defecto por wpf UI
                     textBox.ClearValue(Border.BorderBrushProperty);
-
                 }
+                else textBox.ClearValue(Border.BorderBrushProperty); //Resetea el borde al que esta por defecto por wpf UI
             }
 
             if (textBox?.Tag?.ToString() == "Date")
@@ -378,8 +371,8 @@ public class TextBoxHelper
                 else
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
-
                 }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "Mail")
@@ -395,8 +388,8 @@ public class TextBoxHelper
                 else
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
-
                 }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "Phone")
@@ -412,8 +405,8 @@ public class TextBoxHelper
                 else
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
-
                 }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "CURP")
@@ -429,8 +422,8 @@ public class TextBoxHelper
                 else
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
-
                 }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "CodigoPostal")
@@ -440,16 +433,24 @@ public class TextBoxHelper
                     error = "El Código Postal no tiene el formato correcto";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    _contadorerrores++;
+                    contadorerrores++;
 
                 }
-                else
+                else textBox.ClearValue(Border.BorderBrushProperty);
+            }
+            
+            if (textBox?.Tag?.ToString() == "UserName") 
+            {
+                if (!Regex.IsMatch(textBox.Text, @"^[a-zA-Z0-9@\-_. ]{3,}$") || textBox.Text.Length < 3 || textBox.Text.Length > 30)
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
-
+                    error = "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, " +
+                            "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.";
+                    errores.Add(error);
+                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    contadorerrores++;
                 }
                 //Cambie las tag de telefono de number a phone, se requiere reasignar tags mas especificas a cada caso
-                
             }
             if (textBox?.Tag?.ToString() == "UserName") 
             {
@@ -464,6 +465,7 @@ public class TextBoxHelper
                 }
                 else textBox.ClearValue(Border.BorderBrushProperty); 
             }
+          
             if (textBox?.Tag?.ToString() == "Name" || textBox?.Tag?.ToString() == "Letter") 
             { 
                 string inputText = textBox.Text.ToLower();
@@ -509,19 +511,13 @@ public class TextBoxHelper
                 }
                 else textBox.ClearValue(Border.BorderBrushProperty); 
             } 
-            
-            
-            
-            
-
-            // Eliminar espacios finales e iniciales
             string trimmedText = textBox.Text.Trim();
 
             // Reemplazar múltiples espacios consecutivos con un solo espacio
             string singleSpaceText = Regex.Replace(trimmedText, @"\s+", " ");
-
-            textBox.Text = singleSpaceText;
-            if (_contadorerrores > 0)
+            textBox.Text = singleSpaceText; 
+            
+            if (contadorerrores > 0) 
             {
                 string mensaje = errores.Aggregate(string.Empty, (current, s) => current + (s + Environment.NewLine));
 
@@ -530,19 +526,11 @@ public class TextBoxHelper
                     mensaje,
                     ControlAppearance.Caution,
                     new SymbolIcon(SymbolRegular.Warning20),
-                    new TimeSpan(0, 0, 20)); //Cambio de 5 a 20 segundos,petición del john :D
+                    new TimeSpan(0, 0, 5));
 
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
-        }else{                    textBox.ClearValue(Border.BorderBrushProperty);
-        }
-
-        
-
-
-
-
+        }else textBox.ClearValue(Border.BorderBrushProperty);
     }
-    
 }

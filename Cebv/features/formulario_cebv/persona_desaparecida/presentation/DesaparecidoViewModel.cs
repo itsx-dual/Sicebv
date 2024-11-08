@@ -1,14 +1,18 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.persona.presentation;
+using Cebv.core.util;
+using Cebv.core.util.enums;
 using static Cebv.core.util.enums.PrioridadOcupacion;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
 using static Cebv.core.util.enums.TipoContacto;
 using Cebv.core.util.snackbar;
+using Cebv.features.formulario_cebv.persona_desaparecida.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -145,7 +149,11 @@ public partial class DesaparecidoViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es requerido")]
+    private Municipio? _municipioSelected;
+    
     [ObservableProperty] private Catalogo? _companiaTelefonicaSelected;
     [ObservableProperty] private Catalogo? _tipoRedSocialSelected;
 
@@ -377,27 +385,67 @@ public partial class DesaparecidoViewModel : ObservableValidator
         }
     }
 
-    [RelayCommand]
-    private void OnGuardarYContinuar(Type pageType)
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
     {
-        Desaparecido.Persona.ValidateAll();
+        bool confirmacion = false;
 
-        if (Desaparecido.Persona.HasErrors)
+        var properties = PersonaDesaparecidaDictionary.GetDesaparecido(Desaparecido, this, Direccion,
+            Pseudonimo, OcupacionPrincipal, OcupacionSecundaria);   
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
         {
-            ShowErrors();
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    public void Validate() => ValidateAllProperties();
+    
+    [RelayCommand]
+    private async Task OnGuardarYContinuar(Type pageType)
+    {
+        if (PersonaDesaparecidaDictionary.ValidateDesaparecido(this, Desaparecido) == Validaciones.ExistenErrores)
+        {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> { this, Desaparecido.Persona });
+            
+            SnackbarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (PersonaDesaparecidaDictionary.ValidateDesaparecido(this, Desaparecido) == Validaciones.HayInstanciasNulas)
+        {
+            SnackbarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
             return;
         }
 
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) _navigationService.Navigate(pageType);
+                
+            return;
+        }
+        
         _reporteService.Sync();
         _navigationService.Navigate(pageType);
-    }
-
-    // TODO: Mejorar logica creando un componente por default
-    [RelayCommand]
-    private void ShowErrors()
-    {
-        string message = string.Join(Environment.NewLine, Desaparecido.Persona.GetErrors().Select(e => e.ErrorMessage));
-
-        SnackbarService.Show("Validation errors", message, ControlAppearance.Danger, null, TimeSpan.FromSeconds(10));
     }
 }
