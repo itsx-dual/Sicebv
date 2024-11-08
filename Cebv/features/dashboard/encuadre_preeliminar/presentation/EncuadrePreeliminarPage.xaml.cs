@@ -25,15 +25,20 @@ public partial class EncuadrePreeliminarPage : Page
 
     private void Image_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (this.DataContext != null) 
-        {
-            Point posicion = e.GetPosition(RegionCuerpoImage);
-            Color colorRegionCuerpo = this.GetPixelColor(RegionCuerpoImage, posicion);
-            Color colorLado = this.GetPixelColor(LadoImage, posicion);
+        
+            if (this.DataContext == null) return;
+        
+            Point posicion = e.GetPosition(Mascara);
 
+            Color colorVista = this.GetPixelColor(Vista, posicion);
+            Color colorLado = this.GetPixelColor(Lado, posicion);
+            Color colorRegionCuerpo = this.GetPixelColor(Region, posicion);
+            
             ((EncuadrePreeliminarViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
             ((EncuadrePreeliminarViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);
-        }
+            ((EncuadrePreeliminarViewModel) DataContext).ColorVista = colorVista.ToString().Substring(3);
+            
+        
     }
     
     private Color GetPixelColor(Image image, Point position)

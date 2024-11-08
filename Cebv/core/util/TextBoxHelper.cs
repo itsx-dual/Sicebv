@@ -324,7 +324,7 @@ public class TextBoxHelper
     /// <param name="e"></param>
     public static void ValidText(object sender, RoutedEventArgs e)
     {
-        int contadorerrores=0;
+        int _contadorerrores=0;
         string error = String.Empty;
         List<string> errores = new List<string>();
         
@@ -354,7 +354,6 @@ public class TextBoxHelper
                     //Resetea el borde al que esta por defecto por wpf UI
                     textBox.ClearValue(Border.BorderBrushProperty);
                 }
-                else textBox.ClearValue(Border.BorderBrushProperty); //Resetea el borde al que esta por defecto por wpf UI
             }
 
             if (textBox?.Tag?.ToString() == "Date")
@@ -372,7 +371,6 @@ public class TextBoxHelper
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
                 }
-                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "Mail")
@@ -389,7 +387,6 @@ public class TextBoxHelper
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
                 }
-                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "Phone")
@@ -406,7 +403,6 @@ public class TextBoxHelper
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
                 }
-                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "CURP")
@@ -423,7 +419,6 @@ public class TextBoxHelper
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
                 }
-                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "CodigoPostal")
@@ -433,7 +428,7 @@ public class TextBoxHelper
                     error = "El Código Postal no tiene el formato correcto";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorerrores++;
+                    _contadorerrores++;
 
                 }
                 else textBox.ClearValue(Border.BorderBrushProperty);
@@ -448,7 +443,7 @@ public class TextBoxHelper
                             "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorerrores++;
+                    _contadorerrores++;
                 }
                 //Cambie las tag de telefono de number a phone, se requiere reasignar tags mas especificas a cada caso
             }
@@ -517,7 +512,7 @@ public class TextBoxHelper
             string singleSpaceText = Regex.Replace(trimmedText, @"\s+", " ");
             textBox.Text = singleSpaceText; 
             
-            if (contadorerrores > 0) 
+            if (_contadorerrores > 0) 
             {
                 string mensaje = errores.Aggregate(string.Empty, (current, s) => current + (s + Environment.NewLine));
 
