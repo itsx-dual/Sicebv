@@ -4,6 +4,7 @@ using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.sistema.data;
 using Cebv.core.util;
+using Cebv.core.util.enums;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
@@ -120,12 +121,23 @@ public partial class FolioExpedienteViewModel : ObservableObject
     [RelayCommand]
     private async Task OnGuardarYSiguiente(Type pageType)
     {
-        if (!FolioExpedienteDictionary.ValidateFolioExpediente(Reporte))
+        if (FolioExpedienteDictionary.ValidateFolioExpediente(Reporte) == Validaciones.ExistenErrores)
         {
             _snackBarService.Show(
                 "Error en los campos",
                 "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n " +
                 "El campo Tipo de Reporte es obligatorio",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (FolioExpedienteDictionary.ValidateFolioExpediente(Reporte) == Validaciones.HayInstanciasNulas)
+        {
+            _snackBarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 10));

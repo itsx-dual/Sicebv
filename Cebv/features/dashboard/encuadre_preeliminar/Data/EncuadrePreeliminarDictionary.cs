@@ -1,3 +1,4 @@
+using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
@@ -78,19 +79,21 @@ public class EncuadrePreeliminarDictionary
         };
     }
 
-    public static bool ValidateEncuadre(EncuadrePreeliminarViewModel encuadre, Reporte reporte,
+    public static Validaciones ValidateEncuadre(EncuadrePreeliminarViewModel encuadre, Reporte reporte,
         Reportante reportante, Desaparecido desaparecido)
     {
+        // Verificar si las propiedades no son null antes de validarlas
+        if (reportante is null || desaparecido is null || reporte is null) return Validaciones.HayInstanciasNulas;
+        
         encuadre.Validate();
         reportante?.Persona?.Validar();
         desaparecido?.Persona?.Validar();
         reporte?.HechosDesaparicion?.Validar();
         reporte?.Validar("MedioConocimiento");
         
-        return !(encuadre?.HasErrors ?? true) && 
-               !(reportante?.Persona?.HasErrors ?? true) &&
-               !(desaparecido?.Persona?.HasErrors ?? true) &&
-               !(reporte?.HechosDesaparicion?.HasErrors ?? true) &&
-               !(reporte?.HasErrors ?? true);
+        var HayErrores= !reportante.Persona.HasErrors && !desaparecido.Persona.HasErrors && 
+                                          !reporte.HechosDesaparicion.HasErrors && !reporte.HasErrors && !encuadre.HasErrors;
+        
+        return !HayErrores ? Validaciones.ExistenErrores : Validaciones.NoExisteError;
     }
 }

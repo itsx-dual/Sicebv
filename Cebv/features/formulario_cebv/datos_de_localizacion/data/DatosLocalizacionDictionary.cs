@@ -1,3 +1,4 @@
+using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.datos_de_localizacion.presentation;
 
@@ -35,14 +36,19 @@ public class DatosLocalizacionDictionary
         };
     }
     
-    public static bool ValidateDatosLocalizacion(DatosLocalizacionViewModel datosLocalizacion, Desaparecido desaparecido)
+    public static Validaciones ValidateDatosLocalizacion(DatosLocalizacionViewModel datosLocalizacion, Desaparecido desaparecido)
     {
+        // Verificar si las propiedades no son null antes de validarlas
+        if (datosLocalizacion is null || desaparecido is null) return Validaciones.HayInstanciasNulas;
+        
         datosLocalizacion?.Validate();
         desaparecido?.Validar();
         desaparecido?.Localizacion?.Validar();
         
-        return !(datosLocalizacion?.HasErrors ?? true) && 
-               !(desaparecido?.HasErrors ?? true) &&
-               !(desaparecido?.Localizacion?.HasErrors ?? true);
+        var HayErrores = !datosLocalizacion.HasErrors && 
+                         !desaparecido.HasErrors &&
+                         !desaparecido.Localizacion.HasErrors;
+        
+        return !HayErrores ? Validaciones.ExistenErrores : Validaciones.NoExisteError;
     }
 }

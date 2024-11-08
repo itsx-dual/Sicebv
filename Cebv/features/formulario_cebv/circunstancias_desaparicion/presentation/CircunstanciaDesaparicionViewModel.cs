@@ -5,6 +5,7 @@ using Cebv.core.modules.desaparecido.data;
 using static Cebv.core.data.OpcionesCebv;
 using Cebv.core.modules.hipotesis.presentation;
 using Cebv.core.util;
+using Cebv.core.util.enums;
 using static Cebv.core.util.enums.EtapaHipotesis;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -230,13 +231,24 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarYSiguente(Type pageType)
     {
-        if (!CircunstanciaDesaparicionDictionary.ValidateCircunstanciaDesaparicion(Reporte, this))
+        if (CircunstanciaDesaparicionDictionary.ValidateCircunstanciaDesaparicion(Reporte, this) == Validaciones.ExistenErrores)
         {
             string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator> { this, Reporte.HechosDesaparicion });
             
             _snackBarService.Show(
                 "Error en los campos",
                 "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (CircunstanciaDesaparicionDictionary.ValidateCircunstanciaDesaparicion(Reporte, this) == Validaciones.HayInstanciasNulas)
+        {
+            _snackBarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 10));

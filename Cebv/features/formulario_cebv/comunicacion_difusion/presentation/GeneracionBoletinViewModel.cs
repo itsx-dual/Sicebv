@@ -30,6 +30,32 @@ public partial class GeneracionBoletinViewModel : ObservableObject
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
         EsMayorEdad = CalcularEdad();
+        InitAsync();
+    }
+
+    private async void RescatarFotos()
+    {
+       ObservableCollection<string> fotosDesaparecidoCodificadas = await ReporteServiceNetwork.GetImagenesDesaparecidos(Desaparecido.Id);//30 para probar
+       foreach (var foto in fotosDesaparecidoCodificadas)
+       {
+            ImagenesDesaparecido.Add(convertBase64ToBitmap(foto)); 
+       }
+    }
+
+    private  BitmapImage convertBase64ToBitmap(String foto)
+    {
+        byte[] imageAsBytes = System.Convert.FromBase64String(foto);
+        
+        BitmapImage image = new BitmapImage();
+        using (var memoryStream = new MemoryStream(imageAsBytes))
+        {
+            memoryStream.Position = 0;
+            image.BeginInit();
+            image.StreamSource = memoryStream;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+        }
+        return image; 
     }
 
     private async void InitAsync()

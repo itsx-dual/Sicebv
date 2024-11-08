@@ -1,4 +1,5 @@
 using Cebv.core.modules.persona.data;
+using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.persona_desaparecida.presentation;
 
@@ -72,12 +73,15 @@ public class PersonaDesaparecidaDictionary
         };
     }
     
-    public static bool ValidateDesaparecido(DesaparecidoViewModel desaparecidoViewModel, Desaparecido desaparecido)
+    public static Validaciones ValidateDesaparecido(DesaparecidoViewModel desaparecidoViewModel, Desaparecido desaparecido)
     {
+        if (desaparecido is null) return Validaciones.HayInstanciasNulas;
+        
         desaparecidoViewModel?.Validate();
         desaparecido?.Persona?.Validar();
         
-        return !(desaparecidoViewModel?.HasErrors ?? true) &&
-            !(desaparecido?.Persona?.HasErrors ?? true);
+        var HayErrores = !desaparecidoViewModel.HasErrors && !desaparecido.Persona.HasErrors;
+        
+        return !HayErrores ? Validaciones.ExistenErrores : Validaciones.NoExisteError;
     }
 }

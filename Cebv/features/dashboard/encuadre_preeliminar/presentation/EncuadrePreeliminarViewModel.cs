@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
 using Cebv.core.util;
+using Cebv.core.util.enums;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
@@ -410,48 +411,20 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         Desaparecido.Persona.Telefonos.Remove(telefono);
     }
     
-    string _visibiliity = string.Empty;
+    string _visibiliity;
     
     [RelayCommand]
-    private async Task OnEditarTelefonoReportante(Telefono telefono)
-    {
-        var showEditList = new ShowDialogEditList();
-
-        // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
-        var dialogContent = new EditTelefono(_visibiliity = "Reportante")
-        {
-            DataContext = this
-        };
-
-        await showEditList.ShowContentDialogCommand.ExecuteAsync(dialogContent);
-
-        if (showEditList.Confirmacion)
-        {
-            Reportante.Persona.Telefonos.Remove(telefono);
-
-            var telefonos = Reportante.Persona.Telefonos;
-            telefonos?.Add(new Telefono
-            {
-                Numero = NoTelefonoReportante,
-                Observaciones = ObservacionesTelefonoReportante,
-                EsMovil = true,
-                Compania = CompañiaTelefonicaReportanteSelected
-            });
-
-            NoTelefonoReportante = string.Empty;
-            ObservacionesTelefonoReportante = string.Empty;
-            CompañiaTelefonicaReportanteSelected = null;
-            ReportanteTieneTelefonos = Reportante.Persona?.Telefonos.Any() ?? false;
-        }
-    }
-
+    private Task OnEditarTelefonoReportante(Telefono telefono) => EditarTelefono(telefono, "Reportante");
+    
     [RelayCommand]
-    private async Task OnEditarTelefonoDesaparecido(Telefono telefono)
+    private Task OnEditarTelefonoDesaparecido(Telefono telefono) => EditarTelefono(telefono, "Desaparecido");
+    
+    private async Task EditarTelefono(Telefono telefono, string tipo)
     {
         var showEditList = new ShowDialogEditList();
 
         // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
-        var dialogContent = new EditTelefono(_visibiliity = "Desaparecido")
+        var dialogContent = new EditTelefono(_visibiliity = tipo)
         {
             DataContext = this
         };
@@ -460,21 +433,31 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
         if (showEditList.Confirmacion)
         {
-            Desaparecido.Persona.Telefonos.Remove(telefono);
+            var telefonos = tipo == "Reportante" ? Reportante.Persona.Telefonos : Desaparecido.Persona.Telefonos;
+            telefonos.Remove(telefono);
 
-            var telefonos = Desaparecido.Persona.Telefonos;
             telefonos.Add(new Telefono
             {
-                Numero = NoTelefonoDesaparecido,
-                Observaciones = ObservacionesTelefonoDesaparecido,
+                Numero = tipo == "Reportante" ? NoTelefonoReportante : NoTelefonoDesaparecido,
+                Observaciones = tipo == "Reportante" ? ObservacionesTelefonoReportante : ObservacionesTelefonoDesaparecido,
                 EsMovil = true,
-                Compania = CompañiaTelefonicaDesaparecidoSelected
+                Compania = tipo == "Reportante" ? CompañiaTelefonicaReportanteSelected : CompañiaTelefonicaDesaparecidoSelected
             });
 
-            NoTelefonoDesaparecido = string.Empty;
-            ObservacionesTelefonoDesaparecido = string.Empty;
-            CompañiaTelefonicaDesaparecidoSelected = null;
-            DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
+            if (tipo == "Reportante")
+            {
+                NoTelefonoReportante = string.Empty;
+                ObservacionesTelefonoReportante = string.Empty;
+                CompañiaTelefonicaReportanteSelected = null;
+                ReportanteTieneTelefonos = Reportante.Persona?.Telefonos.Any() ?? false;
+            }
+            else
+            {
+                NoTelefonoDesaparecido = string.Empty;
+                ObservacionesTelefonoDesaparecido = string.Empty;
+                CompañiaTelefonicaDesaparecidoSelected = null;
+                DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
+            }
         }
     }
 
@@ -579,7 +562,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarReporte()
     {
-        if (!EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido))
+        if (EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido) == Validaciones.ExistenErrores)
         {
             string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator>
             { this, Reportante.Persona, Desaparecido.Persona, Reporte.HechosDesaparicion, Reporte });
@@ -587,6 +570,17 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
             _snackBarService.Show(
                 "Error en los campos",
                 "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido) == Validaciones.HayInstanciasNulas)
+        {
+            _snackBarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 10));

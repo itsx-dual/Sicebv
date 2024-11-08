@@ -110,5 +110,4 @@
       <Folder Include="features\formulario_cebv\presentation\data\" />
       <Folder Include="features\formulario_cebv\presentation\domain\" />
     </ItemGroup>
-
 </Project>

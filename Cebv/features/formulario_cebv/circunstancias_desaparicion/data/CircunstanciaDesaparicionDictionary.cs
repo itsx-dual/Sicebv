@@ -1,3 +1,4 @@
+using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.circunstancias_desaparicion.presentation;
 
@@ -50,12 +51,16 @@ public class CircunstanciaDesaparicionDictionary
         };
     }
     
-    public static bool ValidateCircunstanciaDesaparicion(Reporte reporte, CircunstanciaDesaparicionViewModel circunstancia)
+    public static Validaciones ValidateCircunstanciaDesaparicion(Reporte reporte, CircunstanciaDesaparicionViewModel circunstancia)
     {
+        // Verificar si las propiedades no son null antes de validarlas
+        if (reporte is null || circunstancia is null) return Validaciones.HayInstanciasNulas;
+        
         circunstancia?.Validate();
         reporte?.HechosDesaparicion?.Validar(); 
         
-        return !(circunstancia?.HasErrors ?? true) && 
-               !(reporte?.HechosDesaparicion?.HasErrors ?? true);
+        var HayErrores = !circunstancia.HasErrors && !reporte.HechosDesaparicion.HasErrors;
+        
+        return !HayErrores ? Validaciones.ExistenErrores : Validaciones.NoExisteError;
     }
 }
