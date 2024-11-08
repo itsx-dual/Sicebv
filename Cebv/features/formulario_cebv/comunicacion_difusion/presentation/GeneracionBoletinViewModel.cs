@@ -1,5 +1,7 @@
+using System.Buffers.Text;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
@@ -19,16 +21,20 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 {
     private readonly IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private readonly IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
-
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido = new();
-
+    /**
+     * Path de las imagenes seleccionadas
+     */
+    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = new();
+    [ObservableProperty] private BitmapImage _imagenBoletin = new();
     public GeneracionBoletinViewModel()
     {
-        InitAsync();
+        
         Reporte = _reporteService.GetReporte();
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+         
         EsMayorEdad = CalcularEdad();
         InitAsync();
     }
@@ -41,11 +47,10 @@ public partial class GeneracionBoletinViewModel : ObservableObject
             ImagenesDesaparecido.Add(convertBase64ToBitmap(foto)); 
        }
     }
-
+    
     private  BitmapImage convertBase64ToBitmap(String foto)
     {
         byte[] imageAsBytes = System.Convert.FromBase64String(foto);
-        
         BitmapImage image = new BitmapImage();
         using (var memoryStream = new MemoryStream(imageAsBytes))
         {
@@ -60,6 +65,8 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 
     private async void InitAsync()
     {
+
+        RescatarFotos();
         TiposBoletines = await CebvNetwork.GetRoute<Catalogo>("tipos-boletines");
         EstatusPersonas = await CebvNetwork.GetRoute<BasicResource>("estatus-personas");
     }
@@ -78,15 +85,12 @@ public partial class GeneracionBoletinViewModel : ObservableObject
         return Desaparecido.Persona.FechaNacimiento.Value.AddYears(18) <= DateTime.Now;
     }
 
-    /**
-     * Path de las imagenes seleccionadas
-     */
-    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = new();
-    [ObservableProperty] private BitmapImage _imagenBoletin;
+    
 
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
     {
+
         OpenFileDialog openFileDialog = new()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
@@ -99,6 +103,7 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 
         foreach (var file in openFileDialog.FileNames)
         {
+            //Este solo es para mostrar en la GUI los que tienes y los que acabas de subir
             ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
         }
     }
@@ -123,7 +128,10 @@ public partial class GeneracionBoletinViewModel : ObservableObject
     [RelayCommand]
     private async Task OnGuardarYSiguiente(Type pageType)
     {
-        if (ImagenesDesaparecido.Count > 0) await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        if (ImagenesDesaparecido.Count > 0)
+        {
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        }
         await _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
