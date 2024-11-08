@@ -27,7 +27,7 @@ public partial class GeneracionBoletinViewModel : ObservableObject
      * Path de las imagenes seleccionadas
      */
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = new();
-    [ObservableProperty] private BitmapImage _imagenBoletin;
+    [ObservableProperty] private BitmapImage _imagenBoletin = new();
     public GeneracionBoletinViewModel()
     {
         
@@ -47,11 +47,10 @@ public partial class GeneracionBoletinViewModel : ObservableObject
             ImagenesDesaparecido.Add(convertBase64ToBitmap(foto)); 
        }
     }
-
+    
     private  BitmapImage convertBase64ToBitmap(String foto)
     {
         byte[] imageAsBytes = System.Convert.FromBase64String(foto);
-        
         BitmapImage image = new BitmapImage();
         using (var memoryStream = new MemoryStream(imageAsBytes))
         {
@@ -91,6 +90,7 @@ public partial class GeneracionBoletinViewModel : ObservableObject
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
     {
+
         OpenFileDialog openFileDialog = new()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
@@ -103,8 +103,8 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 
         foreach (var file in openFileDialog.FileNames)
         {
+            //Este solo es para mostrar en la GUI los que tienes y los que acabas de subir
             ImagenesDesaparecido.Add(new BitmapImage(new Uri(file)));
-            Console.WriteLine($"Imagen: {file}");
         }
     }
 
@@ -128,7 +128,10 @@ public partial class GeneracionBoletinViewModel : ObservableObject
     [RelayCommand]
     private async Task OnGuardarYSiguiente(Type pageType)
     {
-        if (ImagenesDesaparecido.Count > 0) await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        if (ImagenesDesaparecido.Count > 0)
+        {
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
+        }
         await _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
