@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using Cebv.app.presentation;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.sistema.data;
@@ -33,7 +34,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
     public FolioExpedienteViewModel()
     {
         InitAsync();
-        
+
         Reporte = _reporteService.GetReporte();
 
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
@@ -85,6 +86,14 @@ public partial class FolioExpedienteViewModel : ObservableObject
         await _reporteService.Sync();
         Reporte = _reporteService.GetReporte();
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+    }
+
+    [RelayCommand]
+    private void GetInformeInicio()
+    {
+        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
+        var webview = new WebView2Window($"reportes/documentos/informes-inicio/{Desaparecido.Id}", "Informe de inicio");
+        webview.Show();
     }
 
 
