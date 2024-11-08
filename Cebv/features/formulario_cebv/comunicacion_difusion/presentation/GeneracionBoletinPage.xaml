@@ -48,7 +48,7 @@
 
                     <ui:ListView x:Name="Imagenes"
                                  ItemsSource="{Binding ImagenesDesaparecido}"
-                                 SelectedItem="{Binding ImagenBoletin, Mode=TwoWay}"
+                                 SelectedItem="{Binding ImagenBoletin}"
                                  SelectedIndex="0"
                                  KeyDown="Imagenes_OnKeyDown">
                         <ui:ListView.ItemsPanel>
