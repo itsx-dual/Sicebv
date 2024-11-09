@@ -556,7 +556,7 @@
 
                         <StackPanel>
                             <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Exclude" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Text" />
                         </StackPanel>
                     </StackPanel>
 
