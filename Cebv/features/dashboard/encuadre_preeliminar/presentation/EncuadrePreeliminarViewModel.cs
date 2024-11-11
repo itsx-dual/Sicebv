@@ -197,9 +197,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         await CargarCatalogos();
         DefaultValues();
         GetReporteFromService();
-        //Desaparecido.Persona = new();
-        //Reportante.Persona = new();
-        //Reporte.HechosDesaparicion = new();
         Curp = "";
         FechaDesaparicion = DateTime.Now;
         Desaparecido.Persona.Salud ??= new();
@@ -412,7 +409,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     }
     
     string _visibiliity;
-    
     [RelayCommand]
     private Task OnEditarTelefonoReportante(Telefono telefono) => EditarTelefono(telefono, "Reportante");
     
@@ -421,6 +417,20 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     
     private async Task EditarTelefono(Telefono telefono, string tipo)
     {
+        // Asigna los valores del teléfono seleccionado a las propiedades del ViewModel
+        if (tipo == "Reportante")
+        {
+            NoTelefonoReportante = telefono.Numero;
+            ObservacionesTelefonoReportante = telefono.Observaciones;
+            CompañiaTelefonicaReportanteSelected = telefono.Compania;
+        }
+        else
+        {
+            NoTelefonoDesaparecido = telefono.Numero;
+            ObservacionesTelefonoDesaparecido = telefono.Observaciones;
+            CompañiaTelefonicaDesaparecidoSelected = telefono.Compania;
+        }
+        
         var showEditList = new ShowDialogEditList();
 
         // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
@@ -586,9 +596,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
                 new TimeSpan(0, 0, 10));
             return;
         }
-        
+
         if (!await EnlistarCampos())
+        {
+            if (!_cancelar) return;
+            
             return;
+        }
         
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
