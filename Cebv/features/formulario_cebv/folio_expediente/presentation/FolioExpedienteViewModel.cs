@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using Cebv.app.presentation;
 using Cebv.core.domain;
 using Cebv.core.modules.desaparecido.data;
 using Cebv.core.modules.sistema.data;
@@ -25,7 +26,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
 {
     private readonly ISnackbarService _snackBarService =
         App.Current.Services.GetService<ISnackbarService>()!;
-    
+
     private readonly IReporteService _reporteService =
         App.Current.Services.GetService<IReporteService>()!;
 
@@ -41,7 +42,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
     public FolioExpedienteViewModel()
     {
         InitAsync();
-        
+
         Reporte = _reporteService.GetReporte();
 
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
@@ -96,26 +97,36 @@ public partial class FolioExpedienteViewModel : ObservableObject
     }
 
     private bool _cancelar = true;
+
     private async Task<bool> EnlistarCampos()
     {
         bool confirmacion = false;
 
         var properties = FolioExpedienteDictionary.GetFolioExpediente(Reporte, Desaparecido);
         var emptyElements = ListEmptyElements.GetEmptyElements(properties);
-        
+
         if (emptyElements.Count > 0)
         {
             var dialogo = new ShowDialog();
 
             // Esperar a que se muestre el ContentDialog
             await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
-            
+
             if (dialogo.Confirmacion == "Guardar") confirmacion = true;
             else if (dialogo.Confirmacion == "No guardar") return _cancelar = false;
         }
         else confirmacion = true;
 
         return confirmacion;
+    }
+
+    [RelayCommand]
+    private async void OnFichaDeDatosBusquedaInmediata()
+    {
+        if (Desaparecido.Id is null or < 1) return;
+        var webview =
+            new WebView2Window($"reportes/documentos/ficha-busqueda-inmediata/{Desaparecido.Id}", "Ficha de datos resumida");
+        webview.Show();
     }
 
     [RelayCommand]

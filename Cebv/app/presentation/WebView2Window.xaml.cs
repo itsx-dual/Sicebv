@@ -29,8 +29,6 @@ public partial class WebView2Window : Window
     private void CoreWebView2OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
     {
         var token = _client.DefaultRequestHeaders.Authorization?.Parameter;
-        Console.WriteLine(token);
-        Console.WriteLine(_client.BaseAddress + _uri);
         e.Request.Headers.SetHeader("Authorization", $"Bearer {token}");
     }
 }
