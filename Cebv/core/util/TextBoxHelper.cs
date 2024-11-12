@@ -334,7 +334,7 @@ public class TextBoxHelper
     /// <param name="e"></param>
     public static void ValidText(object sender, RoutedEventArgs e)
     {
-        int contadorErrores = 0;
+        int _contadorerrores=0;
         string error = String.Empty;
         List<string> errores = new List<string>();
 
@@ -433,7 +433,7 @@ public class TextBoxHelper
                     error = "El Código Postal no tiene el formato correcto";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    _contadorerrores++;
                 }
             }
 
@@ -447,7 +447,7 @@ public class TextBoxHelper
                             "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    _contadorerrores++;
                 }
                 //Cambie las tag de telefono de number a phone, se requiere reasignar tags mas especificas a cada caso
             }
@@ -514,9 +514,9 @@ public class TextBoxHelper
 
             // Reemplazar múltiples espacios consecutivos con un solo espacio
             string singleSpaceText = Regex.Replace(trimmedText, @"\s+", " ");
-            textBox.Text = singleSpaceText;
-
-            if (contadorErrores > 0)
+            textBox.Text = singleSpaceText; 
+            
+            if (_contadorerrores > 0) 
             {
                 string mensaje = errores.Aggregate(string.Empty, (current, s) => current + (s + Environment.NewLine));
 
