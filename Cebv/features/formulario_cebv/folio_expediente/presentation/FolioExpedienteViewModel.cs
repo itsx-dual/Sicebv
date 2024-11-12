@@ -35,6 +35,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
 
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido = new();
+    private bool _cancelar = true;
 
     [ObservableProperty]
     private Dictionary<string, string> _tiposDesapariciones = new() { { Unica, U }, { Multiple, M } };
@@ -96,7 +97,13 @@ public partial class FolioExpedienteViewModel : ObservableObject
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
     }
 
-    private bool _cancelar = true;
+    [RelayCommand]
+    private void GetInformeInicio()
+    {
+        if (Desaparecido.Id == null || Desaparecido.Id < 1) return;
+        var webview = new WebView2Window($"reportes/documentos/informes-inicio/{Desaparecido.Id}", "Informe de inicio");
+        webview.Show();
+    }
 
     private async Task<bool> EnlistarCampos()
     {
