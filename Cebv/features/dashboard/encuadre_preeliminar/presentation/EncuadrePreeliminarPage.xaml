@@ -105,19 +105,19 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
                             <ui:TextBox Text="{Binding Reportante.Persona.Nombre}"
-                                        Tag="Exclude"/>
+                                        Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
                             <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}"
-                                        Tag="Exclude"/>
+                                        Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
                             <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}"
-                                        Tag="Exclude"/>
+                                        Tag="Name"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -148,7 +148,7 @@
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding ObservacionesTelefonoReportante}"
-                                        Tag="Exclude"/>
+                                        Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -177,10 +177,11 @@
                                             Icon="{ui:SymbolIcon Phone24}"
                                             HorizontalAlignment="Stretch">
                                             <ui:CardControl.Header>
-                                                <ui:TextBlock
-                                                    FontTypography="BodyStrong"
-                                                    Text="{Binding Numero}"
-                                                    TextWrapping="WrapWithOverflow" />
+                                                <StackPanel>
+                                                    <ui:TextBlock FontTypography="BodyStrong"
+                                                                  Text="{Binding Numero}"
+                                                                  TextWrapping="WrapWithOverflow" Padding="10"/>
+                                                </StackPanel>
                                             </ui:CardControl.Header>
                                             <StackPanel>
                                                 <ui:TextBlock
@@ -190,7 +191,7 @@
                                             </StackPanel>
                                         </ui:CardControl>
 
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button VerticalAlignment="Bottom"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"
@@ -198,7 +199,15 @@
                                                    Margin="5"
                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoReportanteCommand}"
                                                    CommandParameter="{Binding}" />
-
+                             
+                                        <ui:Button VerticalAlignment="Top"
+                                                   Appearance="Success"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Edit16}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EditarTelefonoReportanteCommand}"
+                                                   CommandParameter="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
@@ -216,19 +225,19 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}"
-                                        Tag="Exclude"/>
+                                        Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}"
-                                        Tag="Exclude"/>
+                                        Tag="Name"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}"
-                                        Tag="Exclude"/>
+                                        Tag="Name"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -334,7 +343,7 @@
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA:" />
                                 <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}" 
-                                            Tag="Exclude"/>
+                                            Tag="Text"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -414,7 +423,7 @@
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding ObservacionesTelefonoDesaparecido}"
-                                        Tag="Exclude"/>
+                                        Tag="Text"/>
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -460,13 +469,22 @@
                                             </StackPanel>
                                         </ui:CardControl>
 
-                                        <ui:Button VerticalAlignment="Stretch"
+                                        <ui:Button VerticalAlignment="Bottom"
                                                    Appearance="Danger"
                                                    HorizontalAlignment="Right"
                                                    Icon="{ui:SymbolIcon Delete24}"
                                                    MinWidth="50"
                                                    Margin="5"
                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoDesaparecidoCommand}"
+                                                   CommandParameter="{Binding}" />
+                                        
+                                        <ui:Button VerticalAlignment="Top"
+                                                   Appearance="Success"
+                                                   HorizontalAlignment="Right"
+                                                   Icon="{ui:SymbolIcon Edit16}"
+                                                   MinWidth="50"
+                                                   Margin="5"
+                                                   Command="{Binding ElementName=Page, Path=DataContext.EditarTelefonoDesaparecidoCommand}"
                                                    CommandParameter="{Binding}" />
 
                                     </Grid>
@@ -510,7 +528,7 @@
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
                                 <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
                                             Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
-                                            Tag="Exclude"/>
+                                            Tag="Text"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -539,7 +557,7 @@
 
                         <StackPanel>
                             <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Exclude" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Text" />
                         </StackPanel>
                     </StackPanel>
 
@@ -649,7 +667,7 @@
                                     AcceptsReturn="True"
                                     MinHeight="150"
                                     Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicionNarracion}"
-                                    Tag="Exclude" />
+                                    Tag="TextNotUpper" />
                     </StackPanel>
 
                     <StackPanel MinWidth="300">
@@ -741,7 +759,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="1" Margin="10">
+                    <StackPanel Grid.Row="0" Margin="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.2*" />
@@ -755,33 +773,37 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0"
+                            <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                            <ui:Image Source="/core/resources/images/senasv3/VistaV3.png"
+                                      x:Name="Vista"
+                                      CornerRadius="10"
+                                      Stretch="Uniform" />
+                
+                            <ui:Image Source="/core/resources/images/senasv3/LadoV3.png"
+                                      x:Name="Lado"
+                                      CornerRadius="10"
+                                      Stretch="Uniform" />
+                
+                            <ui:Image Source="/core/resources/images/senasv3/RegionV3.png"
+                                      x:Name="Region"
+                                      CornerRadius="10"
+                                      BorderBrush="Black"
+                                      Stretch="Uniform" />
+                          
+                            <ui:Image Source="/core/resources/images/senasv3/MascaraV3-100.jpg"
+                                      x:Name="Mascara"
+                                      MouseDown="Image_MouseDown"
+                                      CornerRadius="10"
+                                      BorderBrush="Black"
+                                      Stretch="Uniform" />
+                        </Grid>
+
+                            <Grid Grid.Row="1"
                                   Grid.Column="0"
-                                  Margin="10"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  MaxWidth="500">
-
-                                <ui:Image Source="/core/resources/images/senas/Cuerpo MapingSide.png"
-                                          x:Name="LadoImage"
-                                          CornerRadius="8"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/senas/RegionCuerpoColorMejorado.png"
-                                          x:Name="RegionCuerpoImage"
-                                          CornerRadius="8"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/senas/CuerpoUNIXMejorado.png"
-                                          CornerRadius="8"
-                                          MouseDown="Image_MouseDown"
-                                          BorderBrush="#000000"
-                                          Stretch="Uniform" />
-                            </Grid>
-
-                            <Grid Grid.Row="0"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="2">
+                                  Grid.ColumnSpan="3">
                                 <StackPanel>
                                     <!-- Tipo de seña -->
                                     <Grid>
@@ -842,7 +864,7 @@
                                              Height="100"
                                              Text="{Binding Descripcion}"
                                              TextWrapping="Wrap"
-                                             Tag="Exclude"/>
+                                             Tag="Text"/>
 
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Right"
@@ -863,7 +885,7 @@
                                 </StackPanel>
                             </Grid>
 
-                            <ui:CardExpander Grid.Row="1"
+                            <ui:CardExpander Grid.Row="2"
                                              Grid.Column="0"
                                              Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
                                              Margin="10,0,10,0"
@@ -1004,7 +1026,7 @@
                                                     TextWrapping="Wrap"
                                                     MinHeight="100"
                                                     AcceptsReturn="True" 
-                                                    Tag="Exclude"/>
+                                                    Tag="Text"/>
                                     </StackPanel>
 
                                     <!-- Botones de edición -->
@@ -1035,7 +1057,7 @@
                                         Content="Añadir"
                                         Margin="10"
                                         HorizontalAlignment="Right"
-                                        Command="{Binding AddPrendaDeVestirCommand}"
+                            Command="{Binding AddPrendaCommand}"
                                         Icon="{ui:SymbolIcon Add24}"
                                         Appearance="Success" />
                                 </StackPanel>
@@ -1107,15 +1129,14 @@
                                                            Icon="{ui:SymbolIcon Edit24}"
                                                            MinWidth="50"
                                                            Margin="5"
-
+                                                           Command="{Binding DataContext.ModoEdicionCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                            CommandParameter="{Binding}" />
-
                                                 <ui:Button VerticalAlignment="Stretch"
                                                            Appearance="Danger"
                                                            Icon="{ui:SymbolIcon Delete24}"
                                                            MinWidth="50"
                                                            Margin="5"
-                                                           Command="{Binding ElementName=Page, Path=DataContext.RemovePrendaDeVestirCommand}"
+                                                           Command="{Binding DataContext.RemovePrendaCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                            CommandParameter="{Binding}" />
                                             </StackPanel>
                                         </Grid>

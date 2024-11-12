@@ -6,13 +6,19 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
+using Cebv.core.util;
+using Cebv.core.util.enums;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
+using Cebv.features.dashboard.encuadre_preeliminar.Data;
+using Cebv.features.dashboard.encuadre_preeliminar.presentation.ListasEditables;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
+using Cebv.features.formulario_cebv.prendas.data;
 using Cebv.features.formulario_cebv.prendas.domain;
+using Cebv.features.formulario_cebv.prendas.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,11 +67,19 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia = new();
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
+    
 
     // Valores seleccionados
-    [ObservableProperty] private Catalogo? _tipoMedioSelected;
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Tipo de medio es obligatorio")]
+    private Catalogo? _tipoMedioSelected;
+    
     [ObservableProperty] private Estado? _estadoSelected;
-    [ObservableProperty] private Municipio? _municipioSelected;
+    
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo Municipio es obligatorio")]
+    private Municipio? _municipioSelected;
+    
     [ObservableProperty] private Catalogo? _compañiaTelefonicaReportanteSelected;
     [ObservableProperty] private Catalogo? _compañiaTelefonicaDesaparecidoSelected;
     [ObservableProperty] private CatalogoColor? _vistaSelected;
@@ -75,6 +89,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private CatalogoColor? _ladoSelected;
     [ObservableProperty] private string? _colorRegionCuerpo;
     [ObservableProperty] private string? _colorLado;
+    [ObservableProperty] private string? _colorVista;
     [ObservableProperty] private int _cantidad = 1;
     [ObservableProperty] private string? _descripcion;
 
@@ -94,13 +109,18 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private string? _curp;
 
     // Valores para insercion a listas
-    [ObservableProperty] private string _noTelefonoReportante = string.Empty;
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
+    private string _noTelefonoReportante = string.Empty;
+    
     [ObservableProperty] private string _observacionesTelefonoReportante = string.Empty;
 
-    [ObservableProperty]
-    [MinLength(8, ErrorMessage = "El numero de telefono debe tener al menos 8 digitos.")]
+    [ObservableProperty] 
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
     private string _noTelefonoDesaparecido = string.Empty;
-
+    
     [ObservableProperty] private string _observacionesTelefonoDesaparecido = string.Empty;
 
     // Visibilidades
@@ -112,7 +132,14 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage? _imagenBoletin;
     [ObservableProperty] private bool _noHayCurp;
-    
+    [ObservableProperty] private PrendaVestir? _prendaEditada;
+    [ObservableProperty] private bool _modoEdicion;
+    [ObservableProperty] private string? _marca;
+    [ObservableProperty] private Pertenencia? _pertenencia;
+    [ObservableProperty] private Catalogo? _color;
+    [ObservableProperty] private Catalogo? _grupoPertenencia = new();
+    [ObservableProperty] private PrendasUiState _uiState;
+
     public EncuadrePreeliminarViewModel()
     {
         InitAsync();
@@ -391,18 +418,82 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     {
         Desaparecido.Persona.Telefonos.Remove(telefono);
     }
-
-    partial void OnColorRegionCuerpoChanged(string? value)
+    
+    string _visibiliity;
+    [RelayCommand]
+    private Task OnEditarTelefonoReportante(Telefono telefono) => EditarTelefono(telefono, "Reportante");
+    
+    [RelayCommand]
+    private Task OnEditarTelefonoDesaparecido(Telefono telefono) => EditarTelefono(telefono, "Desaparecido");
+    
+    private async Task EditarTelefono(Telefono telefono, string tipo)
     {
-        var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
-        RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+        // Asigna los valores del teléfono seleccionado a las propiedades del ViewModel
+        if (tipo == "Reportante")
+        {
+            NoTelefonoReportante = telefono.Numero;
+            ObservacionesTelefonoReportante = telefono.Observaciones;
+            CompañiaTelefonicaReportanteSelected = telefono.Compania;
+        }
+        else
+        {
+            NoTelefonoDesaparecido = telefono.Numero;
+            ObservacionesTelefonoDesaparecido = telefono.Observaciones;
+            CompañiaTelefonicaDesaparecidoSelected = telefono.Compania;
+        }
+        
+        var showEditList = new ShowDialogEditList();
+
+        // Crea una instancia de EditarTelefonoDialogContent y asigna el DataContext
+        var dialogContent = new EditTelefono(_visibiliity = tipo)
+        {
+            DataContext = this
+        };
+
+        await showEditList.ShowContentDialogCommand.ExecuteAsync(dialogContent);
+
+        if (showEditList.Confirmacion)
+        {
+            var telefonos = tipo == "Reportante" ? Reportante.Persona.Telefonos : Desaparecido.Persona.Telefonos;
+            telefonos.Remove(telefono);
+
+            telefonos.Add(new Telefono
+            {
+                Numero = tipo == "Reportante" ? NoTelefonoReportante : NoTelefonoDesaparecido,
+                Observaciones = tipo == "Reportante" ? ObservacionesTelefonoReportante : ObservacionesTelefonoDesaparecido,
+                EsMovil = true,
+                Compania = tipo == "Reportante" ? CompañiaTelefonicaReportanteSelected : CompañiaTelefonicaDesaparecidoSelected
+            });
+
+            if (tipo == "Reportante")
+            {
+                NoTelefonoReportante = string.Empty;
+                ObservacionesTelefonoReportante = string.Empty;
+                CompañiaTelefonicaReportanteSelected = null;
+                ReportanteTieneTelefonos = Reportante.Persona?.Telefonos.Any() ?? false;
+            }
+            else
+            {
+                NoTelefonoDesaparecido = string.Empty;
+                ObservacionesTelefonoDesaparecido = string.Empty;
+                CompañiaTelefonicaDesaparecidoSelected = null;
+                DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
+            }
+        }
     }
 
-    partial void OnColorLadoChanged(string? value)
+    /*partial void OnColorRegionCuerpoChanged(string? value)
+    {
+        // TODO: hay un error aca tambien
+        var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
+        RegionCuerpoSelected = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+    }*/
+
+    /*partial void OnColorLadoChanged(string? value)
     {
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         LadoSelected = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
-    }
+    }*/
 
     [RelayCommand]
     private void OnAddSenaParticular()
@@ -426,7 +517,130 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         var senaParticular = sena as SenaParticular;
         if (senaParticular != null) Desaparecido.Persona.SenasParticulares.Remove(senaParticular);
     }
+    [RelayCommand]
+    private void AddPrenda()
+    {
+        if (GrupoPerteneciaSelected is null ||
+            PerteneciaSelected is null ||
+            ColorSelected is null ||
+            CurrentPrendaDescripcion is null)
+            return;
 
+        Desaparecido.PrendasVestir.Add(new PrendaVestir
+        {
+            Pertenencia = PerteneciaSelected,
+            Color = ColorSelected!,
+            Marca = CurrentMarca,
+            Descripcion = CurrentPrendaDescripcion
+        });
+
+        LimpiarCampos();
+    }
+    [RelayCommand]
+
+    private void EditPrenda(PrendaVestir prenda)
+    {
+        var index = Desaparecido.PrendasVestir.IndexOf(prenda);
+
+        if (index == -1) return;
+
+        var prendaEdicionViewModel = new PrendaEdicionViewModel(prenda, index);
+
+        // Suscribirse al evento de guardado
+        prendaEdicionViewModel.PrendaGuardada += OnPrendaGuardada;
+
+        // Abrir la ventana de edición de la prenda
+        var dialog = new PrendaEdicion { DataContext = prendaEdicionViewModel };
+
+        // Configurar la acción de cierre para la ventana de edición
+        if (dialog.DataContext is PrendaEdicionViewModel vm)
+        {
+            vm.CloseAction = () => dialog.Close();
+        }
+
+        dialog.ShowDialog();
+    }
+    private void OnPrendaGuardada(object? sender, PrendaVestir prenda)
+    {
+        if (sender is not PrendaEdicionViewModel vm) return;
+
+        Desaparecido.PrendasVestir[vm.Index] = prenda;
+    }
+    [RelayCommand]
+    private void RemovePrenda(PrendaVestir prenda) => Desaparecido.PrendasVestir.Remove(prenda);
+
+
+    /**
+     * Test de UI dinamica según el estado de la UI
+     */
+
+    partial void OnUiStateChanged(PrendasUiState value) => ModoEdicion = CambiarModo();
+
+
+    private bool CambiarModo()
+    {
+        var modo = UiState switch
+        {
+            PrendasUiState.Normal => false,
+            _ => true,
+        };
+
+        return modo;
+    }
+
+    [RelayCommand]
+    private void OnModoEdicion(PrendaVestir prenda)
+    {
+        UiState = PrendasUiState.Editar;
+
+        PrendaEditada = prenda;
+
+        PerteneciaSelected = prenda.Pertenencia;
+        ColorSelected = prenda.Color;
+        CurrentMarca = prenda.Marca;
+        CurrentPrendaDescripcion = prenda.Descripcion!;
+    }
+
+    [RelayCommand]
+    private void OnCancelarEdicion()
+    {
+        LimpiarCampos();
+        PrendaEditada = null;
+        UiState = PrendasUiState.Normal;
+    }
+
+    [RelayCommand]
+    private void OnConfirmarEdicion()
+    {
+        if (PrendaEditada is null) return;
+
+        var index = Desaparecido.PrendasVestir.IndexOf(PrendaEditada);
+        
+        if (index == -1) return;
+
+        var prendaEditada = new PrendaVestir
+        {
+            Pertenencia = PerteneciaSelected,
+            Color = ColorSelected,
+            Marca = CurrentMarca,
+            Descripcion = CurrentPrendaDescripcion
+        };
+
+        Desaparecido.PrendasVestir[index] = prendaEditada;
+
+        LimpiarCampos();
+        PrendaEditada = null;
+        UiState = PrendasUiState.Normal;
+    }
+
+    private void LimpiarCampos()
+    {
+        GrupoPerteneciaSelected = null;
+        PerteneciaSelected = null;
+        ColorSelected = null;
+        CurrentMarca = null;
+        CurrentPrendaDescripcion = null;
+    }
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
     {
@@ -464,9 +678,66 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         ImagenSenaParticularSelected = new(new Uri(openFileDialog.FileName));
     }
 
-    [RelayCommand]
-    private async void OnGuardarReporte()
+    public void Validate() => ValidateAllProperties();
+
+    private bool _cancelar = true;
+    private async Task<bool> EnlistarCampos()
     {
+        bool confirmacion = false;
+
+        var properties = EncuadrePreeliminarDictionary.GetEncuadrePreliminarDictionary(this, Reporte, Reportante, Desaparecido);
+        var emptyElements = ListEmptyElements.GetEmptyElements(properties);
+        
+        if (emptyElements.Count > 0)
+        {
+            var dialogo = new ShowDialog();
+
+            // Esperar a que se muestre el ContentDialog
+            await dialogo.ShowContentDialogCommand.ExecuteAsync(emptyElements);
+            
+            if (dialogo.Confirmacion == "Guardar") confirmacion = true;
+            else if (dialogo.Confirmacion == "No guardar") return _cancelar;
+        }
+        else confirmacion = true;
+
+        return confirmacion;
+    }
+    
+    [RelayCommand]
+    private async Task OnGuardarReporte()
+    {
+        if (EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido) == Validaciones.ExistenErrores)
+        {
+            string errores = ListEmptyElements.GetAllValidationMessages(new List<ObservableValidator>
+            { this, Reportante.Persona, Desaparecido.Persona, Reporte.HechosDesaparicion, Reporte });
+            
+            _snackBarService.Show(
+                "Error en los campos",
+                "Por favor, revise los campos obligatorios y corrija los siguientes errores:\n" + errores,
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+        
+        if (EncuadrePreeliminarDictionary.ValidateEncuadre(this, Reporte, Reportante, Desaparecido) == Validaciones.HayInstanciasNulas)
+        {
+            _snackBarService.Show(
+                "Instancias nulas",
+                "Instancias nulas aun no cargadas, por favor espere a que se carguen",
+                ControlAppearance.Danger,
+                new SymbolIcon(SymbolRegular.Warning48),
+                new TimeSpan(0, 0, 10));
+            return;
+        }
+
+        if (!await EnlistarCampos())
+        {
+            if (!_cancelar) return;
+            
+            return;
+        }
+        
         // Añadir registros pendientes
         AddTelefonoMovilReportanteCommand.Execute(null);
         AddTelefonoMovilDesaparecidoCommand.Execute(null);

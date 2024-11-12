@@ -140,6 +140,10 @@
                    <ui:Button Content="Informe de Inicio"
                               Appearance="Primary"
                               Command="{Binding GetInformeInicioCommand}"/>
+                  
+                  <ui:Button Appearance="Primary"
+                                   Content="Generar informe de inicio"
+                                   Command="{Binding FichaDeDatosBusquedaInmediataCommand}"/>
                 </StackPanel>
             </Border>
 
