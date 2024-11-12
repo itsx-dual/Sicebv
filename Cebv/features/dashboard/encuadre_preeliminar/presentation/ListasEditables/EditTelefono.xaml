@@ -14,34 +14,34 @@
              mc:Ignorable="d">
     
     <Grid>
-        <Grid x:Name="Reportante" Visibility="Collapsed">
-            <StackPanel Orientation="Horizontal">
+        <Grid x:Name="Reportante" Visibility="Collapsed" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="Teléfono móvil:" />
-                    <ui:TextBox Text="{Binding NoTelefonoReportante}" Tag="Number" MaxLength="10" />
+                    <ui:TextBox Text="{Binding NoTelefonoReportante, Mode=TwoWay}" Tag="Number" MaxLength="10" />
                 </StackPanel>
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="Observaciones:" />
-                    <ui:TextBox Text="{Binding ObservacionesTelefonoReportante}" />
+                    <ui:TextBox Text="{Binding ObservacionesTelefonoReportante, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </Grid>
     
-        <Grid x:Name="Desaparecido" Visibility="Collapsed">
-            <StackPanel Orientation="Horizontal">
+        <Grid x:Name="Desaparecido" Visibility="Collapsed" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="Teléfono móvil:" />
-                    <ui:TextBox Text="{Binding NoTelefonoDesaparecido}" Tag="Number" MaxLength="10" />
+                    <ui:TextBox Text="{Binding NoTelefonoDesaparecido, Mode=TwoWay}" Tag="Number" MaxLength="10" />
                 </StackPanel>
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="Compañía:" />
                     <ComboBox DisplayMemberPath="Nombre"
-                              SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected}"
+                              SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected, Mode=TwoWay}"
                               ItemsSource="{Binding CompaniasTelefonicas}" />
                 </StackPanel>
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
                     <ui:TextBlock Text="Observaciones:" />
-                    <ui:TextBox Text="{Binding ObservacionesTelefonoDesaparecido}" />
+                    <ui:TextBox Text="{Binding ObservacionesTelefonoDesaparecido, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </Grid>

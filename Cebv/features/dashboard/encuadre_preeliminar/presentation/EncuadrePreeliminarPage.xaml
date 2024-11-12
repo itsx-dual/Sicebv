@@ -177,10 +177,11 @@
                                             Icon="{ui:SymbolIcon Phone24}"
                                             HorizontalAlignment="Stretch">
                                             <ui:CardControl.Header>
-                                                <ui:TextBlock
-                                                    FontTypography="BodyStrong"
-                                                    Text="{Binding Numero}"
-                                                    TextWrapping="WrapWithOverflow" />
+                                                <StackPanel>
+                                                    <ui:TextBlock FontTypography="BodyStrong"
+                                                                  Text="{Binding Numero}"
+                                                                  TextWrapping="WrapWithOverflow" Padding="10"/>
+                                                </StackPanel>
                                             </ui:CardControl.Header>
                                             <StackPanel>
                                                 <ui:TextBlock
@@ -556,7 +557,7 @@
 
                         <StackPanel>
                             <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Exclude" />
+                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Text" />
                         </StackPanel>
                     </StackPanel>
 

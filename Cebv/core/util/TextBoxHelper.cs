@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Cebv.core.util.snackbar;
 using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using TextBox = System.Windows.Controls.TextBox;
 
@@ -13,7 +14,6 @@ namespace Cebv.core.util;
 public class TextBoxHelper
 {
     private static ISnackbarService _snackbarService = App.Current.Services.GetService<ISnackbarService>()!;
-
     /// <summary>
     /// Método auxiliar para verificar si el TextBox está dentro de un DatePicker o un ComboBox.
     /// </summary>
@@ -26,20 +26,19 @@ public class TextBoxHelper
             while (depObj != null)
             {
                 if (depObj is DatePicker) return true;
-
+                
                 depObj = VisualTreeHelper.GetParent(depObj);
             }
         }
-
+        
         while (depObj != null)
         {
             if (depObj is DatePicker) return true;
 
             if (depObj is ComboBox) return true;
-
+            
             depObj = VisualTreeHelper.GetParent(depObj);
         }
-
         return false;
     }
 
@@ -51,6 +50,7 @@ public class TextBoxHelper
     public static void DatePickerSelectedDateChanged(object sender, SelectionChangedEventArgs e)
     {
         DatePicker datePicker = sender as DatePicker;
+        
         // Verificar si el DatePicker tiene el Tag "Exclude"
         if (datePicker?.Tag?.ToString() == "Exclude") return;
 
@@ -59,7 +59,7 @@ public class TextBoxHelper
             datePicker.DisplayDateEnd = DateTime.Now;
             datePicker.SelectedDateChanged -= DatePickerSelectedDateChanged;
 
-            if (datePicker.SelectedDate.HasValue && datePicker.SelectedDate.Value > DateTime.Now)
+            if (datePicker.SelectedDate.HasValue && datePicker.SelectedDate.Value > DateTime.Now) 
                 datePicker.SelectedDate = DateTime.Now;
         }
     }
@@ -70,24 +70,18 @@ public class TextBoxHelper
     /// <param name="sender"></param>
     /// <param name="e"></param>
     public static void UpperCaseText(object sender, TextChangedEventArgs e)
-    {
+    { 
         TextBox textBox = (sender as TextBox)!;
-
+        
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsControl(textBox, true) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" ||
-            textBox.Tag?.ToString() == "UserName" || textBox.Tag?.ToString() == "Login")
-        {
-            return;
-        }
-
+        if (IsControl(textBox, true) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Mail" || 
+            textBox.Tag?.ToString() == "UserName" || textBox.Tag?.ToString() == "Login" || textBox.Tag?.ToString() == "TextNotUpper") return;
+        
         // Convertir el texto a mayúsculas
-        if (textBox != null)
-        {
-            int caretIndex = textBox.CaretIndex;
-            textBox.Text = textBox.Text.ToUpper();
-            textBox.CaretIndex = caretIndex;
-        }
-
+        int caretIndex = textBox.CaretIndex;
+        textBox.Text = textBox.Text.ToUpper();
+        textBox.CaretIndex = caretIndex;
+        
         // Guardar la posición actual del cursor
         int cursorPosition = textBox.SelectionStart;
 
@@ -108,48 +102,42 @@ public class TextBoxHelper
         string pattern;
 
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Login")
-        {
-            return;
-        }
+        if (IsControl(textBox, false )|| textBox.Tag?.ToString() == "Exclude"|| textBox.Tag?.ToString() == "Login") return;
 
         switch (textBox?.Tag?.ToString())
         {
             case "Number":
                 // Patrón para permitir solo números
                 pattern = @"[^0-9]";
-
+          
                 // No permitir números negativos
                 if (textBox.Text.Contains("-") || e.Text == "-")
                 {
                     e.Handled = true;
                     return;
                 }
-
                 break;
             case "Phone":
                 // Patrón para permitir solo números
                 pattern = @"[^0-9]";
-
+          
                 // No permitir números negativos
                 if (textBox.Text.Contains("-") || e.Text == "-")
                 {
                     e.Handled = true;
                     return;
                 }
-
                 break;
             case "CodigoPostal":
                 // Patrón para permitir solo números
                 pattern = @"[^0-9]";
-
+          
                 // No permitir números negativos
                 if (textBox.Text.Contains("-") || e.Text == "-")
                 {
                     e.Handled = true;
                     return;
                 }
-
                 break;
             case "Letter":
                 // Patrón para permitir solo letras
@@ -165,17 +153,14 @@ public class TextBoxHelper
                     {
                         e.Handled = true;
                     }
-
                     return;
                 }
-
                 // No permitir números negativos
                 if (textBox.Text.Contains("-") || e.Text == "-")
                 {
                     e.Handled = true;
                     return;
                 }
-
                 break;
             case "Time":
                 //Solo números y caracteres de tiempo
@@ -203,7 +188,7 @@ public class TextBoxHelper
 
         if (Regex.IsMatch(e.Text.ToUpper(), pattern)) e.Handled = true;
     }
-
+    
     /// <summary>
     /// Evento que se dispara cuando el texto de un TextBox cambia
     /// y permite completar automáticamente el texto según el Tag del TextBox.
@@ -213,13 +198,11 @@ public class TextBoxHelper
     public static void AutoCompleted(object sender, TextChangedEventArgs e)
     {
         TextBox textBox = (sender as TextBox)!;
-
+        
         // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
-        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Login")
-        {
-            return;
-        }
-
+        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude"|| textBox.Tag?.ToString() == "Login") return;
+        
+        
         if (textBox.Tag?.ToString() == "Date")
         {
             if ((textBox.Text.Length == 2 || textBox.Text.Length == 5) && !textBox.Text.EndsWith("/"))
@@ -227,8 +210,7 @@ public class TextBoxHelper
                 textBox.Text += "/";
                 textBox.CaretIndex = textBox.Text.Length;
             }
-        }
-        else if (textBox?.Tag?.ToString() == "Time")
+        }else if (textBox?.Tag?.ToString() == "Time")
         {
             if (textBox.Text.Length == 2 && !textBox.Text.EndsWith(":"))
             {
@@ -242,11 +224,7 @@ public class TextBoxHelper
     {
         TextBox textBox = (sender as TextBox)!;
 
-        // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker o ComboBox
-        if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Login") return;
-
-
-        if (textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "Exclude")
+        if (textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "TextNotUpper")
         {
             string inputText = textBox.Text.ToLower();
 
@@ -254,16 +232,16 @@ public class TextBoxHelper
             string[] words = inputText.Split(' ');
             foreach (var word in words)
             {
-                if (word.Length < 1 || word.Length > 7)
+                if (word.Length > 7)
                 {
                     _snackbarService.Show(
                         "Texto inusual",
                         $"La palabra \"{word}\" parece ser inusual por su longitud.",
-                        ControlAppearance.Caution,
+                        ControlAppearance.Primary,
                         new SymbolIcon(SymbolRegular.Warning20),
-                        new TimeSpan(0, 0, 5));
-
-                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                        new TimeSpan(0, 0, 6));
+                    
+                    textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
                     return;
                 }
             }
@@ -277,15 +255,15 @@ public class TextBoxHelper
                     _snackbarService.Show(
                         "Texto incoherente",
                         $"La palabra \"{word}\" tiene letras repetidas de forma inusual.",
-                        ControlAppearance.Caution,
+                        ControlAppearance.Primary,
                         new SymbolIcon(SymbolRegular.Warning20),
                         new TimeSpan(0, 0, 5));
 
-                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
                     return;
                 }
             }
-
+            
             // Criterio 3: Validar letras consecutivas repetidas
             foreach (var word in words)
             {
@@ -294,19 +272,19 @@ public class TextBoxHelper
                     _snackbarService.Show(
                         "Texto incoherente",
                         $"La palabra \"{word}\" tiene letras consecutivas repetidas de forma inusual.",
-                        ControlAppearance.Caution,
+                        ControlAppearance.Primary,
                         new SymbolIcon(SymbolRegular.Warning20),
                         new TimeSpan(0, 0, 5));
 
-                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+                    textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
                     return;
                 }
             }
-
+        
             textBox.ClearValue(Border.BorderBrushProperty);
         }
     }
-
+     
     private static bool HasConsecutiveRepeatedLetters(string word, int maxConsecutive)
     {
         int consecutiveCount = 1;
@@ -316,15 +294,13 @@ public class TextBoxHelper
             if (word[i] == word[i - 1])
             {
                 consecutiveCount++;
-                if (consecutiveCount >= maxConsecutive)
-                    return true;
+                if (consecutiveCount >= maxConsecutive) return true;
             }
             else consecutiveCount = 1;
         }
-
         return false;
     }
-
+    
     /// <summary>
     /// Evento que se dispara cuando un TextBox pierde el foco,
     /// elimina los espacios finales e iniciales y
@@ -334,21 +310,18 @@ public class TextBoxHelper
     /// <param name="e"></param>
     public static void ValidText(object sender, RoutedEventArgs e)
     {
-        int _contadorerrores=0;
+        int contadorerrores=0;
         string error = String.Empty;
         List<string> errores = new List<string>();
-
+        
         TextBox textBox = (sender as TextBox)!;
 
         if (textBox.Text != "")
         {
             // Verificar si el TextBox tiene el Tag "Exclude" o si está dentro de un DatePicker
 
-            if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude" || textBox.Tag?.ToString() == "Upper"
-                || textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "Login")
-            {
-                return;
-            }
+            if (IsControl(textBox, false) || textBox.Tag?.ToString() == "Exclude"||textBox.Tag?.ToString() == "Upper"
+                || textBox.Tag?.ToString() == "Text" || textBox.Tag?.ToString() == "Login") return;
 
             if (textBox.Tag?.ToString() == "Time")
             {
@@ -357,28 +330,22 @@ public class TextBoxHelper
                     error = "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    contadorerrores++;
                 }
-                else
-                {
-                    //Resetea el borde al que esta por defecto por wpf UI
-                    textBox.ClearValue(Border.BorderBrushProperty);
-                }
+                else textBox.ClearValue(Border.BorderBrushProperty); //Resetea el borde al que esta por defecto por wpf UI
             }
 
             if (textBox?.Tag?.ToString() == "Date")
             {
                 if (!Regex.IsMatch(textBox.Text, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$"))
                 {
+
                     error = "Por favor ingrese formato valido: \"DD/MM/AAAA\" \nEjemplo: \"31/12/2021\"";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    contadorerrores++;
                 }
-                else
-                {
-                    textBox.ClearValue(Border.BorderBrushProperty);
-                }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "Mail")
@@ -388,12 +355,9 @@ public class TextBoxHelper
                     error = "Por favor ingrese un correo electrónico valido.";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    contadorerrores++;
                 }
-                else
-                {
-                    textBox.ClearValue(Border.BorderBrushProperty);
-                }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "Phone")
@@ -403,12 +367,9 @@ public class TextBoxHelper
                     error = "El numero de telefono tiene errores.";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    contadorerrores++;
                 }
-                else
-                {
-                    textBox.ClearValue(Border.BorderBrushProperty);
-                }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "CURP")
@@ -418,12 +379,9 @@ public class TextBoxHelper
                     error = "El CURP no tiene el formato correcto";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    contadorerrores++;
                 }
-                else
-                {
-                    textBox.ClearValue(Border.BorderBrushProperty);
-                }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
 
             if (textBox?.Tag?.ToString() == "CodigoPostal")
@@ -433,90 +391,106 @@ public class TextBoxHelper
                     error = "El Código Postal no tiene el formato correcto";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    _contadorerrores++;
+                    contadorerrores++;
                 }
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
-
-            if (textBox?.Tag?.ToString() == "UserName")
+            
+            if (textBox?.Tag?.ToString() == "UserName") 
             {
-                if (!Regex.IsMatch(textBox.Text, @"^[a-zA-Z0-9@\-_. ]{3,}$") || textBox.Text.Length < 3 ||
-                    textBox.Text.Length > 30)
+                if (!Regex.IsMatch(textBox.Text, @"^[a-zA-Z0-9@\-_. ]{3,}$") || textBox.Text.Length < 3 || textBox.Text.Length > 30)
                 {
                     textBox.ClearValue(Border.BorderBrushProperty);
                     error = "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, " +
                             "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.";
                     errores.Add(error);
                     textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    _contadorerrores++;
+                    contadorerrores++;
                 }
-                //Cambie las tag de telefono de number a phone, se requiere reasignar tags mas especificas a cada caso
+                else textBox.ClearValue(Border.BorderBrushProperty);
             }
-
-            if (textBox?.Tag?.ToString() == "UserName")
-            {
-                if (!Regex.IsMatch(textBox.Text, @"^[a-zA-Z0-9@\-_. ]{3,}$") || textBox.Text.Length < 3 ||
-                    textBox.Text.Length > 30)
-                {
-                    error = "El nombre de usuario debe tener entre 3 y 30 caracteres, y solo puede incluir letras, " +
-                            "números, guiones bajos, y puntos. No puede comenzar ni terminar con un punto o guion bajo.";
-                    errores.Add(error);
-                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
-                }
-            }
-
-            if (textBox?.Tag?.ToString() == "Name" || textBox?.Tag?.ToString() == "Letter")
-            {
+          
+            if (textBox?.Tag?.ToString() == "Name") 
+            { 
                 string inputText = textBox.Text.ToLower();
-
+                
                 // Criterio 1: Validar longitud de cada nombre (parte del nombre)
                 string[] names = inputText.Split(new char[] { ' ', '-', '\'' }, StringSplitOptions.RemoveEmptyEntries);
-
+                
                 foreach (var name in names)
                 {
                     if (name.Length < 2 || name.Length > 20)
                     {
-                        error = $"El nombre \"{name}\" parece inválido por su longitud.";
-                        errores.Add(error);
-                        //Se mantiene el enfoque original para que no recorra todoel foreach
-                        textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                        contadorErrores++;
-                        //cambie return por break
-                        break;
-                    }
+                        _snackbarService.Show(
+                            "Nombre inusual",
+                            $"El nombre \"{name}\" parece inusual por su longitud.",
+                            ControlAppearance.Primary,
+                            new SymbolIcon(SymbolRegular.Warning20),
+                            new TimeSpan(0, 0, 6));
+                        
+                        textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
+                        return;
+                    } 
+                    textBox.ClearValue(Border.BorderBrushProperty); 
                 }
-
+                
                 // Criterio 2: Validar frecuencia de letras repetidas en un nombre
                 foreach (var name in names)
                 {
                     var letterGroups = name.GroupBy(c => c).Where(g => g.Count() > 4);
                     if (letterGroups.Any())
                     {
-                        error = $"El nombre \"{name}\" tiene letras repetidas de forma inusual.";
-                        errores.Add(error);
-                        textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                        contadorErrores++;
-                        //cambie return por break
-                        break;
-                    }
+                        _snackbarService.Show(
+                            "Nombre inusual",
+                            $"El nombre \"{name}\" tiene letras repetidas de forma inusual.",
+                            ControlAppearance.Primary,
+                            new SymbolIcon(SymbolRegular.Warning20),
+                            new TimeSpan(0, 0, 6));
+                        
+                        textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
+                        return;
+                    } 
+                    textBox.ClearValue(Border.BorderBrushProperty); 
                 }
-
+                
+                // Criterio 3: Validar letras consecutivas repetidas
+                foreach (var name in names)
+                {
+                    if (HasConsecutiveRepeatedLetters(name, 3))
+                    {
+                        _snackbarService.Show(
+                            "Nombre inusual",
+                            $"El nombre \"{name}\" tiene letras consecutivas repetidas de forma inusual.",
+                            ControlAppearance.Primary,
+                            new SymbolIcon(SymbolRegular.Warning20),
+                            new TimeSpan(0, 0, 6));
+                        
+                        textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
+                        return;
+                    } 
+                    textBox.ClearValue(Border.BorderBrushProperty); 
+                }
+                
                 if (!Regex.IsMatch(inputText, @"^[a-zA-ZñÑ]+$"))
                 {
-                    error = "El nombre contiene caracteres no permitidos.";
-                    errores.Add(error);
-                    textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
-                    contadorErrores++;
+                    _snackbarService.Show(
+                        "Formato no valido",
+                        "El nombre contiene caracteres no permitidos.",
+                        ControlAppearance.Primary,
+                        new SymbolIcon(SymbolRegular.Warning20),
+                        new TimeSpan(0, 0, 6));
+                    
+                    textBox.BorderBrush = new SolidColorBrush(ApplicationAccentColorManager.PrimaryAccent);
                 }
-            }
-
+                else textBox.ClearValue(Border.BorderBrushProperty); 
+            } 
             string trimmedText = textBox.Text.Trim();
 
             // Reemplazar múltiples espacios consecutivos con un solo espacio
             string singleSpaceText = Regex.Replace(trimmedText, @"\s+", " ");
             textBox.Text = singleSpaceText; 
             
-            if (_contadorerrores > 0) 
+            if (contadorerrores > 0) 
             {
                 string mensaje = errores.Aggregate(string.Empty, (current, s) => current + (s + Environment.NewLine));
 
@@ -530,7 +504,6 @@ public class TextBoxHelper
                 e.Handled = true;
                 textBox.BorderBrush = new SolidColorBrush(Colors.Orange);
             }
-        }
-        else textBox.ClearValue(Border.BorderBrushProperty);
+        }else textBox.ClearValue(Border.BorderBrushProperty);
     }
 }
