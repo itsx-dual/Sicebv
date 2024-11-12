@@ -132,6 +132,17 @@
                     </WrapPanel>
                 </StackPanel>
             </Border>
+            
+            <ui:TextBlock Text="Generación de expedientes" FontTypography="Title" Margin="10" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel Margin="5">
+                    <WrapPanel>
+                        <ui:Button Appearance="Primary"
+                                   Content="Generar informe de inicio"
+                                   Command="{Binding FichaDeDatosBusquedaInmediataCommand}"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <ui:TextBlock Text="Situación del expediente" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
