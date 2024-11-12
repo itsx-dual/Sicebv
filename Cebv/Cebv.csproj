@@ -103,11 +103,12 @@
       <None Remove="core\resources\images\senasv4\LadoV4.png" />
       <Resource Include="core\resources\images\senasv4\LadoV4.png" />
       <None Remove="core\resources\images\senasv4\MascaraV4.png" />
-      <Resource Include="core\resources\images\senasv4\MascaraV4.png" />
       <None Remove="core\resources\images\senasv4\RegionV4.png" />
       <Resource Include="core\resources\images\senasv4\RegionV4.png" />
       <None Remove="core\resources\images\senasv4\VistaV4.png" />
       <Resource Include="core\resources\images\senasv4\VistaV4.png" />
+      <None Remove="core\resources\images\senasv4\MascaraV4.jpg" />
+      <Resource Include="core\resources\images\senasv4\MascaraV4.jpg" />
     </ItemGroup>
 
     <ItemGroup>

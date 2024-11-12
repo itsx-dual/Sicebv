@@ -51,7 +51,7 @@
                           BorderBrush="Black"
                           Stretch="Uniform" />
                           
-                <ui:Image Source="/core/resources/images/senasv4/MascaraV4.png"
+                <ui:Image Source="/core/resources/images/senasv4/MascaraV4.jpg"
                           x:Name="Mascara"
                           MouseDown="Image_MouseDown"
                           CornerRadius="10"
@@ -151,7 +151,7 @@
 
                 <ui:CardExpander Grid.Row="1"
                                  Grid.Column="0"
-                                 Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
+                                 Icon="{ui:SymbolIcon Accessibility24}"
                                  Margin="10,0,10,0"
                                  IsExpanded="True">
                     <ui:CardExpander.Header>
