@@ -759,7 +759,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="1" Margin="10">
+                    <StackPanel Grid.Row="0" Margin="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.2*" />
@@ -773,33 +773,37 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0"
+                            <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                            <ui:Image Source="/core/resources/images/senasv3/VistaV3.png"
+                                      x:Name="Vista"
+                                      CornerRadius="10"
+                                      Stretch="Uniform" />
+                
+                            <ui:Image Source="/core/resources/images/senasv3/LadoV3.png"
+                                      x:Name="Lado"
+                                      CornerRadius="10"
+                                      Stretch="Uniform" />
+                
+                            <ui:Image Source="/core/resources/images/senasv3/RegionV3.png"
+                                      x:Name="Region"
+                                      CornerRadius="10"
+                                      BorderBrush="Black"
+                                      Stretch="Uniform" />
+                          
+                            <ui:Image Source="/core/resources/images/senasv3/MascaraV3-100.jpg"
+                                      x:Name="Mascara"
+                                      MouseDown="Image_MouseDown"
+                                      CornerRadius="10"
+                                      BorderBrush="Black"
+                                      Stretch="Uniform" />
+                        </Grid>
+
+                            <Grid Grid.Row="1"
                                   Grid.Column="0"
-                                  Margin="10"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  MaxWidth="500">
-
-                                <ui:Image Source="/core/resources/images/senas/Cuerpo MapingSide.png"
-                                          x:Name="LadoImage"
-                                          CornerRadius="8"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/senas/RegionCuerpoColorMejorado.png"
-                                          x:Name="RegionCuerpoImage"
-                                          CornerRadius="8"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/senas/CuerpoUNIXMejorado.png"
-                                          CornerRadius="8"
-                                          MouseDown="Image_MouseDown"
-                                          BorderBrush="#000000"
-                                          Stretch="Uniform" />
-                            </Grid>
-
-                            <Grid Grid.Row="0"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan="2">
+                                  Grid.ColumnSpan="3">
                                 <StackPanel>
                                     <!-- Tipo de seña -->
                                     <Grid>
@@ -881,7 +885,7 @@
                                 </StackPanel>
                             </Grid>
 
-                            <ui:CardExpander Grid.Row="1"
+                            <ui:CardExpander Grid.Row="2"
                                              Grid.Column="0"
                                              Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
                                              Margin="10,0,10,0"
@@ -1053,7 +1057,7 @@
                                         Content="Añadir"
                                         Margin="10"
                                         HorizontalAlignment="Right"
-                                        Command="{Binding AddPrendaDeVestirCommand}"
+                            Command="{Binding AddPrendaCommand}"
                                         Icon="{ui:SymbolIcon Add24}"
                                         Appearance="Success" />
                                 </StackPanel>
@@ -1125,15 +1129,14 @@
                                                            Icon="{ui:SymbolIcon Edit24}"
                                                            MinWidth="50"
                                                            Margin="5"
-
+                                                           Command="{Binding DataContext.ModoEdicionCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                            CommandParameter="{Binding}" />
-
                                                 <ui:Button VerticalAlignment="Stretch"
                                                            Appearance="Danger"
                                                            Icon="{ui:SymbolIcon Delete24}"
                                                            MinWidth="50"
                                                            Margin="5"
-                                                           Command="{Binding ElementName=Page, Path=DataContext.RemovePrendaDeVestirCommand}"
+                                                           Command="{Binding DataContext.RemovePrendaCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
                                                            CommandParameter="{Binding}" />
                                             </StackPanel>
                                         </Grid>

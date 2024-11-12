@@ -16,7 +16,9 @@ using Cebv.core.util.snackbar;
 using Cebv.features.dashboard.encuadre_preeliminar.Data;
 using Cebv.features.dashboard.encuadre_preeliminar.presentation.ListasEditables;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
+using Cebv.features.formulario_cebv.prendas.data;
 using Cebv.features.formulario_cebv.prendas.domain;
+using Cebv.features.formulario_cebv.prendas.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,6 +67,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia = new();
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
+    
 
     // Valores seleccionados
     [ObservableProperty] 
@@ -86,6 +89,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private CatalogoColor? _ladoSelected;
     [ObservableProperty] private string? _colorRegionCuerpo;
     [ObservableProperty] private string? _colorLado;
+    [ObservableProperty] private string? _colorVista;
     [ObservableProperty] private int _cantidad = 1;
     [ObservableProperty] private string? _descripcion;
 
@@ -128,7 +132,14 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage? _imagenBoletin;
     [ObservableProperty] private bool _noHayCurp;
-    
+    [ObservableProperty] private PrendaVestir? _prendaEditada;
+    [ObservableProperty] private bool _modoEdicion;
+    [ObservableProperty] private string? _marca;
+    [ObservableProperty] private Pertenencia? _pertenencia;
+    [ObservableProperty] private Catalogo? _color;
+    [ObservableProperty] private Catalogo? _grupoPertenencia = new();
+    [ObservableProperty] private PrendasUiState _uiState;
+
     public EncuadrePreeliminarViewModel()
     {
         InitAsync();
@@ -506,7 +517,130 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         var senaParticular = sena as SenaParticular;
         if (senaParticular != null) Desaparecido.Persona.SenasParticulares.Remove(senaParticular);
     }
+    [RelayCommand]
+    private void AddPrenda()
+    {
+        if (GrupoPerteneciaSelected is null ||
+            PerteneciaSelected is null ||
+            ColorSelected is null ||
+            CurrentPrendaDescripcion is null)
+            return;
 
+        Desaparecido.PrendasVestir.Add(new PrendaVestir
+        {
+            Pertenencia = PerteneciaSelected,
+            Color = ColorSelected!,
+            Marca = CurrentMarca,
+            Descripcion = CurrentPrendaDescripcion
+        });
+
+        LimpiarCampos();
+    }
+    [RelayCommand]
+
+    private void EditPrenda(PrendaVestir prenda)
+    {
+        var index = Desaparecido.PrendasVestir.IndexOf(prenda);
+
+        if (index == -1) return;
+
+        var prendaEdicionViewModel = new PrendaEdicionViewModel(prenda, index);
+
+        // Suscribirse al evento de guardado
+        prendaEdicionViewModel.PrendaGuardada += OnPrendaGuardada;
+
+        // Abrir la ventana de edición de la prenda
+        var dialog = new PrendaEdicion { DataContext = prendaEdicionViewModel };
+
+        // Configurar la acción de cierre para la ventana de edición
+        if (dialog.DataContext is PrendaEdicionViewModel vm)
+        {
+            vm.CloseAction = () => dialog.Close();
+        }
+
+        dialog.ShowDialog();
+    }
+    private void OnPrendaGuardada(object? sender, PrendaVestir prenda)
+    {
+        if (sender is not PrendaEdicionViewModel vm) return;
+
+        Desaparecido.PrendasVestir[vm.Index] = prenda;
+    }
+    [RelayCommand]
+    private void RemovePrenda(PrendaVestir prenda) => Desaparecido.PrendasVestir.Remove(prenda);
+
+
+    /**
+     * Test de UI dinamica según el estado de la UI
+     */
+
+    partial void OnUiStateChanged(PrendasUiState value) => ModoEdicion = CambiarModo();
+
+
+    private bool CambiarModo()
+    {
+        var modo = UiState switch
+        {
+            PrendasUiState.Normal => false,
+            _ => true,
+        };
+
+        return modo;
+    }
+
+    [RelayCommand]
+    private void OnModoEdicion(PrendaVestir prenda)
+    {
+        UiState = PrendasUiState.Editar;
+
+        PrendaEditada = prenda;
+
+        PerteneciaSelected = prenda.Pertenencia;
+        ColorSelected = prenda.Color;
+        CurrentMarca = prenda.Marca;
+        CurrentPrendaDescripcion = prenda.Descripcion!;
+    }
+
+    [RelayCommand]
+    private void OnCancelarEdicion()
+    {
+        LimpiarCampos();
+        PrendaEditada = null;
+        UiState = PrendasUiState.Normal;
+    }
+
+    [RelayCommand]
+    private void OnConfirmarEdicion()
+    {
+        if (PrendaEditada is null) return;
+
+        var index = Desaparecido.PrendasVestir.IndexOf(PrendaEditada);
+        
+        if (index == -1) return;
+
+        var prendaEditada = new PrendaVestir
+        {
+            Pertenencia = PerteneciaSelected,
+            Color = ColorSelected,
+            Marca = CurrentMarca,
+            Descripcion = CurrentPrendaDescripcion
+        };
+
+        Desaparecido.PrendasVestir[index] = prendaEditada;
+
+        LimpiarCampos();
+        PrendaEditada = null;
+        UiState = PrendasUiState.Normal;
+    }
+
+    private void LimpiarCampos()
+    {
+        GrupoPerteneciaSelected = null;
+        PerteneciaSelected = null;
+        ColorSelected = null;
+        CurrentMarca = null;
+        CurrentPrendaDescripcion = null;
+    }
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
     {
