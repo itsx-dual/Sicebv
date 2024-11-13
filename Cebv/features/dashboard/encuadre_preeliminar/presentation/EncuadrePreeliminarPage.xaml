@@ -566,28 +566,28 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" Tag="Exclude"/>
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" Tag="Upper"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° EXTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
-                                            MaxLength="10" Tag="Exclude" />
+                                            MaxLength="10" Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° INTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
-                                            Tag="Exclude"/>
+                                            Tag="Number"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}"
-                                            Tag="Exclude"/>
+                                            Tag="Upper"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -638,26 +638,26 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}"
-                                            Tag="Exclude"/>
+                                            Tag="Upper"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}"
-                                            Tag="Exclude"/>
+                                            Tag="Upper"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}"
-                                            Tag="Exclude"/>
+                                            Tag="Upper"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}"
-                                        Tag="Exclude"/>
+                                        Tag="Upper"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -1017,7 +1017,7 @@
                                     <StackPanel Margin="0 0 0 15">
                                         <ui:TextBlock Text="Marca:" />
                                         <ui:TextBox Text="{Binding CurrentMarca}"
-                                                    Tag="Exclude"/>
+                                                    Tag="Upper"/>
                                     </StackPanel>
 
                                     <StackPanel>

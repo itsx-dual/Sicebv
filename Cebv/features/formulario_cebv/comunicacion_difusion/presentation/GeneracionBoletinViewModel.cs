@@ -111,9 +111,11 @@ public partial class GeneracionBoletinViewModel : ObservableObject
 
     [RelayCommand]
     private void OnDeleteDesaparecidoImagen(BitmapImage image)
-    { 
-        ImagenesDesaparecido.Remove(image);   
+    {
+        ImagenesDesaparecido.Remove(image);
+        if (ImagenesDesaparecido.Count() != 0) ImagenBoletin = ImagenesDesaparecido.First();
     }
+
 
     [RelayCommand]
     private void OnGenerarBoletin()
@@ -129,10 +131,9 @@ public partial class GeneracionBoletinViewModel : ObservableObject
     [RelayCommand]
     private async Task OnGuardarYSiguiente(Type pageType)
     {
-        if (ImagenesDesaparecido.Count > 0)
-        {
+        
             await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, ImagenesDesaparecido.ToList(), ImagenBoletin);
-        }
+        
         await _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
