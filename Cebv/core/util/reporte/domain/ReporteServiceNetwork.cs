@@ -9,13 +9,18 @@ using System.Windows.Media.Imaging;
 using Cebv.core.domain;
 using Cebv.core.domain.paginated_resource;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Wpf.Ui.Controls;
 
 namespace Cebv.core.util.reporte.domain;
 
 public abstract class ReporteServiceNetwork
 {
+    private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
+
     private static ObservableCollection<string> _fotosDesaparecido = new();
     private static HttpClient Client => CebvClientHandler.SharedClient;
 
@@ -66,6 +71,16 @@ public abstract class ReporteServiceNetwork
     public static async Task SubirFotosDesaparecido(int desaparecidoId, List<BitmapImage> imagenes,
         BitmapImage? imagenBoletin)
     {
+        if (imagenBoletin == null)
+        {
+            _snackBarService.Show(
+                "Advertencia",
+                "No se ha seleccionado una imagen para el boletín.",
+                ControlAppearance.Primary,
+                new SymbolIcon(SymbolRegular.Warning20),
+                new TimeSpan(0, 0, 5));
+
+        }
         var form = new MultipartFormDataContent();
         var count = 0;
         //Esto borra los archivos por lo que permite borrar archivos desde el gui y evita duplicados
@@ -79,6 +94,7 @@ public abstract class ReporteServiceNetwork
         {
                 var content = new StreamContent(ImageUtils.BitmapImageToStream(imagen));
                 var filename = $"Foto_Desaparecido_{count + 1}.jpg";
+                
               if (EsBoletin(imagen,imagenBoletin))
               {
                   form.Add(content, "boletin", filename);

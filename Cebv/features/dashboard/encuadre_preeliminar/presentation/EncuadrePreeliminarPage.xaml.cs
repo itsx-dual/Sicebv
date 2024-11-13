@@ -97,7 +97,8 @@ public partial class EncuadrePreeliminarPage : Page
     {
         if (sender is not ListView listview) return;
         if (listview.DataContext is not EncuadrePreeliminarViewModel dataContext) return;
-        if (!listview.Items.Cast<dynamic>().Any()) return;
+        var elements = listview.Items.Cast<dynamic>();
+        if (!elements.Any()) return;
 
         if (e.Key == Key.Delete)
         {
