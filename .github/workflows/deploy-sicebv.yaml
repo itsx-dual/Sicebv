@@ -10,6 +10,7 @@ on:
       - "sicebv/v*"
 env:
   PROJECT_PATH: Cebv/Cebv.csproj
+  PUBLISH_PATH: Cebv/bin/Release/net8.0-windows/win-x64/publish/*.exe
 
 jobs:
   deploy:
@@ -21,9 +22,7 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet clean ${{ env.PROJECT_PATH }}
-
-      - run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
+      - run: dotnet restore ${{ env.PROJECT_PATH }}
 
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
 
@@ -40,5 +39,5 @@ jobs:
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: Cebv/bin/Release/net8.0-windows/win-x64/publish/*.exe
+          pattern: ${{ env.PUBLISH_PATH }}
           release-url: ${{ steps.create_release.outputs.upload_url }}
