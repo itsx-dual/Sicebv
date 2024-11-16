@@ -1,7 +1,7 @@
 # This is a basic workflow to help us to deploy the Sicebv project
 # This workflow will build a .NET project targeting Windows x64
 # and create a release in the repository with the generated executable
-#
+# Comentario para poder hacer un commit
 # For more information see: https://docs.github.com/es/actions/writing-workflows/quickstart
 name: "Deploy Sicebv"
 
@@ -39,14 +39,14 @@ jobs:
       - uses: actions/create-release@v1
         id: create_release
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
 
       - uses: csexton/release-asset-action@v2
         with:
-          github-token: ${{ secrets.WORKFLOW_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pattern: ${{ env.PUBLISH_PATH }}
           release-url: ${{ steps.create_release.outputs.upload_url }}
 
