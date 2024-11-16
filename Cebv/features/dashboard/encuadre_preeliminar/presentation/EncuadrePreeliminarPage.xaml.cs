@@ -5,6 +5,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Cebv.core.util.reporte.viewmodels;
+using Cebv.core.util.snackbar;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 using Image = Wpf.Ui.Controls.Image;
 using ListView = Wpf.Ui.Controls.ListView;
 
@@ -12,6 +16,8 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
 public partial class EncuadrePreeliminarPage : Page
 {
+    private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
+    
     public EncuadrePreeliminarPage()
     {
         InitializeComponent();
@@ -65,13 +71,20 @@ public partial class EncuadrePreeliminarPage : Page
         if (sender is not ComboBox comboBox) return;
         var items = comboBox.Items.Cast<dynamic>(); 
         if (!items.Any()) return;
+        comboBox.ClearValue(Border.BorderBrushProperty);
         
         var esValido = items.Any(x => x.ToString() == comboBox.Text);
 
-        if (esValido) comboBox.SelectedItem = items.First(x => x.ToString() == comboBox.Text);
-        else comboBox.SelectedItem = items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase)) ??
-                                     items.FirstOrDefault(x => x.ToString().Contains("no especifica", StringComparison.OrdinalIgnoreCase)) ??
-                                     items.First();
+        comboBox.SelectedItem = esValido ? items.First(x => x.ToString() == comboBox.Text) :
+                                items.FirstOrDefault(x => x.ToString().Contains(comboBox.Text, StringComparison.OrdinalIgnoreCase));
+
+        if (comboBox.SelectedItem is not null) return;
+        comboBox.BorderBrush = new SolidColorBrush(Colors.Orange);
+        _snackBarService.Show("No se ha encontrado el valor.", 
+                              $"El valor \"{comboBox.Text}\" no se encuentra en la lista de valores posibles.",
+                              ControlAppearance.Caution,
+                              new SymbolIcon(SymbolRegular.Warning28),
+                              new TimeSpan(0,0,10));
     }
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -84,7 +97,8 @@ public partial class EncuadrePreeliminarPage : Page
     {
         if (sender is not ListView listview) return;
         if (listview.DataContext is not EncuadrePreeliminarViewModel dataContext) return;
-        if (!listview.Items.Cast<dynamic>().Any()) return;
+        var elements = listview.Items.Cast<dynamic>();
+        if (!elements.Any()) return;
 
         if (e.Key == Key.Delete)
         {
