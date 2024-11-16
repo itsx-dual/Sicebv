@@ -19,7 +19,7 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<ReporteCompactResource> _reportes = new();
     [ObservableProperty] private int _totalPaginas;
     [ObservableProperty] private int _paginaActual = 1;
-    [ObservableProperty] private ReporteCompactResource _reporteSelected;
+    [ObservableProperty] private ReporteCompactResource _reporteSelected = new();
 
     public ReportesDesaparicionViewModel()
     {
@@ -50,9 +50,9 @@ public partial class ReportesDesaparicionViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnReporteClick()
+    private async Task OnReporteClick()
     {
-        if (ReporteSelected == null) return;
+        if (ReporteSelected.Id <= 0) return;
         await _reporteService.Reload(ReporteSelected.Id);
         _reporteService.SetStatusReporte(EstadoReporte.Cargado);
         _dashboardNavigationService.Navigate(typeof(FormularioCebvPage));

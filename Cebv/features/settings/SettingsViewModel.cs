@@ -14,8 +14,8 @@ public partial class SettingsViewModel : ObservableObject
     
     [ObservableProperty] private ApplicationTheme _appTheme = ApplicationThemeManager.GetAppTheme();
     
-    partial void OnAppThemeChanged(ApplicationTheme theme)
+    partial void OnAppThemeChanged(ApplicationTheme value)
     {
-        ApplicationThemeManager.Apply(theme);
+        ApplicationThemeManager.Apply(value);
     }
 }

@@ -11,7 +11,6 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
-using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.login.data;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -128,7 +127,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnFichaDeDatosBusquedaInmediata()
+    private void OnFichaDeDatosBusquedaInmediata()
     {
         if (Desaparecido.Id is null or < 1) return;
         var webview =
@@ -169,7 +168,7 @@ public partial class FolioExpedienteViewModel : ObservableObject
             return;
         }
         
-        _reporteService.Sync();
+        await _reporteService.Sync();
         _navigationService.Navigate(pageType);
     }
 }

@@ -25,6 +25,11 @@ public partial class CatalogoColor : ObservableObject
         return Equals((CatalogoColor) obj);
     }
 
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, Nombre, Color);
+    }
+
     private bool Equals(CatalogoColor catalogo)
     {
         return Id == catalogo.Id &&
