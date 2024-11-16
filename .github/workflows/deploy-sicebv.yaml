@@ -13,9 +13,14 @@ env:
   PROJECT_PATH: Cebv/Cebv.csproj
   PUBLISH_PATH: Cebv/bin/Release/net8.0-windows/win-x64/publish/*.exe
 
+
 jobs:
   deploy:
     runs-on: windows-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     steps:
       - uses: actions/checkout@v2
 
