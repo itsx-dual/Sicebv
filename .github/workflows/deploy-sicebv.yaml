@@ -22,7 +22,9 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet restore ${{ env.PROJECT_PATH }}
+      - run: dotnet clean ${{ env.PROJECT_PATH }}
+
+      - run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
 
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
 
@@ -41,3 +43,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pattern: ${{ env.PUBLISH_PATH }}
           release-url: ${{ steps.create_release.outputs.upload_url }}
+
