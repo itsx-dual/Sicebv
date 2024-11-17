@@ -53,4 +53,4 @@ jobs:
         with:
           file: ${{ env.PUBLISH_PATH }}Cebv.exe
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: false
+          release-url: ${{ steps.create_release.outputs.upload_url }}
