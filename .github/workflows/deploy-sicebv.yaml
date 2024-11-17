@@ -14,36 +14,44 @@ permissions:
 
 env:
   PROJECT_PATH: Cebv/Cebv.csproj
-  PUBLISH_PATH: Cebv/bin/Release/net8.0-windows/win-x64/publish/*.exe
+  PUBLISH_PATH: publish_output/*.exe
 
 jobs:
   deploy:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-dotnet@v1
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0.404
+          dotnet-version: '8.0.x'
 
-      - run: dotnet clean ${{ env.PROJECT_PATH }}
+      - name: Cache NuGet packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.sln') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
-      - run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
+      - name: Publish Application
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true -o publish_output
 
-      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release
-
-      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
-
-      - uses: actions/create-release@v1
+      - name: Create GitHub Release
         id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/create-release@v1
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
+          generate_release_notes: true
 
-      - uses: csexton/release-asset-action@v2
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: ${{ env.PUBLISH_PATH }}
-          release-url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.PUBLISH_PATH }}
+          asset_name: Sicebv.exe
+          asset_content_type: application/octet-stream
