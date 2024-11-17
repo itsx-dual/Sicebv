@@ -48,9 +48,6 @@ jobs:
           title: ${{ github.ref_name }}
           tag: ${{ github.ref_name }}
 
-      - name: Build
-        run: make
-
       - name: Upload Assets to Release with a wildcard
         uses: csexton/release-asset-action@v3
         with:
