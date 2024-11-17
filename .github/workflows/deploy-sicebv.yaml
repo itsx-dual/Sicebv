@@ -14,7 +14,7 @@ permissions:
 
 env:
   PROJECT_PATH: Cebv/Cebv.csproj
-  PUBLISH_PATH: publish_output/Sicebv.exe
+  PUBLISH_PATH: Cebv\bin\Release\net8.0-windows\win-x64\publish\*.exe
 
 jobs:
   deploy:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Publish Application
         run: |
-          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true -o publish_output
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true 
 
       - name: Create GitHub Release
         id: create_release
@@ -54,5 +54,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ env.PUBLISH_PATH }}
-          asset_name: Sicebv.exe
+          asset_name: Cebv.exe
           asset_content_type: application/octet-stream
