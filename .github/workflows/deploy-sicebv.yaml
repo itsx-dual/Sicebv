@@ -38,13 +38,14 @@ jobs:
       - name: Publish Application
         run: |
           dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true 
-
-      - name: Create GitHub Release
+      
+      - name: Create a Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: elgohr/Github-Release-Action@v5
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
+          title: ${{ github.ref_name}}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
