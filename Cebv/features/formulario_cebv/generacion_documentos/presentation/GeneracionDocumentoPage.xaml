@@ -1,0 +1,56 @@
+<Page x:Class="Cebv.features.formulario_cebv.generacion_documentos.presentation.GeneracionDocumentoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.generacion_documentos.presentation"
+      mc:Ignorable="d"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="Auto"
+      d:DesignHeight="1000">
+
+    <Page.DataContext>
+        <presentation:GeneracionDocumentoViewModel />
+    </Page.DataContext>
+    <Grid>
+        <StackPanel>
+            <ui:TextBlock Text="{StaticResource GeneracionDocumentosTitle}" FontTypography="TitleLarge" />
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+                    <ui:Button Content="Informe de inicio"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding InformeInicioCommand}" />
+
+                    <ui:Button Content="Oficio C4"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioC4Command}" />
+
+                    <ui:Button Content="Oficio CEI"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioCeiCommand}" />
+
+                    <ui:Button Content="Oficio Fiscalía"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioFiscaliaCommand}" />
+
+                    <ui:Button Content="Oficio SSA"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioSsaCommand}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>
