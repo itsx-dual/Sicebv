@@ -260,6 +260,7 @@ public partial class ReportanteViewModel : ObservableValidator
         
         // Si hay algo en los campos de telefonos, se agregan antes de sincronizar,
         // este es el comportamiento que la CEBV espera.
+        // Comentario para commit
         AddTelefonoMovilCommand.Execute(null);
         AddTelefonoFijoCommand.Execute(null);
         AddContactoCommand.Execute(null);
