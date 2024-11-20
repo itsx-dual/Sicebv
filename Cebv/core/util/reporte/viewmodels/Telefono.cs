@@ -1,10 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Telefono : ObservableObject
+public partial class Telefono : ObservableValidator
 {
     [JsonConstructor]
     public Telefono(
@@ -24,9 +25,17 @@ public partial class Telefono : ObservableObject
         EsMovil = esMovil;
     }
 
-    public Telefono()
+    public Telefono(Telefono telefono)
     {
+        Id = telefono.Id;
+        PersonaId = telefono.PersonaId;
+        Compania = telefono.Compania;
+        Numero = telefono.Numero;
+        Observaciones = telefono.Observaciones;
+        EsMovil = telefono.EsMovil;
     }
+
+    public Telefono() { }
 
     public override bool Equals(object? obj)
     {
@@ -58,9 +67,12 @@ public partial class Telefono : ObservableObject
     private int? _personaId;
 
     [ObservableProperty, JsonProperty(PropertyName = "compania")]
+    [Required(ErrorMessage = "Se debe seleccionar una compania de telefono.")]
     private Catalogo? _compania;
 
     [ObservableProperty, JsonProperty(PropertyName = "numero")]
+    [Required(ErrorMessage = "Se necesita un numero de telefono para poder agregar.")]
+    [MinLength(8, ErrorMessage = "El numero de telefono debe contener al menos 8 caracteres")]
     private string? _numero;
 
     [ObservableProperty, JsonProperty(PropertyName = "observaciones")]
@@ -81,4 +93,15 @@ public partial class Telefono : ObservableObject
     {
         { nameof(EsMovil), false },
     };
+
+    public void ValidarReportante()
+    {
+        ValidateProperty(Numero, nameof(Numero));
+    }
+
+    public void ValidarDesaparecido()
+    {
+        ValidateProperty(Numero, nameof(Numero));
+        ValidateProperty(Compania, nameof(Compania));
+    }
 }

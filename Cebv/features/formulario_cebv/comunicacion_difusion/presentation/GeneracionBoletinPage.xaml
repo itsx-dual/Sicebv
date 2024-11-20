@@ -53,7 +53,7 @@
                                  KeyDown="Imagenes_OnKeyDown">
                         <ui:ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Width="Auto" />
+                                <WrapPanel Width="{Binding ElementName=Imagenes, Path=ActualWidth}" />
                             </ItemsPanelTemplate>
                         </ui:ListView.ItemsPanel>
 

@@ -4,19 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:presentation="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
       xmlns:util="clr-namespace:Cebv.core.util"
+      xmlns:viewmodel="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
+      xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
+      xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      d:DesignWidth="auto"
+      d:DesignWidth="1024"
       d:DesignHeight="auto"
       mc:Ignorable="d"
       Name="Page"
       Title="EncuadrePreeliminarPage">
 
     <Page.DataContext>
-        <presentation:EncuadrePreeliminarViewModel />
+        <viewmodel:EncuadrePreeliminarViewModel />
     </Page.DataContext>
 
     <Page.Resources>
@@ -33,8 +36,16 @@
             <Setter Property="IsReadOnly" Value="False" />
             <Setter Property="IsEditable" Value="True" />
             <EventSetter Event="LostFocus" Handler="Search" />
-            <EventSetter Event="PreviewKeyDown" Handler="EventSetter_OnHandler"/>
+            <EventSetter Event="PreviewKeyDown" Handler="EventSetter_OnHandler" />
         </Style>
+
+        <Style TargetType="{x:Type DatePicker}"
+               BasedOn="{StaticResource {x:Type DatePicker}}">
+            <EventSetter Event="KeyUp" Handler="DatePicker_OnKeyUp" />
+            <EventSetter Event="PreviewTextInput" Handler="DatePicker_OnPreviewTextInput" />
+        </Style>
+
+        <presentation:EditSenasParticularesUserControl x:Key="EditSenasParticularesUserControl" />
 
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -105,19 +116,19 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
                             <ui:TextBox Text="{Binding Reportante.Persona.Nombre}"
-                                        Tag="Name"/>
+                                        Tag="Name" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
                             <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}"
-                                        Tag="Name"/>
+                                        Tag="Name" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
                             <ui:TextBox Text="{Binding Reportante.Persona.ApellidoMaterno}"
-                                        Tag="Name"/>
+                                        Tag="Name" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -139,16 +150,15 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding NoTelefonoReportante}"
-                                        MaxLength="10"
-                                        Tag="Phone" /><!--Cambiado para tener uno especifico -->
+                                        Text="{Binding TelefonoReportante.Numero}"
+                                        MaxLength="10" /><!--Cambiado para tener uno especifico -->
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding ObservacionesTelefonoReportante}"
-                                        Tag="Text"/>
+                                        Text="{Binding TelefonoReportante.Observaciones}"
+                                        Tag="Text" />
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -180,7 +190,7 @@
                                                 <StackPanel>
                                                     <ui:TextBlock FontTypography="BodyStrong"
                                                                   Text="{Binding Numero}"
-                                                                  TextWrapping="WrapWithOverflow" Padding="10"/>
+                                                                  TextWrapping="WrapWithOverflow" Padding="10" />
                                                 </StackPanel>
                                             </ui:CardControl.Header>
                                             <StackPanel>
@@ -199,7 +209,7 @@
                                                    Margin="5"
                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoReportanteCommand}"
                                                    CommandParameter="{Binding}" />
-                             
+
                                         <ui:Button VerticalAlignment="Top"
                                                    Appearance="Success"
                                                    HorizontalAlignment="Right"
@@ -225,19 +235,19 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="NOMBRE(S):  *" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.Nombre}"
-                                        Tag="Name"/>
+                                        Tag="Name" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="PRIMER APELLIDO: *" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoPaterno}"
-                                        Tag="Name"/>
+                                        Tag="Name" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="SEGUNDO APELLIDO:" />
                             <ui:TextBox Text="{Binding Desaparecido.Persona.ApellidoMaterno}"
-                                        Tag="Name"/>
+                                        Tag="Name" />
                         </StackPanel>
                     </WrapPanel>
 
@@ -270,8 +280,7 @@
                                 <ui:TextBlock Text="FECHA DE NACIMIENTO ESPECÍFICA:" />
                                 <DatePicker IsTodayHighlighted="True"
                                             SelectedDateFormat="Short"
-                                            SelectedDate="{Binding FechaNacimientoDesaparecido}"
-                                            PreviewTextInput="UIElement_OnPreviewTextInput"/>
+                                            SelectedDate="{Binding FechaNacimientoDesaparecido}" />
 
                             </StackPanel>
                         </WrapPanel>
@@ -287,8 +296,8 @@
                                               Minimum="0"
                                               Value="{Binding AnosDesaparecido}"
                                               PlaceholderText="Años"
-                                              SmallChange="1" 
-                                              Tag="Exclude"/>
+                                              SmallChange="1"
+                                              Tag="Exclude" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -300,8 +309,8 @@
                                     Minimum="0"
                                     Value="{Binding MesesDesaparecido}"
                                     PlaceholderText="Meses"
-                                    SmallChange="1" 
-                                    Tag="Exclude"/>
+                                    SmallChange="1"
+                                    Tag="Exclude" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -314,7 +323,7 @@
                                     Value="{Binding DiasDesaparecido}"
                                     PlaceholderText="Días"
                                     SmallChange="1"
-                                    Tag="Exclude"/>
+                                    Tag="Exclude" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -342,8 +351,8 @@
 
                             <StackPanel MinWidth="250">
                                 <ui:TextBlock Text="OBSERVACIONES SOBRE LA FECHA:" />
-                                <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}" 
-                                            Tag="Text"/>
+                                <ui:TextBox Text="{Binding Desaparecido.ObservacionesFechaNacimiento}"
+                                            Tag="Text" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -393,8 +402,8 @@
 
                         <StackPanel MinWidth="250" Margin="0,0,25,0">
                             <ui:TextBlock Text="CURP:" />
-                            <ui:TextBox Text="{Binding Curp}"
-                                        MaxLength="18" Tag="CURP"/>
+                            <ui:TextBox Text="{Binding Curp, UpdateSourceTrigger=PropertyChanged}"
+                                        MaxLength="18" Tag="CURP" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250"
@@ -408,7 +417,7 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding NoTelefonoDesaparecido}"
+                                        Text="{Binding TelefonoDesaparecido.Numero}"
                                         MaxLength="10"
                                         Tag="Phone" />
                         </StackPanel>
@@ -416,14 +425,14 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="COMPAÑÍA:" />
                             <ComboBox ItemsSource="{Binding CompaniasTelefonicas}"
-                                      SelectedItem="{Binding CompañiaTelefonicaDesaparecidoSelected}" />
+                                      SelectedItem="{Binding TelefonoDesaparecido.Compania}" />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="OBSERVACIONES:" />
                             <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding ObservacionesTelefonoDesaparecido}"
-                                        Tag="Text"/>
+                                        Text="{Binding TelefonoDesaparecido.Observaciones}"
+                                        Tag="Text" />
                         </StackPanel>
 
                         <ui:Button Content="Añadir otro  teléfono móvil"
@@ -477,7 +486,7 @@
                                                    Margin="5"
                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveTelefonoDesaparecidoCommand}"
                                                    CommandParameter="{Binding}" />
-                                        
+
                                         <ui:Button VerticalAlignment="Top"
                                                    Appearance="Success"
                                                    HorizontalAlignment="Right"
@@ -528,12 +537,13 @@
                                 <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
                                 <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
                                             Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
-                                            Tag="Text"/>
+                                            Tag="Text" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Visibility="{Binding SeDesconoceFechaExactaHechos,
+                    <StackPanel
+                        Visibility="{Binding SeDesconoceFechaExactaHechos,
                                 Converter={StaticResource VisibilityConverter2}}">
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -544,9 +554,9 @@
                             </StackPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="FECHA DESAPARICIÓN CEBV:" />
+                                <ui:TextBlock Text="FECHA DESAPARICIÓN PARA CNB:" />
                                 <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
-                                            MaxLength="12" Tag="Exclude"/>
+                                            MaxLength="12" Tag="Exclude" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -557,7 +567,10 @@
 
                         <StackPanel>
                             <ui:TextBlock Text="ACLARACIÓN DE LA FECHA Y HORA DE LOS HECHOS:" />
-                            <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" Tag="Text" />
+                            <ui:TextBox TextWrapping="Wrap"
+                                        AcceptsReturn="True"
+                                        Tag="Text"
+                                        Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -566,7 +579,7 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="CALLE:" />
                                 <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" Tag="Upper"/>
+                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}" Tag="Upper" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
@@ -580,14 +593,14 @@
                                 <ui:TextBlock Text="N° INTERIOR:" />
                                 <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
-                                            Tag="Number"/>
+                                            Tag="Number" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="COLONIA:" />
                                 <ui:TextBox ClearButtonEnabled="True"
                                             Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}"
-                                            Tag="Upper"/>
+                                            Tag="Upper" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
@@ -623,14 +636,14 @@
                                 <ui:TextBlock Text="LONGITUD:" />
                                 <ui:TextBox
                                     Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Longitud}"
-                                    Tag="Exclude"/>
+                                    Tag="Exclude" />
                             </StackPanel>
 
                             <StackPanel MinWidth="200" IsEnabled="False" Visibility="Visible">
                                 <ui:TextBlock Text="LATITUD:" />
                                 <ui:TextBox
                                     Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Latitud}"
-                                    Tag="Exclude"/>
+                                    Tag="Exclude" />
                             </StackPanel>
                         </WrapPanel>
 
@@ -638,26 +651,26 @@
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 1:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}"
-                                            Tag="Upper"/>
+                                            Tag="Upper" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="ENTRE CALLE 2:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}"
-                                            Tag="Upper"/>
+                                            Tag="Upper" />
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="TRAMO CARRETERO:" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}"
-                                            Tag="Upper"/>
+                                            Tag="Upper" />
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
                             <ui:TextBlock Text="REFERENCIA:" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}"
-                                        Tag="Upper"/>
+                                        Tag="Upper" />
                         </StackPanel>
                     </StackPanel>
 
@@ -751,7 +764,12 @@
 
             <ui:TextBlock Text="Señas particulares" FontTypography="Title" Margin="10" />
 
-            <Border Margin="0 0 0 25">
+            <Border Margin="0 0 0 25"
+                    x:Name="SenasParticularesBorder">
+                <Border.DataContext>
+                    <presentation:SenasParticularesViewModel />
+                </Border.DataContext>
+
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -774,32 +792,32 @@
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center">
 
-                            <ui:Image Source="/core/resources/images/senasv3/VistaV3.png"
-                                      x:Name="Vista"
-                                      CornerRadius="10"
-                                      Stretch="Uniform" />
-                
-                            <ui:Image Source="/core/resources/images/senasv3/LadoV3.png"
-                                      x:Name="Lado"
-                                      CornerRadius="10"
-                                      Stretch="Uniform" />
-                
-                            <ui:Image Source="/core/resources/images/senasv3/RegionV3.png"
-                                      x:Name="Region"
-                                      CornerRadius="10"
-                                      BorderBrush="Black"
-                                      Stretch="Uniform" />
-                          
-                            <ui:Image Source="/core/resources/images/senasv3/MascaraV3-100.jpg"
-                                      x:Name="Mascara"
-                                      MouseDown="Image_MouseDown"
-                                      CornerRadius="10"
-                                      BorderBrush="Black"
-                                      Stretch="Uniform" />
-                        </Grid>
+                                <ui:Image Source="/core/resources/images/senasv4/VistaV4.png"
+                                          x:Name="Vista"
+                                          CornerRadius="10"
+                                          Stretch="Uniform" />
+
+                                <ui:Image Source="/core/resources/images/senasv4/LadoV4.png"
+                                          x:Name="Lado"
+                                          CornerRadius="10"
+                                          Stretch="Uniform" />
+
+                                <ui:Image Source="/core/resources/images/senasv4/RegionV4.png"
+                                          x:Name="Region"
+                                          CornerRadius="10"
+                                          BorderBrush="Black"
+                                          Stretch="Uniform" />
+
+                                <ui:Image Source="/core/resources/images/senasv4/MascaraV4.jpg"
+                                          x:Name="Mascara"
+                                          MouseDown="Image_MouseDown"
+                                          CornerRadius="10"
+                                          BorderBrush="Black"
+                                          Stretch="Uniform" />
+                            </Grid>
 
                             <Grid Grid.Row="1"
                                   Grid.Column="0"
@@ -817,14 +835,14 @@
                                             <ui:TextBlock Text="Región del cuerpo:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-                                                      SelectedValue="{Binding RegionCuerpoSelected}"
+                                                      SelectedValue="{Binding SenaParticular.RegionCuerpo}"
                                                       ItemsSource="{Binding RegionesCuerpo}" />
 
                                             <!-- Vista -->
                                             <ui:TextBlock Text="Vista:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-                                                      SelectedValue="{Binding VistaSelected}"
+                                                      SelectedValue="{Binding SenaParticular.Vista}"
                                                       ItemsSource="{Binding Vistas}" />
 
                                         </StackPanel>
@@ -833,14 +851,14 @@
                                             <ui:TextBlock Text="Lado:"
                                                           Margin="10,10,0,0" />
                                             <ComboBox Margin="5,0,5,0"
-                                                      SelectedValue="{Binding LadoSelected}"
+                                                      SelectedValue="{Binding SenaParticular.Lado}"
                                                       ItemsSource="{Binding Lados}" />
 
                                             <!-- Cantidad -->
                                             <ui:TextBlock Text="Cantidad:"
                                                           Margin="10,10,0,0" />
                                             <ui:NumberBox Margin="5,0,5,0"
-                                                          Value="{Binding Cantidad,
+                                                          Value="{Binding SenaParticular.Cantidad,
                                                           Mode=TwoWay,
                                                           UpdateSourceTrigger=PropertyChanged}"
                                                           Tag="Number" Minimum="1" />
@@ -851,29 +869,48 @@
                                     <ui:TextBlock Text="Tipo de seña:"
                                                   Margin="10,10,0,0" />
                                     <ComboBox Margin="5,0,5,0"
-
-                                              SelectedValue="{Binding TipoSelected}"
+                                              SelectedValue="{Binding SenaParticular.Tipo}"
                                               ItemsSource="{Binding Tipos}" />
 
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <ui:TextBlock Text="Descripción:"
+                                                          Margin="10,10,0,0" />
+                                            <TextBox Margin="10"
+                                                     VerticalAlignment="Stretch"
+                                                     Height="100"
+                                                     Text="{Binding SenaParticular.Descripcion}"
+                                                     TextWrapping="Wrap"
+                                                     Tag="Text" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1">
+                                            <ui:TextBlock Text="Imagen de la seña:"
+                                                          Margin="10,10,0,0" />
+                                            <ui:Image Margin="10"
+                                                      CornerRadius="8"
+                                                      BorderBrush="Beige"
+                                                      Source="{Binding SenaParticular.Imagen}" />
+                                        </StackPanel>
+
+                                    </Grid>
 
                                     <!-- Descripcion -->
-                                    <ui:TextBlock Text="Descripción:"
-                                                  Margin="10,10,0,0" />
-                                    <TextBox Margin="10"
-                                             VerticalAlignment="Stretch"
-                                             Height="100"
-                                             Text="{Binding Descripcion}"
-                                             TextWrapping="Wrap"
-                                             Tag="Text"/>
+
 
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Right"
                                                 Margin="10">
-                                        <ui:TextBlock Text="{Binding ImagenSenaParticularSelected.BaseUri}" />
+                                        <ui:TextBlock Text="{Binding SenaParticular.Imagen.BaseUri}" />
 
                                         <ui:Button Content="Subir imagen"
                                                    Margin="5,0,0,0"
-                                                   Command="{Binding OpenSenaParticularImageCommand}"
+                                                   Command="{Binding SubirImagenSenaParticularCommand}"
                                                    Icon="{ui:SymbolIcon ArrowUpload24}" />
 
                                         <ui:Button Content="Agregar seña particular"
@@ -957,15 +994,33 @@
                                                     </Grid>
                                                 </ui:Card>
 
-                                                <ui:Button Grid.Column="1"
-                                                           VerticalAlignment="Stretch"
-                                                           Appearance="Danger"
-                                                           HorizontalAlignment="Stretch"
-                                                           Icon="{ui:SymbolIcon Delete24}"
-                                                           Width="60"
-                                                           Margin="4"
-                                                           Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
-                                                           CommandParameter="{Binding}" />
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+
+                                                    <ui:Button Grid.Row="0"
+                                                               VerticalAlignment="Stretch"
+                                                               Appearance="Success"
+                                                               HorizontalAlignment="Stretch"
+                                                               Icon="{ui:SymbolIcon Edit24}"
+                                                               Width="60"
+                                                               Margin="4"
+                                                               Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.EditSenaParticularCommand}"
+                                                               CommandParameter="{Binding}" />
+
+                                                    <ui:Button Grid.Row="1"
+                                                               VerticalAlignment="Stretch"
+                                                               Appearance="Danger"
+                                                               HorizontalAlignment="Stretch"
+                                                               Icon="{ui:SymbolIcon Delete24}"
+                                                               Width="60"
+                                                               Margin="4"
+                                                               Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.DeleteSenaParticularCommand}"
+                                                               CommandParameter="{Binding}" />
+                                                </Grid>
+
                                             </Grid>
                                         </DataTemplate>
                                     </ui:ListView.ItemTemplate>
@@ -977,7 +1032,11 @@
             </Border>
 
             <ui:TextBlock Text="Vestimenta" FontTypography="Title" Margin="10" />
-            <Border Margin="0 0 0 25">
+            <Border Margin="0 0 0 25"
+                    x:Name="PrendasVestirBorder">
+                <Border.DataContext>
+                    <presentation1:PrendasViewModel />
+                </Border.DataContext>
                 <Grid Margin="10">
 
                     <Grid.RowDefinitions>
@@ -996,19 +1055,19 @@
                                 <StackPanel Margin="5">
                                     <StackPanel Margin="0 0 0 15">
                                         <ui:TextBlock Text="Grupo pertenencia:" />
-                                        <ComboBox SelectedItem="{Binding GrupoPerteneciaSelected }"
-                                                  ItemsSource="{Binding GruposPertenencia}" />
+                                        <ComboBox SelectedItem="{Binding GrupoPertenencia}"
+                                                  ItemsSource="{Binding GruposPertenencias}" />
                                     </StackPanel>
 
                                     <StackPanel Margin="0 0 0 15">
                                         <ui:TextBlock Text="Pertenencia:" />
-                                        <ComboBox SelectedItem="{Binding PerteneciaSelected }"
+                                        <ComboBox SelectedItem="{Binding PrendaVestir.Pertenencia }"
                                                   ItemsSource="{Binding Pertenencias}" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <ui:TextBlock Text="Color:" />
-                                        <ComboBox SelectedItem="{Binding ColorSelected}"
+                                        <ComboBox SelectedItem="{Binding PrendaVestir.Color}"
                                                   ItemsSource="{Binding Colores}" />
                                     </StackPanel>
                                 </StackPanel>
@@ -1016,50 +1075,25 @@
                                 <StackPanel Margin="5">
                                     <StackPanel Margin="0 0 0 15">
                                         <ui:TextBlock Text="Marca:" />
-                                        <ui:TextBox Text="{Binding CurrentMarca}"
-                                                    Tag="Upper"/>
+                                        <ui:TextBox Text="{Binding PrendaVestir.Marca}"
+                                                    Tag="Upper" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <ui:TextBlock Text="Descripción:" />
-                                        <ui:TextBox Text="{Binding CurrentPrendaDescripcion}"
+                                        <ui:TextBox Text="{Binding PrendaVestir.Descripcion}"
                                                     TextWrapping="Wrap"
                                                     MinHeight="100"
-                                                    AcceptsReturn="True" 
-                                                    Tag="Text"/>
+                                                    AcceptsReturn="True"
+                                                    Tag="Text" />
                                     </StackPanel>
 
-                                    <!-- Botones de edición -->
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                                                Visibility="{Binding ModoEdicion,
-                                            Converter={StaticResource VisibilityConverter2}}"
-                                                Margin="10">
-                                        <ui:Button VerticalAlignment="Stretch"
-                                                   Appearance="Secondary"
-                                                   Icon="{ui:SymbolIcon Dismiss24 }"
-                                                   MinWidth="50"
-                                                   Margin="5"
-                                                   Command="{Binding CancelarEdicionCommand}"
-                                                   CommandParameter="{Binding}" />
-
-                                        <ui:Button VerticalAlignment="Stretch"
-                                                   Appearance="Primary"
-                                                   Icon="{ui:SymbolIcon Checkmark24}"
-                                                   MinWidth="50"
-                                                   Margin="5"
-                                                   Command="{Binding ConfirmarEdicionCommand}"
-                                                   CommandParameter="{Binding}" />
-                                    </StackPanel>
-
-                                    <ui:Button
-                                        Visibility="{Binding ModoEdicion,
-                               Converter={StaticResource VisibilityConverter}}"
-                                        Content="Añadir"
-                                        Margin="10"
-                                        HorizontalAlignment="Right"
-                            Command="{Binding AddPrendaCommand}"
-                                        Icon="{ui:SymbolIcon Add24}"
-                                        Appearance="Success" />
+                                    <ui:Button Content="Añadir"
+                                               Margin="10"
+                                               HorizontalAlignment="Right"
+                                               Command="{Binding AddPrendaCommand}"
+                                               Icon="{ui:SymbolIcon Add24}"
+                                               Appearance="Success" />
                                 </StackPanel>
                             </UniformGrid>
                         </Border>
@@ -1078,11 +1112,14 @@
                                 <ui:ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <ui:CardControl
-                                                Margin="5 5 120 5"
-                                                Padding="10"
-                                                Icon="{ui:SymbolIcon Tag24}"
-                                                HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ui:CardControl Padding="10"
+                                                            Icon="{ui:SymbolIcon Tag24}"
+                                                            HorizontalAlignment="Stretch">
                                                 <ui:CardControl.Header>
                                                     <StackPanel>
                                                         <ui:TextBlock
@@ -1120,25 +1157,28 @@
                                             </ui:CardControl>
 
                                             <!-- Botones de visualización -->
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                                                        Visibility="{Binding DataContext.ModoEdicion,
-                                            RelativeSource={RelativeSource AncestorType=ListView},
-                                            Converter={StaticResource VisibilityConverter}}">
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
                                                 <ui:Button VerticalAlignment="Stretch"
                                                            Appearance="Success"
                                                            Icon="{ui:SymbolIcon Edit24}"
                                                            MinWidth="50"
                                                            Margin="5"
-                                                           Command="{Binding DataContext.ModoEdicionCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                           Command="{Binding ElementName=PrendasVestirBorder, Path=DataContext.EditPrendaCommand}"
                                                            CommandParameter="{Binding}" />
-                                                <ui:Button VerticalAlignment="Stretch"
+
+                                                <ui:Button Grid.Row="1"
+                                                           VerticalAlignment="Stretch"
                                                            Appearance="Danger"
                                                            Icon="{ui:SymbolIcon Delete24}"
                                                            MinWidth="50"
                                                            Margin="5"
-                                                           Command="{Binding DataContext.RemovePrendaCommand , RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                           Command="{Binding ElementName=PrendasVestirBorder, Path=DataContext.RemovePrendaCommand}"
                                                            CommandParameter="{Binding}" />
-                                            </StackPanel>
+                                            </Grid>
                                         </Grid>
                                     </DataTemplate>
                                 </ui:ListView.ItemTemplate>
@@ -1163,10 +1203,9 @@
                                  KeyDown="Imagenes_OnKeyDown">
                         <ui:ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Width="Auto" />
+                                <WrapPanel Width="{Binding ElementName=Imagenes, Path=ActualWidth}" />
                             </ItemsPanelTemplate>
                         </ui:ListView.ItemsPanel>
-
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <ui:Image Source="{Binding}"

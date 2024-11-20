@@ -14,9 +14,14 @@ public partial class Pertenencia : ObservableObject
         GrupoPertenencia = grupoPertenencia;
     }
 
-    public Pertenencia()
+    public Pertenencia(Pertenencia pertenencia)
     {
+        Id = pertenencia.Id;
+        Nombre = pertenencia.Nombre;
+        if (pertenencia?.GrupoPertenencia != null) GrupoPertenencia = new Catalogo(pertenencia.GrupoPertenencia);
     }
+    
+    public Pertenencia() { }
 
     public override bool Equals(object? obj)
     {
@@ -31,12 +36,18 @@ public partial class Pertenencia : ObservableObject
     {
         return HashCode.Combine(Id, Nombre, GrupoPertenencia);
     }
+    
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, Nombre, GrupoPertenencia?.GetHashCode());
+    }
 
     private bool Equals(Pertenencia pertenencia)
     {
+        var grupoPertenencia = GrupoPertenencia?.Equals(pertenencia.GrupoPertenencia) ?? false;
         return Id == pertenencia.Id &&
                Nombre == pertenencia.Nombre &&
-               (bool)GrupoPertenencia?.Equals(pertenencia.GrupoPertenencia);
+               grupoPertenencia;
     }
 
     public override string ToString()
