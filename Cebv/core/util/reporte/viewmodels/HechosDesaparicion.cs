@@ -123,7 +123,8 @@ public partial class HechosDesaparicion : ObservableValidator
     private string? _informacionRelevante;
 
     [ObservableProperty, JsonProperty("hechos_desaparicion")]
-    [Required(ErrorMessage = "Hechos desaparicion es obligatorio")] [MinLength(2)]
+    [Required(ErrorMessage = "Hechos desaparicion es obligatorio")]
+    [MinLength(2)]
     private string? _hechosDesaparicionNarracion;
 
     [ObservableProperty, JsonProperty("sintesis_desaparicion")]
@@ -137,6 +138,12 @@ public partial class HechosDesaparicion : ObservableValidator
 
     [ObservableProperty, JsonProperty("desaparecidos")]
     private ObservableCollection<Catalogo> _desaparecidos = [];
+
+    [ObservableProperty, JsonProperty("resultado_rnd")]
+    private string? _resultadoRnd;
+
+    [ObservableProperty, JsonProperty("contexto_desaparicion")]
+    private string? _contextoDesaparicion;
 
     [ObservableProperty, JsonProperty("created_at")]
     private DateTime? _createdAt;
@@ -154,20 +161,20 @@ public partial class HechosDesaparicion : ObservableValidator
     {
         if (value is < 1 or null) PersonasMismoEvento = 1;
     }
-    
+
     public static ValidationResult? ValidateFechas(object? value, ValidationContext context)
     {
         var instance = (HechosDesaparicion)context.ObjectInstance;
 
         if (!instance.FechaDesaparicion.HasValue && string.IsNullOrWhiteSpace(instance.FechaDesaparicionCebv))
         {
-            return new ValidationResult("Debes llenar al menos una de las dos fechas (fECHA DESAPARICION O " +
+            return new ValidationResult("Debes llenar al menos una de las dos fechas (FECHA DESAPARICION O " +
                                         "FECHA DESAPARICION APROXIMADA).");
         }
 
         return ValidationResult.Success;
     }
-    
+
     public void Validar()
     {
         ValidateAllProperties();

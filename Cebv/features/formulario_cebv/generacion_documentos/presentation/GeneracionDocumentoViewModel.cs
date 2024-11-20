@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Cebv.app.presentation;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
@@ -5,6 +6,7 @@ using Cebv.core.util.reporte.viewmodels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using static Cebv.core.util.enums.FactorRhesus;
 
 namespace Cebv.features.formulario_cebv.generacion_documentos.presentation;
 
@@ -19,11 +21,16 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     [ObservableProperty] private Reporte _reporte;
     [ObservableProperty] private Desaparecido _desaparecido = new();
 
+    [ObservableProperty]
+    private ObservableCollection<String> _resultadosRdn = new() { Positivo, Negativo, NoEspecifica };
+
     public GeneracionDocumentoViewModel()
     {
         Reporte = _reporteService.GetReporte();
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
+
+        Reporte.HechosDesaparicion ??= new();
     }
 
     # region Informe de Inicio
@@ -90,4 +97,10 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     }
 
     # endregion
+
+    [RelayCommand]
+    private async Task OnGuardar()
+    {
+        await _reporteService.Sync();
+    }
 }

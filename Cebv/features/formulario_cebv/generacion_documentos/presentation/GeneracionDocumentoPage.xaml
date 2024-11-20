@@ -16,15 +16,52 @@
         <presentation:GeneracionDocumentoViewModel />
     </Page.DataContext>
     <Grid>
-        <StackPanel>
+        <StackPanel Margin="10">
             <ui:TextBlock Text="{StaticResource GeneracionDocumentosTitle}" FontTypography="TitleLarge" />
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+            <ui:CardExpander Margin="0 0 0 15">
+                <ui:CardExpander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".8*" />
+                            <ColumnDefinition Width=".2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ui:TextBlock Grid.Column="0" Text="Informe de Inicio" FontTypography="Title" />
+
+                        <ui:Button Grid.Column="1" Content="Generar Informe"
+                                   HorizontalAlignment="Right"
+                                   Appearance="Primary"
+                                   Margin="10"
+                                   Command="{Binding InformeInicioCommand}" />
+                    </Grid>
+                </ui:CardExpander.Header>
                 <StackPanel>
-                    <ui:Button Content="Informe de inicio"
+                    <StackPanel Margin="10">
+                        <ui:TextBlock Text="Resultado de RDN:" />
+                        <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.ResultadoRnd}"
+                                  ItemsSource="{Binding ResultadosRdn}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10">
+                        <ui:TextBlock Text="Contexto de Hechos de Desaparición:" />
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
+                                    MinHeight="100"
+                                    Tag="Exclude"/>
+                    </StackPanel>
+
+                    <ui:Button Content="{StaticResource Guardar}"
+                               Icon="{ui:SymbolIcon Save24}"
+                               Margin="10"
                                HorizontalAlignment="Stretch"
                                Appearance="Primary"
-                               Margin="10"
-                               Command="{Binding InformeInicioCommand}" />
+                               Command="{Binding GuardarCommand}" />
+                </StackPanel>
+            </ui:CardExpander>
+
+
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+
 
                     <ui:Button Content="Oficio C4"
                                HorizontalAlignment="Stretch"

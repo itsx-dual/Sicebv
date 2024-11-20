@@ -52,7 +52,8 @@
 
         <ui:NavigationView.AutoSuggestBox>
             <ui:AutoSuggestBox Margin="8"
-                               PlaceholderText="Buscar" />
+                               PlaceholderText="Buscar"
+                               Tag="Exclude"/>
         </ui:NavigationView.AutoSuggestBox>
 
         <ui:NavigationView.MenuItems>
