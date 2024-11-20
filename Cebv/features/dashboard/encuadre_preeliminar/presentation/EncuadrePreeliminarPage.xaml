@@ -44,8 +44,8 @@
             <EventSetter Event="KeyUp" Handler="DatePicker_OnKeyUp" />
             <EventSetter Event="PreviewTextInput" Handler="DatePicker_OnPreviewTextInput" />
         </Style>
-        
-        <presentation:EditSenasParticularesUserControl x:Key="EditSenasParticularesUserControl"/>
+
+        <presentation:EditSenasParticularesUserControl x:Key="EditSenasParticularesUserControl" />
 
         <util:VisibilityConverter x:Key="VisibilityConverter" />
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
@@ -996,10 +996,10 @@
 
                                                 <Grid Grid.Column="1">
                                                     <Grid.RowDefinitions>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
+                                                        <RowDefinition />
+                                                        <RowDefinition />
                                                     </Grid.RowDefinitions>
-                                                    
+
                                                     <ui:Button Grid.Row="0"
                                                                VerticalAlignment="Stretch"
                                                                Appearance="Success"
@@ -1009,7 +1009,7 @@
                                                                Margin="4"
                                                                Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.EditSenaParticularCommand}"
                                                                CommandParameter="{Binding}" />
-                                                    
+
                                                     <ui:Button Grid.Row="1"
                                                                VerticalAlignment="Stretch"
                                                                Appearance="Danger"
@@ -1020,7 +1020,7 @@
                                                                Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.DeleteSenaParticularCommand}"
                                                                CommandParameter="{Binding}" />
                                                 </Grid>
-                                                
+
                                             </Grid>
                                         </DataTemplate>
                                     </ui:ListView.ItemTemplate>
@@ -1035,7 +1035,7 @@
             <Border Margin="0 0 0 25"
                     x:Name="PrendasVestirBorder">
                 <Border.DataContext>
-                    <presentation1:PrendasViewModel/>
+                    <presentation1:PrendasViewModel />
                 </Border.DataContext>
                 <Grid Margin="10">
 
@@ -1112,11 +1112,14 @@
                                 <ui:ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <ui:CardControl
-                                                Margin="5 5 120 5"
-                                                Padding="10"
-                                                Icon="{ui:SymbolIcon Tag24}"
-                                                HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ui:CardControl Padding="10"
+                                                            Icon="{ui:SymbolIcon Tag24}"
+                                                            HorizontalAlignment="Stretch">
                                                 <ui:CardControl.Header>
                                                     <StackPanel>
                                                         <ui:TextBlock
@@ -1154,7 +1157,11 @@
                                             </ui:CardControl>
 
                                             <!-- Botones de visualización -->
-                                            <StackPanel>
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
                                                 <ui:Button VerticalAlignment="Stretch"
                                                            Appearance="Success"
                                                            Icon="{ui:SymbolIcon Edit24}"
@@ -1162,15 +1169,16 @@
                                                            Margin="5"
                                                            Command="{Binding ElementName=PrendasVestirBorder, Path=DataContext.EditPrendaCommand}"
                                                            CommandParameter="{Binding}" />
-                                                
-                                                <ui:Button VerticalAlignment="Stretch"
+
+                                                <ui:Button Grid.Row="1"
+                                                           VerticalAlignment="Stretch"
                                                            Appearance="Danger"
                                                            Icon="{ui:SymbolIcon Delete24}"
                                                            MinWidth="50"
                                                            Margin="5"
                                                            Command="{Binding ElementName=PrendasVestirBorder, Path=DataContext.RemovePrendaCommand}"
                                                            CommandParameter="{Binding}" />
-                                            </StackPanel>
+                                            </Grid>
                                         </Grid>
                                     </DataTemplate>
                                 </ui:ListView.ItemTemplate>

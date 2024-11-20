@@ -59,11 +59,9 @@ public partial class PrendasViewModel : ObservableObject
         Colores = await CebvNetwork.GetRoute<Catalogo>("colores");
     }
 
-    partial void OnPrendaVestirChanging(PrendaVestir? oldValue, PrendaVestir newValue)
+    partial void OnPrendaVestirChanged(PrendaVestir value)
     {
-        var cache = newValue.Pertenencia;
-        GrupoPertenencia = newValue.Pertenencia?.GrupoPertenencia;
-        newValue.Pertenencia = cache;
+        GrupoPertenencia = value.Pertenencia?.GrupoPertenencia;
     }
 
     async partial void OnGrupoPertenenciaChanged(Catalogo? value)
