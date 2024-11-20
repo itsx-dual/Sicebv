@@ -31,6 +31,22 @@ public partial class SenaParticular : ObservableObject
         Lado = lado;
         Tipo = tipo;
     }
+
+    public SenaParticular(SenaParticular senaParticular)
+    {
+        Id = senaParticular.Id;
+        PersonaId = senaParticular.PersonaId;
+        Cantidad = senaParticular.Cantidad;
+        Descripcion = senaParticular.Descripcion;
+        Foto = senaParticular.Foto; 
+        RegionCuerpo = senaParticular.RegionCuerpo;
+        Vista = senaParticular.Vista;
+        Lado = senaParticular.Lado;
+        Tipo = senaParticular.Tipo;
+        EncodedImage = senaParticular.EncodedImage;
+        Imagen = senaParticular.Imagen;
+    }
+    
     public SenaParticular() { }
     
     async partial void OnFotoChanged(string? value)
@@ -47,7 +63,7 @@ public partial class SenaParticular : ObservableObject
 
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
     [ObservableProperty, JsonProperty(PropertyName = "persona_id")] private int? _personaId;
-    [ObservableProperty, JsonProperty(PropertyName = "cantidad")] private int? _cantidad;
+    [ObservableProperty, JsonProperty(PropertyName = "cantidad")] private int? _cantidad = 1;
     [ObservableProperty, JsonProperty(PropertyName = "descripcion")] private string? _descripcion;
     [ObservableProperty, JsonProperty(PropertyName = "foto")] private string? _foto;
     [ObservableProperty, JsonProperty(PropertyName = "region_cuerpo")] private CatalogoColor? _regionCuerpo;

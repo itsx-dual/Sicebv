@@ -1,6 +1,7 @@
 using Cebv.core.util.enums;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.dashboard.encuadre_preeliminar.presentation;
+using EncuadrePreeliminarViewModel = Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel.EncuadrePreeliminarViewModel;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.Data;
 
@@ -20,8 +21,8 @@ public class EncuadrePreeliminarDictionary
             {"Apellido materno reportante", reportante?.Persona.ApellidoMaterno},
             {"Sexo reportante", reportante?.Persona.Sexo},
             {"Parentesco con la persona desaparecida", reportante?.Parentesco},
-            {"Telefono movil reportante", encuadre.NoTelefonoReportante},
-            {"Observaciones telefono movil reportante", encuadre.ObservacionesTelefonoReportante},
+            //{"Telefono movil reportante", encuadre.NoTelefonoReportante},
+            //{"Observaciones telefono movil reportante", encuadre.ObservacionesTelefonoReportante},
             {"Nombre desaparecido", desaparecido?.Persona.Nombre },
             {"Apellido paterno desaparecido", desaparecido?.Persona.ApellidoPaterno },
             {"Apellido materno desaparecido", desaparecido?.Persona.ApellidoMaterno },
@@ -36,9 +37,9 @@ public class EncuadrePreeliminarDictionary
             {"observaciones fecha", desaparecido?.ObservacionesFechaNacimiento},
             {"CURP", encuadre.Curp},
             {"Razon por la que no tiene CURP", encuadre.RazonesCurp},
-            {"Telefono movil desaparecido", encuadre.NoTelefonoDesaparecido},
-            {"Compañia telefono desaparecido", encuadre.CompañiaTelefonicaDesaparecidoSelected},
-            {"Observaciones telefono", encuadre.ObservacionesTelefonoDesaparecido},
+            //{"Telefono movil desaparecido", encuadre.NoTelefonoDesaparecido},
+            //{"Compañia telefono desaparecido", encuadre.CompañiaTelefonicaDesaparecidoSelected},
+            //{"Observaciones telefono", encuadre.ObservacionesTelefonoDesaparecido},
             {"Fecha desaparicion", encuadre.FechaDesaparicion},
             {"Aclaracion de la fecha y hpra de los hechos", reporte?.HechosDesaparicion?.AclaracionesFechaHechos},
             {"Fecha desaparición aproximada", encuadre.FechaDesaparicion},
@@ -65,17 +66,17 @@ public class EncuadrePreeliminarDictionary
             {"Color cabello", desaparecido?.Persona.Cabello?.ColorCabello},
             {"Tamaño cabello", desaparecido?.Persona.Cabello?.TamanoCabello},
             {"Tipo cabello", desaparecido?.Persona.Cabello?.TipoCabello},
-            {"Region Cuerpo", encuadre.RegionCuerpoSelected},
-            {"Vista", encuadre.VistaSelected},
-            {"Lado", encuadre.LadoSelected},
-            {"Cantidad", encuadre.Cantidad},
-            {"Tipo de seña", encuadre.TipoSelected},
-            {"Descripcion", encuadre.Descripcion},
-            {"Grupo pertenencia", encuadre.GrupoPerteneciaSelected},
-            {"Pertenencia", encuadre.PerteneciaSelected},
-            {"Color prenda", encuadre.ColorSelected},
-            {"Marca", encuadre.CurrentMarca},
-            {"Descripcion prenda", encuadre.CurrentPrendaDescripcion},
+            //{"Region Cuerpo", encuadre.RegionCuerpoSelected},
+            //{"Vista", encuadre.VistaSelected},
+            //{"Lado", encuadre.LadoSelected},
+            //{"Cantidad", encuadre.Cantidad},
+            //{"Tipo de seña", encuadre.TipoSelected},
+            //{"Descripcion", encuadre.Descripcion},
+            //{"Grupo pertenencia", encuadre.GrupoPerteneciaSelected},
+            //{"Pertenencia", encuadre.PerteneciaSelected},
+            //{"Color prenda", encuadre.ColorSelected},
+            //{"Marca", encuadre.CurrentMarca},
+            //{"Descripcion prenda", encuadre.CurrentPrendaDescripcion},
         };
     }
 
@@ -85,7 +86,7 @@ public class EncuadrePreeliminarDictionary
         // Verificar si las propiedades no son null antes de validarlas
         if (reportante is null || desaparecido is null || reporte is null) return Validaciones.HayInstanciasNulas;
         
-        encuadre.Validate();
+        //encuadre.Validate();
         reportante?.Persona?.Validar();
         desaparecido?.Persona?.Validar();
         reporte?.HechosDesaparicion?.Validar();

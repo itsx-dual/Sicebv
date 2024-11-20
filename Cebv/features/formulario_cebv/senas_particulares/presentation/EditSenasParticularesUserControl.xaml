@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="Cebv.features.formulario_cebv.senas_particulares.presentation.EditSenasParticularesUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d"
+             d:DesignHeight="auto" d:DesignWidth="auto"
+             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+             ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             Width="600">
+    <UserControl.DataContext>
+        <local:SenasParticularesViewModel />
+    </UserControl.DataContext>
+    <Grid Width="600">
+        <StackPanel>
+            <!-- Tipo de seña -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <!-- Region cuerpo -->
+                    <ui:TextBlock Text="Región del cuerpo:"
+                                  Margin="10,10,0,0" />
+                    <ComboBox Margin="5,0,5,0"
+                              SelectedValue="{Binding SenaParticular.RegionCuerpo}"
+                              ItemsSource="{Binding RegionesCuerpo}" />
+
+                    <!-- Vista -->
+                    <ui:TextBlock Text="Vista:"
+                                  Margin="10,10,0,0" />
+                    <ComboBox Margin="5,0,5,0"
+                              SelectedValue="{Binding SenaParticular.Vista}"
+                              ItemsSource="{Binding Vistas}" />
+
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <ui:TextBlock Text="Lado:"
+                                  Margin="10,10,0,0" />
+                    <ComboBox Margin="5,0,5,0"
+                              SelectedValue="{Binding SenaParticular.Lado}"
+                              ItemsSource="{Binding Lados}" />
+
+                    <!-- Cantidad -->
+                    <ui:TextBlock Text="Cantidad:"
+                                  Margin="10,10,0,0" />
+                    <ui:NumberBox Margin="5,0,5,0"
+                                  Value="{Binding SenaParticular.Cantidad,
+                                                          Mode=TwoWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
+                                  Tag="Number" Minimum="1" />
+
+                </StackPanel>
+            </Grid>
+
+            <ui:TextBlock Text="Tipo de seña:"
+                          Margin="10,10,0,0" />
+            <ComboBox Margin="5,0,5,0"
+                      SelectedValue="{Binding SenaParticular.Tipo}"
+                      ItemsSource="{Binding Tipos}" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <ui:TextBlock Text="Descripción:"
+                                  Margin="10,10,0,0" />
+                    <TextBox Margin="10"
+                             VerticalAlignment="Stretch"
+                             Height="100"
+                             Text="{Binding SenaParticular.Descripcion}"
+                             TextWrapping="Wrap"
+                             Tag="Text" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <ui:TextBlock Text="Imagen de la seña:"
+                                  Margin="10,10,0,0" />
+                    <ui:Image Margin="10"
+                              CornerRadius="8"
+                              BorderBrush="Beige"
+                              Source="{Binding SenaParticular.Imagen}" />
+                </StackPanel>
+
+            </Grid>
+
+            <!-- Descripcion -->
+
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="10">
+                <ui:TextBlock Text="{Binding SenaParticular.Imagen.BaseUri}" />
+
+                <ui:Button Content="Subir imagen"
+                           Margin="5,0,0,0"
+                           Command="{Binding SubirImagenSenaParticularCommand}"
+                           Icon="{ui:SymbolIcon ArrowUpload24}" />
+
+                <ui:Button Content="Agregar seña particular"
+                           Margin="5,0,0,0"
+                           Appearance="Primary"
+                           Command="{Binding AddSenaParticularCommand}"
+                           Icon="{ui:SymbolIcon Add24}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

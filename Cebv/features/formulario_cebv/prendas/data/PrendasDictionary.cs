@@ -8,11 +8,11 @@ public class PrendasDictionary
     {
         return new Dictionary<string, object?>
         {
-            {"Grupo pertenencia", prendas.GrupoPertenencia},
-            {"Pertenencia", prendas.Pertenencia},
-            {"Color", prendas.Color},
-            {"Marca", prendas.Marca},
-            {"Descripcion", prendas.Descripcion}
+            //{"Grupo pertenencia", prendas.GrupoPertenencia},
+            //{"Pertenencia", prendas.Pertenencia},
+            //{"Color", prendas.Color},
+            //{"Marca", prendas.Marca},
+            //{"Descripcion", prendas.Descripcion}
         };
     }
 }

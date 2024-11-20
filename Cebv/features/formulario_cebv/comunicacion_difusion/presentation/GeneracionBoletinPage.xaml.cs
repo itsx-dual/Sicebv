@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Cebv.features.dashboard.encuadre_preeliminar.presentation;
+using EncuadrePreeliminarViewModel = Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel.EncuadrePreeliminarViewModel;
 using Image = Wpf.Ui.Controls.Image;
 
 namespace Cebv.features.formulario_cebv.comunicacion_difusion.presentation;

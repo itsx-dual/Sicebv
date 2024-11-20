@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Cebv.core.modules.persona.data;
+using Cebv.core.util.customvalidationattributes;
 using Cebv.features.formulario_cebv.contexto.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -189,6 +190,7 @@ public partial class Persona : ObservableValidator
     private ObservableCollection<Catalogo> _nacionalidades = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "telefonos")]
+    [AlMenosUnElemento(ErrorMessage = "La persona debe tener al menos un telefono.")]
     private ObservableCollection<Telefono> _telefonos = [];
 
     [ObservableProperty, JsonProperty(PropertyName = "contactos")]

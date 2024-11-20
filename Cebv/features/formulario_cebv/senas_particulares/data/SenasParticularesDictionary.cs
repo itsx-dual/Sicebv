@@ -8,12 +8,12 @@ public class SenasParticularesDictionary
     {
         return new Dictionary<string, object?>
         {
-            {"Region Cuerpo", senasParticulares.RegionCuerpoSelected},
-            {"Vista", senasParticulares.VistaSelected},
-            {"Lado", senasParticulares.LadoSelected},
-            {"Cantidad", senasParticulares.Cantidad},
-            {"Tipo de seña", senasParticulares.TipoSelected},
-            {"Descripcion", senasParticulares.Descripcion}
+            //{"Region Cuerpo", senasParticulares.RegionCuerpoSelected},
+            //{"Vista", senasParticulares.VistaSelected},
+            //{"Lado", senasParticulares.LadoSelected},
+            //{"Cantidad", senasParticulares.Cantidad},
+            //{"Tipo de seña", senasParticulares.TipoSelected},
+            //{"Descripcion", senasParticulares.Descripcion}
         };
     }
 }

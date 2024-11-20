@@ -15,6 +15,18 @@ public partial class PrendaVestir : ObservableObject
         Pertenencia = pertenencia;
         Color = color;
     }
+
+    public PrendaVestir(PrendaVestir prenda)
+    {
+        Id = prenda.Id;
+        DesaparecidoId = prenda.DesaparecidoId;
+        Marca = prenda.Marca;
+        Descripcion = prenda.Descripcion;
+        if (prenda.Pertenencia != null) Pertenencia = new Pertenencia(prenda.Pertenencia);
+        Color = prenda.Color;
+    }
+    
+    public PrendaVestir() { }
     
     public override bool Equals(object? obj)
     {
@@ -27,15 +39,16 @@ public partial class PrendaVestir : ObservableObject
 
     private bool Equals(PrendaVestir prenda)
     {
+        var pertenencia =  Pertenencia?.Equals(prenda.Pertenencia) ?? false;
+        var color =  Color?.Equals(prenda.Color) ?? false;
+        
         return Id == prenda.Id &&
                Descripcion == prenda.Descripcion &&
                Marca == prenda.Marca &&
-               (bool) Pertenencia?.Equals(prenda.Pertenencia) &&
-               (bool) Color?.Equals(prenda.Color);
+               pertenencia &&
+               color ;
     }
-
-    public PrendaVestir() { }
-
+    
     [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
     [ObservableProperty, JsonProperty(PropertyName = "desaparecido_id")] private int _desaparecidoId;
     [ObservableProperty, JsonProperty(PropertyName = "marca")] private string? _marca;

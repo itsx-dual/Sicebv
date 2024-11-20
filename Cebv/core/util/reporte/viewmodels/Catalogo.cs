@@ -13,6 +13,12 @@ public partial class Catalogo : ObservableObject
         Nombre = nombre;
     }
 
+    public Catalogo(Catalogo catalogo)
+    {
+        Id = catalogo.Id;
+        Nombre = catalogo.Nombre;
+    }
+
     public Catalogo() { }
 
     public override bool Equals(object? obj)
