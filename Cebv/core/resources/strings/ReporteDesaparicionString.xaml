@@ -26,6 +26,7 @@
     <system:String x:Key="InstrumentoJuridicoTitle">Instrumentos jurídicos asociados</system:String>
     <system:String x:Key="DesaparicionForzadaTitle">Desaparición forzada o por particulares</system:String>
     <system:String x:Key="DatosComplementariosTitle">Datos complementarios</system:String>
+    <system:String x:Key="GeneracionDocumentosTitle">Generación de documentos</system:String>
 
     <!-- Textos largos -->
     <system:String x:Key="LeyendaFolioDirecto">Expedientes de las personas con las que desapareció o que tienen relación con la desaparición.</system:String>

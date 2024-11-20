@@ -1,0 +1,56 @@
+# This is a basic workflow to help us to deploy the Sicebv project
+# This workflow will build a .NET project targeting Windows x64
+# and create a release in the repository with the generated executable
+# For more information see: https://docs.github.com/es/actions/writing-workflows/quickstart
+name: "Deploy Sicebv"
+
+on:
+  push:
+    tags:
+      - "sicebv/v*"
+
+permissions: write-all
+
+env:
+  PROJECT_PATH: Cebv/Cebv.csproj
+  PUBLISH_PATH: Cebv/bin/Release/net8.0-windows/win-x64/publish/
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v3
+        with:
+          path: C:/Users/runneradmin/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.sln') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Publish Application
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true 
+
+      - name: Create Release
+        id: create_release
+        uses: elgohr/Github-Release-Action@v5
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: ${{ github.ref_name }}
+          tag: ${{ github.ref_name }}
+
+      - name: Upload Assets to Release with a wildcard
+        uses: csexton/release-asset-action@v3
+        with:
+          file: ${{ env.PUBLISH_PATH}}*.exe
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-url: ${{ steps.create_release.outputs.upload_url }}

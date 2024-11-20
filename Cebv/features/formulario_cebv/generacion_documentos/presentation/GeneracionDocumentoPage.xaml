@@ -1,0 +1,93 @@
+<Page x:Class="Cebv.features.formulario_cebv.generacion_documentos.presentation.GeneracionDocumentoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.generacion_documentos.presentation"
+      mc:Ignorable="d"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignWidth="Auto"
+      d:DesignHeight="1000">
+
+    <Page.DataContext>
+        <presentation:GeneracionDocumentoViewModel />
+    </Page.DataContext>
+    <Grid>
+        <StackPanel Margin="10">
+            <ui:TextBlock Text="{StaticResource GeneracionDocumentosTitle}" FontTypography="TitleLarge" />
+            <ui:CardExpander Margin="0 0 0 15">
+                <ui:CardExpander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".8*" />
+                            <ColumnDefinition Width=".2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ui:TextBlock Grid.Column="0" Text="Informe de Inicio" FontTypography="Title" />
+
+                        <ui:Button Grid.Column="1" Content="Generar Informe"
+                                   HorizontalAlignment="Right"
+                                   Appearance="Primary"
+                                   Margin="10"
+                                   Command="{Binding InformeInicioCommand}" />
+                    </Grid>
+                </ui:CardExpander.Header>
+                <StackPanel>
+                    <StackPanel Margin="10">
+                        <ui:TextBlock Text="Resultado de RDN:" />
+                        <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.ResultadoRnd}"
+                                  ItemsSource="{Binding ResultadosRdn}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="10">
+                        <ui:TextBlock Text="Contexto de Hechos de Desaparición:" />
+                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
+                                    MinHeight="100"
+                                    Tag="Exclude"/>
+                    </StackPanel>
+
+                    <ui:Button Content="{StaticResource Guardar}"
+                               Icon="{ui:SymbolIcon Save24}"
+                               Margin="10"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Command="{Binding GuardarCommand}" />
+                </StackPanel>
+            </ui:CardExpander>
+
+
+            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+                <StackPanel>
+
+
+                    <ui:Button Content="Oficio C4"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioC4Command}" />
+
+                    <ui:Button Content="Oficio CEI"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioCeiCommand}" />
+
+                    <ui:Button Content="Oficio Fiscalía"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioFiscaliaCommand}" />
+
+                    <ui:Button Content="Oficio SSA"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding OficioSsaCommand}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

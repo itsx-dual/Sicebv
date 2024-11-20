@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -7,7 +6,7 @@ namespace Cebv.core.util.navigation;
 public interface IDashboardNavigationService
 {
     /// <summary>
-    /// Lets you navigate to the selected page based on it's type. Should be used with <see cref="IPageService"/>.
+    /// Lets you navigate to the selected page based on its type. Should be used with <see cref="IPageService"/>.
     /// </summary>
     /// <param name="pageType"><see langword="Type"/> of the page.</param>
     /// <returns><see langword="true"/> if the operation succeeds. <see langword="false"/> otherwise.</returns>
@@ -17,7 +16,7 @@ public interface IDashboardNavigationService
     void ClearNavigationStack();
 
     /// <summary>
-    /// Lets you navigate to the selected page based on it's type, Should be used with <see cref="IPageService"/>.
+    /// Lets you navigate to the selected page based on its type, Should be used with <see cref="IPageService"/>.
     /// </summary>
     /// <param name="pageType"><see langword="Type"/> of the page.</param>
     /// <param name="dataContext">DataContext <see cref="object"/></param>

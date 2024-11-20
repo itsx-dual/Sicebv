@@ -7,12 +7,12 @@ namespace Cebv.core.util.reporte.viewmodels;
 public partial class Municipio : ObservableObject
 {
    [JsonConstructor]
-   public Municipio(string id, string? nombre, Estado? estado, Catalogo? area_atiende)
+   public Municipio(string id, string? nombre, Estado? estado, Catalogo? areaAtiende)
    {
       Id = id;
       Nombre = nombre;
       Estado = estado;
-      AreaAtiende = area_atiende;
+      AreaAtiende = areaAtiende;
    }
 
    public Municipio() { }
@@ -31,6 +31,11 @@ public partial class Municipio : ObservableObject
       return Equals((Municipio) obj);
    }
 
+   public override int GetHashCode()
+   {
+      return HashCode.Combine(Id, Nombre, Estado, AreaAtiende);
+   }
+
    private bool Equals(Municipio municipio)
    {
       return Id == municipio.Id &&
@@ -38,7 +43,7 @@ public partial class Municipio : ObservableObject
    }
    
    [ObservableProperty, JsonProperty(PropertyName = "id")]
-   private string _id;
+   private string _id = string.Empty;
    
    [ObservableProperty, JsonProperty(PropertyName = "nombre")]
    private string? _nombre;

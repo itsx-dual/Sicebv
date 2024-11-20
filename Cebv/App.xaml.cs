@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Cebv.core.util;
 using Cebv.core.util.navigation;
@@ -58,12 +59,12 @@ public partial class App : Application
     
     protected override void OnStartup(StartupEventArgs e)
     {
-        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.PreviewTextInputEvent, new TextCompositionEventHandler(TextBoxHelper.PreviewTextInput));
-        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.AutoCompleted));
-        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
-        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidText));
+        EventManager.RegisterClassHandler(typeof(TextBox), UIElement.PreviewTextInputEvent, new TextCompositionEventHandler(TextBoxHelper.PreviewTextInput));
+        EventManager.RegisterClassHandler(typeof(TextBox), TextBoxBase.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.AutoCompleted));
+        EventManager.RegisterClassHandler(typeof(TextBox), TextBoxBase.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
+        EventManager.RegisterClassHandler(typeof(TextBox), UIElement.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidText));
         EventManager.RegisterClassHandler(typeof(DatePicker), DatePicker.SelectedDateChangedEvent, new EventHandler<SelectionChangedEventArgs>(TextBoxHelper.DatePickerSelectedDateChanged));
-        EventManager.RegisterClassHandler(typeof(TextBox), TextBox.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidateCoherentText));
+        EventManager.RegisterClassHandler(typeof(TextBox), UIElement.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidateCoherentText));
 
         base.OnStartup(e);
     }

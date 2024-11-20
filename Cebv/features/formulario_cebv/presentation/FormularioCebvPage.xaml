@@ -24,6 +24,7 @@
       xmlns:presentation13="clr-namespace:Cebv.features.formulario_cebv.desaparicion_forzada.presentation"
       xmlns:presentation14="clr-namespace:Cebv.features.formulario_cebv.presentation"
       xmlns:presentation141="clr-namespace:Cebv.features.formulario_cebv.datos_complementarios.presentation"
+      xmlns:presentation15="clr-namespace:Cebv.features.formulario_cebv.generacion_documentos.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -51,7 +52,8 @@
 
         <ui:NavigationView.AutoSuggestBox>
             <ui:AutoSuggestBox Margin="8"
-                               PlaceholderText="Buscar" />
+                               PlaceholderText="Buscar"
+                               Tag="Exclude"/>
         </ui:NavigationView.AutoSuggestBox>
 
         <ui:NavigationView.MenuItems>
@@ -126,6 +128,10 @@
             <ui:NavigationViewItem Content="{StaticResource ControlOgpiTitle}"
                                    Icon="{ui:SymbolIcon BookInformation24}"
                                    TargetPageType="{x:Type presentation9:ControlOgpiPage}" />
+
+            <ui:NavigationViewItem Content="{StaticResource GeneracionDocumentosTitle}"
+                                   Icon="{ui:SymbolIcon DocumentAdd24}"
+                                   TargetPageType="{x:Type presentation15:GeneracionDocumentoPage}" />
         </ui:NavigationView.MenuItems>
 
         <ui:NavigationView.Header>
