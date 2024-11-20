@@ -29,7 +29,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private Reportante _reportante = null!;
     [ObservableProperty] private Desaparecido _desaparecido = null!;
 
-    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido;
+    [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage _imagenBoletin;
     
     // Listas para almacenar catalogos
