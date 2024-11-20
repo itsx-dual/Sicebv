@@ -9,13 +9,15 @@ using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
-using Cebv.core.util.snackbar;
+using Cebv.features.components.edit_telefono;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
+using ISnackbarService = Cebv.core.util.snackbar.ISnackbarService;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel;
 
@@ -24,6 +26,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private static IDashboardNavigationService _navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
     private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
+    private IContentDialogService _dialogService = App.Current.Services.GetService<IContentDialogService>()!;
     
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Reportante _reportante = null!;
@@ -112,7 +115,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         Desaparecido.Persona.Boca ??= new Boca();
         Desaparecido.Persona.Orejas ??= new Orejas();
     }
-
     
     // --------------------------------------------
     
@@ -134,7 +136,68 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         AnosDesaparecido--;
         MesesDesaparecido += 12;
     }
+
+    [RelayCommand]
+    private async Task OnEditarTelefonoReportante(Telefono telefono)
+    {
+        // Se crea una nueva instancia:
+        var telefonoClone = new Telefono(telefono);
+        
+        // Se manda a llamar el ContentDialog el cual muestra una nueva instancia del UserControl.
+        ContentDialogResult result = await _dialogService.ShowAsync(
+            new ContentDialog()
+            {
+                Title = "Editar Seña Particular",
+                Content = new EditTelefonoUserControl
+                {
+                    DataContext = new EditTelefonoViewModel() { Telefono = telefonoClone }
+                },
+                PrimaryButtonText = "Guardar",
+                CloseButtonText = "Descartar"
+            },
+            new CancellationToken()
+        );
+
+        // Si se dio en guardar
+        if (result != ContentDialogResult.Primary) return;
+        
+        // Se busca el indice del elemento seleccionado en la lista.
+        var index = Reportante.Persona.Telefonos.ToList().FindIndex(x => x.Equals(telefono));
+        
+        // Se sobreescribe la instancia anterior.
+        Reportante.Persona.Telefonos[index] = telefonoClone;
+    }
     
+    [RelayCommand]
+    private async Task OnEditarTelefonoDesaparecido(Telefono telefono)
+    {
+        // Se crea una nueva instancia:
+        var telefonoClone = new Telefono(telefono);
+        
+        // Se manda a llamar el ContentDialog el cual muestra una nueva instancia del UserControl.
+        ContentDialogResult result = await _dialogService.ShowAsync(
+            new ContentDialog()
+            {
+                Title = "Editar Seña Particular",
+                Content = new EditTelefonoUserControl
+                {
+                    DataContext = new EditTelefonoViewModel() { Telefono = telefonoClone }
+                },
+                PrimaryButtonText = "Guardar",
+                CloseButtonText = "Descartar"
+            },
+            new CancellationToken()
+        );
+
+        // Si se dio en guardar
+        if (result != ContentDialogResult.Primary) return;
+        
+        // Se busca el indice del elemento seleccionado en la lista.
+        var index = Desaparecido.Persona.Telefonos.ToList().FindIndex(x => x.Equals(telefono));
+        
+        // Se sobreescribe la instancia anterior.
+        Desaparecido.Persona.Telefonos[index] = telefonoClone;
+    }
     
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
@@ -157,8 +220,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
     [RelayCommand]
     private void OnDeleteDesaparecidoImagen(BitmapImage image) => ImagenesDesaparecido.Remove(image);
-
-    private bool _cancelar = true;
     
     [RelayCommand]
     private async Task OnGuardarReporte()

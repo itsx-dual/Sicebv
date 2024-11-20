@@ -25,6 +25,16 @@ public partial class Telefono : ObservableValidator
         EsMovil = esMovil;
     }
 
+    public Telefono(Telefono telefono)
+    {
+        Id = telefono.Id;
+        PersonaId = telefono.PersonaId;
+        Compania = telefono.Compania;
+        Numero = telefono.Numero;
+        Observaciones = telefono.Observaciones;
+        EsMovil = telefono.EsMovil;
+    }
+
     public Telefono() { }
 
     public override bool Equals(object? obj)
