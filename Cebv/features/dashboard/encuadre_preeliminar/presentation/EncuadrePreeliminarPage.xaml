@@ -7,7 +7,6 @@
       xmlns:util="clr-namespace:Cebv.core.util"
       xmlns:viewmodel="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel"
       xmlns:presentation="clr-namespace:Cebv.features.formulario_cebv.senas_particulares.presentation"
-      xmlns:viewmodels="clr-namespace:Cebv.core.util.reporte.viewmodels"
       xmlns:presentation1="clr-namespace:Cebv.features.formulario_cebv.prendas.presentation"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -795,23 +794,23 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center">
 
-                                <ui:Image Source="/core/resources/images/senasv4/VistaV4.png"
+                                <ui:Image Source="/core/resources/images/SeñasV4/VistaV4.png"
                                           x:Name="Vista"
                                           CornerRadius="10"
                                           Stretch="Uniform" />
 
-                                <ui:Image Source="/core/resources/images/senasv4/LadoV4.png"
+                                <ui:Image Source="/core/resources/images/SeñasV4/LadoV4.png"
                                           x:Name="Lado"
                                           CornerRadius="10"
                                           Stretch="Uniform" />
 
-                                <ui:Image Source="/core/resources/images/senasv4/RegionV4.png"
+                                <ui:Image Source="/core/resources/images/SeñasV4/RegionV4.png"
                                           x:Name="Region"
                                           CornerRadius="10"
                                           BorderBrush="Black"
                                           Stretch="Uniform" />
 
-                                <ui:Image Source="/core/resources/images/senasv4/MascaraV4.jpg"
+                                <ui:Image Source="/core/resources/images/SeñasV4/MascaraV4.jpg"
                                           x:Name="Mascara"
                                           MouseDown="Image_MouseDown"
                                           CornerRadius="10"

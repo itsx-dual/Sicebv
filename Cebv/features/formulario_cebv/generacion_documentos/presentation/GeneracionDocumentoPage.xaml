@@ -45,8 +45,10 @@
                     <StackPanel Margin="10">
                         <ui:TextBlock Text="Contexto de Hechos de Desaparición:" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True"
                                     MinHeight="100"
-                                    Tag="Exclude"/>
+                                    Tag="Exclude" />
                     </StackPanel>
 
                     <ui:Button Content="{StaticResource Guardar}"
@@ -86,6 +88,12 @@
                                Appearance="Primary"
                                Margin="10"
                                Command="{Binding OficioSsaCommand}" />
+
+                    <ui:Button Content="Ficha de Datos"
+                               HorizontalAlignment="Stretch"
+                               Appearance="Primary"
+                               Margin="10"
+                               Command="{Binding FichaDatosCommand}" />
                 </StackPanel>
             </Border>
         </StackPanel>

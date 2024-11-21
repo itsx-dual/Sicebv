@@ -192,7 +192,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         // Si se dio en guardar
         if (result != ContentDialogResult.Primary) return;
         
-        // Se busca el indice del elemento seleccionado en la lista.
+        // Se busca el índice del elemento seleccionado en la lista.
         var index = Desaparecido.Persona.Telefonos.ToList().FindIndex(x => x.Equals(telefono));
         
         // Se sobreescribe la instancia anterior.

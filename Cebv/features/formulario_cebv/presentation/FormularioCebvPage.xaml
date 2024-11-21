@@ -50,12 +50,6 @@
                        IsBackButtonVisible="Collapsed"
                        PaneTitle="{StaticResource CapturaReporteTitle}">
 
-        <ui:NavigationView.AutoSuggestBox>
-            <ui:AutoSuggestBox Margin="8"
-                               PlaceholderText="Buscar"
-                               Tag="Exclude"/>
-        </ui:NavigationView.AutoSuggestBox>
-
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="{StaticResource InicioTitle}"
                                    Icon="{ui:SymbolIcon Home24}"

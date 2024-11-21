@@ -36,11 +36,6 @@ public partial class Pertenencia : ObservableObject
     {
         return HashCode.Combine(Id, Nombre, GrupoPertenencia);
     }
-    
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Nombre, GrupoPertenencia?.GetHashCode());
-    }
 
     private bool Equals(Pertenencia pertenencia)
     {

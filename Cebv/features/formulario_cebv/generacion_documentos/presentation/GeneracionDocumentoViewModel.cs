@@ -97,6 +97,20 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     }
 
     # endregion
+    
+    
+    # region Ficha de Datos
+
+    [RelayCommand]
+    private void FichaDatos()
+    {
+        var url = $"reportes/documentos/ficha-datos/{Desaparecido.Id}";
+
+        var webview = new WebView2Window(url, "Ficha de Datos");
+        webview.Show();
+    }
+
+    # endregion
 
     [RelayCommand]
     private async Task OnGuardar()
