@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Cebv.app.presentation;
 using Cebv.core.domain;
 using Cebv.core.modules.persona.data;
+using Cebv.core.util;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
@@ -24,17 +26,20 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel;
 public partial class EncuadrePreeliminarViewModel : ObservableValidator
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
-    private static IDashboardNavigationService _navigationService = App.Current.Services.GetService<IDashboardNavigationService>()!;
+
+    private static IDashboardNavigationService _navigationService =
+        App.Current.Services.GetService<IDashboardNavigationService>()!;
+
     private static ISnackbarService _snackBarService = App.Current.Services.GetService<ISnackbarService>()!;
     private IContentDialogService _dialogService = App.Current.Services.GetService<IContentDialogService>()!;
-    
+
     [ObservableProperty] private Reporte _reporte = null!;
     [ObservableProperty] private Reportante _reportante = null!;
     [ObservableProperty] private Desaparecido _desaparecido = null!;
 
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage _imagenBoletin;
-    
+
     // Listas para almacenar catalogos
     [ObservableProperty] private ObservableCollection<Catalogo> _tiposMedios = new();
     [ObservableProperty] private ObservableCollection<MedioConocimiento> _medios = new();
@@ -58,7 +63,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia = new();
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
-    
+
     public EncuadrePreeliminarViewModel()
     {
         InitAsync();
@@ -87,7 +92,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         sw.Stop();
         Console.WriteLine($"Los catalogos tardaron: {sw.Elapsed} en cargar.");
     }
-    
+
     private void GetReporteFromService()
     {
         Reporte = _reporteService.GetReporte();
@@ -97,7 +102,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(new Desaparecido());
         Desaparecido = Reporte.Desaparecidos.First();
-        
+
         Reporte.HechosDesaparicion ??= new HechosDesaparicion();
     }
 
@@ -115,9 +120,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         Desaparecido.Persona.Boca ??= new Boca();
         Desaparecido.Persona.Orejas ??= new Orejas();
     }
-    
-    // --------------------------------------------
-    
+
     private void DiferenciaFechas(DateTime? a, DateTime? b)
     {
         if (a is null || b is null) return;
@@ -125,7 +128,7 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         AnosDesaparecido = (int)(b?.Year - a?.Year)!;
         MesesDesaparecido = (int)(b?.Month - a?.Month)!;
         DiasDesaparecido = (int)(b?.Day - a?.Day)!;
-        
+
         if (DiasDesaparecido < 0)
         {
             MesesDesaparecido--;
@@ -137,68 +140,25 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         MesesDesaparecido += 12;
     }
 
-    [RelayCommand]
-    private async Task OnEditarTelefonoReportante(Telefono telefono)
+    private async Task EditarTelefono(Telefono telefono, ObservableCollection<Telefono> lista,
+        Visibility verCatalogos = Visibility.Visible)
     {
-        // Se crea una nueva instancia:
-        var telefonoClone = new Telefono(telefono);
-        
-        // Se manda a llamar el ContentDialog el cual muestra una nueva instancia del UserControl.
-        ContentDialogResult result = await _dialogService.ShowAsync(
-            new ContentDialog()
+        var telefonoEditado = new Telefono(telefono);
+        var content = new EditTelefonoUserControl
+        {
+            DataContext = new EditTelefonoViewModel
             {
-                Title = "Editar Seña Particular",
-                Content = new EditTelefonoUserControl
-                {
-                    DataContext = new EditTelefonoViewModel() { Telefono = telefonoClone }
-                },
-                PrimaryButtonText = "Guardar",
-                CloseButtonText = "Descartar"
-            },
-            new CancellationToken()
-        );
+                Telefono = telefonoEditado,
+                VerCompanias = verCatalogos
+            }
+        };
 
-        // Si se dio en guardar
-        if (result != ContentDialogResult.Primary) return;
-        
-        // Se busca el indice del elemento seleccionado en la lista.
-        var index = Reportante.Persona.Telefonos.ToList().FindIndex(x => x.Equals(telefono));
-        
-        // Se sobreescribe la instancia anterior.
-        Reportante.Persona.Telefonos[index] = telefonoClone;
-    }
-    
-    [RelayCommand]
-    private async Task OnEditarTelefonoDesaparecido(Telefono telefono)
-    {
-        // Se crea una nueva instancia:
-        var telefonoClone = new Telefono(telefono);
-        
-        // Se manda a llamar el ContentDialog el cual muestra una nueva instancia del UserControl.
-        ContentDialogResult result = await _dialogService.ShowAsync(
-            new ContentDialog()
-            {
-                Title = "Editar Seña Particular",
-                Content = new EditTelefonoUserControl
-                {
-                    DataContext = new EditTelefonoViewModel() { Telefono = telefonoClone }
-                },
-                PrimaryButtonText = "Guardar",
-                CloseButtonText = "Descartar"
-            },
-            new CancellationToken()
-        );
+        var result = await DialogHelper.ShowDialog(content, "Editar telefono");
 
-        // Si se dio en guardar
         if (result != ContentDialogResult.Primary) return;
-        
-        // Se busca el índice del elemento seleccionado en la lista.
-        var index = Desaparecido.Persona.Telefonos.ToList().FindIndex(x => x.Equals(telefono));
-        
-        // Se sobreescribe la instancia anterior.
-        Desaparecido.Persona.Telefonos[index] = telefonoClone;
+        lista.Update(telefono, telefonoEditado);
     }
-    
+
     [RelayCommand]
     private void OnOpenDesaparecidoImages()
     {
@@ -220,13 +180,13 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
 
     [RelayCommand]
     private void OnDeleteDesaparecidoImagen(BitmapImage image) => ImagenesDesaparecido.Remove(image);
-    
+
     [RelayCommand]
     private async Task OnGuardarReporte()
     {
         // Añadir registros pendientes
-        AddTelefonoMovilReportanteCommand.Execute(null);
-        AddTelefonoMovilDesaparecidoCommand.Execute(null);
+        //AddTelefonoMovilReportanteCommand.Execute(null);
+        //AddTelefonoMovilDesaparecidoCommand.Execute(null);
 
         if (await _reporteService.Sync() is null)
         {
@@ -242,7 +202,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         GetReporteFromService();
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, Enumerable.ToList<BitmapImage>(ImagenesDesaparecido), ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0,
+                Enumerable.ToList<BitmapImage>(ImagenesDesaparecido), ImagenBoletin);
         }
 
         var modal = new PostEncuadreModalWindow();

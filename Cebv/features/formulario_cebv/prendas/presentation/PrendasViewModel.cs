@@ -85,7 +85,7 @@ public partial class PrendasViewModel : ObservableObject
     [RelayCommand]
     private async Task OnEditPrenda(PrendaVestir prenda)
     {
-        var prendaClone = new PrendaVestir(prenda);
+        var prendaEditada = new PrendaVestir(prenda);
         
         ContentDialogResult result = await _dialogService.ShowAsync(
             new ContentDialog()
@@ -95,7 +95,7 @@ public partial class PrendasViewModel : ObservableObject
                 {
                     DataContext = new PrendasViewModel
                     {
-                        PrendaVestir = prendaClone,
+                        PrendaVestir = prendaEditada,
                     }
                 },
                 PrimaryButtonText = "Guardar",
@@ -105,12 +105,7 @@ public partial class PrendasViewModel : ObservableObject
         );
         
         if (result != ContentDialogResult.Primary) return;
-        
-        // Se busca el indice del elemento seleccionado en la lista.
-        var index = Desaparecido.PrendasVestir.ToList().FindIndex(x => x.Equals(prenda));
-        
-        // Se sobreescribe la instancia anterior.
-        Desaparecido.PrendasVestir[index] = prendaClone;
+        Desaparecido.PrendasVestir.Update(prenda, prendaEditada);
     }
 
     [RelayCommand]

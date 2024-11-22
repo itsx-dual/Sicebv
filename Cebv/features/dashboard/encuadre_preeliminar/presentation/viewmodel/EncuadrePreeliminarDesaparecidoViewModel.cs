@@ -12,7 +12,7 @@ public partial class EncuadrePreeliminarViewModel
     [ObservableProperty] private string? _curp;
     [ObservableProperty] private bool _noHayCurp;
     [ObservableProperty] private DateTime _fechaNacimientoDesaparecido = DateTime.Today;
-    [ObservableProperty] private Telefono _telefonoDesaparecido = new() {EsMovil = true};
+    [ObservableProperty] private Telefono _telefonoDesaparecido = new() { EsMovil = true };
     [ObservableProperty] private int _anosDesaparecido;
     [ObservableProperty] private int _mesesDesaparecido;
     [ObservableProperty] private int _diasDesaparecido;
@@ -46,6 +46,12 @@ public partial class EncuadrePreeliminarViewModel
     {
         Desaparecido.Persona.Telefonos.Remove(telefono);
         DesaparecidoTieneTelefonos = Desaparecido.Persona.Telefonos.Any();
+    }
+    
+    [RelayCommand]
+    private async Task OnEditarTelefonoDesaparecido(Telefono telefono)
+    {
+        await EditarTelefono(telefono, Desaparecido.Persona.Telefonos);
     }
     
     // Lidiar con fechas de nacimiento y la fecha de desaparicion para calcular la edad al momento de la desaparicion.
