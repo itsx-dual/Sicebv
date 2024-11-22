@@ -40,7 +40,7 @@ public abstract class ReporteServiceNetwork
     public static async Task<Reporte> Sync(Reporte reporte)
     {
         var json = JsonConvert.SerializeObject(reporte);
-        Console.ForegroundColor = ConsoleColor.Green;
+        //Console.ForegroundColor = ConsoleColor.Green;
         //Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
 
         var request = new HttpRequestMessage
@@ -53,9 +53,9 @@ public abstract class ReporteServiceNetwork
         var response = await Client.SendAsync(request);
         json = await response.Content.ReadAsStringAsync();
 
-        Console.ForegroundColor = ConsoleColor.Cyan;
+        //Console.ForegroundColor = ConsoleColor.Cyan;
         //Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
-        Console.ForegroundColor = ConsoleColor.White;
+        //Console.ForegroundColor = ConsoleColor.White;
         return JsonConvert.DeserializeObject<PaginatedResource<Reporte>>(json)?.Data!;
     }
 

@@ -9,37 +9,42 @@
              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
              ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
              ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-             Width="600">
+             Width="auto">
     <UserControl.DataContext>
         <local:EditTelefonoViewModel/>
     </UserControl.DataContext>
     
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Column="0" MinWidth="250" Margin="0 0 25 0">
-            <ui:TextBlock Text="TELÉFONO MÓVIL: *" />
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Center">
+        <StackPanel MinWidth="250"
+                    Margin="5">
+            <Label Content="Teléfono móvil: *"
+                   Target="{Binding ElementName=NumeroTextBox}"/>
             <ui:TextBox ClearButtonEnabled="True"
                         Text="{Binding Telefono.Numero}"
                         MaxLength="10"
+                        x:Name="NumeroTextBox"
                         Tag="Phone" />
         </StackPanel>
 
-        <StackPanel Grid.Column="1" MinWidth="250" Margin="0 0 25 0">
-            <ui:TextBlock Text="COMPAÑÍA:" />
+        <StackPanel MinWidth="250" 
+                    Margin="5"
+                    Visibility="{Binding VerCompanias}">
+            <Label Content="Compañia:"
+                   Target="{Binding ElementName=CompaniaComboBox}"/>
             <ComboBox ItemsSource="{Binding CompaniasTelefonicas}"
-                      SelectedItem="{Binding Telefono.Compania}" />
+                      SelectedItem="{Binding Telefono.Compania}"
+                      x:Name="CompaniaComboBox"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" MinWidth="250" Margin="0 0 25 0">
-            <ui:TextBlock Text="OBSERVACIONES:" />
+        <StackPanel MinWidth="250"
+                    Margin="5">
+            <Label Content="Observaciones: *"
+                   Target="{Binding ElementName=ObservacionesTextBox}"/>
             <ui:TextBox ClearButtonEnabled="True"
                         Text="{Binding Telefono.Observaciones}"
+                        x:Name="ObservacionesTextBox"
                         Tag="Text" />
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </UserControl>

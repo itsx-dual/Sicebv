@@ -1,0 +1,24 @@
+using Cebv.features.components.edit_telefono;
+using Microsoft.Extensions.DependencyInjection;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
+
+namespace Cebv.core.util;
+
+public static class DialogHelper
+{
+    private static readonly IContentDialogService DialogService =
+        App.Current.Services.GetService<IContentDialogService>()!;
+
+    public static async Task<ContentDialogResult> ShowDialog(dynamic content, string title = "Editar") =>
+        await DialogService.ShowAsync(
+            new ContentDialog
+            {
+                Title = title,
+                Content = content,
+                PrimaryButtonText = "Guardar",
+                CloseButtonText = "Cancelar"
+            },
+            new CancellationToken()
+        );
+}

@@ -48,16 +48,18 @@ public partial class Telefono : ObservableValidator
 
     private bool Equals(Telefono telefono)
     {
+        var compania = Compania?.Equals(telefono.Compania) ?? false;
         return Id == telefono.Id &&
                PersonaId == telefono.PersonaId &&
                Numero == telefono.Numero &&
                Observaciones == telefono.Observaciones &&
-               EsMovil == telefono.EsMovil;
+               EsMovil == telefono.EsMovil &&
+               compania;
     }
 
-    public override int GetHashCode() //wao
+    public override int GetHashCode()
     {
-        return HashCode.Combine(Id, PersonaId, Numero, Observaciones, EsMovil, Compania);
+        return HashCode.Combine(Id, PersonaId, Numero, Observaciones, EsMovil, Compania?.GetHashCode());
     }
 
     [ObservableProperty, JsonProperty(PropertyName = "id")]
