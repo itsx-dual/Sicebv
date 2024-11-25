@@ -158,6 +158,5 @@
                 </WrapPanel>
             </Grid>
         </ui:NavigationView.Header>
-
     </ui:NavigationView>
 </Page>

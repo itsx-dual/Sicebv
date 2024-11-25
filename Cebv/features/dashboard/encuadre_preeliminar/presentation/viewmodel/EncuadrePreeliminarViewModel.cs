@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -12,6 +13,7 @@ using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.domain;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.components.edit_telefono;
+using Cebv.features.components.mensaje_basico;
 using Cebv.features.dashboard.reportes_desaparicion.presentation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -181,18 +183,56 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [RelayCommand]
     private void OnDeleteDesaparecidoImagen(BitmapImage image) => ImagenesDesaparecido.Remove(image);
 
+    private List<ValidationResult> ValidarEncuadre()
+    {
+        ValidateProperty(TipoMedioSelected, nameof(TipoMedioSelected)); // Inicio
+        
+        // Hechos:
+        ValidateProperty(FechaDesaparicion, nameof(FechaDesaparicion)); 
+        ValidateProperty(EstadoSelected, nameof(EstadoSelected));
+        ValidateProperty(MunicipioSelected, nameof(MunicipioSelected));
+        
+        Reporte.ValidarReporteEncuadre();
+        if (!Reportante.DenunciaAnonima) Reportante.Persona.ValidarReportante();
+        Desaparecido.Persona.ValidarDesaparecido();
+        Reporte.HechosDesaparicion?.Direccion.Validar();
+
+        List<ValidationResult> errores = [];
+
+        if (Reporte.HasErrors) errores.AddRange(Reporte.GetErrors());
+        if (Reportante.Persona.HasErrors && !Reportante.DenunciaAnonima) errores.AddRange(Reportante.Persona.GetErrors());
+        if (Desaparecido.Persona.HasErrors) errores.AddRange(Desaparecido.Persona.GetErrors());
+        if (Reporte.HechosDesaparicion?.Direccion.HasErrors ?? false) errores.AddRange(Reporte.HechosDesaparicion.GetErrors());
+        if (this.HasErrors) errores.AddRange(this.GetErrors());
+
+        return errores;
+    }
+
     [RelayCommand]
     private async Task OnGuardarReporte()
     {
-        // Añadir registros pendientes
-        //AddTelefonoMovilReportanteCommand.Execute(null);
-        //AddTelefonoMovilDesaparecidoCommand.Execute(null);
+        var errores = ValidarEncuadre();
+        
+        if (errores.Any())
+        {
+            var content = new MensajeBasicoUserControl
+            {
+                DataContext = new MensajeBasicoViewModel
+                {
+                    Mensaje = errores.Aggregate(string.Empty,
+                        (current, error) => current + (error.ErrorMessage + Environment.NewLine))
+                }
+            };
+            await DialogHelper.ShowDialog(content, "El encuadre no puede ser registrado.");
+            return;
+        }
+        
 
         if (await _reporteService.Sync() is null)
         {
             _snackBarService.Show(
                 "Error fatal",
-                "No se pudo actualizar o ingresar la informacion del reporte",
+                "No se pudo actualizar o ingresar la informacion del reporte.",
                 ControlAppearance.Danger,
                 new SymbolIcon(SymbolRegular.Warning48),
                 new TimeSpan(0, 0, 5));
@@ -200,14 +240,14 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
         }
 
         GetReporteFromService();
+        
         if (ImagenesDesaparecido.Count > 0)
         {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0,
-                Enumerable.ToList<BitmapImage>(ImagenesDesaparecido), ImagenBoletin);
+            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0, Enumerable.ToList(ImagenesDesaparecido), ImagenBoletin);
         }
 
-        var modal = new PostEncuadreModalWindow();
-        if (!(modal.ShowDialog() ?? false)) return;
+        var result = await DialogHelper.ShowDialog(new PostEncuadreUserControl(), "Generación de folio y reportes en PDF.");
+        if (result != ContentDialogResult.Primary) return;
         _navigationService.Navigate(typeof(ReportesDesaparicionPage));
         _snackBarService.Show(
             "El reporte ha sido creado exitosamente",

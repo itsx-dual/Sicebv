@@ -7,13 +7,16 @@ namespace Cebv.features.dashboard.encuadre_preeliminar.presentation.viewmodel;
 
 public partial class EncuadrePreeliminarViewModel
 {
+    [Required(ErrorMessage = "Se necesita registrar el estado donde ocurrio el suceso.")]
     [ObservableProperty] private Estado? _estadoSelected;
     
     [ObservableProperty] 
-    [Required(ErrorMessage = "El campo Municipio es obligatorio")]
+    [Required(ErrorMessage = "Se necesita registrar el municipio donde ocurrio el suceso.")]
     private Municipio? _municipioSelected;
     
+    [Required(ErrorMessage = "Se necesita registrar una fecha de desaparición.")]
     [ObservableProperty] private DateTime _fechaDesaparicion = DateTime.Today;
+    
     [ObservableProperty] private TimeSpan _horaDesaparicion;
     [ObservableProperty] private bool _seDesconoceFechaExactaHechos;
     async partial void OnEstadoSelectedChanged(Estado? value)

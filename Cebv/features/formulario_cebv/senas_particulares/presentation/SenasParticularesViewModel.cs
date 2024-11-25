@@ -74,6 +74,7 @@ public partial class SenasParticularesViewModel : ObservableObject
         // TODO: Aqui hay un error
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
         SenaParticular.RegionCuerpo = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+        ColorRegionCuerpo = string.Empty;
     }
 
     partial void OnColorLadoChanged(string value)
@@ -82,6 +83,7 @@ public partial class SenasParticularesViewModel : ObservableObject
 
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         SenaParticular.Lado = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
+        ColorLado = string.Empty;
     }
 
     partial void OnColorVistaChanged(string value)
@@ -90,11 +92,18 @@ public partial class SenasParticularesViewModel : ObservableObject
 
         var vista = Vistas.FirstOrDefault(e => e.Color == value);
         SenaParticular.Vista = vista ?? Vistas.First(e => e.Nombre == "NO ESPECIFICA");
+        ColorVista = string.Empty;
     }
 
     [RelayCommand]
     private void OnAddSenaParticular()
     {
+        SenaParticular.Validar();
+        if (SenaParticular.HasErrors)
+        {
+            ValidationHelpers.ShowErrorsSnack(SenaParticular.GetErrors(), "No se puede agregar la seña particular.");
+            return;
+        }
         Desaparecido.Persona.SenasParticulares.Add(SenaParticular);
         SenaParticular = new SenaParticular();
     }
@@ -107,34 +116,20 @@ public partial class SenasParticularesViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnEditSenaParticular(SenaParticular sena)
+    private async Task OnEditSenaParticular(SenaParticular sena)
     {
         // Se crea una nueva instancia:
-        var senaClone = new SenaParticular(sena);
+        var senaEditada = new SenaParticular(sena);
+        var content = new EditSenasParticularesUserControl
+        {
+            DataContext = new SenasParticularesViewModel { SenaParticular = senaEditada }
+        };
         
-        // Se manda a llamar el ContentDialog el cual muestra una nueva instancia del UserControl.
-        ContentDialogResult result = await _dialogService.ShowAsync(
-            new ContentDialog()
-            {
-                Title = "Editar Seña Particular",
-                Content = new EditSenasParticularesUserControl
-                {
-                    DataContext = new SenasParticularesViewModel { SenaParticular = senaClone }
-                },
-                PrimaryButtonText = "Guardar",
-                CloseButtonText = "Descartar"
-            },
-            new CancellationToken()
-        );
-
-        // Si se dio en guardar
+        var result = await DialogHelper.ShowDialog(content, "Editar seña particular");
+        
+        
         if (result != ContentDialogResult.Primary) return;
-        
-        // Se busca el indice del elemento seleccionado en la lista.
-        var index = Desaparecido.Persona.SenasParticulares.ToList().FindIndex(x => x.Equals(sena));
-        
-        // Se sobreescribe la instancia anterior.
-        Desaparecido.Persona.SenasParticulares[index] = senaClone;
+        Desaparecido.Persona.SenasParticulares.Update(sena, senaEditada);
     }
 
     private bool _cancelar = true;

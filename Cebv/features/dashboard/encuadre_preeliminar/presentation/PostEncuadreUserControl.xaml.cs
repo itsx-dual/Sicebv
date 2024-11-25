@@ -4,10 +4,10 @@ using Wpf.Ui.Controls;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
-public partial class PostEncuadreModalPage
+public partial class PostEncuadreUserControl : UserControl
 {
     private Window? _window;
-    public PostEncuadreModalPage()
+    public PostEncuadreUserControl()
     {
         InitializeComponent();
     }

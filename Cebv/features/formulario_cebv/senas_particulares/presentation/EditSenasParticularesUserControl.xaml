@@ -95,8 +95,7 @@
                              Height="100"
                              Text="{Binding SenaParticular.Descripcion}"
                              TextWrapping="Wrap"
-                             Tag="Text"
-                             />
+                             Tag="Text"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1"

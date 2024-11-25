@@ -16,6 +16,6 @@
         ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
         d:DesignWidth="1024"
         d:DesignHeight="768"
-        Title="DashboardWindow">
+        Title="SICEBV">
     <dashboard:DashboardPage/>
 </ui:FluentWindow>

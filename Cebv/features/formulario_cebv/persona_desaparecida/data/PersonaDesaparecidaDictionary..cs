@@ -78,7 +78,7 @@ public class PersonaDesaparecidaDictionary
         if (desaparecido is null) return Validaciones.HayInstanciasNulas;
         
         desaparecidoViewModel?.Validate();
-        desaparecido?.Persona?.Validar();
+        //desaparecido?.Persona?.Validar();
         
         var HayErrores = !desaparecidoViewModel.HasErrors && !desaparecido.Persona.HasErrors;
         

@@ -122,20 +122,20 @@ public partial class Persona : ObservableValidator
     [ObservableProperty, JsonProperty(PropertyName = "id")]
     private int? _id;
     
-    [Required(ErrorMessage = "El campo nombre es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "nombre")]
+    [Required(ErrorMessage = "El campo nombre es obligatorio.")]
     [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
     [MinLength(2, ErrorMessage = "El campo nombre debe tener al menos 2 caracteres.")]
     private string? _nombre;
 
-    [Required(ErrorMessage = "El campo apellido paterno es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "apellido_paterno")]
+    [Required(ErrorMessage = "El campo apellido paterno es obligatorio.")]
     [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
     [MinLength(2, ErrorMessage = "El campo apellido paterno debe tener al menos 2 caracteres.")]
     private string? _apellidoPaterno;
 
-    [Required(ErrorMessage = "El campo apellido materno es obligatorio.")]
     [ObservableProperty, JsonProperty(PropertyName = "apellido_materno")]
+    [Required(ErrorMessage = "El campo apellido materno es obligatorio.")]
     [NotifyPropertyChangedFor(nameof(NombreCompleto))] 
     [MinLength(2, ErrorMessage = "El campo apellido materno debe tener al menos 2 caracteres.")]
     private string? _apellidoMaterno;
@@ -296,8 +296,16 @@ public partial class Persona : ObservableValidator
                ApellidoMaterno == persona.ApellidoMaterno;
     }
 
-    public void Validar()
+    public void ValidarReportante()
     {
-        ValidateAllProperties();
+        ValidateProperty(Nombre, nameof(Nombre));
+        ValidateProperty(ApellidoPaterno, nameof(ApellidoPaterno));
+        ValidateProperty(Telefonos, nameof(Telefonos));
+    }
+    
+    public void ValidarDesaparecido()
+    {
+        ValidateProperty(Nombre, nameof(Nombre));
+        ValidateProperty(ApellidoPaterno, nameof(ApellidoPaterno));
     }
 }

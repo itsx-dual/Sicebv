@@ -29,14 +29,14 @@
 
         <ui:TextBlock Grid.Row="0" Text="{StaticResource SenasParticularesTitle}" FontTypography="TitleLarge" />
 
-        <StackPanel Grid.Row="1" Margin="10">
+        <StackPanel Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width=".8*" />
                     <ColumnDefinition Width=".2*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" Margin="10"
+                <Grid Grid.Column="0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center">
 
@@ -66,65 +66,103 @@
 
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0">
-                        <ui:TextBlock Text="Región del cuerpo:" />
-                        <ComboBox SelectedValue="{Binding RegionCuerpoSelected}"
+                    <StackPanel Grid.Row="0"
+                                Margin="5">
+                        <Label Content="Región del cuerpo:"
+                               Target="{Binding ElementName=RegionComboBox}" />
+                        <ComboBox Name="RegionComboBox"
+                                  SelectedValue="{Binding SenaParticular.RegionCuerpo}"
                                   ItemsSource="{Binding RegionesCuerpo}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1">
-                        <ui:TextBlock Text="Lado:" />
-                        <ComboBox SelectedValue="{Binding LadoSelected}"
+                    <StackPanel Grid.Row="1"
+                                Margin="5">
+                        <Label Content="Lado:"
+                               Target="{Binding ElementName=LadoComboBox}" />
+                        <ComboBox Name="LadoComboBox"
+                                  SelectedValue="{Binding SenaParticular.Lado}"
                                   ItemsSource="{Binding Lados}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2">
-                        <ui:TextBlock Text="Vista:" />
-                        <ComboBox SelectedValue="{Binding VistaSelected}"
+                    <StackPanel Grid.Row="2"
+                                Margin="5">
+                        <Label Content="Vista:"
+                               Target="{Binding ElementName=VistaComboBox}" />
+                        <ComboBox Name="VistaComboBox"
+                                  SelectedValue="{Binding SenaParticular.Vista}"
                                   ItemsSource="{Binding Vistas}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="3">
-                        <ui:TextBlock Text="Cantidad:" />
-                        <ui:NumberBox Value="{Binding Cantidad}"
+                    <StackPanel Grid.Row="3"
+                                Margin="5">
+                        <Label Content="Cantidad:"
+                               Target="{Binding ElementName=CantidadNumberBox}" />
+                        <ui:NumberBox Name="CantidadNumberBox"
+                                      Height="36"
+                                      Value="{Binding SenaParticular.Cantidad,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}"
                                       Tag="Number" Minimum="1" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="4">
-                        <ui:TextBlock Text="Tipo de seña:" />
-                        <ComboBox SelectedValue="{Binding TipoSelected}"
+                    <StackPanel Grid.Row="4"
+                                Margin="5">
+                        <Label Content="Tipo de seña:"
+                               Target="{Binding ElementName=TiposComboBox}" />
+                        <ComboBox Name="TiposComboBox"
+                                  SelectedValue="{Binding SenaParticular.Tipo}"
                                   ItemsSource="{Binding Tipos}" />
                     </StackPanel>
+
+                    <Grid Grid.Row="5"
+                          Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Imagen de la seña:"
+                               Target="{Binding ElementName=SenaImage}" />
+                        <Border Grid.Row="1"
+                                Style="{StaticResource CebvBorder}">
+                            <ui:Image Name="SenaImage"
+                                      CornerRadius="8"
+                                      BorderBrush="Beige"
+                                      Stretch="UniformToFill"
+                                      Source="{Binding SenaParticular.Imagen}" />
+                        </Border>
+                    </Grid>
                 </Grid>
             </Grid>
 
             <StackPanel Margin="10 0 10 0">
-                <ui:TextBlock Text="Descripción:" />
-                <TextBox VerticalAlignment="Stretch"
-                         MinHeight="150"
-                         Text="{Binding Descripcion}"
-                         TextWrapping="Wrap" />
+                <Label Content="Descripción:"
+                       Target="{Binding ElementName=DescripcionTextBox}" />
+                <TextBox Name="DescripcionTextBox"
+                         VerticalAlignment="Stretch"
+                         Height="100"
+                         Text="{Binding SenaParticular.Descripcion}"
+                         TextWrapping="Wrap"
+                         Tag="Text" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Margin="10">
-                <ui:Button Content="Eliminar"
-                           Margin="5,0,0,0"
-                           Icon="{ui:SymbolIcon Delete24}"
-                           Appearance="Danger" />
                 <ui:Button Content="Subir imagen"
                            Margin="5,0,0,0"
-                           Icon="{ui:SymbolIcon ArrowUpload24}" />
+                           Icon="{ui:SymbolIcon ArrowUpload24}"
+                           Command="{Binding SubirImagenSenaParticularCommand}"/>
                 <ui:Button Content="Agregar registro"
                            Margin="5,0,0,0"
+                           Appearance="Primary"
                            Command="{Binding AddSenaParticularCommand}"
                            Icon="{ui:SymbolIcon Add24}" />
             </StackPanel>
@@ -199,15 +237,33 @@
                                     </Grid>
                                 </ui:Card>
 
-                                <ui:Button Grid.Column="1"
-                                           VerticalAlignment="Stretch"
-                                           Appearance="Danger"
-                                           HorizontalAlignment="Stretch"
-                                           Icon="{ui:SymbolIcon Delete24}"
-                                           Width="60"
-                                           Margin="4"
-                                           Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
-                                           CommandParameter="{Binding}" />
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <ui:Button Grid.Row="0"
+                                               VerticalAlignment="Stretch"
+                                               Appearance="Success"
+                                               HorizontalAlignment="Stretch"
+                                               Icon="{ui:SymbolIcon Edit24}"
+                                               Width="60"
+                                               Margin="4"
+                                               Command="{Binding ElementName=Page, Path=DataContext.EditSenaParticularCommand}"
+                                               CommandParameter="{Binding}" />
+
+                                    <ui:Button Grid.Row="1"
+                                               VerticalAlignment="Stretch"
+                                               Appearance="Danger"
+                                               HorizontalAlignment="Stretch"
+                                               Icon="{ui:SymbolIcon Delete24}"
+                                               Width="60"
+                                               Margin="4"
+                                               Command="{Binding ElementName=Page, Path=DataContext.DeleteSenaParticularCommand}"
+                                               CommandParameter="{Binding}" />
+                                </Grid>
+
                             </Grid>
                         </DataTemplate>
                     </ui:ListView.ItemTemplate>

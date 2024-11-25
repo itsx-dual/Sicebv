@@ -11,6 +11,11 @@ public static class ValidationHelpers
 
     public static void ShowErrorsSnack(IEnumerable<ValidationResult> errores, string titulo = "Errores de validación:")
     {
+        if (!errores.Any()) _snackBarService.Show("No hay errores.", "", 
+            ControlAppearance.Primary, 
+            new SymbolIcon(SymbolRegular.Check24), 
+            new TimeSpan(0,0,5));;
+        
         var mesgErrores = errores.Aggregate(string.Empty, (current, error) => current + (error.ErrorMessage + Environment.NewLine));
         _snackBarService.Show(titulo, mesgErrores, ControlAppearance.Caution, new SymbolIcon(SymbolRegular.Warning20), new TimeSpan(0,0,5));
     }
