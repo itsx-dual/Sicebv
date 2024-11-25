@@ -18,11 +18,11 @@ public partial class SenasParticularesPage : Page
     {
         if (this.DataContext == null) return;
         
-        Point posicion = e.GetPosition(Mascara);
+        var posicion = e.GetPosition(Mascara);
 
-        Color colorVista = this.GetPixelColor(Vista, posicion);
-        Color colorLado = this.GetPixelColor(Lado, posicion);
-        Color colorRegionCuerpo = this.GetPixelColor(Region, posicion);
+        var colorVista = this.GetPixelColor(Vista, posicion);
+        var colorLado = this.GetPixelColor(Lado, posicion);
+        var colorRegionCuerpo = this.GetPixelColor(Region, posicion);
 
         ((SenasParticularesViewModel) DataContext).ColorRegionCuerpo = colorRegionCuerpo.ToString().Substring(3);
         ((SenasParticularesViewModel) DataContext).ColorLado = colorLado.ToString().Substring(3);

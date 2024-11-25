@@ -74,6 +74,7 @@ public partial class SenasParticularesViewModel : ObservableObject
         // TODO: Aqui hay un error
         var region = RegionesCuerpo.FirstOrDefault(e => e.Color == value);
         SenaParticular.RegionCuerpo = region ?? RegionesCuerpo.First(e => e.Nombre == "NO ESPECIFICA");
+        ColorRegionCuerpo = string.Empty;
     }
 
     partial void OnColorLadoChanged(string value)
@@ -82,6 +83,7 @@ public partial class SenasParticularesViewModel : ObservableObject
 
         var lado = Lados.FirstOrDefault(e => e.Color == value);
         SenaParticular.Lado = lado ?? Lados.First(e => e.Nombre == "NO ESPECIFICA");
+        ColorLado = string.Empty;
     }
 
     partial void OnColorVistaChanged(string value)
@@ -90,6 +92,7 @@ public partial class SenasParticularesViewModel : ObservableObject
 
         var vista = Vistas.FirstOrDefault(e => e.Color == value);
         SenaParticular.Vista = vista ?? Vistas.First(e => e.Nombre == "NO ESPECIFICA");
+        ColorVista = string.Empty;
     }
 
     [RelayCommand]
@@ -98,7 +101,7 @@ public partial class SenasParticularesViewModel : ObservableObject
         SenaParticular.Validar();
         if (SenaParticular.HasErrors)
         {
-            ValidationHelpers.ShowErrorsSnack(SenaParticular.GetErrors(), "No se puede agregar la sena particular.");
+            ValidationHelpers.ShowErrorsSnack(SenaParticular.GetErrors(), "No se puede agregar la seña particular.");
             return;
         }
         Desaparecido.Persona.SenasParticulares.Add(SenaParticular);

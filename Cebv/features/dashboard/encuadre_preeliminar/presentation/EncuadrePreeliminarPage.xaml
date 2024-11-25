@@ -894,272 +894,254 @@
                 </Border.DataContext>
 
                 <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".8*" />
+                    <ColumnDefinition Width=".2*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+
+                    <ui:Image Source="/core/resources/images/SeñasV4/VistaV4.png"
+                              x:Name="Vista"
+                              CornerRadius="10"
+                              Stretch="Uniform" />
+
+                    <ui:Image Source="/core/resources/images/SeñasV4/LadoV4.png"
+                              x:Name="Lado"
+                              CornerRadius="10"
+                              Stretch="Uniform" />
+
+                    <ui:Image Source="/core/resources/images/SeñasV4/RegionV4.png"
+                              x:Name="Region"
+                              CornerRadius="10"
+                              BorderBrush="Black"
+                              Stretch="Uniform" />
+
+                    <ui:Image Source="/core/resources/images/SeñasV4/MascaraV4.jpg"
+                              x:Name="Mascara"
+                              MouseDown="Image_MouseDown"
+                              CornerRadius="10"
+                              BorderBrush="Black"
+                              Stretch="Uniform" />
+                </Grid>
+
+                <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Margin="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1.2*" />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1.2*" />
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="10"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center">
-
-                                <ui:Image Source="/core/resources/images/SeñasV4/VistaV4.png"
-                                          x:Name="Vista"
-                                          CornerRadius="10"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/SeñasV4/LadoV4.png"
-                                          x:Name="Lado"
-                                          CornerRadius="10"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/SeñasV4/RegionV4.png"
-                                          x:Name="Region"
-                                          CornerRadius="10"
-                                          BorderBrush="Black"
-                                          Stretch="Uniform" />
-
-                                <ui:Image Source="/core/resources/images/SeñasV4/MascaraV4.jpg"
-                                          x:Name="Mascara"
-                                          MouseDown="Image_MouseDown"
-                                          CornerRadius="10"
-                                          BorderBrush="Black"
-                                          Stretch="Uniform" />
-                            </Grid>
-
-                            <Grid Grid.Row="1"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="3">
-                                <StackPanel>
-                                    <!-- Tipo de seña -->
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel>
-                                            <!-- Region cuerpo -->
-                                            <Label Content="Región del cuerpo:" Margin="10,10,0,0"
-                                                   Target="{Binding ElementName=RegionCuerpo}"/>
-                                            <ComboBox Margin="5,0,5,0"
-                                                      SelectedValue="{Binding SenaParticular.RegionCuerpo}"
-                                                      ItemsSource="{Binding RegionesCuerpo}"
-                                                      x:Name="RegionCuerpo"/>
-
-                                            <!-- Vista -->
-                                            <Label Content="Vista:" Margin="10,10,0,0"
-                                                   Target="{Binding ElementName=VistaSenas}"/>
-                                            <ComboBox Margin="5,0,5,0"
-                                                      SelectedValue="{Binding SenaParticular.Vista}"
-                                                      ItemsSource="{Binding Vistas}" 
-                                                      x:Name="VistaSenas"/>
-
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Column="1">
-                                            <Label Content="Lado:" Margin="10,10,0,0"
-                                                   Target="{Binding ElementName=LadoSena}"/>
-                                            <ComboBox Margin="5,0,5,0"
-                                                      SelectedValue="{Binding SenaParticular.Lado}"
-                                                      ItemsSource="{Binding Lados}"
-                                                      x:Name="LadoSena"/>
-
-                                            <!-- Cantidad -->
-                                            
-                                            <Label Content="Cantidad:" Margin="10,10,0,0"
-                                                   Target="{Binding ElementName=CantidadSena}"/>
-                                            <ui:NumberBox Margin="5,0,5,0"
-                                                          Value="{Binding SenaParticular.Cantidad,
-                                                          Mode=TwoWay,
-                                                          UpdateSourceTrigger=PropertyChanged}"
-                                                          Tag="Number" Minimum="1"
-                                                          x:Name="CantidadSena"/>
-
-                                        </StackPanel>
-                                    </Grid>
-                                    <Label Content="Tipo de seña:" Margin="10,10,0,0"
-                                           Target="{Binding ElementName=TipoSena}"/>
-                                    <ComboBox Margin="5,0,5,0"
-                                              SelectedValue="{Binding SenaParticular.Tipo}"
-                                              ItemsSource="{Binding Tipos}"
-                                              x:Name="TipoSena"/>
-
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Grid.Column="0">
-                                            
-                                            <Label Content="Descripción:" Margin="10,10,0,0"
-                                                   Target="{Binding ElementName=DescSena}"/>
-                                            <TextBox Margin="10"
-                                                     VerticalAlignment="Stretch"
-                                                     Height="100"
-                                                     Text="{Binding SenaParticular.Descripcion}"
-                                                     TextWrapping="Wrap"
-                                                     Tag="Text" 
-                                                     x:Name="DescSena"/>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Column="1">
-                                            <Label Content="Imagen de la seña:" Margin="10,10,0,0"
-                                                   Target="{Binding ElementName=ImgSena}"/>
-                                            <ui:Image Margin="10"
-                                                      CornerRadius="8"
-                                                      BorderBrush="Beige"
-                                                      Source="{Binding SenaParticular.Imagen}"
-                                                      x:Name="ImgSena"/>
-                                        </StackPanel>
-
-                                    </Grid>
-
-                                    <!-- Descripcion -->
-
-
-                                    <StackPanel Orientation="Horizontal"
-                                                HorizontalAlignment="Right"
-                                                Margin="10">
-                                        <ui:TextBlock Text="{Binding SenaParticular.Imagen.BaseUri}" />
-
-                                        <ui:Button Content="Subir imagen"
-                                                   Margin="5,0,0,0"
-                                                   Command="{Binding SubirImagenSenaParticularCommand}"
-                                                   Icon="{ui:SymbolIcon ArrowUpload24}" />
-
-                                        <ui:Button Content="Agregar seña particular"
-                                                   Margin="5,0,0,0"
-                                                   Appearance="Primary"
-                                                   Command="{Binding AddSenaParticularCommand}"
-                                                   Icon="{ui:SymbolIcon Add24}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </Grid>
-
-                            <ui:CardExpander Grid.Row="2"
-                                             Grid.Column="0"
-                                             Grid.ColumnSpan="3" Icon="{ui:SymbolIcon Accessibility24}"
-                                             Margin="10,0,10,0"
-                                             IsExpanded="True">
-                                <ui:CardExpander.Header>
-                                    <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
-                                </ui:CardExpander.Header>
-
-                                <ui:ListView ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
-                                    <ui:ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Grid.IsSharedSizeScope="True"
-                                                        Name="StackPanel" />
-                                        </ItemsPanelTemplate>
-                                    </ui:ListView.ItemsPanel>
-
-                                    <ui:ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <!-- Me da vergüenza la cantidad de tiempo que gaste en las siguientes dos lineas: -->
-                                            <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}"
-                                                  Margin="-5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <ui:Card Margin="3,3,0,3">
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <StackPanel HorizontalAlignment="Left">
-                                                            <ui:TextBlock
-                                                                Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
-                                                                FontTypography="BodyStrong" />
-                                                            <ui:TextBlock
-                                                                Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
-                                                            <ui:TextBlock
-                                                                Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
-                                                            <ui:TextBlock
-                                                                Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
-                                                            <ui:TextBlock
-                                                                Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
-                                                        </StackPanel>
-
-                                                        <DockPanel Grid.Column="1"
-                                                                   HorizontalAlignment="Stretch">
-                                                            <ui:TextBlock Text="Descripción:"
-                                                                          FontTypography="BodyStrong"
-                                                                          DockPanel.Dock="Top"
-                                                                          Margin="10,0,10,0"
-                                                                          HorizontalAlignment="Left" />
-
-                                                            <ui:TextBlock Text="{Binding Descripcion}"
-                                                                          HorizontalAlignment="Left"
-                                                                          Margin="10,0,10,0"
-                                                                          TextWrapping="Wrap" />
-                                                        </DockPanel>
-
-                                                        <ui:Image Grid.Column="2"
-                                                                  Source="{Binding Imagen}"
-                                                                  Width="100"
-                                                                  Height="100"
-                                                                  CornerRadius="8"
-                                                                  Stretch="UniformToFill" />
-                                                    </Grid>
-                                                </ui:Card>
-
-                                                <Grid Grid.Column="1">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition />
-                                                        <RowDefinition />
-                                                    </Grid.RowDefinitions>
-
-                                                    <ui:Button Grid.Row="0"
-                                                               VerticalAlignment="Stretch"
-                                                               Appearance="Success"
-                                                               HorizontalAlignment="Stretch"
-                                                               Icon="{ui:SymbolIcon Edit24}"
-                                                               Width="60"
-                                                               Margin="4"
-                                                               Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.EditSenaParticularCommand}"
-                                                               CommandParameter="{Binding}" />
-
-                                                    <ui:Button Grid.Row="1"
-                                                               VerticalAlignment="Stretch"
-                                                               Appearance="Danger"
-                                                               HorizontalAlignment="Stretch"
-                                                               Icon="{ui:SymbolIcon Delete24}"
-                                                               Width="60"
-                                                               Margin="4"
-                                                               Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.DeleteSenaParticularCommand}"
-                                                               CommandParameter="{Binding}" />
-                                                </Grid>
-
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ui:ListView.ItemTemplate>
-                                </ui:ListView>
-                            </ui:CardExpander>
-                        </Grid>
+                    <StackPanel Grid.Row="0"
+                                Margin="5">
+                        <Label Content="Región del cuerpo:"
+                               Target="{Binding ElementName=RegionComboBox}" />
+                        <ComboBox Name="RegionComboBox"
+                                  SelectedValue="{Binding SenaParticular.RegionCuerpo}"
+                                  ItemsSource="{Binding RegionesCuerpo}" />
                     </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Margin="5">
+                        <Label Content="Lado:"
+                               Target="{Binding ElementName=LadoComboBox}" />
+                        <ComboBox Name="LadoComboBox"
+                                  SelectedValue="{Binding SenaParticular.Lado}"
+                                  ItemsSource="{Binding Lados}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                Margin="5">
+                        <Label Content="Vista:"
+                               Target="{Binding ElementName=VistaComboBox}" />
+                        <ComboBox Name="VistaComboBox"
+                                  SelectedValue="{Binding SenaParticular.Vista}"
+                                  ItemsSource="{Binding Vistas}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3"
+                                Margin="5">
+                        <Label Content="Cantidad:"
+                               Target="{Binding ElementName=CantidadNumberBox}" />
+                        <ui:NumberBox Name="CantidadNumberBox"
+                                      Height="36"
+                                      Value="{Binding SenaParticular.Cantidad,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                      Tag="Number" Minimum="1" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="4"
+                                Margin="5">
+                        <Label Content="Tipo de seña:"
+                               Target="{Binding ElementName=TiposComboBox}" />
+                        <ComboBox Name="TiposComboBox"
+                                  SelectedValue="{Binding SenaParticular.Tipo}"
+                                  ItemsSource="{Binding Tipos}" />
+                    </StackPanel>
+
+                    <Grid Grid.Row="5"
+                          Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Imagen de la seña:"
+                               Target="{Binding ElementName=SenaImage}" />
+                        <Border Grid.Row="1"
+                                Style="{StaticResource CebvBorder}">
+                            <ui:Image Name="SenaImage"
+                                      CornerRadius="8"
+                                      BorderBrush="Beige"
+                                      Stretch="UniformToFill"
+                                      Source="{Binding SenaParticular.Imagen}" />
+                        </Border>
+                    </Grid>
                 </Grid>
+            </Grid>
+
+            <StackPanel Margin="10 0 10 0">
+                <Label Content="Descripción:"
+                       Target="{Binding ElementName=DescripcionTextBox}" />
+                <TextBox Name="DescripcionTextBox"
+                         VerticalAlignment="Stretch"
+                         Height="100"
+                         Text="{Binding SenaParticular.Descripcion}"
+                         TextWrapping="Wrap"
+                         Tag="Text" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="10">
+                <ui:Button Content="Subir imagen"
+                           Margin="5,0,0,0"
+                           Icon="{ui:SymbolIcon ArrowUpload24}"
+                           Command="{Binding SubirImagenSenaParticularCommand}"/>
+                <ui:Button Content="Agregar registro"
+                           Margin="5,0,0,0"
+                           Appearance="Primary"
+                           Command="{Binding AddSenaParticularCommand}"
+                           Icon="{ui:SymbolIcon Add24}" />
+            </StackPanel>
+
+            <ui:CardExpander Icon="{ui:SymbolIcon Accessibility24}"
+                             Margin="10,0,10,0"
+                             IsExpanded="True">
+                <ui:CardExpander.Header>
+                    <ui:TextBlock Text="Señas particulares" FontTypography="Subtitle" />
+                </ui:CardExpander.Header>
+
+                <ui:ListView ItemsSource="{Binding Desaparecido.Persona.SenasParticulares}">
+                    <ui:ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Grid.IsSharedSizeScope="True"
+                                        Name="StackPanel" />
+                        </ItemsPanelTemplate>
+                    </ui:ListView.ItemsPanel>
+
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Me da vergüenza la cantidad de tiempo que gaste en las siguientes dos lineas: -->
+                            <Grid Width="{Binding ElementName=StackPanel, Path=ActualWidth}"
+                                  Margin="-5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ui:Card Margin="3,3,0,3">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel HorizontalAlignment="Left">
+                                            <ui:TextBlock
+                                                Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
+                                                FontTypography="BodyStrong" />
+                                            <ui:TextBlock
+                                                Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
+                                            <ui:TextBlock
+                                                Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
+                                        </StackPanel>
+
+                                        <DockPanel Grid.Column="1"
+                                                   HorizontalAlignment="Stretch">
+                                            <ui:TextBlock Text="Descripción:"
+                                                          FontTypography="BodyStrong"
+                                                          DockPanel.Dock="Top"
+                                                          Margin="10,0,10,0"
+                                                          HorizontalAlignment="Left" />
+
+                                            <ui:TextBlock Text="{Binding Descripcion}"
+                                                          HorizontalAlignment="Left"
+                                                          Margin="10,0,10,0"
+                                                          TextWrapping="Wrap" />
+                                        </DockPanel>
+
+                                        <ui:Image Grid.Column="2"
+                                                  Source="{Binding Imagen}"
+                                                  Width="100"
+                                                  Height="100"
+                                                  CornerRadius="8"
+                                                  Stretch="UniformToFill" />
+                                    </Grid>
+                                </ui:Card>
+
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <ui:Button Grid.Row="0"
+                                               VerticalAlignment="Stretch"
+                                               Appearance="Success"
+                                               HorizontalAlignment="Stretch"
+                                               Icon="{ui:SymbolIcon Edit24}"
+                                               Width="60"
+                                               Margin="4"
+                                               Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.EditSenaParticularCommand}"
+                                               CommandParameter="{Binding}" />
+
+                                    <ui:Button Grid.Row="1"
+                                               VerticalAlignment="Stretch"
+                                               Appearance="Danger"
+                                               HorizontalAlignment="Stretch"
+                                               Icon="{ui:SymbolIcon Delete24}"
+                                               Width="60"
+                                               Margin="4"
+                                               Command="{Binding ElementName=SenasParticularesBorder, Path=DataContext.DeleteSenaParticularCommand}"
+                                               CommandParameter="{Binding}" />
+                                </Grid>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </ui:CardExpander>
+        </StackPanel>
+    </Grid>
             </Border>
 
             <ui:TextBlock Text="Vestimenta" FontTypography="Title" Margin="10" />
