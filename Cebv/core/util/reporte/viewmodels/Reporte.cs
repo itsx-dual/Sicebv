@@ -76,7 +76,7 @@ public partial class Reporte : ObservableValidator
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    [Required(ErrorMessage = "El campo tipo reporte es bligatorio")]
+    [Required(ErrorMessage = "El campo tipo reporte es obligatorio")]
     private BasicResource? _tipoReporte;
 
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
@@ -148,5 +148,6 @@ public partial class Reporte : ObservableValidator
             var value = property.GetValue(this);
             ValidateProperty(value, propertyName);
         }
+        ValidateAllProperties();
     }
 }

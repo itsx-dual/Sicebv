@@ -87,8 +87,8 @@ public class EncuadrePreeliminarDictionary
         if (reportante is null || desaparecido is null || reporte is null) return Validaciones.HayInstanciasNulas;
         
         //encuadre.Validate();
-        reportante?.Persona?.Validar();
-        desaparecido?.Persona?.Validar();
+        //reportante?.Persona?.Validar();
+        //desaparecido?.Persona?.Validar();
         reporte?.HechosDesaparicion?.Validar();
         reporte?.Validar("MedioConocimiento");
         

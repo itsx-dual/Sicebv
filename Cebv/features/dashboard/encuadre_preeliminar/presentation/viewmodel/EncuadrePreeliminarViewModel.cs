@@ -184,36 +184,40 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [RelayCommand]
     private async Task OnGuardarReporte()
     {
+        Reportante.Persona.ValidarReportante();
+        
+        if (Reportante.Persona.HasErrors) ValidationHelpers.ShowErrorsSnack(Reportante.Persona.GetErrors(), "Hay errores de validacion sobre el reportante.");
+        
         // Añadir registros pendientes
         //AddTelefonoMovilReportanteCommand.Execute(null);
         //AddTelefonoMovilDesaparecidoCommand.Execute(null);
 
-        if (await _reporteService.Sync() is null)
-        {
-            _snackBarService.Show(
-                "Error fatal",
-                "No se pudo actualizar o ingresar la informacion del reporte",
-                ControlAppearance.Danger,
-                new SymbolIcon(SymbolRegular.Warning48),
-                new TimeSpan(0, 0, 5));
-            return;
-        }
-
-        GetReporteFromService();
-        if (ImagenesDesaparecido.Count > 0)
-        {
-            await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0,
-                Enumerable.ToList<BitmapImage>(ImagenesDesaparecido), ImagenBoletin);
-        }
-
-        var modal = new PostEncuadreModalWindow();
-        if (!(modal.ShowDialog() ?? false)) return;
-        _navigationService.Navigate(typeof(ReportesDesaparicionPage));
-        _snackBarService.Show(
-            "El reporte ha sido creado exitosamente",
-            "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
-            ControlAppearance.Success,
-            new SymbolIcon(SymbolRegular.Checkmark32),
-            new TimeSpan(0, 0, 5));
+        //if (await _reporteService.Sync() is null)
+        //{
+        //    _snackBarService.Show(
+        //        "Error fatal",
+        //        "No se pudo actualizar o ingresar la informacion del reporte",
+        //        ControlAppearance.Danger,
+        //        new SymbolIcon(SymbolRegular.Warning48),
+        //        new TimeSpan(0, 0, 5));
+        //    return;
+        //}
+//
+        //GetReporteFromService();
+        //if (ImagenesDesaparecido.Count > 0)
+        //{
+        //    await ReporteServiceNetwork.SubirFotosDesaparecido(Desaparecido.Id ?? 0,
+        //        Enumerable.ToList<BitmapImage>(ImagenesDesaparecido), ImagenBoletin);
+        //}
+//
+        //var modal = new PostEncuadreModalWindow();
+        //if (!(modal.ShowDialog() ?? false)) return;
+        //_navigationService.Navigate(typeof(ReportesDesaparicionPage));
+        //_snackBarService.Show(
+        //    "El reporte ha sido creado exitosamente",
+        //    "Se ha creado el reporte de manera exitosa, ha sido redireccionado a la pantalla de consultas.",
+        //    ControlAppearance.Success,
+        //    new SymbolIcon(SymbolRegular.Checkmark32),
+        //    new TimeSpan(0, 0, 5));
     }
 }

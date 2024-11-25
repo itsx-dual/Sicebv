@@ -296,8 +296,10 @@ public partial class Persona : ObservableValidator
                ApellidoMaterno == persona.ApellidoMaterno;
     }
 
-    public void Validar()
+    public void ValidarReportante()
     {
-        ValidateAllProperties();
+        ValidateProperty(Nombre, nameof(Nombre));
+        ValidateProperty(ApellidoPaterno, nameof(ApellidoPaterno));
+        ValidateProperty(Telefonos, nameof(Telefonos));
     }
 }

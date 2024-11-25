@@ -71,7 +71,7 @@ public class ReportanteDictionary
         if (!reportante.DenunciaAnonima)
         {
             reportanteViewModel?.Validate();
-            reportante?.Persona?.Validar();
+            //reportante?.Persona?.Validar();
         
             var HayErrores = !reportanteViewModel.HasErrors && !reportante.Persona.HasErrors;
             
