@@ -109,18 +109,30 @@
                 </WrapPanel>
             </Border>
 
-            <ui:TextBlock Text="Reportante" FontTypography="Title" Margin="10" />
+            <Grid VerticalAlignment="Stretch"
+                  Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <ui:TextBlock Grid.Column="0" 
+                              Text="Reportante" 
+                              FontTypography="Title"/>
+                <ui:ToggleSwitch Grid.Column="1"
+                                 Margin="10,11,10,10"
+                                 OffContent="El reportante no es anonimo."
+                                 OnContent="El reportante es anonimo."
+                                 IsChecked="{Binding Reportante.DenunciaAnonima}" />
+            </Grid>
             <Border Style="{StaticResource CebvBorder}"
                     Margin="0 0 0 25">
                 <StackPanel Margin="5">
-                    <CheckBox Content="El reportante desea ser anonimo"
-                              IsChecked="{Binding Reportante.DenunciaAnonima}" />
-
                     <!-- Nombre Completo -->
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             
-                            <Label Content="NOMBRE(S):  *"
+                            <Label Content="NOMBRE(S): *"
                                    Target="{Binding ElementName=NombreReportante}"/>
                             <ui:TextBox Text="{Binding Reportante.Persona.Nombre}"
                                         Tag="Name" 
@@ -128,7 +140,7 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <Label Content="PRIMER APELLIDO:  "
+                            <Label Content="PRIMER APELLIDO: *"
                                    Target="{Binding ElementName=PrimerApellidoReportante}"/>
                             <ui:TextBox Text="{Binding Reportante.Persona.ApellidoPaterno}"
                                         Tag="Name"  x:Name="PrimerApellidoReportante" />
@@ -162,7 +174,7 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <Label Content="TELÉFONO MÓVIL: *"
+                            <Label Content="TELÉFONO MÓVIL:"
                                    Target="{Binding ElementName=TelefonoReportante}"/>
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding TelefonoReportante.Numero}"
@@ -458,7 +470,7 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <Label Content="TELÉFONO MÓVIL: *"
+                            <Label Content="TELÉFONO MÓVIL:"
                                    Target="{Binding ElementName=TelefonoDesaparecido}"/>
                             <ui:TextBox ClearButtonEnabled="True"
                                         Text="{Binding TelefonoDesaparecido.Numero}"

@@ -90,7 +90,7 @@ public class EncuadrePreeliminarDictionary
         //reportante?.Persona?.Validar();
         //desaparecido?.Persona?.Validar();
         reporte?.HechosDesaparicion?.Validar();
-        reporte?.Validar("MedioConocimiento");
+        //reporte?.Validar("MedioConocimiento");
         
         var HayErrores= !reportante.Persona.HasErrors && !desaparecido.Persona.HasErrors && 
                                           !reporte.HechosDesaparicion.HasErrors && !reporte.HasErrors && !encuadre.HasErrors;

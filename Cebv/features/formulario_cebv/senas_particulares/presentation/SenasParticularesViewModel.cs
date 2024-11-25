@@ -95,6 +95,12 @@ public partial class SenasParticularesViewModel : ObservableObject
     [RelayCommand]
     private void OnAddSenaParticular()
     {
+        SenaParticular.Validar();
+        if (SenaParticular.HasErrors)
+        {
+            ValidationHelpers.ShowErrorsSnack(SenaParticular.GetErrors(), "No se puede agregar la sena particular.");
+            return;
+        }
         Desaparecido.Persona.SenasParticulares.Add(SenaParticular);
         SenaParticular = new SenaParticular();
     }
@@ -107,34 +113,20 @@ public partial class SenasParticularesViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void OnEditSenaParticular(SenaParticular sena)
+    private async Task OnEditSenaParticular(SenaParticular sena)
     {
         // Se crea una nueva instancia:
-        var senaClone = new SenaParticular(sena);
+        var senaEditada = new SenaParticular(sena);
+        var content = new EditSenasParticularesUserControl
+        {
+            DataContext = new SenasParticularesViewModel { SenaParticular = senaEditada }
+        };
         
-        // Se manda a llamar el ContentDialog el cual muestra una nueva instancia del UserControl.
-        ContentDialogResult result = await _dialogService.ShowAsync(
-            new ContentDialog()
-            {
-                Title = "Editar Seña Particular",
-                Content = new EditSenasParticularesUserControl
-                {
-                    DataContext = new SenasParticularesViewModel { SenaParticular = senaClone }
-                },
-                PrimaryButtonText = "Guardar",
-                CloseButtonText = "Descartar"
-            },
-            new CancellationToken()
-        );
-
-        // Si se dio en guardar
+        var result = await DialogHelper.ShowDialog(content, "Editar seña particular");
+        
+        
         if (result != ContentDialogResult.Primary) return;
-        
-        // Se busca el indice del elemento seleccionado en la lista.
-        var index = Desaparecido.Persona.SenasParticulares.ToList().FindIndex(x => x.Equals(sena));
-        
-        // Se sobreescribe la instancia anterior.
-        Desaparecido.Persona.SenasParticulares[index] = senaClone;
+        Desaparecido.Persona.SenasParticulares.Update(sena, senaEditada);
     }
 
     private bool _cancelar = true;

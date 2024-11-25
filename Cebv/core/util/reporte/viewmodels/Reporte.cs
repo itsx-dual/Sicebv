@@ -83,7 +83,7 @@ public partial class Reporte : ObservableValidator
     private Catalogo? _areaAtiende;
 
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
-    [Required(ErrorMessage = "El campo medio conocimiento es obligatorio")]
+    [Required(ErrorMessage = "Se debe seleccionar el medio de conocimiento especifico.")]
     private MedioConocimiento? _medioConocimiento;
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
@@ -140,14 +140,8 @@ public partial class Reporte : ObservableValidator
     [ObservableProperty, JsonProperty("expediente_fisico")]
     private ExpedienteFisico? _expedienteFisico;
     
-    public void Validar(string propertyName)
+    public void ValidarReporteEncuadre()
     {
-        var property = GetType().GetProperty(propertyName);
-        if (property != null)
-        {
-            var value = property.GetValue(this);
-            ValidateProperty(value, propertyName);
-        }
-        ValidateAllProperties();
+        ValidateProperty(MedioConocimiento, nameof(MedioConocimiento));
     }
 }
