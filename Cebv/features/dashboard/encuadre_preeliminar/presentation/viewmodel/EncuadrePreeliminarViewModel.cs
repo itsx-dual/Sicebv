@@ -227,7 +227,6 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
             return;
         }
         
-
         if (await _reporteService.Sync() is null)
         {
             _snackBarService.Show(

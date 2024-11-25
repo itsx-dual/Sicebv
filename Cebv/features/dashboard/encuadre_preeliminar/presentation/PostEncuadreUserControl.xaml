@@ -19,7 +19,6 @@
 
     <Grid>
         <StackPanel Margin="5">
-            <ui:TimePicker/>
             <!-- Información del reporte -->
             <ui:TextBlock Text="Información del reporte"
                           FontTypography="Title"
@@ -97,6 +96,13 @@
                                 <ui:TextBlock Text="Quien da el visto bueno" />
                                 <ComboBox />
                             </StackPanel>
+                            
+                            <StackPanel Margin="0,0,10,0"
+                                        MinWidth="250">
+                                <ui:TextBlock Text="Resultado de RDN:" />
+                                <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.ResultadoRnd}"
+                                          ItemsSource="{Binding ResultadosRdn}" />
+                            </StackPanel>
 
                             <ui:Button Content="Generar informe de inicio"
                                        Icon="{ui:SymbolIcon Document16}"
@@ -104,10 +110,28 @@
                                        VerticalAlignment="Bottom"
                                        HorizontalAlignment="Center"
                                        Height="37"
-                                       Command="{Binding GetInformeInicioCommand}" />
+                                       Command="{Binding InformeInicioCommand}" />
                         </WrapPanel>
+                        
+                        <StackPanel>
+                            <ui:TextBlock Text="Contexto de Hechos de Desaparición:" />
+                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
+                                        TextWrapping="Wrap"
+                                        AcceptsReturn="True"
+                                        MinHeight="100"
+                                        Tag="Exclude" />
+                        </StackPanel>
 
                     </StackPanel>
+                    
+                    <ui:TextBlock Text="Ficha de datos."
+                                  FontTypography="Subtitle"
+                                  Margin="0,0,0,10" />
+                    <ui:Button Content="Generar ficha de datos"
+                               Icon="{ui:SymbolIcon DocumentPerson16}"
+                               Appearance="Primary"
+                               Command="{Binding GenerarFichaDeDatosCommand}"
+                               Margin="0,0,5,5" />
 
                     <ui:TextBlock Text="Boletines."
                                   FontTypography="Subtitle"
@@ -148,17 +172,12 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <StackPanel HorizontalAlignment="Left">
-                                                    <ui:TextBlock
-                                                        Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
-                                                        FontTypography="BodyStrong" />
-                                                    <ui:TextBlock
-                                                        Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
-                                                    <ui:TextBlock
-                                                        Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
-                                                    <ui:TextBlock
-                                                        Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
-                                                    <ui:TextBlock
-                                                        Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
+                                                    <ui:TextBlock Text="{Binding RegionCuerpo.Nombre, StringFormat='Región del cuerpo: {0}'}"
+                                                                  FontTypography="BodyStrong" />
+                                                    <ui:TextBlock Text="{Binding Lado.Nombre,StringFormat='Lado: {0}'}" />
+                                                    <ui:TextBlock Text="{Binding Vista.Nombre, StringFormat='Vista: {0}'}" />
+                                                    <ui:TextBlock Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" />
+                                                    <ui:TextBlock Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
                                                 </StackPanel>
 
                                                 <DockPanel Grid.Column="1"
@@ -209,17 +228,12 @@
                                 Tag="Exclude" />
 
                     <WrapPanel IsEnabled="True">
-                        <ui:Button Content="Generar ficha de datos"
-                                   Icon="{ui:SymbolIcon DocumentPerson16}"
-                                   Appearance="Primary"
-                                   Command="{Binding GenerarFichaDeDatosCommand}"
-                                   Margin="0,0,5,5" />
-
                         <ui:Button Content="Generar boletin de busqueda inmediata"
                                    Icon="{ui:SymbolIcon DocumentPerson16}"
                                    Appearance="Primary"
                                    Command="{Binding GenerarBoletinBusquedaInmediataCommand}"
-                                   Margin="0,0,5,5" />
+                                   Margin="0,0,5,5"
+                                   IsEnabled="False"/>
                     </WrapPanel>
                 </StackPanel>
             </Border>
