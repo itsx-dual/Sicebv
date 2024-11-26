@@ -15,10 +15,18 @@
     <Page.DataContext>
         <presentation:GeneracionDocumentoViewModel />
     </Page.DataContext>
-    <Grid>
-        <StackPanel Margin="10">
-            <ui:TextBlock Text="{StaticResource GeneracionDocumentosTitle}" FontTypography="TitleLarge" />
-            <ui:CardExpander Margin="0 0 0 15">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TextBlock Grid.Row="0" Text="{StaticResource GeneracionDocumentosTitle}" FontTypography="TitleLarge" />
+        
+        <StackPanel Grid.Row="1" Margin="10">
+            <ui:CardExpander Margin="10">
                 <ui:CardExpander.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -37,33 +45,39 @@
                 </ui:CardExpander.Header>
                 <StackPanel>
                     <StackPanel Margin="10">
-                        <ui:TextBlock Text="Resultado de RDN:" />
-                        <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.ResultadoRnd}"
+                        <Label Content="Resultado de RDN:"
+                               Target="ResultadoRdnComboBox" />
+                        <ComboBox Name="ResultadoRdnComboBox"
+                                  SelectedItem="{Binding Reporte.GeneracionDocumento.ResultadoRnd}"
                                   ItemsSource="{Binding ResultadosRdn}" />
                     </StackPanel>
 
                     <StackPanel Margin="10">
-                        <ui:TextBlock Text="Contexto de Hechos de Desaparición:" />
-                        <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
+                        <Label Content="Contexto de Hechos de Desaparición:"
+                               Target="ContextoDesaparicionTextBox" />
+                        <ui:TextBox Name="ContextoDesaparicionTextBox"
+                                    Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="100"
                                     Tag="Exclude" />
                     </StackPanel>
-
-                    <ui:Button Content="{StaticResource Guardar}"
-                               Icon="{ui:SymbolIcon Save24}"
-                               Margin="10"
-                               HorizontalAlignment="Stretch"
-                               Appearance="Primary"
-                               Command="{Binding GuardarCommand}" />
                 </StackPanel>
             </ui:CardExpander>
 
 
-            <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
+            <Border Style="{StaticResource CebvBorder}" Margin="10">
                 <StackPanel>
 
+                    <Label Content="Medio de difusión:"
+                           Target="MedioDifusionComboBox" />
+                    <ComboBox Name="MedioDifusionComboBox"
+                              SelectedItem="{Binding Reporte.GeneracionDocumento.MedioDifusion}"
+                              ItemsSource="{Binding MediosDifusion}" />
+
+                    <CheckBox Content="¿Existe firma por ausencia?"
+                              IsChecked="{Binding Reporte.GeneracionDocumento.FirmaAusencia}"
+                              Margin="5 10 5 5" />
 
                     <ui:Button Content="Oficio C4"
                                HorizontalAlignment="Stretch"
@@ -97,5 +111,12 @@
                 </StackPanel>
             </Border>
         </StackPanel>
+        
+        <ui:Button Grid.Row="2" Content="{StaticResource Guardar}"
+                   Icon="{ui:SymbolIcon Save24}"
+                   Margin="10"
+                   HorizontalAlignment="Stretch"
+                   Appearance="Primary"
+                   Command="{Binding GuardarCommand}" />
     </Grid>
 </Page>

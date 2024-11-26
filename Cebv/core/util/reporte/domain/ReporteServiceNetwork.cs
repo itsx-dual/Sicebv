@@ -41,7 +41,7 @@ public abstract class ReporteServiceNetwork
     {
         var json = JsonConvert.SerializeObject(reporte);
         Console.ForegroundColor = ConsoleColor.Green;
-        //Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
+        Console.Write($"Request: {JObject.Parse(json).ToString(Formatting.Indented)}\n \n");
 
         var request = new HttpRequestMessage
         {
@@ -54,7 +54,7 @@ public abstract class ReporteServiceNetwork
         json = await response.Content.ReadAsStringAsync();
 
         Console.ForegroundColor = ConsoleColor.Cyan;
-        //Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
+        Console.WriteLine($"Response: {JObject.Parse(json).ToString(Formatting.Indented)}");
         Console.ForegroundColor = ConsoleColor.White;
         return JsonConvert.DeserializeObject<PaginatedResource<Reporte>>(json)?.Data!;
     }
