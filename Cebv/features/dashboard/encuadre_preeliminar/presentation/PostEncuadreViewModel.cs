@@ -16,7 +16,7 @@ using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
-public partial class PostEncuadreModalViewModel : ObservableObject
+public partial class PostEncuadreViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -29,8 +29,7 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<BasicResource> _tiposReportes = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _areas = new();
     
-    [ObservableProperty]
-    private ObservableCollection<String> _resultadosRdn = new() { Positivo, Negativo, NoEspecifica };
+    [ObservableProperty] private ObservableCollection<string> _resultadosRdn = new() { Positivo, Negativo, NoEspecifica };
     
 
     [ObservableProperty] private Dictionary<string, string> _tiposDesapariciones =
@@ -38,7 +37,7 @@ public partial class PostEncuadreModalViewModel : ObservableObject
 
     [ObservableProperty] private string? _senasParticulares;
 
-    public PostEncuadreModalViewModel()
+    public PostEncuadreViewModel()
     {
         InitAsync();
     }
@@ -81,13 +80,16 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task OnGuardar() => await _reporteService.Sync();
+
+    [RelayCommand]
     private void OnGenerarBoletinBusquedaInmediata() => DialogHelper.ShowWebview($"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}", "Boletin de busqueda inmediata");
 
     [RelayCommand]
     private void OnGenerarFichaDeDatos() => DialogHelper.ShowWebview($"reportes/documentos/ficha-datos/{Desaparecido.Id}", "Ficha de Datos");
 
     [RelayCommand]
-    private void OnInformeInicio() => DialogHelper.ShowWebview($"reportes/documentos/informes-inicio/{Desaparecido.Id}", "Informe de Inicio");
+    private void OnInformeInicio() => DialogHelper.ShowWebview($"reportes/documentos/informe-inicio/{Desaparecido.Id}", "Informe de Inicio");
 
     [RelayCommand]
     private async Task SetFolio()

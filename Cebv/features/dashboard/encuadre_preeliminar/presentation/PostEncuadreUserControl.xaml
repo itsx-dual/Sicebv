@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Cebv.features.dashboard.encuadre_preeliminar.presentation"
              mc:Ignorable="d"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:util="clr-namespace:Cebv.core.util"
              Foreground="{DynamicResource TextFillColorPrimaryBrush}"
              ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
              ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -14,8 +15,12 @@
              Width="870">
 
     <UserControl.DataContext>
-        <local:PostEncuadreModalViewModel />
+        <local:PostEncuadreViewModel />
     </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <util:BooleanNegation x:Key="BooleanNegation"/>
+    </UserControl.Resources>
 
     <Grid>
         <StackPanel Margin="5">
@@ -121,7 +126,13 @@
                                         MinHeight="100"
                                         Tag="Exclude" />
                         </StackPanel>
-
+                        
+                        <ui:Button Content="Guardar"
+                                   Appearance="Primary"
+                                   Margin="0,10,0,0"
+                                   Icon="{ui:SymbolIcon Save24}"
+                                   Command="{Binding GuardarCommand}"
+                                   IsEnabled="{Binding GuardarCommand.IsRunning, Converter={StaticResource BooleanNegation}}"/>
                     </StackPanel>
                     
                     <ui:TextBlock Text="Ficha de datos."
