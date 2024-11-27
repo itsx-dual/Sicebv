@@ -18,7 +18,8 @@
     <Grid>
         <StackPanel Margin="10">
             <ui:TextBlock Text="{StaticResource GeneracionDocumentosTitle}" FontTypography="TitleLarge" />
-            <ui:CardExpander Margin="0 0 0 15">
+            <ui:CardExpander Margin="0 0 0 15"
+                             IsExpanded="True">
                 <ui:CardExpander.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>

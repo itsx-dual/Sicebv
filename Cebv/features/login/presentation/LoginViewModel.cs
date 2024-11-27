@@ -9,26 +9,15 @@ namespace Cebv.features.login.presentation;
 
 public partial class LoginViewModel : ObservableObject
 {
-    [ObservableProperty] private string _username = "jon@cebv.com";
-    [ObservableProperty] private string _password = "password";
+    [ObservableProperty] private string _username = string.Empty;
+    [ObservableProperty] private string _password = string.Empty;
 
-    [ObservableProperty] private string _errorMessage = String.Empty;
+    [ObservableProperty] private string _errorMessage = string.Empty;
     [ObservableProperty] private Visibility _errorVisibility = Visibility.Collapsed;
-    [ObservableProperty] private bool _iniciandoSesion;
-
-    public LoginViewModel()
-    {
-        ErrorMessage = string.Empty;
-        ErrorVisibility = Visibility.Collapsed;
-        IniciandoSesion = false;
-    }
 
     [RelayCommand]
     private async Task IniciarSesion()
-    {
-        if (IniciandoSesion) return;
-
-        IniciandoSesion = true;
+    {;
         ErrorVisibility = Visibility.Collapsed;
         var result = await LoginNetwork.Post(Username, Password);
 
@@ -44,7 +33,6 @@ public partial class LoginViewModel : ObservableObject
             case Error:
                 ErrorVisibility = Visibility.Visible;
                 ErrorMessage = result.error;
-                IniciandoSesion = false;
                 break;
         }
     }

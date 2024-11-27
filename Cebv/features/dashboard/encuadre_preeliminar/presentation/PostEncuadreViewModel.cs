@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
-using System.Web;
-using Cebv.app.presentation;
+using Cebv.core.data;
 using Cebv.core.domain;
+using Cebv.core.util;
 using static Cebv.core.util.enums.TipoDesaparicion;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.data;
@@ -10,12 +10,13 @@ using Cebv.core.util.snackbar;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using static Cebv.core.util.enums.FactorRhesus;
+using Catalogo = Cebv.core.util.reporte.viewmodels.Catalogo;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
-public partial class PostEncuadreModalViewModel : ObservableObject
+public partial class PostEncuadreViewModel : ObservableObject
 {
     private static IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
 
@@ -27,13 +28,16 @@ public partial class PostEncuadreModalViewModel : ObservableObject
 
     [ObservableProperty] private ObservableCollection<BasicResource> _tiposReportes = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _areas = new();
+    
+    [ObservableProperty] private ObservableCollection<string> _resultadosRdn = new() { Positivo, Negativo, NoEspecifica };
+    
 
     [ObservableProperty] private Dictionary<string, string> _tiposDesapariciones =
         new() { { Unica, U }, { Multiple, M } };
 
     [ObservableProperty] private string? _senasParticulares;
 
-    public PostEncuadreModalViewModel()
+    public PostEncuadreViewModel()
     {
         InitAsync();
     }
@@ -76,30 +80,16 @@ public partial class PostEncuadreModalViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnGenerarBoletinBusquedaInmediata()
-    {
-        if (Desaparecido.Id is null or < 1) return;
-        var webview =
-            new  WebView2Window($"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}", "Boletin de busqueda inmediata");
-        webview.Show();
-    }
+    private async Task OnGuardar() => await _reporteService.Sync();
 
     [RelayCommand]
-    private void OnGenerarFichaDeDatos()
-    {
-        if (Desaparecido.Id is null or < 1) return;
-        var webview =
-            new WebView2Window($"reportes/reportes-preliminares/{Desaparecido.Id}", "Ficha de datos resumida");
-        webview.Show();
-    }
+    private void OnGenerarBoletinBusquedaInmediata() => DialogHelper.ShowWebview($"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}", "Boletin de busqueda inmediata");
 
     [RelayCommand]
-    private void GetInformeInicio()
-    {
-        if (Desaparecido.Id is null or < 1) return;
-        var webview = new WebView2Window($"reportes/boletines/busqueda-inmediata/{Desaparecido.Id}", "Informe de inicio");
-        webview.Show();
-    }
+    private void OnGenerarFichaDeDatos() => DialogHelper.ShowWebview($"reportes/documentos/ficha-datos/{Desaparecido.Id}", "Ficha de Datos");
+
+    [RelayCommand]
+    private void OnInformeInicio() => DialogHelper.ShowWebview($"reportes/documentos/informe-inicio/{Desaparecido.Id}", "Informe de Inicio");
 
     [RelayCommand]
     private async Task SetFolio()

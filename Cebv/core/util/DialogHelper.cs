@@ -1,3 +1,4 @@
+using Cebv.app.presentation;
 using Microsoft.Extensions.DependencyInjection;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -20,4 +21,6 @@ public static class DialogHelper
             },
             new CancellationToken()
         );
+
+    public static void ShowWebview(string uri, string titulo) => new WebView2Window(uri, titulo).Show();
 }
