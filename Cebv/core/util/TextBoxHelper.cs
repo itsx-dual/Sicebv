@@ -232,7 +232,7 @@ public class TextBoxHelper
             string[] words = inputText.Split(' ');
             foreach (var word in words)
             {
-                if (word.Length > 7)
+                if (word.Length > 15)
                 {
                     _snackbarService.Show(
                         "Texto inusual",
