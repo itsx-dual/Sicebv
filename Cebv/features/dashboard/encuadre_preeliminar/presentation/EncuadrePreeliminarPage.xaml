@@ -29,13 +29,21 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
         </Style>
-
         <Style TargetType="{x:Type ComboBox}"
                BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="IsReadOnly" Value="False" />
             <Setter Property="IsEditable" Value="True" />
             <EventSetter Event="LostFocus" Handler="Search" />
             <EventSetter Event="PreviewKeyDown" Handler="EventSetter_OnHandler" />
+            
+        </Style> 
+        
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+
         </Style>
 
         <Style TargetType="{x:Type DatePicker}"
@@ -88,7 +96,8 @@
                                Target="{Binding ElementName=MedioConocimientoGenérico}"/>
                         <ComboBox SelectedItem="{Binding TipoMedioSelected}"
                                   ItemsSource="{Binding TiposMedios}"
-                                  x:Name="MedioConocimientoGenérico"/>
+                                  x:Name="MedioConocimientoGenérico"
+                                  />
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -136,7 +145,8 @@
                                    Target="{Binding ElementName=NombreReportante}"/>
                             <ui:TextBox Text="{Binding Reportante.Persona.Nombre}"
                                         Tag="Name" 
-                                        x:Name="NombreReportante"/>
+                                        x:Name="NombreReportante"
+                                        />
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -176,10 +186,12 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <Label Content="TELÉFONO MÓVIL:"
                                    Target="{Binding ElementName=TelefonoReportante}"/>
-                            <ui:TextBox ClearButtonEnabled="True"
-                                        Text="{Binding TelefonoReportante.Numero}"
+                            <ui:NumberBox ClearButtonEnabled="True"
+                                        Value="{Binding TelefonoReportante.Numero}"
                                         MaxLength="10" 
-                                        x:Name="TelefonoReportante"/><!--Cambiado para tener uno especifico -->
+                                        x:Name="TelefonoReportante"
+                                        SpinButtonPlacementMode="Hidden"
+                                        /><!--Cambiado para tener uno especifico -->
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -472,10 +484,11 @@
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <Label Content="TELÉFONO MÓVIL:"
                                    Target="{Binding ElementName=TelefonoDesaparecido}"/>
-                            <ui:TextBox ClearButtonEnabled="True"
+                            <ui:NumberBox ClearButtonEnabled="True"
                                         Text="{Binding TelefonoDesaparecido.Numero}"
                                         MaxLength="10"
                                         Tag="Phone" 
+                                        SpinButtonPlacementMode="Hidden"
                                         x:Name="TelefonoDesaparecido"/>
                         </StackPanel>
 
@@ -590,11 +603,41 @@
                                 </StackPanel>
 
                                 <!-- TODO: Mascara-->
-                                <StackPanel MinWidth="250">
-                                    <Label Content="HORA DESAPARICIÓN:"
-                                           Target="{Binding ElementName=HoraDesaparicion}"/>
-                                    <ui:TextBox Icon="{ui:SymbolIcon Clock24}" Tag="Time" 
-                                                x:Name="HoraDesaparicion"/>
+                                <StackPanel>
+                                    <Label Content="HORA DESAPARICIÓN:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                    MaxLength="2"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                    Value="{Binding Horas,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicion"/>
+                                        <Label Content="HORAS"
+                                               Target="{Binding ElementName=HoraDesaparicion}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutos}"
+
+                                                  MaxLength="2"
+                                                  x:Name="MinDesaparicion"/>
+                                    <Label Content="MINUTOS" 
+                                           Target="{Binding ElementName=MinDesaparicion}"/>
+                                    </StackPanel>
+                                </StackPanel>
                                 </StackPanel>
                             </WrapPanel>
 
@@ -604,7 +647,8 @@
                                 <ui:TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
                                             Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                             Tag="Text" 
-                                            x:Name="AclaracionFecha"/>
+                                            x:Name="AclaracionFecha"
+                                            CharacterCasing="Normal"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

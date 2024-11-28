@@ -138,4 +138,6 @@ public partial class EncuadrePreeliminarPage : Page
         var regex = new Regex("[^0-9/]");
         e.Handled = regex.IsMatch(e.Text);
     }
+    
+    
 }
