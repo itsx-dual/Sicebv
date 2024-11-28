@@ -415,11 +415,11 @@ public class TextBoxHelper
                 string inputText = textBox.Text.ToLower();
                 
                 // Criterio 1: Validar longitud de cada nombre (parte del nombre)
-                string[] names = inputText.Split(new char[] { ' ', '-', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] names = inputText.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
                 
                 foreach (var name in names)
                 {
-                    if (name.Length < 2 || name.Length > 20)
+                    if (name.Length < 2 || name.Length > 11)
                     {
                         _snackbarService.Show(
                             "Nombre inusual",
@@ -471,7 +471,7 @@ public class TextBoxHelper
                     textBox.ClearValue(Border.BorderBrushProperty); 
                 }
                 
-                if (!Regex.IsMatch(inputText, @"^[a-zA-ZñÑ]+$"))
+                if (!Regex.IsMatch(inputText, @"^[a-zA-ZñÑ\s]+$"))
                 {
                     _snackbarService.Show(
                         "Formato no valido",
