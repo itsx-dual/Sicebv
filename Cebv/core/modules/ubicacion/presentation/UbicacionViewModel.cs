@@ -51,7 +51,7 @@ public partial class UbicacionViewModel : ObservableObject
     {
         if (value is null) return;
 
-        Municipios = await UbicacionNetwork.GetMuncipios(value.Id);
+        Municipios = await UbicacionNetwork.GetMunicipios(value.Id);
     }
 
 

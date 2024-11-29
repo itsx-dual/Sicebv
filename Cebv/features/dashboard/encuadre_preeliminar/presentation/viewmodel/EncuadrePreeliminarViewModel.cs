@@ -77,7 +77,8 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [Range(0,23)]
     private int? _horas ;
     [ObservableProperty] 
-    [Range(0,59)]private int? _minutos;
+    [Range(0,59)]
+    private int? _minutos ;
 
     
     
@@ -279,10 +280,21 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     {
         if(value is null)return;
         ValidateProperty(value,nameof(Minutos));
+        if (HasErrors)
+        {
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
     }
     partial void OnHorasChanged(int? value)
     {
         if(value is null)return;
         ValidateProperty(value,nameof(Horas));
+        if (HasErrors)
+        { 
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
     }
+    
+    
+    
 }

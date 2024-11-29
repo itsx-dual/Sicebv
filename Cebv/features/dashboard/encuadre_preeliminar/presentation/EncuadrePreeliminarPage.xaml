@@ -39,7 +39,15 @@
         </Style> 
         
         <Style TargetType="{x:Type ui:TextBox}"
-               BasedOn="{StaticResource {x:Type TextBox}}">
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+
+        </Style>
+        <!--La misma jalada pero en numberbox -->
+        <Style TargetType="{x:Type ui:NumberBox}"
+               BasedOn="{StaticResource {x:Type ui:NumberBox}}">
             <Setter Property="IsReadOnly" Value="False" />
             <Setter Property="IsEnabled" Value="True" />
             <Setter Property="CharacterCasing" Value="Upper" />
@@ -611,7 +619,8 @@
                                     <StackPanel  HorizontalAlignment="Stretch">
                                         
                                         <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
-                                                    MaxLength="2"
+                                                    TextChanged="HoraDesaparicion_TextChanged"
+                                                       MaxLength="2"
                                                     SpinButtonPlacementMode="Hidden"
                                                     Value="{Binding Horas,UpdateSourceTrigger=PropertyChanged}"
                                                     x:Name="HoraDesaparicion"/>
@@ -630,8 +639,8 @@
                                     <StackPanel HorizontalAlignment="Stretch">
                                     <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
                                                   SpinButtonPlacementMode="Hidden"
-                                                  Value="{Binding Minutos}"
-
+                                                  Value="{Binding Minutos,UpdateSourceTrigger=PropertyChanged}"
+                                                  TextChanged="MinDesaparicion_TextChanged"
                                                   MaxLength="2"
                                                   x:Name="MinDesaparicion"/>
                                     <Label Content="MINUTOS" 
@@ -706,18 +715,20 @@
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <Label Content="N° EXTERIOR:"
                                        Target="{Binding ElementName=nExterior}"/>
-                                <ui:TextBox ClearButtonEnabled="True"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
+                                <ui:NumberBox ClearButtonEnabled="True"
+                                            Value="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
                                             MaxLength="10" Tag="Number" 
+                                            SpinButtonPlacementMode="Hidden"
                                             x:Name="nExterior"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <Label Content="N° INTERIOR:"
                                        Target="{Binding ElementName=nInterior}"/>
-                                <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
+                                <ui:NumberBox ClearButtonEnabled="True" MaxLength="10"
+                                            Value="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
                                             Tag="Number" 
+                                            SpinButtonPlacementMode="Hidden"
                                             x:Name="nInterior"/>
                             </StackPanel>
 
@@ -733,9 +744,10 @@
                             <StackPanel MinWidth="200">
                                 <Label Content="CÓDIGO POSTAL:"
                                        Target="{Binding ElementName=CodigoPostal}"/>
-                                <ui:TextBox ClearButtonEnabled="True"
+                                <ui:NumberBox ClearButtonEnabled="True"
                                             MaxLength="5"
-                                            Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
+                                            SpinButtonPlacementMode="Hidden"
+                                            Value="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
                                             Tag="CodigoPostal"
                                             x:Name="CodigoPostal"/>
                             </StackPanel>
