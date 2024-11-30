@@ -12,6 +12,7 @@
       xmlns:presentation3="clr-namespace:Cebv.features.dashboard.busqueda_familia.presentation"
       xmlns:presentation4="clr-namespace:Cebv.features.dashboard.reportes_desaparicion.presentation"
       xmlns:presentation5="clr-namespace:Cebv.features.settings"
+      xmlns:presentation6="clr-namespace:Cebv.features.dashboard.favoritos.presentation"
 
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -55,6 +56,10 @@
                                        Icon="{ui:SymbolIcon Grid24}"
                                        Click="NuevoReporte_OnClick"
                                        TargetPageType="{x:Type presentation:FormularioCebvPage}"/>
+                
+                <ui:NavigationViewItem Content="{StaticResource ReportesGuardadosTitle}"
+                                       Icon="{ui:SymbolIcon Bookmark24}"
+                                       TargetPageType="{x:Type presentation6:FavoritosPage}"/>
                 
                 <ui:NavigationViewItem Content="Reportes de desaparición"
                                        Icon="{ui:SymbolIcon News24}">

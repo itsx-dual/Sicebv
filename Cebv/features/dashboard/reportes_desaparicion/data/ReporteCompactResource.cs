@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Cebv.features.dashboard.reportes_desaparicion.data;
 
 [JsonObject]
-public class ReporteCompactResource
+public partial class ReporteCompactResource: ObservableObject
 {
     [System.Text.Json.Serialization.JsonConstructor]
     public ReporteCompactResource(
         int id,
-        string? medio_conocimiento_generico, 
+        bool es_favorito,
+        string? medio_conocimientoGenerico, 
         string? medio_conocimiento_especifico, 
         string? tipo_reporte, 
         DateTime? fecha_creacion, 
@@ -19,7 +21,8 @@ public class ReporteCompactResource
         )
     {
         Id = id;
-        MedioConocimientoGenerico = medio_conocimiento_generico;
+        EsFavorito = es_favorito;
+        MedioConocimientoGenerico = medio_conocimientoGenerico;
         MedioConocimientoEspecifico = medio_conocimiento_especifico;
         TipoReporte = tipo_reporte;
         FechaCreacion = fecha_creacion;
@@ -33,6 +36,9 @@ public class ReporteCompactResource
     
     [JsonProperty(PropertyName = "id")] 
     public int Id { get; set; }
+    
+    [ObservableProperty, JsonProperty("es_favorito")]
+    private bool _esFavorito;
     
     [JsonProperty(PropertyName = "medio_conocimiento_generico")] 
     public string? MedioConocimientoGenerico { get; set; }
