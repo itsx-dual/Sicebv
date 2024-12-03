@@ -11,7 +11,6 @@ public partial class EncuadrePreeliminarViewModel
     [Required(ErrorMessage = "Se debe escoger el tipo del medio por el cual el reporte es recibido.")]
     private Catalogo? _tipoMedioSelected;
     
-    
     async partial void OnTipoMedioSelectedChanged(Catalogo? value)
     {
         if (value is null) return;

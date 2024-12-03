@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using Cebv.core.domain;
 using Cebv.core.util;
 using Cebv.core.util.navigation;
@@ -13,7 +14,7 @@ using Wpf.Ui.Controls;
 
 namespace Cebv.features.formulario_cebv.prendas.presentation;
 
-public partial class PrendasViewModel : ObservableObject
+public partial class PrendasViewModel : ObservableValidator
 {
     private readonly IReporteService _reporteService = App.Current.Services.GetService<IReporteService>()!;
     private readonly IFormularioCebvNavigationService _navigationService = App.Current.Services.GetService<IFormularioCebvNavigationService>()!;
@@ -31,6 +32,7 @@ public partial class PrendasViewModel : ObservableObject
      * Variables de la clase
      */
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencias = new();
+    
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
     [ObservableProperty] private ObservableCollection<Catalogo> _colores = new();
     [ObservableProperty] private bool _hayPrendas;
@@ -39,7 +41,10 @@ public partial class PrendasViewModel : ObservableObject
      * Variables para la insercion
      */
     [ObservableProperty] private PrendaVestir _prendaVestir = new();
-    [ObservableProperty] private Catalogo? _grupoPertenencia;
+    
+    [ObservableProperty]
+    [Required(ErrorMessage = "Se necesita seleccionar el grupo de pertenencia.")]
+    private Catalogo? _grupoPertenencia;
     /**
      * Peticiones a la API para obtener los catalogos
      */
@@ -69,6 +74,18 @@ public partial class PrendasViewModel : ObservableObject
         if (value?.Id is null) return;
         Pertenencias = await CebvNetwork.GetByFilter<Pertenencia>("pertenencias", "grupo_pertenencia_id", value.Id.ToString()!);
     }
+
+    private IEnumerable<ValidationResult> Validar()
+    {
+        List<ValidationResult> results = [];
+        ValidateProperty(GrupoPertenencia, nameof(GrupoPertenencia));
+        PrendaVestir.Validar();
+        
+        if (this.HasErrors) results.AddRange(this.GetErrors());
+        if (PrendaVestir.HasErrors) results.AddRange(PrendaVestir.GetErrors());
+
+        return results;
+    }
     
     /**
      * Añadir y eliminar prendas
@@ -76,7 +93,12 @@ public partial class PrendasViewModel : ObservableObject
     [RelayCommand]
     private void OnAddPrenda()
     {
-        //TODO: Validacion
+        var errores = Validar();
+        if (errores.Any())
+        {
+            ValidationHelpers.ShowErrorsSnack(errores, "No se puede agregar la prenda de vestir.");
+            return;
+        }
         Desaparecido.PrendasVestir.Add(PrendaVestir);
         PrendaVestir = new PrendaVestir();
         HayPrendas = Desaparecido.PrendasVestir.Any();
@@ -85,7 +107,7 @@ public partial class PrendasViewModel : ObservableObject
     [RelayCommand]
     private async Task OnEditPrenda(PrendaVestir prenda)
     {
-        var prendaClone = new PrendaVestir(prenda);
+        var prendaEditada = new PrendaVestir(prenda);
         
         ContentDialogResult result = await _dialogService.ShowAsync(
             new ContentDialog()
@@ -95,7 +117,7 @@ public partial class PrendasViewModel : ObservableObject
                 {
                     DataContext = new PrendasViewModel
                     {
-                        PrendaVestir = prendaClone,
+                        PrendaVestir = prendaEditada,
                     }
                 },
                 PrimaryButtonText = "Guardar",
@@ -105,12 +127,7 @@ public partial class PrendasViewModel : ObservableObject
         );
         
         if (result != ContentDialogResult.Primary) return;
-        
-        // Se busca el indice del elemento seleccionado en la lista.
-        var index = Desaparecido.PrendasVestir.ToList().FindIndex(x => x.Equals(prenda));
-        
-        // Se sobreescribe la instancia anterior.
-        Desaparecido.PrendasVestir[index] = prendaClone;
+        Desaparecido.PrendasVestir.Update(prenda, prendaEditada);
     }
 
     [RelayCommand]

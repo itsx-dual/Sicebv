@@ -49,7 +49,7 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     [RelayCommand]
     private void InformeInicio()
     {
-        var url = $"reportes/documentos/informes-inicio/{Desaparecido.Id}";
+        var url = $"reportes/documentos/informe-inicio/{Desaparecido.Id}";
 
         var webview = new WebView2Window(url, "Informe de Inicio");
         webview.Show();

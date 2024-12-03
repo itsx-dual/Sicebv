@@ -10,6 +10,9 @@
 ### Ignore .idea
 .idea
 
+### Ignore visual studio cache
+.vs
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -86,3 +89,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # End of https://www.toptal.com/developers/gitignore/api/rider
+
+# Ignorar los ajustes personales de cada desarrollador en su maquina local
+Cebv.sln.DotSettings.user
+global.json

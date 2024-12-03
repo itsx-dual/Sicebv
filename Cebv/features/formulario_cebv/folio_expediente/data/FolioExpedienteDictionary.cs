@@ -33,7 +33,7 @@ public class FolioExpedienteDictionary
         // Verificar si las propiedades no son null antes de validarlas
         if (reporte is null) return Validaciones.HayInstanciasNulas;
         
-        reporte.Validar("TipoReporte");
+        //reporte.Validar("TipoReporte");
         
         var HayErrores = !reporte.HasErrors;
         

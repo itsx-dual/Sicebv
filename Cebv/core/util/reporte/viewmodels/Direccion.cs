@@ -1,10 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class Direccion : ObservableObject
+public partial class Direccion : ObservableValidator
 {
     [JsonConstructor]
     public Direccion(
@@ -98,5 +99,11 @@ public partial class Direccion : ObservableObject
     private string? _referencia;
     
     [ObservableProperty, JsonProperty(PropertyName = "asentamiento")]
+    [Required(ErrorMessage = "Se necesita registrar el asentamiento.")]
     private Asentamiento? _asentamiento;
+
+    public void Validar()
+    {
+        ValidateProperty(Asentamiento, nameof(Asentamiento));
+    }
 }

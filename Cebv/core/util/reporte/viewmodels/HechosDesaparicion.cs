@@ -62,9 +62,7 @@ public partial class HechosDesaparicion : ObservableValidator
         UpdatedAt = updatedAt;
     }
 
-    public HechosDesaparicion()
-    {
-    }
+    public HechosDesaparicion() { }
 
     [ObservableProperty, JsonProperty("id")]
     private int _id;

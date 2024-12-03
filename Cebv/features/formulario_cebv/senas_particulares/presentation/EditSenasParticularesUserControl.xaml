@@ -14,6 +14,7 @@
     <UserControl.DataContext>
         <local:SenasParticularesViewModel />
     </UserControl.DataContext>
+
     <Grid Width="600">
         <StackPanel>
             <!-- Tipo de seña -->
@@ -25,45 +26,59 @@
 
                 <StackPanel>
                     <!-- Region cuerpo -->
-                    <ui:TextBlock Text="Región del cuerpo:"
-                                  Margin="10,10,0,0" />
-                    <ComboBox Margin="5,0,5,0"
-                              SelectedValue="{Binding SenaParticular.RegionCuerpo}"
-                              ItemsSource="{Binding RegionesCuerpo}" />
+                    <StackPanel Margin="5">
+                        <Label Content="Región del cuerpo:"
+                               Target="{Binding ElementName=RegionComboBox}" />
+                        <ComboBox Name="RegionComboBox"
+                                  SelectedValue="{Binding SenaParticular.RegionCuerpo}"
+                                  ItemsSource="{Binding RegionesCuerpo}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <Label Content="Vista:"
+                               Target="{Binding ElementName=VistaComboBox}" />
+                        <ComboBox Name="VistaComboBox"
+                                  SelectedValue="{Binding SenaParticular.Vista}"
+                                  ItemsSource="{Binding Vistas}" />
+                    </StackPanel>
 
                     <!-- Vista -->
-                    <ui:TextBlock Text="Vista:"
-                                  Margin="10,10,0,0" />
-                    <ComboBox Margin="5,0,5,0"
-                              SelectedValue="{Binding SenaParticular.Vista}"
-                              ItemsSource="{Binding Vistas}" />
 
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <ui:TextBlock Text="Lado:"
-                                  Margin="10,10,0,0" />
-                    <ComboBox Margin="5,0,5,0"
-                              SelectedValue="{Binding SenaParticular.Lado}"
-                              ItemsSource="{Binding Lados}" />
+                    <StackPanel Margin="5">
+                        <Label Content="Lado:"
+                               Target="{Binding ElementName=LadoComboBox}" />
+                        <ComboBox Name="LadoComboBox"
+                                  SelectedValue="{Binding SenaParticular.Lado}"
+                                  ItemsSource="{Binding Lados}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <Label Content="Cantidad:"
+                               Target="{Binding ElementName=CantidadNumberBox}"/>
+                        <ui:NumberBox Name="CantidadNumberBox"
+                                      Height="36"
+                                      Value="{Binding SenaParticular.Cantidad,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                      Tag="Number" Minimum="1" />
+                    </StackPanel>
 
                     <!-- Cantidad -->
-                    <ui:TextBlock Text="Cantidad:"
-                                  Margin="10,10,0,0" />
-                    <ui:NumberBox Margin="5,0,5,0"
-                                  Value="{Binding SenaParticular.Cantidad,
-                                                          Mode=TwoWay,
-                                                          UpdateSourceTrigger=PropertyChanged}"
-                                  Tag="Number" Minimum="1" />
 
                 </StackPanel>
             </Grid>
+            
+            <StackPanel Margin="5">
+                <Label Content="Tipo de seña:"
+                       Target="{Binding ElementName=TiposComboBox}"/>
+                <ComboBox Name="TiposComboBox"
+                          SelectedValue="{Binding SenaParticular.Tipo}"
+                          ItemsSource="{Binding Tipos}" />
+            </StackPanel>
 
-            <ui:TextBlock Text="Tipo de seña:"
-                          Margin="10,10,0,0" />
-            <ComboBox Margin="5,0,5,0"
-                      SelectedValue="{Binding SenaParticular.Tipo}"
-                      ItemsSource="{Binding Tipos}" />
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -71,31 +86,33 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
-                    <ui:TextBlock Text="Descripción:"
-                                  Margin="10,10,0,0" />
-                    <TextBox Margin="10"
+                <StackPanel Grid.Column="0"
+                            Margin="5">
+                    <Label Content="Descripción:"
+                           Target="{Binding ElementName=DescripcionTextBox}"/>
+                    <TextBox Name="DescripcionTextBox"
                              VerticalAlignment="Stretch"
                              Height="100"
                              Text="{Binding SenaParticular.Descripcion}"
                              TextWrapping="Wrap"
-                             Tag="Text" />
+                             Tag="Text"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1">
-                    <ui:TextBlock Text="Imagen de la seña:"
-                                  Margin="10,10,0,0" />
-                    <ui:Image Margin="10"
-                              CornerRadius="8"
-                              BorderBrush="Beige"
-                              Source="{Binding SenaParticular.Imagen}" />
+                <StackPanel Grid.Column="1"
+                            Margin="5">
+                    <Label Content="Imagen de la seña:"
+                           Target="{Binding ElementName=SenaImage}"/>
+                    <Border Style="{StaticResource CebvBorder}">
+                        <ui:Image Name="SenaImage"
+                                  CornerRadius="8"
+                                  BorderBrush="Beige"
+                                  Height="80"
+                                  Source="{Binding SenaParticular.Imagen}"/>
+                    </Border>
                 </StackPanel>
-
             </Grid>
 
             <!-- Descripcion -->
-
-
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Margin="10">

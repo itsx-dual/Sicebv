@@ -79,14 +79,14 @@ public partial class Reporte : ObservableValidator
     private bool? _estaTerminado;
 
     [ObservableProperty, JsonProperty(PropertyName = "tipo_reporte")]
-    [Required(ErrorMessage = "El campo tipo reporte es bligatorio")]
+    [Required(ErrorMessage = "El campo tipo reporte es obligatorio")]
     private BasicResource? _tipoReporte;
 
     [ObservableProperty, JsonProperty(PropertyName = "area_atiende")]
     private Catalogo? _areaAtiende;
 
     [ObservableProperty, JsonProperty(PropertyName = "medio_conocimiento")]
-    [Required(ErrorMessage = "El campo medio conocimiento es obligatorio")]
+    [Required(ErrorMessage = "Se debe seleccionar el medio de conocimiento especifico.")]
     private MedioConocimiento? _medioConocimiento;
 
     [ObservableProperty, JsonProperty(PropertyName = "estado")]
@@ -146,13 +146,8 @@ public partial class Reporte : ObservableValidator
     [ObservableProperty, JsonProperty("generacion_documento")]
     private GeneracionDocumento? _generacionDocumento;
     
-    public void Validar(string propertyName)
+    public void ValidarReporteEncuadre()
     {
-        var property = GetType().GetProperty(propertyName);
-        if (property != null)
-        {
-            var value = property.GetValue(this);
-            ValidateProperty(value, propertyName);
-        }
+        ValidateProperty(MedioConocimiento, nameof(MedioConocimiento));
     }
 }

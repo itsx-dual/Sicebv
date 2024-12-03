@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Windows.Media.Imaging;
 using Cebv.core.util.reporte.domain;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -6,7 +7,7 @@ using Newtonsoft.Json;
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class SenaParticular : ObservableObject
+public partial class SenaParticular : ObservableValidator
 {
     [JsonConstructor]
     public SenaParticular(
@@ -51,7 +52,7 @@ public partial class SenaParticular : ObservableObject
     
     async partial void OnFotoChanged(string? value)
     {
-        if (value is null || value == "") return;
+        if (value is null or "") return;
         Imagen = await ReporteServiceNetwork.GetImage(Id);
     }
 
@@ -61,15 +62,42 @@ public partial class SenaParticular : ObservableObject
         EncodedImage = ImageUtils.BitmapImageToBase64(value);
     }
 
-    [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
-    [ObservableProperty, JsonProperty(PropertyName = "persona_id")] private int? _personaId;
-    [ObservableProperty, JsonProperty(PropertyName = "cantidad")] private int? _cantidad = 1;
-    [ObservableProperty, JsonProperty(PropertyName = "descripcion")] private string? _descripcion;
-    [ObservableProperty, JsonProperty(PropertyName = "foto")] private string? _foto;
-    [ObservableProperty, JsonProperty(PropertyName = "region_cuerpo")] private CatalogoColor? _regionCuerpo;
-    [ObservableProperty, JsonProperty(PropertyName = "vista")] private CatalogoColor? _vista;
-    [ObservableProperty, JsonProperty(PropertyName = "lado")] private CatalogoColor? _lado;
-    [ObservableProperty, JsonProperty(PropertyName = "tipo")] private Catalogo? _tipo;
-    [ObservableProperty, JsonProperty(PropertyName = "encoded_image")] private string? _encodedImage;
-    [ObservableProperty] private BitmapImage? _imagen;
+    public void Validar() => ValidateAllProperties();
+
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
+    private int _id;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "persona_id")]
+    private int? _personaId;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "cantidad")]
+    [Required(ErrorMessage = "Se debe definir una cantidad de señas particulares")]
+    private int? _cantidad = 1;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "descripcion")]
+    private string? _descripcion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "foto")]
+    private string? _foto;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "region_cuerpo")]
+    [Required(ErrorMessage = "Se debe seleccionar la region del cuerpo de la seña particular")]
+    private CatalogoColor? _regionCuerpo;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "vista")]
+    [Required(ErrorMessage = "Se debe seleccionar la vista de la seña particular")]
+    private CatalogoColor? _vista;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "lado")]
+    [Required(ErrorMessage = "Se debe seleccionar el lado de la seña particular")]
+    private CatalogoColor? _lado;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "tipo")]
+    private Catalogo? _tipo;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "encoded_image")]
+    private string? _encodedImage;
+    
+    [ObservableProperty]
+    private BitmapImage? _imagen;
 }

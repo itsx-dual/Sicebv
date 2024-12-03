@@ -1,10 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Cebv.core.util.reporte.viewmodels;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class PrendaVestir : ObservableObject 
+public partial class PrendaVestir : ObservableValidator 
 {
     [JsonConstructor]
     public PrendaVestir(int id, string? marca, string? descripcion, Pertenencia? pertenencia, Catalogo? color)
@@ -49,10 +50,27 @@ public partial class PrendaVestir : ObservableObject
                color ;
     }
     
-    [ObservableProperty, JsonProperty(PropertyName = "id")] private int _id;
-    [ObservableProperty, JsonProperty(PropertyName = "desaparecido_id")] private int _desaparecidoId;
-    [ObservableProperty, JsonProperty(PropertyName = "marca")] private string? _marca;
-    [ObservableProperty, JsonProperty(PropertyName = "descripcion")] private string? _descripcion;
-    [ObservableProperty, JsonProperty(PropertyName = "pertenencia")] private Pertenencia? _pertenencia;
-    [ObservableProperty, JsonProperty(PropertyName = "color")] private Catalogo? _color;
+    [ObservableProperty, JsonProperty(PropertyName = "id")]
+    private int _id;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "desaparecido_id")]
+    private int _desaparecidoId;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "marca")]
+    private string? _marca;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "descripcion")]
+    private string? _descripcion;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "pertenencia")]
+    [Required(ErrorMessage = "Se necesita seleccionar el tipo de la pertenencia.")]
+    private Pertenencia? _pertenencia;
+    
+    [ObservableProperty, JsonProperty(PropertyName = "color")]
+    private Catalogo? _color;
+
+    public void Validar()
+    {
+        ValidateProperty(Pertenencia, nameof(Pertenencia));
+    }
 }

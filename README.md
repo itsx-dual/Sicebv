@@ -1,0 +1,2 @@
+# Sistema Integral De la Comision Estatal de Busqueda del Estado de Veracruz.
+Este sistema tiene como finalidad automatizar los procesos diarios de la CEBV, como lo son la captura de reportes de desaparición, asi como la transferencia e interconexion con otros sistemas que utiliza la institución.
