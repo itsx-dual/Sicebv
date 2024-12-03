@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using Cebv.core.data;
 using Cebv.core.domain.paginated_resource;
-using Cebv.core.util.reporte.viewmodels;
 using Cebv.features.formulario_cebv.folio_expediente.data;
 using Cebv.features.login.data;
 using Newtonsoft.Json;
@@ -19,7 +19,7 @@ public static class CebvNetwork
     /// </summary>
     /// <param name="endpoint">Cadena que representa el endpoint del servicio web sin el prefijo "api". 
     /// Este endpoint será utilizado para formar la URL de la solicitud y obtener los datos del catálogo completo.</param>
-    /// <typeparam name="T">El tipo de los elementos del catálogo a recuperar. Generalmente puede ser un tipo como <see cref="Catalogo"/>, 
+    /// <typeparam name="T">El tipo de los elementos del catálogo a recuperar. Generalmente puede ser un tipo como <see cref="util.reporte.viewmodels.Catalogo"/>, 
     /// pero puede ser cualquier tipo que se pueda deserializar a partir de la respuesta JSON del servicio web.</typeparam>
     /// <returns>
     /// Una tarea asincrónica que, al completarse, devuelve una colección observable de tipo <see cref="ObservableCollection{T}"/>, 
@@ -50,7 +50,7 @@ public static class CebvNetwork
     /// Comúnmente es un identificador como "_id", pero puede ser cualquier campo del catálogo.</param>
     /// <param name="value">Valor que se usará para aplicar el filtro. El valor será comparado con el campo especificado 
     /// en el parámetro <paramref name="filter"/> para filtrar los resultados.</param>
-    /// <typeparam name="T">El tipo de los elementos del catálogo a recuperar. Generalmente es un tipo como <see cref="Catalogo"/>, 
+    /// <typeparam name="T">El tipo de los elementos del catálogo a recuperar. Generalmente es un tipo como <see cref="util.reporte.viewmodels.Catalogo"/>, 
     /// pero puede ser cualquier tipo que pueda ser deserializado desde la respuesta JSON del servicio web.</typeparam>
     /// <returns>
     /// Una tarea asincrónica que, al completarse, devuelve una colección observable de tipo <see cref="ObservableCollection{T}"/>, 
@@ -77,6 +77,13 @@ public static class CebvNetwork
         var request = await Client.GetAsync($"/api/{endpoint}/{id}");
         var response = await request.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PaginatedResource<ObservableCollection<T>>>(response)!.Data;
+    }
+    
+    public static async Task<T> GetObject<T>(string endpoint, string id)
+    {
+        var request = await Client.GetAsync($"/api/{endpoint}/{id}");
+        var response = await request.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<T>(response)!;
     }
     
     public static async Task<dynamic?> SetFolio(string reporteId)

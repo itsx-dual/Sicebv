@@ -1,11 +1,11 @@
-﻿<Page x:Class="Cebv.features.dashboard.reportes_desaparicion.presentation.ReportesDesaparicionPage"
+<Page x:Class="Cebv.features.dashboard.favoritos.presentation.FavoritosPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:presentation="clr-namespace:Cebv.features.dashboard.reportes_desaparicion.presentation"
+      xmlns:presentation="clr-namespace:Cebv.features.dashboard.favoritos.presentation"
       xmlns:controls="clr-namespace:Cebv.core.designsystem.controls"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -13,11 +13,12 @@
       d:DesignWidth="Auto"
       d:DesignHeight="Auto"
       Name="Page"
-      Title="ReportesDesaparicion">
+      Title="FavoritosPage">
 
     <Page.DataContext>
-        <presentation:ReportesDesaparicionViewModel />
+        <presentation:FavoritosViewModel />
     </Page.DataContext>
+
 
     <Grid Width="{Binding ElementName=Page, Path=ActualWidth}"
           Height="{Binding ElementName=Page, Path=ActualHeight}">
@@ -26,11 +27,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
         <ui:TextBlock Grid.Row="0"
-                      Text="Reportes de desaparición"
+                      Text="{StaticResource ReportesGuardadosTitle}"
                       FontTypography="TitleLarge" />
-        
+
         <ui:ListView Grid.Row="1"
                      ItemsSource="{Binding Reportes}"
                      SelectedItem="{Binding ReporteSelected}"
@@ -41,7 +42,7 @@
                      ScrollViewer.PanningDeceleration="1"
                      ScrollViewer.ScrollChanged="ScrollViewer_OnScrollChanged"
                      MouseDoubleClick="Control_OnMouseDoubleClick">
-            
+
             <ui:ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="16"

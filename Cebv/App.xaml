@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="core/resources/strings/ComunicacionDifusionPage.xaml" />
                 <ResourceDictionary Source="core/resources/strings/EncuadrePreeliminarString.xaml" />
                 <ResourceDictionary Source="core/resources/strings/ReporteDesaparicionString.xaml" />
+                <ResourceDictionary Source="core/resources/strings/ReportesGuardados.xaml" />
                 <ResourceDictionary Source="core/resources/strings/UtilString.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
