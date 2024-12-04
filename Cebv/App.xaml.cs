@@ -57,15 +57,15 @@ public partial class App : Application
         return services.BuildServiceProvider();
     }
     
-    protected override void OnStartup(StartupEventArgs e)
+    /*protected override void OnStartup(StartupEventArgs e)
     {
         EventManager.RegisterClassHandler(typeof(TextBox), UIElement.PreviewTextInputEvent, new TextCompositionEventHandler(TextBoxHelper.PreviewTextInput));
         EventManager.RegisterClassHandler(typeof(TextBox), TextBoxBase.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.AutoCompleted));
         EventManager.RegisterClassHandler(typeof(TextBox), TextBoxBase.TextChangedEvent, new TextChangedEventHandler(TextBoxHelper.UpperCaseText));
         EventManager.RegisterClassHandler(typeof(TextBox), UIElement.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidText));
         EventManager.RegisterClassHandler(typeof(DatePicker), DatePicker.SelectedDateChangedEvent, new EventHandler<SelectionChangedEventArgs>(TextBoxHelper.DatePickerSelectedDateChanged));
-        EventManager.RegisterClassHandler(typeof(TextBox), UIElement.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidateCoherentText));
-
+        EventManager.RegisterClassHandler(typeof(TextBox), UIElement.LostFocusEvent, new RoutedEventHandler(TextBoxHelper.ValidateCoherentText)); 
+        
         base.OnStartup(e);
-    }
+    }*/
 }
