@@ -838,6 +838,7 @@
                                Target="{Binding ElementName=DescripcionHechos}"/>
                         <ui:TextBox TextWrapping="Wrap"
                                     AcceptsReturn="True"
+                                    CharacterCasing="Normal"
                                     MinHeight="150"
                                     Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicionNarracion}"
                                     Tag="TextNotUpper"
