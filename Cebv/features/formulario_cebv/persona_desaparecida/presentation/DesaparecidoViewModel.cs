@@ -106,7 +106,7 @@ public partial class DesaparecidoViewModel : ObservableValidator
         if (est is not null)
         {
             EstadoSelected = est;
-            Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", est.Id);
+            Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", est.Id);
         }
 
         if (mpio is not null)
@@ -214,7 +214,7 @@ public partial class DesaparecidoViewModel : ObservableValidator
     async partial void OnEstadoSelectedChanged(Estado? value)
     {
         if (value is null) return;
-        Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", value.Id);
+        Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", value.Id);
     }
 
     async partial void OnMunicipioSelectedChanged(Municipio? value)
@@ -242,7 +242,7 @@ public partial class DesaparecidoViewModel : ObservableValidator
                 if (est is not null)
                 {
                     EstadoSelected = est;
-                    Municipios = await CebvNetwork.GetByFilter<Municipio>("municpios", "estado_id", est.Id);
+                    Municipios = await CebvNetwork.GetByFilter<Municipio>("municipios", "estado_id", est.Id);
                 }
 
                 if (mpio is not null)

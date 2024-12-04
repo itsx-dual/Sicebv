@@ -39,6 +39,12 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private Reportante _reportante = null!;
     [ObservableProperty] private Desaparecido _desaparecido = null!;
 
+
+    [Required(ErrorMessage = "El campo No. Telefono reportante es obligatorio")]
+    [MinLength(8, ErrorMessage = "El campo No. Telefono reportante debe tener al menos 8 numeroa")]
+    
+        
+        
     [ObservableProperty] private ObservableCollection<BitmapImage> _imagenesDesaparecido = [];
     [ObservableProperty] private BitmapImage _imagenBoletin;
 
@@ -66,9 +72,20 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Catalogo> _gruposPertenencia = new();
     [ObservableProperty] private ObservableCollection<Pertenencia> _pertenencias = new();
 
+
+    [ObservableProperty]
+    [Range(0,23)]
+    private int? _horas ;
+    [ObservableProperty] 
+    [Range(0,59)]
+    private int? _minutos ;
+
+    
+    
     public EncuadrePreeliminarViewModel()
     {
         InitAsync();
+
     }
 
     private async Task CargarCatalogos()
@@ -255,4 +272,28 @@ public partial class EncuadrePreeliminarViewModel : ObservableValidator
             new SymbolIcon(SymbolRegular.Checkmark32),
             new TimeSpan(0, 0, 5));
     }
+    //Validaciones
+
+   
+    partial void OnMinutosChanged(int? value)
+    {
+        if(value is null)return;
+        ValidateProperty(value,nameof(Minutos));
+        if (HasErrors)
+        {
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
+    }
+    partial void OnHorasChanged(int? value)
+    {
+        if(value is null)return;
+        ValidateProperty(value,nameof(Horas));
+        if (HasErrors)
+        { 
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
+    }
+    
+    
+    
 }

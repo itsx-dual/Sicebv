@@ -12,8 +12,8 @@ public class Asentamiento
 {
     [property: JsonPropertyName("id")] public string? Id { get; set; }
 
-    [property: JsonPropertyName("muncipio_id")]
-    public string? MuncipioId { get; set; }
+    [property: JsonPropertyName("municipio_id")]
+    public string? MunicipioId { get; set; }
 
     [property: JsonPropertyName("nombre")] public string? Nombre { get; set; }
     [property: JsonPropertyName("ambito")] public string? Ambito { get; set; }
