@@ -19,7 +19,8 @@
     <Page.DataContext>
         <presentation:ReportanteViewModel />
     </Page.DataContext>
-
+    
+   
     <Page.Resources>
         <CollectionViewSource x:Key="TelefonosMoviles"
                               Filter="TelefonosMoviles_OnFilter"
@@ -32,6 +33,13 @@
         <CollectionViewSource x:Key="CorreosElectronicos"
                               Filter="CorreosElectronicos_OnFilter"
                               Source="{Binding Reportante.Persona.Contactos}" />
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
     </Page.Resources>
 
     <Grid Margin="10">
@@ -182,9 +190,10 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono móvil:" />
-                            <ui:TextBox Text="{Binding TelefonoMovil.Numero}"
+                            <ui:NumberBox Value="{Binding TelefonoMovil.Numero}"
                                         Tag="Number"
-                                        MaxLength="10" />
+                                        MaxLength="10" 
+                                        SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -270,8 +279,9 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono Fijo:" />
-                            <ui:TextBox Text="{Binding NoTelefonoFijo}" Tag="Number"
-                                        MaxLength="10" />
+                            <ui:NumberBox Value="{Binding NoTelefonoFijo}" Tag="Number"
+                                        MaxLength="10" 
+                                        SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -412,18 +422,20 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox
-                                Text="{Binding Reportante.Persona.Direcciones[0]
+                            <ui:NumberBox
+                                Value="{Binding Reportante.Persona.Direcciones[0]
                             .NumeroExterior}"
-                                MaxLength="10" />
+                                MaxLength="10"
+                                SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox
-                                Text="{Binding Reportante.Persona.Direcciones[0]
+                            <ui:NumberBox
+                                Value="{Binding Reportante.Persona.Direcciones[0]
                             .NumeroInterior}"
-                                MaxLength="10" />
+                                MaxLength="10"
+                                SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -433,10 +445,11 @@
 
                         <StackPanel MinWidth="200">
                             <ui:TextBlock Text="Código postal:" />
-                            <ui:TextBox
-                                Text="{Binding Reportante.Persona.Direcciones[0]
+                            <ui:NumberBox
+                                Value="{Binding Reportante.Persona.Direcciones[0]
                             .CodigoPostal}"
-                                Tag="Number" MaxLength="5" />
+                                Tag="Number" MaxLength="5" 
+                                SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
                     </WrapPanel>
 

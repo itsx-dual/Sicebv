@@ -18,7 +18,15 @@
     <Page.DataContext>
         <local:ContextoViewModel />
     </Page.DataContext>
-
+    <!--UPPER CON MVVM -->
+    <Page.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </Page.Resources>
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -369,7 +377,8 @@
                         <WrapPanel Margin="10">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Teléfono:" />
-                                <ui:TextBox Text="{Binding Amistad.Telefono}" MaxLength="10" />
+                                <ui:NumberBox Value="{Binding Amistad.Telefono}" MaxLength="10"
+                                              SpinButtonPlacementMode="Hidden"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">

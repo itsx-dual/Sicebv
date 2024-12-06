@@ -35,6 +35,13 @@
         <CollectionViewSource x:Key="RedesSociales"
                               Filter="RedesSociales_OnFilter"
                               Source="{Binding Desaparecido.Persona.Contactos}" />
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
     </Page.Resources>
 
     <Grid Margin="10">
@@ -458,16 +465,18 @@
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Exterior:" />
-                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                        Text="{Binding Direccion.NumeroExterior}"
-                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}" />
+                            <ui:NumberBox ClearButtonEnabled="True" MaxLength="10"
+                                        Value="{Binding Direccion.NumeroExterior}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}"
+                                        SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
                             <ui:TextBlock Text="N° Interior:" />
-                            <ui:TextBox ClearButtonEnabled="True" MaxLength="10"
-                                        Text="{Binding Direccion.NumeroInterior}"
-                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}" />
+                            <ui:NumberBox ClearButtonEnabled="True" MaxLength="10"
+                                        Value="{Binding Direccion.NumeroInterior}"
+                                        IsEnabled="{Binding EsMismoDomicilioReportante, Converter={StaticResource BooleanNegation}}" 
+                                        SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -556,8 +565,9 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono móvil:" />
-                            <ui:TextBox Text="{Binding NoTelefonoMovil}" Tag="Number"
-                                        MaxLength="10" />
+                            <ui:NumberBox Value="{Binding NoTelefonoMovil}" Tag="Number"
+                                        MaxLength="10" 
+                                        SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -636,7 +646,8 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
                             <ui:TextBlock Text="Teléfono fijo:" />
-                            <ui:TextBox Text="{Binding NoTelefonoFijo}" Tag="Number" MaxLength="10" />
+                            <ui:NumberBox Value="{Binding NoTelefonoFijo}" Tag="Number" MaxLength="10"
+                                          SpinButtonPlacementMode="Hidden"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">

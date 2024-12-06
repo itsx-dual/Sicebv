@@ -28,6 +28,13 @@
         <CollectionViewSource x:Key="ExpedientesIndirectos"
                               Filter="ExpedientesIndirectos_OnFilter"
                               Source="{Binding Reporte.Expedientes}" />
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style>
     </Page.Resources>
 
     <Grid Margin="10">
@@ -61,12 +68,44 @@
                                         IsTodayHighlighted="True" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraDesaparicion}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora desaparición:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO: Poner handlers de validacion y cambiar bindings-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                       TextChanged="HoraDesaparicionFG_TextChanged"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                    Value="{Binding Horasfg,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionFG"/><!--FG = FormularioGrande -->
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionFG}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg2"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutosfg,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionFG_TextChanged"
+                                                  x:Name="MinDesaparicionFG"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionFG}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
+                        
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
@@ -74,15 +113,47 @@
                             <ui:TextBlock Text="Fecha de percato:" />
                             <DatePicker SelectedDateFormat="Short"
                                         SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True"
+                                        x:Name="FechaPercatoDatePicker"/>
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraPercato}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora de percato:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO Poner handlers de validacion-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                       TextChanged="HoraDesaparicionPercato_TextChanged"
+                                                    Value="{Binding Horaspercato,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionPercato"/>
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionPercato}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg3"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutospercato,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionPercato_TextChanged"
+                                                  x:Name="MinDesaparicionPercato"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionPercato}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
@@ -90,7 +161,8 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" 
+                                    x:Name="AclaracionFecha"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -116,12 +188,43 @@
                                         x:Name="FechaDesaparicion" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraDesaparicion}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora desaparición:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO: Poner handlers de validacion y cambiar bindings-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                       TextChanged="HoraDesaparicionFG2_TextChanged"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                    Value="{Binding Horasfg,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionFG2"/><!--FG = FormularioGrande -->
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionFG2}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg4"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutosfg,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionFG2_TextChanged"
+                                                  x:Name="MinDesaparicionFG2"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionFG2}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
@@ -140,12 +243,43 @@
                                         x:Name="FechaPercato" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraPercato}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora de percato:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO Poner handlers de validacion-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                       TextChanged="HoraDesaparicionPercato2_TextChanged"
+                                                    Value="{Binding Horaspercato,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionPercato2"/>
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionPercato2}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg5"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutospercato,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionPercato2_TextChanged"
+                                                  x:Name="MinDesaparicionPercato2"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionPercato2}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
@@ -153,7 +287,8 @@
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100"
+                                    x:Name="AclaracionFecha2"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -182,15 +317,17 @@
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Exterior:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
-                                            ClearButtonEnabled="True" MaxLength="10" />
+                                <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
+                                            ClearButtonEnabled="True" MaxLength="10" 
+                                            SpinButtonPlacementMode="Hidden"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
                                 <ui:TextBlock Text="N° Interior:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
+                                <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
                                             ClearButtonEnabled="True"
-                                            MaxLength="10" />
+                                            MaxLength="10"
+                                            SpinButtonPlacementMode="Hidden"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
@@ -201,8 +338,9 @@
 
                             <StackPanel MinWidth="200">
                                 <ui:TextBlock Text="Código postal:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
-                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5" />
+                                <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
+                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5"
+                                            SpinButtonPlacementMode="Hidden"/>
                             </StackPanel>
                         </WrapPanel>
 

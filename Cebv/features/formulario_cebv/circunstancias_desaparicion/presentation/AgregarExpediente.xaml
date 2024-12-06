@@ -16,7 +16,15 @@
                  Width="580"
                  d:DesignHeight="400"
                  Height="400">
-    
+    <!--UPPER CON MVVM  No se si es "window.Resources" ahorita veo-->
+    <Window.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </Window.Resources>
     <StackPanel Margin="10">
 
         <ui:TitleBar Title="Relacionar Expediente"

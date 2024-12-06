@@ -8,7 +8,7 @@ public static class CebvClientHandler
 {
     public static readonly HttpClient SharedClient = new()
     {
-        BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("localhost") ?? string.Empty),
+        BaseAddress = new Uri(ConfigurationManager.AppSettings.Get("aws") ?? string.Empty),
 
         DefaultRequestHeaders =
         {

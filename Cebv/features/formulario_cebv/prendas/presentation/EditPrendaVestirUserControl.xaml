@@ -14,6 +14,15 @@
     <UserControl.DataContext>
         <local:PrendasViewModel/>
     </UserControl.DataContext>
+    <!--UPPER CON MVVM -->
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </UserControl.Resources>
     <UniformGrid Columns="2">
         <StackPanel Margin="5">
             <StackPanel Margin="0 0 0 15">

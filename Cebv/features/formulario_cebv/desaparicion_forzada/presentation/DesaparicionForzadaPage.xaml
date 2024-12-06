@@ -23,6 +23,13 @@
     <Page.Resources>
         <CollectionViewSource x:Key="Perpetradores"
                               Source="{Binding Reporte.Perpetradores}" />
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style>
     </Page.Resources>
 
     <Grid Margin="10">
