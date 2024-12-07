@@ -44,35 +44,45 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel>
-                        <ui:TextBlock Text="Especifica si hay o existe carpeta de investigación (CI). " />
+                        <Label Content="Especifica si hay o existe carpeta de investigación (CI). " 
+                               Target="{Binding ElementName=CarpetaInvestigacion}"/>
                         <ComboBox DisplayMemberPath="Key"
                                   SelectedValuePath="Value"
                                   SelectedValue="{Binding CarpetaInvestigacion.EsOficial}"
-                                  ItemsSource="{Binding OpcionesCebv}" />
+                                  ItemsSource="{Binding OpcionesCebv}"
+                                  x:Name="CarpetaInvestigacion"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
                                Visibility="{Binding CarpetaInvestigacion.EsOficial,
                                Converter={StaticResource VisibilityConverter2}}">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Número de CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NumeroDocumento}" />
+                            <Label Content="Número de CI, IM o reporte de FGE:" 
+                                   Target="{Binding ElementName=NumeroDoc}"/>
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NumeroDocumento}" 
+                                        x:Name="NumeroDoc"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Dónde radica la CI, IM o reporte de FGE:" />
-                            <ui:TextBox Text="{Binding CarpetaInvestigacion.DondeRadica}" />
+                            <Label Content="Dónde radica la CI, IM o reporte de FGE:"
+                                   Target="{Binding ElementName=DondeRadica}"/>
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.DondeRadica}"
+                                        x:Name="DondeRadica"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NombreServidorPublico}" />
+                            <Label Content="Nombre del servidor(a) público:"
+                                   Target="{Binding ElementName=NombreServidorPublico}"/>
+                            <ui:TextBox Text="{Binding CarpetaInvestigacion.NombreServidorPublico}"
+                                        x:Name="NombreServidorPublico"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Fecha de recepción de CI, IM o reporte de FGE:" />
+                            <Label Content="Fecha de recepción de CI, IM o reporte de FGE:" 
+                                   Target="{Binding ElementName=FechaRecepcion}"/>
                             <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
-                                        SelectedDate="{Binding CarpetaInvestigacion.FechaRecepcion}" />
+                                        SelectedDate="{Binding CarpetaInvestigacion.FechaRecepcion}"
+                                        x:Name="FechaRecepcion"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -83,11 +93,13 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel>
-                        <ui:TextBlock Text="Específica si hay o existe amparo buscador" />
+                        <Label Content="Específica si hay o existe amparo buscador"
+                               Target="{Binding ElementName=AmparoEsOficial}"/>
                         <ComboBox DisplayMemberPath="Key"
                                   SelectedValuePath="Value"
                                   SelectedValue="{Binding AmparoBuscador.EsOficial}"
-                                  ItemsSource="{Binding OpcionesCebv}" />
+                                  ItemsSource="{Binding OpcionesCebv}"
+                                  x:Name="AmparoEsOficial"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
@@ -95,24 +107,32 @@
                                Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Número de amparo buscador:" />
-                            <ui:TextBox Text="{Binding AmparoBuscador.NumeroDocumento}" />
+                            <Label Content="Número de amparo buscador:" 
+                                   Target="{Binding ElementName=NumeroDocumento}"/>
+                            <ui:TextBox Text="{Binding AmparoBuscador.NumeroDocumento}"
+                                        x:Name="NumeroDocumento"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Dónde radica el amparo buscador:" />
-                            <ui:TextBox Text="{Binding AmparoBuscador.DondeRadica}" />
+                            <Label Content="Dónde radica el amparo buscador:"
+                                   Target="{Binding ElementName=AmparoDondeRadica}"/>
+                            <ui:TextBox Text="{Binding AmparoBuscador.DondeRadica}"
+                                        x:Name="AmparoDondeRadica"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre del juez:" />
-                            <ui:TextBox Text="{Binding AmparoBuscador.NombreServidorPublico}" />
+                            <Label Content="Nombre del juez:"
+                                   Target="{Binding ElementName=NombreJuez}"/>
+                            <ui:TextBox Text="{Binding AmparoBuscador.NombreServidorPublico}"
+                                        x:Name="NombreJuez"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Fecha de recepción:" />
+                            <Label Content="Fecha de recepción:"
+                                   Target="{Binding ElementName=AmparoFechaRecepcion}"/>
                             <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
-                                        SelectedDate="{Binding AmparoBuscador.FechaRecepcion}" />
+                                        SelectedDate="{Binding AmparoBuscador.FechaRecepcion}"
+                                        x:Name="AmparoFechaRecepcion"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -123,11 +143,13 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel>
-                        <ui:TextBlock Text="Específica si hay o existe recomendación de derechos humanos (DH)" />
+                        <Label Content="Específica si hay o existe recomendación de derechos humanos (DH)" 
+                               Target="{Binding ElementName=DerechosEsOficial}"/>
                         <ComboBox DisplayMemberPath="Key"
                                   SelectedValuePath="Value"
                                   SelectedValue="{Binding RecomedacionDerechos.EsOficial}"
-                                  ItemsSource="{Binding OpcionesCebv}" />
+                                  ItemsSource="{Binding OpcionesCebv}"
+                                  x:Name="DerechosEsOficial"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 25 0 0"
@@ -135,25 +157,32 @@
                                Converter={StaticResource VisibilityConverter2}}">
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Número de recomendación derechos humanos:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechos.NumeroDocumento}" />
+                            <Label Content="Número de recomendación derechos humanos:"
+                                   Target="{Binding ElementName=DerechosNumeroDocumento}"/>
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NumeroDocumento}"
+                                        x:Name="DerechosNumeroDocumento"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Dónde radica la recomendación derechos humanos:"
-                                          FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechos.DondeRadica}" />
+                            <Label Content="Dónde radica la recomendación derechos humanos:"
+                                   Target="{Binding ElementName=DerechosDondeRadica}"/>
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.DondeRadica}"
+                                        x:Name="DerechosDondeRadica"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre del servidor(a) público:" />
-                            <ui:TextBox Text="{Binding RecomedacionDerechos.NombreServidorPublico}" />
+                            <Label Content="Nombre del servidor(a) público:"
+                                   Target="{Binding ElementName=DerechosNombreServidor}"/>
+                            <ui:TextBox Text="{Binding RecomedacionDerechos.NombreServidorPublico}"
+                                        x:Name="DerechosNombreServidor"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Fecha de recepción recomendación DH:" />
+                            <Label Content="Fecha de recepción recomendación DH:"
+                                   Target="{Binding ElementName=DerechosFechaRecepcion}"/>
                             <DatePicker SelectedDateFormat="Short" IsTodayHighlighted="True"
-                                        SelectedDate="{Binding RecomedacionDerechos.FechaRecepcion}" />
+                                        SelectedDate="{Binding RecomedacionDerechos.FechaRecepcion}"
+                                        x:Name="DerechosFechaRecepcion"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

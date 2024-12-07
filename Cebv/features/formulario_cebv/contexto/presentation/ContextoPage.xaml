@@ -173,7 +173,7 @@
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="335" Margin="0 0 25 0">
                             <ui:TextBlock Text="¿Dónde trabaja?" />
-                            <TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.DondeTrabaja}"
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.DondeTrabaja}"
                                      TextWrapping="Wrap" />
                         </StackPanel>
 
@@ -206,7 +206,7 @@
                                     Visibility="{Binding Desaparecido.Persona.ContextoEconomico.DeseaTrabajoForaneo,
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿A dónde desea irse?" />
-                            <TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.UbicacionTrabajoForaneo}"
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.UbicacionTrabajoForaneo}"
                                      TextWrapping="Wrap" />
                         </StackPanel>
                     </WrapPanel>
@@ -251,7 +251,7 @@
                                     Visibility="{Binding Desaparecido.Persona.ContextoEconomico.TieneDeudas,
                                     Converter={StaticResource VisibilityConverter2}}">
                             <ui:TextBlock Text="¿A quién le debe?" />
-                            <TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.DeudaCon}"
+                            <ui:TextBox Text="{Binding Desaparecido.Persona.ContextoEconomico.DeudaCon}"
                                      TextWrapping="Wrap" />
                         </StackPanel>
                     </WrapPanel>
