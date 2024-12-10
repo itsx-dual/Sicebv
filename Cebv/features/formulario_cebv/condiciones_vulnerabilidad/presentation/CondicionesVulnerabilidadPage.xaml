@@ -43,16 +43,20 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel MinWidth="300" Margin="0 0 25 15">
-                        <ui:TextBlock Text="Tipo sanguíneo:" />
+                        <Label Content="Tipo sanguíneo:"
+                               Target="{Binding ElementName=TipoSangre}" />
                         <ComboBox SelectedItem="{Binding Desaparecido.Persona.Salud.TipoSangre }"
-                                  ItemsSource="{Binding TiposSangre}" />
+                                  ItemsSource="{Binding TiposSangre}"
+                                  x:Name="TipoSangre"/>
                     </StackPanel>
 
                     <!-- TODO: Corregir lo siguiente dentro del ViewModel -->
                     <StackPanel MinWidth="300">
-                        <ui:TextBlock Text="Factor Rhesus:" />
+                        <Label Content="Factor Rhesus:"
+                               Target="{Binding ElementName=FactorRhesus}" />
                         <ComboBox SelectedItem="{Binding Desaparecido.Persona.Salud.FactorRhesus}"
-                                  ItemsSource="{Binding FactoresRhesus}" />
+                                  ItemsSource="{Binding FactoresRhesus}" 
+                                  x:Name="FactorRhesus"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -69,25 +73,33 @@
 
                         <WrapPanel Margin="5">
                             <StackPanel Margin="0 0 25 0" MinWidth="300">
-                                <ui:TextBlock Text="Condición:" />
+                                <Label Content="Condición:"
+                                       Target="{Binding ElementName=CondicionSalud}" />
                                 <ComboBox SelectedItem="{Binding CondicionSalud}"
-                                          ItemsSource="{Binding CondicionesSalud}" />
+                                          ItemsSource="{Binding CondicionesSalud}"
+                                          x:Name="CondicionSalud"/>
                             </StackPanel>
 
                             <StackPanel Margin="0 0 25 0" MinWidth="300">
-                                <ui:TextBlock Text="Indole" />
+                                <Label Content="Indole"
+                                       Target="{Binding ElementName=IndoleSalud}" />
                                 <ComboBox SelectedItem="{Binding IndoleSalud}"
-                                          ItemsSource="{Binding IndolesSalud}" />
+                                          ItemsSource="{Binding IndolesSalud}"
+                                          x:Name="IndoleSalud"/>
                             </StackPanel>
 
                             <StackPanel Margin="0 0 25 0" MinWidth="300">
-                                <ui:TextBlock Text="Tratamiento:" />
-                                <ui:TextBox Text="{Binding Tratamiento}" TextWrapping="Wrap" />
+                                <Label Content="Tratamiento:" 
+                                       Target="{Binding ElementName=Tratamiento}" />
+                                <ui:TextBox Text="{Binding Tratamiento}" TextWrapping="Wrap" 
+                                            x:Name="Tratamiento"/>
                             </StackPanel>
 
                             <StackPanel Margin="0 0 15 0" MinWidth="300">
-                                <ui:TextBlock Text="Observaciones:" />
-                                <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True" />
+                                <Label Content="Observaciones:" 
+                                       Target="{Binding ElementName=Observaciones}" />
+                                <ui:TextBox Text="{Binding Observaciones}" TextWrapping="Wrap" AcceptsReturn="True" 
+                                            x:Name="Observaciones"/>
                             </StackPanel>
                         </WrapPanel>
 
@@ -166,29 +178,33 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Se encuentra en tránsito a Estados Unidos de Norte América?:" />
+                            <Label Content="¿Se encuentra en tránsito a Estados Unidos de Norte América?:"
+                                   Target="{Binding ElementName=EstaTransitoEstadosUnidos}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedValue="{Binding Desaparecido.Persona.ContextoSocial.EstaTransitoEstadosUnidos}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="EstaTransitoEstadosUnidos"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock
-                                Text="Si no va en tránsito a Estados Unidos de Norteamérica, la persona es:" />
+                            <Label Content="Si no va en tránsito a Estados Unidos de Norteamérica, la persona es:"
+                                   Target="{Binding ElementName=SituacionMigratoria}" />
                             <ComboBox
                                 SelectedItem="{Binding Desaparecido.Persona.ContextoSocial.SituacionMigratoria}"
-                                ItemsSource="{Binding SituacionesMigratorias}" />
+                                ItemsSource="{Binding SituacionesMigratorias}"
+                                x:Name="SituacionMigratoria"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock
-                            Text="Especifique el proceso de regularización migratoria que se encuentra:" />
+                        <Label Content="Especifique el proceso de regularización migratoria que se encuentra:"
+                               Target="{Binding ElementName=DescripcionProcesoMigratorio}" />
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.ContextoSocial.DescripcionProcesoMigratorio}"
                             TextWrapping="Wrap"
-                            AcceptsReturn="True" MinHeight="100" />
+                            AcceptsReturn="True" MinHeight="100" 
+                            x:Name="DescripcionProcesoMigratorio"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -200,17 +216,21 @@
                 <StackPanel Margin="5">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel MinWidth="300" Margin="0 0 25 15">
-                            <ui:TextBlock Text="Pertenencia grupal o étnica" />
+                            <Label Content="Pertenencia grupal o étnica"
+                                   Target="{Binding ElementName=PertenenciaGrupalEtnica}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedValue="{Binding Desaparecido.Persona.EnfoqueDiferenciado.PertenenciaGrupalEtnica}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="PertenenciaGrupalEtnica"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Enfoque diferenciado" />
+                            <Label Content="Enfoque diferenciado"
+                                   Target="{Binding ElementName=EnfoqueDiferenciado}" />
                             <ComboBox SelectedItem="{Binding EnfoqueDiferenciado}"
-                                      ItemsSource="{Binding EnfoquesDiferenciados}" />
+                                      ItemsSource="{Binding EnfoquesDiferenciados}"
+                                      x:Name="EnfoqueDiferenciado"/>
                         </StackPanel>
 
                         <ui:Button Command="{Binding AgregarEnfoquePersonalCommand}"
@@ -267,23 +287,25 @@
 
                     <StackPanel>
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock
-                                Text="Característica personal que pudiera colocar a la persona en mayor vulnerabilidad" />
+                            <Label Content="Característica personal que pudiera colocar a la persona en mayor vulnerabilidad"
+                                   Target="{Binding ElementName=DescripcionVulnerabilidad}" />
                             <ui:TextBox
                                 Text="{Binding Desaparecido.Persona.EnfoqueDiferenciado.DescripcionVulnerabilidad}"
                                 TextWrapping="Wrap"
                                 AcceptsReturn="True"
-                                MinHeight="100" />
+                                MinHeight="100"
+                                x:Name="DescripcionVulnerabilidad"/>
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock
-                                Text="Información personal adicional que se considere relevante para la búsqueda y localización de la persona" />
+                            <Label Content="Información personal adicional que se considere relevante para la búsqueda y localización de la persona"
+                                   Target="{Binding ElementName=InformacionRelevanteBusqueda}" />
                             <ui:TextBox
                                 Text="{Binding Desaparecido.Persona.EnfoqueDiferenciado.InformacionRelevanteBusqueda}"
                                 TextWrapping="Wrap"
                                 AcceptsReturn="True"
-                                MinHeight="100" />
+                                MinHeight="100"
+                                x:Name="InformacionRelevanteBusqueda"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

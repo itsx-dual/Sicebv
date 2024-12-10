@@ -43,39 +43,49 @@
                 <UniformGrid Columns="2">
                     <StackPanel Margin="5">
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="Grupo pertenencia:*" />
+                            <Label Content="Grupo pertenencia:*"
+                                   Target="{Binding ElementName=GrupoPertenencia}"/>
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding GrupoPertenencia }"
-                                      ItemsSource="{Binding GruposPertenencias}" />
+                                      ItemsSource="{Binding GruposPertenencias}"
+                                      x:Name="GrupoPertenencia"/>
                         </StackPanel>
 
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="Pertenencia:*" />
+                            <Label Content="Pertenencia:*"
+                                   Target="{Binding ElementName=Pertenencia}"/>
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Pertenencia }"
-                                      ItemsSource="{Binding Pertenencias}" />
+                                      ItemsSource="{Binding Pertenencias}"
+                                      x:Name="Pertenencia"/>
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock Text="Color:*" />
+                            <Label Content="Color:*"
+                                   Target="{Binding ElementName=Color}"/>
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Color }"
-                                      ItemsSource="{Binding Colores}" />
+                                      ItemsSource="{Binding Colores}"
+                                      x:Name="Color"/>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Margin="5">
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="Marca:" />
-                            <ui:TextBox Text="{Binding Marca}" />
+                            <Label Content="Marca:"
+                                   Target="{Binding ElementName=Marca}"/>
+                            <ui:TextBox Text="{Binding Marca}" 
+                                        x:Name="Marca"/>
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock Text="Descripción:*" />
+                            <Label Content="Descripción:*"
+                                   Target="{Binding ElementName=Descripcion}"/>
                             <ui:TextBox Text="{Binding Descripcion}"
                                         TextWrapping="Wrap"
                                         MinHeight="100"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" 
+                                        x:Name="Descripcion"/>
                         </StackPanel>
                         
                         <!-- Botones de edición -->
