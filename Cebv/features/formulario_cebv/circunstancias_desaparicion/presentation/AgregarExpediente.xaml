@@ -33,9 +33,8 @@
                      ShowClose="False" />
 
         <StackPanel MinWidth="250" Margin="10">
-            <ui:TextBlock Text="TIPO DE EXPEDIENTE:"
-                          TextWrapping="Wrap"
-                          Margin="0 0 0 5" />
+            <Label Content="TIPO DE EXPEDIENTE:"
+                   Target="{Binding ElementName=ObservacionesActualizacionEstatus}" />
             <ComboBox SelectedItem="{Binding TipoExp}"
                       ItemsSource="{Binding TiposExpedientes}" />
         </StackPanel>

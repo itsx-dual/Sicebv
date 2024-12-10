@@ -54,23 +54,29 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Estatus preliminar: *" />
+                            <Label Content="Estatus preliminar: *" 
+                                   Target="{Binding ElementName=EstatusPreliminar}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Desaparecido.EstatusPreliminar}"
-                                      ItemsSource="{Binding EstatusPersonas}" />
+                                      ItemsSource="{Binding EstatusPersonas}"
+                                      x:Name="EstatusPreliminar"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" IsEnabled="False">
-                            <ui:TextBlock Text="Fecha de estatus preliminar:" />
-                            <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusPreliminar}" />
+                            <Label Content="Fecha de estatus preliminar:"
+                                   Target="{Binding ElementName=FechaEstatusPreliminar}" />
+                            <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusPreliminar}"
+                                        x:Name="FechaEstatusPreliminar"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Fecha de localización: *" />
+                            <Label Content="Fecha de localización: *" 
+                                   Target="{Binding ElementName=FechaLocalizacion}" />
                             <DatePicker SelectedDate="{Binding Desaparecido.Localizacion.FechaLocalizacion}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True" 
+                                        x:Name="FechaLocalizacion"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -82,36 +88,45 @@
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Estatus formalizado:" />
+                                <Label Content="Estatus formalizado:"
+                                       Target="{Binding ElementName=EstatusFormalizadoConVida}" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Desaparecido.EstatusFormalizado}"
-                                          ItemsSource="{Binding EstatusPersonas}" />
+                                          ItemsSource="{Binding EstatusPersonas}" 
+                                          x:Name="EstatusFormalizadoConVida"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Fecha de formalización del estatus:" />
+                                <Label Content="Fecha de formalización del estatus:"
+                                       Target="{Binding ElementName=FechaEstatusFormalizadoConVida}" />
                                 <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusFormalizado}"
-                                            IsTodayHighlighted="True" />
+                                            IsTodayHighlighted="True" 
+                                            x:Name="FechaEstatusFormalizadoConVida"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
-                                <ui:TextBlock Text="Fecha de actualización en sistema:" />
+                                <Label Content="Fecha de actualización en sistema:"
+                                       Target="{Binding ElementName=FechaCapturaEstatusFormalizadoConVida}" />
                                 <DatePicker SelectedDate="{Binding Desaparecido.FechaCapturaEstatusFormalizado}"
-                                            IsTodayHighlighted="True" />
+                                            IsTodayHighlighted="True"
+                                            x:Name="FechaCapturaEstatusFormalizadoConVida"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="Síntesis de localización: *" />
+                            <Label Content="Síntesis de localización: *"
+                                   Target="{Binding ElementName=SintesisLocalizacioConVida}" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.SintesisLocalizacion}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150"
+                                        x:Name="SintesisLocalizacionConVida"/>
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock
-                                Text="Describa brevemente la condición psicofísica en que fue localizada la persona" />
+                            <Label Content="Describa brevemente la condición psicofísica en que fue localizada la persona"
+                                   Target="{Binding ElementName=DescripcionCondicionPersonaConVida}" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.DescripcionCondicionPersona}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" 
+                                        x:Name="DescripcionCondicionPersonaConVida"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -123,51 +138,64 @@
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Estatus formalizado:" />
+                                <Label Content="Estatus formalizado:" 
+                                       Target="{Binding ElementName=EstatusFormalizadoSinVida}" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Desaparecido.EstatusFormalizado}"
-                                          ItemsSource="{Binding EstatusPersonas}" />
+                                          ItemsSource="{Binding EstatusPersonas}" 
+                                          x:Name="EstatusFormalizadoSinVida"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Fecha de formalización del estatus:" />
+                                <Label Content="Fecha de formalización del estatus:"
+                                       Target="{Binding ElementName=FechaEstatusFormalizadoSinVida}" />
                                 <DatePicker SelectedDate="{Binding Desaparecido.FechaEstatusFormalizado}"
-                                            IsTodayHighlighted="True" />
+                                            IsTodayHighlighted="True" 
+                                            x:Name="FechaEstatusFormalizadoSinVida"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" IsEnabled="False">
-                                <ui:TextBlock Text="Fecha de actualización en sistema:" />
+                                <Label Content="Fecha de actualización en sistema:"
+                                       Target="{Binding ElementName=FechaCapturaEstatusFormalizadoSinVida}" />
                                 <DatePicker SelectedDate="{Binding Desaparecido.FechaCapturaEstatusFormalizado}"
-                                            IsTodayHighlighted="True" />
+                                            IsTodayHighlighted="True"
+                                            x:Name="FechaCapturaEstatusFormalizadoSinVida"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Fecha del hallazgo:" />
+                                <Label Content="Fecha del hallazgo:"
+                                       Target="{Binding ElementName=FechaHallazgoSinVida}" />
                                 <DatePicker SelectedDate="{Binding Desaparecido.Localizacion.FechaHallazgo}"
-                                            IsTodayHighlighted="True" />
+                                            IsTodayHighlighted="True" 
+                                            x:Name="FechaHallazgoSinVida"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="300">
-                                <ui:TextBlock Text="Fecha de identificación por parte del familiar:" />
+                                <Label Content="Fecha de identificación por parte del familiar:"
+                                       Target="{Binding ElementName=FechaIdentificacionFamiliarSinVida}" />
                                 <DatePicker
                                     SelectedDate="{Binding Desaparecido.Localizacion.FechaIdentificacionFamiliar}"
-                                    IsTodayHighlighted="True" />
+                                    IsTodayHighlighted="True" 
+                                    x:Name="FechaIdentificacionFamiliarSinVida"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel Margin="0 0 0 15">
-                            <ui:TextBlock Text="Síntesis de localización:" />
+                            <Label Content="Síntesis de localización:"
+                                   Target="{Binding ElementName=SintesisLocalizacionSinVida}" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.SintesisLocalizacion}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" 
+                                        x:Name="SintesisLocalizacionSinVida"/>
                         </StackPanel>
 
                         <StackPanel>
-                            <ui:TextBlock
-                                Text="Describa las causas de fallecimiento:" />
+                            <Label Content="Describa las causas de fallecimiento:"
+                                   Target="{Binding ElementName=DescripcionCausasFallecimiento}" />
                             <ui:TextBox Text="{Binding Desaparecido.Localizacion.DescripcionCausasFallecimiento}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" />
+                                        TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75"
+                                        x:Name="DescripcionCausasFallecimiento"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -177,16 +205,20 @@
                         <WrapPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Estado: *" />
+                                <Label Content="Estado: *" 
+                                       Target="{Binding ElementName=Estado}" />
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding EstadoSelected}"
-                                          ItemsSource="{Binding Estados}" />
+                                          ItemsSource="{Binding Estados}"
+                                          x:Name="Estado"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Municipio: *" />
+                                <Label Content="Municipio: *"
+                                       Target="{Binding ElementName=Municipio}" />
                                 <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.MunicipioLocalizacion}"
-                                          ItemsSource="{Binding Municipios}" />
+                                          ItemsSource="{Binding Municipios}" 
+                                          x:Name="Municipio"/>
                             </StackPanel>
                         </WrapPanel>
                     </StackPanel>
@@ -198,56 +230,72 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Hipótesis de localización (OGPI) 1:" />
+                            <Label Content="Hipótesis de localización (OGPI) 1:"
+                                   Target="{Binding ElementName=TipoHipotesis1}" />
                             <ComboBox SelectedItem="{Binding HipotesisPrimaria.TipoHipotesis}"
-                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}"
+                                      x:Name="TipoHipotesis1"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Circunstancia final 1:" />
+                            <Label Content="Circunstancia final 1:"
+                                   Target="{Binding ElementName=Circunstancia1}" />
                             <ui:TextBox Text="{Binding HipotesisPrimaria.TipoHipotesis.Circunstancia.Id}"
-                                        HorizontalContentAlignment="Center" />
+                                        HorizontalContentAlignment="Center"
+                                        x:Name="Circunstancia1"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Hipótesis de localización (OGPI) 2:" />
+                            <Label Content="Hipótesis de localización (OGPI) 2:"
+                                   Target="{Binding ElementName=TipoHipotesis2}" />
                             <ComboBox SelectedItem="{Binding HipotesisSecundaria.TipoHipotesis}"
-                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" 
+                                      x:Name="TipoHipotesis2"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
-                            <ui:TextBlock Text="Circunstancia final 2:" />
+                            <Label Content="Circunstancia final 2:"
+                                   Target="{Binding ElementName=Circunstancia2}" />
                             <ui:TextBox Text="{Binding HipotesisSecundaria.TipoHipotesis.Circunstancia.Id}"
-                                        HorizontalContentAlignment="Center" />
+                                        HorizontalContentAlignment="Center"
+                                        x:Name="Circunstancia2"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Sitio final:" />
+                            <Label Content="Sitio final:"
+                                   Target="{Binding ElementName=Sitio}" />
                             <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.Sitio}"
-                                      ItemsSource="{Binding Hipotesis.Sitios}" />
+                                      ItemsSource="{Binding Hipotesis.Sitios}" 
+                                      x:Name="Sitio"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Área que codifica:" />
+                            <Label Content="Área que codifica:"
+                                   Target="{Binding ElementName=Area}" />
                             <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.Area}"
-                                      ItemsSource="{Binding Hipotesis.Areas}" />
+                                      ItemsSource="{Binding Hipotesis.Areas}"
+                                      x:Name="Area"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Hipótesis DEB:" />
+                            <Label Content="Hipótesis DEB:"
+                                   Target="{Binding ElementName=HipotesisDeb}" />
                             <ComboBox SelectedItem="{Binding Desaparecido.Localizacion.HipotesisDeb}"
-                                      ItemsSource="{Binding Hipotesis.HipotesisInmediata}" />
+                                      ItemsSource="{Binding Hipotesis.HipotesisInmediata}" 
+                                      x:Name="HipotesisDeb"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="Observaciones sobre la actualización de estatus:" />
+                        <Label Content="Observaciones sobre la actualización de estatus:"
+                               Target="{Binding ElementName=ObservacionesActualizacionEstatus}" />
                         <ui:TextBox Text="{Binding Desaparecido.ObservacionesActualizacionEstatus}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                                    x:Name="ObservacionesActualizacionEstatus"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

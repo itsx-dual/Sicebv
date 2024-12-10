@@ -43,76 +43,100 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Calle:" />
-                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle}" />
+                            <Label Content="Calle:"
+                                   Target="{Binding ElementName=Calle}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle}"
+                                        x:Name="Calle"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="N° Exterior:" />
+                            <Label Content="N° Exterior:"
+                                   Target="{Binding ElementName=NumeroExterior}" />
                             <ui:NumberBox Value="{Binding Reporte.DatoComplementario.Direccion.NumeroExterior}" MaxLength="10"
-                                          SpinButtonPlacementMode="Hidden"/>
+                                          SpinButtonPlacementMode="Hidden"
+                                          x:Name="NumeroExterior"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="N° Interior:" />
+                            <Label Content="N° Interior:"
+                                   Target="{Binding ElementName=NumeroInterior}" />
                             <ui:NumberBox Value="{Binding Reporte.DatoComplementario.Direccion.NumeroInterior}" MaxLength="10"
-                                          SpinButtonPlacementMode="Hidden"/>
+                                          SpinButtonPlacementMode="Hidden"
+                                          x:Name="NumeroInterior"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Colonia:" />
-                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Colonia}" />
+                            <Label Content="Colonia:"
+                                   Target="{Binding ElementName=Colonia}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Colonia}" 
+                                        x:Name="Colonia"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200">
-                            <ui:TextBlock Text="Código postal:" />
+                            <Label Content="Código postal:"
+                                   Target="{Binding ElementName=CodigoPostal}" />
                             <ui:NumberBox Value="{Binding Reporte.DatoComplementario.Direccion.CodigoPostal}" Tag="Number" MaxLength="5"
-                                          SpinButtonPlacementMode="Hidden"/>
+                                          SpinButtonPlacementMode="Hidden"
+                                          x:Name="CodigoPostal"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Estado:" />
+                            <Label Content="Estado:" 
+                                   Target="{Binding ElementName=Estado}" />
                             <ComboBox SelectedItem="{Binding EstadoSelected}"
-                                      ItemsSource="{Binding Estados}" />
+                                      ItemsSource="{Binding Estados}" 
+                                      x:Name="Estado"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Municipio:" />
+                            <Label Content="Municipio:"
+                                   Target="{Binding ElementName=Municipio}" />
                             <ComboBox SelectedItem="{Binding MunicipioSelected}"
-                                      ItemsSource="{Binding Municipios}" />
+                                      ItemsSource="{Binding Municipios}" 
+                                      x:Name="Municipio"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Localidad:" />
+                            <Label Content="Localidad:"
+                                   Target="{Binding ElementName=Localidad}" />
                             <ComboBox IsEditable="True"
                                       DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.DatoComplementario.Direccion.Asentamiento}"
-                                      ItemsSource="{Binding Asentamientos}" />
+                                      ItemsSource="{Binding Asentamientos}"
+                                      x:Name="Localidad"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Entre calle 1:" />
-                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle1}" />
+                            <Label Content="Entre calle 1:" 
+                                   Target="{Binding ElementName=Calle1}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle1}" 
+                                        x:Name="Calle1"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Entre calle 2:" />
-                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle2}" />
+                            <Label Content="Entre calle 2:" 
+                                   Target="{Binding ElementName=Calle2}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Calle2}"
+                                        x:Name="Calle2"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tramo carretero:" />
-                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.TramoCarretero}" />
+                            <Label Content="Tramo carretero:"
+                                   Target="{Binding ElementName=TramoCarretero}" />
+                            <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.TramoCarretero}" 
+                                        x:Name="TramoCarretero"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250">
-                        <ui:TextBlock Text="Referencia:" />
-                        <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Referencia}" />
+                        <Label Content="Referencia:"
+                               Target="{Binding ElementName=Referencia}" />
+                        <ui:TextBox Text="{Binding Reporte.DatoComplementario.Direccion.Referencia}"
+                                    x:Name="Referencia"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

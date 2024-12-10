@@ -78,7 +78,7 @@
                 <StackPanel>
 
                     <Label Content="Medio de difusión:"
-                           Target="MedioDifusionComboBox" />
+                           Target="MedioDifusionComboBox"/>
                     <ComboBox Name="MedioDifusionComboBox"
                               SelectedItem="{Binding Reporte.GeneracionDocumento.MedioDifusion}"
                               ItemsSource="{Binding MediosDifusion}" />

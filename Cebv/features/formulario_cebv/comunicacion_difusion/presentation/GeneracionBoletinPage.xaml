@@ -182,10 +182,11 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel>
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Señas Particulares para el Boletín:" />
-
+                        <Label Content="Señas Particulares para el Boletín:" 
+                               Target="{Binding ElementName=SenasParticularesBoletin}" />
                         <ui:TextBox Text="{Binding Desaparecido.SenasParticularesBoletin}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150"
+                                    x:Name="SenasParticularesBoletin"/>
                     </StackPanel>
 
                     <ui:ToggleSwitch OnContent="¿Es mayor de edad? Sí"
@@ -195,9 +196,11 @@
                                      IsChecked="{Binding EsMayorEdad}" />
 
                     <StackPanel Margin="0 0 0 15" IsEnabled="{Binding EsMayorEdad}">
-                        <ui:TextBlock Text="Información Adicional:" />
+                        <Label Content="Información Adicional:"
+                               Target="{Binding ElementName=InformacionAdicionalBoletin}" />
                         <ui:TextBox Text="{Binding Desaparecido.InformacionAdicionalBoletin}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" 
+                                    x:Name="InformacionAdicionalBoletin"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -206,15 +209,19 @@
             <Border Style="{StaticResource CebvBorder}">
                 <WrapPanel>
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Tipo de Boletín:" />
+                        <Label Content="Tipo de Boletín:"
+                               Target="{Binding ElementName=TipoBoletin}" />
                         <ComboBox SelectedItem="{Binding TipoBoletin}"
-                                  ItemsSource="{Binding TiposBoletines}" />
+                                  ItemsSource="{Binding TiposBoletines}" 
+                                  x:Name="TipoBoletin"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="300" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Estatus de la Persona Desaparecida:" />
+                        <Label Content="Estatus de la Persona Desaparecida:" 
+                               Target="{Binding ElementName=EstatusPersona}" />
                         <ComboBox SelectedItem="{Binding EstatusPersona}"
-                                  ItemsSource="{Binding EstatusPersonas}" />
+                                  ItemsSource="{Binding EstatusPersonas}" 
+                                  x:Name="EstatusPersona"/>
                     </StackPanel>
 
                     <ui:Button Margin="0 15 0 0"

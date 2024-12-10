@@ -48,12 +48,14 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Sufrió desaparición forzada?" />
+                            <Label Content="¿Sufrió desaparición forzada?" 
+                                   Target="{Binding ElementName=DesaparecioAutoridad}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedItem="{Binding SufrioDesaparicionForzada}"
                                       SelectedValue="{Binding Reporte.DesaparicionForzada.DesaparecioAutoridad}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="DesaparecioAutoridad"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -61,27 +63,33 @@
                                Visibility="{Binding Reporte.DesaparicionForzada.DesaparecioAutoridad,
                                Converter={StaticResource VisibilityConverter2} }">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Autoridad:" />
+                            <Label Content="Autoridad:"
+                                   Target="{Binding ElementName=Autoridad}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.DesaparicionForzada.Autoridad}"
-                                      ItemsSource="{Binding Autoridades}" />
+                                      ItemsSource="{Binding Autoridades}"
+                                      x:Name="Autoridad"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="Describa la situación:" />
+                            <Label Content="Describa la situación:"
+                                   Target="{Binding ElementName=DescripcionAutoridad}" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionAutoridad}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                                        TextWrapping="Wrap" AcceptsReturn="True"
+                                        x:Name="DescripcionAutoridad"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Sufrió desaparición por particulares?" />
+                            <Label Content="¿Sufrió desaparición por particulares?"
+                                   Target="{Binding ElementName=DesaparecioParticular}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedItem="{Binding SufrioDesaparicionParticular}"
                                       SelectedValue="{Binding Reporte.DesaparicionForzada.DesaparecioParticular}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="DesaparecioParticular"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -89,68 +97,84 @@
                                Visibility="{Binding Reporte.DesaparicionForzada.DesaparecioParticular,
                                Converter={StaticResource VisibilityConverter2}}">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Particular:" />
+                            <Label Content="Particular:"
+                                   Target="{Binding ElementName=Particular}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.DesaparicionForzada.Particular}"
-                                      ItemsSource="{Binding Particulares}" />
+                                      ItemsSource="{Binding Particulares}"
+                                      x:Name="Particular"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="Describa la situación:" />
+                            <Label Content="Describa la situación:"
+                                   Target="{Binding ElementName=DescripcionParticular}" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionParticular}"
-                                        TextWrapping="Wrap" AcceptsReturn="True" />
+                                        TextWrapping="Wrap" AcceptsReturn="True"
+                                        x:Name="DescripcionParticular"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Método de captura:" />
+                            <Label Content="Método de captura:"
+                                   Target="{Binding ElementName=MetodoCaptura}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.DesaparicionForzada.MetodoCaptura}"
-                                      ItemsSource="{Binding MetodosCaptura}" />
+                                      ItemsSource="{Binding MetodosCaptura}"
+                                      x:Name="MetodoCaptura"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="Observaciones del método de captura:" />
+                            <Label Content="Observaciones del método de captura:"
+                                   Target="{Binding ElementName=DescripcionMetodoCaptura}" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionMetodoCaptura}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True" 
+                                        x:Name="DescripcionMetodoCaptura"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Medio de captura:" />
+                            <Label Content="Medio de captura:"
+                                   Target="{Binding ElementName=MedioCaptura}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.DesaparicionForzada.MedioCaptura}"
-                                      ItemsSource="{Binding MediosCaptura}" />
+                                      ItemsSource="{Binding MediosCaptura}"
+                                      x:Name="MedioCaptura"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400">
-                            <ui:TextBlock Text="Observaciones del medio de captura:" />
+                            <Label Content="Observaciones del medio de captura:"
+                                   Target="{Binding ElementName=DescripcionMedioCaptura}" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionMedioCaptura}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True"
+                                        x:Name="DescripcionMedioCaptura"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Existió detención legal previa o extorsión?" />
+                            <Label Content="¿Existió detención legal previa o extorsión?"
+                                   Target="{Binding ElementName=DetencionPreviaExtorsion}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedValue="{Binding Reporte.DesaparicionForzada.DetencionPreviaExtorsion}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="DetencionPreviaExtorsion"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400"
                                     Visibility="{Binding Reporte.DesaparicionForzada.DetencionPreviaExtorsion,
                                     Converter={StaticResource VisibilityConverter2}}">
-                            <ui:TextBlock Text="Observaciones de la detención legal o extorsión:" />
+                            <Label Content="Observaciones de la detención legal o extorsión:"
+                                   Target="{Binding ElementName=DescripcionDetencionPreviaExtorsion}" />
                             <ui:TextBox
                                 Text="{Binding Reporte.DesaparicionForzada.DescripcionDetencionPreviaExtorsion}"
                                 TextWrapping="Wrap"
-                                AcceptsReturn="True" />
+                                AcceptsReturn="True"
+                                x:Name="DescripcionDetencionPreviaExtorsion"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -161,21 +185,25 @@
 
                     <WrapPanel>
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Ha sido avistado en alguna parte?" />
+                            <Label Content="¿Ha sido avistado en alguna parte?"
+                                   Target="{Binding ElementName=HaSidoAvistado}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedItem="{Binding HaSidoAvistado}"
                                       SelectedValue="{Binding Reporte.DesaparicionForzada.HaSidoAvistado}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="HaSidoAvistado"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400"
                                     Visibility="{Binding Reporte.DesaparicionForzada.HaSidoAvistado,
                                     Converter={StaticResource VisibilityConverter2}}">
-                            <ui:TextBlock Text="¿Dónde?" />
+                            <Label Content="¿Dónde?"
+                                   Target="{Binding ElementName=DondeHaSidoAvistado}" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DondeHaSidoAvistado}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True"
+                                        x:Name="DondeHaSidoAvistado"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -193,31 +221,39 @@
                         <StackPanel Grid.Column="0">
                             <WrapPanel Margin="0 0 0 15">
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                    <ui:TextBlock Text="Nombre(s) / apodo(s)" />
-                                    <ui:TextBox Text="{Binding Nombre}" />
+                                    <Label Content="Nombre(s) / apodo(s)"
+                                           Target="{Binding ElementName=Nombre}" />
+                                    <ui:TextBox Text="{Binding Nombre}"
+                                                x:Name="Nombre"/>
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                    <ui:TextBlock Text="Sexo:" />
+                                    <Label Content="Sexo:"
+                                           Target="{Binding ElementName=Sexo}" />
                                     <ComboBox DisplayMemberPath="Nombre"
                                               SelectedItem="{Binding Sexo}"
-                                              ItemsSource="{Binding Sexos}" />
+                                              ItemsSource="{Binding Sexos}" 
+                                              x:Name="Sexo"/>
                                 </StackPanel>
 
                             </WrapPanel>
 
                             <WrapPanel Margin="0 0 0 15">
                                 <StackPanel MinWidth="300" Margin="0 0 25 0">
-                                    <ui:TextBlock Text="Último estatus del perpetrador:" />
+                                    <Label Content="Último estatus del perpetrador:"
+                                           Target="{Binding ElementName=EstatusPerpetrador}" />
                                     <ComboBox DisplayMemberPath="Nombre"
                                               SelectedItem="{Binding EstatusPerpetrador}"
-                                              ItemsSource="{Binding EstatusPerpetradores}" />
+                                              ItemsSource="{Binding EstatusPerpetradores}" 
+                                              x:Name="EstatusPerpetrador"/>
                                 </StackPanel>
 
                                 <StackPanel MinWidth="300" Margin="0 0 10 0">
-                                    <ui:TextBlock Text="Descripción:" />
+                                    <Label Content="Descripción:"
+                                           Target="{Binding ElementName=PerpetradorDescripcion}" />
                                     <ui:TextBox Text="{Binding PerpetradorDescripcion}" TextWrapping="Wrap"
-                                                AcceptsReturn="True" />
+                                                AcceptsReturn="True"
+                                                x:Name="PerpetradorDescripcion"/>
                                 </StackPanel>
                             </WrapPanel>
                         </StackPanel>
@@ -288,10 +324,12 @@
                     </ui:CardExpander>
 
                     <StackPanel MinWidth="400">
-                        <ui:TextBlock Text="Descripción del grupo perpetrador" />
+                        <Label Content="Descripción del grupo perpetrador"
+                               Target="{Binding ElementName=DescripcionGrupoPerpetrador}" />
                         <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionGrupoPerpetrador}"
                                     TextWrapping="Wrap"
-                                    AcceptsReturn="True" />
+                                    AcceptsReturn="True" 
+                                    x:Name="DescripcionGrupoPerpetrador"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -301,21 +339,25 @@
                 <StackPanel Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Se suscitaron otros delitos antes o después de la desaparición?" />
+                            <Label Content="¿Se suscitaron otros delitos antes o después de la desaparición?" 
+                                   Target="{Binding ElementName=DelitoDesaparicion}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedItem="{Binding DelitoDesaparicion}"
                                       SelectedValue="{Binding Reporte.DesaparicionForzada.DelitosDesaparicion}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}" 
+                                      x:Name="DelitoDesaparicion"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="400"
                                     Visibility="{Binding Reporte.DesaparicionForzada.DelitosDesaparicion,
                                     Converter={StaticResource VisibilityConverter2}}">
-                            <ui:TextBlock Text="Especifique cuáles:" />
+                            <Label Content="Especifique cuáles:"
+                                   Target="{Binding ElementName=DescripcionDelitosDesaparicion}" />
                             <ui:TextBox Text="{Binding Reporte.DesaparicionForzada.DescripcionDelitosDesaparicion}"
                                         TextWrapping="Wrap"
-                                        AcceptsReturn="True" />
+                                        AcceptsReturn="True"
+                                        x:Name="DescripcionDelitosDesaparicion"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

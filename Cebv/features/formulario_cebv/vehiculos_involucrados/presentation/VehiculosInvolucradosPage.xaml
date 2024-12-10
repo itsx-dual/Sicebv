@@ -60,80 +60,103 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Relacion con la persona desaparecida o no localizada:"
-                                          FontTypography="Caption" />
+                            <Label Content="Relacion con la persona desaparecida o no localizada:"
+                                   Target="{Binding ElementName=RelacionVehiculo}" />
                             <ComboBox SelectedItem="{Binding Vehiculo.RelacionVehiculo}"
-                                      ItemsSource="{Binding Relaciones}" />
+                                      ItemsSource="{Binding Relaciones}" 
+                                      x:Name="RelacionVehiculo"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Marca:" FontTypography="Caption" />
+                            <Label Content="Marca:"
+                                   Target="{Binding ElementName=MarcaVehiculo}" />
                             <ComboBox SelectedItem="{Binding Vehiculo.MarcaVehiculo}"
-                                      ItemsSource="{Binding Marcas}" />
+                                      ItemsSource="{Binding Marcas}" 
+                                      x:Name="MarcaVehiculo"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Submarca:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Vehiculo.Submarca}" />
+                            <Label Content="Submarca:"
+                                   Target="{Binding ElementName=Submarca}" />
+                            <ui:TextBox Text="{Binding Vehiculo.Submarca}"
+                                        x:Name="Submarca"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Color:" FontTypography="Caption" />
+                            <Label Content="Color:"
+                                   Target="{Binding ElementName=Color}" />
                             <ComboBox SelectedItem="{Binding Vehiculo.Color}"
-                                      ItemsSource="{Binding Colores}" />
+                                      ItemsSource="{Binding Colores}" 
+                                      x:Name="Color"/>
                         </StackPanel>
                     </WrapPanel>
 
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Placa:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Vehiculo.Placa}" />
+                            <Label Content="Placa:"
+                                   Target="{Binding ElementName=Placa}" />
+                            <ui:TextBox Text="{Binding Vehiculo.Placa}"
+                                        x:Name="Placa"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Modelo (Año):" FontTypography="Caption" />
+                            <Label Content="Modelo (Año):"
+                                   Target="{Binding ElementName=Modelo}" />
                             <ui:NumberBox Value="{Binding Vehiculo.Modelo}" 
-                                          SpinButtonPlacementMode="Hidden"/>
+                                          SpinButtonPlacementMode="Hidden"
+                                          x:Name="Modelo"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Número de Serie:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Vehiculo.NumeroSerie}" />
+                            <Label Content="Número de Serie:"
+                                   Target="{Binding ElementName=NumeroSerie}" />
+                            <ui:TextBox Text="{Binding Vehiculo.NumeroSerie}" 
+                                        x:Name="NumeroSerie"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Número de Motor:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Vehiculo.NumeroMotor}" />
+                            <Label Content="Número de Motor:"
+                                   Target="{Binding ElementName=NumeroMotor}" />
+                            <ui:TextBox Text="{Binding Vehiculo.NumeroMotor}"
+                                        x:Name="NumeroMotor"/>
                         </StackPanel>
                     </WrapPanel>
 
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Número de Permiso:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Vehiculo.NumeroPermiso}" />
+                            <Label Content="Número de Permiso:"
+                                   Target="{Binding ElementName=NumeroPermiso}" />
+                            <ui:TextBox Text="{Binding Vehiculo.NumeroPermiso}"
+                                        x:Name="NumeroPermiso"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo Vehículo:" FontTypography="Caption" />
+                            <Label Content="Tipo Vehículo:"
+                                   Target="{Binding ElementName=TipoVehiculo}" />
                             <ComboBox SelectedItem="{Binding Vehiculo.TipoVehiculo}"
-                                      ItemsSource="{Binding TiposVehiculos}" />
+                                      ItemsSource="{Binding TiposVehiculos}" 
+                                      x:Name="TipoVehiculo"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Uso Vehículo:" FontTypography="Caption" />
+                            <Label Content="Uso Vehículo:"
+                                   Target="{Binding ElementName=UsoVehiculo}" />
                             <ComboBox SelectedItem="{Binding Vehiculo.UsoVehiculo}"
-                                      ItemsSource="{Binding UsosVehiculos}" />
+                                      ItemsSource="{Binding UsosVehiculos}"
+                                      x:Name="UsoVehiculo"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="Señas Particulares:" FontTypography="Caption" />
+                        <Label Content="Señas Particulares:"
+                               Target="{Binding ElementName=Descripcion}" />
                         <ui:TextBox Text="{Binding Vehiculo.Descripcion}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" 
+                                    x:Name="Descripcion"/>
                     </StackPanel>
 
                     <Separator Height="25" Background="Transparent" BorderThickness="0" />
@@ -151,11 +174,13 @@
                                DataContextChanged="Imagenes_OnDataContextChanged" />
 
                     <StackPanel>
-                        <ui:TextBlock Text="Estatus del Vehículo:" FontTypography="Caption" />
+                        <Label Content="Estatus del Vehículo:"
+                               Target="{Binding ElementName=Localizado}" />
                         <ui:ToggleSwitch OffContent="No Localizado"
                                          OnContent="Localizado"
                                          IsChecked="{Binding Vehiculo.Localizado}"
-                                         Margin="5" />
+                                         Margin="5" 
+                                         x:Name="Localizado"/>
                     </StackPanel>
 
                     <ui:Button Command="{Binding AddVehiculoCommand}"
