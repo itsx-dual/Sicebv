@@ -20,8 +20,15 @@
     
     <UserControl.Resources>
         <util:BooleanNegation x:Key="BooleanNegation"/>
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
     </UserControl.Resources>
-
+    
     <Grid>
         <StackPanel Margin="5">
             <!-- Información del reporte -->
@@ -33,36 +40,46 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo de folio: *" />
+                            <Label Content="Tipo de folio: *"
+                                   Target="{Binding ElementName=TipoFolio}"/>
                             <ComboBox SelectedItem="{Binding Reporte.TipoReporte}"
-                                      ItemsSource="{Binding TiposReportes}" />
+                                      ItemsSource="{Binding TiposReportes}"
+                                      x:Name="TipoFolio"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo de desaparición:" />
+                            <Label Content="Tipo de desaparición:"
+                                   Target="{Binding ElementName=TipoDesaparicion}"/>
                             <ComboBox SelectedValue="{Binding Reporte.TipoDesaparicion}"
                                       SelectedValuePath="Value"
                                       DisplayMemberPath="Key"
-                                      ItemsSource="{Binding TiposDesapariciones}" />
+                                      ItemsSource="{Binding TiposDesapariciones}"
+                                      x:Name="TipoDesaparicion"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Zona del estado:" />
+                            <Label Content="Zona del estado:"
+                                   Target="{Binding ElementName=ZonaEstado}"/>
                             <ui:TextBox IsEnabled="False"
-                                        Text="{Binding Reporte.ZonaEstado.Nombre}" />
+                                        Text="{Binding Reporte.ZonaEstado.Nombre}"
+                                        x:Name="ZonaEstado"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 25 0">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Área que atenderá:" />
+                            <Label Content="Área que atenderá:"
+                                   Target="{Binding ElementName=AreaAtiende}"/>
                             <ComboBox ItemsSource="{Binding Areas}"
-                                      SelectedItem="{Binding Reporte.AreaAtiende}" />
+                                      SelectedItem="{Binding Reporte.AreaAtiende}"
+                                      x:Name="AreaAtiende"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre de quien asigno el folio:" />
-                            <ui:TextBox Text="{Binding Reporte.Folios[0].User.Name}" IsEnabled="False" />
+                            <Label Content="Nombre de quien asigno el folio:"
+                                   Target="{Binding ElementName=NombreFolio}"/>
+                            <ui:TextBox Text="{Binding Reporte.Folios[0].User.Name}" IsEnabled="False"
+                                        x:Name="NombreFolio"/>
                         </StackPanel>
 
 
@@ -80,9 +97,11 @@
                                 Margin="0 15 0 0"
                                 MaxWidth="400"
                                 MinWidth="250">
-                        <ui:TextBlock Text="FOLIO CEBV:" />
+                        <Label Content="FOLIO CEBV:"
+                               Target="{Binding ElementName=FolioCebv}"/>
                         <ui:TextBox Text="{Binding Desaparecido.Folios.FolioCebv}"
-                                    PlaceholderText="Sin folio" />
+                                    PlaceholderText="Sin folio"
+                                    x:Name="FolioCebv"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -98,15 +117,19 @@
 
                         <WrapPanel Margin="0,0,0,10">
                             <StackPanel MinWidth="250" Margin="0,0,10,0">
-                                <ui:TextBlock Text="Quien da el visto bueno" />
-                                <ComboBox />
+                                <Label Content="Quien da el visto bueno"
+                                       Target="{Binding ElementName=QuienVistoBueno}"/>
+                                <!--TODO elementos vacios -->
+                                <ComboBox x:Name="QuienVistoBueno"/>
                             </StackPanel>
                             
                             <StackPanel Margin="0,0,10,0"
                                         MinWidth="250">
-                                <ui:TextBlock Text="Resultado de RDN:" />
+                                <Label Content="Resultado de RDN:"
+                                       Target="{Binding ElementName=ResultadoRDN}"/>
                                 <ComboBox SelectedItem="{Binding Reporte.HechosDesaparicion.ResultadoRnd}"
-                                          ItemsSource="{Binding ResultadosRdn}" />
+                                          ItemsSource="{Binding ResultadosRdn}"
+                                          x:Name="ResultadoRDN"/>
                             </StackPanel>
 
                             <ui:Button Content="Generar informe de inicio"
@@ -119,12 +142,14 @@
                         </WrapPanel>
                         
                         <StackPanel>
-                            <ui:TextBlock Text="Contexto de Hechos de Desaparición:" />
+                            <Label Content="Contexto de Hechos de Desaparición:"
+                                   Target="{Binding ElementName=ContextoDesaparicion}"/>
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.ContextoDesaparicion}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
                                         MinHeight="100"
-                                        Tag="Exclude" />
+                                        Tag="Exclude" 
+                                        x:Name="ContextoDesaparicion"/>
                         </StackPanel>
                         
                         <ui:Button Content="Guardar"
@@ -230,13 +255,15 @@
                         </ui:ListView>
                     </ui:CardExpander>
 
-                    <ui:TextBlock Text="Señas particulares para el boletin:" />
+                    <Label Content="Señas particulares para el boletin:"
+                           Target="{Binding ElementName=SenasPartBoletin}"/>
                     <ui:TextBox TextWrapping="Wrap"
                                 AcceptsReturn="True"
                                 MinHeight="100"
                                 Text="{Binding SenasParticulares}"
                                 Margin="0,0,0,10"
-                                Tag="Exclude" />
+                                Tag="Exclude"
+                                x:Name="SenasPartBoletin"/>
 
                     <WrapPanel IsEnabled="True">
                         <ui:Button Content="Generar boletin de busqueda inmediata"

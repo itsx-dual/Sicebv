@@ -16,7 +16,15 @@
     <Page.DataContext>
         <presentation:ControlOgpiViewModel />
     </Page.DataContext>
-
+    <!--UPPER CON MVVM -->
+    <Page.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </Page.Resources>
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -36,28 +44,37 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha de codificación:" FontTypography="Caption" />
+                            <Label Content="Fecha de codificación:"
+                                   Target="{Binding ElementName=FechaCodificacion}" />
                             <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Reporte.ControlOgpi.FechaCodificacion}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True" 
+                                        x:Name="FechaCodificacion"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Nombre de quien codificó:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.NombreCodificador}" Tag="Letter" />
+                            <Label Content="Nombre de quien codificó:"
+                                   Target="{Binding ElementName=NombreCodificador}" />
+                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.NombreCodificador}" Tag="Letter" 
+                                        x:Name="NombreCodificador"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 0 15">
-                        <ui:TextBlock Text="Observaciones generales:" FontTypography="Caption" />
+                        <Label Content="Observaciones generales:"
+                               Target="{Binding ElementName=Observaciones}" />
                         <ui:TextBox Text="{Binding Reporte.ControlOgpi.Observaciones}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" 
+                                    x:Name="Observaciones"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="N° de tarjeta OGPI:" FontTypography="Caption" />
-                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.NumeroTarjeta}" />
+                            <Label Content="N° de tarjeta OGPI:"
+                                   Target="{Binding ElementName=NumeroTarjeta}" />
+                            <ui:NumberBox Value="{Binding Reporte.ControlOgpi.NumeroTarjeta}"
+                                          SpinButtonPlacementMode="Hidden"
+                                        x:Name="NumeroTarjeta"/>
                         </StackPanel>
                     </WrapPanel>
 
@@ -81,22 +98,28 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0  0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Folio FUB:" />
-                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.FolioFub}" />
+                            <Label Content="Folio FUB:"
+                                   Target="{Binding ElementName=FolioFub}" />
+                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.FolioFub}"
+                                        x:Name="FolioFub"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Autoridad que ingresó FUB:" />
-                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.AutoridadIngresaFub}" />
+                            <Label Content="Autoridad que ingresó FUB:"
+                                   Target="{Binding ElementName=AutoridadIngresaFub}" />
+                            <ui:TextBox Text="{Binding Reporte.ControlOgpi.AutoridadIngresaFub}" 
+                                        x:Name="AutoridadIngresaFub"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Estatus de persona en RNPDNO:" />
+                            <Label Content="Estatus de persona en RNPDNO:"
+                                   Target="{Binding ElementName=EstatusRndpno}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       ItemsSource="{Binding EstatusPersonas}"
-                                      SelectedItem="{Binding Reporte.ControlOgpi.EstatusRndpno}" />
+                                      SelectedItem="{Binding Reporte.ControlOgpi.EstatusRndpno}" 
+                                      x:Name="EstatusRndpno"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>

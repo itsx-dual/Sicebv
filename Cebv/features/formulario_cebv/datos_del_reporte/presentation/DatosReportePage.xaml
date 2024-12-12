@@ -17,7 +17,15 @@
     <Page.DataContext>
         <presentation:DatosReporteViewModel />
     </Page.DataContext>
-
+    <!--UPPER CON MVVM -->
+    <Page.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </Page.Resources>
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -34,16 +42,19 @@
 
             <WrapPanel IsEnabled="False" Margin="10 10 10 25">
                 <StackPanel MinWidth="250" Margin="0 0 25 0">
-                    <ui:TextBlock Text="Fecha de inicio:" />
+                    <Label Content="Fecha de inicio:"
+                           Target="{Binding ElementName=FechaInicio}"/>
                     <ui:TextBox Text="{Binding Reporte.FechaCreacion, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}',
                                 ConverterCulture=es_MX}"
-                                IsEnabled="False"/>
+                                IsEnabled="False" x:Name="FechaInicio"/>
                 </StackPanel>
 
                 <StackPanel MinWidth="250">
-                    <ui:TextBlock Text="Hora de inicio:" />
+                    
+                    <Label Content="Hora de inicio:"
+                           Target="{Binding ElementName=HoraInicio}"/>
                     <ui:TextBox Text="{Binding Reporte.FechaCreacion, StringFormat='{}{0:hh\\:mm tt}', ConverterCulture=es_MX}"
-                                IsEnabled="False"/>
+                                IsEnabled="False" x:Name="HoraInicio"/>
                 </StackPanel>
             </WrapPanel>
 
@@ -52,29 +63,37 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <WrapPanel Margin="5">
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Medio de conocimiento genérico:" />
+                        <Label Content="Medio de conocimiento genérico:"
+                               Target="{Binding ElementName=MedioConocimientoGenerico}"/>
                         <ComboBox SelectedItem="{Binding TipoMedio}"
-                                  ItemsSource="{Binding TiposMedios}"/>
+                                  ItemsSource="{Binding TiposMedios}"
+                                  x:Name="MedioConocimientoGenerico"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Medio de conocimiento específico:" />
+                        <Label Content="Medio de conocimiento específico:"
+                               Target="{Binding ElementName=MedioConocimientoEspecifico}"/>
                         <ComboBox SelectedItem="{Binding Reporte.MedioConocimiento}"
-                                  ItemsSource="{Binding Medios}"/>
+                                  ItemsSource="{Binding Medios}"
+                                  x:Name="MedioConocimientoEspecifico"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="0 0 25 0">
-                        <ui:TextBlock Text="Estado de donde proviene el reporte:" />
+                        <Label Content="Estado de donde proviene el reporte:"
+                               Target="{Binding ElementName=EstadoProvieneReporte}"/>
                         <ComboBox DisplayMemberPath="Nombre"
                                   SelectedItem="{Binding Reporte.Estado}"
-                                  ItemsSource="{Binding Estados}" />
+                                  ItemsSource="{Binding Estados}"
+                                  x:Name="EstadoProvieneReporte"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250">
-                        <ui:TextBlock Text="Institución de origen:" />
+                        <Label Content="Institución de origen:"
+                               Target="{Binding ElementName=InstitucionOrigen}"/>
                         <ComboBox DisplayMemberPath="Nombre"
                                   SelectedItem="{Binding Reporte.InstitucionOrigen}"
-                                  ItemsSource="{Binding Instituciones}" />
+                                  ItemsSource="{Binding Instituciones}" 
+                                  x:Name="InstitucionOrigen"/>
                     </StackPanel>
                 </WrapPanel>
             </Border>
@@ -84,21 +103,23 @@
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock
-                            Text="Uso exclusivo de la información para búsqueda e identificación de la persona desaparecida o no localizada." />
+                        <Label Content="Uso exclusivo de la información para búsqueda e identificación de la persona desaparecida o no localizada." 
+                               Target="{Binding ElementName=UsoExclusivoInformacion}"/>
                         <ComboBox SelectedValue="{Binding Reportante.InformacionExclusivaBusqueda}"
                                   ItemsSource="{Binding Opciones}"
                                   DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"/>
+                                  SelectedValuePath="Value"
+                                  x:Name="UsoExclusivoInformacion"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock
-                            Text="Solicita que se haga pública la información de la persona desaparecida o no localizada." />
+                        <Label Content="Solicita que se haga pública la información de la persona desaparecida o no localizada." 
+                               Target="{Binding ElementName=PublicacionBoletin}"/>
                         <ComboBox SelectedValue="{Binding Reportante.PublicacionBoletin}"
                                   ItemsSource="{Binding Opciones}"
                                   DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"/>
+                                  SelectedValuePath="Value"
+                                  x:Name="PublicacionBoletin"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

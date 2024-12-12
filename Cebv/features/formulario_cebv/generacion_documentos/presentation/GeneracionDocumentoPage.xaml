@@ -15,7 +15,15 @@
     <Page.DataContext>
         <presentation:GeneracionDocumentoViewModel />
     </Page.DataContext>
-    
+    <!--UPPER CON MVVM -->
+    <Page.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -70,7 +78,7 @@
                 <StackPanel>
 
                     <Label Content="Medio de difusión:"
-                           Target="MedioDifusionComboBox" />
+                           Target="MedioDifusionComboBox"/>
                     <ComboBox Name="MedioDifusionComboBox"
                               SelectedItem="{Binding Reporte.GeneracionDocumento.MedioDifusion}"
                               ItemsSource="{Binding MediosDifusion}" />

@@ -14,41 +14,60 @@
     <UserControl.DataContext>
         <local:PrendasViewModel/>
     </UserControl.DataContext>
+    <!--UPPER CON MVVM -->
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </UserControl.Resources>
     <UniformGrid Columns="2">
         <StackPanel Margin="5">
             <StackPanel Margin="0 0 0 15">
-                <ui:TextBlock Text="Grupo pertenencia:" />
+                <Label Content="Grupo pertenencia:"
+                       Target="{Binding ElementName=GrupoPertenencia}"/>
                 <ComboBox SelectedItem="{Binding GrupoPertenencia}"
-                          ItemsSource="{Binding GruposPertenencias}" />
+                          ItemsSource="{Binding GruposPertenencias}"
+                          x:Name="GrupoPertenencia"/>
             </StackPanel>
 
             <StackPanel Margin="0 0 0 15">
-                <ui:TextBlock Text="Pertenencia:" />
+                <Label Content="Pertenencia:"
+                       Target="{Binding ElementName=Pertenencia}"/>
                 <ComboBox SelectedItem="{Binding PrendaVestir.Pertenencia }"
-                          ItemsSource="{Binding Pertenencias}" />
+                          ItemsSource="{Binding Pertenencias}"
+                          x:Name="Pertenencia"/>
             </StackPanel>
 
             <StackPanel>
-                <ui:TextBlock Text="Color:" />
+                <Label Content="Color:"
+                       Target="{Binding ElementName=Color}"/>
                 <ComboBox SelectedItem="{Binding PrendaVestir.Color}"
-                          ItemsSource="{Binding Colores}" />
+                          ItemsSource="{Binding Colores}"
+                          x:Name="Color"/>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Margin="5">
             <StackPanel Margin="0 0 0 15">
-                <ui:TextBlock Text="Marca:" />
+                <Label Content="Marca:"
+                       Target="{Binding ElementName=Marca}"/>
                 <ui:TextBox Text="{Binding PrendaVestir.Marca}"
-                            Tag="Upper" />
+                            Tag="Upper"
+                            x:Name="Marca"/>
             </StackPanel>
 
             <StackPanel>
-                <ui:TextBlock Text="Descripción:" />
+                <Label Content="Descripción:"
+                       Target="{Binding ElementName=Descripcion}"/>
                 <ui:TextBox Text="{Binding PrendaVestir.Descripcion}"
                             TextWrapping="Wrap"
                             MinHeight="100"
                             AcceptsReturn="True"
-                            Tag="Text" />
+                            Tag="Text"
+                            x:Name="Descripcion"/>
             </StackPanel>
         </StackPanel>
     </UniformGrid>
