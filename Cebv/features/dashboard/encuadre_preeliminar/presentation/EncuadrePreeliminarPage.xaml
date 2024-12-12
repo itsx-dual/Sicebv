@@ -393,8 +393,9 @@
                                 <Label Content="FECHA DE NACIMIENTO CEBV:"
                                        Target="{Binding ElementName=FechaNacimientoCEBV}"/>
                                 <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
-                                            MaxLength="12" Tag="Exclude" 
-                                            SpellCheck.IsEnabled="True" x:Name="FechaNacimientoCEBV"/>
+                                            MaxLength="12" Tag="FechaNacimientoAproximada" 
+                                            SpellCheck.IsEnabled="True" x:Name="FechaNacimientoCEBV" 
+                                            LostFocus="DateConverter"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250">
@@ -631,8 +632,8 @@
                                 <Label Content="FECHA DESAPARICIÓN PARA CNB:"
                                        Target="{Binding ElementName=FechaDesaparicionCNB}"/>
                                 <ui:TextBox Text="{Binding Desaparecido.FechaNacimientoCebv}"
-                                            MaxLength="12" Tag="Exclude"
-                                            x:Name="FechaDesaparicionCNB"/>
+                                            MaxLength="12" Tag="FechaDesaparicionAprox"
+                                            x:Name="FechaDesaparicionCNB" LostFocus="DateConverter"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">

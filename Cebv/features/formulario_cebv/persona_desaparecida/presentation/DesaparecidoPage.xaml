@@ -294,7 +294,8 @@
                         <WrapPanel>
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <ui:TextBlock Text="Fecha de nacimiento aproximada:" />
-                                <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaAprox" />
+                                <ui:TextBox Icon="{ui:SymbolIcon CalendarMonth24}" Tag="Date" x:Name="FechaAprox" 
+                                            LostFocus="DateConverter"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">

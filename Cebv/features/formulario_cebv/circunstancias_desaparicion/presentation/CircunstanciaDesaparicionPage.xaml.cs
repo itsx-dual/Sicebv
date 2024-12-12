@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,25 +14,19 @@ public partial class CircunstanciaDesaparicionPage : Page
     public CircunstanciaDesaparicionPage()
     {
         InitializeComponent();
-
-        FechaDesaparicionAprox.LostFocus += DateConverter;
-        FechaPercatoAprox.LostFocus += DateConverter;
     }
 
     private void DateConverter(object sender, RoutedEventArgs e)
     {
-        if (FechaDesaparicionAprox != null)
+        if (sender is not TextBox textBox) return;
+        
+        string? datePickerName = textBox.Tag?.ToString();
+        DatePicker? datePicker = FindName(datePickerName) as DatePicker;
+    
+        if (textBox?.Text != null && datePicker != null)
         {
-            string fechaAprox = FechaDesaparicionAprox.Text;
-            ConvertFormat convert = new ConvertFormat(fechaAprox);
-            FechaDesaparicion.SelectedDate = convert.GetDate();
-        }
-
-        if (FechaPercatoAprox != null)
-        {
-            string fechaAprox = FechaPercatoAprox.Text;
-            ConvertFormat convert = new ConvertFormat(fechaAprox);
-            FechaPercato.SelectedDate = convert.GetDate();
+            datePicker.SelectedDate = new CebvDateConverter().Convert(textBox.Text, typeof(string), null, 
+                CultureInfo.CurrentCulture) as DateTime?;
         }
     }
 

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -5,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Cebv.core.util;
 using Cebv.core.util.reporte.viewmodels;
 using Cebv.core.util.snackbar;
 using Cebv.features.formulario_cebv.senas_particulares.presentation;
@@ -13,6 +15,7 @@ using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Image = Wpf.Ui.Controls.Image;
 using ListView = Wpf.Ui.Controls.ListView;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace Cebv.features.dashboard.encuadre_preeliminar.presentation;
 
@@ -137,5 +140,19 @@ public partial class EncuadrePreeliminarPage : Page
         if (sender is not DatePicker datePicker) return;
         var regex = new Regex("[^0-9/]");
         e.Handled = regex.IsMatch(e.Text);
+    }
+    
+    private void DateConverter(object sender, RoutedEventArgs e)
+    {
+        if (sender is not TextBox textBox) return;
+        
+        string? datePickerName = textBox.Tag?.ToString();
+        DatePicker? datePicker = FindName(datePickerName) as DatePicker;
+    
+        if (textBox?.Text != null && datePicker != null)
+        {
+            datePicker.SelectedDate = new CebvDateConverter().Convert(textBox.Text, typeof(string), null, 
+                    CultureInfo.CurrentCulture) as DateTime?;
+        }
     }
 }
