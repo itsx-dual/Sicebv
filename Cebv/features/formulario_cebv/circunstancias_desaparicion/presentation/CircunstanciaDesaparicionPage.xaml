@@ -105,8 +105,8 @@
                             <ui:TextBlock Text="Fecha desaparición aproximada:" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}"
                                         Icon="{ui:SymbolIcon CalendarMonth24}"
-                                        Tag="Date"
-                                        x:Name="FechaDesaparicionAprox" />
+                                        Tag="FechaDesaparicion"
+                                        x:Name="FechaDesaparicionAprox" LostFocus="DateConverter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
@@ -129,8 +129,8 @@
                             <ui:TextBlock Text="Fecha de percato aproximada:" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}"
                                         Icon="{ui:SymbolIcon CalendarMonth24}"
-                                        Tag="Date"
-                                        x:Name="FechaPercatoAprox" />
+                                        Tag="FechaPercato"
+                                        x:Name="FechaPercatoAprox" LostFocus="DateConverter"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
