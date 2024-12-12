@@ -1,5 +1,5 @@
 // @no-log
-GET http://api_cebv.test/reportes/documentos/informes-inicio/1
+GET http://api_cebv.test/api/reportes/2/toggle
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 

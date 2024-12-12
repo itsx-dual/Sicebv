@@ -16,4 +16,11 @@ public class ReportesDesaparicionNetwork
         var json = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<PaginatedResource<List<ReporteCompactResource>>>(json)!;
     }
+    
+    public static async Task<PaginatedResource<List<ReporteCompactResource>>> GetFavoritos(int page = 1)
+    {
+        var response = await Client.GetAsync($"/api/favoritos?page={page}");
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<PaginatedResource<List<ReporteCompactResource>>>(json)!;
+    }
 }

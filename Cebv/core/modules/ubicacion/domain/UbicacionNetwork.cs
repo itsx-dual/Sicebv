@@ -23,7 +23,7 @@ public class UbicacionNetwork
         return new ObservableCollection<util.reporte.viewmodels.Estado>(jsonResponse.Data);
     }
 
-    public static async Task<ObservableCollection<Municipio>> GetMuncipios(string id)
+    public static async Task<ObservableCollection<Municipio>> GetMunicipios(string id)
     {
         var request = await Client.GetAsync($"api/municipios?search={id}");
 

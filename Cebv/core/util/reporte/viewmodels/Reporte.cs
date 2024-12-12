@@ -5,6 +5,7 @@ using Cebv.features.formulario_cebv.circunstancias_desaparicion.data;
 using Cebv.features.formulario_cebv.datos_complementarios.data;
 using Cebv.features.formulario_cebv.desaparicion_forzada.data;
 using Cebv.features.formulario_cebv.folio_expediente.data;
+using Cebv.features.formulario_cebv.generacion_documentos.data;
 using Cebv.features.formulario_cebv.vehiculos_involucrados.data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -39,7 +40,8 @@ public partial class Reporte : ObservableValidator
         ObservableCollection<Perpetrador> perpetradores,
         DatoComplementario? datoComplementario,
         ObservableCollection<Vehiculo> vehiculos,
-        ExpedienteFisico? expedienteFisico
+        ExpedienteFisico? expedienteFisico,
+        GeneracionDocumento? generacionDocumento
     )
     {
         Id = id;
@@ -62,6 +64,7 @@ public partial class Reporte : ObservableValidator
         DatoComplementario = datoComplementario;
         Vehiculos = vehiculos;
         ExpedienteFisico = expedienteFisico;
+        GeneracionDocumento = generacionDocumento;
     }
 
     public Reporte()
@@ -139,6 +142,9 @@ public partial class Reporte : ObservableValidator
 
     [ObservableProperty, JsonProperty("expediente_fisico")]
     private ExpedienteFisico? _expedienteFisico;
+
+    [ObservableProperty, JsonProperty("generacion_documento")]
+    private GeneracionDocumento? _generacionDocumento;
     
     public void ValidarReporteEncuadre()
     {

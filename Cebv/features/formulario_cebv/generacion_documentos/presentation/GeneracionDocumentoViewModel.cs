@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Cebv.app.presentation;
+using Cebv.core.domain;
 using Cebv.core.util.navigation;
 using Cebv.core.util.reporte;
 using Cebv.core.util.reporte.viewmodels;
@@ -24,13 +25,23 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<String> _resultadosRdn = new() { Positivo, Negativo, NoEspecifica };
 
+    [ObservableProperty] private ObservableCollection<Catalogo> _mediosDifusion = new();
+
     public GeneracionDocumentoViewModel()
     {
+        InitAsync();
+        
         Reporte = _reporteService.GetReporte();
         if (!Reporte.Desaparecidos.Any()) Reporte.Desaparecidos.Add(Desaparecido);
         Desaparecido = Reporte.Desaparecidos.FirstOrDefault()!;
 
         Reporte.HechosDesaparicion ??= new();
+        Reporte.GeneracionDocumento ??= new();
+    }
+
+    private async void InitAsync()
+    {
+        MediosDifusion = await CebvNetwork.GetRoute<Catalogo>("medios-difusion");
     }
 
     # region Informe de Inicio
@@ -38,7 +49,7 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     [RelayCommand]
     private void InformeInicio()
     {
-        var url = $"reportes/documentos/informes-inicio/{Desaparecido.Id}";
+        var url = $"reportes/documentos/informe-inicio/{Desaparecido.Id}";
 
         var webview = new WebView2Window(url, "Informe de Inicio");
         webview.Show();
@@ -97,8 +108,8 @@ public partial class GeneracionDocumentoViewModel : ObservableObject
     }
 
     # endregion
-    
-    
+
+
     # region Ficha de Datos
 
     [RelayCommand]

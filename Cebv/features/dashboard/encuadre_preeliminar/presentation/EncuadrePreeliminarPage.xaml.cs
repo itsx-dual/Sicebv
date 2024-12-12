@@ -155,4 +155,30 @@ public partial class EncuadrePreeliminarPage : Page
                     CultureInfo.CurrentCulture) as DateTime?;
         }
     }
+
+    private void MinDesaparicion_TextChanged(object sender, RoutedEventArgs routedEventArgs)
+    {
+        if (MinDesaparicion.Text.Length>1)
+        {
+            AclaracionFecha.Focus();
+        }
+        if (MinDesaparicion.Text.Length==0)
+        {
+            HoraDesaparicion.Focus();
+        }
+    }
+
+    private void HoraDesaparicion_TextChanged(object sender, RoutedEventArgs routedEventArgs)
+    {
+        if (HoraDesaparicion.Text.Length>1)
+        {
+            MinDesaparicion.Focus();
+        }
+        /* ESTE POR SI SE QUIERE QUE AL BORRAR SE VAYA AL CAMPO ANTERIOR PERO A MI GUSTO ESTA MEH
+        if (HoraDesaparicion.Text.Length==0)
+        {
+            FechaDesaparicion.Focus();
+        }*/
+        
+    }
 }

@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Cebv.features.login.presentation"
       mc:Ignorable="d"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:util="clr-namespace:Cebv.core.util"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -15,6 +16,10 @@
     <Page.DataContext>
         <local:LoginViewModel />
     </Page.DataContext>
+    
+    <Page.Resources>
+        <util:BooleanNegation x:Key="BooleanNegation"/>
+    </Page.Resources>
     
     <Grid>
         <ui:TitleBar Title="Inicio de sesión"/>
@@ -31,19 +36,19 @@
                             Margin="10"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
-                    <Grid>
-                        <ui:Image Source="/core/resources/images/app/icon_cebv.png"
-                                  Width="300"
-                                  Margin="5" />
-                    </Grid>
+                    
+                    <ui:Image Source="/core/resources/images/app/icon_cebv.png"
+                              Width="300"
+                              Margin="5" />
+                    
 
                     <Grid HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           Width="300">
                         <StackPanel>
                             <ui:TextBox PlaceholderEnabled="True"
-                                        Text="{Binding Username}"
                                         PlaceholderText="Usuario"
+                                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                                         Icon="{ui:SymbolIcon Person32}"
                                         Margin="5" Tag="Login"/>
 
@@ -52,13 +57,16 @@
                                             Icon="{ui:SymbolIcon Password24}"
                                             IconPlacement="Left"
                                             PasswordChanged="PasswordBoxChanged"
-                                            Margin="5" Tag="Login"/>
+                                            Margin="5" Tag="Login"
+                                            KeyDown="PasswordBox_OnKeyDown"/>
 
                             <ui:Button Appearance="Primary"
+                                       HorizontalAlignment="Stretch"
                                        Margin="5"
-                                       Width="290"
+                                       Content="Iniciar sesión" 
                                        Command="{Binding IniciarSesionCommand}"
-                                       Content="Iniciar sesión" />
+                                       IsEnabled="{Binding IniciarSesionCommand.IsRunning,
+                                       Converter={StaticResource BooleanNegation}}"/>
                             
                             <ui:TextBlock Text="{Binding  ErrorMessage}" 
                                           Foreground="Maroon"
