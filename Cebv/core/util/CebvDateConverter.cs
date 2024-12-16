@@ -28,9 +28,6 @@ public class CebvDateConverter : IValueConverter
 
     private string DateConvert(string fechaAprox)
     {
-        if (!Regex.IsMatch(fechaAprox, @"^((0[1-9]|[12][0-9]|3[01])|99)/((0[1-9]|1[0-2])|99)/\d{4}$")) 
-            return fechaAprox = DateTime.Now.ToString("dd/MM/yyyy");
-        
         int year = DateTime.Now.Year;
         int month = DateTime.MaxValue.Month;
         int day = DateTime.MaxValue.Day;
