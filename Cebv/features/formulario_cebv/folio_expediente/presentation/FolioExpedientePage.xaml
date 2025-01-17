@@ -17,7 +17,15 @@
     <Page.DataContext>
         <presentation:FolioExpedienteViewModel />
     </Page.DataContext>
-
+    <!--UPPER CON MVVM -->
+    <Page.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,48 +43,62 @@
                         HorizontalAlignment="Left"
                         MaxWidth="400"
                         Margin="10 10 10 25">
-                <ui:TextBlock Text="FOLIO CEBV:" />
-                <ui:TextBox Text="{Binding Desaparecido.Folios.FolioCebv}" />
+                <Label Content="FOLIO CEBV:"
+                       Target="{Binding ElementName=FolioCebv}" />
+                <ui:TextBox Text="{Binding Desaparecido.Folios.FolioCebv}" 
+                            x:Name="FolioCebv"/>
             </StackPanel>
 
             <StackPanel Margin="5 5 5 25" IsEnabled="False">
                 <WrapPanel Margin="0 0 0 15">
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="Estado:" />
+                        <Label Content="Estado:"
+                               Target="{Binding ElementName=Estado}" />
                         <ui:TextBox
                             Text="{Binding Reporte.Estado.Nombre}"
-                            IsEnabled="False" />
+                            IsEnabled="False"
+                            x:Name="Estado"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="Municipio:" />
+                        <Label Content="Municipio:" 
+                               Target="{Binding ElementName=Municipio}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento.Municipio.Nombre}"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    x:Name="Municipio"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="Número de personas en el mismo evento:" />
+                        <Label Content="Número de personas en el mismo evento:"
+                               Target="{Binding ElementName=PersonasMismoEvento}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}" IsEnabled="False"
-                                    Tag="Number" />
+                                    Tag="Number" 
+                                    x:Name="PersonasMismoEvento"/>
                     </StackPanel>
                 </WrapPanel>
 
                 <WrapPanel>
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="Fecha de desaparición:" />
+                        <Label Content="Fecha de desaparición:" 
+                               Target="{Binding ElementName=FechaDesaparicion}" />
                         <ui:TextBox
                             Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicion, StringFormat='{}{0:dddd, dd \\d\\e MMMM, yyyy}', ConverterCulture=es_MX}"
-                            IsEnabled="False" />
+                            IsEnabled="False"
+                            x:Name="FechaDesaparicion"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="ZONA DEL ESTADO:" />
-                        <ui:TextBox Text="{Binding Reporte.ZonaEstado.Nombre}" />
+                        <Label Content="ZONA DEL ESTADO:" 
+                               Target="{Binding ElementName=ZonaEstado}" />
+                        <ui:TextBox Text="{Binding Reporte.ZonaEstado.Nombre}"
+                                    x:Name="ZonaEstado"/>
                     </StackPanel>
 
                     <StackPanel MinWidth="250" Margin="5">
-                        <ui:TextBlock Text="Terminación de la entidad (SC, SDF):" />
-                        <ui:TextBox Text="{Binding Reporte.Estado.AbreviaturaCebv}" IsEnabled="False" />
+                        <Label Content="Terminación de la entidad (SC, SDF):" 
+                               Target="{Binding ElementName=AbreviaturaEntidad}" />
+                        <ui:TextBox Text="{Binding Reporte.Estado.AbreviaturaCebv}" IsEnabled="False" 
+                                    x:Name="AbreviaturaEntidad"/>
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>
@@ -87,31 +109,39 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo de folio: *" />
+                            <Label Content="Tipo de folio: *"
+                                   Target="{Binding ElementName=TipoReporte}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       ItemsSource="{Binding TiposReportes}"
-                                      SelectedItem="{Binding Reporte.TipoReporte}"/>
+                                      SelectedItem="{Binding Reporte.TipoReporte}"
+                                      x:Name="TipoReporte"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo de desaparición:" />
+                            <Label Content="Tipo de desaparición:"
+                                   Target="{Binding ElementName=TipoDesaparicion}" />
                             <ComboBox SelectedValue="{Binding Reporte.TipoDesaparicion}"
                                       SelectedValuePath="Value"
                                       DisplayMemberPath="Key"
-                                      ItemsSource="{Binding TiposDesapariciones}" />
+                                      ItemsSource="{Binding TiposDesapariciones}"
+                                      x:Name="TipoDesaparicion"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 25 0">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Área que atenderá:" />
+                            <Label Content="Área que atenderá:"
+                                   Target="{Binding ElementName=AreaAtiende}" />
                             <ComboBox SelectedItem="{Binding Reporte.AreaAtiende}"
-                                      ItemsSource="{Binding Areas}" />
+                                      ItemsSource="{Binding Areas}"
+                                      x:Name="AreaAtiende"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="NOMBRE DE QUIÉN ASIGNÓ FOLIO:" />
-                            <ui:TextBox Text="{Binding Desaparecido.Folios.User.NombreCompleto}" IsEnabled="False" />
+                            <Label Content="NOMBRE DE QUIÉN ASIGNÓ FOLIO:"
+                                   Target="{Binding ElementName=NombreAsignoFolio}" />
+                            <ui:TextBox Text="{Binding Desaparecido.Folios.User.NombreCompleto}" IsEnabled="False"
+                                        x:Name="NombreAsignoFolio"/>
                         </StackPanel>
 
 
@@ -152,15 +182,19 @@
                 <StackPanel Margin="5">
                     <WrapPanel>
                         <StackPanel MinWidth="250" Margin="0 0 25  0">
-                            <ui:TextBlock Text="Área a la que cambió el expediente:" />
+                            <Label Content="Área a la que cambió el expediente:" 
+                                   Target="{Binding ElementName=AreaReceptora}" />
                             <ComboBox SelectedItem="{Binding Reporte.ExpedienteFisico.AreaReceptora}"
-                                      ItemsSource="{Binding Areas}" />
+                                      ItemsSource="{Binding Areas}"
+                                      x:Name="AreaReceptora"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Fecha de cambio de área:" />
+                            <Label Content="Fecha de cambio de área:"
+                                   Target="{Binding ElementName=FechaCambioArea}" />
                             <DatePicker SelectedDate="{Binding Reporte.ExpedienteFisico.FechaCambioArea}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True" 
+                                        x:Name="FechaCambioArea"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -171,29 +205,37 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25  0">
-                            <ui:TextBlock Text="¿Quién solicita el préstamo?" />
+                            <Label Content="¿Quién solicita el préstamo?" 
+                                   Target="{Binding ElementName=SolicitanteExpediente}" />
                             <ComboBox SelectedItem="{Binding Reporte.ExpedienteFisico.SolicitanteExpediente}"
                                       DisplayMemberPath="NombreCompleto"
-                                      ItemsSource="{Binding Usuarios}" />
+                                      ItemsSource="{Binding Usuarios}"
+                                      x:Name="SolicitanteExpediente"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha de préstamo:" />
+                            <Label Content="Fecha de préstamo:"  
+                                   Target="{Binding ElementName=FechaPrestamo}" />
                             <DatePicker SelectedDate="{Binding Reporte.ExpedienteFisico.FechaPrestamo}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True" 
+                                        x:Name="FechaPrestamo"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Fecha de devolución:" />
+                            <Label Content="Fecha de devolución:"
+                                   Target="{Binding ElementName=FechaDevolucion}" />
                             <DatePicker SelectedDate="{Binding Reporte.ExpedienteFisico.FechaDevolucion}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True"
+                                        x:Name="FechaDevolucion"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="Observaciones:" />
+                        <Label Content="Observaciones:" 
+                               Target="{Binding ElementName=Observaciones}" />
                         <TextBox Text="{Binding Reporte.ExpedienteFisico.Observaciones}"
-                                 TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                                 TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" 
+                                 x:Name="Observaciones"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

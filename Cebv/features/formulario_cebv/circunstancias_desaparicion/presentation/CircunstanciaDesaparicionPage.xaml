@@ -28,6 +28,13 @@
         <CollectionViewSource x:Key="ExpedientesIndirectos"
                               Filter="ExpedientesIndirectos_OnFilter"
                               Source="{Binding Reporte.Expedientes}" />
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style>
     </Page.Resources>
 
     <Grid Margin="10">
@@ -55,42 +62,111 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha desaparición:" />
+                            <Label Content="Fecha desaparición:"
+                                   Target="{Binding ElementName=FechaDesaparicionFG}" />
                             <DatePicker SelectedDateFormat="Short"
                                         SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True"
+                                        x:Name="FechaDesaparicionFG"/>
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraDesaparicion}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora desaparición:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO: Poner handlers de validacion y cambiar bindings-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                       TextChanged="HoraDesaparicionFG_TextChanged"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                    Value="{Binding Horasfg,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionFG"/><!--FG = FormularioGrande -->
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionFG}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg2"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutosfg,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionFG_TextChanged"
+                                                  x:Name="MinDesaparicionFG"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionFG}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
+                        
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha de percato:" />
+                            <Label Content="Fecha de percato:"
+                                   Target="{Binding ElementName=FechaPercatoDatePicker}" />
                             <DatePicker SelectedDateFormat="Short"
                                         SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
-                                        IsTodayHighlighted="True" />
+                                        IsTodayHighlighted="True"
+                                        x:Name="FechaPercatoDatePicker"/>
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraPercato}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora de percato:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO Poner handlers de validacion-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                       TextChanged="HoraDesaparicionPercato_TextChanged"
+                                                    Value="{Binding Horaspercato,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionPercato"/>
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionPercato}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg3"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutospercato,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionPercato_TextChanged"
+                                                  x:Name="MinDesaparicionPercato"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionPercato}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="Aclaración de la fecha y hora de los hechos:" />
+                        <Label Content="Aclaración de la fecha y hora de los hechos:"
+                               Target="{Binding ElementName=AclaracionFecha}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100" 
+                                    x:Name="AclaracionFecha"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -102,7 +178,8 @@
                     <WrapPanel Margin="0 0 0 15">
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha desaparición aproximada:" />
+                            <Label Content="Fecha desaparición aproximada:"
+                                   Target="{Binding ElementName=FechaDesaparicionAprox}" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaDesaparicionCebv}"
                                         Icon="{ui:SymbolIcon CalendarMonth24}"
                                         Tag="Date"
@@ -110,23 +187,56 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha desaparición para CNB:" />
+                            <Label Content="Fecha desaparición para CNB:" 
+                                   Target="{Binding ElementName=FechaDesaparicion}" />
                             <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaDesaparicion}"
                                         IsTodayHighlighted="True"
                                         x:Name="FechaDesaparicion" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora desaparición:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraDesaparicion}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora desaparición:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO: Poner handlers de validacion y cambiar bindings-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                       TextChanged="HoraDesaparicionFG2_TextChanged"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                    Value="{Binding Horasfg,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionFG2"/><!--FG = FormularioGrande -->
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionFG2}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg4"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutosfg,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionFG2_TextChanged"
+                                                  x:Name="MinDesaparicionFG2"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionFG2}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha de percato aproximada:" />
+                            <Label Content="Fecha de percato aproximada:"
+                                   Target="{Binding ElementName=FechaPercatoAprox}" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.FechaPercatoCebv}"
                                         Icon="{ui:SymbolIcon CalendarMonth24}"
                                         Tag="Date"
@@ -134,26 +244,60 @@
                         </StackPanel>
 
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Fecha de percato para CNB:" />
+                            <Label Content="Fecha de percato para CNB:"
+                                   Target="{Binding ElementName=FechaPercato}" />
                             <DatePicker SelectedDate="{Binding Reporte.HechosDesaparicion.FechaPercato}"
                                         IsTodayHighlighted="True"
                                         x:Name="FechaPercato" />
                         </StackPanel>
 
-                        <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Hora de percato:" />
-                            <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HoraPercato}"
-                                        Icon="{ui:SymbolIcon Clock24}"
-                                        Tag="Time" />
-                        </StackPanel>
+                        <StackPanel>
+                                    <Label Content="Hora de percato:" 
+                                           Target="{Binding ElementName=HoraDeLaDesaparicion}"/>
+                                    <StackPanel Orientation="Horizontal" MinWidth="250">
+                                    
+                                    <StackPanel  HorizontalAlignment="Stretch">
+                                        <!--TODO Poner handlers de validacion-->
+                                        <ui:NumberBox  Tag="Time" MinWidth="50" MinHeight="40"
+                                                       MaxLength="2"
+                                                    SpinButtonPlacementMode="Hidden"
+                                                       TextChanged="HoraDesaparicionPercato2_TextChanged"
+                                                    Value="{Binding Horaspercato,UpdateSourceTrigger=PropertyChanged}"
+                                                    x:Name="HoraDesaparicionPercato2"/>
+                                        <Label Content="Horas"
+                                               Target="{Binding ElementName=HoraDesaparicionPercato2}"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel>
+                                        <Label Content=" : " HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="40"
+                                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                 Target="{Binding ElementName=HoraDesaparicion}"/>
+                                        <Label Content="" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="30" MinHeight="30" x:Name="SoyUnEasterEgg5"/>
+
+                                </StackPanel>
+                                    
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                    <ui:NumberBox Tag="Time"  MinWidth="50" MinHeight="40"
+                                                  SpinButtonPlacementMode="Hidden"
+                                                  Value="{Binding Minutospercato,UpdateSourceTrigger=PropertyChanged}"
+                                                  MaxLength="2"
+                                                  TextChanged="MinDesaparicionPercato2_TextChanged"
+                                                  x:Name="MinDesaparicionPercato2"/>
+                                    <Label Content="Minutos" 
+                                           Target="{Binding ElementName=MinDesaparicionPercato2}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="Aclaración de la fecha y hora de los hechos:" />
+                        <Label Content="Aclaración de la fecha y hora de los hechos:"
+                               Target="{Binding ElementName=AclaracionFecha2}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.AclaracionesFechaHechos}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100"
+                                    x:Name="AclaracionFecha2"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -166,108 +310,141 @@
                         <RadioButton Content="Mismo domicilio que la persona desaparecida" Margin="5" />
                         <RadioButton Content="Otro domicilio" Margin="5" />
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo de domicilio:" />
+                            <Label Content="Tipo de domicilio:"
+                                   Target="{Binding ElementName=TiposDomicilio}" />
                             <ComboBox ItemsSource="{Binding TiposDomicilio}"
-                                      DisplayMemberPath="Nombre" />
+                                      DisplayMemberPath="Nombre"
+                                      x:Name="TiposDomicilio"/>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel>
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Calle:" />
+                                <Label Content="Calle:"
+                                       Target="{Binding ElementName=Calle}" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle}"
-                                            ClearButtonEnabled="True" />
-                            </StackPanel>
-
-                            <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="N° Exterior:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
-                                            ClearButtonEnabled="True" MaxLength="10" />
-                            </StackPanel>
-
-                            <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="N° Interior:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
                                             ClearButtonEnabled="True"
-                                            MaxLength="10" />
+                                            x:Name="Calle"/>
+                            </StackPanel>
+
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <Label Content="N° Exterior:" 
+                                       Target="{Binding ElementName=NumeroExterior}" />
+                                <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.Direccion.NumeroExterior}"
+                                            ClearButtonEnabled="True" MaxLength="10" 
+                                            SpinButtonPlacementMode="Hidden"
+                                            x:Name="NumeroExterior"/>
+                            </StackPanel>
+
+                            <StackPanel MinWidth="200" Margin="0 0 25 0">
+                                <Label Content="N° Interior:"
+                                       Target="{Binding ElementName=NumeroInterior}" />
+                                <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.Direccion.NumeroInterior}"
+                                            ClearButtonEnabled="True"
+                                            MaxLength="10"
+                                            SpinButtonPlacementMode="Hidden"
+                                            x:Name="NumeroInterior"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Colonia:" />
+                                <Label Content="Colonia:" 
+                                       Target="{Binding ElementName=Colonia}" />
                                 <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Colonia}"
-                                            ClearButtonEnabled="True" />
+                                            ClearButtonEnabled="True"
+                                            x:Name="Colonia"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="Código postal:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
-                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5" />
+                                <Label Content="Código postal:"
+                                       Target="{Binding ElementName=CodigoPostal}" />
+                                <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.Direccion.CodigoPostal}"
+                                            ClearButtonEnabled="True" Tag="Number" MaxLength="5"
+                                            SpinButtonPlacementMode="Hidden"
+                                            x:Name="CodigoPostal"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Estado:" />
+                                <Label Content="Estado:"
+                                       Target="{Binding ElementName=Estado}" />
                                 <!-- TODO: Requerido -->
                                 <ComboBox DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding EstadoSelected}"
-                                          ItemsSource="{Binding Estados}" />
+                                          ItemsSource="{Binding Estados}"
+                                          x:Name="Estado"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
                                 <!-- TODO: Requerido -->
-                                <ui:TextBlock Text="Municipio:" />
+                                <Label Content="Municipio:"
+                                       Target="{Binding ElementName=Municipio}" />
                                 <ComboBox SelectedItem="{Binding MunicipioSelected}"
-                                          ItemsSource="{Binding Municipios}" />
+                                          ItemsSource="{Binding Municipios}"
+                                          x:Name="Municipio"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Localidad:" />
+                                <Label Content="Localidad:"
+                                       Target="{Binding ElementName=Localidad}" />
                                 <ComboBox IsEditable="True"
                                           DisplayMemberPath="Nombre"
                                           SelectedItem="{Binding Reporte.HechosDesaparicion.Direccion.Asentamiento}"
-                                          ItemsSource="{Binding Asentamientos}" />
+                                          ItemsSource="{Binding Asentamientos}"
+                                          x:Name="Localidad"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Coordenada latitud:" />
+                                <Label Content="Coordenada latitud:"
+                                       Target="{Binding ElementName=Latitud}" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
                                               Minimum="-90"
-                                              Maximum="90" />
+                                              Maximum="90" 
+                                              x:Name="Latitud"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="200">
-                                <ui:TextBlock Text="Coordenada longitud" />
+                                <Label Content="Coordenada longitud"
+                                       Target="{Binding ElementName=Longitud}" />
                                 <ui:NumberBox Icon="{ui:SymbolIcon Location24}"
                                               Minimum="-180"
-                                              Maximum="180" />
+                                              Maximum="180"
+                                              x:Name="Longitud"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 0 0 15">
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Entre calle 1:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}" />
+                                <Label Content="Entre calle 1:" 
+                                       Target="{Binding ElementName=Calle1}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle1}"
+                                            x:Name="Calle1"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Entre calle 2:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}" />
+                                <Label Content="Entre calle 2:"
+                                       Target="{Binding ElementName=Calle2}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Calle2}"
+                                            x:Name="Calle2"/>
                             </StackPanel>
 
                             <StackPanel MinWidth="250" Margin="0 0 25 0">
-                                <ui:TextBlock Text="Tramo carretero:" />
-                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}" />
+                                <Label Content="Tramo carretero:"
+                                       Target="{Binding ElementName=TramoCarretero}" />
+                                <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.TramoCarretero}" 
+                                            x:Name="TramoCarretero"/>
                             </StackPanel>
                         </WrapPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Referencia:" />
+                            <Label Content="Referencia:"
+                                   Target="{Binding ElementName=Referencia}" />
                             <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.Direccion.Referencia}"
                                         TextWrapping="Wrap"
                                         AcceptsReturn="True"
-                                        MinHeight="100" />
+                                        MinHeight="100"
+                                        x:Name="Referencia"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -277,77 +454,92 @@
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel Margin="5">
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock
-                            Text="¿La persona desaparecida había recibido amenazas o había cambiado su comportamiento o rutina recientemente?" />
+                        <Label Content="¿La persona desaparecida había recibido amenazas o había cambiado su comportamiento o rutina recientemente?"
+                               Target="{Binding ElementName=AmenazaCambioComportamiento}" />
                         <ComboBox DisplayMemberPath="Key"
                                   SelectedValuePath="Value"
                                   SelectedValue="{Binding Reporte.HechosDesaparicion.AmenazaCambioComportamiento}"
-                                  ItemsSource="{Binding OpcionesCebv}" />
+                                  ItemsSource="{Binding OpcionesCebv}"
+                                  x:Name="AmenazaCambioComportamiento"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15"
                                 Visibility="{Binding Reporte.HechosDesaparicion.AmenazaCambioComportamiento,
                                 Converter={StaticResource VisibilityConverter2}}">
-                        <ui:TextBlock Text="Descripción de la situación de amenazas:" />
+                        <Label Content="Descripción de la situación de amenazas:"
+                               Target="{Binding ElementName=DescripcionAmenazaCambioComportamiento}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.DescripcionAmenazaCambioComportamiento}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100"
+                                    x:Name="DescripcionAmenazaCambioComportamiento"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" />
+                        <Label Content="¿Cuántas veces antes la persona ha desaparecido o se ha ausentado?:" 
+                               Target="{Binding ElementName=ContadorDesapariciones}" />
                         <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.ContadorDesapariciones}"
-                                      Tag="Number" />
+                                      Tag="Number"
+                                      x:Name="ContadorDesapariciones"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock
-                            Text="Descripción de la situación previa o anote los folios en el campo siguiente si ya ha estado registrada:" />
+                        <Label Content="Descripción de la situación previa o anote los folios en el campo siguiente si ya ha estado registrada:"
+                               Target="{Binding ElementName=SituacionPrevia}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SituacionPrevia}" TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100"
+                                    x:Name="SituacionPrevia"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock
-                            Text="Dato(s) de persona(s) que pudieron estar relacionadas o brindar información sobre la desaparición:" />
+                        <Label Content="Dato(s) de persona(s) que pudieron estar relacionadas o brindar información sobre la desaparición:"
+                               Target="{Binding ElementName=InformacionRelevante}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.InformacionRelevante}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
-                                    MinHeight="100" />
+                                    MinHeight="100"
+                                    x:Name="InformacionRelevante"/>
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Descripción de los hechos de la desaparición:" />
+                        <Label Content="Descripción de los hechos de la desaparición:"
+                               Target="{Binding ElementName=HechosDesaparicionNarracion}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.HechosDesaparicionNarracion}"
                                     TextWrapping="Wrap"
                                     AcceptsReturn="True"
                                     MinHeight="150"
                                     Tag="Exclude"
-                                    SpellCheck.IsEnabled="True" />
+                                    SpellCheck.IsEnabled="True"
+                                    x:Name="HechosDesaparicionNarracion"/>
                         
                     </StackPanel>
 
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Síntesis de los hechos de desaparición:" />
+                        <Label Content="Síntesis de los hechos de desaparición:"
+                               Target="{Binding ElementName=SintesisDesaparicion}" />
                         <ui:TextBox Text="{Binding Reporte.HechosDesaparicion.SintesisDesaparicion}"
-                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" />
+                                    TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" 
+                                    x:Name="SintesisDesaparicion"/>
                     </StackPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="¿Desapareció con alguien más?:" />
+                            <Label Content="¿Desapareció con alguien más?:"
+                                   Target="{Binding ElementName=DesaparecioAcompanado}" />
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedValue="{Binding Reporte.HechosDesaparicion.DesaparecioAcompanado}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="DesaparecioAcompanado"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="N° de personas en el mismo evento:" />
+                            <Label Content="N° de personas en el mismo evento:"
+                                   Target="{Binding ElementName=PersonasMismoEvento}" />
                             <ui:NumberBox Value="{Binding Reporte.HechosDesaparicion.PersonasMismoEvento}"
-                                          Tag="Number" />
+                                          Tag="Number"
+                                          x:Name="PersonasMismoEvento"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -358,46 +550,58 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 25">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Posible hipótesis de desaparición 1:" />
+                            <Label Content="Posible hipótesis de desaparición 1:"
+                                   Target="{Binding ElementName=TipoHipotesis1}" />
                             <ComboBox SelectedItem="{Binding HipotesisPrimaria.TipoHipotesis}"
-                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}"
+                                      x:Name="TipoHipotesis1"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Circunstancia inicial 1:" />
+                            <Label Content="Circunstancia inicial 1:"
+                                   Target="{Binding ElementName=Circunstancia1}" />
                             <ui:TextBox Text="{Binding HipotesisPrimaria.TipoHipotesis.Circunstancia.Id}"
-                                        HorizontalContentAlignment="Center" />
+                                        HorizontalContentAlignment="Center"
+                                        x:Name="Circunstancia1"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Posible hipótesis de desaparición 2:" />
+                            <Label Content="Posible hipótesis de desaparición 2:" 
+                                   Target="{Binding ElementName=TipoHipotesis2}" />
                             <ComboBox SelectedItem="{Binding HipotesisSecundaria.TipoHipotesis}"
-                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" />
+                                      ItemsSource="{Binding Hipotesis.TiposHipotesis}" 
+                                      x:Name="TipoHipotesis2"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" IsEnabled="False">
-                            <ui:TextBlock Text="Circunstancia inicial 2:" />
+                            <Label Content="Circunstancia inicial 2:"
+                                   Target="{Binding ElementName=Circunstancia2}" />
                             <ui:TextBox Text="{Binding HipotesisSecundaria.TipoHipotesis.Circunstancia.Id}"
-                                        HorizontalContentAlignment="Center" />
+                                        HorizontalContentAlignment="Center"
+                                        x:Name="Circunstancia2" />
                         </StackPanel>
                     </WrapPanel>
 
                     <WrapPanel>
                         <StackPanel MinWidth="300" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Sitio inicial:" />
+                            <Label Content="Sitio inicial:"
+                                   Target="{Binding ElementName=Sitio}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.HechosDesaparicion.Sitio}"
-                                      ItemsSource="{Binding Hipotesis.Sitios}">
+                                      ItemsSource="{Binding Hipotesis.Sitios}"
+                                      x:Name="Sitio">
                             </ComboBox>
                         </StackPanel>
 
                         <StackPanel MinWidth="250">
-                            <ui:TextBlock Text="Área que codifica:" />
+                            <Label Content="Área que codifica:"
+                                   Target="{Binding ElementName=Area}" />
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding Reporte.HechosDesaparicion.AreaAsignaSitio}"
-                                      ItemsSource="{Binding Hipotesis.Areas}" />
+                                      ItemsSource="{Binding Hipotesis.Areas}" 
+                                      x:Name="Area"/>
                         </StackPanel>
                     </WrapPanel>
                 </StackPanel>
@@ -407,28 +611,36 @@
             <Border Style="{StaticResource CebvBorder}">
                 <StackPanel>
                     <StackPanel Margin="0 0 0 15">
-                        <ui:TextBlock Text="Folios previos:" />
+                        <Label Content="Folios previos:"
+                               Target="{Binding ElementName=Folios}" />
                         <ListBox DisplayMemberPath="FolioCebv"
-                                 ItemsSource="{Binding Folios}" />
+                                 ItemsSource="{Binding Folios}"
+                                 x:Name="Folios"/>
                     </StackPanel>
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Nombre(s):" />
+                            <Label Content="Nombre(s):"
+                                   Target="{Binding ElementName=Nombre}" />
                             <ui:TextBox Text="{Binding Nombre}"
-                                        Tag="Exclude" />
+                                        Tag="Exclude" 
+                                        x:Name="Nombre"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Primer apellido:" />
+                            <Label Content="Primer apellido:"
+                                   Target="{Binding ElementName=PrimerApellido}" />
                             <ui:TextBox Text="{Binding PrimerApellido}"
-                                        Tag="Exclude" />
+                                        Tag="Exclude"
+                                        x:Name="PrimerApellido"/>
                         </StackPanel>
 
                         <StackPanel MinWidth="200" Margin="0 0 15 0">
-                            <ui:TextBlock Text="Segundo apellido: " />
+                            <Label Content="Segundo apellido: " 
+                                   Target="{Binding ElementName=SegundoApellido}" />
                             <ui:TextBox Text="{Binding SegundoApellido}"
-                                        Tag="Exclude" />
+                                        Tag="Exclude"
+                                        x:Name="SegundoApellido"/>
                         </StackPanel>
 
                         <ui:Button Icon="{ui:SymbolIcon Eraser24}"

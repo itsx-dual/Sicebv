@@ -22,6 +22,13 @@
 
     <Page.Resources>
         <util:VisibilityConverter2 x:Key="VisibilityConverter2" />
+        <!--UPPER CON MVVM -->
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
     </Page.Resources>
 
     <Grid Margin="10">
@@ -42,41 +49,50 @@
                 <StackPanel Margin="5">
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="¿Presenta ausencia de dientes?" />
+                            <Label Content="¿Presenta ausencia de dientes?"
+                                   Target="{Binding ElementName=TieneAusenciaDental}"/>
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedValue="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneAusenciaDental}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="TieneAusenciaDental"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="400" Margin="0 0 0 15"
                                 Visibility="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneAusenciaDental,
                                Converter={StaticResource VisibilityConverter2}}">
-                        <ui:TextBlock Text="Especifique la ausencia dental:" />
+                        
+                        <Label Content="Especifique la ausencia dental:"
+                               Target="{Binding ElementName=DescripcionAusenciaDental}"/>
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.DescripcionAusenciaDental}"
-                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                            x:Name="DescripcionAusenciaDental"/>
                     </StackPanel>
 
 
                     <WrapPanel>
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="¿Tiene algún tratamiento dental?" />
+                            <Label Content="¿Tiene algún tratamiento dental?"
+                                   Target="{Binding ElementName=TieneTratamientoDental}"/>
                             <ComboBox DisplayMemberPath="Key"
                                       SelectedValuePath="Value"
                                       SelectedValue="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneTratamientoDental}"
-                                      ItemsSource="{Binding OpcionesCebv}" />
+                                      ItemsSource="{Binding OpcionesCebv}"
+                                      x:Name="TieneTratamientoDental"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel MinWidth="400" Margin="0 15 0 0"
                                 Visibility="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TieneTratamientoDental,
                                Converter={StaticResource VisibilityConverter2}}">
-                        <ui:TextBlock Text="Especifique el tratamiento dental:" />
+                        <Label Content="Especifique el tratamiento dental:"
+                               Target="{Binding ElementName=DescripcionTratamientoDental}"/>
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.DescripcionTratamientoDental}"
-                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100"
+                            x:Name="DescripcionTratamientoDental"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -86,18 +102,23 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="300">
-                            <ui:TextBlock Text="Tipo de mentón:" />
+
+                            <Label Content="Tipo de mentón:"
+                                   Target="{Binding ElementName=TipoMenton}"/>
                             <ComboBox
                                 SelectedItem="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.TipoMenton}"
-                                ItemsSource="{Binding TiposMentones}" />
+                                ItemsSource="{Binding TiposMentones}"
+                                x:Name="TipoMenton"/>
                         </StackPanel>
                     </WrapPanel>
 
                     <StackPanel>
-                        <ui:TextBlock Text="Cualquier otra especificación del mentón:" />
+                        <Label Content="Cualquier otra especificación del mentón:"
+                               Target="{Binding ElementName=EspecificacionesMenton}"/>
                         <ui:TextBox
                             Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.EspecificacionesMenton}"
-                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" />
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="100" 
+                            x:Name="EspecificacionesMenton"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -109,17 +130,21 @@
 
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Intervención quirúrgica:" />
+                            <Label Content="Intervención quirúrgica:"
+                                   Target="{Binding ElementName=TipoIntervencion}"/>
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding TipoIntervencion}"
-                                      ItemsSource="{Binding TiposIntervenciones}" />
+                                      ItemsSource="{Binding TiposIntervenciones}"
+                                      x:Name="TipoIntervencion"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
-                                <ui:TextBlock Text="Especificación de la intervención quirúrgica:" />
+                                <Label Content="Especificación de la intervención quirúrgica:"
+                                       Target="{Binding ElementName=TipoIntervencionDescripcion}"/>
                                 <ui:TextBox Text="{Binding TipoIntervencionDescripcion}" TextWrapping="Wrap"
-                                            AcceptsReturn="True" />
+                                            AcceptsReturn="True" 
+                                            x:Name="TipoIntervencionDescripcion"/>
                             </StackPanel>
 
                             <ui:Button Margin="0 15 0 0"
@@ -184,17 +209,21 @@
                 <StackPanel>
                     <WrapPanel Margin="0 0 0 15">
                         <StackPanel MinWidth="250" Margin="0 0 25 0">
-                            <ui:TextBlock Text="Tipo de enfermedad:" />
+                            <Label Content="Tipo de enfermedad:"
+                                   Target="{Binding ElementName=EnfermedadPiel}"/>
                             <ComboBox DisplayMemberPath="Nombre"
                                       SelectedItem="{Binding EnfermedadPiel}"
-                                      ItemsSource="{Binding EnfermedadesPieles}" />
+                                      ItemsSource="{Binding EnfermedadesPieles}"
+                                      x:Name="EnfermedadPiel"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <StackPanel MinWidth="400" Margin="0 0 15 0">
-                                <ui:TextBlock Text="Especificación de la enfermedad en la piel:" />
+                                <Label Content="Especificación de la enfermedad en la piel:"
+                                       Target="{Binding ElementName=EnfermedadPielDescripcion}"/>
                                 <ui:TextBox Text="{Binding EnfermedadPielDescripcion}" TextWrapping="Wrap"
-                                            AcceptsReturn="True" />
+                                            AcceptsReturn="True"
+                                            x:Name="EnfermedadPielDescripcion"/>
                             </StackPanel>
 
                             <ui:Button Margin="0 15 0 0"
@@ -255,11 +284,13 @@
             <ui:TextBlock Text="Observaciones generales" FontTypography="Title" Margin="10" />
             <Border Style="{StaticResource CebvBorder}" Margin="0 0 0 25">
                 <StackPanel MinWidth="400" Margin="5">
-                    <ui:TextBlock Text="Observaciones:" />
+                    <Label Content="Observaciones:"
+                           Target="{Binding ElementName=ObservacionesGenerales}"/>
                     <ui:TextBox
                         Text="{Binding Desaparecido.Persona.MediaFiliacionComplementaria.ObservacionesGenerales}"
                         TextWrapping="Wrap" AcceptsReturn="True"
-                        MinHeight="100" />
+                        MinHeight="100"
+                        x:Name="ObservacionesGenerales"/>
                 </StackPanel>
             </Border>
         </StackPanel>

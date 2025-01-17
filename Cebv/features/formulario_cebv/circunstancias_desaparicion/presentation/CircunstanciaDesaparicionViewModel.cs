@@ -52,6 +52,20 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
     [ObservableProperty] private ObservableCollection<Asentamiento> _asentamientos = new();
 
     [ObservableProperty]
+    [Range(0,23)]
+    private int? _horasfg ;
+    [ObservableProperty] 
+    [Range(0,59)]
+    private int? _minutosfg ;
+    
+    [ObservableProperty]
+    [Range(0,23)]
+    private int? _horaspercato ;
+    [ObservableProperty] 
+    [Range(0,59)]
+    private int? _minutospercato;
+    
+    [ObservableProperty]
     [Required(ErrorMessage = "El campo Estado es requerido")]
     private Estado? _estadoSelected;
     
@@ -278,5 +292,42 @@ public partial class CircunstanciaDesaparicionViewModel : ObservableValidator
         Console.WriteLine($"Reporte {Reporte.Id} cargado");
         _dashboardNavigationService.Navigate(typeof(FormularioCebvPage));
         _dashboardNavigationService.ClearNavigationStack();
+    }
+    //En mi opinion se ve feo tener lo mismo 2 veces pero que puedo decir cosas de observable property
+    partial void OnMinutosfgChanged(int? value)
+    {
+        if(value is null)return;
+        ValidateProperty(value,nameof(Minutosfg));
+        if (HasErrors)
+        {
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
+    }
+    partial void OnHorasfgChanged(int? value)
+    {
+        if(value is null)return;
+        ValidateProperty(value,nameof(Horasfg));
+        if (HasErrors)
+        { 
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
+    }
+    partial void OnMinutospercatoChanged(int? value)
+    {
+        if(value is null)return;
+        ValidateProperty(value,nameof(Minutospercato));
+        if (HasErrors)
+        {
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
+    }
+    partial void OnHoraspercatoChanged(int? value)
+    {
+        if(value is null)return;
+        ValidateProperty(value,nameof(Horaspercato));
+        if (HasErrors)
+        { 
+            ValidationHelpers.ShowErrorsSnack(GetErrors(), "Por favor ingrese formato valido: \"HH:MM\" \nEjemplo: \"23:59\"");
+        }
     }
 }

@@ -14,7 +14,15 @@
     <UserControl.DataContext>
         <local:SenasParticularesViewModel />
     </UserControl.DataContext>
-
+    <!--UPPER CON MVVM -->
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ui:TextBox}"
+               BasedOn="{StaticResource {x:Type ui:TextBox}}">
+            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style> 
+    </UserControl.Resources>
     <Grid Width="600">
         <StackPanel>
             <!-- Tipo de seña -->
