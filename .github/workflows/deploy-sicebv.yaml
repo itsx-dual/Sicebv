@@ -54,3 +54,20 @@ jobs:
           file: ${{ env.PUBLISH_PATH}}*.exe
           github-token: ${{ secrets.GITHUB_TOKEN }}
           release-url: ${{ steps.create_release.outputs.upload_url }}
+
+      - name: Upload Assets to Release
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path "${{ env.PUBLISH_PATH }}" -Filter "*.exe"
+          if ($files.Count -eq 0) {
+            Write-Host "No .exe files found to upload."
+            exit 1
+          }
+
+          foreach ($file in $files) {
+            Write-Host "Uploading $($file.FullName)"
+            gh release upload "${{ steps.create_release.outputs.upload_url }}" $file.FullName --clobber
+          }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
